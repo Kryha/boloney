@@ -2,6 +2,7 @@
   "name": "@zk-liars-dice/frontend",
   "private": true,
   "version": "0.0.1",
+  "description": "Liar's Dice frontend",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -15,6 +16,9 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.0"
   }

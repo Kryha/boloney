@@ -13,5 +13,8 @@
     "url": "https://Kryha-io@dev.azure.com/Kryha-io/Aleo/_git/zk-liars-dice"
   },
   "author": "Kryha",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "eslint": "^8.21.0"
+  }
 }
