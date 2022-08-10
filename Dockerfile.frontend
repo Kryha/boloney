@@ -8,9 +8,6 @@ RUN yarn set version 2 --only-if-needed
 
 ENV GENERATE_SOURCEMAP false
 
-ARG REACT_APP_DAPP_CONSTANTS_JSON
-ENV REACT_APP_DAPP_CONSTANTS_JSON $REACT_APP_DAPP_CONSTANTS_JSON
-
 COPY .yarnrc.yml ./.yarnrc.yml
 COPY yarn.lock ./yarn.lock
 COPY .yarn/ ./.yarn/
