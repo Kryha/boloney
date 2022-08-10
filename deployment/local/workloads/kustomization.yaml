@@ -2,7 +2,7 @@ bases:
   - ../../base
 resources:
   - namespace/namespace.yaml
-  - ingresses/ui.yaml
+  - ingresses/frontend.yaml
 patchesStrategicMerge:
-  - config/ui-config.yaml
-namespace: character-builder-local
+  - config/frontend-config.yaml
+namespace: liars-dice-local

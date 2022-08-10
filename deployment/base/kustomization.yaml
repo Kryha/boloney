@@ -1,5 +1,5 @@
 resources:
-  - deployments/ui.yaml
-  - services/ui.yaml
+  - deployments/frontend.yaml
+  - services/frontend.yaml
 generatorOptions:
   disableNameSuffixHash: true

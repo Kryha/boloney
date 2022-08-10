@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ui
+  name: frontend
   labels:
-    app: ui
+    app: frontend
 spec:
   type: ClusterIP
   selector:
-    app: ui
+    app: frontend
   ports:
     - port: 80
       targetPort: 80
       protocol: TCP
-      name: ui
+      name: frontend

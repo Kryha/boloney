@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ui
+  name: frontend
 spec:
   selector:
     matchLabels:
-      app: ui
+      app: frontend
   template:
     metadata:
       labels:
-        app: ui
+        app: frontend
     spec:
       containers:
-        - name: ui
+        - name: frontend
           imagePullPolicy: Always
           resources:
             requests:

@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta27
+kind: Config
+metadata:
+  name: liars-dice
+build:
+  tagPolicy:
+    sha256: {}
+  local:
+    concurrency: 0
+    push: true
+  artifacts:
+    - image: localhost:5000/aleo/liars-dice/frontend
+      docker:
+        dockerfile: Dockerfile.frontend
+deploy:
+  kustomize:
+    paths:
+      - ./deployment/local/workloads
+    defaultNamespace: liars-dice-local
