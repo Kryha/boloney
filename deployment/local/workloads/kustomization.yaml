@@ -1,0 +1,8 @@
+bases:
+  - ../../base
+resources:
+  - namespace/namespace.yaml
+  - ingresses/frontend.yaml
+patchesStrategicMerge:
+  - config/frontend-config.yaml
+namespace: liars-dice-local

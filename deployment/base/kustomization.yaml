@@ -1,0 +1,5 @@
+resources:
+  - deployments/frontend.yaml
+  - services/frontend.yaml
+generatorOptions:
+  disableNameSuffixHash: true
