@@ -1,0 +1,22 @@
+{
+  "name": "zk-liars-dice",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Liar's Dice game",
+  "packageManager": "yarn@3.2.2",
+  "workspaces": [
+    "frontend/",
+    "backend/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://Kryha-io@dev.azure.com/Kryha-io/Aleo/_git/zk-liars-dice"
+  },
+  "author": "Kryha",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}
