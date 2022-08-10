@@ -12,6 +12,13 @@
     "type": "git",
     "url": "https://Kryha-io@dev.azure.com/Kryha-io/Aleo/_git/zk-liars-dice"
   },
+  "scripts": {
+    "build": "yarn workspaces foreach --parallel run build",
+    "test": "yarn workspaces foreach --parallel run test",
+    "coverage": "yarn workspaces foreach --parallel run coverage",
+    "format": "prettier --write --loglevel warn '**/*.*'",
+    "lint": "yarn workspaces foreach --parallel run lint"
+  },
   "author": "Kryha",
   "license": "UNLICENSED",
   "devDependencies": {

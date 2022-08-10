@@ -46,6 +46,7 @@ bin/*
 src/declarations
 
 frontend/build
+frontend/dist
 
 install-state.gz
 lockdown.umd.js

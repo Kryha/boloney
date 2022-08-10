@@ -1,0 +1,5 @@
+resources:
+  - deployments/ui.yaml
+  - services/ui.yaml
+generatorOptions:
+  disableNameSuffixHash: true

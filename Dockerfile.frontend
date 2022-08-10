@@ -1,0 +1,47 @@
+FROM node:16-alpine as build
+
+RUN apk --no-cache add --update git python3 make g++
+
+WORKDIR /usr/main/
+
+RUN yarn set version 2 --only-if-needed
+
+ENV GENERATE_SOURCEMAP false
+
+ARG REACT_APP_DAPP_CONSTANTS_JSON
+ENV REACT_APP_DAPP_CONSTANTS_JSON $REACT_APP_DAPP_CONSTANTS_JSON
+
+COPY .yarnrc.yml ./.yarnrc.yml
+COPY yarn.lock ./yarn.lock
+COPY .yarn/ ./.yarn/
+
+COPY package.json ./package.json
+
+COPY frontend/public/ ./frontend/public/
+COPY frontend/src/ ./frontend/src/
+
+COPY frontend/.eslintignore ./frontend/.eslintignore
+COPY frontend/.eslintrc.json ./frontend/.eslintrc.json
+
+COPY frontend/index.html ./frontend/index.html
+
+COPY frontend/package.json ./frontend/package.json
+
+COPY frontend/tsconfig.json ./frontend/tsconfig.json
+COPY frontend/tsconfig.node.json ./frontend/tsconfig.node.json
+
+COPY frontend/vite.config.ts ./frontend/vite.config.ts
+
+RUN yarn install --silent
+
+RUN NODE_OPTIONS='--max-old-space-size=4096' yarn build
+
+FROM nginx:1.21-alpine as run
+
+RUN sed -i '/location \//a try_files $uri $uri/ /index.html;' /etc/nginx/conf.d/default.conf
+
+COPY --from=build /usr/main/frontend/dist/ /usr/share/nginx/html/
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

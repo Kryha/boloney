@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+spec:
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    spec:
+      containers:
+        - name: ui
+          image: "$DOCKER_REPO:latest"

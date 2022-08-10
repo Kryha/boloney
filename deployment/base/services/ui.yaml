@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui
+  labels:
+    app: ui
+spec:
+  type: ClusterIP
+  selector:
+    app: ui
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: ui
