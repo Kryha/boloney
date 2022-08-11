@@ -1,11 +1,9 @@
 # production
-build/
+dist/
+node_modules/
 
 # test coverage
 coverage/
 
 # lint config *.js
 !.*.js
-
-# Babel CRA Overrides
-config-overrides.js

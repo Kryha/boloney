@@ -1701,7 +1701,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.5.0":
+"@typescript-eslint/eslint-plugin@npm:^5.33.0, @typescript-eslint/eslint-plugin@npm:^5.5.0":
   version: 5.33.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.33.0"
   dependencies:
@@ -1735,7 +1735,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.5.0":
+"@typescript-eslint/parser@npm:^5.33.0, @typescript-eslint/parser@npm:^5.5.0":
   version: 5.33.0
   resolution: "@typescript-eslint/parser@npm:5.33.0"
   dependencies:
@@ -5324,6 +5324,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "zk-liars-dice@workspace:."
   dependencies:
+    "@typescript-eslint/eslint-plugin": ^5.33.0
+    "@typescript-eslint/parser": ^5.33.0
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-import: ^2.26.0
