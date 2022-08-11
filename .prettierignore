@@ -1,6 +1,7 @@
 **/.{git,svn,hg}/**
 **/node_modules/**
 **/build/**
+**/dist/**
 **/coverage/**
 **/.yarn/**
 **/.vscode/pnpify/**
