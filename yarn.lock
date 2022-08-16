@@ -1864,7 +1864,6 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     react: ^18.2.0
     react-dom: ^18.2.0
-    typescript: ^4.6.4
     vite: ^3.0.0
   languageName: unknown
   linkType: soft
@@ -5329,5 +5328,6 @@ __metadata:
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-import: ^2.26.0
+    typescript: ^4.6.4
   languageName: unknown
   linkType: soft
