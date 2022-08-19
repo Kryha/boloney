@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["./nakama"],
     "composite": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -10,10 +11,9 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "CommonJS",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "outDir": "build"
+    "outFile": "./build/index.js"
   },
   "include": ["src"]
 }

@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.1",
   "description": "Liar's Dice backend",
+  "scripts": {
+    "clean": "rm -rf build/",
+    "build": "yarn clean && tsc"
+  },
   "devDependencies": {
     "@types/jest": "^28.1.7",
     "@types/node": "^18.7.6",
