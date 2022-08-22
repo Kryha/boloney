@@ -12,6 +12,9 @@ build:
     - image: localhost:5000/aleo/liars-dice/frontend
       docker:
         dockerfile: Dockerfile.frontend
+    - image: localhost:5000/aleo/liars-dice/backend
+      docker:
+        dockerfile: Dockerfile.backend
 deploy:
   kustomize:
     paths:
