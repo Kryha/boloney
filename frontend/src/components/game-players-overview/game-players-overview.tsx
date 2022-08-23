@@ -1,10 +1,8 @@
 import { FC } from "react";
 
-import { color } from "../../design";
 import { GamePlayersOverviewWrapper } from "./styles";
 import { GamePlayer } from "../game-player";
-import { LobsterHand } from "../../assets/images";
-import { Player } from "../../interfaces";
+import { Player } from "../../interfaces/player";
 
 interface GamePlayerOverviewProps {
   players: Player[];
@@ -13,8 +11,8 @@ interface GamePlayerOverviewProps {
 export const GamePlayersOverview: FC<GamePlayerOverviewProps> = ({ players }) => {
   return (
     <GamePlayersOverviewWrapper>
-      {players.map((player, key) => (
-        <GamePlayer key={key} player={player} totalPlayers={players.length} />
+      {players.map((player, index) => (
+        <GamePlayer key={index} player={player} totalPlayers={players.length} />
       ))}
     </GamePlayersOverviewWrapper>
   );

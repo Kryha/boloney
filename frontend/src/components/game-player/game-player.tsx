@@ -1,8 +1,7 @@
 import { FC } from "react";
 
-import { color } from "../../design";
 import { Heading4, avatarHeight } from "../atoms";
-import { Player } from "../../interfaces";
+import { Player } from "../../interfaces/player";
 import { GamePlayersWrapper, PlayerColor, PlayerNameContainer, PlayerAvator } from "./styles";
 
 interface GamePlayerProps {

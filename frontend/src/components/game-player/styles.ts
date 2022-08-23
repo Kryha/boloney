@@ -26,11 +26,11 @@ export const GamePlayersWrapper = styled.div<GamePlayersProps>`
 `;
 
 export const PlayerColor = styled.div`
-  width: ${margins.small};
-  height: ${margins.small};
+  width: ${margins.small2};
+  height: ${margins.small2};
   border-radius: 100px;
-  min-width:  ${margins.small};
-  min-height:  ${margins.small};
+  min-width:  ${margins.small2};
+  min-height:  ${margins.small2};
   ${({ customColor }): string => `background: ${customColor || color.black};`};
 `;
 
@@ -38,8 +38,8 @@ export const PlayerNameContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px ${margins.mmini};
-  gap: ${margins.nano};
+  padding: 0px ${margins.small1};
+  gap: ${margins.small0};
   ${Heading4} {
     width: 13.5vh;
     white-space: nowrap;

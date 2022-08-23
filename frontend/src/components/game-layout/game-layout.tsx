@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { GamePlayersOverview } from "../game-players-overview";
-import { color } from "../../design";
 import { Player } from "../../interfaces";
 
 interface GameLayoutProps {

@@ -1,11 +1,11 @@
 // TODO: get updated design system
 export const margins = {
-  nano: "8px",
-  mini: "10px",
-  small: "16px",
-  regular: "20px",
-  medium: "30px",
-  large: "40px",
-  big: "65px",
-  huge: "80px",
+  small0: "8px",
+  small1: "10px",
+  small2: "16px",
+  medium0: "20px",
+  medium1: "30px",
+  large0: "40px",
+  large1: "65px",
+  large2: "80px",
 };
