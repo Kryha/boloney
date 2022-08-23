@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    spec:
+      containers:
+        - name: backend
+          image: "localhost:5000/aleo/liars-dice/backend:latest"

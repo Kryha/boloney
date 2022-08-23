@@ -3,6 +3,8 @@ bases:
 resources:
   - namespace/namespace.yaml
   - ingresses/frontend.yaml
+  - ingresses/backend.yaml
 patchesStrategicMerge:
   - config/frontend-config.yaml
+  - config/backend-config.yaml
 namespace: liars-dice-local
