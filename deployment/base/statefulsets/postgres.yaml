@@ -25,9 +25,11 @@ spec:
                   fieldPath: status.podIP
             - name: POSTGRES_DB
               value: nakama
-              # TODO: make a secret
             - name: POSTGRES_PASSWORD
-              value: testpassword
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets
+                  key: db_password
             - name: PGDATA
               value: /data/pgdata
           volumeMounts:
