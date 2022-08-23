@@ -11,6 +11,8 @@ ENV GENERATE_SOURCEMAP false
 COPY .yarnrc.yml ./.yarnrc.yml
 COPY yarn.lock ./yarn.lock
 COPY .yarn/ ./.yarn/
+COPY .pnp.cjs ./.pnp.cjs
+COPY .pnp.loader.mjs ./.pnp.loader.mjs
 
 COPY package.json ./package.json
 

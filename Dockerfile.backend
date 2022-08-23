@@ -1,0 +1,29 @@
+FROM node:alpine as build
+
+RUN apk --no-cache add --update git
+
+WORKDIR /usr/main/
+
+RUN yarn set version 2 --only-if-needed
+
+COPY .yarnrc.yml ./.yarnrc.yml
+COPY yarn.lock ./yarn.lock
+COPY .yarn/ ./.yarn/
+COPY .pnp.cjs/ ./.pnp.cjs
+COPY .pnp.loader.mjs ./.pnp.loader.mjs
+
+COPY package.json ./package.json
+
+COPY backend/nakama ./backend/nakama
+COPY backend/src ./backend/src
+COPY backend/local.yml ./backend/local.yml
+COPY backend/package.json ./backend/package.json
+COPY backend/tsconfig.json ./backend/tsconfig.json
+
+RUN yarn
+RUN yarn build
+
+FROM heroiclabs/nakama:3.9.0 as run
+
+COPY --from=build /usr/main/backend/build/index.js /nakama/data/modules/build/
+COPY --from=build /usr/main/backend/local.yml /nakama/data/

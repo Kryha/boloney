@@ -1,0 +1,9 @@
+# production
+build/
+node_modules/
+
+# test coverage
+coverage/
+
+# lint config *.js
+!.*.js
