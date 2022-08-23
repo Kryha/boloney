@@ -1,8 +1,10 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+}
+
+body {
+  background: #F6F2EE;
+  overscroll-behavior: none;
 }
 
 .logo {

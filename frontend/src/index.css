@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "itc-clearface-bold";
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -67,4 +67,44 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+@font-face {
+  font-family: "itc-clearface-black-italic";
+  src: url("./assets/fonts/itc-clearface-W03-Black-italic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "itc-clearface-black";
+  src: url("./assets/fonts/itc-clearface-W03-Black.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "itc-clearface-bold-italic";
+  src: url("./assets/fonts/itc-clearface-W03-Bold-Italic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "itc-clearface-bold";
+  src: url("./assets/fonts/itc-clearface-W03-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "itc-clearface-heavy-italic";
+  src: url("./assets/fonts/itc-clearface-W03-Heavy-Italic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "itc-clearface-heavy";
+  src: url("./assets/fonts/itc-clearface-W03-Heavy.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "itc-clearface-regular-italic";
+  src: url("./assets/fonts/itc-clearface-W03-Regular-Italic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "itc-clearface-regular";
+  src: url("./assets/fonts/itc-clearface-W03-Regular.otf") format("opentype");
 }
