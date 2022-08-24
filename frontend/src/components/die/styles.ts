@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 import { color } from "../../design";
 
@@ -46,24 +46,3 @@ export const FaceWrapper = styled.div`
 	 grid-area: g;
   }
 `;
-
-
-// .pip:nth-child(2) {
-// 	grid-area: b;
-// }
-// .pip:nth-child(3) {
-// 	grid-area: c;
-// }
-// .pip:nth-child(4) {
-// 	grid-area: d;
-// }
-// .pip:nth-child(5) {
-// 	grid-area: e;
-// }
-// .pip:nth-child(6) {
-// 	grid-area: f;
-// }
-// /* This selects the last pip of odd-valued dice (1, 3, 5) and positions the pip in the center */
-// .pip:nth-child(odd):last-child {
-// 	grid-area: g;
-// }
