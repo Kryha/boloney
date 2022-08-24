@@ -10,6 +10,7 @@ interface GameLayoutProps {
   dice: Die[];
 }
 
+// TODO: add other components
 export const GameLayout: FC<GameLayoutProps> = ({ players, dice }) => {
   return (
     <>
