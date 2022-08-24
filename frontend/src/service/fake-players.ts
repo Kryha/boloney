@@ -1,15 +1,15 @@
 // TODO: delete this file
-import { Player } from "../interfaces";
+import { Player } from "../interfaces/player";
 import {
   Hand,
   HookHand,
   LobsterHand,
   PlasticHand,
-  PoopScooperHand,
+  ScooperHand,
   ToyHand
 } from "../assets/images";
 
-export const Players: Player = [
+export const Players: Player[] = [
   {
     name: "umpalumpa",
     color: "#FFC300",
@@ -28,7 +28,7 @@ export const Players: Player = [
   {
     name: "something.great",
     color: "#989EFF",
-    avatar: PoopScooperHand,
+    avatar: ScooperHand,
   },
   {
     name: "god",
@@ -40,4 +40,4 @@ export const Players: Player = [
     color: "#91C342",
     avatar: LobsterHand,
   }
-]
+];

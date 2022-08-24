@@ -11,8 +11,8 @@ interface GamePlayerOverviewProps {
 export const GamePlayersOverview: FC<GamePlayerOverviewProps> = ({ players }) => {
   return (
     <GamePlayersOverviewWrapper>
-      {players.map((player, index) => (
-        <GamePlayer key={index} player={player} totalPlayers={players.length} />
+      {players.map((player) => (
+        <GamePlayer key={player.id} player={player} totalPlayers={players.length} />
       ))}
     </GamePlayersOverviewWrapper>
   );
