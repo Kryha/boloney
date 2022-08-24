@@ -23,7 +23,6 @@ export const PowerUpOverviewContainer = styled.div`
   width: 31.25vw;
   height: 60px;
   background: transparent;
-  border-right: 1px solid ${color.black};
   border-left: 1px solid ${color.black};
   border-top: 1px solid ${color.black};
   border-bottom: 1px solid ${color.black};
