@@ -1,5 +1,11 @@
 resources:
   - deployments/frontend.yaml
+  - deployments/backend.yaml
+
   - services/frontend.yaml
+  - services/backend.yaml
+  - services/postgres.yaml
+
+  - statefulsets/postgres.yaml
 generatorOptions:
   disableNameSuffixHash: true
