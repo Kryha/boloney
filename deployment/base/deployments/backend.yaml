@@ -14,13 +14,14 @@ spec:
       containers:
         - name: backend
           imagePullPolicy: Always
+          # TODO: keep an eye on the resources
           resources:
             requests:
-              cpu: 500m
-              memory: 500Mi
-            limits:
-              cpu: 500m
+              cpu: 1000m
               memory: 1024Mi
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
           ports:
             - containerPort: 7351
           env:
