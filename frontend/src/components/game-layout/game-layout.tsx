@@ -4,17 +4,18 @@ import { GamePlayersOverview } from "../game-players-overview";
 import { Hud } from "../hud";
 import { PlayerMenu } from "../player-menu";
 import { Player } from "../../interfaces/player";
+import { Dice } from "../../interfaces";
 
 interface GameLayoutProps {
   players: Player[];
+  dice: Dice[];
 }
 
-// TODO: add other components
-export const GameLayout: FC<GameLayoutProps> = ({ players }) => {
+export const GameLayout: FC<GameLayoutProps> = ({ players, dice }) => {
   return (
     <>
       <GamePlayersOverview players={players} />
-      <Hud />
+      <Hud dice={dice} />
       <PlayerMenu />
     </>
   );

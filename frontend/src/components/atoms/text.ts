@@ -76,7 +76,7 @@ export const Paragraph = styled.p<TextProps>`
 `;
 
 export const GeneralText = styled.h3<TextProps>`
-  font-family: "ibm-plex-mono",sans-serif;
+  font-family: ibm-plex-mono, sans-serif;
   font-weight: ${fontWeight.light};
   font-size: ${fontSize.small1};
   line-height: 24px;

@@ -1,14 +1,16 @@
 import { FC } from "react";
-
+import { Dice } from "../../interfaces/hud";
 import { DiceOverview } from "../dice-overview";
 import { PowerUpOverview } from "../power-up-overview";
 
-interface HudProps {}
+interface HudProps {
+  dice: Dice[];
+}
 
-export const Hud: FC<HudProps> = ({}) => {
+export const Hud: FC<HudProps> = ({ dice }) => {
   return (
     <>
-      <DiceOverview />
+      <DiceOverview dice={dice} />
       <PowerUpOverview />
     </>
   );

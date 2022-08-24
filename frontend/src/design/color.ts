@@ -11,4 +11,5 @@ export const color = {
   white: "#F6F2EE",
   offWgite: "#F3EEE9",
   grey: "#D9D9D9",
+  pureWhite: "#FFFFFF",
 };
