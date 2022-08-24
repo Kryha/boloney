@@ -81,7 +81,7 @@ export const GeneralText = styled.h3<TextProps>`
   font-size: ${fontSize.small1};
   line-height: 24px;
   letter-spacing: -0.01em;
-  ${({ customColor }): string => `color: ${customColor || color.black};`};
+  color: ${({ customColor }): string => (customColor || color.black)};
   :first-letter {
     text-transform: capitalize;
   }

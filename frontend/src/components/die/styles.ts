@@ -18,12 +18,10 @@ export const FaceWrapper = styled.div`
     "a . c"
     "e g f"
     "d . b";
-
   flex: 0 0 auto;
   padding: 2px;
   width: ${margins.large0};
   height: ${margins.large0};
-
   background-color: ${color.darkBlue};
   box-shadow: 0px 0px ${margins.small1} rgba(0, 0, 0, 0.02), 0px 0px  ${margins.medium0} rgba(0, 0, 0, 0.1);
   border-radius: ${margins.small0};
