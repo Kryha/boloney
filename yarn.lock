@@ -1573,7 +1573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.0":
+"@emotion/react@npm:^11.9.3":
   version: 11.10.0
   resolution: "@emotion/react@npm:11.10.0"
   dependencies:
@@ -1616,7 +1616,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11.10.0":
+"@emotion/styled@npm:^11.9.3":
   version: 11.10.0
   resolution: "@emotion/styled@npm:11.10.0"
   dependencies:
@@ -2651,8 +2651,8 @@ __metadata:
   resolution: "@zk-liars-dice/frontend@workspace:frontend"
   dependencies:
     "@emotion/babel-plugin": ^11.10.2
-    "@emotion/react": ^11.10.0
-    "@emotion/styled": ^11.10.0
+    "@emotion/react": ^11.9.3
+    "@emotion/styled": ^11.9.3
     "@testing-library/dom": ^8.17.1
     "@testing-library/react": ^13.3.0
     "@testing-library/user-event": ^14.4.3
