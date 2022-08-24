@@ -1,4 +1,4 @@
-FROM node:alpine as build
+FROM node:16-alpine as build
 
 RUN apk --no-cache add --update git
 
@@ -27,3 +27,9 @@ FROM heroiclabs/nakama:3.9.0 as run
 
 COPY --from=build /usr/main/backend/build/index.js /nakama/data/modules/build/
 COPY --from=build /usr/main/backend/local.yml /nakama/data/
+
+EXPOSE 7349
+EXPOSE 7350
+EXPOSE 7351
+
+ENTRYPOINT /nakama/nakama migrate up --database.address $DB_URI && exec /nakama/nakama --config /nakama/data/local.yml --database.address $DB_URI

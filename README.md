@@ -1,20 +1,49 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Liar's Dice
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+An online multiplayer game showcasing the potential of Aleo's Zero Knowledge Proof platform.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Local deployment
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+### Prerequisites
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+- Setup [dnsmasq](https://www.stevenrombauts.be/2018/01/use-dnsmasq-instead-of-etc-hosts/#2-only-send-test-and-box-queries-to-dnsmasq)
+- Install [Docker](https://docs.docker.com/get-docker/)
+- Install [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos): `brew install kubectl`
+- Install [Minikube](https://minikube.sigs.k8s.io/docs/start/): `brew install minikube`
+- Install [Skaffold](https://skaffold.dev/docs/install/#standalone-binary): `brew install skaffold`
+
+### Run minikube
+
+Be sure Docker is running, `cd` into the project root directory and run the following commands:
+
+```sh
+minikube start --cpus=max --memory=max
+minikube addons enable ingress
+minikube addons enable registry
+```
+
+### Build and deploy the project
+
+To build and deploy everything to the cluster, run:
+
+```sh
+skaffold run
+```
+
+If you want Skaffold to watch for code changes, run:
+
+```sh
+skaffold dev
+```
+
+### Access the application
+
+Open a tunnel to the cluster by running:
+
+```sh
+sudo minikube tunnel
+```
+
+Keep the process open in the background.
+
+You can access the frontend at `frontent.localhost` and the backend at `backend.localhost`.
