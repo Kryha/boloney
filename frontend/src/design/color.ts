@@ -9,6 +9,7 @@ export const color = {
   black: "#292929",
   darkGrey: "#B9B9B9",
   white: "#F6F2EE",
-  offWgite: "#F3EEE9",
+  offWhite: "#F3EEE9",
   grey: "#D9D9D9",
+  pureWhite: "#FFFFFF",
 };
