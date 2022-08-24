@@ -3,7 +3,7 @@ import { FC } from "react";
 import { GamePlayersOverview } from "../game-players-overview";
 import { Hud } from "../hud";
 import { Player } from "../../interfaces/player";
-import { Die } from "../../interfaces";
+import { Die } from "../../interfaces/hud";
 
 interface GameLayoutProps {
   players: Player[];
