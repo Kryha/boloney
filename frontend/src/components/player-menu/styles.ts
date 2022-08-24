@@ -18,7 +18,6 @@ export const PlayerMenuContainer = styled.div`
   flex-direction: row;
   align-items: flex-end;
   gap: 10px;
-
   width: 25vw;
   height: 60px;
   background: transparent;

@@ -1,11 +1,9 @@
 import { FC } from "react";
 
 import { GamePlayersOverview } from "../game-players-overview";
-import { DiceOverview } from "../dice-overview";
-import { PowerUpOverview } from "../power-up-overview";
+import { Hud } from "../hud";
 import { PlayerMenu } from "../player-menu";
-import { color } from "../../design";
-import { Player } from "../../interfaces";
+import { Player } from "../../interfaces/player";
 
 interface GameLayoutProps {
   players: Player[];
@@ -16,8 +14,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ players }) => {
   return (
     <>
       <GamePlayersOverview players={players} />
-      <DiceOverview />
-      <PowerUpOverview />
+      <Hud />
       <PlayerMenu />
     </>
   );

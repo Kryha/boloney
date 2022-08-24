@@ -25,9 +25,11 @@ export const DieOverviewContainer = styled.div`
   border-right: 1px solid ${color.black};
   border-top: 1px solid ${color.black};
   border-bottom: 1px solid ${color.black};
+  ${() => `
   ${GeneralText} {
     margin-left: 20px;
   }
+`};
 `;
 
 export const YourDiceContainer = styled.div`
