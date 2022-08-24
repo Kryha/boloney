@@ -33,7 +33,7 @@ export const Heading2 = styled.h2<TextProps>`
 export const Heading3 = styled.h3<TextProps>`
   font-family: "itc-clearface-bold";
   font-weight: ${fontWeight.bolder};
-  font-size: ${fontSize.small};
+  font-size: ${fontSize.small4};
   line-height: 34px;
   ${({ customColor }): string => `color: ${customColor || color.black};`};
   :first-letter {
@@ -44,7 +44,7 @@ export const Heading3 = styled.h3<TextProps>`
 export const Heading4 = styled.h4<TextProps>`
   font-family: "itc-clearface-bold";
   font-weight: ${fontWeight.bolder};
-  font-size: clamp(${fontSize.tiny}, 1vw, ${fontSize.extraSmall});
+  font-size: clamp(${fontSize.small0}, 1vw, ${fontSize.small2});
   line-height: 28px;
   ${({ customColor }): string => `color: ${customColor || color.black};`};
   :first-letter {
@@ -55,7 +55,7 @@ export const Heading4 = styled.h4<TextProps>`
 export const Heading5 = styled.h5<TextProps>`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.bolder};
-  font-size: ${fontSize.mini};
+  font-size: ${fontSize.small1};
   line-height: 24px;
   ${({ customColor }): string => `color: ${customColor || color.black};`};
   :first-letter {
@@ -66,7 +66,7 @@ export const Heading5 = styled.h5<TextProps>`
 export const Paragraph = styled.p<TextProps>`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
-  font-size: ${fontSize.mini};
+  font-size: ${fontSize.small1};
   line-height: 24px;
   letter-spacing: -0.01em;
   ${({ customColor }): string => `color: ${customColor || color.black};`};

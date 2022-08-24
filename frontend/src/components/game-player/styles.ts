@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { color } from "../../design";
+import { color, margins } from "../../design";
 import { Heading4 } from "../atoms";
 
 interface GamePlayersProps {
@@ -26,11 +26,11 @@ export const GamePlayersWrapper = styled.div<GamePlayersProps>`
 `;
 
 export const PlayerColor = styled.div`
-  width: 16px;
-  height: 16px;
+  width: ${margins.small2};
+  height: ${margins.small2};
   border-radius: 100px;
-  min-width: 16px;
-  min-height: 16px;
+  min-width:  ${margins.small2};
+  min-height:  ${margins.small2};
   ${({ customColor }): string => `background: ${customColor || color.black};`};
 `;
 
@@ -38,8 +38,8 @@ export const PlayerNameContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px 10px;
-  gap: 8px;
+  padding: 0px ${margins.small1};
+  gap: ${margins.small0};
   ${Heading4} {
     width: 13.5vh;
     white-space: nowrap;

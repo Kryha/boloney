@@ -1,18 +1,11 @@
-import { useState } from "react";
-
-import reactLogo from "./assets/react.svg";
 import "./App.css";
+
+// TODO: remove this component
 import { Players } from "./service/fake-players";
-import { GameLayout } from "./components";
+import { GameLayout } from "./components/game-layout";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div className="App">
-      <GameLayout players={Players} />
-    </div>
-  );
+  return <GameLayout players={Players} />;
 }
 
 export default App;

@@ -1,11 +1,11 @@
 export const fontSize = {
-  tiny: "14px",
-  mini: "16px",
-  extraSmall: "22px",
-  small: "28px",
-  medium: "46px",
-  large: "170px",
-  extraLarge: "350px",
+  small0: "14px",
+  small1: "16px",
+  small2: "22px",
+  small3: "28px",
+  medium0: "46px",
+  large0: "170px",
+  large1: "350px",
 };
 
 export const fontWeight = {

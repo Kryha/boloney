@@ -6,7 +6,6 @@ import {
   LobsterHand,
   PlasticHand,
   PoopScooperHand,
-  SkeletonHand,
   ToyHand
 } from "../assets/images";
 
@@ -27,7 +26,7 @@ export const Players: Player = [
     avatar: PlasticHand,
   },
   {
-    name: "mierda.embolsada",
+    name: "something.great",
     color: "#989EFF",
     avatar: PoopScooperHand,
   },
