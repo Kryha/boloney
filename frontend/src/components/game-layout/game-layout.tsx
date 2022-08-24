@@ -3,11 +3,11 @@ import { FC } from "react";
 import { GamePlayersOverview } from "../game-players-overview";
 import { Hud } from "../hud";
 import { Player } from "../../interfaces/player";
-import { Dice } from "../../interfaces";
+import { Die } from "../../interfaces";
 
 interface GameLayoutProps {
   players: Player[];
-  dice: Dice[];
+  dice: Die[];
 }
 
 export const GameLayout: FC<GameLayoutProps> = ({ players, dice }) => {

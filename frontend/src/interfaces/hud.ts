@@ -1,3 +1,3 @@
-export interface Dice {
+export interface Die {
   rolledValue: number;
 }

@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { Dice } from "../../interfaces/hud";
+import { Die } from "../../interfaces/hud";
 import { DiceOverview } from "../dice-overview";
 
 interface HudProps {
-  dice: Dice[];
+  dice: Die[];
 }
 
 // TODO: add power up view
