@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    spec:
+      containers:
+        - name: backend
+          image: "localhost:5000/aleo/liars-dice/backend:latest"
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets
+                  key: db_password
+            - name: DB_URI
+              value: "postgres:$(DB_PASSWORD)@postgres.$(POD_NAMESPACE).svc.cluster.local:5432/nakama"
