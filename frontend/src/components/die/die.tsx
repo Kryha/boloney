@@ -16,5 +16,3 @@ export const Die: FC<DieProps> = ({ value }) => {
     .map((_, index) => <Pip key={index} />);
   return <FaceWrapper>{pips}</FaceWrapper>;
 };
-
-export default Die;

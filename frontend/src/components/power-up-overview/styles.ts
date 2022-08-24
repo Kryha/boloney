@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 import { color } from "../../design";
+import { GeneralText } from "../atoms/text";
 
-export const PowerUpWrapper = styled.div`
+export const PowerUpOverviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -13,10 +14,10 @@ export const PowerUpWrapper = styled.div`
   left: 43.75vw;
 `;
 
-export const PowerUpContainer = styled.div`
+export const PowerUpOverviewContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
 
   width: 31.25vw;
@@ -26,4 +27,15 @@ export const PowerUpContainer = styled.div`
   border-left: 1px solid ${color.black};
   border-top: 1px solid ${color.black};
   border-bottom: 1px solid ${color.black};
+  ${GeneralText} {
+    margin-left: 20px;
+  }
+`;
+
+export const YourPowerUpContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: -45px;
+  margin-left: 20px;
 `;
