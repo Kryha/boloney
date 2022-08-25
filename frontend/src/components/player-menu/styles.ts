@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { PlusIcon } from "../../assets/icons";
+// import { PlusIcon } from "../../assets/icons";
 
 import { color, margins } from "../../design";
 import { Heading3, Heading4 } from "../atoms";
@@ -25,10 +26,10 @@ export const PlayerMenuContainer = styled.div`
 export const MenuSection = styled.section`
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   gap: ${margins.small1};
   width: 25vw;
-  height: 60px;
+  height: 9.375vh;
   background: transparent;
   border-bottom: 1px solid ${color.black};
   border-left: 1px solid ${color.black};
@@ -37,10 +38,23 @@ export const MenuSection = styled.section`
   }
 `;
 
-export const ChatSection = styled(MenuSection)``;
+export const ChatSection = styled(MenuSection)`
+  height: 50px;
+  cursor: pointer;
+`;
 
 export const HistorySection = styled(MenuSection)`
   border-top: 1px solid ${color.black};
+  height: 50px;
+  cursor: pointer;
 `;
 
 export const Plus = styled(PlusIcon)``;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0px ${margins.small2};
+  width: 100%;
+  align-items: center;
+`;

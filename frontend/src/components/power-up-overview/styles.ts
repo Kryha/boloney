@@ -8,7 +8,6 @@ export const PowerUpOverviewWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
-
   position: absolute;
   bottom: 0;
   left: 43.75vw;
@@ -19,9 +18,8 @@ export const PowerUpOverviewContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-
   width: 31.25vw;
-  height: 60px;
+  height: 9.375vh;
   background: transparent;
   border-left: 1px solid ${color.black};
   border-top: 1px solid ${color.black};

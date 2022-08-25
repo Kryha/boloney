@@ -1,5 +1,5 @@
-// import { ReactComponent as PlusIcon } from "./plus.svg";
+import { ReactComponent as PlusIcon } from "./plus.svg";
 
 export {
-  // PlusIcon,
+  PlusIcon,
 };
