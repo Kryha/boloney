@@ -1,9 +1,13 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 import { FaceWrapper, PipContainer } from "./styles";
 
 interface DieProps {
   value: number;
+}
+
+interface FaceProps {
+  children: ReactNode;
 }
 
 export const Pip = () => <PipContainer />;

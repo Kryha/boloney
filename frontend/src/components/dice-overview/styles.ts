@@ -19,7 +19,7 @@ export const DieOverviewContainer = styled.div`
   align-items: flex-start;
   gap: ${margins.small1};
   width: 31.25vw;
-  height: 9.375vh;
+  height: 60px;
   background: transparent;
   border-right: 1px solid ${color.black};
   border-top: 1px solid ${color.black};
