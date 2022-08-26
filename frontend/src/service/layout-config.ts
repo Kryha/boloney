@@ -1,11 +1,11 @@
 import create from "zustand";
 
 export interface LayoutState {
-  isChatExpanded: boolean;
-  expandChat: () => void;
+  isChatToggled: boolean;
+  toggleChat: () => void;
 }
 
 export const useLayoutStore = create<LayoutState>((set => ({
-  isChatExpanded: false,
-  expandChat: () => set(state => ({ isChatExpanded: !state.isChatExpanded })),
+  isChatToggled: false,
+  toggleChat: () => set(state => ({ isChatToggled: !state.isChatToggled })),
 })));

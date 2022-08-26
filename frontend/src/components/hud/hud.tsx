@@ -7,7 +7,6 @@ interface HudProps {
   dice: Die[];
 }
 
-// TODO: add power up view
 export const Hud: FC<HudProps> = ({ dice }) => {
   return (
     <>
