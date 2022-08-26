@@ -39,5 +39,5 @@ export const YourPowerUpContainer = styled.div`
   flex-direction: row;
   gap: 10px;
   margin-top: -45px;
-  margin-left: 20px;
+  margin-left: ${margins.medium0};
 `;
