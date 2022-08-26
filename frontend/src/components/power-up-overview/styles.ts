@@ -1,24 +1,24 @@
 import styled from "@emotion/styled";
 
-import { GeneralText } from "../atoms/text";
-import { color, margins } from "../../design";
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
+import { color, margins } from "../../design";
+import { GeneralText } from "../atoms/text";
 
-export const DieOverviewWrapper = styled.div`
+export const PowerUpOverviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
   position: absolute;
   bottom: 0;
-  left: 12.5vw;
+  left: 43.75vw;
 `;
 
 interface ViewportProps {
   height: number;
 }
 
-export const DieOverviewContainer = styled.div<ViewportProps>`
+export const PowerUpOverviewContainer = styled.div<ViewportProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -26,7 +26,7 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   width: 31.25vw;
   height: 7.198vh;
   background: transparent;
-  border-right: 1px solid ${color.black};
+  border-left: 1px solid ${color.black};
   border-top: 1px solid ${color.black};
   border-bottom: 1px solid ${color.black};
   ${GeneralText} {
@@ -34,10 +34,10 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   }
 `;
 
-export const YourDiceContainer = styled.div`
+export const YourPowerUpContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: ${margins.small1};
-  margin-top: -22px;
+  gap: 10px;
+  margin-top: -45px;
   margin-left: ${margins.medium0};
 `;

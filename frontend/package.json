@@ -13,7 +13,9 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-svgr": "^2.2.1",
+    "zustand": "^4.1.1"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.2",
