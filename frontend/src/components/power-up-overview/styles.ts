@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
-import { color } from "../../design";
+import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
+import { color, margins } from "../../design";
 import { GeneralText } from "../atoms/text";
 
 export const PowerUpOverviewWrapper = styled.div`
@@ -13,19 +14,23 @@ export const PowerUpOverviewWrapper = styled.div`
   left: 43.75vw;
 `;
 
-export const PowerUpOverviewContainer = styled.div`
+interface ViewportProps {
+  height: number;
+}
+
+export const PowerUpOverviewContainer = styled.div<ViewportProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: ${({ height }): string => (height < SMALL_VIEWPORT_HEIGHT ? "0px;" : `${margins.small1};`)};
   width: 31.25vw;
-  height: 9.375vh;
+  height: 7.198vh;
   background: transparent;
   border-left: 1px solid ${color.black};
   border-top: 1px solid ${color.black};
   border-bottom: 1px solid ${color.black};
   ${GeneralText} {
-    margin-left: 20px;
+    margin-left: ${margins.medium0};
   }
 `;
 

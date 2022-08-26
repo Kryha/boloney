@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import { GeneralText } from "../atoms/text";
 import { color, margins } from "../../design";
+import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 
 export const DieOverviewWrapper = styled.div`
   display: flex;
@@ -13,13 +14,17 @@ export const DieOverviewWrapper = styled.div`
   left: 12.5vw;
 `;
 
-export const DieOverviewContainer = styled.div`
+interface ViewportProps {
+  height: number;
+}
+
+export const DieOverviewContainer = styled.div<ViewportProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: ${margins.small1};
+  gap: ${({ height }): string => (height < SMALL_VIEWPORT_HEIGHT ? "0px;" : `${margins.small1};`)};
   width: 31.25vw;
-  height: 60px;
+  height: 7.198vh;
   background: transparent;
   border-right: 1px solid ${color.black};
   border-top: 1px solid ${color.black};
