@@ -5,7 +5,6 @@ import { Hud } from "../hud";
 import { Player } from "../../interfaces/player";
 import { Die } from "../../interfaces/hud";
 import { PlayerMenu } from "../player-menu";
-import { Controls } from "../controls";
 
 interface GameLayoutProps {
   players: Player[];
@@ -18,7 +17,6 @@ export const GameLayout: FC<GameLayoutProps> = ({ players, dice }) => {
       <GamePlayersOverview players={players} />
       <Hud dice={dice} />
       <PlayerMenu />
-      <Controls />
     </>
   );
 };
