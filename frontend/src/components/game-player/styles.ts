@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, margins } from "../../design";
+import { color, fontSize, margins } from "../../design";
 import { Heading4, avatarHeight } from "../atoms";
 
 interface GamePlayersProps {
@@ -49,4 +49,5 @@ export const PlayerName = styled(Heading4)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: clamp(${fontSize.small0}, 1vw, ${fontSize.small2});
 `;

@@ -1,0 +1,17 @@
+import { FC } from "react";
+import { Heading4 } from "../atoms/text";
+import { text } from "../../assets/text";
+
+import { HistorySection } from "./styles";
+import { useLayoutStore } from "../../service/layout-config";
+
+// TODO: finish history component
+export const History: FC = () => {
+  const isChatToggled = useLayoutStore((state) => state.isChatToggled);
+
+  return (
+    <HistorySection isChatToggled={isChatToggled}>
+      <Heading4>{text.general.history}</Heading4>
+    </HistorySection>
+  );
+};
