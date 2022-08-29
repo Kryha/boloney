@@ -47,3 +47,10 @@ sudo minikube tunnel
 Keep the process open in the background.
 
 You can access the frontend at `frontent.localhost` and the backend at `backend.localhost`.
+
+## Adding files to `backend/` or `frontend/`
+
+Whenever adding a file (necessary for the applications' build) directly to `frontend/` or `backend/` root directories:
+
+1. Open the `Dockerfile` related to that deployment
+2. In the build phase, add `COPY frontend/<file_name>.<ext> ./frontend/<file_name>.<ext>` (write `backend` instead of `frontend` for the backend build)
