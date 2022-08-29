@@ -22,6 +22,8 @@ COPY frontend/src/ ./frontend/src/
 COPY frontend/.eslintignore ./frontend/.eslintignore
 COPY frontend/.eslintrc.json ./frontend/.eslintrc.json
 
+COPY frontend/custom.d.ts ./frontend/custom.d.ts
+
 COPY frontend/index.html ./frontend/index.html
 
 COPY frontend/package.json ./frontend/package.json
