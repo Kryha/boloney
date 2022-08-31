@@ -18,6 +18,6 @@ export const ChatSection = styled.section <LayoutProps>`
   display: ${({ isToggled }) => (!isToggled && "none")};
   ${Heading4} {
     cursor: pointer;
-    margin-left: ${margins.medium0};
+    margin-left: ${margins.small3};
   }
 `;

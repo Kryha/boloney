@@ -8,9 +8,11 @@ import { useLayoutStore } from "../../service/layout-config";
 // TODO: finish history component
 export const History: FC = () => {
   const isChatToggled = useLayoutStore((state) => state.isChatToggled);
+  const isHistoryToggled = useLayoutStore((state) => state.isHistoryToggled);
+  const toggleHistory = useLayoutStore((state) => state.toggleHistory);
 
   return (
-    <HistorySection isChatToggled={isChatToggled}>
+    <HistorySection isChatToggled={isChatToggled} onClick={() => toggleHistory()} isToggled={isHistoryToggled}>
       <Heading4>{text.general.history}</Heading4>
     </HistorySection>
   );

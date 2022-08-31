@@ -43,6 +43,13 @@ export const ChatSection = styled(MenuSection) <LayoutProps>`
   display: ${({ isToggled }) => (isToggled && "none")};
 `;
 
+export const HistorySection = styled(MenuSection) <LayoutProps>`
+  height: 5.105vh;
+  cursor: pointer;
+  display: ${({ isToggled }) => (isToggled && "none")};
+  border-top: 1px solid ${color.black};
+`;
+
 export const Plus = styled(PlusIcon)``;
 
 export const TitleContainer = styled.div`
