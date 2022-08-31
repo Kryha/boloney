@@ -44,7 +44,7 @@ export const Heading3 = styled.h3<TextProps>`
 export const Heading4 = styled.h4<TextProps>`
   font-family: "itc-clearface-bold";
   font-weight: ${fontWeight.bolder};
-  font-size: clamp(${fontSize.small0}, 1vw, ${fontSize.small2});
+  font-size: ${fontSize.small2};
   line-height: 28px;
   color: ${({ customColor }): string => (customColor || color.black)};
   :first-letter {

@@ -23,7 +23,7 @@ export const FaceWrapper = styled.div`
   width: ${margins.large0};
   height: ${margins.large0};
   background-color: ${color.darkBlue};
-  box-shadow: 0px 0px ${margins.small1} rgba(0, 0, 0, 0.02), 0px 0px  ${margins.medium0} rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px ${margins.small1} rgba(0, 0, 0, 0.02), 0px 0px  ${margins.small3} rgba(0, 0, 0, 0.1);
   border-radius: ${margins.small0};
   ${PipContainer}:nth-of-type(2) {
     grid-area: b;

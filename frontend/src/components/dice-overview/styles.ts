@@ -30,7 +30,7 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   border-top: 1px solid ${color.black};
   border-bottom: 1px solid ${color.black};
   ${GeneralText} {
-    margin-left: ${margins.medium0};
+    margin-left: ${margins.small3};
   }
 `;
 
@@ -39,5 +39,5 @@ export const YourDiceContainer = styled.div`
   flex-direction: row;
   gap: ${margins.small1};
   margin-top: -22px;
-  margin-left: ${margins.medium0};
+  margin-left: ${margins.small3};
 `;
