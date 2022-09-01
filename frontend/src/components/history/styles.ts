@@ -14,7 +14,7 @@ export const HistorySection = styled.section<LayoutProps>`
   gap: ${margins.small0};
   height: ${({ isChatToggled }): string => (isChatToggled ? "47vh" : "81.9vh")};
   width: 25vw;
-  border: 1px solid ${color.black};
+  border: 1px solid ${color.darkGrey};
   border-right: none;
   ${Heading4} {
     margin-left: ${margins.small2};

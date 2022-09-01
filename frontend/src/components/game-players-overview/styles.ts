@@ -12,5 +12,5 @@ export const GamePlayersOverviewWrapper = styled.div`
   height: 100vh;
   left: 0px;
   top: 0px;
-  border-right: 1px solid ${color.black};
+  border-right: 1px solid ${color.darkGrey};
 `;

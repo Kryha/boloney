@@ -13,8 +13,8 @@ export const ChatSection = styled.section <LayoutProps>`
   gap: ${margins.small0};
   height: 40vh;
   width: 25vw;
-  border-bottom: 1px solid ${color.black};
-  border-left: 1px solid ${color.black};
+  border-bottom: 1px solid ${color.darkGrey};
+  border-left: 1px solid ${color.darkGrey};
   display: ${({ isToggled }) => (!isToggled && "none")};
   ${Heading4} {
     cursor: pointer;
