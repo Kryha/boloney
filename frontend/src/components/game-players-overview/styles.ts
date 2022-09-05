@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color } from "../../design";
+import { GamePlayersWrapper } from "../game-player/styles";
 
 export const GamePlayersOverviewWrapper = styled.div`
   display: flex;
@@ -13,4 +14,10 @@ export const GamePlayersOverviewWrapper = styled.div`
   left: 0px;
   top: 0px;
   border-right: 1px solid ${color.darkGrey};
+  ${GamePlayersWrapper}:first-child {
+    border-top: none;
+  }
+  ${GamePlayersWrapper}:last-child {
+    border-bottom: none;
+  }
 `;

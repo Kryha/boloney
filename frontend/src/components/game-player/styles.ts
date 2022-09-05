@@ -12,9 +12,8 @@ export const GamePlayersWrapper = styled.div<GamePlayersProps>`
   padding: 0px;
   width: 12.5vw;
   background: ${({ isActive, customColor }): string => (isActive ? (customColor || color.white) : (color.white))};
-  border-top: 0.5px solid ${color.darkGrey};
-  border-bottom: 0.5px solid ${color.darkGrey};
-  height: 100vh;
+  height: 14.28vh;
+  border-bottom: 1px solid ${color.darkGrey};
 `;
 
 export const PlayerColor = styled.div<GamePlayersProps>`

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { RightArrowIcon } from "../../assets/icons";
-import { color } from "../../design";
+import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, RightArrowIcon } from "../../assets/icons";
+import { color, margins } from "../../design";
 import { zIndex } from "../../design/z-index";
-import { PrimaryButtonBase } from "../atoms";
+import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
 
 interface ButtonProps {
   disabled?: boolean;
@@ -83,4 +83,36 @@ export const SecondaryButtonContainer = styled.div<ButtonProps>`
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
     }
   }
+`;
+
+export const CloseButton = styled(CloseIcon)`
+  margin-top: 4px;
+  width: 20px;
+`;
+
+export const Ellipsis = styled(EllipsisIcon)`
+  margin-top: 5px;
+  width: 20px;
+`;
+
+export const Exit = styled(ExitIcon)`
+  margin-top: 2px;
+`;
+
+export const Info = styled(InfoIcon)`
+`;
+
+export const ButtonContainer = styled.div<ButtonProps>`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 13px ${margins.small3} 13px ${margins.small2};
+  gap: ${margins.small0};
+  height: 100%;
+  width: 62px;
+  ${SecondaryButtonBase} {
+    padding: 0px;
+  }
+  cursor: pointer;
 `;

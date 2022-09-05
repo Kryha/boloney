@@ -8,6 +8,8 @@ import { ReactComponent as HourglassIcon } from "./hourglass.svg";
 import { ReactComponent as SunglassFaceIcon } from "./sunglass-face.svg";
 import { ReactComponent as TrophyIcon } from "./trophy.svg";
 import { ReactComponent as WinkFaceIcon } from "./wink-face.svg";
+import { ReactComponent as EllipsisIcon } from "./ellipsis.svg";
+import { ReactComponent as InfoIcon } from "./info.svg";
 
 export {
   PlusIcon,
@@ -20,4 +22,6 @@ export {
   SunglassFaceIcon,
   TrophyIcon,
   WinkFaceIcon,
+  EllipsisIcon,
+  InfoIcon,
 };

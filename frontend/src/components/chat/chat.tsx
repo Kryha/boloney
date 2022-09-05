@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { Heading4 } from "../atoms/text";
 import { text } from "../../assets/text";
-import { ChatSection } from "./styles";
+import { ChatSection, Close, ChatHeadingSection } from "./styles";
 import { useLayoutStore } from "../../service/layout-config";
 
 // TODO: finish chat component
@@ -12,7 +12,10 @@ export const Chat: FC = () => {
 
   return (
     <ChatSection isToggled={isChatToggled}>
-      <Heading4 onClick={() => toggleChat()}>{text.general.chat}</Heading4>
+      <ChatHeadingSection onClick={() => toggleChat()}>
+        <Heading4>{text.general.chat}</Heading4>
+        <Close />
+      </ChatHeadingSection>
     </ChatSection>
   );
 };

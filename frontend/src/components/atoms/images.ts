@@ -4,5 +4,5 @@ export const avatarHeight = [
   "27vh",
   "19vh",
   "14vh",
-  "10.5vh",
+  "10vh",
 ];

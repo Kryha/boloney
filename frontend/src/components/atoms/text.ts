@@ -22,8 +22,8 @@ export const Heading1 = styled.h1<TextProps>`
 export const Heading2 = styled.h2<TextProps>`
   font-family: "itc-clearface-bold";
   font-weight: ${fontWeight.bolder};
-  font-size: clamp(1.88rem, 5.21vw + -1.25rem, 5rem);
-  line-height: clamp(2.25rem, 4.79vw + -0.63rem, 5.13rem);
+  font-size: clamp(1.88rem, 3.13vw + 0rem, 3.75rem);
+  line-height: clamp(2.25rem, 2.71vw + 0.63rem, 3.88rem);
   color: ${({ customColor }): string => (customColor || color.black)};
   :first-letter {
     text-transform: capitalize;

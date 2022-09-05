@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { CloseIcon } from "../../assets/icons";
 import { color, margins } from "../../design";
 import { Heading4 } from "../atoms";
 
@@ -15,10 +16,18 @@ export const HistorySection = styled.section<LayoutProps>`
   height: ${({ isChatToggled }): string => (isChatToggled ? "47vh" : "81.9vh")};
   width: 25vw;
   border: 1px solid ${color.darkGrey};
-  border-right: none;
-  ${Heading4} {
-    margin-left: ${margins.small2};
-    cursor: pointer;
-  }
   display: ${({ isToggled }) => (!isToggled && "none")};
+`;
+
+export const Close = styled(CloseIcon)``;
+
+export const HistoryHeadingSection = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 0px;
+  gap: 8px;
+  cursor: pointer;
+  width: -webkit-fill-available;
 `;

@@ -5,8 +5,6 @@ import { color } from "../../design";
 interface ButtonProps {
   backgroundColor?: string;
   fontColor?: string;
-  borderColor?: string;
-  visible?: boolean;
   disabled?: boolean;
 }
 
