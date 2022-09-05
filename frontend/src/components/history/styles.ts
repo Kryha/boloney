@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { CloseIcon } from "../../assets/icons";
 import { color, margins } from "../../design";
-import { Heading4 } from "../atoms";
 
 interface LayoutProps {
   isChatToggled: boolean;
@@ -26,8 +25,8 @@ export const HistoryHeadingSection = styled.section`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 16px 0px;
-  gap: 8px;
+  padding: ${margins.small2} ${margins.small2} 0px;
+  gap: ${margins.small0};
   cursor: pointer;
   width: -webkit-fill-available;
 `;

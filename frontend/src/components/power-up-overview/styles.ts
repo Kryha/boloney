@@ -36,7 +36,7 @@ export const PowerUpOverviewContainer = styled.div<ViewportProps>`
 export const YourPowerUpContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: ${margins.small1};
   margin-top: -45px;
   margin-left: ${margins.small3};
 `;

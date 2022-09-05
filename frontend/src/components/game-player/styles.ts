@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { color, fontSize, margins } from "../../design";
-import { Heading4, avatarHeight, Heading5 } from "../atoms";
+import { color, margins } from "../../design";
+import { avatarHeight, Heading5 } from "../atoms";
 
 interface GamePlayersProps {
   isActive?: boolean;

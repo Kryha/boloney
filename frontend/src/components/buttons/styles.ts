@@ -38,11 +38,11 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  padding: 16px 0px;
-  gap: 16px;
+  padding: ${margins.small2} 0px;
+  gap: ${margins.small2};
   width: 770px;
   height: 96px;
-  cursor: ${({ disabled }): string => (disabled ? "" : "pointer")};
+  cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${PrimaryButtonBase} {
     line-height: 72px;
     z-index: ${zIndex.normal};
@@ -53,8 +53,8 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
     }
   }
   ${Ellipse} {
-    cursor: ${({ disabled }): string => (disabled ? "" : "pointer")};
-    display: ${({ disabled }): string => (disabled ? "none" : "")};
+    cursor: ${({ disabled }) => (!disabled && "pointer")};
+    display: ${({ disabled }) => (disabled && "none")};
   }
   ${PrimaryArrow} {
     path {
@@ -74,10 +74,10 @@ export const SecondaryButtonContainer = styled.div<ButtonProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: ${margins.small0};
   width: 236px;
   height: 50px;
-  cursor: ${({ disabled }): string => (disabled ? "" : "pointer")};
+  cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${SecondaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
