@@ -7,11 +7,11 @@ export const color = {
   darkBlue: "#5573F6",
   purple: "#989EFF",
   black: "#292929",
-  darkGrey: "#989898",
   white: "#EEEAE9",
   offWhite: "#EEEAE9",
   lightGrey: "#D5D5D5",
   mediumGrey: "#B6B6B9",
+  darkGrey: "#989898",
   pureWhite: "#FFFFFF",
   red: "#FC0E0E",
 };

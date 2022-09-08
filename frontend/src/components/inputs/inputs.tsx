@@ -7,21 +7,21 @@ import { InputContainer, InputLabel, LabelContainer, Error, ErrorContainer } fro
 interface InputProps {
   label?: string;
   children: ReactNode;
-  error?: boolean;
+  isError?: boolean;
   errorMessage?: string;
 }
 
-export const Input: FC<InputProps> = ({ children, label, error = false, errorMessage }) => {
+export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage }) => {
   return (
-    <InputContainer isError={error}>
+    <InputContainer isError={isError}>
       <LabelContainer>
         <InputLabel>{label}</InputLabel>
       </LabelContainer>
       {children}
-      {error && (
+      {isError && (
         <ErrorContainer>
           <Error />
-          <Paragraph>{errorMessage ? errorMessage : text.form.somethingWentWrong}</Paragraph>
+          <Paragraph>{errorMessage || text.loginForm.somethingWentWrong}</Paragraph>
         </ErrorContainer>
       )}
     </InputContainer>
