@@ -9,6 +9,7 @@ export default defineConfig({
     babel: {
       plugins: ["@emotion/babel-plugin"],
     },
+    jsxRuntime: "classic"
   })],
   esbuild: {
     logOverride: { "this-is-undefined-in-esm": "silent" }
