@@ -10,3 +10,4 @@ export * from "./error-view";
 export * from "./error-fallback";
 export * from "./base-layout";
 export * from "./inputs";
+export * from "./main-container";

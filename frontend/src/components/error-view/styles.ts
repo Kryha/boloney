@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { margins } from "../../design";
 
 export const ErrorContainer = styled.div`
-  margin-left: 40px;
+  margin-left: ${margins.large0};
   margin-top: 102px;
 `;
 
@@ -19,13 +19,6 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding-top: 40px;
+  padding-top: ${margins.large0};
   gap: ${margins.small0};
-`;
-
-
-export const ImageContainer = styled.div`
-  position: fixed;
-  bottom: -5px;
-  right: 40px;
 `;

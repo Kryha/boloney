@@ -19,7 +19,7 @@ export const Input: FC<InputProps> = ({ children, label, error = false, errorMes
       </LabelContainer>
       {children}
       {error && (
-        <ErrorContainer isError={error}>
+        <ErrorContainer>
           <Error />
           <Paragraph>{errorMessage ? errorMessage : text.form.somethingWentWrong}</Paragraph>
         </ErrorContainer>
