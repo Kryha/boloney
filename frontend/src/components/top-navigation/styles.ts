@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ExitIcon, TimerIcon } from "../../assets/icons";
+import { TimerIcon } from "../../assets/icons";
 import { color, margins } from "../../design";
 import { Paragraph } from "../atoms";
 
