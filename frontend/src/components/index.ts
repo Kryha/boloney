@@ -8,6 +8,5 @@ export * from "./power-up";
 export * from "./power-up-overview";
 export * from "./error-view";
 export * from "./error-fallback";
-export * from "./main-container";
 export * from "./base-layout";
 export * from "./inputs";

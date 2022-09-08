@@ -1,16 +1,15 @@
 import styled from "@emotion/styled";
 
-import { color, fontWeight } from "../../design";
+import { color, fontSize, fontWeight, margins } from "../../design";
 
 export const BaseInput = styled.input`
   font-family: ibm-plex-mono;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: ${fontWeight.light};
+  font-size: ${fontSize.small1};
   line-height: 24px;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #292929;
+  color: ${color.black};
   background-color: transparent;
   width: 100%;
   -moz-appearance: textfield;
@@ -20,19 +19,17 @@ export const BaseInput = styled.input`
   }
   &::placeholder {
     font-family: ibm-plex-mono;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: ${fontWeight.light};
+    font-size: ${fontSize.small1};
     line-height: 24px;
     letter-spacing: -0.01em;
     text-transform: uppercase;
-    color: #292929;
+    color: ${color.black};
   }
-
   box-sizing: border-box;
-  outline: 1px solid #B6B6B9;
+  outline: 1px solid ${color.mediumGrey};
   border: none;
-  padding: 23px 40px;
+  padding: 23px ${margins.large0};
   :hover {
     outline: 1px solid ${color.black};
   }
@@ -41,10 +38,7 @@ export const BaseInput = styled.input`
   }
   :disabled {
     &::placeholder {
-      color: #989898;
+      color: ${color.darkGrey};
     }
-  }
-  &[type="password"] {
-    -webkit-text-security: square;
   }
 `;

@@ -134,8 +134,7 @@ export const Exit = styled(ExitIcon)`
   margin-top: 2px;
 `;
 
-export const Info = styled(InfoIcon)`
-`;
+export const Info = styled(InfoIcon)``;
 
 export const ButtonContainer = styled.div<ButtonProps>`
   display: flex;

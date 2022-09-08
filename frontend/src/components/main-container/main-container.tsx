@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useViewport } from "../../hooks/use-viewport";
 
+import { useViewport } from "../../hooks/use-viewport";
 import { MainWrap, MainPageContainer } from "./styles";
 
 interface MainContainerProps {
