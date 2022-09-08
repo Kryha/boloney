@@ -17,7 +17,7 @@ export const InputContainer = styled.div<ErrorProps>`
   position: relative;
   flex: 1;
   ${BaseInput} {
-    outline: 1px solid ${color.red};
+    outline: 1px solid ${({ isError }) => (isError && color.red)};
   }
 `;
 

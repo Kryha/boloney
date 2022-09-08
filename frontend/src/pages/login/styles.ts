@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { BaseInput, Heading4 } from "../../components";
+import { Heading4 } from "../../components";
 import { PrimaryButtonContainer } from "../../components/buttons/styles";
 import { color } from "../../design";
 
@@ -12,10 +12,6 @@ export const InformationContainer = styled.div`
     max-width: 45.27vw;
   }
 `;
-
-export const PasswordInput = styled(BaseInput)``;
-
-export const EmailInput = styled(BaseInput)``;
 
 interface AuthProps {
   width: number;

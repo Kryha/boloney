@@ -2,18 +2,10 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { text } from "../../assets/text";
 
-import { Heading1, Heading4, Input, Paragraph } from "../../components";
+import { Heading1, Heading4, Input, Paragraph, BaseInput } from "../../components";
 import { PrimaryButton } from "../../components/buttons";
 import { useViewport } from "../../hooks/use-viewport";
-import {
-  AuthContainer,
-  EmailInput,
-  InformationContainer,
-  LoginFormContainer,
-  PasswordInput,
-  SignInLink,
-  SignOrJoinContainer,
-} from "./styles";
+import { AuthContainer, InformationContainer, LoginFormContainer, SignInLink, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
   username: string;
@@ -41,11 +33,12 @@ export const LoginForm: FC = () => {
       </InformationContainer>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <AuthContainer width={width}>
-          <Input label={text.form.username} error={!errors.username && dirtyFields.username}>
-            <EmailInput type="text" defaultValue="" {...register("username", { required: true })} />
+          <Input label={text.form.username} error={errors.username && errors.username.type === "required"}>
+            <BaseInput type="text" defaultValue="" {...register("username", { required: true })} />
           </Input>
-          <Input label={text.form.password} error={!errors.password && dirtyFields.password}>
-            <PasswordInput type="password" defaultValue="" {...register("password", { required: true })} />
+          {/* TODO: add validation */}
+          <Input label={text.form.password}>
+            <BaseInput type="password" defaultValue="" {...register("password", { required: true })} />
           </Input>
         </AuthContainer>
         <SignOrJoinContainer>

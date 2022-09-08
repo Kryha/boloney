@@ -11,9 +11,9 @@ interface InputProps {
   errorMessage?: string;
 }
 
-export const Input: FC<InputProps> = ({ children, label, error, errorMessage }) => {
+export const Input: FC<InputProps> = ({ children, label, error = false, errorMessage }) => {
   return (
-    <InputContainer>
+    <InputContainer isError={error}>
       <LabelContainer>
         <InputLabel>{label}</InputLabel>
       </LabelContainer>
