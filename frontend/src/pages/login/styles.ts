@@ -24,9 +24,7 @@ interface AuthProps {
 export const AuthContainer = styled.div<AuthProps>`
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
   padding: 0px;
-  // width: ${({ width }): string => `${width}px`};
 `;
 
 export const SignInLink = styled.a`
@@ -55,3 +53,8 @@ export const SignOrJoinContainer = styled.div`
 `;
 
 export const LoginFormContainer = styled.div``;
+
+export const LogoContainer = styled.div`
+  margin-left: 23px;
+  margin-top: 17px;
+`;
