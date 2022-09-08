@@ -4,6 +4,8 @@ export const fontSize = {
   small2: "22px",
   small3: "28px",
   medium0: "46px",
+  medium1: "50px",
+  medium2: "60px",
   large0: "170px",
   large1: "350px",
 };

@@ -1,18 +1,19 @@
 import { FC } from "react";
+import { color } from "../../design";
 import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
 import {
-  BContainer,
   ButtonContainer,
   CloseButton,
   Ellipsis,
   Exit,
-  FirstB,
   Info,
+  InitialButtonView,
   PrimaryButtonContainer,
   PrimaryButtonText,
+  PrimaryButtonWrapper,
   SecondaryArrow,
   SecondaryButtonContainer,
-  SecondB,
+  SecondaryView,
 } from "./styles";
 
 interface ButtonProps {
@@ -24,15 +25,20 @@ interface ButtonProps {
 }
 
 export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text, type = "button" }) => (
-  <PrimaryButtonContainer onClick={() => onClick && onClick} disabled={disabled}>
-    {/* <PrimaryButtonBase type={type}>
-      <PrimaryButtonText>{text}</PrimaryButtonText>
-    </PrimaryButtonBase> */}
-    <BContainer>
-      <FirstB>{"me"}</FirstB>
-      <SecondB>{"me"}</SecondB>
-    </BContainer>
-  </PrimaryButtonContainer>
+  <PrimaryButtonWrapper onClick={() => onClick && onClick} disabled={disabled}>
+    <PrimaryButtonContainer>
+      <InitialButtonView>
+        <PrimaryButtonBase type={type}>
+          <PrimaryButtonText>{text}</PrimaryButtonText>
+        </PrimaryButtonBase>
+      </InitialButtonView>
+      <SecondaryView>
+        <PrimaryButtonBase type={type} backgroundColor={color.black}>
+          <PrimaryButtonText customColor={color.white}>{text}</PrimaryButtonText>
+        </PrimaryButtonBase>
+      </SecondaryView>
+    </PrimaryButtonContainer>
+  </PrimaryButtonWrapper>
 );
 
 export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
