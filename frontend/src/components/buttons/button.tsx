@@ -18,14 +18,14 @@ import {
 
 interface ButtonProps {
   disabled?: boolean;
-  onClick?: void;
+  onClick?: () => void;
   text?: string;
   isOpen?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
 }
 
 export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text, type = "button" }) => (
-  <PrimaryButtonWrapper onClick={() => onClick && onClick} disabled={disabled}>
+  <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled}>
     <PrimaryButtonContainer>
       <InitialButtonView>
         <PrimaryButtonBase type={type}>
@@ -42,28 +42,28 @@ export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text, type =
 );
 
 export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
-  <SecondaryButtonContainer onClick={() => onClick && onClick} disabled={disabled}>
+  <SecondaryButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
     <SecondaryArrow />
   </SecondaryButtonContainer>
 );
 
 export const MenuButton: FC<ButtonProps> = ({ disabled, onClick, text, isOpen }) => (
-  <ButtonContainer onClick={() => onClick && onClick} disabled={disabled}>
+  <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
     {isOpen ? <Ellipsis /> : <CloseButton />}
   </ButtonContainer>
 );
 
 export const InfoButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
-  <ButtonContainer onClick={() => onClick && onClick} disabled={disabled}>
+  <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
     <Info />
   </ButtonContainer>
 );
 
 export const ExitButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
-  <ButtonContainer onClick={() => onClick && onClick} disabled={disabled}>
+  <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
     <Exit />
   </ButtonContainer>

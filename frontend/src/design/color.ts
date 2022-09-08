@@ -13,4 +13,5 @@ export const color = {
   lightGrey: "#D5D5D5",
   mediumGrey: "#B6B6B9",
   pureWhite: "#FFFFFF",
+  red: "#FC0E0E",
 };

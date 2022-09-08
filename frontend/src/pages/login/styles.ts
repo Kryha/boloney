@@ -13,14 +13,9 @@ export const InformationContainer = styled.div`
   }
 `;
 
-export const PasswordInput = styled(BaseInput)`
-  // border-right: none;
-`;
+export const PasswordInput = styled(BaseInput)``;
 
-export const EmailInput = styled(BaseInput)`
-  // border-left: none;
-  // border-right: none;
-`;
+export const EmailInput = styled(BaseInput)``;
 
 interface AuthProps {
   width: number;
@@ -58,3 +53,5 @@ export const SignOrJoinContainer = styled.div`
     margin-left: 20px;
   }
 `;
+
+export const LoginFormContainer = styled.div``;

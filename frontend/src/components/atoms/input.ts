@@ -14,7 +14,6 @@ export const BaseInput = styled.input`
   background-color: transparent;
   width: 100%;
   -moz-appearance: textfield;
-  outline: none;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
