@@ -1,35 +1,37 @@
-import React, { FC } from "react";
-import {} from "../../assets/icons";
+import { FC } from "react";
 import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
 import {
-  ArrowSection,
+  BContainer,
   ButtonContainer,
   CloseButton,
-  Ellipse,
   Ellipsis,
   Exit,
+  FirstB,
   Info,
-  PrimaryArrow,
   PrimaryButtonContainer,
+  PrimaryButtonText,
   SecondaryArrow,
   SecondaryButtonContainer,
+  SecondB,
 } from "./styles";
 
 interface ButtonProps {
   disabled?: boolean;
   onClick?: void;
-  text: string;
+  text?: string;
   isOpen?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
-export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
+export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text, type = "button" }) => (
   <PrimaryButtonContainer onClick={() => onClick && onClick} disabled={disabled}>
-    <PrimaryButtonBase disabled={disabled}>{text}</PrimaryButtonBase>
-    <ArrowSection>
-      <PrimaryArrow />
-      <PrimaryArrow />
-    </ArrowSection>
-    <Ellipse />
+    {/* <PrimaryButtonBase type={type}>
+      <PrimaryButtonText>{text}</PrimaryButtonText>
+    </PrimaryButtonBase> */}
+    <BContainer>
+      <FirstB>{"me"}</FirstB>
+      <SecondB>{"me"}</SecondB>
+    </BContainer>
   </PrimaryButtonContainer>
 );
 

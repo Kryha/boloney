@@ -4,5 +4,6 @@ export const general = {
   exit: "exit",
   defaultTime: "0:00",
   amount: "amount",
-  pips: "pips"
+  pips: "pips",
+  logoHere: "logo here",
 };

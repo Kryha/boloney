@@ -32,30 +32,83 @@ export const ArrowSection = styled.div`
   gap: 13px;
 `;
 
+export const PrimaryButtonText = styled.h3`
+  font-family: ibm-plex-mono;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 44px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #292929;
+  max-height: 44px;
+  margin-top: -11px;
+`;
+
+
+export const Span = styled.span`
+transform-origin: top center;
+    transform-style: preserve-3d;
+    transition: opacity .4s,black .4s,transform .4s;
+`;
+
+
+export const FirstB = styled(Span)`
+  --tw-text-opacity: 1;
+  background: white;
+  font-size: 50px;
+  opacity: 1;
+  color: black;
+  transform: translateZ(0)
+  transform: translate3d(0,100%,0);
+  transition: opacity .4s, black .4s,transform .4s;
+  visibility: visible;
+  width: 70px;
+  height: 70px;
+  `;
+
+export const SecondB = styled(Span)`
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  background: black;
+  font-size: 50px;
+  color: white;
+  width: 70px;
+  height: 70px;
+  top: 0;
+  transform: rotateX(-90deg) translate3d(0,50%,0);
+  transform-origin: bottom center;
+  transition: opacity .4s,visibility 1ms .4s,white .4s,transform .4s;
+  visibility: hidden;
+  `;
+
+export const BContainer = styled.div`
+transform-origin: center;
+    transform-style: preserve-3d;
+    transition: transform .4s;
+  :hover{
+    ${SecondB} {
+    opacity: 1;
+    transition: opacity .4s, white .4s,transform .4s;
+    visibility: visible;
+    }
+    ${FirstB} {
+      opacity: 0;
+      color: black;
+      transform: translateZ(0)
+      transform: translate3d(0,100%,0);
+      transition: opacity .4s, black .4s,transform .4s;
+      visibility: hidden;
+    }
+    transform: rotateX(90deg);
+  }
+`;
 export const PrimaryButtonContainer = styled.div<ButtonProps>`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  padding: ${margins.small2} 0px;
-  gap: ${margins.small2};
-  width: 770px;
-  height: 96px;
   cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${PrimaryButtonBase} {
-    line-height: 72px;
-    z-index: ${zIndex.normal};
   }
-  :not(:hover){
-    ${Ellipse} {
-      display: none;
-    }
-  }
-  ${Ellipse} {
-    cursor: ${({ disabled }) => (!disabled && "pointer")};
-    display: ${({ disabled }) => (disabled && "none")};
-  }
+
   ${PrimaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
@@ -69,15 +122,15 @@ export const SecondaryArrow = styled(RightArrowIcon)`
 `;
 
 export const SecondaryButtonContainer = styled.div<ButtonProps>`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: ${margins.small0};
-  width: 236px;
-  height: 50px;
-  cursor: ${({ disabled }) => (!disabled && "pointer")};
+  // position: relative;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: center;
+  // align-items: center;
+  // gap: ${margins.small0};
+  // width: 236px;
+  // height: 50px;
+  // cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${SecondaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
@@ -110,7 +163,6 @@ export const ButtonContainer = styled.div<ButtonProps>`
   padding: 13px ${margins.small3} 13px ${margins.small2};
   gap: ${margins.small0};
   height: 100%;
-  width: 62px;
   ${SecondaryButtonBase} {
     padding: 0px;
   }
