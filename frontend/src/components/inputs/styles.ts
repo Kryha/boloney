@@ -1,14 +1,9 @@
 import styled from "@emotion/styled";
 
-import { color, fontSize, fontWeight, margins } from "../../design";
+import { color } from "../../design";
 import { ErrorIcon } from "../../assets/icons";
-import { BaseInput } from "../atoms/input";
 
-interface ErrorProps {
-  isError: boolean;
-}
-
-export const InputContainer = styled.div<ErrorProps>`
+export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -16,26 +11,23 @@ export const InputContainer = styled.div<ErrorProps>`
   isolation: isolate;
   position: relative;
   flex: 1;
-  ${BaseInput} {
-    outline: 1px solid ${({ isError }) => (isError && color.red)};
-  }
 `;
 
 export const InputLabel = styled.h3`
   font-family: ibm-plex-mono;
   font-style: normal;
-  font-weight: ${fontWeight.bolder};
-  font-size: ${fontSize.small1};
+  font-weight: 700;
+  font-size: 16px;
   line-height: 24px;
   text-transform: uppercase;
   color: ${color.black};
-  background: ${color.lightGrey};
-  padding: 0px ${margins.small1};
+  background: #D5D5D5;
+  padding: 0px 10px;
 `;
 
 export const LabelContainer = styled.div`
   position: absolute;
-  left: ${margins.medium0};
+  left: 30px;
   top: -13px
 `;
 
@@ -46,7 +38,7 @@ export const ErrorContainer = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 0px;
-  gap: ${margins.small0};
+  gap: 8px;
   margin-right: 4px;
-  margin-top: ${margins.small2};
+  margin-top: 16px;
 `;

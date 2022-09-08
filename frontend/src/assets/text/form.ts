@@ -7,4 +7,5 @@ export const form = {
   join: "join",
   username: "username",
   password: "password",
+  email: "email",
 };

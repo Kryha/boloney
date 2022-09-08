@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, RightArrowIcon } from "../../assets/icons";
 import { color, fontSize, fontWeight, margins } from "../../design";
@@ -10,6 +11,7 @@ interface ButtonProps {
 
 interface TextProps {
   customColor?: string;
+  disabled?: boolean;
 }
 
 export const Ellipse = styled.div`
@@ -53,7 +55,7 @@ export const PrimaryButtonText = styled.h3<TextProps>`
 export const Span = styled.span`
   transform-origin: top center;
   transform-style: preserve-3d;
-  transition: opacity 0.4s, black 0.4s, transform 0.4s;
+  transition: opacity 0.4s, red 0.4s, transform 0.4s;
 `;
 
 
@@ -61,7 +63,7 @@ export const InitialButtonView = styled(Span)`
   --tw-text-opacity: 1;
   transform: translateZ(0)
   transform: translate3d(0, 100%, 0);
-  transition: opacity .4s, black .4s,transform .4s;
+  transition: opacity .4s, red .4s,transform .4s;
   visibility: visible;
   height: 70px;
 `;
@@ -78,60 +80,67 @@ export const SecondaryView = styled(Span)`
   visibility: hidden;
 `;
 
-export const PrimaryButtonContainer = styled.div`
-  transform-origin: center;
-  transform-style: preserve-3d;
-  transition: transform 0.4s;
-  :hover {
-    ${SecondaryView} {
-      opacity: 1;
-      transition: opacity 0.4s, white 0.4s, transform 0.4s;
-      visibility: visible;
+export const PrimaryButtonContainer = styled.div<ButtonProps>`
+  ${({ disabled }) => (!disabled ? css`
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transition: transform 0.4s;
+    :hover {
+      ${SecondaryView} {
+        opacity: 1;
+        transition: opacity 0.4s, white 0.4s, transform 0.4s;
+        visibility: visible;
+      }
+      ${InitialButtonView} {
+        opacity: 0;
+        transform: translateZ(0)
+        transform: translate3d(0,100%,0);
+        transition: opacity .4s, red .4s,transform .4s;
+        visibility: hidden;
+      }
+      transform: rotateX(90deg);
     }
-    ${InitialButtonView} {
-      opacity: 0;
-      transform: translateZ(0)
-      transform: translate3d(0,100%,0);
-      transition: opacity .4s, black .4s,transform .4s;
-      visibility: hidden;
-    }
-    transform: rotateX(90deg);
-  }
+  ` :
+    `${PrimaryButtonText} {
+        color: ${color.mediumGrey};
+      }
+    `
+  )};
 `;
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
-  cursor: ${({ disabled }) => (!disabled && "pointer")};
+cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${PrimaryArrow} {
     path {
-      fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
-    }
+    fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
   }
+}
 `;
 
 export const SecondaryArrow = styled(RightArrowIcon)`
-  width: 15px;
-  height: 7.5px;
+width: 15px;
+height: 7.5px;
 `;
 
 export const SecondaryButtonContainer = styled.div<ButtonProps>`
   ${SecondaryArrow} {
     path {
-      fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
-    }
+    fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
   }
+}
 `;
 
 export const CloseButton = styled(CloseIcon)`
-  margin-top: 4px;
-  width: 20px;
+margin - top: 4px;
+width: 20px;
 `;
 
 export const Ellipsis = styled(EllipsisIcon)`
-  margin-top: 5px;
-  width: 20px;
+margin - top: 5px;
+width: 20px;
 `;
 
 export const Exit = styled(ExitIcon)`
-  margin-top: 2px;
+margin - top: 2px;
 `;
 
 export const Info = styled(InfoIcon)``;
@@ -144,7 +153,7 @@ export const ButtonContainer = styled.div<ButtonProps>`
   padding: 13px ${margins.small3} 13px ${margins.small2};
   gap: ${margins.small0};
   height: 100%;
-  ${SecondaryButtonBase} {
+    ${SecondaryButtonBase} {
     padding: 0px;
   }
   cursor: pointer;

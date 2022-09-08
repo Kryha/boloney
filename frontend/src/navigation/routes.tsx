@@ -4,6 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
+import { Login } from "../pages";
 
 export const AppRoutes: FC = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export const AppRoutes: FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
       <MainContainer>
         <Routes>
+          <Route path={routes.root} element={<Login />} />
           <Route path="*" element={<ErrorView />} />
         </Routes>
       </MainContainer>

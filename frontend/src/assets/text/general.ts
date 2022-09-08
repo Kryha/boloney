@@ -6,4 +6,6 @@ export const general = {
   amount: "amount",
   pips: "pips",
   logoHere: "logo here",
+  menu: "menu",
+  info: "info",
 };

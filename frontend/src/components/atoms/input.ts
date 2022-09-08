@@ -2,7 +2,11 @@ import styled from "@emotion/styled";
 
 import { color, fontSize, fontWeight, margins } from "../../design";
 
-export const BaseInput = styled.input`
+interface ErrorProps {
+  isError?: boolean;
+}
+
+export const BaseInput = styled.input<ErrorProps>`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
   font-size: ${fontSize.small1};
@@ -27,7 +31,7 @@ export const BaseInput = styled.input`
     color: ${color.black};
   }
   box-sizing: border-box;
-  outline: 1px solid ${color.mediumGrey};
+  outline: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
   border: none;
   padding: 23px ${margins.large0};
   :hover {
