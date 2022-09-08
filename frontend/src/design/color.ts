@@ -7,9 +7,9 @@ export const color = {
   darkBlue: "#5573F6",
   purple: "#989EFF",
   black: "#292929",
-  darkGrey: "#B9B9B9",
-  white: "#F6F2EE",
-  offWhite: "#F3EEE9",
-  grey: "#D9D9D9",
+  darkGrey: "#7E7B79",
+  white: "#EEEAE9",
+  offWhite: "#EEEAE9",
+  grey: "#C9C0B8",
   pureWhite: "#FFFFFF",
 };

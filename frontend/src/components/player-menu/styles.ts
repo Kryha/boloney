@@ -29,8 +29,8 @@ export const MenuSection = styled.section`
   width: 25vw;
   height: 7.198vh;
   background: transparent;
-  border-bottom: 1px solid ${color.black};
-  border-left: 1px solid ${color.black};
+  border-left: 1px solid ${color.darkGrey};
+  border-right: 1px solid ${color.darkGrey};
 `;
 
 interface LayoutProps {
@@ -47,7 +47,8 @@ export const HistorySection = styled(MenuSection) <LayoutProps>`
   height: 5.105vh;
   cursor: pointer;
   display: ${({ isToggled }) => (isToggled && "none")};
-  border-top: 1px solid ${color.black};
+  border-top: 1px solid ${color.darkGrey};
+  border-bottom: 1px solid ${color.darkGrey};
 `;
 
 export const Plus = styled(PlusIcon)``;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { CloseIcon } from "../../assets/icons";
 import { color, margins } from "../../design";
-import { Heading4 } from "../atoms/text";
 
 interface LayoutProps {
   isToggled: boolean;
@@ -13,11 +13,19 @@ export const ChatSection = styled.section <LayoutProps>`
   gap: ${margins.small0};
   height: 40vh;
   width: 25vw;
-  border-bottom: 1px solid ${color.black};
-  border-left: 1px solid ${color.black};
+  border-left: 1px solid ${color.darkGrey};
   display: ${({ isToggled }) => (!isToggled && "none")};
-  ${Heading4} {
-    cursor: pointer;
-    margin-left: ${margins.small3};
-  }
+`;
+
+export const Close = styled(CloseIcon)``;
+
+export const ChatHeadingSection = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${margins.small2} ${margins.small2} 0px;
+  gap: ${margins.small0};
+  cursor: pointer;
+  width: -webkit-fill-available;
 `;

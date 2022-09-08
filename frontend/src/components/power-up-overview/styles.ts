@@ -26,9 +26,8 @@ export const PowerUpOverviewContainer = styled.div<ViewportProps>`
   width: 31.25vw;
   height: 7.198vh;
   background: transparent;
-  border-left: 1px solid ${color.black};
-  border-top: 1px solid ${color.black};
-  border-bottom: 1px solid ${color.black};
+  border-left: 1px solid ${color.darkGrey};
+  border-top: 1px solid ${color.darkGrey};
   ${GeneralText} {
     margin-left: ${margins.small3};
   }
@@ -37,7 +36,7 @@ export const PowerUpOverviewContainer = styled.div<ViewportProps>`
 export const YourPowerUpContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: ${margins.small1};
   margin-top: -45px;
   margin-left: ${margins.small3};
 `;

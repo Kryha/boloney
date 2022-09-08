@@ -5,6 +5,7 @@ import PlasticHand from "./plastic-hand.png";
 import ScooperHand from "./poop-scooper-hand.png";
 import SkeletonHand from "./skeleton-hand.png";
 import ToyHand from "./toy-hand.png";
+import SkeletonHandPaint from "./skeleton-hand-paint.svg";
 
 export {
   Hand,
@@ -14,4 +15,5 @@ export {
   ScooperHand,
   SkeletonHand,
   ToyHand,
+  SkeletonHandPaint,
 };

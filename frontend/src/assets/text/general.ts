@@ -3,4 +3,6 @@ export const general = {
   history: "history",
   exit: "exit",
   defaultTime: "0:00",
+  amount: "amount",
+  pips: "pips"
 };

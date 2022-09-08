@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { color, fontSize, margins } from "../../design";
-import { Heading4, avatarHeight } from "../atoms";
+import { color, margins } from "../../design";
+import { avatarHeight, Heading5 } from "../atoms";
 
 interface GamePlayersProps {
   isActive?: boolean;
@@ -12,9 +12,8 @@ export const GamePlayersWrapper = styled.div<GamePlayersProps>`
   padding: 0px;
   width: 12.5vw;
   background: ${({ isActive, customColor }): string => (isActive ? (customColor || color.white) : (color.white))};
-  border-top: 0.5px solid ${color.black};
-  border-bottom: 0.5px solid ${color.black};
-  height: 100vh;
+  height: 14.28vh;
+  border-bottom: 1px solid ${color.darkGrey};
 `;
 
 export const PlayerColor = styled.div<GamePlayersProps>`
@@ -44,10 +43,9 @@ export const PlayerAvatar = styled.img<AvatarProps>`
   object-fit: contain;
 `;
 
-export const PlayerName = styled(Heading4)`
+export const PlayerName = styled(Heading5)`
   width: 13.5vh;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: clamp(${fontSize.small0}, 1vw, ${fontSize.small2});
 `;
