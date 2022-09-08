@@ -26,14 +26,14 @@ interface ButtonProps {
 
 export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text, type = "button" }) => (
   <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled}>
-    <PrimaryButtonContainer>
+    <PrimaryButtonContainer disabled={disabled}>
       <InitialButtonView>
-        <PrimaryButtonBase type={type}>
+        <PrimaryButtonBase type={type} disabled={disabled}>
           <PrimaryButtonText>{text}</PrimaryButtonText>
         </PrimaryButtonBase>
       </InitialButtonView>
       <SecondaryView>
-        <PrimaryButtonBase type={type} backgroundColor={color.black}>
+        <PrimaryButtonBase type={type} backgroundColor={color.black} disabled={disabled}>
           <PrimaryButtonText customColor={color.white}>{text}</PrimaryButtonText>
         </PrimaryButtonBase>
       </SecondaryView>

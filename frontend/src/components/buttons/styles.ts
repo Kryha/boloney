@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, RightArrowIcon } from "../../assets/icons";
 import { color, fontSize, fontWeight, margins } from "../../design";
@@ -78,26 +79,34 @@ export const SecondaryView = styled(Span)`
   visibility: hidden;
 `;
 
-export const PrimaryButtonContainer = styled.div`
-  transform-origin: center;
-  transform-style: preserve-3d;
-  transition: transform 0.4s;
-  :hover {
-    ${SecondaryView} {
-      opacity: 1;
-      transition: opacity 0.4s, white 0.4s, transform 0.4s;
-      visibility: visible;
+export const PrimaryButtonContainer = styled.div<ButtonProps>`
+  ${({ disabled }) => (!disabled ? css`
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transition: transform 0.4s;
+    :hover {
+      ${SecondaryView} {
+        opacity: 1;
+        transition: opacity 0.4s, white 0.4s, transform 0.4s;
+        visibility: visible;
+      }
+      ${InitialButtonView} {
+        opacity: 0;
+        transform: translateZ(0)
+        transform: translate3d(0,100%,0);
+        transition: opacity .4s, red .4s,transform .4s;
+        visibility: hidden;
+      }
+      transform: rotateX(90deg);
     }
-    ${InitialButtonView} {
-      opacity: 0;
-      transform: translateZ(0)
-      transform: translate3d(0,100%,0);
-      transition: opacity .4s, black .4s,transform .4s;
-      visibility: hidden;
+  ` : `
+    ${PrimaryButtonText} {
+      color: ${color.mediumGrey};
     }
-    transform: rotateX(90deg);
-  }
+  `
+  )};
 `;
+
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
   cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${PrimaryArrow} {

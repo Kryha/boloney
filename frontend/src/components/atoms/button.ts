@@ -26,6 +26,7 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
   backdrop-filter: blur(10px);
   ${({ disabled }) => (disabled && `
       color: ${color.darkGrey};
+      background: transparent;
       && {
         cursor: default;
       }
