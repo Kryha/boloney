@@ -30,12 +30,12 @@ export const LoginForm: FC = () => {
   return (
     <LoginFormContainer>
       <InformationContainer>
-        <Heading1>{text.form.firstThingsFirst}</Heading1>
-        <Heading4>{text.form.whoAreYou}</Heading4>
+        <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
+        <Heading4>{text.loginForm.whoAreYou}</Heading4>
       </InformationContainer>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
-          {/* <Input label={text.form.username} error={errors.username && errors.username.type === "required"}>
+          {/* <Input label={text.loginForm.username} error={errors.username && errors.username.type === "required"}>
             <BaseInput
               isError={errors.username && errors.username.type === "required"}
               type="text"
@@ -45,7 +45,7 @@ export const LoginForm: FC = () => {
           </Input> */}
           <AuthContainer width={width}>
             {/* TODO: add validation */}
-            <Input label={text.form.email} error={errors.username && errors.username.type === "required"}>
+            <Input label={text.loginForm.email} error={errors.username && errors.username.type === "required"}>
               <BaseInput
                 isError={errors.username && errors.username.type === "required"}
                 type="text"
@@ -53,14 +53,14 @@ export const LoginForm: FC = () => {
                 {...register("username", { required: true })}
               />
             </Input>
-            <Input label={text.form.password}>
+            <Input label={text.loginForm.password}>
               <BaseInput type="password" defaultValue="" {...register("password", { required: true })} />
             </Input>
           </AuthContainer>
           <SignOrJoinContainer>
-            <Paragraph>{text.form.iAlreadyHaveAnAccount}</Paragraph>
-            <SignInLink>{text.form.signIn}</SignInLink>
-            <PrimaryButton type="submit" text={text.form.join} />
+            <Paragraph>{text.loginForm.iAlreadyHaveAnAccount}</Paragraph>
+            <SignInLink>{text.loginForm.signIn}</SignInLink>
+            <PrimaryButton type="submit" text={text.loginForm.join} />
           </SignOrJoinContainer>
         </FormContainer>
       </form>
