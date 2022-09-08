@@ -1,11 +1,16 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, RightArrowIcon } from "../../assets/icons";
-import { color, margins } from "../../design";
+import { color, fontSize, fontWeight, margins } from "../../design";
 import { zIndex } from "../../design/z-index";
-import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
+import { SecondaryButtonBase } from "../atoms";
 
 interface ButtonProps {
   disabled?: boolean;
+}
+
+interface TextProps {
+  customColor?: string;
 }
 
 export const Ellipse = styled.div`
@@ -15,7 +20,7 @@ export const Ellipse = styled.div`
   width: 770px;
   height: 96px;
   border-radius: 50%;
-  top: 30px;
+  top: ${margins.medium0};
 `;
 
 export const PrimaryArrow = styled(RightArrowIcon)`
@@ -32,30 +37,78 @@ export const ArrowSection = styled.div`
   gap: 13px;
 `;
 
+export const PrimaryButtonText = styled.h3<TextProps>`
+  font-family: ibm-plex-mono;
+  font-style: normal;
+  font-weight: ${fontWeight.regular};
+  font-size: ${fontSize.medium1};
+  line-height: 44px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  max-height: 44px;
+  margin-top: -11px;
+  color: ${({ customColor }): string => (customColor || color.black)};
+`;
+
+
+export const Span = styled.span`
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: opacity 0.4s, black 0.4s, transform 0.4s;
+`;
+
+
+export const InitialButtonView = styled(Span)`
+  --tw-text-opacity: 1;
+  transform: translateZ(0)
+  transform: translate3d(0, 100%, 0);
+  transition: opacity .4s, black .4s,transform .4s;
+  visibility: visible;
+  height: 70px;
+`;
+
+export const SecondaryView = styled(Span)`
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  height: 70px;
+  top: 0;
+  transform: rotateX(-90deg) translate3d(0, 50%, 0);
+  transform-origin: bottom center;
+  transition: opacity 0.4s, visibility 1ms 0.4s, white 0.4s, transform 0.4s;
+  visibility: hidden;
+`;
+
 export const PrimaryButtonContainer = styled.div<ButtonProps>`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  padding: ${margins.small2} 0px;
-  gap: ${margins.small2};
-  width: 770px;
-  height: 96px;
-  cursor: ${({ disabled }) => (!disabled && "pointer")};
-  ${PrimaryButtonBase} {
-    line-height: 72px;
-    z-index: ${zIndex.normal};
-  }
-  :not(:hover){
-    ${Ellipse} {
-      display: none;
+  ${({ disabled }) => (!disabled ? css`
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transition: transform 0.4s;
+    :hover {
+      ${SecondaryView} {
+        opacity: 1;
+        transition: opacity 0.4s, white 0.4s, transform 0.4s;
+        visibility: visible;
+      }
+      ${InitialButtonView} {
+        opacity: 0;
+        transform: translateZ(0)
+        transform: translate3d(0,100%,0);
+        transition: opacity .4s, red .4s,transform .4s;
+        visibility: hidden;
+      }
+      transform: rotateX(90deg);
     }
-  }
-  ${Ellipse} {
-    cursor: ${({ disabled }) => (!disabled && "pointer")};
-    display: ${({ disabled }) => (disabled && "none")};
-  }
+  ` : `
+    ${PrimaryButtonText} {
+      color: ${color.mediumGrey};
+    }
+  `
+  )};
+`;
+
+export const PrimaryButtonWrapper = styled.div<ButtonProps>`
+  cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${PrimaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
@@ -69,15 +122,6 @@ export const SecondaryArrow = styled(RightArrowIcon)`
 `;
 
 export const SecondaryButtonContainer = styled.div<ButtonProps>`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: ${margins.small0};
-  width: 236px;
-  height: 50px;
-  cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${SecondaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
@@ -99,8 +143,7 @@ export const Exit = styled(ExitIcon)`
   margin-top: 2px;
 `;
 
-export const Info = styled(InfoIcon)`
-`;
+export const Info = styled(InfoIcon)``;
 
 export const ButtonContainer = styled.div<ButtonProps>`
   display: flex;
@@ -110,7 +153,6 @@ export const ButtonContainer = styled.div<ButtonProps>`
   padding: 13px ${margins.small3} 13px ${margins.small2};
   gap: ${margins.small0};
   height: 100%;
-  width: 62px;
   ${SecondaryButtonBase} {
     padding: 0px;
   }

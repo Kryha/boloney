@@ -1,8 +1,9 @@
 * {
   margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: #EEEAE9;
+  background: #D5D5D5;
   overscroll-behavior: none;
 }

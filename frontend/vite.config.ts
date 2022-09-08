@@ -4,13 +4,17 @@ import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svgr(), react({
-    jsxImportSource: "@emotion/react",
-    babel: {
-      plugins: ["@emotion/babel-plugin"],
-    },
-  })],
+  plugins: [
+    svgr(),
+    react({
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: ["@emotion/babel-plugin"],
+      },
+      jsxRuntime: "classic",
+    }),
+  ],
   esbuild: {
-    logOverride: { "this-is-undefined-in-esm": "silent" }
-  }
+    logOverride: { "this-is-undefined-in-esm": "silent" },
+  },
 });

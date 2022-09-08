@@ -1,12 +1,13 @@
+import { BrowserRouter } from "react-router-dom";
+import { AppRoutes } from "./navigation";
 import "./App.css";
 
-// TODO: remove this component
-import { Players } from "./service/fake-players";
-import { GameLayout } from "./components/game-layout";
-import { DiceRolls } from "./service/fake-dice-rolls";
-
 function App() {
-  return <GameLayout players={Players} dice={DiceRolls} />;
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -12,8 +12,7 @@ export const Heading1 = styled.h1<TextProps>`
   font-size: clamp(6.25rem, 12.5vw + -1.25rem, 13.75rem);
   line-height: clamp(6.25rem, 12.5vw + -1.25rem, 13.75rem);
   letter-spacing: -0.02em;
-  color: ${color.pureWhite};
-  -webkit-text-stroke: 1px ${({ customColor }): string => (customColor || color.white)};
+  color: ${color.black};
   :first-letter {
     text-transform: capitalize;
   }
