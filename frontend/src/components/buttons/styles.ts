@@ -11,7 +11,6 @@ interface ButtonProps {
 
 interface TextProps {
   customColor?: string;
-  disabled?: boolean;
 }
 
 export const Ellipse = styled.div`
@@ -107,6 +106,7 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
     `
   )};
 `;
+
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
 cursor: ${({ disabled }) => (!disabled && "pointer")};
   ${PrimaryArrow} {

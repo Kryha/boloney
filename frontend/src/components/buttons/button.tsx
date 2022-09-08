@@ -21,7 +21,7 @@ interface ButtonProps {
   onClick?: () => void;
   text?: string;
   isOpen?: boolean;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: "button" | "submit" | "reset";
 }
 
 export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text, type = "button" }) => (
