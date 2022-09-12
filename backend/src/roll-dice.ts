@@ -6,29 +6,23 @@ interface DiceThrowResponse {
 }
 
 // TODO: Update this url to our own
-const apiBaseUrl: string = "http://www.randomnumberapi.com/api/v1.0";
+const apiBaseUrl = "http://www.randomnumberapi.com/api/v1.0";
 
-const getDiceRoll: nkruntime.RpcFunction = (_ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkruntime.Nakama, payload: string) => {
-  // The code below is to check if the clients send a correct payload for the server
-  let json: DiceThrowPayload;
+export const getDiceRoll: nkruntime.RpcFunction = (
+  _ctx: nkruntime.Context,
+  logger: nkruntime.Logger,
+  nk: nkruntime.Nakama,
+  payload: string
+) => {
   try {
-    json = JSON.parse(payload);
+    const json: DiceThrowPayload = JSON.parse(payload);
+    const response: DiceThrowResponse = throwDice(nk, json);
+
+    return JSON.stringify(response);
   } catch (error) {
-    logger.error("An error occured parsing the payload: %s", getErrorMessage(error));
-    return;
+    logger.error("An error occured during dice roll:", getErrorMessage(error));
+    return JSON.stringify(getErrorJson(error));
   }
-
-  //Calling the external server and formatting the results
-  let response: DiceThrowResponse;
-
-  try {
-    response = throwDice(nk, json);
-  } catch (error) {
-    logger.error("An error occured throwing the dice: %s", getErrorMessage(error));
-    return;
-  }
-
-  return JSON.stringify(response);
 };
 
 //This function handles the external call
@@ -50,4 +44,8 @@ const throwDice = (nk: nkruntime.Nakama, payload: DiceThrowPayload): DiceThrowRe
 const getErrorMessage = (error: unknown) => {
   if (error instanceof Error) return error.message;
   return String(error);
+};
+
+const getErrorJson = (error: unknown) => {
+  return { message: error instanceof Error ? error.message : String(error) };
 };
