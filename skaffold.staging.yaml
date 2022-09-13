@@ -20,5 +20,5 @@ build:
 deploy:
   kustomize:
     paths:
-      - ./deployment/local/workloads
+      - ./deployment/staging/workloads
     defaultNamespace: liars-dice-staging
