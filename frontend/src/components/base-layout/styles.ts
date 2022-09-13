@@ -22,6 +22,7 @@ export const LeftSection = styled.section`
 export const MainSection = styled.section`
   height: 100vh;
   width: 62.5vw;
+  overflow: auto;
 `;
 
 export const RightSection = styled.section`

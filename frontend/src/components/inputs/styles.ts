@@ -39,6 +39,7 @@ export const ErrorContainer = styled.div`
   align-items: center;
   padding: 0px;
   gap: 8px;
+  margin-left: 40px;
   margin-right: 4px;
   margin-top: 16px;
 `;

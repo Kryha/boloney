@@ -11,7 +11,7 @@ interface GamePlayersProps {
 export const GamePlayersWrapper = styled.div<GamePlayersProps>`
   padding: 0px;
   width: 12.5vw;
-  background: ${({ isActive, customColor }): string => (isActive ? (customColor || color.white) : (color.white))};
+  background: ${({ isActive, customColor }): string => (isActive ? (customColor || color.white) : (color.lightGrey))};
   height: 14.28vh;
   border-bottom: 1px solid ${color.darkGrey};
 `;

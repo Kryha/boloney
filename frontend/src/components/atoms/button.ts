@@ -21,7 +21,7 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
   background: ${(props): string => props.backgroundColor || color.white};
   color: ${(props): string => props.fontColor || color.black};
   cursor: pointer;
-  padding: 13px 16px;
+  padding: 13px 16px 10px 16px;
   height: 70px;
   ${({ disabled }) => (disabled && `
       color: ${color.darkGrey};

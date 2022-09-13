@@ -52,19 +52,20 @@ export const PrimaryButtonText = styled.h3<TextProps>`
 
 
 export const Span = styled.span`
-  transform-origin: top center;
-  transform-style: preserve-3d;
-  transition: opacity 0.4s, red 0.4s, transform 0.4s;
+  // transform-origin: top center;
+  // transform-style: preserve-3d;
+  // transition: opacity 0.4s, white 0.4s, transform 0.4s;
 `;
 
 
 export const InitialButtonView = styled(Span)`
-  --tw-text-opacity: 1;
-  transform: translateZ(0)
-  transform: translate3d(0, 100%, 0);
-  transition: opacity .4s, red .4s,transform .4s;
-  visibility: visible;
-  height: 70px;
+  // --tw-text-opacity: 1;
+  // transform: translateZ(0)
+  // transform: translate3d(0, 100%, 0);
+  // transition: opacity 0.4s, white 0.4s, transform 0.4s;
+  // visibility: visible;
+  // height: 70px;
+  // display: block;
 `;
 
 export const SecondaryView = styled(Span)`
@@ -77,6 +78,7 @@ export const SecondaryView = styled(Span)`
   transform-origin: bottom center;
   transition: opacity 0.4s, visibility 1ms 0.4s, white 0.4s, transform 0.4s;
   visibility: hidden;
+  display: block;
 `;
 
 export const PrimaryButtonContainer = styled.div<ButtonProps>`
@@ -91,16 +93,13 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
         visibility: visible;
       }
       ${InitialButtonView} {
-        opacity: 0;
         transform: translateZ(0)
         transform: translate3d(0,100%,0);
-        transition: opacity .4s, red .4s,transform .4s;
-        visibility: hidden;
+        transition: opacity 0.4s, white 0.4s,transform 0.4s;
       }
       transform: rotateX(90deg);
     }
-  ` :
-    `${PrimaryButtonText} {
+  ` : `${PrimaryButtonText} {
         color: ${color.mediumGrey};
       }
     `
@@ -130,17 +129,17 @@ export const SecondaryButtonContainer = styled.div<ButtonProps>`
 `;
 
 export const CloseButton = styled(CloseIcon)`
-margin - top: 4px;
+margin-top: 4px;
 width: 20px;
 `;
 
 export const Ellipsis = styled(EllipsisIcon)`
-margin - top: 5px;
+margin-top: 5px;
 width: 20px;
 `;
 
 export const Exit = styled(ExitIcon)`
-margin - top: 2px;
+  margin-top: 2px;
 `;
 
 export const Info = styled(InfoIcon)``;
@@ -157,4 +156,44 @@ export const ButtonContainer = styled.div<ButtonProps>`
     padding: 0px;
   }
   cursor: pointer;
+`;
+
+export const LinkText = styled.a`
+  display: inline;
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  color: currentColor;
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  background-image: linear-gradient(currentColor,currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.2s linear;
+  background-size: 100% 1px;
+`;
+
+export const LinkContainer = styled.span<ButtonProps>`
+  display: inline;
+  position: relative;
+  font-family: ibm-plex-mono;
+  font-size: 16px;
+  line-height: 24px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  background-image: linear-gradient(black, black);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.2s linear;
+  background-size: 100% 1px;
+  margin-left: 8px;
+  :hover {
+    background-color: transparent;
+    background-image: linear-gradient(transparent, transparent);
+    transition: background-size 0.2s linear;
+    // background-size: 100% 1px;
+  }
 `;

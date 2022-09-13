@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Heading4 } from "../../components";
 import { PrimaryButtonContainer } from "../../components/buttons/styles";
 import { color } from "../../design";
+import { ViewProps } from "../../interfaces";
 
 export const InformationContainer = styled.div`
   margin-top: 40px;
@@ -21,6 +22,7 @@ export const AuthContainer = styled.div<AuthProps>`
   display: flex;
   flex-direction: row;
   padding: 0px;
+  margin-top: 30px;
 `;
 
 export const SignInLink = styled.a`
@@ -36,13 +38,14 @@ export const SignInLink = styled.a`
   cursor: pointer;
 `;
 
-export const SignOrJoinContainer = styled.div`
+
+export const SignOrJoinContainer = styled.div<ViewProps>`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   padding: 0px;
-  margin-top: 40px;
+  margin-top: ${(props) => (props.height < 670) ? "-10px" : "40px"};
   ${PrimaryButtonContainer} {
     margin-left: 20px;
   }
