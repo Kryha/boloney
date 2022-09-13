@@ -33,6 +33,8 @@ stages:
               namespace: "liars-dice-staging"
               command: "login"
           - script: |
-              envsubst < deployment/staging/workloads/secrets/backend.template.yaml > deployment/staging/workloads/secrets/backend.yaml
               skaffold run --filename skaffold.staging.yaml
-            displayName: Build and push docker images
+            displayName:
+              Build and push docker images
+
+              # envsubst < deployment/staging/workloads/secrets/backend.template.yaml > deployment/staging/workloads/secrets/backend.yaml
