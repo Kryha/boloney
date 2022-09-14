@@ -5,15 +5,41 @@ import {} from "../../components";
 import { Hands } from "../../components/hand";
 import { LobbyPlayer } from "../../components/lobby-player";
 import { Players } from "../../service/fake-players";
-import { GameName, LobbyWrapper } from "./styles";
+import {
+  GameName,
+  LobbyContainer,
+  LobbyHorizontalLine,
+  LobbyHorizontalLineInitial,
+  LobbyLineContainer,
+  LobbyVerticalLine,
+  LobbyWrapper,
+  WaitForOthersContainer,
+  WaitingText,
+} from "./styles";
 
 export const Lobby: FC = () => {
   return (
-    <LobbyWrapper>
-      {Players.map((player) => (
-        <LobbyPlayer key={player.id} player={player} />
-      ))}
+    <LobbyContainer>
+      <LobbyLineContainer>
+        <LobbyHorizontalLineInitial />
+        <LobbyHorizontalLine />
+        <LobbyHorizontalLine />
+        <LobbyHorizontalLineInitial />
+      </LobbyLineContainer>
+      <LobbyWrapper>
+        {Players.map((player) => (
+          <LobbyPlayer key={player.id} player={player} />
+        ))}
+      </LobbyWrapper>
+      <LobbyLineContainer>
+        <LobbyHorizontalLineInitial />
+        <LobbyHorizontalLine />
+        <LobbyHorizontalLine />
+        <WaitForOthersContainer>
+          <WaitingText>{"Waiting for the other to join..."}</WaitingText>
+        </WaitForOthersContainer>
+      </LobbyLineContainer>
       <GameName>{"liar's dice"}</GameName>
-    </LobbyWrapper>
+    </LobbyContainer>
   );
 };
