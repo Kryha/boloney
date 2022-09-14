@@ -65,7 +65,7 @@ export const Players: Player[] = [
   },
   {
     id: "6",
-    name: "lekker",
+    name: "lekker (you)",
     color: "#91C342",
     avatar: LobsterHand,
     avatarName: "lobster",
