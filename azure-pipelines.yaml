@@ -33,3 +33,5 @@ stages:
               envsubst < deployment/staging/workloads/secrets/backend.template.yaml > deployment/staging/workloads/secrets/backend.yaml
               skaffold run --filename skaffold.staging.yaml
             displayName: Build and push docker images
+            env:
+              DB_PASSWORD: $(DB_PASSWORD)
