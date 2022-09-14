@@ -1,9 +1,6 @@
 import { FC } from "react";
-import { SkeletonHand, SkeletonHandPaint } from "../../assets";
 
-import { text } from "../../assets/text";
 import { handSize } from "../../design/hand";
-import { Heading4 } from "../atoms/text";
 import { HandContainer, HandWrapper, Hand, Shadow, Paint } from "./styles";
 
 interface HandProps {
@@ -11,11 +8,9 @@ interface HandProps {
   paint: string;
   avatarName: string;
   name: string;
-  width?: number;
-  height?: number;
 }
-// TODO: add other things
-export const Hands: FC<HandProps> = ({ avatar, paint, avatarName, name, width = 4, height = 8 }) => {
+
+export const Hands: FC<HandProps> = ({ avatar, paint, avatarName, name }) => {
   const proportions = handSize(avatarName);
 
   return (

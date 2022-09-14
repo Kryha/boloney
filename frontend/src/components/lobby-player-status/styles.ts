@@ -1,11 +1,7 @@
 import styled from "@emotion/styled";
-import { Heading4, Paragraph } from "../atoms";
-import { css, keyframes } from "@emotion/react";
+import { Heading4 } from "../atoms";
+import { keyframes } from "@emotion/react";
 import { color, fontWeight } from "../../design";
-
-interface LobbyPlayerProps {
-  isWaiting: boolean;
-}
 
 export const ellipsis = keyframes`
   to {
@@ -34,7 +30,7 @@ export const Waiting = styled.div`
   }
 `;
 
-export const LobbyPlayerStatusWrapper = styled.div<LobbyPlayerProps>`
+export const LobbyPlayerStatusWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

@@ -70,7 +70,7 @@ export const Players: Player[] = [
     avatar: LobsterHand,
     avatarName: "lobster",
     paint: LobsterHandPaint,
-    connected: true,
+    connected: false,
   },
   {
     id: "7",
@@ -79,6 +79,6 @@ export const Players: Player[] = [
     avatar: SkeletonHand,
     avatarName: "skeleton",
     paint: SkeletonHandPaint,
-    connected: false,
+    connected: true,
   }
 ];

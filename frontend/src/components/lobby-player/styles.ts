@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color } from "../../design";
-import { HandContainer, HandWrapper } from "../hand/styles";
+import { HandWrapper } from "../hand/styles";
 
 interface LobbyPlayerProps {
   isWaiting: boolean;
@@ -21,13 +21,7 @@ export const LobbyPlayerWrapper = styled.div<LobbyPlayerProps>`
   }
   ${HandWrapper} {
     margin-top: 45px;
-    opacity: ${({ isWaiting }) => isWaiting && "0.4"};
-    filter: ${({ isWaiting }) => isWaiting && "blur(1.2px)"};
-  }
-
-  ${HandContainer} {
-    // width: 14.2854vw;
-    // height: 43.1666vh;
-    // transform: scale(0.5);
+    opacity: ${({ isWaiting }) => !isWaiting && "0.4"};
+    filter: ${({ isWaiting }) => !isWaiting && "blur(1.2px)"};
   }
 `;

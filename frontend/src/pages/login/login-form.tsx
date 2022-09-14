@@ -6,7 +6,7 @@ import { Heading1, Heading4, Input, Paragraph, BaseInput } from "../../component
 import { Link, PrimaryButton } from "../../components/buttons";
 import { useViewport } from "../../hooks/use-viewport";
 import { useAuthState } from "../../service/authentication";
-import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignInLink, SignOrJoinContainer } from "./styles";
+import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
   username: string;

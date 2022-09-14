@@ -8,4 +8,6 @@ export const general = {
   logoHere: "logo here",
   menu: "menu",
   info: "info",
+  connected: "connected",
+  waiting: "waiting",
 };
