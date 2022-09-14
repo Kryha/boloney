@@ -17,10 +17,10 @@ spec:
           # TODO: keep an eye on the resources
           resources:
             requests:
-              cpu: 900m
+              cpu: 800m
               memory: 1024Mi
             limits:
-              cpu: 900m
+              cpu: 800m
               memory: 2048Mi
           ports:
             - containerPort: 7351
