@@ -9,16 +9,16 @@ build:
     concurrency: 0
     push: true
   artifacts:
-    - image: localhost:5000/aleo/liars-dice/frontend
+    - image: eu.gcr.io/web3-335312/aleo/liars-dice/frontend
       docker:
         dockerfile: Dockerfile.frontend
         buildArgs:
-          BACKEND_URL: backend.localhost
-    - image: localhost:5000/aleo/liars-dice/backend
+          BACKEND_URL: backend.liars-dice.staging.kryha.dev
+    - image: eu.gcr.io/web3-335312/aleo/liars-dice/backend
       docker:
         dockerfile: Dockerfile.backend
 deploy:
   kustomize:
     paths:
-      - ./deployment/local/workloads
-    defaultNamespace: liars-dice-local
+      - ./deployment/staging/workloads
+    defaultNamespace: liars-dice-staging
