@@ -2,17 +2,29 @@ import { FC } from "react";
 import { SkeletonHand, SkeletonHandPaint } from "../../assets";
 
 import { text } from "../../assets/text";
+import { handSize } from "../../design/hand";
 import { Heading4 } from "../atoms/text";
 import { HandContainer, HandWrapper, Hand, Shadow, Paint } from "./styles";
 
-export const Hands: FC = () => {
+interface HandProps {
+  avatar: string;
+  paint: string;
+  avatarName: string;
+  name: string;
+  width?: number;
+  height?: number;
+}
+// TODO: add other things
+export const Hands: FC<HandProps> = ({ avatar, paint, avatarName, name, width = 4, height = 8 }) => {
+  const proportions = handSize(avatarName);
+
   return (
     <HandWrapper>
-      <HandContainer>
-        <Hand src={SkeletonHand} alt="hand" />
-        <Paint src={SkeletonHandPaint} alt="paint" />
+      <HandContainer width={proportions.width} height={proportions.height} speed={proportions.speed}>
+        <Hand src={avatar} alt={name} />
+        <Paint src={paint} alt={name} />
       </HandContainer>
-      {/* <Shadow /> */}
+      <Shadow smallWidth={proportions.shadowSmallWidth} largeWidth={proportions.shadowLargeWidth} speed={proportions.speed} />
     </HandWrapper>
   );
 };

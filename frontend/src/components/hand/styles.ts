@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 
 export const float = keyframes`
 0% {
@@ -14,62 +14,67 @@ export const float = keyframes`
 `;
 
 export const HandWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: -50px;
 `;
 
-export const Hand = styled.img`
-  width: 210px;
-  height: auto;
-`;
+export const Hand = styled.img``;
 
 export const Paint = styled.img``;
 
-export const shadowAnimation = keyframes`
-50% {
-  margin: 0px;
-  opacity: 0.1;
-  width: 10vh;
+interface ShadowProps {
+  smallWidth: number;
+  largeWidth: number
+  speed: number;
 }
-100% {
-  margin: 0px 20% 0px 20%;
-  opacity: 0.7;
-  width: 15vh;
-}
+
+export const shadowAnimation = (smallWidth: number, largeWidth: number) => keyframes`
+  50% {
+    margin: 0px;
+    opacity: 0.1;
+    width: ${smallWidth}vh;
+  }
+  100% {
+    margin: 0px 20% 0px 20%;
+    opacity: 0.7;
+    width: ${largeWidth}vh;
+  }
 `;
 
-
-export const Shadow = styled.div`
+export const Shadow = styled.div<ShadowProps>`
   position: relative;
   height: 16px;
-  width: 15vh;
+  width: ${({ largeWidth }): string => (`${largeWidth}vh`)};
   background: #999;
   border-radius: 100%;
   margin: 0px 20% 0px 20%;
   opacity: 0.7;
-  animation: ${shadowAnimation} ease 4s infinite;
+  animation: ${({ smallWidth, largeWidth, speed }) => { return css`${shadowAnimation(smallWidth, largeWidth)} ease ${speed || 4}s infinite`; }};
 `;
 
-export const HandContainer = styled.div`
-  width: 30px;
-  height: 60px;
+interface HandContainerProps {
+  width: string;
+  height: string;
+  speed: number;
+}
+
+export const HandContainer = styled.div<HandContainerProps>`
+  width: ${({ width }): string => (width || "clamp(240px, 25vw + 0px, 480px")};
+  height: ${({ height }): string => (height || "clamp(383.76px, 39.98vw + -0.01px, 767.53px)")};
   box-sizing: border-box;
   overflow: hidden;
   transform: translateY(0px);
-  animation: ${float} 4s ease-in-out infinite;
+  animation: ${({ speed }) => { return css`${float} ${speed || 4}s ease-in-out infinite`; }};
   margin-left: -15px;
-  margin-bottom: 30px;
-  ${Hand} {
+  margin-bottom: 10px;
+    ${Hand} {
     width: 100%;
     height: auto;
     position: absolute;
   }
-  ${Paint} {
+    ${Paint} {
     width: 100%;
     height: auto;
     position: absolute;
