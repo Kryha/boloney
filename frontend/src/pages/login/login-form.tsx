@@ -23,9 +23,9 @@ export const LoginForm: FC = () => {
     formState: { errors },
   } = useForm<LoginProps>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const onSubmit = (username: string, password: string) => {
+  const onSubmit = (username: string, password: string, email: string) => {
     console.log("we are here");
-    authenticateUser({ username: username, password: password, email: "email" }); // TODO: use actual email
+    authenticateUser({ username: username, password: password, email: email }); // TODO: use actual email
   };
 
   return (
@@ -34,7 +34,7 @@ export const LoginForm: FC = () => {
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
       </InformationContainer>
-      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
+      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password, data.email))}>
         <FormContainer>
           <Input label={text.loginForm.username} isError={errors.username && errors.username.type === "required"}>
             <BaseInput

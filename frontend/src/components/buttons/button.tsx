@@ -72,7 +72,7 @@ export const ExitButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
 );
 
 export const Link: FC<ButtonProps> = ({ disabled, onClick, text }) => (
-  // <LinkContainer onClick={() => onClick && onClick()} disabled={disabled}>
-  <LinkText>{text}</LinkText>
-  // </LinkContainer>
+  <LinkContainer onClick={() => onClick && onClick()} disabled={disabled}>
+    <LinkText>{text}</LinkText>
+  </LinkContainer>
 );
