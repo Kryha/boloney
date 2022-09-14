@@ -13,9 +13,6 @@ stages:
       - job: build_and_deploy
         displayName: Build Docker images and deploy through Kubernetes
         steps:
-          - script: |
-              echo "##vso[task.setvariable variable=DbPassword]$DB_PASSWORD"
-            displayName: "Set environment variables"
           - script: curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
             displayName: Install Skaffold
           - task: DownloadSecureFile@1
@@ -33,8 +30,6 @@ stages:
               namespace: "liars-dice-staging"
               command: "login"
           - script: |
+              envsubst < deployment/staging/workloads/secrets/backend.template.yaml > deployment/staging/workloads/secrets/backend.yaml
               skaffold run --filename skaffold.staging.yaml
-            displayName:
-              Build and push docker images
-
-              # envsubst < deployment/staging/workloads/secrets/backend.template.yaml > deployment/staging/workloads/secrets/backend.yaml
+            displayName: Build and push docker images
