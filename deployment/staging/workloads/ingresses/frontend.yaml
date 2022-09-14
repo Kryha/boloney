@@ -8,6 +8,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
 spec:
+  tls:
+    - secretName: "liars-dice.staging.kryha.dev"
+      hosts:
+        - "liars-dice.staging.kryha.dev"
   rules:
     - host: "liars-dice.staging.kryha.dev"
       http:
