@@ -1,33 +1,38 @@
-import create from "zustand";
+import { useCallback, useState } from "react";
+import { useAuthState } from "../store/auth";
 
-import { Auth, Player } from "../interfaces";
-import { Players } from "./fake-players";
+export const useAuth = () => {
+  const client = useAuthState((state) => state.client);
+  const authenticated = useAuthState((state) => state.authenticated);
+  const setSocket = useAuthState((state) => state.setSocket);
+  const setSession = useAuthState((state) => state.setSession);
+  const setAuthenticated = useAuthState((state) => state.setAuthenticated);
+  const [isLoading, setIsLoading] = useState(false);
+  const appearOnline = true;
 
-export interface AuthState {
-  user: Player | undefined;
-  authenticateUser: (user: Auth) => void;
-  isAuthenticated?: boolean;
-  isError?: boolean;
-}
+  const authenticateUser = useCallback(
+    async (email: string, password: string) => {
+      if (authenticated) return;
+      try {
+        setIsLoading(true);
+        const session = await client.authenticateEmail(email, password);
+        const socket = client.createSocket();
+        const socketSession = await socket.connect(session, appearOnline);
+        setSocket(socket);
+        setSession(socketSession);
+        setAuthenticated(true);
+      } catch (error) {
+        // TODO: add error handling
+        console.log(error);
+      }
+      setIsLoading(false);
+    },
+    [appearOnline, authenticated, client, setAuthenticated, setSession, setSocket]
+  );
 
-export const useAuthState = create<AuthState>((set => ({
-  user: {
-    id: "",
-    name: "",
-    avatar: "",
-    color: ""
-  },
-  isAuthenticated: false,
-  isError: false,
-  authenticateUser: (user: Auth) => {
-    // TODO: call the sdk
-    const player = Players[0];
-
-    if (player) {
-      set({ user: player, isAuthenticated: true, isError: false });
-    }
-    else {
-      set({ isError: true });
-    }
-  }
-})));
+  return {
+    authenticateUser,
+    isLoading,
+    authenticated,
+  };
+};

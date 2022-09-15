@@ -3187,6 +3187,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@heroiclabs/nakama-js", [\
+        ["npm:2.4.1", {\
+          "packageLocation": "./.yarn/cache/@heroiclabs-nakama-js-npm-2.4.1-42a3ed4bbc-fc25417a56.zip/node_modules/@heroiclabs/nakama-js/",\
+          "packageDependencies": [\
+            ["@heroiclabs/nakama-js", "npm:2.4.1"],\
+            ["js-base64", "npm:3.7.2"],\
+            ["whatwg-fetch", "npm:2.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@humanwhocodes/config-array", [\
         ["npm:0.10.4", {\
           "packageLocation": "./.yarn/cache/@humanwhocodes-config-array-npm-0.10.4-8334b3c6a2-d480e5d57e.zip/node_modules/@humanwhocodes/config-array/",\
@@ -4674,6 +4685,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/babel-plugin", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.2"],\
             ["@emotion/react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.0"],\
             ["@emotion/styled", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.0"],\
+            ["@heroiclabs/nakama-js", "npm:2.4.1"],\
             ["@testing-library/dom", "npm:8.17.1"],\
             ["@testing-library/react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:13.3.0"],\
             ["@testing-library/user-event", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:14.4.3"],\
@@ -8487,6 +8499,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["js-base64", [\
+        ["npm:3.7.2", {\
+          "packageLocation": "./.yarn/cache/js-base64-npm-3.7.2-706fb77a0b-573f28e9a2.zip/node_modules/js-base64/",\
+          "packageDependencies": [\
+            ["js-base64", "npm:3.7.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["js-tokens", [\
         ["npm:4.0.0", {\
           "packageLocation": "./.yarn/cache/js-tokens-npm-4.0.0-0ac852e9e2-8a95213a5a.zip/node_modules/js-tokens/",\
@@ -11098,6 +11119,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["whatwg-encoding", "npm:2.0.0"],\
             ["iconv-lite", "npm:0.6.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["whatwg-fetch", [\
+        ["npm:2.0.4", {\
+          "packageLocation": "./.yarn/cache/whatwg-fetch-npm-2.0.4-24703ef2b1-de7c65a68d.zip/node_modules/whatwg-fetch/",\
+          "packageDependencies": [\
+            ["whatwg-fetch", "npm:2.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\

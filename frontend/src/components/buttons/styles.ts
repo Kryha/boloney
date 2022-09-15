@@ -159,41 +159,29 @@ export const ButtonContainer = styled.div<ButtonProps>`
 `;
 
 export const LinkText = styled.a`
-  display: inline;
-  position: relative;
-  font-family: inherit;
-  font-size: inherit;
-  color: currentColor;
-  background-color: transparent;
-  border: none;
-  text-decoration: none;
-  cursor: pointer;
-  background-image: linear-gradient(currentColor,currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 0.2s linear;
-  background-size: 100% 1px;
-`;
-
-export const LinkContainer = styled.span<ButtonProps>`
-  display: inline;
-  position: relative;
-  font-family: ibm-plex-mono;
+font-family: ibm-plex-mono;
+  font-style: normal;
+  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: black;
-  text-decoration: none;
+  letter-spacing: -0.01em;
+  color: ${color.black};
   cursor: pointer;
-  background-image: linear-gradient(black, black);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 0.2s linear;
-  background-size: 100% 1px;
-  margin-left: 8px;
-  :hover {
-    background-color: transparent;
-    background-image: linear-gradient(transparent, transparent);
-    transition: background-size 0.2s linear;
-    // background-size: 100% 1px;
+    position:relative;
+    text-decoration:none;
+    display:inline-block;
+  &:after {
+    display:block;
+    content: '';
+    border-bottom: solid 1px ${color.black};
+    transform: scaleX(1);
+    transition: transform 250ms ease-in-out;
+    transform-origin: bottom left;
+  }
+  &:hover:after {
+    transform: scaleX(0);
+    transform-origin:0 100%;
   }
 `;
+
+export const LinkContainer = styled.span<ButtonProps>``;

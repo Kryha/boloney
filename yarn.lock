@@ -1771,6 +1771,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@heroiclabs/nakama-js@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "@heroiclabs/nakama-js@npm:2.4.1"
+  dependencies:
+    js-base64: ^3.6.0
+    whatwg-fetch: ^2.0.3
+  checksum: fc25417a5674db95e8334540492fbc5ebf0f01f9f3baab39b34f7f27e9840603614aa3e4220e61a1e6f0ee85bef1e18f131a0c466b596da94e79f1bed6144edb
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.10.4":
   version: 0.10.4
   resolution: "@humanwhocodes/config-array@npm:0.10.4"
@@ -2869,6 +2879,7 @@ __metadata:
     "@emotion/babel-plugin": ^11.10.2
     "@emotion/react": ^11.9.3
     "@emotion/styled": ^11.9.3
+    "@heroiclabs/nakama-js": ^2.4.1
     "@testing-library/dom": ^8.17.1
     "@testing-library/react": ^13.3.0
     "@testing-library/user-event": ^14.4.3
@@ -6011,6 +6022,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-base64@npm:^3.6.0":
+  version: 3.7.2
+  resolution: "js-base64@npm:3.7.2"
+  checksum: 573f28e9a27c3df60096d4d3f551bcb4fcb6d49161cf83396e9bad9b76f94736a70bb70b8808fe834dff2a388f76604ba09d6e153bbf181646e407720139fa5b
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -8227,6 +8245,13 @@ __metadata:
   dependencies:
     iconv-lite: 0.6.3
   checksum: 7087810c410aa9b689cbd6af8773341a53cdc1f3aae2a882c163bd5522ec8ca4cdfc269aef417a5792f411807d5d77d50df4c24e3abb00bb60192858a40cc675
+  languageName: node
+  linkType: hard
+
+"whatwg-fetch@npm:^2.0.3":
+  version: 2.0.4
+  resolution: "whatwg-fetch@npm:2.0.4"
+  checksum: de7c65a68d7d62e2f144a6b30293370b3ad82b65ebcd68f2ac8e8bbe7ede90febd98ba9486b78c1cbc950e0e8838fa5c2727f939899ab3fc7b71a04be52d33a5
   languageName: node
   linkType: hard
 

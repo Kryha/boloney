@@ -5,7 +5,7 @@ import { text } from "../../assets/text";
 import { Heading1, Heading4, Input, Paragraph, BaseInput } from "../../components";
 import { Link, PrimaryButton } from "../../components/buttons";
 import { useViewport } from "../../hooks/use-viewport";
-import { useAuthState } from "../../service/authentication";
+import { useAuth } from "../../service/authentication";
 import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignInLink, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
@@ -15,7 +15,7 @@ interface LoginProps {
 }
 
 export const LoginForm: FC = () => {
-  const authenticateUser = useAuthState((state) => state.authenticateUser);
+  const { authenticateUser } = useAuth();
   const { width, height } = useViewport();
   const {
     register,
@@ -23,9 +23,8 @@ export const LoginForm: FC = () => {
     formState: { errors },
   } = useForm<LoginProps>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const onSubmit = (username: string, password: string) => {
-    console.log("we are here");
-    authenticateUser({ username: username, password: password, email: "email" }); // TODO: use actual email
+  const onSubmit = (username: string, password: string, email: string) => {
+    authenticateUser(username, password, email); // TODO: use actual email
   };
 
   return (
@@ -34,7 +33,7 @@ export const LoginForm: FC = () => {
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
       </InformationContainer>
-      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
+      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password, data.email))}>
         <FormContainer>
           <Input label={text.loginForm.username} isError={errors.username && errors.username.type === "required"}>
             <BaseInput

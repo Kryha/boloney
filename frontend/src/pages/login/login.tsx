@@ -3,15 +3,14 @@ import { FC } from "react";
 import { text } from "../../assets/text";
 import { BaseLayout, Heading3 } from "../../components";
 import { MenuDropdown } from "../../components/top-navigation";
-import { useAuthState } from "../../service/authentication";
+import { useAuth } from "../../service/authentication";
 import { LoginForm } from "./login-form";
 import { LogoContainer } from "./styles";
 
 export const Login: FC = () => {
-  const isLoggedIn = useAuthState((state) => state.isAuthenticated);
-  const user = useAuthState((state) => state.user);
+  const { authenticated } = useAuth();
   // TODO: check if the user is logged in
-  if (isLoggedIn) console.log(`go somewhere ${user?.name}`);
+  if (authenticated) console.log("go somewhere");
 
   return (
     <BaseLayout

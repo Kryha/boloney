@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Heading4 } from "../../components";
-import { PrimaryButtonContainer } from "../../components/buttons/styles";
+import { LinkContainer, PrimaryButtonContainer } from "../../components/buttons/styles";
 import { color } from "../../design";
 import { ViewProps } from "../../interfaces";
 
@@ -48,6 +48,9 @@ export const SignOrJoinContainer = styled.div<ViewProps>`
   margin-top: ${(props) => (props.height < 670) ? "-10px" : "40px"};
   ${PrimaryButtonContainer} {
     margin-left: 20px;
+  }
+  ${LinkContainer} {
+  margin-left: 8px;
   }
 `;
 
