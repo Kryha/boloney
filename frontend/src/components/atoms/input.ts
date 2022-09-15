@@ -21,11 +21,8 @@ export const BaseInput = styled.input<ErrorProps>`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active{
-      -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+  &:-webkit-autofill {
+    -webkit-background-clip: text;
   }
   &::placeholder {
     font-family: ibm-plex-mono;

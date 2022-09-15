@@ -15,7 +15,7 @@ export const useAuth = () => {
       if (authenticated) return;
       try {
         setIsLoading(true);
-        const session = await client.authenticateEmail(email, password);
+        const session = await client.authenticateEmail(email, password, true);
         const socket = client.createSocket();
         const socketSession = await socket.connect(session, appearOnline);
         setSocket(socket);
