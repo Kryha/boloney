@@ -9,7 +9,7 @@ import { useAuth } from "../../service/authentication";
 import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignInLink, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
-  username: string;
+  // username: string;
   password: string;
   email: string;
 }
@@ -36,14 +36,14 @@ export const LoginForm: FC = () => {
       </InformationContainer>
       <form onSubmit={handleSubmit((data) => onSubmit(data.email, data.password))}>
         <FormContainer>
-          <Input label={text.loginForm.username} isError={errors.username && errors.username.type === "required"}>
+          {/* <Input label={text.loginForm.username} isError={errors.username && errors.username.type === "required"}>
             <BaseInput
               isError={errors.username && errors.username.type === "required"}
               type="text"
               defaultValue=""
               {...register("username", { required: true })}
             />
-          </Input>
+          </Input> */}
           <AuthContainer width={width}>
             {/* TODO: add validation */}
             <Input label={text.loginForm.email} isError={errors.email && errors.email.type === "required"}>
