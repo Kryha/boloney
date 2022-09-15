@@ -14,7 +14,6 @@ spec:
       containers:
         - name: backend
           imagePullPolicy: Always
-          # TODO: keep an eye on the resources
           resources:
             requests:
               cpu: 470m
@@ -24,6 +23,7 @@ spec:
               memory: 2048Mi
           ports:
             - containerPort: 7351
+            - containerPort: 7350
           env:
             - name: POD_NAMESPACE
               valueFrom:
