@@ -14,7 +14,7 @@ export interface AuthState {
 }
 
 export const useAuthState = create<AuthState>()((set) => ({
-  client: new Client("defaultKey", "backend.localhost", "7350", useSSL),
+  client: new Client("defaultkey", "backend.localhost", "7350", useSSL),
   authenticated: false,
 
   setSocket: (socket: Socket) => set(() => ({ socket: socket })),
