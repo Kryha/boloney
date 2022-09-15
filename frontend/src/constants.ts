@@ -1,3 +1,5 @@
+export const BACKEND_URL = import.meta.env.BACKEND_URL || "backend.localhost";
+
 export const SMALL_VIEWPORT_HEIGHT = 800;
 // TODO: Add real game time
 export const GAME_TIME_MINUTES = 1;

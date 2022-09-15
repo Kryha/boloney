@@ -4,11 +4,19 @@ metadata:
   name: backend
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
 spec:
+  tls:
+    - secretName: "backend.liars-dice.staging.kryha.dev"
+      hosts:
+        - "backend.liars-dice.staging.kryha.dev"
+    - secretName: "api.liars-dice.staging.kryha.dev"
+      hosts:
+        - "api.liars-dice.staging.kryha.dev"
   rules:
-    - host: "backend.localhost"
+    - host: "backend.liars-dice.staging.kryha.dev"
       http:
         paths:
           - path: "/(.*)"
@@ -18,13 +26,13 @@ spec:
                 name: backend
                 port:
                   name: dashboard
-    - host: "api.localhost"
+    - host: "api.liars-dice.staging.kryha.dev"
       http:
         paths:
           - path: "/(.*)"
             pathType: Prefix
             backend:
               service:
-                name: backend
+                name: api
                 port:
                   name: api

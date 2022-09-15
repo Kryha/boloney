@@ -1,30 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: backend
+  name: frontend
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
 spec:
+  tls:
+    - secretName: "liars-dice.staging.kryha.dev"
+      hosts:
+        - "liars-dice.staging.kryha.dev"
   rules:
-    - host: "backend.localhost"
+    - host: "liars-dice.staging.kryha.dev"
       http:
         paths:
           - path: "/(.*)"
             pathType: Prefix
             backend:
               service:
-                name: backend
+                name: frontend
                 port:
-                  name: dashboard
-    - host: "api.localhost"
-      http:
-        paths:
-          - path: "/(.*)"
-            pathType: Prefix
-            backend:
-              service:
-                name: backend
-                port:
-                  name: api
+                  name: frontend

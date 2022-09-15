@@ -1,19 +1,13 @@
 {
   "compilerOptions": {
-    "types": ["./nakama"],
-    "composite": true,
-    "target": "ES5",
-    "useDefineForClassFields": true,
-    "lib": ["ES5", "DOM"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "outFile": "./build/index.js"
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "removeComments": true,
+    "target": "es5",
+    "module": "ESNext",
+    "strict": true
   },
-  "include": ["src"]
+  "include": ["src", "nakama"],
+  "exclude": ["node_modules", "build"]
 }
