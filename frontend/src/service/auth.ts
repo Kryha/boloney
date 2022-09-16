@@ -1,38 +1,38 @@
 import { useCallback, useState } from "react";
+import { APPEAR_ONLINE } from "../constants";
 import { useAuthState } from "../store/auth";
 
 export const useAuth = () => {
   const client = useAuthState((state) => state.client);
-  const authenticated = useAuthState((state) => state.authenticated);
+  const isAuthenticated = useAuthState((state) => state.isAuthenticated);
   const setSocket = useAuthState((state) => state.setSocket);
   const setSession = useAuthState((state) => state.setSession);
-  const setAuthenticated = useAuthState((state) => state.setAuthenticated);
+  const setIsAuthenticated = useAuthState((state) => state.setIsAuthenticated);
   const [isLoading, setIsLoading] = useState(false);
-  const appearOnline = true;
 
   const authenticateUser = useCallback(
     async (email: string, password: string) => {
-      if (authenticated) return;
+      if (isAuthenticated) return;
       try {
         setIsLoading(true);
-        const session = await client.authenticateEmail(email, password, true);
+        const session = await client.authenticateEmail(email, password, APPEAR_ONLINE);
         const socket = client.createSocket();
-        const socketSession = await socket.connect(session, appearOnline);
+        const socketSession = await socket.connect(session, true);
         setSocket(socket);
         setSession(socketSession);
-        setAuthenticated(true);
+        setIsAuthenticated(true);
       } catch (error) {
         // TODO: add error handling
         console.log(error);
       }
       setIsLoading(false);
     },
-    [appearOnline, authenticated, client, setAuthenticated, setSession, setSocket]
+    [isAuthenticated, client, setIsAuthenticated, setSession, setSocket]
   );
 
   return {
     authenticateUser,
     isLoading,
-    authenticated,
+    isAuthenticated,
   };
 };

@@ -13,7 +13,7 @@ export const AppRoutes: FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
       <MainContainer>
         <Routes>
-          <Route path={routes.root} element={<Login />} />
+          <Route path={routes.createAccount} element={<Login />} />
           <Route path="*" element={<ErrorView />} />
         </Routes>
       </MainContainer>
