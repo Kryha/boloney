@@ -60,7 +60,7 @@ export const SecondaryView = styled.span`
   top: 0;
   transform: rotateX(-90deg) translate3d(0, 50%, 0);
   transform-origin: bottom center;
-  transition: opacity 0.4s, visibility 1ms 0.4s, white 0.4s, transform 0.4s;
+  transition: opacity 0.4s, visibility 1ms 0.4s, ${color.white} 0.4s, transform 0.4s;
   visibility: hidden;
   display: block;
 `;
@@ -75,13 +75,13 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
     :hover {
       ${SecondaryView} {
         opacity: 1;
-        transition: opacity 0.4s, white 0.4s, transform 0.4s;
+        transition: opacity 0.4s, ${color.white} 0.4s, transform 0.4s;
         visibility: visible;
       }
       ${InitialButtonView} {
         transform: translateZ(0)
         transform: translate3d(0,100%,0);
-        transition: opacity 0.4s, white 0.4s,transform 0.4s;
+        transition: opacity 0.4s, ${color.white} 0.4s,transform 0.4s;
       }
       transform: rotateX(90deg);
     }

@@ -4,6 +4,8 @@ export const API_PORT = "80";
 export const SERVER_KEY = "defaultkey";
 
 export const SMALL_VIEWPORT_HEIGHT = 800;
+export const SMALL_VIEWPORT = 670;
+
 // TODO: Add real game time
 export const GAME_TIME_MINUTES = 1;
 export const GAME_TIME_SECONDS = 30;
