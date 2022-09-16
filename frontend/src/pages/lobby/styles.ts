@@ -24,10 +24,10 @@ export const LobbyWrapper = styled.div`
 export const LobbyLineContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: clamp(16px, 2.29vw + -6px, 38px);
   width: 100%;
   background: linear-gradient(to right, ${color.mediumGrey} 1px, transparent 1px);
-  background-size: 36px;
+  background-size: clamp(16px, 2.29vw + -6px, 38px);
 `;
 
 export const LobbyHorizontalLine = styled.div`
@@ -64,7 +64,7 @@ left: 0;
 right: 0;
 text-align: center;
 width: 358.5px;
-height: 74px;
+height: clamp(34px, 4.58vw + -10px, 78px);
 `;
 
 export const WaitingText = styled.h3`
@@ -74,5 +74,5 @@ export const WaitingText = styled.h3`
   font-size: 16px;
   line-height: 16px;
   color: #292929;
-  margin-top: 10px;
+  margin-top: clamp(-5px, 1.56vw + -20px, 10px);
 `;

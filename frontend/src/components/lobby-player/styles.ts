@@ -15,7 +15,7 @@ export const LobbyPlayerWrapper = styled.div<LobbyPlayerProps>`
   border-bottom: 1px solid ${color.mediumGrey};
   border-right: 1px solid ${color.mediumGrey};
   width: clamp(150px, 13.13vw + 24px, 276px);
-  height: clamp(360px, 21.35vw + 155px, 565px);
+  height: clamp(340px, 15.63vw + 190px, 490px);
   :nth-last-of-type(1) {
    border-right: none;
   }
