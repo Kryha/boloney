@@ -26,7 +26,7 @@ export const CountdownTimer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0px ${margins.medium0} 0px ${margins.medium0};
-  gap: ${margins.small0};
+  gap: ${margins.small1};
   height: 100%;
 `;
 
@@ -40,6 +40,6 @@ export const ExitButton = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0px ${margins.medium0} 0px ${margins.medium0};
-  gap: ${margins.small0};
+  gap: ${margins.small1};
   height: 100%;
 `;

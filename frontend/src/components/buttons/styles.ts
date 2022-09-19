@@ -149,8 +149,8 @@ export const ButtonContainer = styled.div<ButtonProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 13px ${margins.small3} 13px ${margins.small2};
-  gap: ${margins.small0};
+  padding: 13px ${margins.small5} 13px ${margins.small4};
+  gap: ${margins.small1};
   height: 100%;
     ${SecondaryButtonBase} {
     padding: 0px;

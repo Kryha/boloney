@@ -36,7 +36,7 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
 export const SecondaryButtonBase = styled.button<ButtonProps>`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
-  font-size: ${fontSize.small1};
+  font-size: ${fontSize.small2};
   line-height: 24px;
   -webkit-appearance: none;
   -moz-appearance: none;

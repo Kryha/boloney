@@ -20,5 +20,5 @@ export const ButtonContainer = styled.div`
   flex-direction: row;
   align-items: flex-start;
   padding-top: ${margins.large0};
-  gap: ${margins.small0};
+  gap: ${margins.small1};
 `;
