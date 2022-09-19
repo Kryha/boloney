@@ -13,7 +13,7 @@ interface InputProps {
 
 export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage }) => {
   return (
-    <InputContainer isError={isError}>
+    <InputContainer>
       <LabelContainer>
         <InputLabel>{label}</InputLabel>
       </LabelContainer>

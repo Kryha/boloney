@@ -8,6 +8,8 @@ import {
   Exit,
   Info,
   InitialButtonView,
+  LinkContainer,
+  LinkText,
   PrimaryButtonContainer,
   PrimaryButtonText,
   PrimaryButtonWrapper,
@@ -67,4 +69,10 @@ export const ExitButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
     <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
     <Exit />
   </ButtonContainer>
+);
+
+export const Link: FC<ButtonProps> = ({ disabled, onClick, text }) => (
+  <LinkContainer onClick={() => onClick && onClick()} disabled={disabled}>
+    <LinkText>{text}</LinkText>
+  </LinkContainer>
 );

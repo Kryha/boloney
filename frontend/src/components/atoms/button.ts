@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, fontSize, fontWeight } from "../../design";
+import { color, fontSize, fontWeight, margins } from "../../design";
 
 interface ButtonProps {
   backgroundColor?: string;
@@ -21,9 +21,8 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
   background: ${(props): string => props.backgroundColor || color.white};
   color: ${(props): string => props.fontColor || color.black};
   cursor: pointer;
-  padding: 13px 16px;
+  padding: 13px ${margins.small2} ${margins.small1} ${margins.small2};
   height: 70px;
-  backdrop-filter: blur(10px);
   ${({ disabled }) => (disabled && `
       color: ${color.darkGrey};
       background: transparent;

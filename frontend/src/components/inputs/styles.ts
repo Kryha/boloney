@@ -2,13 +2,8 @@ import styled from "@emotion/styled";
 
 import { color, fontSize, fontWeight, margins } from "../../design";
 import { ErrorIcon } from "../../assets/icons";
-import { BaseInput } from "../atoms/input";
 
-interface ErrorProps {
-  isError: boolean;
-}
-
-export const InputContainer = styled.div<ErrorProps>`
+export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -16,14 +11,10 @@ export const InputContainer = styled.div<ErrorProps>`
   isolation: isolate;
   position: relative;
   flex: 1;
-  ${BaseInput} {
-    outline: 1px solid ${({ isError }) => (isError && color.red)};
-  }
 `;
 
 export const InputLabel = styled.h3`
   font-family: ibm-plex-mono;
-  font-style: normal;
   font-weight: ${fontWeight.bolder};
   font-size: ${fontSize.small1};
   line-height: 24px;
@@ -47,6 +38,7 @@ export const ErrorContainer = styled.div`
   align-items: center;
   padding: 0px;
   gap: ${margins.small0};
+  margin-left: ${margins.large0};
   margin-right: 4px;
   margin-top: ${margins.small2};
 `;

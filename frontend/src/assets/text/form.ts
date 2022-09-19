@@ -7,4 +7,5 @@ export const loginForm = {
   join: "join",
   username: "username",
   password: "password",
+  email: "email",
 };
