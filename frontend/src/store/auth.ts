@@ -1,8 +1,6 @@
 import create from "zustand";
 import { Session, Client, Socket } from "@heroiclabs/nakama-js";
-import { API_PORT, API_URL, SERVER_KEY } from "../constants";
-
-const useSSL = false;
+import { API_PORT, API_URL, SERVER_KEY, USE_SSL } from "../constants";
 
 export interface AuthState {
   client: Client;
@@ -15,7 +13,7 @@ export interface AuthState {
 }
 
 export const useAuthState = create<AuthState>()((set) => ({
-  client: new Client(SERVER_KEY, API_URL, API_PORT, useSSL),
+  client: new Client(SERVER_KEY, API_URL, API_PORT, USE_SSL),
   isAuthenticated: false,
 
   setSocket: (socket: Socket) => set(() => ({ socket: socket })),

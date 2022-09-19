@@ -23,6 +23,9 @@ export const LoginForm: FC = () => {
     formState: { errors },
   } = useForm<LoginProps>({ mode: "onChange", reValidateMode: "onChange" });
 
+  const emailIsRequiredError = errors.email && errors.email.type === "required";
+  const passwordMinimumError = errors.password && errors.password.type === "min";
+
   const onSubmit = (email: string, password: string) => {
     authenticateUser(email, password);
   };
@@ -37,20 +40,15 @@ export const LoginForm: FC = () => {
         <FormContainer>
           <AuthContainer width={width}>
             {/* TODO: remove email */}
-            <Input label={text.loginForm.email} isError={errors.email && errors.email.type === "required"}>
-              <BaseInput
-                isError={errors.email && errors.email.type === "required"}
-                type="text"
-                defaultValue=""
-                {...register("email", { required: true })}
-              />
+            <Input label={text.loginForm.email} isError={emailIsRequiredError}>
+              <BaseInput isError={emailIsRequiredError} type="text" defaultValue="" {...register("email", { required: true })} />
             </Input>
-            <Input label={text.loginForm.password} isError={errors.password && errors.password.type === "min"}>
+            <Input label={text.loginForm.password} isError={passwordMinimumError}>
               <BaseInput
                 type="password"
                 defaultValue=""
                 {...register("password", { required: true, min: MINIMUM_PASSWORD_LENGTH })}
-                isError={errors.password && errors.password.type === "min"}
+                isError={passwordMinimumError}
               />
             </Input>
           </AuthContainer>
