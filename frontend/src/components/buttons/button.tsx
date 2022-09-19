@@ -1,10 +1,9 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { color } from "../../design";
 import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
 import {
   ButtonContainer,
   CloseButton,
-  Ellipsis,
   Exit,
   Info,
   InitialButtonView,
@@ -24,6 +23,10 @@ interface ButtonProps {
   text?: string;
   isOpen?: boolean;
   type?: "button" | "submit" | "reset";
+}
+
+interface DropdownButtonProps extends ButtonProps {
+  icon: ReactNode;
 }
 
 export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text, type = "button" }) => (
@@ -50,10 +53,10 @@ export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, text }) =>
   </SecondaryButtonContainer>
 );
 
-export const MenuButton: FC<ButtonProps> = ({ disabled, onClick, text, isOpen }) => (
+export const DropdownButton: FC<DropdownButtonProps> = ({ disabled, onClick, text, isOpen, icon }) => (
   <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
-    {isOpen ? <Ellipsis /> : <CloseButton />}
+    {isOpen ? icon : <CloseButton />}
   </ButtonContainer>
 );
 

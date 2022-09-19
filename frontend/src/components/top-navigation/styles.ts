@@ -46,9 +46,9 @@ export const CountdownTimer = styled.div<TimerProps>`
   }
 `;
 
-export const MenuContainer = styled.div``;
+export const DropdownContainer = styled.div``;
 
-export const MenuWrapper = styled.div`
+export const DropdownWrapper = styled.div`
   background: ${color.lightGrey};
   display: flex;
   flex-direction: column;
@@ -56,11 +56,11 @@ export const MenuWrapper = styled.div`
   padding: 0px;
 `;
 
-interface MenuProps {
+interface DropdownProps {
   isHidden: boolean;
 }
 
-export const ChildrenContainer = styled.div<MenuProps>`
+export const ChildrenContainer = styled.div<DropdownProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-end;

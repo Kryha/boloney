@@ -1,27 +1,30 @@
 import { FC, ReactNode } from "react";
 
-import { MenuButton } from "../buttons";
-import { ChildrenContainer, MenuContainer, MenuWrapper } from "./styles";
+import { DropdownButton } from "../buttons";
+import { ChildrenContainer, DropdownContainer, DropdownWrapper } from "./styles";
 
 interface Props {
   children: ReactNode;
   isActive: boolean;
+
+  buttonIcon: ReactNode;
   buttonText: string;
+
   expand: () => void;
   setHover?: (hover: boolean) => void;
 }
 
-export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, buttonText }) => {
+export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, buttonText, buttonIcon }) => {
   return (
-    <MenuWrapper>
-      <MenuContainer
+    <DropdownWrapper>
+      <DropdownContainer
         onClick={() => expand()}
         onMouseEnter={() => setHover && setHover(true)}
         onMouseLeave={() => setHover && setHover(false)}
       >
-        <MenuButton text={buttonText} isOpen={!isActive} />
-      </MenuContainer>
+        <DropdownButton text={buttonText} isOpen={!isActive} icon={buttonIcon} />
+      </DropdownContainer>
       <ChildrenContainer isHidden={!isActive}>{children}</ChildrenContainer>
-    </MenuWrapper>
+    </DropdownWrapper>
   );
 };
