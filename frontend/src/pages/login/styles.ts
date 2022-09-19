@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Heading4 } from "../../components";
 import { LinkContainer, PrimaryButtonContainer } from "../../components/buttons/styles";
-import { SMALL_VIEWPORT } from "../../constants";
+import { SMALL_VIEWPORT_WIDTH } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../interfaces";
 
@@ -32,7 +32,7 @@ export const SignOrJoinContainer = styled.div<ViewProps>`
   justify-content: flex-end;
   align-items: center;
   padding: 0px;
-  margin-top: ${(props) => (props.height < SMALL_VIEWPORT) ? "-10px" : margins.large0};
+  margin-top: ${(props) => (props.height < SMALL_VIEWPORT_WIDTH) ? "-10px" : margins.large0};
   ${PrimaryButtonContainer} {
     margin-left: ${margins.small3};
   }
