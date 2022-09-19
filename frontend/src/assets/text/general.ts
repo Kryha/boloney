@@ -6,6 +6,7 @@ export const general = {
   amount: "amount",
   pips: "pips",
   logoHere: "logo here",
+  rules: "rules",
   menu: "menu",
   info: "info",
 };

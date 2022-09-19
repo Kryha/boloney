@@ -1,29 +1,22 @@
-import { FC, useState } from "react";
+import { FC } from "react";
+
 import { text } from "../../assets";
-import { ExitButton, InfoButton, MenuButton } from "../buttons";
-import { ChildrenContainer, MenuContainer, MenuWrapper } from "./styles";
+import { ExitButton, InfoButton } from "../buttons";
+import { Dropdown } from "./dropdown";
+import { ActiveDropdown } from "./top-navigation";
 
 interface MenuDropdownProps {
   setHover?: (hover: boolean) => void;
+  isActive: boolean;
+  setActiveDropdown: (dropdown: ActiveDropdown) => void;
 }
 
-export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover }) => {
-  const [toggleMenu, setToggleMenu] = useState<boolean>(true);
-
+export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown }) => {
   return (
-    <MenuWrapper>
-      <MenuContainer
-        onClick={() => setToggleMenu(!toggleMenu)}
-        onMouseEnter={() => setHover && setHover(true)}
-        onMouseLeave={() => setHover && setHover(false)}
-      >
-        <MenuButton text={text.general.menu} isOpen={toggleMenu} />
-      </MenuContainer>
-      <ChildrenContainer isHidden={toggleMenu}>
-        {/* TODO: add onclick */}
-        <InfoButton text={text.general.info} />
-        <ExitButton text={text.general.exit} />
-      </ChildrenContainer>
-    </MenuWrapper>
+    <Dropdown setHover={setHover} isActive={isActive} expand={() => setActiveDropdown("menu")} buttonText={text.general.menu}>
+      {/* TODO: add onclick */}
+      <InfoButton text={text.general.info} />
+      <ExitButton text={text.general.exit} />
+    </Dropdown>
   );
 };

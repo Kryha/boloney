@@ -14,7 +14,7 @@ export const TopNavigationSection = styled.section`
 export const Divider = styled.div`
   height: 50px;
   width: 1px;
-  background: ${color.black};
+  background: ${color.mediumGrey};
 `;
 
 export const Timer = styled(TimerIcon)`
@@ -37,11 +37,11 @@ export const CountdownTimer = styled.div<TimerProps>`
     background: ${color.darkGrey};
   }
   ${Paragraph} {
-    color: ${({ isHovered }) => (isHovered && `${color.mediumGrey}`)};
+    color: ${({ isHovered }) => isHovered && `${color.mediumGrey}`};
   }
   ${Timer} {
     path {
-      fill: ${({ isHovered }) => (isHovered && `${color.mediumGrey}`)};
+      fill: ${({ isHovered }) => isHovered && `${color.mediumGrey}`};
     }
   }
 `;
@@ -65,5 +65,5 @@ export const ChildrenContainer = styled.div<MenuProps>`
   flex-direction: column;
   align-items: flex-end;
   padding: 0px;
-  display: ${({ isHidden }) => (isHidden && "none")};
+  display: ${({ isHidden }) => isHidden && "none"};
 `;
