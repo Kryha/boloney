@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+
 import { TimerIcon } from "../../assets/icons";
 import { color, margins } from "../../design";
-import { Paragraph } from "../atoms";
+import { Heading6, ListItem, Paragraph } from "../atoms";
 
 export const TopNavigationSection = styled.section`
   display: flex;
@@ -67,3 +68,15 @@ export const ChildrenContainer = styled.div<DropdownProps>`
   padding: 0px;
   display: ${({ isHidden }) => isHidden && "none"};
 `;
+
+export const RulesContainer = styled.div`
+  padding: 20px;
+`;
+
+export const RulesSectionTitle = styled(Heading6)`
+  text-transform: uppercase;
+`;
+
+export const RulesSection = styled.ol``;
+
+export const RulesSectionContent = styled(ListItem)``;

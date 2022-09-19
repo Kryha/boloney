@@ -2,7 +2,9 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { InfoIcon } from "../../assets/icons";
+import { ColorSpan } from "../atoms";
 import { Dropdown } from "./dropdown";
+import { RulesContainer, RulesSection, RulesSectionContent, RulesSectionTitle } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
 
 interface Props {
@@ -20,7 +22,30 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
       buttonText={text.general.rules}
       buttonIcon={<InfoIcon />}
     >
-      <>Rules...</>
+      <RulesContainer>
+        {/* basic */}
+        <RulesSectionTitle>{text.rules.basicRuleset}</RulesSectionTitle>
+        <RulesSection>
+          <RulesSectionContent>
+            {text.rules.basic1}
+            <ColorSpan customColor="darkGrey">{text.rules.basic1Notes}</ColorSpan>
+          </RulesSectionContent>
+        </RulesSection>
+
+        {/* round */}
+        <RulesSectionTitle>{text.rules.roundRuleset}</RulesSectionTitle>
+        <RulesSection>
+          <RulesSectionContent>{text.rules.round1}</RulesSectionContent>
+        </RulesSection>
+
+        {/* turn */}
+        <RulesSectionTitle>{text.rules.turnRuleset}</RulesSectionTitle>
+        <RulesSection>
+          <RulesSectionContent>{text.rules.turn1}</RulesSectionContent>
+          <RulesSectionContent>{text.rules.turn2}</RulesSectionContent>
+          <RulesSectionContent>{text.rules.turn3}</RulesSectionContent>
+        </RulesSection>
+      </RulesContainer>
     </Dropdown>
   );
 };
