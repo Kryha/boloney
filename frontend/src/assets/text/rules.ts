@@ -14,5 +14,5 @@ export const rules = {
   turn2: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   turn3: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
-  seeAvailablePowerUps: "see available power-ups",
+  seeAvailablePowerUps: "See available power-ups",
 };

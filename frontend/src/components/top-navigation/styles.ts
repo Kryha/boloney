@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { TimerIcon } from "../../assets/icons";
 import { color, margins } from "../../design";
 import { Heading6, ListItem, Paragraph } from "../atoms";
+import { Link } from "../buttons";
 
 export const TopNavigationSection = styled.section`
   display: flex;
@@ -73,10 +74,22 @@ export const RulesContainer = styled.div`
   padding: 20px;
 `;
 
-export const RulesSectionTitle = styled(Heading6)`
-  text-transform: uppercase;
+export const RulesSection = styled.div`
+  margin-bottom: 60px;
 `;
 
-export const RulesSection = styled.ol``;
+export const RulesSectionTitle = styled(Heading6)`
+  text-transform: uppercase;
+  margin-bottom: ${margins.small1};
+`;
 
 export const RulesSectionContent = styled(ListItem)``;
+
+export const RulesList = styled.ol`
+  ${RulesSectionContent}:not(:last-child) {
+    margin-bottom: ${margins.small2};
+  }
+  margin-bottom: ${margins.small1};
+`;
+
+export const RulesLink = styled(Link)``;
