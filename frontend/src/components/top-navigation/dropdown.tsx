@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 
 import { DropdownButton } from "../buttons";
-import { ChildrenContainer, DropdownContainer, DropdownWrapper } from "./styles";
+import { ChildrenContainer, ButtonContainer, DropdownWrapper } from "./styles";
 
 interface Props {
   children: ReactNode;
@@ -17,13 +17,14 @@ interface Props {
 export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, buttonText, buttonIcon }) => {
   return (
     <DropdownWrapper>
-      <DropdownContainer
+      <ButtonContainer
+        isActive={isActive}
         onClick={() => expand()}
         onMouseEnter={() => setHover && setHover(true)}
         onMouseLeave={() => setHover && setHover(false)}
       >
         <DropdownButton text={buttonText} isOpen={!isActive} icon={buttonIcon} />
-      </DropdownContainer>
+      </ButtonContainer>
       <ChildrenContainer isHidden={!isActive}>{children}</ChildrenContainer>
     </DropdownWrapper>
   );

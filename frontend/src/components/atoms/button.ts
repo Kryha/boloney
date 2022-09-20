@@ -9,6 +9,7 @@ interface ButtonProps {
 }
 
 export const PrimaryButtonBase = styled.button<ButtonProps>`
+  user-select: none;
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.regular};
   font-size: 60px;
@@ -23,17 +24,19 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
   cursor: pointer;
   padding: 13px ${margins.small2} ${margins.small1} ${margins.small2};
   height: 70px;
-  ${({ disabled }) => (disabled && `
+  ${({ disabled }) =>
+    disabled &&
+    `
       color: ${color.darkGrey};
       background: transparent;
       && {
         cursor: default;
       }
-    `
-  )};
+    `};
 `;
 
 export const SecondaryButtonBase = styled.button<ButtonProps>`
+  user-select: none;
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
   font-size: ${fontSize.small1};
@@ -47,12 +50,13 @@ export const SecondaryButtonBase = styled.button<ButtonProps>`
     text-transform: capitalize;
   }
   cursor: pointer;
-  cursor: ${({ disabled }) => (!disabled && "pointer")};
-  ${({ disabled }) => (disabled && `
+  cursor: ${({ disabled }) => !disabled && "pointer"};
+  ${({ disabled }) =>
+    disabled &&
+    `
       color: ${color.darkGrey};
       && {
         cursor: default;
       }
-    `
-  )};
+    `};
 `;

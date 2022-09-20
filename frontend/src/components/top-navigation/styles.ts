@@ -11,7 +11,6 @@ export const TopNavigationSection = styled.section`
   width: 100%;
   justify-content: flex-end;
   position: absolute;
-  z-index: ${zIndex.onTop};
 `;
 
 export const Divider = styled.div`
@@ -49,10 +48,18 @@ export const CountdownTimer = styled.div<TimerProps>`
   }
 `;
 
-export const DropdownContainer = styled.div``;
+interface ButtonContainerProps {
+  isActive?: boolean;
+}
+
+export const ButtonContainer = styled.div<ButtonContainerProps>`
+  background: ${color.lightGrey};
+  border: 1px solid ${({ isActive }) => (isActive ? color.black : color.lightGrey)};
+
+  z-index: ${({ isActive }) => (isActive ? zIndex.onTop : zIndex.behind)};
+`;
 
 export const DropdownWrapper = styled.div`
-  background: ${color.lightGrey};
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -69,6 +76,8 @@ export const ChildrenContainer = styled.div<DropdownProps>`
   align-items: flex-end;
   padding: 0px;
   display: ${({ isHidden }) => isHidden && "none"};
+  z-index: ${zIndex.onTop};
+  background: ${color.lightGrey};
 `;
 
 export const RulesContainer = styled.div`
