@@ -1,9 +1,10 @@
 import { FC, useState } from "react";
 
-import { TopNavigationSection, CountdownTimer, Divider, Timer } from "./styles";
+import { TopNavigationSection, CountdownTimer, Timer } from "./styles";
 import { MenuDropdown } from "./menu";
 import { RulesDropdown } from "./rules";
 import { useUIState } from "../../store/ui";
+import { VerticalDivider } from "../atoms";
 
 interface Props {
   isInGame?: boolean;
@@ -34,11 +35,11 @@ export const TopNavigation: FC<Props> = ({ isInGame }) => {
           <CountdownTimer isHovered={hover}>
             <Timer />
           </CountdownTimer>
-          <Divider />
+          <VerticalDivider />
         </>
       )}
       <RulesDropdown setHover={setHover} isActive={activeDropdown === "rules"} setActiveDropdown={handleDropdownClick} />
-      <Divider />
+      <VerticalDivider />
       <MenuDropdown setHover={setHover} isActive={activeDropdown === "menu"} setActiveDropdown={handleDropdownClick} />
     </TopNavigationSection>
   );

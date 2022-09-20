@@ -13,18 +13,6 @@ export const TopNavigationSection = styled.section`
   position: absolute;
 `;
 
-export const Divider = styled.div`
-  height: 50px;
-  width: 1px;
-  background: ${color.mediumGrey};
-`;
-
-export const HorizonalDivider = styled.div`
-  height: 1px;
-  width: 100%;
-  background: ${color.mediumGrey};
-`;
-
 export const Timer = styled(TimerIcon)`
   margin-top: 2px;
 `;

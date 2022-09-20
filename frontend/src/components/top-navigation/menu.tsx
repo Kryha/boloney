@@ -1,10 +1,11 @@
 import { FC } from "react";
 
 import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
+import { HorizonalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
 import { Dropdown } from "./dropdown";
-import { HorizonalDivider, MenuContainer } from "./styles";
+import { MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
 
 interface MenuDropdownProps {
