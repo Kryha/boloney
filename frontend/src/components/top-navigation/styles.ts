@@ -64,11 +64,7 @@ interface DropdownProps {
   isHidden: boolean;
 }
 
-export const ChildrenContainer = styled.div<DropdownProps>`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 0px;
+export const ChildrenContainer = styled(DropdownWrapper)<DropdownProps>`
   display: ${({ isHidden }) => isHidden && "none"};
   z-index: ${zIndex.onTop};
   background: ${color.lightGrey};
