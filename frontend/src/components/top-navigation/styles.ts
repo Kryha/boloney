@@ -72,6 +72,10 @@ export const ChildrenContainer = styled.div<DropdownProps>`
 `;
 
 export const RulesContainer = styled.div`
+  position: absolute;
+  background: ${color.lightGrey};
+  width: 100%;
+  right: 0;
   padding: 20px;
 `;
 

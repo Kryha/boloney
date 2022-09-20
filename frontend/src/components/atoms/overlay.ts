@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { zIndex } from "../../design";
+
+import { color, zIndex } from "../../design";
 
 export const Overlay = styled.div`
   position: fixed;
@@ -7,7 +8,7 @@ export const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: #292929;
+  background: ${color.black};
   opacity: 0.4;
   z-index: ${zIndex.background};
 `;
