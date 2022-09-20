@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { TimerIcon } from "../../assets/icons";
-import { color, margins } from "../../design";
+import { color, margins, zIndex } from "../../design";
 import { Heading6, ListItem, Paragraph } from "../atoms";
 import { Link } from "../buttons";
 
@@ -11,6 +11,7 @@ export const TopNavigationSection = styled.section`
   width: 100%;
   justify-content: flex-end;
   position: absolute;
+  z-index: ${zIndex.onTop};
 `;
 
 export const Divider = styled.div`
