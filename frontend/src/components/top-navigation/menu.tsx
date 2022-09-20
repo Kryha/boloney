@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { text } from "../../assets";
-import { ExitButton, InfoButton } from "../buttons";
+import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
+import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
 import { Dropdown } from "./dropdown";
 import { ActiveDropdown } from "./top-navigation";
@@ -21,9 +21,9 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       buttonText={text.general.menu}
       buttonIcon={<Ellipsis />}
     >
-      {/* TODO: add onclick */}
-      <InfoButton text={text.general.info} />
-      <ExitButton text={text.general.exit} />
+      <DropdownButton text={text.general.settings} icon={<SettingsIcon />} />
+      <DropdownButton text={text.general.logout} icon={<LogoutIcon />} />
+      <DropdownButton text={text.general.exit} icon={<ExitIcon />} />
     </Dropdown>
   );
 };

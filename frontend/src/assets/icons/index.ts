@@ -11,6 +11,8 @@ import { ReactComponent as WinkFaceIcon } from "./wink-face.svg";
 import { ReactComponent as EllipsisIcon } from "./ellipsis.svg";
 import { ReactComponent as InfoIcon } from "./info.svg";
 import { ReactComponent as ErrorIcon } from "./error.svg";
+import { ReactComponent as SettingsIcon } from "./settings.svg";
+import { ReactComponent as LogoutIcon } from "./logout.svg";
 
 export {
   PlusIcon,
@@ -26,4 +28,6 @@ export {
   EllipsisIcon,
   InfoIcon,
   ErrorIcon,
+  SettingsIcon,
+  LogoutIcon,
 };

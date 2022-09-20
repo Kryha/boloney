@@ -56,7 +56,7 @@ export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, text }) =>
 export const DropdownButton: FC<DropdownButtonProps> = ({ disabled, onClick, text, isOpen, icon }) => (
   <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
-    {isOpen ? icon : <CloseButton />}
+    {isOpen ? <CloseButton /> : icon}
   </ButtonContainer>
 );
 
