@@ -4,6 +4,7 @@ import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
 import { Dropdown } from "./dropdown";
+import { HorizonalDivider, MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
 
 interface MenuDropdownProps {
@@ -21,9 +22,13 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       buttonText={text.general.menu}
       buttonIcon={<Ellipsis />}
     >
-      <DropdownButton text={text.general.settings} icon={<SettingsIcon />} />
-      <DropdownButton text={text.general.logout} icon={<LogoutIcon />} />
-      <DropdownButton text={text.general.exit} icon={<ExitIcon />} />
+      <MenuContainer>
+        <DropdownButton text={text.general.settings} icon={<SettingsIcon />} />
+        <HorizonalDivider />
+        <DropdownButton text={text.general.logout} icon={<LogoutIcon />} />
+        <HorizonalDivider />
+        <DropdownButton text={text.general.exit} icon={<ExitIcon />} />
+      </MenuContainer>
     </Dropdown>
   );
 };

@@ -19,6 +19,12 @@ export const Divider = styled.div`
   background: ${color.mediumGrey};
 `;
 
+export const HorizonalDivider = styled.div`
+  height: 1px;
+  width: 100%;
+  background: ${color.mediumGrey};
+`;
+
 export const Timer = styled(TimerIcon)`
   margin-top: 2px;
 `;
@@ -77,6 +83,14 @@ export const ChildrenContainer = styled.div<DropdownProps>`
   padding: 0px;
   display: ${({ isHidden }) => isHidden && "none"};
   z-index: ${zIndex.onTop};
+  background: ${color.lightGrey};
+`;
+
+export const MenuContainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   background: ${color.lightGrey};
 `;
 
