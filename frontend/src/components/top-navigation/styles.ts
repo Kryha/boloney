@@ -102,7 +102,7 @@ export const RulesContainer = styled.div`
   padding: 20px;
 `;
 
-export const RulesSection = styled.div`
+export const RulesSection = styled.section`
   margin-bottom: 60px;
 `;
 
