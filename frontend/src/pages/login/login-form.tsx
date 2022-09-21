@@ -2,8 +2,7 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets/text";
-import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitle, FormContainer } from "../../components";
-import { Link, PrimaryButton } from "../../components/buttons";
+import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitle, FormContainer, Link, PrimaryButton } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { useAuth } from "../../service/auth";

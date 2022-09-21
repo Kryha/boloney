@@ -10,22 +10,22 @@ export const newGame = {
   typeOfBet: "type of bet",
 
   dice: "dice",
-  powerUps: "power-ups",
-  powerUp: "power-up",
-  powerUp1: "power-up 01",
-  powerUp2: "power-up 02",
-  powerUp3: "power-up 03",
-  powerUp4: "power-up 04",
+  powerups: "power-ups",
+  powerup: "power-up",
+  powerup1: "power-up 01",
+  powerup2: "power-up 02",
+  powerup3: "power-up 03",
+  powerup4: "power-up 04",
   private: "private",
   fakeCredits: "fake credits",
 
   // TODO: update description labels
-  powerUp1Desc:
+  powerup1Desc:
     "Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerUp2Desc: "Here we have a description of the power-up itself. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerUp3Desc:
+  powerup2Desc: "Here we have a description of the power-up itself. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  powerup3Desc:
     "Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerUp4Desc: "Here we have a description of the power-up itself.",
+  powerup4Desc: "Here we have a description of the power-up itself.",
 
   privateOrPublicDesc: "Your session will be private, which means that only players invited by you will be able to join and play the game.",
   typeOfBetDesc: "You are not going to play with real money. Let's play just for the sake of having fun!",

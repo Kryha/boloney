@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
-import { FormContainer, Heading1, Heading4, PageTitle } from "../../components";
+import { BaseInput, FormContainer, Heading1, Heading4, Input, PageTitle, Paragraph, PrimaryButton } from "../../components";
 import {
   BottomContainer,
   NewGameContainer,
@@ -44,12 +44,42 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
       </PageTitle>
       <form onSubmit={handleFormSubmit}>
         <FormContainer>
-          <PlayersDiceContainer></PlayersDiceContainer>
-          <PowerupsAmountContainer></PowerupsAmountContainer>
-          <PowerupsPickContainer></PowerupsPickContainer>
-          <ToggleContainer></ToggleContainer>
-          <ToggleContainer></ToggleContainer>
-          <BottomContainer></BottomContainer>
+          <PlayersDiceContainer>
+            <Input label={text.newGame.players}>
+              <BaseInput />
+            </Input>
+            <Input label={text.newGame.dicePerPlayer}>
+              <BaseInput />
+            </Input>
+          </PlayersDiceContainer>
+
+          <PowerupsAmountContainer>
+            <Input label={text.newGame.powerupsPerPlayer}>
+              <BaseInput />
+            </Input>
+          </PowerupsAmountContainer>
+
+          <PowerupsPickContainer>
+            <Input label={text.newGame.whichPowerups}>
+              <BaseInput />
+            </Input>
+          </PowerupsPickContainer>
+
+          <ToggleContainer>
+            <Input label={text.newGame.privateOrPublic}>
+              <BaseInput />
+            </Input>
+          </ToggleContainer>
+          <ToggleContainer>
+            <Input label={text.newGame.typeOfBet}>
+              <BaseInput />
+            </Input>
+          </ToggleContainer>
+
+          <BottomContainer>
+            <Paragraph>{text.newGame.bottomDesc}</Paragraph>
+            <PrimaryButton type="submit" text={text.newGame.continue} />
+          </BottomContainer>
         </FormContainer>
       </form>
     </NewGameContainer>

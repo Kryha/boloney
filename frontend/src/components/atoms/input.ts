@@ -22,6 +22,7 @@ export const BaseInput = styled.input<ErrorProps>`
     -webkit-appearance: none;
   }
   &:-webkit-autofill {
+    background-clip: text;
     -webkit-background-clip: text;
   }
   &::placeholder {
