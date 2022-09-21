@@ -1,4 +1,5 @@
 export const fontSize = {
+  small0: "10px",
   small1: "14px",
   small2: "16px",
   small4: "22px",

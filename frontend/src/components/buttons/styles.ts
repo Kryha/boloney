@@ -51,22 +51,10 @@ export const PrimaryButtonText = styled.h3<TextProps>`
 `;
 
 
-export const Span = styled.span`
-  // transform-origin: top center;
-  // transform-style: preserve-3d;
-  // transition: opacity 0.4s, white 0.4s, transform 0.4s;
-`;
+export const Span = styled.span``;
 
 
-export const InitialButtonView = styled(Span)`
-  // --tw-text-opacity: 1;
-  // transform: translateZ(0)
-  // transform: translate3d(0, 100%, 0);
-  // transition: opacity 0.4s, white 0.4s, transform 0.4s;
-  // visibility: visible;
-  // height: 70px;
-  // display: block;
-`;
+export const InitialButtonView = styled(Span)``;
 
 export const SecondaryView = styled(Span)`
   left: 0;

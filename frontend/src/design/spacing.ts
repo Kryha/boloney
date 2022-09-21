@@ -1,13 +1,13 @@
 export const margins = {
-  small0: "0.25em",
-  small1: "0.5em",
-  small2: "0.625em",
-  small3: "0.8125em",
-  small4: "1em",
-  small5: "1.25em",
-  small6: "1.75em",
-  medium0: "1.875em",
-  large0: "2.5em",
-  large1: "4.0625em",
-  large2: "5em",
+  small0: "0.25em", // 4px
+  small1: "0.5em", // 8px
+  small2: "0.625em", // 10px
+  small3: "0.8125em", // 13px
+  small4: "1em", // 16px
+  small5: "1.25em", // 20px
+  small6: "1.75em", // 28px
+  medium0: "1.875em", // 30px
+  large0: "2.5em", // 40px
+  large1: "4.0625em", // 65px
+  large2: "5em", // 80px
 };

@@ -14,7 +14,6 @@ export const AppRoutes: FC = () => {
       <MainContainer>
         <Routes>
           <Route path={routes.root} element={<Login />} />
-          <Route path={routes.lobby} element={<Lobby />} />
           <Route path="*" element={<ErrorView />} />
         </Routes>
       </MainContainer>
