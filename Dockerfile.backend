@@ -19,6 +19,9 @@ COPY backend/src ./backend/src
 COPY backend/local.yml ./backend/local.yml
 COPY backend/package.json ./backend/package.json
 COPY backend/tsconfig.json ./backend/tsconfig.json
+COPY backend/babel.config.json ./backend/babel.config.json
+COPY backend/rollup.config.js ./backend/rollup.config.js
+
 
 RUN yarn
 RUN yarn build

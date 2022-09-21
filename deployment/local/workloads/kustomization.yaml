@@ -8,6 +8,6 @@ resources:
 
   - secrets/backend.yaml
 patchesStrategicMerge:
-  - config/frontend-config.yaml
-  - config/backend-config.yaml
+  - config/frontend.yaml
+  - config/backend.yaml
 namespace: liars-dice-local

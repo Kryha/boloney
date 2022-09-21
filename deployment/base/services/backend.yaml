@@ -16,8 +16,8 @@ spec:
     - port: 7350
       targetPort: 7350
       protocol: TCP
-      name: util-1
+      name: api
     - port: 7351
       targetPort: 7351
       protocol: TCP
-      name: api
+      name: dashboard

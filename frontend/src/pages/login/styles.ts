@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { Heading4 } from "../../components";
 import { LinkContainer, PrimaryButtonContainer } from "../../components/buttons/styles";
-import { color } from "../../design";
+import { SMALL_VIEWPORT_WIDTH } from "../../constants";
+import { color, margins } from "../../design";
 import { ViewProps } from "../../interfaces";
 
 export const InformationContainer = styled.div`
-  margin-top: 40px;
-  margin-left: 20px;
+  margin-top: ${margins.large0};
+  margin-left: ${margins.small3};
   ${Heading4} {
     margin-bottom: 55px;
     margin-top: 50px;
@@ -22,21 +23,8 @@ export const AuthContainer = styled.div<AuthProps>`
   display: flex;
   flex-direction: row;
   padding: 0px;
-  margin-top: 30px;
+  margin-top: ${margins.medium0};
 `;
-
-export const SignInLink = styled.a`
-  font-family: ibm-plex-mono;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  text-decoration-line: underline;
-  color: ${color.black};
-  margin-left: 8px;
-`;
-
 
 export const SignOrJoinContainer = styled.div<ViewProps>`
   display: flex;
@@ -44,12 +32,12 @@ export const SignOrJoinContainer = styled.div<ViewProps>`
   justify-content: flex-end;
   align-items: center;
   padding: 0px;
-  margin-top: ${(props) => (props.height < 670) ? "-10px" : "40px"};
+  margin-top: ${(props) => (props.height < SMALL_VIEWPORT_WIDTH) ? "-10px" : margins.large0};
   ${PrimaryButtonContainer} {
-    margin-left: 20px;
+    margin-left: ${margins.small3};
   }
   ${LinkContainer} {
-    margin-left: 8px;
+    margin-left: ${margins.small0};
   }
 `;
 
@@ -71,5 +59,5 @@ export const MenuContainer = styled.div`
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: ${margins.medium0};
 `;

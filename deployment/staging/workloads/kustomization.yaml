@@ -1,0 +1,13 @@
+bases:
+  - ../../base
+resources:
+  - namespace/namespace.yaml
+
+  - ingresses/frontend.yaml
+  - ingresses/backend.yaml
+
+  - secrets/backend.yaml
+patchesStrategicMerge:
+  - config/frontend.yaml
+  - config/backend.yaml
+namespace: liars-dice-staging

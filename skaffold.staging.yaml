@@ -1,0 +1,24 @@
+apiVersion: skaffold/v2beta27
+kind: Config
+metadata:
+  name: liars-dice
+build:
+  tagPolicy:
+    sha256: {}
+  local:
+    concurrency: 0
+    push: true
+  artifacts:
+    - image: eu.gcr.io/web3-335312/aleo/liars-dice/frontend
+      docker:
+        dockerfile: Dockerfile.frontend
+        buildArgs:
+          BACKEND_URL: backend.liars-dice.staging.kryha.dev
+    - image: eu.gcr.io/web3-335312/aleo/liars-dice/backend
+      docker:
+        dockerfile: Dockerfile.backend
+deploy:
+  kustomize:
+    paths:
+      - ./deployment/staging/workloads
+    defaultNamespace: liars-dice-staging

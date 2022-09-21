@@ -17,4 +17,14 @@ spec:
               service:
                 name: backend
                 port:
+                  name: dashboard
+    - host: "api.localhost"
+      http:
+        paths:
+          - path: "/(.*)"
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
                   name: api

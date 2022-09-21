@@ -21,6 +21,9 @@ export const BaseInput = styled.input<ErrorProps>`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
+  &:-webkit-autofill {
+    -webkit-background-clip: text;
+  }
   &::placeholder {
     font-family: ibm-plex-mono;
     font-weight: ${fontWeight.light};
@@ -38,6 +41,9 @@ export const BaseInput = styled.input<ErrorProps>`
     outline: 1px solid ${color.black};
   }
   :active {
+    outline: 1px solid ${color.black};
+  }
+  :focus {
     outline: 1px solid ${color.black};
   }
   :disabled {
