@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
-import { Lobby, Login } from "../pages";
+import { Login } from "../pages";
 
 export const AppRoutes: FC = () => {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ export const AppRoutes: FC = () => {
       <MainContainer>
         <Routes>
           <Route path={routes.createAccount} element={<Login />} />
-          <Route path={routes.lobby} element={<Lobby />} />
           <Route path="*" element={<ErrorView />} />
         </Routes>
       </MainContainer>
