@@ -6,10 +6,10 @@ export const PipContainer = styled.span`
   display: block;
   align-self: center;
   justify-self: center;
-  width: ${margins.small1};
-  height: ${margins.small1};
+  width: ${margins.small2};
+  height: ${margins.small2};
   background: ${color.pureWhite};
-  border-radius: ${margins.small0};
+  border-radius: ${margins.small1};
 `;
 
 export const FaceWrapper = styled.div`
@@ -23,8 +23,8 @@ export const FaceWrapper = styled.div`
   width: ${margins.large0};
   height: ${margins.large0};
   background-color: ${color.darkBlue};
-  box-shadow: 0px 0px ${margins.small1} rgba(0, 0, 0, 0.02), 0px 0px  ${margins.small3} rgba(0, 0, 0, 0.1);
-  border-radius: ${margins.small0};
+  box-shadow: 0px 0px ${margins.small2} rgba(0, 0, 0, 0.02), 0px 0px  ${margins.small5} rgba(0, 0, 0, 0.1);
+  border-radius: ${margins.small1};
   ${PipContainer}:nth-of-type(2) {
     grid-area: b;
   }

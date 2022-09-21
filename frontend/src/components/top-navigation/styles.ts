@@ -26,8 +26,8 @@ export const CountdownTimer = styled.div<TimerProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 13.4px ${margins.small3} 13.4px ${margins.small2};
-  gap: ${margins.small0};
+  padding: 13.4px ${margins.small5} 13.4px ${margins.small4};
+  gap: ${margins.small1};
   height: 100%;
   :hover {
     background: ${color.darkGrey};

@@ -8,5 +8,5 @@ export const PowerUpWrapper = styled.div`
   height: 67.92px;
   background: ${color.lightGrey};
   border: 1px solid ${color.darkGrey};
-  border-radius: ${margins.small0};
+  border-radius: ${margins.small1};
 `;

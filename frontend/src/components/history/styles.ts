@@ -11,7 +11,7 @@ export const HistorySection = styled.section<LayoutProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: ${margins.small0};
+  gap: ${margins.small1};
   height: ${({ isChatToggled }): string => (isChatToggled ? "47vh" : "81.9vh")};
   width: 25vw;
   border: 1px solid ${color.darkGrey};
@@ -25,8 +25,8 @@ export const HistoryHeadingSection = styled.section`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: ${margins.small2} ${margins.small2} 0px;
-  gap: ${margins.small0};
+  padding: ${margins.small4} ${margins.small4} 0px;
+  gap: ${margins.small1};
   cursor: pointer;
   width: -webkit-fill-available;
 `;
