@@ -14,12 +14,15 @@ import {
   LobsterHandPaint,
   SkeletonHandPaint,
 } from "../../assets";
+import { useViewport } from "../../hooks/use-viewport";
 import { Hand } from "../hand";
 import { NewGameHandsWrapper } from "./styles";
 
 export const NewGameHands = () => {
+  const { width, height } = useViewport();
+
   return (
-    <NewGameHandsWrapper>
+    <NewGameHandsWrapper width={width} height={height}>
       <Hand avatar={PlasticHand} paint={PlasticHandPaint} avatarName="plastic" />
       <Hand avatar={HookHand} paint={HookHandPaint} avatarName="hook" />
       <Hand avatar={ScooperHand} paint={ScooperHandPaint} avatarName="scooper" />
