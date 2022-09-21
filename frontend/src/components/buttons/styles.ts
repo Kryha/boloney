@@ -46,7 +46,7 @@ export const PrimaryButtonText = styled.h3<TextProps>`
   letter-spacing: -0.02em;
   text-transform: uppercase;
   max-height: 44px;
-  margin-top: -11px;
+  margin-top: -10px;
   color: ${({ customColor }): string => customColor || color.black};
 `;
 
@@ -94,6 +94,7 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
 
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
   cursor: ${({ disabled }) => !disabled && "pointer"};
+  width: fit-content;
   ${PrimaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};

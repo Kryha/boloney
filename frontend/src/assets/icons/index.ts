@@ -13,6 +13,7 @@ import { ReactComponent as InfoIcon } from "./info.svg";
 import { ReactComponent as ErrorIcon } from "./error.svg";
 import { ReactComponent as SettingsIcon } from "./settings.svg";
 import { ReactComponent as LogoutIcon } from "./logout.svg";
+import { ReactComponent as CopyIcon } from "./copy.svg";
 
 export {
   PlusIcon,
@@ -30,4 +31,5 @@ export {
   ErrorIcon,
   SettingsIcon,
   LogoutIcon,
+  CopyIcon,
 };

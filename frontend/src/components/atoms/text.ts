@@ -9,8 +9,8 @@ interface TextProps {
 export const Heading1 = styled.h1<TextProps>`
   font-family: "itc-clearface-bold";
   font-weight: ${fontWeight.bolder};
-  font-size: clamp(6.25rem, 12.5vw + -1.25rem, 13.75rem);
-  line-height: clamp(6.25rem, 12.5vw + -1.25rem, 13.75rem);
+  font-size: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
+  line-height: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);;
   letter-spacing: -0.02em;
   color: ${color.black};
   :first-letter {

@@ -7,10 +7,10 @@ interface HandProps {
   avatar: string;
   paint: string;
   avatarName: string;
-  name: string;
+  name?: string;
 }
 
-export const Hand: FC<HandProps> = ({ avatar, paint, avatarName, name }) => {
+export const Hand: FC<HandProps> = ({ avatar, paint, avatarName, name = "" }) => {
   const hand = handProportion(avatarName);
 
   return (
