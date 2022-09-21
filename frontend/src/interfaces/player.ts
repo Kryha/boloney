@@ -4,4 +4,7 @@ export interface Player {
   name: string;
   avatar: string;
   color: string;
+  avatarName: string;
+  paint: string;
+  connected: boolean;
 }

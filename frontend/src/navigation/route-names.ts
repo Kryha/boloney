@@ -1,5 +1,6 @@
 export const routes = {
   root: "/",
   createAccount: "/create-account",
-  newGame: "/new-game",
+  lobby: "/lobby",
+  newGame: "/new-game"
 };

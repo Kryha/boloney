@@ -1,8 +1,9 @@
 export const fontSize = {
-  small0: "14px",
-  small1: "16px",
-  small2: "22px",
-  small3: "28px",
+  small0: "10px",
+  small1: "14px",
+  small2: "16px",
+  small4: "22px",
+  small5: "28px",
   medium0: "46px",
   medium1: "50px",
   medium2: "60px",

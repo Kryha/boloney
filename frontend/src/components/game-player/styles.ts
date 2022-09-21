@@ -17,11 +17,11 @@ export const GamePlayersWrapper = styled.div<GamePlayersProps>`
 `;
 
 export const PlayerColor = styled.div<GamePlayersProps>`
-  width: ${margins.small2};
-  height: ${margins.small2};
+  width: ${margins.small4};
+  height: ${margins.small4};
   border-radius: 100px;
-  min-width:  ${margins.small2};
-  min-height:  ${margins.small2};
+  min-width:  ${margins.small4};
+  min-height:  ${margins.small4};
   background: ${({ customColor }): string => (customColor || color.white)};
 `;
 
@@ -29,8 +29,8 @@ export const PlayerNameContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px ${margins.small1};
-  gap: ${margins.small0};
+  padding: 0px ${margins.small2};
+  gap: ${margins.small1};
 `;
 
 interface AvatarProps {

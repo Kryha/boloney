@@ -10,7 +10,7 @@ export const ChatSection = styled.section <LayoutProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: ${margins.small0};
+  gap: ${margins.small1};
   height: 40vh;
   width: 25vw;
   border-left: 1px solid ${color.darkGrey};
@@ -24,8 +24,8 @@ export const ChatHeadingSection = styled.section`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: ${margins.small2} ${margins.small2} 0px;
-  gap: ${margins.small0};
+  padding: ${margins.small4} ${margins.small4} 0px;
+  gap: ${margins.small1};
   cursor: pointer;
   width: -webkit-fill-available;
 `;
