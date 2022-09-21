@@ -52,12 +52,7 @@ export const PrimaryButtonText = styled.h3<TextProps>`
 
 export const InitialButtonView = styled.span``;
 
-export const Span = styled.span``;
-
-
-export const InitialButtonView = styled(Span)``;
-
-export const SecondaryView = styled(Span)`
+export const SecondaryView = styled.span`
   left: 0;
   opacity: 0;
   position: absolute;
