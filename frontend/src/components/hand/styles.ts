@@ -69,12 +69,12 @@ export const HandContainer = styled.div<HandContainerProps>`
   animation: ${({ speed }) => { return css`${float} ${speed || 4}s ease-in-out infinite`; }};
   margin-left: -15px;
   margin-bottom: 10px;
-    ${Hand} {
+  ${Hand} {
     width: 100%;
     height: auto;
     position: absolute;
   }
-    ${Paint} {
+  ${Paint} {
     width: 100%;
     height: auto;
     position: absolute;
