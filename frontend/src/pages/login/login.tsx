@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { text } from "../../assets/text";
-import { BaseLayout, Heading3, MenuDropdown } from "../../components";
+import { BaseLayout, Heading3, TopNavigation } from "../../components";
 import { LoginForm } from "./login-form";
 import { LogoContainer } from "./styles";
 
@@ -16,7 +16,7 @@ export const Login: FC = () => {
         </LogoContainer>
       }
       mainSection={<LoginForm />}
-      rightSection={<MenuDropdown />}
+      rightSection={<TopNavigation />}
     />
   );
 };
