@@ -1,0 +1,37 @@
+trigger:
+  - develop
+
+pool:
+  vmImage: "ubuntu-latest"
+
+stages:
+  - stage: build_and_deploy
+    displayName: Build and Deploy
+    dependsOn: []
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - job: build_and_deploy
+        displayName: Build Docker images and deploy through Kubernetes
+        steps:
+          - script: curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
+            displayName: Install Skaffold
+          - task: DownloadSecureFile@1
+            name: authkey
+            displayName: "Download Service Account Key"
+            inputs:
+              secureFile: web3-aleo.json
+              retryCount: "2"
+          - script: gcloud auth activate-service-account  web3-aleo@web3-335312.iam.gserviceaccount.com --key-file=$(authkey.secureFilePath)
+            displayName: Activate Service Account
+          - task: Kubernetes@1
+            inputs:
+              connectionType: "Kubernetes Service Connection"
+              kubernetesServiceEndpoint: "gke-service-connection"
+              namespace: "liars-dice-staging"
+              command: "login"
+          - script: |
+              envsubst < deployment/staging/workloads/secrets/backend.template.yaml > deployment/staging/workloads/secrets/backend.yaml
+              skaffold run --filename skaffold.staging.yaml
+            displayName: Build and push docker images
+            env:
+              DB_PASSWORD: $(DB_PASSWORD)

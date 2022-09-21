@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, fontSize, fontWeight } from "../../design";
+import { color, fontSize, fontWeight, margins } from "../../design";
 
 interface ButtonProps {
   backgroundColor?: string;
@@ -9,6 +9,7 @@ interface ButtonProps {
 }
 
 export const PrimaryButtonBase = styled.button<ButtonProps>`
+  user-select: none;
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.regular};
   font-size: 60px;
@@ -21,19 +22,21 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
   background: ${(props): string => props.backgroundColor || color.white};
   color: ${(props): string => props.fontColor || color.black};
   cursor: pointer;
-  padding: 13px 16px 10px 16px;
+  padding: 13px ${margins.small2} ${margins.small1} ${margins.small2};
   height: 70px;
-  ${({ disabled }) => (disabled && `
+  ${({ disabled }) =>
+    disabled &&
+    `
       color: ${color.darkGrey};
       background: transparent;
       && {
         cursor: default;
       }
-    `
-  )};
+    `};
 `;
 
 export const SecondaryButtonBase = styled.button<ButtonProps>`
+  user-select: none;
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
   font-size: ${fontSize.small1};
@@ -47,12 +50,13 @@ export const SecondaryButtonBase = styled.button<ButtonProps>`
     text-transform: capitalize;
   }
   cursor: pointer;
-  cursor: ${({ disabled }) => (!disabled && "pointer")};
-  ${({ disabled }) => (disabled && `
+  cursor: ${({ disabled }) => !disabled && "pointer"};
+  ${({ disabled }) =>
+    disabled &&
+    `
       color: ${color.darkGrey};
       && {
         cursor: default;
       }
-    `
-  )};
+    `};
 `;

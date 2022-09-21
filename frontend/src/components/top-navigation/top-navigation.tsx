@@ -1,48 +1,46 @@
 import { FC, useState } from "react";
 
-import { Paragraph } from "../atoms/text";
-import { text } from "../../assets/text";
-import { useCountdownTimer } from "../../hooks/use-countdown";
-import { GAME_TIME_MINUTES, GAME_TIME_SECONDS } from "../../constants";
-import { TopNavigationSection, CountdownTimer, Divider, Timer, MenuContainer, MenuWrapper, ChildrenContainer } from "./styles";
-import { ExitButton, InfoButton, MenuButton } from "../buttons";
+import { TopNavigationSection, CountdownTimer, Timer } from "./styles";
+import { MenuDropdown } from "./menu";
+import { RulesDropdown } from "./rules";
+import { useUIState } from "../../store/ui";
+import { VerticalDivider } from "../atoms";
 
-interface MenuDropdownProps {
-  setHover?: (hover: boolean) => void;
+interface Props {
+  isInGame?: boolean;
 }
 
-export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover }) => {
-  const [toggleMenu, setToggleMenu] = useState<boolean>(true);
+export type ActiveDropdown = "rules" | "menu" | undefined;
 
-  return (
-    <MenuWrapper>
-      <MenuContainer
-        onClick={() => setToggleMenu(!toggleMenu)}
-        onMouseEnter={() => setHover && setHover(true)}
-        onMouseLeave={() => setHover && setHover(false)}
-      >
-        <MenuButton text={text.general.menu} isOpen={toggleMenu} />
-      </MenuContainer>
-      <ChildrenContainer isHidden={toggleMenu}>
-        <InfoButton text={text.general.info} />
-        <ExitButton text={text.general.exit} />
-      </ChildrenContainer>
-    </MenuWrapper>
-  );
-};
-export const TopNavigation: FC = () => {
-  const [time, timer] = useCountdownTimer();
+export const TopNavigation: FC<Props> = ({ isInGame }) => {
+  const setIsOverlayVisible = useUIState((state) => state.setIsOverlayVisible);
+
   const [hover, setHover] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
+
+  const handleDropdownClick = (dropdown: ActiveDropdown) => {
+    if (activeDropdown === dropdown) {
+      setActiveDropdown(undefined);
+      setIsOverlayVisible(false);
+    } else {
+      setActiveDropdown(dropdown);
+      setIsOverlayVisible(true);
+    }
+  };
 
   return (
     <TopNavigationSection>
-      <CountdownTimer isHovered={hover}>
-        {/* TODO: remove onClick */}
-        <Paragraph onClick={() => timer.startTimer(GAME_TIME_MINUTES, GAME_TIME_SECONDS)}>{time}</Paragraph>
-        <Timer />
-      </CountdownTimer>
-      <Divider />
-      <MenuDropdown setHover={setHover} />
+      {isInGame && (
+        <>
+          <CountdownTimer isHovered={hover}>
+            <Timer />
+          </CountdownTimer>
+          <VerticalDivider />
+        </>
+      )}
+      <RulesDropdown setHover={setHover} isActive={activeDropdown === "rules"} setActiveDropdown={handleDropdownClick} />
+      <VerticalDivider />
+      <MenuDropdown setHover={setHover} isActive={activeDropdown === "menu"} setActiveDropdown={handleDropdownClick} />
     </TopNavigationSection>
   );
 };

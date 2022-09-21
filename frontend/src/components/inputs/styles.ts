@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color } from "../../design";
+import { color, fontSize, fontWeight, margins } from "../../design";
 import { ErrorIcon } from "../../assets/icons";
 
 export const InputContainer = styled.div`
@@ -15,19 +15,18 @@ export const InputContainer = styled.div`
 
 export const InputLabel = styled.h3`
   font-family: ibm-plex-mono;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: ${fontWeight.bolder};
+  font-size: ${fontSize.small1};
   line-height: 24px;
   text-transform: uppercase;
   color: ${color.black};
-  background: #D5D5D5;
-  padding: 0px 10px;
+  background: ${color.lightGrey};
+  padding: 0px ${margins.small1};
 `;
 
 export const LabelContainer = styled.div`
   position: absolute;
-  left: 30px;
+  left: ${margins.medium0};
   top: -13px
 `;
 
@@ -38,8 +37,8 @@ export const ErrorContainer = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 0px;
-  gap: 8px;
-  margin-left: 40px;
+  gap: ${margins.small0};
+  margin-left: ${margins.large0};
   margin-right: 4px;
-  margin-top: 16px;
+  margin-top: ${margins.small2};
 `;

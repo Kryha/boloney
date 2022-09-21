@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
+
 import { TimerIcon } from "../../assets/icons";
-import { color, margins } from "../../design";
-import { Paragraph } from "../atoms";
+import { color, margins, zIndex } from "../../design";
+import { Heading6, ListItem, Paragraph } from "../atoms";
+import { Link } from "../buttons";
 
 export const TopNavigationSection = styled.section`
   display: flex;
@@ -9,12 +11,6 @@ export const TopNavigationSection = styled.section`
   width: 100%;
   justify-content: flex-end;
   position: absolute;
-`;
-
-export const Divider = styled.div`
-  height: 50px;
-  width: 1px;
-  background: ${color.black};
 `;
 
 export const Timer = styled(TimerIcon)`
@@ -37,33 +33,75 @@ export const CountdownTimer = styled.div<TimerProps>`
     background: ${color.darkGrey};
   }
   ${Paragraph} {
-    color: ${({ isHovered }) => (isHovered && `${color.mediumGrey}`)};
+    color: ${({ isHovered }) => isHovered && `${color.mediumGrey}`};
   }
   ${Timer} {
     path {
-      fill: ${({ isHovered }) => (isHovered && `${color.mediumGrey}`)};
+      fill: ${({ isHovered }) => isHovered && `${color.mediumGrey}`};
     }
   }
 `;
 
-export const MenuContainer = styled.div``;
+interface ButtonContainerProps {
+  isActive?: boolean;
+}
 
-export const MenuWrapper = styled.div`
+export const ButtonContainer = styled.div<ButtonContainerProps>`
   background: ${color.lightGrey};
+  border: 1px solid ${({ isActive }) => (isActive ? color.black : color.lightGrey)};
+
+  z-index: ${({ isActive }) => (isActive ? zIndex.onTop : zIndex.behind)};
+`;
+
+export const DropdownWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   padding: 0px;
 `;
 
-interface MenuProps {
+interface DropdownProps {
   isHidden: boolean;
 }
 
-export const ChildrenContainer = styled.div<MenuProps>`
+export const ChildrenContainer = styled(DropdownWrapper)<DropdownProps>`
+  display: ${({ isHidden }) => isHidden && "none"};
+  z-index: ${zIndex.onTop};
+  background: ${color.lightGrey};
+`;
+
+export const MenuContainer = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  padding: 0px;
-  display: ${({ isHidden }) => (isHidden && "none")};
+  background: ${color.lightGrey};
 `;
+
+export const RulesContainer = styled.div`
+  position: absolute;
+  background: ${color.lightGrey};
+  width: 100%;
+  right: 0;
+  padding: 20px;
+`;
+
+export const RulesSection = styled.section`
+  margin-bottom: 60px;
+`;
+
+export const RulesSectionTitle = styled(Heading6)`
+  text-transform: uppercase;
+  margin-bottom: ${margins.small1};
+`;
+
+export const RulesSectionContent = styled(ListItem)``;
+
+export const RulesList = styled.ol`
+  ${RulesSectionContent}:not(:last-child) {
+    margin-bottom: ${margins.small2};
+  }
+  margin-bottom: ${margins.small1};
+`;
+
+export const RulesLink = styled(Link)``;

@@ -1,17 +1,12 @@
 import { FC } from "react";
 
 import { text } from "../../assets/text";
-import { BaseLayout, Heading3 } from "../../components";
-import { MenuDropdown } from "../../components/top-navigation";
-import { useAuthState } from "../../service/authentication";
+import { BaseLayout, Heading3, TopNavigation } from "../../components";
 import { LoginForm } from "./login-form";
 import { LogoContainer } from "./styles";
 
 export const Login: FC = () => {
-  const isLoggedIn = useAuthState((state) => state.isAuthenticated);
-  const user = useAuthState((state) => state.user);
-  // TODO: check if the user is logged in
-  if (isLoggedIn) console.log(`go somewhere ${user?.name}`);
+  // TODO: add routes to navigate to when authenticated
 
   return (
     <BaseLayout
@@ -21,7 +16,7 @@ export const Login: FC = () => {
         </LogoContainer>
       }
       mainSection={<LoginForm />}
-      rightSection={<MenuDropdown />}
+      rightSection={<TopNavigation />}
     />
   );
 };

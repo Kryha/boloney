@@ -8,6 +8,9 @@ RUN yarn set version 2 --only-if-needed
 
 ENV GENERATE_SOURCEMAP false
 
+ARG BACKEND_URL
+ENV BACKEND_URL $BACKEND_URL
+
 COPY .yarnrc.yml ./.yarnrc.yml
 COPY yarn.lock ./yarn.lock
 COPY .yarn/ ./.yarn/
