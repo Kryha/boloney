@@ -16,11 +16,11 @@ export const LobbyPlayerWrapper = styled.div<LobbyPlayerProps>`
   border-bottom: 1px solid ${color.mediumGrey};
   border-right: 1px solid ${color.mediumGrey};
   :nth-last-of-type(1) {
-   border-right: none;
+    border-right: none;
   }
   ${HandWrapper} {
     margin-top: 2.813em;
-    opacity: ${({ isWaiting }) => !isWaiting ? "0.4" : "1"};
-    filter: ${({ isWaiting }) => !isWaiting ? "blur(1.2px)" : "blur(0)"};
+    opacity: ${({ isWaiting }) => (!isWaiting ? "0.4" : "1")};
+    filter: ${({ isWaiting }) => (!isWaiting ? "blur(1.2px)" : "blur(0)")};
   }
 `;
