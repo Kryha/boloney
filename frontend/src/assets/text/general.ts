@@ -11,4 +11,5 @@ export const general = {
   rules: "rules",
   menu: "menu",
   info: "info",
+  gameCreated: "game created!"
 };

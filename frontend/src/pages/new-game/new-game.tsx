@@ -5,7 +5,7 @@ import { NewGameConfirmation } from "./new-game-confirmation";
 import { NewGameCreation } from "./new-game-creation";
 
 export const NewGame: FC = () => {
-  const [url, setUrl] = useState<string>();
+  const [url, setUrl] = useState<string>("h");
 
   return (
     <BaseLayout
