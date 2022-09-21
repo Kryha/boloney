@@ -53,3 +53,41 @@ export const BaseInput = styled.input<ErrorProps>`
     }
   }
 `;
+
+// TODO: finish styling and use custom chevron
+export const BaseSelect = styled.select<ErrorProps>`
+  font-family: ibm-plex-mono;
+  font-weight: ${fontWeight.light};
+  font-size: ${fontSize.small1};
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: ${color.black};
+  background-color: transparent;
+  width: 100%;
+  -moz-appearance: textfield;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  box-sizing: border-box;
+  outline: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
+  border: none;
+  padding: 23px ${margins.large0};
+  :hover {
+    outline: 1px solid ${color.black};
+  }
+  :active {
+    outline: 1px solid ${color.black};
+  }
+  :focus {
+    outline: 1px solid ${color.black};
+  }
+  :disabled {
+    &::placeholder {
+      color: ${color.darkGrey};
+    }
+  }
+`;
+
+export const BaseOption = styled.option<ErrorProps>``;

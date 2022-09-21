@@ -2,7 +2,27 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
-import { BaseInput, FormContainer, Heading1, Heading4, Input, PageTitle, Paragraph, PrimaryButton } from "../../components";
+import {
+  BaseInput,
+  BaseOption,
+  BaseSelect,
+  FormContainer,
+  Heading1,
+  Heading4,
+  Input,
+  PageTitle,
+  Paragraph,
+  PrimaryButton,
+} from "../../components";
+import {
+  MAX_DICE_PER_PLAYER,
+  MAX_PLAYERS,
+  MAX_POWERUPS_PER_PLAYER,
+  MIN_DICE_PER_PLAYER,
+  MIN_PLAYERS,
+  MIN_POWERUPS_PER_PLAYER,
+} from "../../constants";
+import { range } from "../../util";
 import {
   BottomContainer,
   NewGameContainer,
@@ -34,6 +54,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
 
   const handleFormSubmit = handleSubmit((data) => {
     // TODO: implement logic
+    console.log("SUBMITTING:", data);
   });
 
   return (
@@ -46,16 +67,34 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
         <FormContainer>
           <PlayersDiceContainer>
             <Input label={text.newGame.players}>
-              <BaseInput />
+              <BaseSelect {...register("players")}>
+                {range(MAX_PLAYERS, MIN_PLAYERS).map((n) => (
+                  <BaseOption key={n} value={n}>
+                    {text.param.players(n)}
+                  </BaseOption>
+                ))}
+              </BaseSelect>
             </Input>
             <Input label={text.newGame.dicePerPlayer}>
-              <BaseInput />
+              <BaseSelect {...register("dicePerPlayer")}>
+                {range(MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER).map((n) => (
+                  <BaseOption key={n} value={n}>
+                    {text.param.dice(n)}
+                  </BaseOption>
+                ))}
+              </BaseSelect>
             </Input>
           </PlayersDiceContainer>
 
           <PowerupsAmountContainer>
             <Input label={text.newGame.powerupsPerPlayer}>
-              <BaseInput />
+              <BaseSelect {...register("powerupsPerPlayer")}>
+                {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
+                  <BaseOption key={n} value={n}>
+                    {text.param.powerups(n)}
+                  </BaseOption>
+                ))}
+              </BaseSelect>
             </Input>
           </PowerupsAmountContainer>
 
