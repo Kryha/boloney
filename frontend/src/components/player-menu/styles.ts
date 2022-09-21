@@ -25,7 +25,7 @@ export const MenuSection = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: ${margins.small1};
+  gap: ${margins.small2};
   width: 25vw;
   height: 7.198vh;
   background: transparent;
@@ -56,7 +56,7 @@ export const Plus = styled(PlusIcon)``;
 export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0px ${margins.small2};
+  margin: 0px ${margins.small4};
   width: 100%;
   align-items: center;
 `;
