@@ -6,7 +6,7 @@ import { Heading1, Heading4, Input, Paragraph, BaseInput } from "../../component
 import { Link, PrimaryButton } from "../../components/buttons";
 import { useViewport } from "../../hooks/use-viewport";
 import { useAuthState } from "../../service/authentication";
-import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
+import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignInLink, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
   username: string;
@@ -23,9 +23,9 @@ export const LoginForm: FC = () => {
     formState: { errors },
   } = useForm<LoginProps>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const onSubmit = (username: string, password: string, email: string) => {
+  const onSubmit = (username: string, password: string) => {
     console.log("we are here");
-    authenticateUser({ username: username, password: password, email: email }); // TODO: use actual email
+    authenticateUser({ username: username, password: password, email: "email" }); // TODO: use actual email
   };
 
   return (
@@ -34,7 +34,7 @@ export const LoginForm: FC = () => {
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
       </InformationContainer>
-      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password, data.email))}>
+      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <Input label={text.loginForm.username} isError={errors.username && errors.username.type === "required"}>
             <BaseInput

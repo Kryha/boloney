@@ -6,8 +6,7 @@ import {
   LobsterHand,
   PlasticHand,
   ScooperHand,
-  SkeletonHand,
-  ToyHand,
+  ToyHand
 } from "../assets/images";
 
 export const Players: Player[] = [
@@ -40,19 +39,11 @@ export const Players: Player[] = [
     name: "god",
     color: "#92C9FF",
     avatar: Hand,
-
   },
   {
     id: "6",
-    name: "lekker (you)",
+    name: "lekker",
     color: "#91C342",
     avatar: LobsterHand,
-  },
-  {
-    id: "7",
-    name: "yoda",
-    color: "#91C342",
-    avatar: SkeletonHand,
-
   }
 ];
