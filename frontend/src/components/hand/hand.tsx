@@ -12,7 +12,7 @@ export const Hands: FC = () => {
         <Hand src={SkeletonHand} alt="hand" />
         <Paint src={SkeletonHandPaint} alt="paint" />
       </HandContainer>
-      <Shadow />
+      {/* <Shadow /> */}
     </HandWrapper>
   );
 };
