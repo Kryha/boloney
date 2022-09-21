@@ -32,7 +32,7 @@ export const SignOrJoinContainer = styled.div<ViewProps>`
   justify-content: flex-end;
   align-items: center;
   padding: 0px;
-  margin-top: ${(props) => (props.height < SMALL_VIEWPORT_WIDTH) ? "-10px" : margins.large0};
+  margin-top: ${(props) => (props.height < SMALL_VIEWPORT_WIDTH ? "-10px" : margins.large0)};
   ${PrimaryButtonContainer} {
     margin-left: ${margins.small3};
   }
@@ -42,11 +42,6 @@ export const SignOrJoinContainer = styled.div<ViewProps>`
 `;
 
 export const LoginFormContainer = styled.div``;
-
-export const LogoContainer = styled.div`
-  margin-left: 23px;
-  margin-top: 17px;
-`;
 
 export const MenuContainer = styled.div`
   background: ${color.lightGrey};

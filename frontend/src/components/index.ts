@@ -12,3 +12,4 @@ export * from "./base-layout";
 export * from "./inputs";
 export * from "./main-container";
 export * from "./top-navigation";
+export * from "./logo";
