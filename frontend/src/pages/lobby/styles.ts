@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Heading1 } from "../../components";
-import { color } from "../../design";
+import { color, margins } from "../../design";
 
 export const GameName = styled(Heading1)`
   color: transparent;
@@ -42,12 +42,6 @@ export const LobbyHorizontalLineInitial = styled.div`
   width: 100%;
 `;
 
-export const LobbyVerticalLine = styled.div`
-  height: 1px;
-  border-right: 1px solid ${color.mediumGrey};
-  width: 100%;
-`;
-
 export const LobbyVerticalLineInitial = styled.div`
   height: 1px;
   border-right: 1px solid ${color.lightGrey};
@@ -57,14 +51,14 @@ export const LobbyVerticalLineInitial = styled.div`
 export const WaitForOthersContainer = styled.div`
   background: ${color.lightGrey};
   position: absolute;
-  padding: 16px 16px 16px 24px;
+  padding: ${margins.small2} ${margins.small2} ${margins.small2} 1.5em;
   margin-left: auto;
-margin-right: auto;
-left: 0;
-right: 0;
-text-align: center;
-width: 358.5px;
-height: clamp(34px, 4.58vw + -10px, 78px);
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 358.5px;
+  height: clamp(34px, 4.58vw + -10px, 78px);
 `;
 
 export const WaitingText = styled.h3`
@@ -73,6 +67,6 @@ export const WaitingText = styled.h3`
   font-weight: 450;
   font-size: 16px;
   line-height: 16px;
-  color: #292929;
+  color: ${color.black};
   margin-top: clamp(-5px, 1.56vw + -20px, 10px);
 `;

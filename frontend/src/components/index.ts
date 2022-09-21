@@ -13,3 +13,5 @@ export * from "./inputs";
 export * from "./main-container";
 export * from "./top-navigation";
 export * from "./hand";
+export * from "./lobby-player";
+export * from "./lobby-player-status";

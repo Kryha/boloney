@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { text } from "../../assets";
 
 import { LobbyPlayer } from "../../components/lobby-player";
 import { Players } from "../../service/fake-players";
@@ -8,7 +9,6 @@ import {
   LobbyHorizontalLine,
   LobbyHorizontalLineInitial,
   LobbyLineContainer,
-  LobbyVerticalLine,
   LobbyWrapper,
   WaitForOthersContainer,
   WaitingText,
@@ -33,10 +33,10 @@ export const Lobby: FC = () => {
         <LobbyHorizontalLine />
         <LobbyHorizontalLine />
         <WaitForOthersContainer>
-          <WaitingText>{"Waiting for the other to join..."}</WaitingText>
+          <WaitingText>{text.general.waitingForTheOthersToJoin}</WaitingText>
         </WaitForOthersContainer>
       </LobbyLineContainer>
-      <GameName>{"liar's dice"}</GameName>
+      <GameName>{text.general.appName}</GameName>
     </LobbyContainer>
   );
 };

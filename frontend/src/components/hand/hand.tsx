@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { handSize } from "../../design/hand";
+import { handProportion } from "../../design/hand";
 import { HandContainer, HandWrapper, Hand as HandImg, Shadow, Paint } from "./styles";
 
 interface HandProps {
@@ -11,15 +11,15 @@ interface HandProps {
 }
 
 export const Hand: FC<HandProps> = ({ avatar, paint, avatarName, name }) => {
-  const proportions = handSize(avatarName);
+  const hand = handProportion(avatarName);
 
   return (
     <HandWrapper>
-      <HandContainer width={proportions.width} height={proportions.height} speed={proportions.speed}>
+      <HandContainer width={hand.width} height={hand.height} speed={hand.speed}>
         <HandImg src={avatar} alt={name} />
         <Paint src={paint} alt={name} />
       </HandContainer>
-      <Shadow smallWidth={proportions.shadowSmallWidth} largeWidth={proportions.shadowLargeWidth} speed={proportions.speed} />
+      <Shadow smallWidth={hand.shadowSmallWidth} largeWidth={hand.shadowLargeWidth} speed={hand.speed} />
     </HandWrapper>
   );
 };

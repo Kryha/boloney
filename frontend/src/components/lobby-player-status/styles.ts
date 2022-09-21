@@ -1,13 +1,6 @@
 import styled from "@emotion/styled";
-import { Heading4 } from "../atoms";
-import { keyframes } from "@emotion/react";
-import { color, fontWeight } from "../../design";
-
-export const ellipsis = keyframes`
-  to {
-    width: 2.25em;
-  }
-`;
+import { ellipsis, Heading4 } from "../atoms";
+import { color, fontWeight, margins } from "../../design";
 
 export const Waiting = styled.div`
   font-family: ibm-plex-mono;
@@ -34,7 +27,7 @@ export const LobbyPlayerStatusWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 10px 10px 10px 14px;
+  padding: ${margins.small1} ${margins.small1} ${margins.small1} 0.875em;
   ${Heading4} {
     white-space: nowrap;
     overflow: hidden;

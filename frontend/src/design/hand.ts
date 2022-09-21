@@ -6,7 +6,7 @@ interface HandProps {
   speed: number;
 }
 
-export const handSize = (avatarName: string): HandProps => {
+export const handProportion = (avatarName: string): HandProps => {
   switch (avatarName) {
     case "hand":
       return {

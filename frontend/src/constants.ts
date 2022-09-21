@@ -18,3 +18,4 @@ export const MINIMUM_PASSWORD_LENGTH = 8;
 export const APPEAR_ONLINE = true;
 export const CREATE_ACCOUNT = true;
 export const USE_SSL = false;
+export const FLOATING_ANIMATION_SPEED = 4;
