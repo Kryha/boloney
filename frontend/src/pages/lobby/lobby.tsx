@@ -9,6 +9,8 @@ import {
   LobbyHorizontalLine,
   LobbyHorizontalLineInitial,
   LobbyLineContainer,
+  LobbyVerticalLine,
+  LobbyVerticalLineInitial,
   LobbyWrapper,
   WaitForOthersContainer,
   WaitingText,
@@ -36,6 +38,7 @@ export const Lobby: FC = () => {
           <WaitingText>{text.general.waitingForTheOthersToJoin}</WaitingText>
         </WaitForOthersContainer>
       </LobbyLineContainer>
+      <LobbyVerticalLine />
       <GameName>{text.general.appName}</GameName>
     </LobbyContainer>
   );

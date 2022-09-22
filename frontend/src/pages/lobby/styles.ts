@@ -48,6 +48,13 @@ export const LobbyVerticalLineInitial = styled.div`
   width: 100%;
 `;
 
+export const LobbyVerticalLine = styled.div`
+  width: 1px;
+  border-right: 1px solid ${color.mediumGrey};
+  height: 45vh;
+  margin-left: 57vw;
+`;
+
 export const WaitForOthersContainer = styled.div`
   background: ${color.lightGrey};
   position: absolute;
@@ -59,6 +66,8 @@ export const WaitForOthersContainer = styled.div`
   text-align: center;
   width: 358.5px;
   height: clamp(34px, 4.58vw + -10px, 78px);
+  display: flex;
+  align-items: center;
 `;
 
 export const WaitingText = styled.h3`
@@ -68,7 +77,7 @@ export const WaitingText = styled.h3`
   font-size: 16px;
   line-height: 16px;
   color: ${color.black};
-  margin-top: clamp(-5px, 1.56vw + -20px, 10px);
+  margin-top: clamp(0px, 3.13vw + -30px, 30px);
   :first-letter {
     text-transform: capitalize;
   }
