@@ -1,101 +1,33 @@
-import { Match } from "@heroiclabs/nakama-js";
 import { useCallback, useState } from "react";
-import { error } from "../assets/text/error";
-import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
-import { MatchSettings, NkResponse } from "../interfaces";
-import { useAuthState, useMatchMakerState } from "../store";
-import { parseError } from "../util";
+import { useAuthState } from "../store/auth";
+import { useMatchMakerState } from "../store/match-maker";
 
 export const useMatchMaker = () => {
-  const socket = useAuthState((state) => state.socket);
-  const setMatchId = useMatchMakerState((state) => state.setMatchId);
+  const client = useAuthState((state) => state.client);
+  const query = useMatchMakerState((state) => state.query);
+  const minCount = useMatchMakerState((state) => state.minCount);
+  const maxCount = useMatchMakerState((state) => state.maxCount);
+  const ticket = useMatchMakerState((state) => state.ticket);
+  const setTicket = useMatchMakerState((state) => state.setTicket);
   const [isLoading, setIsLoading] = useState(false);
 
-  const joinMatch = useCallback(
-    async (matchId: string): Promise<NkResponse> => {
-      try {
-        if (!socket) throw new Error(error.noSocketConnected);
-
-        setIsLoading(true);
-
-        const match: Match = await socket.joinMatch(matchId);
-        setMatchId(match.match_id);
-        // TODO: go to game view
-      } catch (error) {
-        const parsedErr = await parseError(error);
-        return parsedErr;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [socket, setMatchId]
-  );
-
-  const joinLobby = useCallback(async (): Promise<NkResponse> => {
+  const matchMaker = useCallback(async () => {
+    if (ticket) return;
     try {
-      if (!socket) throw new Error(error.noSocketConnected);
       setIsLoading(true);
-
-      socket.onmatchmakermatched = async (matched) => {
-        console.info("Received MatchmakerMatched message: ", matched);
-        console.info("Matched opponents: ", matched.users);
-
-        if (matched.match_id) await joinMatch(matched.match_id);
-      };
-
-      await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
+      const socket = client.NewSocket();
+      const matchMakerTicket = await socket.AddMatchmakerAsync(query, minCount, maxCount);
+      setTicket(matchMakerTicket);
     } catch (error) {
-      const parsedErr = await parseError(error);
-      return parsedErr;
-    } finally {
-      setIsLoading(false);
+      // TODO: add error handling
+      console.log(error);
     }
-  }, [joinMatch, socket]);
-
-  const createMatch = useCallback(
-    async (settings: MatchSettings): Promise<NkResponse<string | undefined>> => {
-      try {
-        if (!socket) throw new Error(error.noSocketConnected);
-
-        setIsLoading(true);
-
-        const rpcRes = await socket.rpc(RPC_CREATE_MATCH, JSON.stringify(settings));
-        if (!rpcRes.payload) throw new Error(error.noPayloadReturned);
-
-        return JSON.parse(rpcRes.payload).match_id;
-      } catch (error) {
-        const parsedErr = await parseError(error);
-        return parsedErr;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [socket]
-  );
-
-  const findMatches = useCallback(async (): Promise<NkResponse<string[]>> => {
-    try {
-      if (!socket) throw new Error(error.noSocketConnected);
-
-      setIsLoading(true);
-
-      const rpcRes = await socket.rpc(RPC_FIND_MATCH);
-      if (!rpcRes.payload) throw new Error(error.noPayloadReturned);
-
-      return JSON.parse(rpcRes.payload).match_ids;
-    } catch (error) {
-      const parsedErr = await parseError(error);
-      return parsedErr;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [socket]);
+    setIsLoading(false);
+  }, [client, maxCount, minCount, query, setTicket, ticket]);
 
   return {
-    joinLobby,
-    createMatch,
-    findMatches,
-    joinMatch,
+    ticket,
     isLoading,
+    matchMaker,
   };
 };

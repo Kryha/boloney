@@ -4,10 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
-import { Login, CreateAccount } from "../pages/auth";
-import { Landing, NewGame } from "../pages";
-import { useAuth } from "../service";
-import { Home } from "../pages/home";
+import { Lobby, Login } from "../pages";
 
 const AppRoutes: FC = () => {
   const { isAuthenticated } = useAuth();
@@ -40,8 +37,13 @@ export const RoutesWrapper: FC = () => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
-      {/* TODO: create loading component */}
-      <MainContainer>{isRefreshing ? <>Authenticating...</> : <AppRoutes />}</MainContainer>
+      <MainContainer>
+        <Routes>
+          <Route path={routes.createAccount} element={<Login />} />
+          <Route path={routes.lobby} element={<Lobby />} />
+          <Route path="*" element={<ErrorView />} />
+        </Routes>
+      </MainContainer>
     </ErrorBoundary>
   );
 };
