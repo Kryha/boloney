@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
@@ -23,6 +23,7 @@ import {
   MIN_PLAYERS,
   MIN_POWERUPS_PER_PLAYER,
 } from "../../constants";
+import { PowerupType } from "../../interfaces";
 import { range } from "../../util";
 import {
   BottomContainer,
@@ -41,7 +42,7 @@ interface Fields {
   players: number;
   dicePerPlayer: number;
   powerupsPerPlayer: number;
-  availablePowerups: []; // TODO: make union type for powerups and make this an array or set of that union type
+  availablePowerups: PowerupType[];
   isPrivate: boolean;
   isUsingFakeCredits: boolean;
 }
@@ -53,8 +54,19 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     formState: { errors },
   } = useForm<Fields>({ mode: "onChange", reValidateMode: "onChange" });
 
+  const [availablePowerups, setAvailablePowerups] = useState<PowerupType[]>([]);
+
+  const togglePowerup = (powerup: PowerupType) => {
+    const powerupsSet = new Set(availablePowerups);
+    const itemFound = powerupsSet.delete(powerup);
+    if (!itemFound) powerupsSet.add(powerup);
+
+    setAvailablePowerups(Array.from(powerupsSet));
+  };
+
   const handleFormSubmit = handleSubmit((data) => {
-    // TODO: implement logic
+    data.availablePowerups = availablePowerups;
+    // TODO: call backend
     console.log("SUBMITTING:", data);
   });
 
@@ -101,10 +113,30 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
 
           <PowerupsPickContainer>
             <Input label={text.newGame.whichPowerups}>
-              <Checkbox title={text.newGame.powerup1} description={text.newGame.powerup1Desc} isChecked={true} />
-              <Checkbox title={text.newGame.powerup2} description={text.newGame.powerup2Desc} isChecked={true} />
-              <Checkbox title={text.newGame.powerup3} description={text.newGame.powerup3Desc} isChecked={true} />
-              <Checkbox title={text.newGame.powerup4} description={text.newGame.powerup4Desc} isChecked={true} />
+              <Checkbox
+                title={text.newGame.powerup1}
+                description={text.newGame.powerup1Desc}
+                isChecked={availablePowerups.includes("p1")}
+                toggleCheck={() => togglePowerup("p1")}
+              />
+              <Checkbox
+                title={text.newGame.powerup2}
+                description={text.newGame.powerup2Desc}
+                isChecked={availablePowerups.includes("p2")}
+                toggleCheck={() => togglePowerup("p2")}
+              />
+              <Checkbox
+                title={text.newGame.powerup3}
+                description={text.newGame.powerup3Desc}
+                isChecked={availablePowerups.includes("p3")}
+                toggleCheck={() => togglePowerup("p3")}
+              />
+              <Checkbox
+                title={text.newGame.powerup4}
+                description={text.newGame.powerup4Desc}
+                isChecked={availablePowerups.includes("p4")}
+                toggleCheck={() => togglePowerup("p4")}
+              />
             </Input>
           </PowerupsPickContainer>
 

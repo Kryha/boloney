@@ -7,12 +7,13 @@ interface Props {
   description?: string;
 
   isChecked: boolean;
+  toggleCheck: () => void;
 }
 
-export const Checkbox: FC<Props> = ({ title, description, isChecked }) => {
+export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck }) => {
   return (
     <CheckboxContainer>
-      <CheckContainer>{isChecked && <Close />}</CheckContainer>
+      <CheckContainer onClick={() => toggleCheck()}>{isChecked && <Close />}</CheckContainer>
       <DescriptionContainer>
         <Title>{title}</Title>
         {description && <Description>{description}</Description>}

@@ -26,12 +26,12 @@ export const CheckContainer = styled.div`
   justify-content: center;
   flex: 1;
 
-  border-top: 1px solid ${color.mediumGrey};
   border-bottom: 1px solid ${color.mediumGrey};
+  user-select: none;
+  cursor: pointer;
 `;
 
 export const DescriptionContainer = styled.div`
-  border-top: 1px solid ${color.mediumGrey};
   border-bottom: 1px solid ${color.mediumGrey};
   border-left: 1px solid ${color.mediumGrey};
   flex: 10;
@@ -42,6 +42,4 @@ export const DescriptionContainer = styled.div`
 export const CheckboxContainer = styled.div`
   display: flex;
   width: 100%;
-  cursor: pointer;
-  user-select: none;
 `;
