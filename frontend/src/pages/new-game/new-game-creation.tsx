@@ -24,14 +24,7 @@ import {
 } from "../../constants";
 import { PowerupType } from "../../interfaces";
 import { range } from "../../util";
-import {
-  BottomContainer,
-  NewGameContainer,
-  PlayersDiceContainer,
-  PowerupsAmountContainer,
-  PowerupsPickContainer,
-  ToggleContainer,
-} from "./styles";
+import { BottomContainer, FieldContainer, NewGameContainer, PlayersDiceContainer } from "./styles";
 
 interface Props {
   setUrl: (url: string) => void;
@@ -103,7 +96,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
             </Input>
           </PlayersDiceContainer>
 
-          <PowerupsAmountContainer>
+          <FieldContainer>
             <Input label={text.newGame.powerupsPerPlayer}>
               <BaseSelect {...register("powerupsPerPlayer")}>
                 {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
@@ -113,9 +106,9 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
                 ))}
               </BaseSelect>
             </Input>
-          </PowerupsAmountContainer>
+          </FieldContainer>
 
-          <PowerupsPickContainer>
+          <FieldContainer>
             <Input label={text.newGame.whichPowerups}>
               <Checkbox
                 title={text.newGame.powerup1}
@@ -142,9 +135,9 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
                 toggleCheck={() => togglePowerup("p4")}
               />
             </Input>
-          </PowerupsPickContainer>
+          </FieldContainer>
 
-          <ToggleContainer>
+          <FieldContainer>
             <Input label={text.newGame.privateOrPublic}>
               <Checkbox
                 title={text.newGame.private}
@@ -154,8 +147,9 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
                 toggleCheck={() => setIsPrivate(!isPrivate)}
               />
             </Input>
-          </ToggleContainer>
-          <ToggleContainer>
+          </FieldContainer>
+
+          <FieldContainer>
             <Input label={text.newGame.typeOfBet}>
               <Checkbox
                 title={text.newGame.fakeCredits}
@@ -165,7 +159,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
                 toggleCheck={() => setIsUsingFakeCredits(!isUsingFakeCredits)}
               />
             </Input>
-          </ToggleContainer>
+          </FieldContainer>
 
           <BottomContainer>
             <Paragraph>{text.newGame.bottomDesc}</Paragraph>

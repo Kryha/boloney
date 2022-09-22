@@ -10,10 +10,10 @@ export const PlayersDiceContainer = styled.div`
   margin-top: ${margins.medium0};
 `;
 
-export const PowerupsAmountContainer = styled.div``;
+export const FieldContainer = styled.div`
+  margin-top: ${margins.medium0};
+`;
 
-export const PowerupsPickContainer = styled.div``;
-
-export const ToggleContainer = styled.div``;
-
-export const BottomContainer = styled.div``;
+export const BottomContainer = styled.div`
+  margin-top: ${margins.medium0};
+`;
