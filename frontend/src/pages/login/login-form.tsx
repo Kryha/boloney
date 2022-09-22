@@ -26,9 +26,9 @@ export const LoginForm: FC = () => {
   const usernameIsRequiredError = errors.username && errors.username.type === "required";
   const passwordMinimumError = errors.password && errors.password.type === "min";
 
-  const onSubmit = (email: string, password: string) => {
+  const onSubmit = (username: string, password: string) => {
     const CREATE_NEW_USER = true;
-    authenticateUser(email, password, CREATE_NEW_USER);
+    authenticateUser(username, password, CREATE_NEW_USER);
   };
 
   return (
@@ -40,7 +40,6 @@ export const LoginForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer width={width}>
-            {/* TODO: remove email */}
             <Input label={text.loginForm.username} isError={usernameIsRequiredError}>
               <BaseInput isError={usernameIsRequiredError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>
