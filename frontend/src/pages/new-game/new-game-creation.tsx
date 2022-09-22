@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
 import {
-  BaseInput,
   BaseOption,
   BaseSelect,
   Checkbox,
@@ -48,13 +47,11 @@ interface Fields {
 }
 
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Fields>({ mode: "onChange", reValidateMode: "onChange" });
+  const { register, handleSubmit } = useForm<Fields>({ mode: "onChange", reValidateMode: "onChange" });
 
   const [availablePowerups, setAvailablePowerups] = useState<PowerupType[]>([]);
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [isUsingFakeCredits, setIsUsingFakeCredits] = useState(false);
 
   const togglePowerup = (powerup: PowerupType) => {
     const powerupsSet = new Set(availablePowerups);
@@ -66,8 +63,12 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
 
   const handleFormSubmit = handleSubmit((data) => {
     data.availablePowerups = availablePowerups;
+    data.isPrivate = isPrivate;
+    data.isUsingFakeCredits = isUsingFakeCredits;
     // TODO: call backend
     console.log("SUBMITTING:", data);
+    // TODO: retrieve url from backend
+    setUrl("tmp/url");
   });
 
   return (
@@ -142,12 +143,24 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
 
           <ToggleContainer>
             <Input label={text.newGame.privateOrPublic}>
-              <BaseInput />
+              <Checkbox
+                title={text.newGame.private}
+                description={text.newGame.privateOrPublicDesc}
+                isUsingSwitchIcon
+                isChecked={isPrivate}
+                toggleCheck={() => setIsPrivate(!isPrivate)}
+              />
             </Input>
           </ToggleContainer>
           <ToggleContainer>
             <Input label={text.newGame.typeOfBet}>
-              <BaseInput />
+              <Checkbox
+                title={text.newGame.fakeCredits}
+                description={text.newGame.typeOfBetDesc}
+                isUsingSwitchIcon
+                isChecked={isUsingFakeCredits}
+                toggleCheck={() => setIsUsingFakeCredits(!isUsingFakeCredits)}
+              />
             </Input>
           </ToggleContainer>
 

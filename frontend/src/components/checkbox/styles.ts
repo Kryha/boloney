@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { CloseIcon } from "../../assets";
-import { color, fontWeight, margins } from "../../design";
+import { CloseIcon, ToggleSwitchOffIcon, ToggleSwitchOnIcon } from "../../assets";
+import { color, margins } from "../../design";
 import { GeneralText, Paragraph } from "../atoms";
 
 export const Title = styled(GeneralText)`
@@ -13,11 +13,14 @@ export const Description = styled(Paragraph)`
 `;
 
 export const Close = styled(CloseIcon)`
-  width: 10px;
-  height: 10px;
+  width: 20px;
+`;
 
-  color: ${color.black};
-  font-weight: ${fontWeight.bolder};
+export const ToggleSwitchOn = styled(ToggleSwitchOnIcon)`
+  width: 80px;
+`;
+export const ToggleSwitchOff = styled(ToggleSwitchOffIcon)`
+  width: 80px;
 `;
 
 export const CheckContainer = styled.div`
@@ -27,14 +30,20 @@ export const CheckContainer = styled.div`
   flex: 1;
 
   border-bottom: 1px solid ${color.mediumGrey};
+  padding: 20px;
   user-select: none;
   cursor: pointer;
 `;
 
-export const DescriptionContainer = styled.div`
+interface DescriptionContainerProps {
+  removeLeftBorder?: boolean;
+}
+
+export const DescriptionContainer = styled.div<DescriptionContainerProps>`
   border-bottom: 1px solid ${color.mediumGrey};
   border-left: 1px solid ${color.mediumGrey};
-  flex: 10;
+  border-left: ${({ removeLeftBorder }) => (removeLeftBorder ? "0px" : `1px solid ${color.mediumGrey}`)};
+  flex: 11;
 
   padding: ${margins.small2};
 `;
