@@ -10,7 +10,7 @@ import { useAuth } from "../../service/auth";
 import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -23,11 +23,12 @@ export const LoginForm: FC = () => {
     formState: { errors },
   } = useForm<LoginProps>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const emailIsRequiredError = errors.email && errors.email.type === "required";
+  const usernameIsRequiredError = errors.username && errors.username.type === "required";
   const passwordMinimumError = errors.password && errors.password.type === "min";
 
   const onSubmit = (email: string, password: string) => {
-    authenticateUser(email, password);
+    const CREATE_NEW_USER = true;
+    authenticateUser(email, password, CREATE_NEW_USER);
   };
 
   return (
@@ -36,12 +37,12 @@ export const LoginForm: FC = () => {
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
       </InformationContainer>
-      <form onSubmit={handleSubmit((data) => onSubmit(data.email, data.password))}>
+      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer width={width}>
             {/* TODO: remove email */}
-            <Input label={text.loginForm.email} isError={emailIsRequiredError}>
-              <BaseInput isError={emailIsRequiredError} type="text" defaultValue="" {...register("email", { required: true })} />
+            <Input label={text.loginForm.username} isError={usernameIsRequiredError}>
+              <BaseInput isError={usernameIsRequiredError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>
             <Input label={text.loginForm.password} isError={passwordMinimumError}>
               <BaseInput
