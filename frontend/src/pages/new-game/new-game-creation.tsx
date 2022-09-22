@@ -24,7 +24,7 @@ import {
 } from "../../constants";
 import { PowerupType } from "../../interfaces";
 import { range } from "../../util";
-import { BottomContainer, FieldContainer, NewGameContainer, PlayersDiceContainer } from "./styles";
+import { BottomContainer, ButtonContainer, FieldContainer, NewGameContainer, PlayersDiceContainer } from "./styles";
 
 interface Props {
   setUrl: (url: string) => void;
@@ -163,8 +163,10 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
 
           <BottomContainer>
             <Paragraph>{text.newGame.bottomDesc}</Paragraph>
-            <PrimaryButton type="submit" text={text.newGame.continue} />
           </BottomContainer>
+          <ButtonContainer>
+            <PrimaryButton type="submit" text={text.newGame.continue} />
+          </ButtonContainer>
         </FormContainer>
       </form>
     </NewGameContainer>
