@@ -61,7 +61,6 @@ export const BaseSelect = styled.select<ErrorProps>`
   font-size: ${fontSize.small1};
   line-height: 24px;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
   color: ${color.black};
   background-color: transparent;
   width: 100%;
@@ -73,6 +72,7 @@ export const BaseSelect = styled.select<ErrorProps>`
   box-sizing: border-box;
   outline: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
   border: none;
+  border-right: ${margins.small2} solid transparent;
   padding: 23px ${margins.large0};
   :hover {
     outline: 1px solid ${color.black};
