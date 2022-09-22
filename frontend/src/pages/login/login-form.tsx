@@ -1,13 +1,12 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { text } from "../../assets/text";
 
-import { Heading1, Heading4, Input, Paragraph, BaseInput } from "../../components";
-import { Link, PrimaryButton } from "../../components/buttons";
+import { text } from "../../assets/text";
+import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitle, FormContainer, Link, PrimaryButton } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { useAuth } from "../../service/auth";
-import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
+import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
   email: string;
@@ -32,13 +31,13 @@ export const LoginForm: FC = () => {
 
   return (
     <LoginFormContainer>
-      <InformationContainer>
+      <PageTitle>
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
-      </InformationContainer>
+      </PageTitle>
       <form onSubmit={handleSubmit((data) => onSubmit(data.email, data.password))}>
         <FormContainer>
-          <AuthContainer width={width}>
+          <AuthContainer>
             {/* TODO: remove email */}
             <Input label={text.loginForm.email} isError={emailIsRequiredError}>
               <BaseInput isError={emailIsRequiredError} type="text" defaultValue="" {...register("email", { required: true })} />
