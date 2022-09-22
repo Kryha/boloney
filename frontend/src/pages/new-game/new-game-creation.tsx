@@ -6,6 +6,7 @@ import {
   BaseInput,
   BaseOption,
   BaseSelect,
+  Checkbox,
   FormContainer,
   Heading1,
   Heading4,
@@ -100,7 +101,10 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
 
           <PowerupsPickContainer>
             <Input label={text.newGame.whichPowerups}>
-              <BaseInput />
+              <Checkbox title={text.newGame.powerup1} description={text.newGame.powerup1Desc} isChecked={true} />
+              <Checkbox title={text.newGame.powerup2} description={text.newGame.powerup2Desc} isChecked={true} />
+              <Checkbox title={text.newGame.powerup3} description={text.newGame.powerup3Desc} isChecked={true} />
+              <Checkbox title={text.newGame.powerup4} description={text.newGame.powerup4Desc} isChecked={true} />
             </Input>
           </PowerupsPickContainer>
 

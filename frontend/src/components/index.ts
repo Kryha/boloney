@@ -14,3 +14,4 @@ export * from "./main-container";
 export * from "./top-navigation";
 export * from "./logo";
 export * from "./buttons";
+export * from "./checkbox";
