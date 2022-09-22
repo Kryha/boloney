@@ -11,4 +11,9 @@ export const general = {
   rules: "rules",
   menu: "menu",
   info: "info",
+  connected: "connected",
+  waiting: "waiting",
+  waitingForTheOthersToJoin: "waiting for the others to join...",
+  // TODO: change app name
+  appName: "liar's dice",
 };
