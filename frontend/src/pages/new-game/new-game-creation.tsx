@@ -62,6 +62,9 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   };
 
   const handleFormSubmit = handleSubmit((data) => {
+    data.players = Number(data.players);
+    data.dicePerPlayer = Number(data.dicePerPlayer);
+    data.powerupsPerPlayer = Number(data.powerupsPerPlayer);
     data.availablePowerups = availablePowerups;
     data.isPrivate = isPrivate;
     data.isUsingFakeCredits = isUsingFakeCredits;
