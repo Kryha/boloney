@@ -9,7 +9,7 @@ interface ErrorProps {
 export const BaseInput = styled.input<ErrorProps>`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
-  font-size: ${fontSize.small1};
+  font-size: ${fontSize.small2};
   line-height: 24px;
   letter-spacing: -0.01em;
   text-transform: uppercase;
@@ -28,7 +28,7 @@ export const BaseInput = styled.input<ErrorProps>`
   &::placeholder {
     font-family: ibm-plex-mono;
     font-weight: ${fontWeight.light};
-    font-size: ${fontSize.small1};
+    font-size: ${fontSize.small2};
     line-height: 24px;
     letter-spacing: -0.01em;
     text-transform: uppercase;

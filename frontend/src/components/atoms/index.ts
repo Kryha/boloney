@@ -4,3 +4,4 @@ export * from "./button";
 export * from "./input";
 export * from "./containers";
 export * from "./lines";
+export * from "./animations";

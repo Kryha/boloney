@@ -46,7 +46,7 @@ export const PrimaryButtonText = styled.h3<TextProps>`
   letter-spacing: -0.02em;
   text-transform: uppercase;
   max-height: 44px;
-  margin-top: -11px;
+  margin-top: -10px;
   color: ${({ customColor }): string => customColor || color.black};
 `;
 
@@ -93,7 +93,9 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
 `;
 
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
+  width: fit-content;
   cursor: ${({ disabled }) => !disabled && "pointer"};
+  width: fit-content;
   ${PrimaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
@@ -135,8 +137,8 @@ export const ButtonContainer = styled.div<ButtonProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 13px ${margins.small3} 13px ${margins.small2};
-  gap: ${margins.small0};
+  padding: 13px ${margins.small5} 13px ${margins.small4};
+  gap: ${margins.small1};
   height: 100%;
   ${SecondaryButtonBase} {
     padding: 0px;
