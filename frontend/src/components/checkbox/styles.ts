@@ -48,7 +48,13 @@ export const DescriptionContainer = styled.div<DescriptionContainerProps>`
   padding: ${margins.small2};
 `;
 
-export const CheckboxContainer = styled.div`
+interface CheckboxContainerProps {
+  isTop?: boolean;
+}
+
+export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   display: flex;
   width: 100%;
+
+  border-top: ${({ isTop }) => (isTop ? `1px solid ${color.mediumGrey}` : "0px")};
 `;

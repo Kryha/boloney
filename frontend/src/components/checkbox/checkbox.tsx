@@ -15,12 +15,13 @@ interface Props {
   title: string;
   description?: string;
   isUsingSwitchIcon?: boolean;
+  isTop?: boolean;
 
   isChecked: boolean;
   toggleCheck: () => void;
 }
 
-export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck, isUsingSwitchIcon }) => {
+export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck, isUsingSwitchIcon, isTop }) => {
   const check = () => {
     if (isUsingSwitchIcon) {
       if (isChecked) return <ToggleSwitchOn />;
@@ -32,7 +33,7 @@ export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck
   };
 
   return (
-    <CheckboxContainer>
+    <CheckboxContainer isTop={isTop}>
       <CheckContainer onClick={() => toggleCheck()}>{check()}</CheckContainer>
       <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
         <Title>{title}</Title>

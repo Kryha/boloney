@@ -111,6 +111,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           <FieldContainer>
             <Input label={text.newGame.whichPowerups}>
               <Checkbox
+                isTop
                 title={text.newGame.powerup1}
                 description={text.newGame.powerup1Desc}
                 isChecked={availablePowerups.includes("p1")}
@@ -140,6 +141,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           <FieldContainer>
             <Input label={text.newGame.privateOrPublic}>
               <Checkbox
+                isTop
                 title={text.newGame.private}
                 description={text.newGame.privateOrPublicDesc}
                 isUsingSwitchIcon
@@ -152,6 +154,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           <FieldContainer>
             <Input label={text.newGame.typeOfBet}>
               <Checkbox
+                isTop
                 title={text.newGame.fakeCredits}
                 description={text.newGame.typeOfBetDesc}
                 isUsingSwitchIcon
