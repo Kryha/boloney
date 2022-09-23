@@ -5,6 +5,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login } from "../pages";
+import { NewGame } from "../pages/new-game";
 
 export const AppRoutes: FC = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export const AppRoutes: FC = () => {
       <MainContainer>
         <Routes>
           <Route path={routes.createAccount} element={<Login />} />
+          <Route path={routes.newGame} element={<NewGame />} />
+
           <Route path="*" element={<ErrorView />} />
         </Routes>
       </MainContainer>

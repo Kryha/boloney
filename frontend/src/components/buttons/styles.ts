@@ -95,6 +95,7 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
   width: fit-content;
   cursor: ${({ disabled }) => !disabled && "pointer"};
+  width: fit-content;
   ${PrimaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
