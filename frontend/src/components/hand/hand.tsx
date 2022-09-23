@@ -5,7 +5,7 @@ import { HandContainer, HandWrapper, Hand as HandImg, Shadow, Paint } from "./st
 
 interface HandProps {
   avatarName: string;
-  name: string;
+  name?: string;
 }
 
 export const Hand: FC<HandProps> = ({ avatarName, name }) => {
