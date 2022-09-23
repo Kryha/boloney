@@ -1,13 +1,12 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { text } from "../../assets/text";
 
-import { Heading1, Heading4, Input, Paragraph, BaseInput } from "../../components";
-import { Link, PrimaryButton } from "../../components/buttons";
+import { text } from "../../assets/text";
+import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { useAuth } from "../../service/auth";
-import { AuthContainer, FormContainer, InformationContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
+import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
   username: string;
@@ -33,13 +32,13 @@ export const LoginForm: FC = () => {
 
   return (
     <LoginFormContainer>
-      <InformationContainer>
+      <PageTitleWrapper>
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
-      </InformationContainer>
+      </PageTitleWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
-          <AuthContainer width={width}>
+          <AuthContainer>
             <Input label={text.loginForm.username} isError={usernameIsRequiredError}>
               <BaseInput isError={usernameIsRequiredError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>
