@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { color, margins, zIndex } from "../../design";
 import { Heading4 } from "./text";
 
-export const PageTitle = styled.div`
+export const PageTitleWrapper = styled.div`
   margin-top: ${margins.large0};
   margin-left: ${margins.small3};
   ${Heading4} {

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets/text";
-import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitle, FormContainer, Link, PrimaryButton } from "../../components";
+import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { useAuth } from "../../service/auth";
@@ -31,10 +31,10 @@ export const LoginForm: FC = () => {
 
   return (
     <LoginFormContainer>
-      <PageTitle>
+      <PageTitleWrapper>
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
-      </PageTitle>
+      </PageTitleWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.email, data.password))}>
         <FormContainer>
           <AuthContainer>

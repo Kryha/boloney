@@ -10,7 +10,7 @@ import {
   Heading1,
   Heading4,
   Input,
-  PageTitle,
+  PageTitleWrapper,
   Paragraph,
   PrimaryButton,
 } from "../../components";
@@ -69,10 +69,10 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
 
   return (
     <NewGameContainer>
-      <PageTitle>
+      <PageTitleWrapper>
         <Heading1>{text.newGame.newGame}</Heading1>
         <Heading4>{text.newGame.newGameDescription}</Heading4>
-      </PageTitle>
+      </PageTitleWrapper>
       <form onSubmit={handleFormSubmit}>
         <FormContainer>
           <PlayersDiceContainer>
