@@ -1,11 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
 import {
   BaseOption,
   BaseSelect,
-  Checkbox,
   FormContainer,
   Heading1,
   Heading4,
@@ -24,6 +23,10 @@ import {
 } from "../../constants";
 import { PowerupType } from "../../interfaces";
 import { range } from "../../util";
+import { FakeCreditsField } from "./fake-credits-field";
+import { useNewGameState } from "./new-game-state";
+import { PowerupsField } from "./powerups-field";
+import { PrivatePublicField } from "./private-public-field";
 import { BottomContainer, ButtonContainer, FieldContainer, NewGameContainer, PlayersDiceContainer } from "./styles";
 
 interface Props {
@@ -41,18 +44,9 @@ interface Fields {
 
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<Fields>({ mode: "onChange", reValidateMode: "onChange" });
-
-  const [availablePowerups, setAvailablePowerups] = useState<PowerupType[]>([]);
-  const [isPrivate, setIsPrivate] = useState(false);
-  const [isUsingFakeCredits, setIsUsingFakeCredits] = useState(false);
-
-  const togglePowerup = (powerup: PowerupType) => {
-    const powerupsSet = new Set(availablePowerups);
-    const itemFound = powerupsSet.delete(powerup);
-    if (!itemFound) powerupsSet.add(powerup);
-
-    setAvailablePowerups(Array.from(powerupsSet));
-  };
+  const availablePowerups = useNewGameState((state) => state.availablePowerups);
+  const isPrivate = useNewGameState((state) => state.isPrivate);
+  const isUsingFakeCredits = useNewGameState((state) => state.isUsingFakeCredits);
 
   const handleFormSubmit = handleSubmit((data) => {
     data.players = Number(data.players);
@@ -108,61 +102,11 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
             </Input>
           </FieldContainer>
 
-          <FieldContainer>
-            <Input label={text.newGame.whichPowerups}>
-              <Checkbox
-                isTop
-                title={text.newGame.powerup1}
-                description={text.newGame.powerup1Desc}
-                isChecked={availablePowerups.includes("p1")}
-                toggleCheck={() => togglePowerup("p1")}
-              />
-              <Checkbox
-                title={text.newGame.powerup2}
-                description={text.newGame.powerup2Desc}
-                isChecked={availablePowerups.includes("p2")}
-                toggleCheck={() => togglePowerup("p2")}
-              />
-              <Checkbox
-                title={text.newGame.powerup3}
-                description={text.newGame.powerup3Desc}
-                isChecked={availablePowerups.includes("p3")}
-                toggleCheck={() => togglePowerup("p3")}
-              />
-              <Checkbox
-                title={text.newGame.powerup4}
-                description={text.newGame.powerup4Desc}
-                isChecked={availablePowerups.includes("p4")}
-                toggleCheck={() => togglePowerup("p4")}
-              />
-            </Input>
-          </FieldContainer>
+          <PowerupsField />
 
-          <FieldContainer>
-            <Input label={text.newGame.privateOrPublic}>
-              <Checkbox
-                isTop
-                title={text.newGame.private}
-                description={text.newGame.privateOrPublicDesc}
-                isUsingSwitchIcon
-                isChecked={isPrivate}
-                toggleCheck={() => setIsPrivate(!isPrivate)}
-              />
-            </Input>
-          </FieldContainer>
+          <PrivatePublicField />
 
-          <FieldContainer>
-            <Input label={text.newGame.typeOfBet}>
-              <Checkbox
-                isTop
-                title={text.newGame.fakeCredits}
-                description={text.newGame.typeOfBetDesc}
-                isUsingSwitchIcon
-                isChecked={isUsingFakeCredits}
-                toggleCheck={() => setIsUsingFakeCredits(!isUsingFakeCredits)}
-              />
-            </Input>
-          </FieldContainer>
+          <FakeCreditsField />
 
           <BottomContainer>
             <Paragraph>{text.newGame.bottomDesc}</Paragraph>
