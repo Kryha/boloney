@@ -4,25 +4,25 @@ import { Heading4 } from "../../components";
 import { PrimaryButtonWrapper } from "../../components/buttons/styles";
 import { margins, zIndex } from "../../design";
 
-export const NewGameContainer = styled.div``;
+export const NewGameContainer = styled.section``;
 
-export const PlayersDiceContainer = styled.div`
+export const PlayersDiceContainer = styled.section`
   display: flex;
   padding: 0px;
   margin-top: ${margins.medium0};
 `;
 
-export const FieldContainer = styled.div`
+export const FieldContainer = styled.section`
   margin-top: ${margins.medium0};
 `;
 
-export const BottomContainer = styled.div`
+export const BottomContainer = styled.section`
   margin-top: ${margins.small3};
   padding-left: ${margins.large0};
   padding-right: ${margins.large0};
 `;
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled.section`
   display: flex;
   justify-content: flex-end;
 
@@ -32,7 +32,7 @@ export const ButtonContainer = styled.div`
   width: 100%;
 `;
 
-export const NewGameConfirmationContainer = styled.div`
+export const NewGameConfirmationContainer = styled.section`
   margin-left: ${margins.large0};
   margin-top: ${margins.large0};
   margin-bottom: ${margins.large0};
