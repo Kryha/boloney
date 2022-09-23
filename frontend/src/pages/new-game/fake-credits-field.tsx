@@ -1,11 +1,11 @@
 import { text } from "../../assets";
 import { Checkbox, Input } from "../../components";
-import { useNewGameState } from "./new-game-state";
+import { useGameCreationFormState } from "./game-creation-form-state";
 import { FieldContainer } from "./styles";
 
 export const FakeCreditsField = () => {
-  const isUsingFakeCredits = useNewGameState((state) => state.isUsingFakeCredits);
-  const toggleIsUsingFakeCredits = useNewGameState((state) => state.toggleIsUsingFakeCredits);
+  const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
+  const toggleIsUsingFakeCredits = useGameCreationFormState((state) => state.toggleIsUsingFakeCredits);
 
   return (
     <FieldContainer>

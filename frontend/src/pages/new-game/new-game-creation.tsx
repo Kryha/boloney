@@ -5,7 +5,7 @@ import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, PageTitleWrapper, Paragraph, PrimaryButton } from "../../components";
 import { PowerupType } from "../../interfaces";
 import { FakeCreditsField } from "./fake-credits-field";
-import { useNewGameState } from "./new-game-state";
+import { useGameCreationFormState } from "./game-creation-form-state";
 import { PlayersField } from "./players-field";
 import { PowerupsAmountField } from "./powerups-amount-field";
 import { PowerupsField } from "./powerups-field";
@@ -27,9 +27,9 @@ export interface Fields {
 
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<Fields>({ mode: "onChange", reValidateMode: "onChange" });
-  const availablePowerups = useNewGameState((state) => state.availablePowerups);
-  const isPrivate = useNewGameState((state) => state.isPrivate);
-  const isUsingFakeCredits = useNewGameState((state) => state.isUsingFakeCredits);
+  const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
+  const isPrivate = useGameCreationFormState((state) => state.isPrivate);
+  const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
 
   const handleFormSubmit = handleSubmit((data) => {
     data.players = Number(data.players);

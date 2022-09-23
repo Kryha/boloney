@@ -1,11 +1,11 @@
 import { text } from "../../assets";
 import { Checkbox, Input } from "../../components";
-import { useNewGameState } from "./new-game-state";
+import { useGameCreationFormState } from "./game-creation-form-state";
 import { FieldContainer } from "./styles";
 
 export const PowerupsField = () => {
-  const availablePowerups = useNewGameState((state) => state.availablePowerups);
-  const togglePowerup = useNewGameState((state) => state.togglePowerup);
+  const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
+  const togglePowerup = useGameCreationFormState((state) => state.togglePowerup);
 
   return (
     <FieldContainer>

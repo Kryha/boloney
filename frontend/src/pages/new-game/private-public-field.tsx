@@ -1,11 +1,11 @@
 import { text } from "../../assets";
 import { Checkbox, Input } from "../../components";
-import { useNewGameState } from "./new-game-state";
+import { useGameCreationFormState } from "./game-creation-form-state";
 import { FieldContainer } from "./styles";
 
 export const PrivatePublicField = () => {
-  const isPrivate = useNewGameState((state) => state.isPrivate);
-  const toggleIsPrivate = useNewGameState((state) => state.toggleIsPrivate);
+  const isPrivate = useGameCreationFormState((state) => state.isPrivate);
+  const toggleIsPrivate = useGameCreationFormState((state) => state.toggleIsPrivate);
 
   return (
     <FieldContainer>

@@ -12,7 +12,7 @@ export interface NewGameState {
   togglePowerup: (powerup: PowerupType) => void;
 }
 
-export const useNewGameState = create<NewGameState>((set) => ({
+export const useGameCreationFormState = create<NewGameState>((set) => ({
   availablePowerups: [],
   isPrivate: false,
   isUsingFakeCredits: false,
