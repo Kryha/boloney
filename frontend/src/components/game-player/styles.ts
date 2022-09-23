@@ -31,6 +31,7 @@ export const PlayerNameContainer = styled.div`
   align-items: center;
   padding: 0px ${margins.small2};
   gap: ${margins.small1};
+  margin-top: -${margins.small4};
 `;
 
 interface AvatarProps {
@@ -41,6 +42,7 @@ export const PlayerAvatar = styled.img<AvatarProps>`
   width: 12.5vw;
   height: ${({ height }): string => (height || `${avatarHeight[5]}`)};
   object-fit: contain;
+  margin-top: ${margins.small4};
 `;
 
 export const PlayerName = styled(Heading5)`

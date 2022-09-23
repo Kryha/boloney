@@ -2,17 +2,27 @@ import styled from "@emotion/styled";
 
 import { color, margins } from "../../design";
 
-export const PipContainer = styled.span`
+interface PipProps {
+  pipColor?: string;
+  pipSize?: string;
+}
+
+export const PipContainer = styled.span<PipProps>`
   display: block;
   align-self: center;
   justify-self: center;
-  width: ${margins.small2};
-  height: ${margins.small2};
-  background: ${color.pureWhite};
+  width: ${({ pipSize }): string => pipSize || margins.small2};
+  height: ${({ pipSize }): string => pipSize || margins.small2};
+  background: ${({ pipColor }): string => pipColor || color.darkBlue};
   border-radius: ${margins.small1};
 `;
 
-export const FaceWrapper = styled.div`
+interface FaceProps {
+  faceColor?: string;
+  faceSize?: string;
+}
+
+export const FaceWrapper = styled.div<FaceProps>`
   display: grid;
   grid-template-areas:
     "a . c"
@@ -20,9 +30,9 @@ export const FaceWrapper = styled.div`
     "d . b";
   flex: 0 0 auto;
   padding: 2px;
-  width: ${margins.large0};
-  height: ${margins.large0};
-  background-color: ${color.darkBlue};
+  width: ${({ faceSize }): string => faceSize || margins.large0};
+  height: ${({ faceSize }): string => faceSize || margins.large0};
+  background: ${({ faceColor }): string => faceColor || color.white};
   box-shadow: 0px 0px ${margins.small2} rgba(0, 0, 0, 0.02), 0px 0px  ${margins.small5} rgba(0, 0, 0, 0.1);
   border-radius: ${margins.small1};
   ${PipContainer}:nth-of-type(2) {

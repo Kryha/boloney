@@ -26,7 +26,6 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   width: 31.25vw;
   height: 7.198vh;
   background: transparent;
-  border-right: 1px solid ${color.darkGrey};
   border-top: 1px solid ${color.darkGrey};
   ${GeneralText} {
     margin-left: ${margins.small5};
