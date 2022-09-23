@@ -1,12 +1,39 @@
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
 import { AccountKeys } from "../interfaces/models";
-import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION } from "../utils/const";
-import { logError, getErrorMessage, handleHttpResponse } from "../utils/error-handling";
+import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION, FAILED_GETTING_USERNAME } from "../utils/const";
+import { logError, getErrorMessage, handleHttpResponse, USERNAME_EXISTS } from "../utils/error-handling";
 
 export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (
-  _request: nkruntime.AuthenticateCustomRequest
-) => {
-  // TODO: Implement
+  _ctx: nkruntime.Context,
+  logger: nkruntime.Logger,
+  nk: nkruntime.Nakama,
+  data: nkruntime.AuthenticateCustomRequest,
+): nkruntime.AuthenticateCustomRequest | void => {
+  if (!data || !data.account) return;
+  
+  const username: string = data.username || "";
+  const password: string = data.account.id || "";
+  
+  if (data.create && isUsernameAlreadyTaken(nk, logger, username)) {
+    throw USERNAME_EXISTS;
+  }
+  
+  const encrypted32ByteKey = nk.aes256Encrypt(password, username.padEnd(32, "0"));
+  data.account.id = encrypted32ByteKey;
+
+  return data;
+};
+
+const isUsernameAlreadyTaken = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): boolean => {
+  let user: nkruntime.User[];
+    
+  try {
+    user = nk.usersGetUsername([username]);
+
+    return user.length > 0 ? true : false;
+  } catch (error) {
+    throw logError(`${FAILED_GETTING_USERNAME}: ${error}`, logger);
+  }
 };
 
 export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (

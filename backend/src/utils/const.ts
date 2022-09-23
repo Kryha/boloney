@@ -33,3 +33,4 @@ export const success = (message: string, logger: nkruntime.Logger) => {
 export const EXISTING_KEYS = "User already has existing keys";
 export const SUCCES_CREATING_ACCOUNT = "Created new user account on Aleo successfully";
 export const FAILED_WRITING_COLLECTION = "Writing to the collection failed";
+export const FAILED_GETTING_USERNAME = "Failed to get the Username from Nakama";
