@@ -2,7 +2,7 @@ import sha256 from "crypto-js/sha256";
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
 import { AccountKeys } from "../interfaces/models";
 import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION, FAILED_GETTING_USERNAME } from "../utils/const";
-import { logError, getErrorMessage, handleHttpResponse, USERNAME_EXISTS } from "../utils/error-handling";
+import { logError, getErrorMessage, handleHttpResponse, USERNAME_TAKEN } from "../utils/error-handling";
 
 export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (
   _ctx: nkruntime.Context,
@@ -16,14 +16,12 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   const password: string = data.account.id || "";
   const encryptedKey = String(sha256(password + username));
 
-  // Registration check
   if (data.create && isUsernameAlreadyTaken(nk, logger, username)) {
-    logger.debug("TRUE");
-    throw USERNAME_EXISTS;
+    throw USERNAME_TAKEN;
   }
     
   data.account.id = encryptedKey;
-  logger.info(JSON.stringify(data));
+  
   return data;
 };
 
@@ -37,10 +35,8 @@ const getUserFromNakama = (nk: nkruntime.Nakama, logger: nkruntime.Logger, usern
 
 const isUsernameAlreadyTaken = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): boolean => {
   const user = getUserFromNakama(nk, logger, username);
-  logger.debug("LENGTH");
-  logger.debug(String(user.length));
   
-  return user.length > 0 ? true : false;
+  return user.length > 0;
 };
 
 export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (

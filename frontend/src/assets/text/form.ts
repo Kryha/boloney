@@ -7,4 +7,10 @@ export const loginForm = {
   join: "Join",
   username: "Username",
   password: "Password",
+  errorMessages: {
+    usernameRequired: "Username is required.",
+    passwordMinimum: "Password must be at least % characters.",
+    usernameAlreadyTaken: "Username is already taken.",
+    invalidCredentials: "Invalid credentials.",
+  }
 };

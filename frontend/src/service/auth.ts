@@ -21,8 +21,7 @@ export const useAuth = () => {
         setSession(socketSession);
         setIsAuthenticated(true);
       } catch (error) {
-        // TODO: add error handling
-        console.log(error);
+        if (error instanceof Response) return error.status;
       }
       setIsLoading(false);
     },
