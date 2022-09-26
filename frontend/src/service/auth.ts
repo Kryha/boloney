@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { APPEAR_ONLINE } from "../constants";
 import { useAuthState } from "../store/auth";
 
 export const useAuth = () => {
@@ -11,11 +10,11 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const authenticateUser = useCallback(
-    async (email: string, password: string) => {
+    async (username: string, password: string, newUser: boolean) => {
       if (isAuthenticated) return;
       try {
         setIsLoading(true);
-        const session = await client.authenticateEmail(email, password, APPEAR_ONLINE);
+        const session = await client.authenticateCustom(password, newUser, username);
         const socket = client.createSocket();
         const socketSession = await socket.connect(session, true);
         setSocket(socket);

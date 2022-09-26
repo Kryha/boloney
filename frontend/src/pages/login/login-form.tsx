@@ -9,7 +9,7 @@ import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
 interface LoginProps {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -22,11 +22,12 @@ export const LoginForm: FC = () => {
     formState: { errors },
   } = useForm<LoginProps>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const emailIsRequiredError = errors.email && errors.email.type === "required";
+  const usernameIsRequiredError = errors.username && errors.username.type === "required";
   const passwordMinimumError = errors.password && errors.password.type === "min";
 
-  const onSubmit = (email: string, password: string) => {
-    authenticateUser(email, password);
+  const onSubmit = (username: string, password: string) => {
+    const CREATE_NEW_USER = true;
+    authenticateUser(username, password, CREATE_NEW_USER);
   };
 
   return (
@@ -34,13 +35,12 @@ export const LoginForm: FC = () => {
       <PageTitleWrapper>
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
-      </PageTitleWrapper>
-      <form onSubmit={handleSubmit((data) => onSubmit(data.email, data.password))}>
+      </InformationContainer>
+      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
-          <AuthContainer>
-            {/* TODO: remove email */}
-            <Input label={text.loginForm.email} isError={emailIsRequiredError}>
-              <BaseInput isError={emailIsRequiredError} type="text" defaultValue="" {...register("email", { required: true })} />
+          <AuthContainer width={width}>
+            <Input label={text.loginForm.username} isError={usernameIsRequiredError}>
+              <BaseInput isError={usernameIsRequiredError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>
             <Input label={text.loginForm.password} isError={passwordMinimumError}>
               <BaseInput

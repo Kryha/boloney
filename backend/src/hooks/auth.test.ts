@@ -1,14 +1,14 @@
 import { createMock } from "ts-auto-mock";
 import { On, method, Method } from "ts-auto-mock/extension";
 import { AccountKeys } from "../interfaces/models";
-import { afterAuthenticateEmail, storeNewKeysInCollection, getNewKeysFromToolkit, userKeysAreAvailable } from "./auth";
+import { afterAuthenticateCustom, storeNewKeysInCollection, getNewKeysFromToolkit, userKeysAreAvailable } from "./auth";
 
 describe("After authentication hook", () => {
   let mockNk: nkruntime.Nakama;
   let mockCtx: nkruntime.Context;
   let mockLogger: nkruntime.Logger;
   let mockSession: nkruntime.Session;
-  let mockAuthenticateEmailRequest: nkruntime.AuthenticateEmailRequest;
+  let mockAuthenticateCustomRequest: nkruntime.AuthenticateCustomRequest;
   let mockStorageReadRequest: nkruntime.StorageReadRequest;
   let mockStorageWriteAck: nkruntime.StorageWriteAck;
   let mockAccountKeys: AccountKeys;
@@ -23,7 +23,7 @@ describe("After authentication hook", () => {
     mockCtx = createMock<nkruntime.Context>({ userId: "mock-user" });
     mockLogger = createMock<nkruntime.Logger>();
     mockSession = createMock<nkruntime.Session>();
-    mockAuthenticateEmailRequest = createMock<nkruntime.AuthenticateEmailRequest>();
+    mockAuthenticateCustomRequest = createMock<nkruntime.AuthenticateCustomRequest>();
     mockStorageReadRequest = createMock<nkruntime.StorageReadRequest>();
     mockStorageWriteAck = createMock<nkruntime.StorageWriteAck>();
     mockAccountKeys = createMock<AccountKeys>();
@@ -89,7 +89,7 @@ describe("After authentication hook", () => {
 
     const expectedInfo = "User already has keys";
 
-    afterAuthenticateEmail(mockCtx, mockLogger, mockNk, mockSession, mockAuthenticateEmailRequest);
+    afterAuthenticateCustom(mockCtx, mockLogger, mockNk, mockSession, mockAuthenticateCustomRequest);
 
     expect(mockLoggerInfo).toBeCalledWith(expectedInfo);
   });

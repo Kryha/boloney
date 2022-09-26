@@ -3,13 +3,18 @@ import { AccountKeys } from "../interfaces/models";
 import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION } from "../utils/const";
 import { logError, getErrorMessage, handleHttpResponse } from "../utils/error-handling";
 
-//FIXME: Change this to Custom authentication flow. Where Username and password are used
-export const afterAuthenticateEmail: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateEmailRequest> = (
+export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (
+  _request: nkruntime.AuthenticateCustomRequest
+) => {
+  // TODO: Implement
+};
+
+export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (
   ctx: nkruntime.Context,
   logger: nkruntime.Logger,
   nk: nkruntime.Nakama,
   _data: nkruntime.Session,
-  _request: nkruntime.AuthenticateEmailRequest
+  _request: nkruntime.AuthenticateCustomRequest
 ) => {
   const payload = { collection: "Accounts", key: "keys" };
 
