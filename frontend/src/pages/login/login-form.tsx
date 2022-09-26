@@ -26,7 +26,7 @@ export const LoginForm: FC = () => {
   const passwordMinimumError = errors.password && errors.password.type === "min";
 
   const onSubmit = (username: string, password: string) => {
-    const CREATE_NEW_USER = true;
+    const CREATE_NEW_USER = false;
     authenticateUser(username, password, CREATE_NEW_USER);
   };
 
@@ -35,10 +35,10 @@ export const LoginForm: FC = () => {
       <PageTitleWrapper>
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
-      </InformationContainer>
+      </PageTitleWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
-          <AuthContainer width={width}>
+          <AuthContainer>
             <Input label={text.loginForm.username} isError={usernameIsRequiredError}>
               <BaseInput isError={usernameIsRequiredError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>

@@ -1,12 +1,46 @@
+import sha256 from "crypto-js/sha256";
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
 import { AccountKeys } from "../interfaces/models";
-import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION } from "../utils/const";
-import { logError, getErrorMessage, handleHttpResponse } from "../utils/error-handling";
+import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION, FAILED_GETTING_USERNAME } from "../utils/const";
+import { logError, getErrorMessage, handleHttpResponse, USERNAME_EXISTS } from "../utils/error-handling";
 
 export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (
-  _request: nkruntime.AuthenticateCustomRequest
-) => {
-  // TODO: Implement
+  _ctx: nkruntime.Context,
+  logger: nkruntime.Logger,
+  nk: nkruntime.Nakama,
+  data: nkruntime.AuthenticateCustomRequest,
+): nkruntime.AuthenticateCustomRequest | void => {
+  if (!data || !data.account) return;
+  
+  const username: string = data.username || "";
+  const password: string = data.account.id || "";
+  const encryptedKey = String(sha256(password + username));
+
+  // Registration check
+  if (data.create && isUsernameAlreadyTaken(nk, logger, username)) {
+    logger.debug("TRUE");
+    throw USERNAME_EXISTS;
+  }
+    
+  data.account.id = encryptedKey;
+  logger.info(JSON.stringify(data));
+  return data;
+};
+
+const getUserFromNakama = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): nkruntime.User[] => {
+  try {
+    return nk.usersGetUsername([username]);
+  } catch (error) {
+    throw logError(`${FAILED_GETTING_USERNAME}: ${error}`, logger);
+  }
+};
+
+const isUsernameAlreadyTaken = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): boolean => {
+  const user = getUserFromNakama(nk, logger, username);
+  logger.debug("LENGTH");
+  logger.debug(String(user.length));
+  
+  return user.length > 0 ? true : false;
 };
 
 export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (

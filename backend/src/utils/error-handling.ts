@@ -10,6 +10,11 @@ export const ERROR_BAD_INPUT: nkruntime.Error = {
   code: nkruntime.Codes.INVALID_ARGUMENT,
 };
 
+export const USERNAME_EXISTS: nkruntime.Error = {
+  message: "Username already exists",
+  code: nkruntime.Codes.ALREADY_EXISTS,
+};
+
 export const ERROR_EXTERNAL_CALL: nkruntime.Error = {
   message: "The contract call failed",
   code: nkruntime.Codes.DATA_LOSS,
