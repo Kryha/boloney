@@ -26,7 +26,7 @@ export const LoginForm: FC = () => {
   const passwordMinimumError = errors.password && errors.password.type === "min";
 
   const onSubmit = (username: string, password: string) => {
-    const CREATE_NEW_USER = true;
+    const CREATE_NEW_USER = false;
     authenticateUser(username, password, CREATE_NEW_USER);
   };
 
