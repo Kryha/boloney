@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { FieldErrorsImpl, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import { text } from "../../assets/text";
 import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
@@ -22,26 +22,26 @@ export const LoginForm: FC = () => {
   const usernameError = errors.username && (errors.username.type === "required" || errors.username.type === "taken");
   const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
-  const showUsernameError = (errors: FieldErrorsImpl): string | undefined => {
-    return errors.username?.type === "taken" ?
-      text.loginForm.errorMessages.usernameAlreadyTaken :
-      text.loginForm.errorMessages.usernameRequired;
+  const showUsernameError = (): string | undefined => {
+    return errors.username?.type === "taken"
+      ? text.loginForm.errorMessages.usernameAlreadyTaken
+      : text.loginForm.errorMessages.usernameRequired;
   };
 
-  const showPasswordError = (errors: FieldErrorsImpl): string | undefined => {
-    return errors.password?.type === "invalid" ?
-      text.loginForm.errorMessages.invalidCredentials :
-      text.loginForm.errorMessages.passwordMinimum.replace("%", String(MINIMUM_PASSWORD_LENGTH));
+  const showPasswordError = (): string | undefined => {
+    return errors.password?.type === "invalid"
+      ? text.loginForm.errorMessages.invalidCredentials
+      : text.loginForm.errorMessages.passwordMinimum.replace("%", String(MINIMUM_PASSWORD_LENGTH));
   };
 
   const onSubmit = async (username: string, password: string) => {
     const CREATE_NEW_USER = true; // This will be removed once we have a separate register and login form
     const statusCode = await authenticateUser(username, password, CREATE_NEW_USER);
-    
+
     if (statusCode === StatusCodes.CONFLICT) setError("username", { type: "taken" });
     if (statusCode === StatusCodes.NOT_FOUND) setError("password", { type: "invalid" });
   };
-  
+
   return (
     <LoginFormContainer>
       <PageTitleWrapper>
@@ -51,14 +51,10 @@ export const LoginForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.loginForm.username} isError={ usernameError } errorMessage={ showUsernameError(errors) }>
-              <BaseInput 
-                isError={usernameError} 
-                type="text" 
-                defaultValue="" {...register("username", { required: true })} 
-              />
+            <Input label={text.loginForm.username} isError={usernameError} errorMessage={showUsernameError()}>
+              <BaseInput isError={usernameError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>
-            <Input label={text.loginForm.password} isError={ passwordError } errorMessage={ showPasswordError(errors) }>
+            <Input label={text.loginForm.password} isError={passwordError} errorMessage={showPasswordError()}>
               <BaseInput
                 type="password"
                 defaultValue=""

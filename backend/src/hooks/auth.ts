@@ -8,12 +8,12 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   _ctx: nkruntime.Context,
   logger: nkruntime.Logger,
   nk: nkruntime.Nakama,
-  data: nkruntime.AuthenticateCustomRequest,
+  data: nkruntime.AuthenticateCustomRequest
 ): nkruntime.AuthenticateCustomRequest => {
   if (!data.username || !data.account?.id) {
     throw logError("No username/password provided", nkruntime.Codes.INVALID_ARGUMENT, logger);
   }
-  
+
   const isRegistering = !!data.create;
   const username: string = data.username;
   const password: string = data.account.id;
@@ -22,17 +22,17 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   if (isRegistering && getUserFromNakama(nk, logger, username)) {
     throw logError("Username already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
   }
-    
+
   data.account.id = encryptedKey;
-  
+
   return data;
 };
 
-const getUserFromNakama = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): nkruntime.User | null => {
+const getUserFromNakama = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): nkruntime.User | undefined => {
   try {
     const users = nk.usersGetUsername([username]);
-    if (!users[0]) return null;
-    
+    if (!users[0]) return;
+
     return users[0];
   } catch (error) {
     throw logError("Failed to get the Username from Nakama", nkruntime.Codes.INTERNAL, logger);
@@ -85,9 +85,9 @@ export const userKeysAreAvailable = (
   } catch (error) {
     throw logError(FAILED_WRITING_COLLECTION, nkruntime.Codes.INTERNAL, logger);
   }
-  
+
   success(EXISTING_KEYS, logger);
-  
+
   return true;
 };
 
