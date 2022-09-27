@@ -10,13 +10,14 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   nk: nkruntime.Nakama,
   data: nkruntime.AuthenticateCustomRequest,
 ): nkruntime.AuthenticateCustomRequest | void => {
-  if (!data || !data.account) return;
+  if (!data.account?.id || !data.username) return;
   
-  const username: string = data.username || "";
-  const password: string = data.account.id || "";
+  const isRegistering = !!data.create;
+  const username: string = data.username;
+  const password: string = data.account.id;
   const encryptedKey = String(sha256(password + username));
 
-  if (data.create && isUsernameAlreadyTaken(nk, logger, username)) {
+  if (isRegistering && isUsernameAlreadyTaken(nk, logger, username)) {
     throw USERNAME_TAKEN;
   }
     
