@@ -22,13 +22,13 @@ export const LoginForm: FC = () => {
   const usernameError = errors.username && (errors.username.type === "required" || errors.username.type === "taken");
   const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
-  const showUsernameError = (): string | undefined => {
+  const showUsernameError = () => {
     return errors.username?.type === "taken"
       ? text.loginForm.errorMessages.usernameAlreadyTaken
       : text.loginForm.errorMessages.usernameRequired;
   };
 
-  const showPasswordError = (): string | undefined => {
+  const showPasswordError = () => {
     return errors.password?.type === "invalid"
       ? text.loginForm.errorMessages.invalidCredentials
       : text.loginForm.errorMessages.passwordMinimum.replace("%", String(MINIMUM_PASSWORD_LENGTH));
