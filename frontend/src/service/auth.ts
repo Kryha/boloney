@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { APPEAR_ONLINE } from "../constants";
 import { useAuthState } from "../store/auth";
 
 export const useAuth = () => {

@@ -9,7 +9,7 @@ export const loginForm = {
   password: "Password",
   errorMessages: {
     usernameRequired: "Username is required.",
-    passwordMinimum: "Password must be at least % characters.",
+    passwordMinimum: "Password must have at least % characters.",
     usernameAlreadyTaken: "Username is already taken.",
     invalidCredentials: "Invalid credentials.",
   }
