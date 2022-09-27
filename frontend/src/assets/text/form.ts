@@ -1,16 +1,16 @@
 export const loginForm = {
-  somethingWentWrong: "Something went wrong.",
-  firstThingsFirst: "First things first...",
-  whoAreYou: "Who are you? We see you don't have an account or you are logged out. Create a new account or log in with an existing one!",
-  iAlreadyHaveAnAccount: "I already have an account.",
+  somethingWentWrong: "something went wrong.",
+  firstThingsFirst: "first things first...",
+  whoAreYou: "who are you? We see you don't have an account or you are logged out. Create a new account or log in with an existing one!",
+  iAlreadyHaveAnAccount: "i already have an account.",
   signIn: "sign in",
   join: "join",
   username: "username",
   password: "password",
   errorMessages: {
-    usernameRequired: "Username is required.",
-    passwordMinimum: "Password must have at least % characters.",
-    usernameAlreadyTaken: "Username is already taken.",
-    invalidCredentials: "Invalid credentials.",
-  }
+    usernameRequired: "username is required.",
+    passwordMinimum: "password must have at least % characters.",
+    usernameAlreadyTaken: "username is already taken.",
+    invalidCredentials: "invalid credentials.",
+  },
 };
