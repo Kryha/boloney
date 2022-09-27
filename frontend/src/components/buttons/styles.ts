@@ -157,6 +157,9 @@ export const LinkText = styled.a`
   position: relative;
   text-decoration: none;
   display: inline-block;
+  :first-letter {
+    text-transform: capitalize;
+  }
   &:after {
     display: block;
     content: "";
