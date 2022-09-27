@@ -1,20 +1,57 @@
+import sha256 from "crypto-js/sha256";
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
 import { AccountKeys } from "../interfaces/models";
 import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION } from "../utils/const";
 import { logError, getErrorMessage, handleHttpResponse } from "../utils/error-handling";
 
-//FIXME: Change this to Custom authentication flow. Where Username and password are used
-export const afterAuthenticateEmail: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateEmailRequest> = (
+export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (
+  _ctx: nkruntime.Context,
+  logger: nkruntime.Logger,
+  nk: nkruntime.Nakama,
+  data: nkruntime.AuthenticateCustomRequest
+): nkruntime.AuthenticateCustomRequest => {
+  if (!data.username || !data.account?.id) {
+    throw logError("No username/password provided", nkruntime.Codes.INVALID_ARGUMENT, logger);
+  }
+
+  const isRegistering = !!data.create;
+  const username: string = data.username;
+  const password: string = data.account.id;
+  const encryptedKey = String(sha256(password + username));
+
+  if (isRegistering && getUserFromNakama(nk, logger, username)) {
+    throw logError("Username already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
+  }
+
+  data.account.id = encryptedKey;
+
+  return data;
+};
+
+const getUserFromNakama = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): nkruntime.User | undefined => {
+  try {
+    const users = nk.usersGetUsername([username]);
+    if (!users[0]) return;
+
+    return users[0];
+  } catch (error) {
+    throw logError("Failed to get the Username from Nakama", nkruntime.Codes.INTERNAL, logger);
+  }
+};
+
+export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (
   ctx: nkruntime.Context,
   logger: nkruntime.Logger,
   nk: nkruntime.Nakama,
   _data: nkruntime.Session,
-  _request: nkruntime.AuthenticateEmailRequest
+  _request: nkruntime.AuthenticateCustomRequest
 ) => {
   const payload = { collection: "Accounts", key: "keys" };
 
   // check if the user exist in the collection with keys/addresses
-  if (userKeysAreAvailable(nk, ctx, payload, logger)) return null;
+  if (userKeysAreAvailable(nk, ctx, payload, logger)) {
+    return logError("User already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
+  }
 
   //Get new keys from the toolkit
   const newKeys = getNewKeysFromToolkit(nk, logger);
@@ -46,9 +83,11 @@ export const userKeysAreAvailable = (
     ]);
     if (!existingKeys.length) false;
   } catch (error) {
-    throw logError(FAILED_WRITING_COLLECTION, logger);
+    throw logError(FAILED_WRITING_COLLECTION, nkruntime.Codes.INTERNAL, logger);
   }
+
   success(EXISTING_KEYS, logger);
+
   return true;
 };
 
@@ -60,7 +99,7 @@ export const getNewKeysFromToolkit = (nk: nkruntime.Nakama, logger: nkruntime.Lo
 
     return handleHttpResponse(res, logger);
   } catch (error) {
-    throw logError(getErrorMessage(error), logger);
+    throw logError(getErrorMessage(error), nkruntime.Codes.INTERNAL, logger);
   }
 };
 
@@ -90,7 +129,7 @@ export const storeNewKeysInCollection = (
     nk.storageWrite([payloadRequest, payloadPrivateKeyRequest]);
   } catch (error) {
     const errorMessage = getErrorMessage(error);
-    throw logError(errorMessage, logger);
+    throw logError(errorMessage, nkruntime.Codes.INTERNAL, logger);
   }
 
   logger.info("Aleo Keys are stored in the collection");

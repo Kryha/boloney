@@ -11,19 +11,18 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const authenticateUser = useCallback(
-    async (email: string, password: string) => {
+    async (username: string, password: string, newUser: boolean) => {
       if (isAuthenticated) return;
       try {
         setIsLoading(true);
-        const session = await client.authenticateEmail(email, password, APPEAR_ONLINE);
+        const session = await client.authenticateCustom(password, newUser, username);
         const socket = client.createSocket();
         const socketSession = await socket.connect(session, true);
         setSocket(socket);
         setSession(socketSession);
         setIsAuthenticated(true);
       } catch (error) {
-        // TODO: add error handling
-        console.log(error);
+        if (error instanceof Response) return error.status;
       }
       setIsLoading(false);
     },

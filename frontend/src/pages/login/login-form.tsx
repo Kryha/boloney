@@ -5,13 +5,9 @@ import { text } from "../../assets/text";
 import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
+import { AuthFields, StatusCodes } from "../../interfaces";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
-
-interface LoginProps {
-  email: string;
-  password: string;
-}
 
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuth();
@@ -19,14 +15,31 @@ export const LoginForm: FC = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
-  } = useForm<LoginProps>({ mode: "onChange", reValidateMode: "onChange" });
+  } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const emailIsRequiredError = errors.email && errors.email.type === "required";
-  const passwordMinimumError = errors.password && errors.password.type === "min";
+  const usernameError = errors.username && (errors.username.type === "required" || errors.username.type === "taken");
+  const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
-  const onSubmit = (email: string, password: string) => {
-    authenticateUser(email, password);
+  const showUsernameError = () => {
+    return errors.username?.type === "taken"
+      ? text.loginForm.errorMessages.usernameAlreadyTaken
+      : text.loginForm.errorMessages.usernameRequired;
+  };
+
+  const showPasswordError = () => {
+    return errors.password?.type === "invalid"
+      ? text.loginForm.errorMessages.invalidCredentials
+      : text.loginForm.errorMessages.passwordMinimum.replace("%", String(MINIMUM_PASSWORD_LENGTH));
+  };
+
+  const onSubmit = async (username: string, password: string) => {
+    const CREATE_NEW_USER = true; // This will be removed once we have a separate register and login form
+    const statusCode = await authenticateUser(username, password, CREATE_NEW_USER);
+
+    if (statusCode === StatusCodes.CONFLICT) setError("username", { type: "taken" });
+    if (statusCode === StatusCodes.NOT_FOUND) setError("password", { type: "invalid" });
   };
 
   return (
@@ -35,19 +48,18 @@ export const LoginForm: FC = () => {
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
       </PageTitleWrapper>
-      <form onSubmit={handleSubmit((data) => onSubmit(data.email, data.password))}>
+      <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            {/* TODO: remove email */}
-            <Input label={text.loginForm.email} isError={emailIsRequiredError}>
-              <BaseInput isError={emailIsRequiredError} type="text" defaultValue="" {...register("email", { required: true })} />
+            <Input label={text.loginForm.username} isError={usernameError} errorMessage={showUsernameError()}>
+              <BaseInput isError={usernameError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>
-            <Input label={text.loginForm.password} isError={passwordMinimumError}>
+            <Input label={text.loginForm.password} isError={passwordError} errorMessage={showPasswordError()}>
               <BaseInput
                 type="password"
                 defaultValue=""
-                {...register("password", { required: true, min: MINIMUM_PASSWORD_LENGTH })}
-                isError={passwordMinimumError}
+                {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })}
+                isError={passwordError}
               />
             </Input>
           </AuthContainer>
