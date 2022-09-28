@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { FieldErrorsImpl, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
@@ -24,7 +24,7 @@ export const CreateAccountForm: FC = () => {
   const usernameError = errors.username && (errors.username.type === "required" || errors.username.type === "taken");
   const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
-  const showUsernameError = (errors: FieldErrorsImpl): string | undefined => {
+  const showUsernameError = (): string | undefined => {
     return errors.username?.type === "taken"
       ? text.authForm.errorMessages.usernameAlreadyTaken
       : text.authForm.errorMessages.usernameRequired;
@@ -46,7 +46,7 @@ export const CreateAccountForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.authForm.username} isError={usernameError} errorMessage={showUsernameError(errors)}>
+            <Input label={text.authForm.username} isError={usernameError} errorMessage={showUsernameError()}>
               <BaseInput isError={usernameError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>
             <Input
