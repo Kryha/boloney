@@ -24,7 +24,7 @@ export const CreateAccountForm: FC = () => {
   const usernameError = errors.username && (errors.username.type === "required" || errors.username.type === "taken");
   const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
-  const showUsernameError = (): string | undefined => {
+  const showUsernameError = () => {
     return errors.username?.type === "taken"
       ? text.authForm.errorMessages.usernameAlreadyTaken
       : text.authForm.errorMessages.usernameRequired;
