@@ -14,8 +14,9 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
     throw logError("No username/password provided", nkruntime.Codes.INVALID_ARGUMENT, logger);
   }
 
+  data.username = data.username.toLowerCase();
   const isRegistering = !!data.create;
-  const username: string = data.username.toLowerCase();
+  const username: string = data.username;
   const password: string = data.account.id;
 
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
