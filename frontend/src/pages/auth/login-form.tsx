@@ -12,7 +12,7 @@ import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles
 
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuth();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const { width, height } = useViewport();
   const {
     register,
@@ -52,7 +52,7 @@ export const LoginForm: FC = () => {
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
             <Paragraph>{text.authForm.iDontHaveAnAccountYet}</Paragraph>
-            <Link onClick={() => navigator(routes.createAccount)} text={text.authForm.register} />
+            <Link onClick={() => navigate(routes.createAccount)} text={text.authForm.register} />
             <PrimaryButton type="submit" text={text.authForm.signIn} />
           </SignOrJoinContainer>
         </FormContainer>

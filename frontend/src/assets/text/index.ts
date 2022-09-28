@@ -1,7 +1,7 @@
 import { param } from "./param";
 import { general } from "./general";
 import { error } from "./error";
-import { authForm } from "./authForm";
+import { authForm } from "./auth-form";
 import { rules } from "./rules";
 import { newGame } from "./new-game";
 
