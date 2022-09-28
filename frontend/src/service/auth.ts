@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { APPEAR_ONLINE } from "../constants";
 import { StatusCodes } from "../interfaces";
 import { useAuthState } from "../store/auth";
 
