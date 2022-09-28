@@ -2,7 +2,8 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets/text";
-import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
+import { Heading1, Heading4, Input, Paragraph, BaseInput, FormContainer, Link, PrimaryButton } from "../../components";
+import { GeneralContentWrapper } from "../../components/atoms/containers";
 import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { useAuth } from "../../service/auth";
@@ -31,10 +32,10 @@ export const LoginForm: FC = () => {
 
   return (
     <LoginFormContainer>
-      <PageTitleWrapper>
+      <GeneralContentWrapper>
         <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
         <Heading4>{text.loginForm.whoAreYou}</Heading4>
-      </PageTitleWrapper>
+      </GeneralContentWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.email, data.password))}>
         <FormContainer>
           <AuthContainer>

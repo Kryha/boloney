@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 import { LinkContainer, PrimaryButtonContainer } from "../../components/buttons/styles";
+import { InputContainer } from "../../components/inputs/styles";
 import { SMALL_VIEWPORT_WIDTH } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../interfaces";
@@ -10,6 +11,13 @@ export const AuthContainer = styled.div`
   flex-direction: row;
   padding: 0px;
   margin-top: ${margins.medium0};
+  width: 62.5vw;
+  ${InputContainer} {
+    margin-top: ${margins.small5};
+  }
+  ${InputContainer}:nth-of-type(1) {
+    border-right: 1px solid ${color.mediumGrey};
+  }
 `;
 
 export const SignOrJoinContainer = styled.div<ViewProps>`

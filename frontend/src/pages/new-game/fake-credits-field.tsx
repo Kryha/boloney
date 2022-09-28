@@ -1,14 +1,14 @@
 import { text } from "../../assets";
 import { Checkbox, Input } from "../../components";
 import { useGameCreationFormState } from "./game-creation-form-state";
-import { FieldContainer } from "./styles";
+import { FieldContainer, ToggleContainer } from "./styles";
 
 export const FakeCreditsField = () => {
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
   const toggleIsUsingFakeCredits = useGameCreationFormState((state) => state.toggleIsUsingFakeCredits);
 
   return (
-    <FieldContainer>
+    <ToggleContainer>
       <Input label={text.newGame.typeOfBet}>
         <Checkbox
           isTop
@@ -19,6 +19,6 @@ export const FakeCreditsField = () => {
           toggleCheck={toggleIsUsingFakeCredits}
         />
       </Input>
-    </FieldContainer>
+    </ToggleContainer>
   );
 };

@@ -2,9 +2,9 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { InfoIcon } from "../../assets/icons";
-import { ColorSpan } from "../atoms";
+import { ColorSpan, Heading6, Paragraph } from "../atoms";
 import { Dropdown } from "./dropdown";
-import { RulesContainer, RulesLink, RulesList, RulesSection, RulesSectionContent, RulesSectionTitle } from "./styles";
+import { RulesContainer, RulesLink, RulesSection, RulesSectionContent, RulesSectionTitle } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
 
 interface Props {
@@ -26,12 +26,11 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
         {/* basic */}
         <RulesSection>
           <RulesSectionTitle>{text.rules.basicRuleset}</RulesSectionTitle>
-          <RulesList>
-            <RulesSectionContent>
-              {text.rules.basic1}
-              <ColorSpan customColor="darkGrey">{text.rules.basic1Notes}</ColorSpan>
-            </RulesSectionContent>
-          </RulesList>
+          <RulesSectionContent>
+            <Heading6 />
+            {text.rules.basic1}
+            <ColorSpan customColor="darkGrey">{text.rules.basic1Notes}</ColorSpan>
+          </RulesSectionContent>
           {/* TODO: redirect somewhere or expand */}
           <RulesLink text={text.rules.seeAvailablePowerUps} />
         </RulesSection>
@@ -39,19 +38,23 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
         {/* round */}
         <RulesSection>
           <RulesSectionTitle>{text.rules.roundRuleset}</RulesSectionTitle>
-          <RulesList>
-            <RulesSectionContent>{text.rules.round1}</RulesSectionContent>
-          </RulesList>
+          <RulesSectionContent>
+            <Heading6 />
+            {text.rules.round1}
+          </RulesSectionContent>
         </RulesSection>
 
         {/* turn */}
         <RulesSection>
           <RulesSectionTitle>{text.rules.turnRuleset}</RulesSectionTitle>
-          <RulesList>
-            <RulesSectionContent>{text.rules.turn1}</RulesSectionContent>
-            <RulesSectionContent>{text.rules.turn2}</RulesSectionContent>
-            <RulesSectionContent>{text.rules.turn3}</RulesSectionContent>
-          </RulesList>
+          <RulesSectionContent>
+            <Heading6 />
+            <Paragraph>{text.rules.turn1}</Paragraph>
+            <Heading6 />
+            <Paragraph>{text.rules.turn2}</Paragraph>
+            <Heading6 />
+            <Paragraph>{text.rules.turn3}</Paragraph>
+          </RulesSectionContent>
         </RulesSection>
       </RulesContainer>
     </Dropdown>

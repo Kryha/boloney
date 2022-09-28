@@ -6,7 +6,7 @@ import { BaseOption, BaseSelect, Input } from "../../components";
 import { MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { range } from "../../util";
 import { Fields } from "./new-game-creation";
-import { FieldContainer } from "./styles";
+import { FieldContainer, PowerupsAmountFieldContainer } from "./styles";
 
 interface Props {
   register: UseFormRegister<Fields>;
@@ -14,7 +14,7 @@ interface Props {
 
 export const PowerupsAmountField: FC<Props> = ({ register }) => {
   return (
-    <FieldContainer>
+    <PowerupsAmountFieldContainer>
       <Input label={text.newGame.powerupsPerPlayer}>
         <BaseSelect {...register("powerupsPerPlayer")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
@@ -24,6 +24,6 @@ export const PowerupsAmountField: FC<Props> = ({ register }) => {
           ))}
         </BaseSelect>
       </Input>
-    </FieldContainer>
+    </PowerupsAmountFieldContainer>
   );
 };

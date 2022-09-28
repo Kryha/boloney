@@ -16,6 +16,7 @@ import { ReactComponent as LogoutIcon } from "./logout.svg";
 import { ReactComponent as ToggleSwitchOnIcon } from "./toggle-switch-on.svg";
 import { ReactComponent as ToggleSwitchOffIcon } from "./toggle-switch-off.svg";
 import { ReactComponent as CopyIcon } from "./copy.svg";
+import ChevronDownIcon from "./chevron-down.svg";
 
 export {
   PlusIcon,
@@ -36,4 +37,5 @@ export {
   ToggleSwitchOffIcon,
   ToggleSwitchOnIcon,
   CopyIcon,
+  ChevronDownIcon,
 };
