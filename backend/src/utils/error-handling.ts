@@ -17,6 +17,7 @@ export const ERROR_WRITING_TO_COLLECTION: nkruntime.Error = {
 
 export const logError = (error: string, code: nkruntime.Codes, logger: nkruntime.Logger): nkruntime.Error => {
   logger.error(error);
+  return null;
   return { message: error, code };
 };
 

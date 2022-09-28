@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
 import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
@@ -11,6 +12,7 @@ import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles
 
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuth();
+  const navigator = useNavigate();
   const { width, height } = useViewport();
   const {
     register,
@@ -19,42 +21,33 @@ export const LoginForm: FC = () => {
     formState: { errors },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const usernameError = errors.username && (errors.username.type === "required" || errors.username.type === "taken");
+  const usernameError = errors.username && errors.username.type === "required";
   const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
-  const showUsernameError = () => {
-    return errors.username?.type === "taken"
-      ? text.loginForm.errorMessages.usernameAlreadyTaken
-      : text.loginForm.errorMessages.usernameRequired;
-  };
-
-  const showPasswordError = () => {
+  const showPasswordError = (): string | undefined => {
     return errors.password?.type === "invalid"
-      ? text.loginForm.errorMessages.invalidCredentials
-      : text.loginForm.errorMessages.passwordMinimum.replace("%", String(MINIMUM_PASSWORD_LENGTH));
+      ? text.authForm.errorMessages.invalidCredentials
+      : text.authForm.errorMessages.passwordMinimum.replace("%", String(MINIMUM_PASSWORD_LENGTH));
   };
 
   const onSubmit = async (username: string, password: string) => {
-    const CREATE_NEW_USER = true; // This will be removed once we have a separate register and login form
-    const statusCode = await authenticateUser(username, password, CREATE_NEW_USER);
-
-    if (statusCode === StatusCodes.CONFLICT) setError("username", { type: "taken" });
+    const statusCode = await authenticateUser(username, password);
     if (statusCode === StatusCodes.NOT_FOUND) setError("password", { type: "invalid" });
   };
 
   return (
     <LoginFormContainer>
       <PageTitleWrapper>
-        <Heading1>{text.loginForm.firstThingsFirst}</Heading1>
-        <Heading4>{text.loginForm.whoAreYou}</Heading4>
+        <Heading1>{text.authForm.firstThingsFirst}</Heading1>
+        <Heading4>{text.authForm.goodSeeingYouAgain}</Heading4>
       </PageTitleWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.loginForm.username} isError={usernameError} errorMessage={showUsernameError()}>
+            <Input label={text.authForm.username} isError={usernameError} errorMessage={text.authForm.errorMessages.usernameRequired}>
               <BaseInput isError={usernameError} type="text" defaultValue="" {...register("username", { required: true })} />
             </Input>
-            <Input label={text.loginForm.password} isError={passwordError} errorMessage={showPasswordError()}>
+            <Input label={text.authForm.password} isError={passwordError} errorMessage={showPasswordError()}>
               <BaseInput
                 type="password"
                 defaultValue=""
@@ -64,9 +57,9 @@ export const LoginForm: FC = () => {
             </Input>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
-            <Paragraph>{text.loginForm.iAlreadyHaveAnAccount}</Paragraph>
-            <Link text={text.loginForm.signIn} />
-            <PrimaryButton type="submit" text={text.loginForm.join} />
+            <Paragraph>{text.authForm.iDontHaveAnAccountYet}</Paragraph>
+            <Link onClick={() => navigator("/create-account")} text={text.authForm.register} />
+            <PrimaryButton type="submit" text={text.authForm.signIn} />
           </SignOrJoinContainer>
         </FormContainer>
       </form>

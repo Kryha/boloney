@@ -11,7 +11,7 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const authenticateUser = useCallback(
-    async (username: string, password: string, newUser: boolean) => {
+    async (username: string, password: string, newUser = false) => {
       if (isAuthenticated) return;
       try {
         setIsLoading(true);

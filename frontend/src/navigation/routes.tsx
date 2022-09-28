@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
-import { Login } from "../pages";
+import { Login, Register } from "../pages/auth";
 import { NewGame } from "../pages/new-game";
 
 export const AppRoutes: FC = () => {
@@ -14,7 +14,8 @@ export const AppRoutes: FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
       <MainContainer>
         <Routes>
-          <Route path={routes.createAccount} element={<Login />} />
+          <Route path={routes.createAccount} element={<Register />} />
+          <Route path={routes.login} element={<Login />} />
           <Route path={routes.newGame} element={<NewGame />} />
 
           <Route path="*" element={<ErrorView />} />
