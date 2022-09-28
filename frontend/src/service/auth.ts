@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { APPEAR_ONLINE } from "../constants";
+import { StatusCodes } from "../interfaces";
 import { useAuthState } from "../store/auth";
 
 export const useAuth = () => {
@@ -22,9 +23,12 @@ export const useAuth = () => {
         setSession(socketSession);
         setIsAuthenticated(true);
       } catch (error) {
+        setIsLoading(false);
         if (error instanceof Response) return error.status;
       }
+
       setIsLoading(false);
+      return StatusCodes.OK;
     },
     [isAuthenticated, client, setIsAuthenticated, setSession, setSocket]
   );

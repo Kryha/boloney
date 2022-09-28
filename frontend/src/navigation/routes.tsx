@@ -10,6 +10,7 @@ import { NewGame } from "../pages/new-game";
 export const AppRoutes: FC = () => {
   const navigate = useNavigate();
 
+  // TODO: add routes to navigate to when authenticated
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
       <MainContainer>

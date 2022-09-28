@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
 import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
-import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, StatusCodes } from "../../interfaces";
+import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
@@ -52,7 +52,7 @@ export const LoginForm: FC = () => {
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
             <Paragraph>{text.authForm.iDontHaveAnAccountYet}</Paragraph>
-            <Link onClick={() => navigator("/create-account")} text={text.authForm.register} />
+            <Link onClick={() => navigator(routes.createAccount)} text={text.authForm.register} />
             <PrimaryButton type="submit" text={text.authForm.signIn} />
           </SignOrJoinContainer>
         </FormContainer>

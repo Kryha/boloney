@@ -4,6 +4,7 @@ export interface AuthFields {
 }
 
 export enum StatusCodes {
+  OK = 200,
   CONFLICT = 409,
   NOT_FOUND = 404,
 }

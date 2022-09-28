@@ -7,6 +7,7 @@ import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, Form
 import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, StatusCodes } from "../../interfaces";
+import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
@@ -63,7 +64,7 @@ export const CreateAccountForm: FC = () => {
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
             <Paragraph>{text.authForm.iAlreadyHaveAnAccount}</Paragraph>
-            <Link onClick={() => navigator("/login")} text={text.authForm.signIn} />
+            <Link onClick={() => navigator(routes.login)} text={text.authForm.signIn} />
             <PrimaryButton type="submit" text={text.authForm.join} />
           </SignOrJoinContainer>
         </FormContainer>
