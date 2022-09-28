@@ -14,6 +14,7 @@ export const FIFTY_NINE_SECONDS = 59;
 export const TEN_SECONDS = 10;
 export const GO_BACK = -1;
 
+export const MINIMUM_USERNAME_LENGTH = 2;
 export const MINIMUM_PASSWORD_LENGTH = 8;
 export const APPEAR_ONLINE = true;
 export const CREATE_ACCOUNT = true;
