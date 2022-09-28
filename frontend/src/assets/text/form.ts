@@ -1,8 +1,9 @@
 export const authForm = {
   somethingWentWrong: "something went wrong.",
   firstThingsFirst: "first things first...",
+  welcomeBack: "hey, welcome back!",
   whoAreYou: "who are you? We see you don't have an account or you are logged out. Create a new account or log in with an existing one!",
-  goodSeeingYouAgain: "It's good seeing you again! I hope you didn't miss me too much. Sign in below and start playing right away.",
+  goodSeeingYouAgain: "It's good seeing you again. I hope you didn't miss me too much. Sign in below and start playing right away.",
   iAlreadyHaveAnAccount: "i already have an account.",
   iDontHaveAnAccountYet: "i don't have an account yet.",
   register: "register",

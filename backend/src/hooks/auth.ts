@@ -17,26 +17,14 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   const isRegistering = !!data.create;
   const username: string = data.username;
   const password: string = data.account.id;
+
+  const userExists = isRegistering && nk.usersGetUsername([username]).length;
+  if (userExists) throw logError("Username already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
+
   const encryptedKey = String(sha256(password + username));
-
-  if (isRegistering && getUserFromNakama(nk, logger, username)) {
-    throw logError("Username already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
-  }
-
   data.account.id = encryptedKey;
 
   return data;
-};
-
-const getUserFromNakama = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): nkruntime.User | undefined => {
-  try {
-    const users = nk.usersGetUsername([username]);
-    if (!users[0]) return;
-
-    return users[0];
-  } catch (error) {
-    throw logError("Failed to get the Username from Nakama", nkruntime.Codes.INTERNAL, logger);
-  }
 };
 
 export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (

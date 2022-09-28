@@ -38,7 +38,7 @@ export const LoginForm: FC = () => {
   return (
     <LoginFormContainer>
       <PageTitleWrapper>
-        <Heading1>{text.authForm.firstThingsFirst}</Heading1>
+        <Heading1>{text.authForm.welcomeBack}</Heading1>
         <Heading4>{text.authForm.goodSeeingYouAgain}</Heading4>
       </PageTitleWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>

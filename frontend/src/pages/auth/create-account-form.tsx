@@ -10,7 +10,7 @@ import { AuthFields, StatusCodes } from "../../interfaces";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
-export const RegisterForm: FC = () => {
+export const CreateAccountForm: FC = () => {
   const { authenticateUser } = useAuth();
   const navigator = useNavigate();
   const { width, height } = useViewport();
