@@ -24,10 +24,9 @@ export const LoginForm: FC = () => {
   const usernameError = errors.username && errors.username.type === "required";
   const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
-  const showPasswordError = (): string | undefined => {
-    return errors.password?.type === "invalid"
-      ? text.authForm.errorMessages.invalidCredentials
-      : text.authForm.errorMessages.passwordMinimum.replace("%", String(MINIMUM_PASSWORD_LENGTH));
+  const showPasswordError = () => {
+    if (errors.password?.type === "invalid") return text.authForm.errorMessages.invalidCredentials;
+    if (errors.password?.type === "required") return text.authForm.errorMessages.passwordRequired;
   };
 
   const onSubmit = async (username: string, password: string) => {
@@ -45,15 +44,10 @@ export const LoginForm: FC = () => {
         <FormContainer>
           <AuthContainer>
             <Input label={text.authForm.username} isError={usernameError} errorMessage={text.authForm.errorMessages.usernameRequired}>
-              <BaseInput isError={usernameError} type="text" defaultValue="" {...register("username", { required: true })} />
+              <BaseInput isError={usernameError} type="text" {...register("username", { required: true })} />
             </Input>
             <Input label={text.authForm.password} isError={passwordError} errorMessage={showPasswordError()}>
-              <BaseInput
-                type="password"
-                defaultValue=""
-                {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })}
-                isError={passwordError}
-              />
+              <BaseInput type="password" {...register("password", { required: true })} isError={passwordError} />
             </Input>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>

@@ -1,3 +1,5 @@
+import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
+
 export const authForm = {
   somethingWentWrong: "something went wrong.",
   firstThingsFirst: "first things first...",
@@ -13,7 +15,9 @@ export const authForm = {
   password: "password",
   errorMessages: {
     usernameRequired: "username is required.",
-    passwordMinimum: "password must have at least % characters.",
+    passwordRequired: "password is required.",
+    usernameMinimum: `username must have at least ${MINIMUM_USERNAME_LENGTH} characters.`,
+    passwordMinimum: `password must have at least ${MINIMUM_PASSWORD_LENGTH} characters.`,
     usernameAlreadyTaken: "username is already taken.",
     invalidCredentials: "invalid credentials.",
   },

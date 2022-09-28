@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
 import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
-import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
+import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, StatusCodes } from "../../interfaces";
 import { useAuth } from "../../service/auth";
@@ -21,13 +21,14 @@ export const CreateAccountForm: FC = () => {
     formState: { errors },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const usernameError = errors.username && (errors.username.type === "required" || errors.username.type === "taken");
+  const usernameError =
+    errors.username && (errors.username.type === "minLength" || errors.username.type === "required" || errors.username.type === "taken");
   const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
   const showUsernameError = () => {
-    return errors.username?.type === "taken"
-      ? text.authForm.errorMessages.usernameAlreadyTaken
-      : text.authForm.errorMessages.usernameRequired;
+    if (errors.username?.type === "taken") return text.authForm.errorMessages.usernameAlreadyTaken;
+    if (errors.username?.type === "minLength") return text.authForm.errorMessages.usernameMinimum;
+    if (errors.username?.type === "required") return text.authForm.errorMessages.usernameRequired;
   };
 
   const onSubmit = async (username: string, password: string) => {
@@ -47,16 +48,15 @@ export const CreateAccountForm: FC = () => {
         <FormContainer>
           <AuthContainer>
             <Input label={text.authForm.username} isError={usernameError} errorMessage={showUsernameError()}>
-              <BaseInput isError={usernameError} type="text" defaultValue="" {...register("username", { required: true })} />
+              <BaseInput
+                isError={usernameError}
+                type="text"
+                {...register("username", { required: true, minLength: MINIMUM_USERNAME_LENGTH })}
+              />
             </Input>
-            <Input
-              label={text.authForm.password}
-              isError={passwordError}
-              errorMessage={text.authForm.errorMessages.passwordMinimum.replace("%", String(MINIMUM_PASSWORD_LENGTH))}
-            >
+            <Input label={text.authForm.password} isError={passwordError} errorMessage={text.authForm.errorMessages.passwordMinimum}>
               <BaseInput
                 type="password"
-                defaultValue=""
                 {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })}
                 isError={passwordError}
               />
