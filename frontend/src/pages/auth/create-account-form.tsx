@@ -32,8 +32,7 @@ export const CreateAccountForm: FC = () => {
   };
 
   const onSubmit = async (username: string, password: string) => {
-    const newUser = true;
-    const statusCode = await authenticateUser(username, password, newUser);
+    const statusCode = await authenticateUser(username, password, true);
 
     if (statusCode === StatusCodes.CONFLICT) setError("username", { type: "taken" });
   };
