@@ -7,6 +7,7 @@ import { MINIMUM_PASSWORD_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 interface LoginProps {
   username: string;
@@ -24,10 +25,12 @@ export const LoginForm: FC = () => {
 
   const usernameIsRequiredError = errors.username && errors.username.type === "required";
   const passwordMinimumError = errors.password && errors.password.type === "min";
+  const navigate = useNavigate();
 
   const onSubmit = (username: string, password: string) => {
     const CREATE_NEW_USER = false;
     authenticateUser(username, password, CREATE_NEW_USER);
+    navigate("/lobby");
   };
 
   return (

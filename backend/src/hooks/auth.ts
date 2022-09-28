@@ -8,10 +8,10 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   _ctx: nkruntime.Context,
   logger: nkruntime.Logger,
   nk: nkruntime.Nakama,
-  data: nkruntime.AuthenticateCustomRequest,
+  data: nkruntime.AuthenticateCustomRequest
 ): nkruntime.AuthenticateCustomRequest | void => {
   if (!data || !data.account) return;
-  
+
   const username: string = data.username || "";
   const password: string = data.account.id || "";
   const encryptedKey = String(sha256(password + username));
@@ -21,7 +21,7 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
     logger.debug("TRUE");
     throw USERNAME_EXISTS;
   }
-    
+
   data.account.id = encryptedKey;
   logger.info(JSON.stringify(data));
   return data;
@@ -39,7 +39,7 @@ const isUsernameAlreadyTaken = (nk: nkruntime.Nakama, logger: nkruntime.Logger, 
   const user = getUserFromNakama(nk, logger, username);
   logger.debug("LENGTH");
   logger.debug(String(user.length));
-  
+
   return user.length > 0 ? true : false;
 };
 
