@@ -15,7 +15,7 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   }
 
   const isRegistering = !!data.create;
-  const username: string = data.username;
+  const username: string = data.username.toLowerCase();
   const password: string = data.account.id;
 
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
