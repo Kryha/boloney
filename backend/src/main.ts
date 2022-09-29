@@ -2,7 +2,7 @@
 //import * as dotenvFlow from "dotenv-flow";
 //dotenvFlow.config();
 
-import { afterAuthenticateEmail } from "./hooks/auth";
+import { beforeAuthenticateCustom , afterAuthenticateCustom } from "./hooks/auth";
 import { matchInit, matchJoin, matchJoinAttempt, matchLeave, matchLoop, matchSignal, matchTerminate } from "./game-modes/standard";
 
 function InitModule(_ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
@@ -15,7 +15,8 @@ function InitModule(_ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkru
     matchSignal,
     matchTerminate,
   });
-  initializer.registerAfterAuthenticateEmail(afterAuthenticateEmail);
+  initializer.registerBeforeAuthenticateCustom(beforeAuthenticateCustom);
+  initializer.registerAfterAuthenticateCustom(afterAuthenticateCustom);
 
   logger.info("JavaScript logic loaded.");
 }
