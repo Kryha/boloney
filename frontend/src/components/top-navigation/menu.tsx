@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
-import { useUIState } from "../../store/ui";
 import { HorizonalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";

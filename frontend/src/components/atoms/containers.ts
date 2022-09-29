@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
-import { margins } from "../../design";
-import { FormHeadingText, GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, IntroText } from "./text";
+import { color, fontWeight, margins } from "../../design";
+import { LinkContainer } from "../buttons/styles";
+import { FormHeadingText, GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, IntroText, Paragraph } from "./text";
+
+interface TextProps {
+  customColor?: string;
+}
 
 export const GeneralContentWrapper = styled.div`
   margin-left: ${margins.large0};
@@ -45,5 +50,29 @@ export const FormContentWrapper = styled.div`
   ${GeneralText} {
     width: clamp(400px, 41.67vw + 0px, 800px);
     margin-bottom: ${margins.large0};
+  }
+`;
+
+export const ListSection = styled.section<TextProps>`
+  font-family: ibm-plex-mono;
+  font-weight: ${fontWeight.bolder};
+  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
+  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
+  color: ${({ customColor }): string => customColor || color.black};
+  :first-letter {
+    text-transform: capitalize;
+  }
+  counter-reset: css-counter 0;
+  ${Heading6}{
+    counter-increment: css-counter 1;
+  }
+  ${Heading6}:after {
+    content: counter(css-counter, decimal-leading-zero) ""; /* Apply counter before children's content. */
+  }
+  ${Paragraph} {
+    margin-bottom: ${margins.medium0};
+  }
+  ${LinkContainer} {
+    margin-top: ${margins.small3};
   }
 `;

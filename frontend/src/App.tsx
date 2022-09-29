@@ -7,6 +7,7 @@ import { useUIState } from "./store/ui";
 
 function App() {
   const isOverlayVisible = useUIState((state) => state.isOverlayVisible);
+
   return (
     <BrowserRouter>
       {isOverlayVisible && <Overlay />}

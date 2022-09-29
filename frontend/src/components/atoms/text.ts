@@ -85,18 +85,6 @@ export const Paragraph = styled.p<TextProps>`
   }
 `;
 
-export const ListItem = styled.li<TextProps>`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.light};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  letter-spacing: -0.01em;
-  color: ${({ customColor }): string => customColor || color.black};
-  :first-letter {
-    text-transform: capitalize;
-  }
-`;
-
 export const GeneralText = styled.h3<TextProps>`
   font-family: ibm-plex-mono, sans-serif;
   font-weight: ${fontWeight.light};
