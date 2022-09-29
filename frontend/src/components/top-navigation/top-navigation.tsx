@@ -5,6 +5,7 @@ import { MenuDropdown } from "./menu";
 import { RulesDropdown } from "./rules";
 import { useUIState } from "../../store/ui";
 import { VerticalDivider } from "../atoms";
+import { OverlayWrapper } from "../overlay-wrapper";
 
 interface Props {
   isInGame?: boolean;
@@ -19,6 +20,12 @@ export const TopNavigation: FC<Props> = ({ isInGame }) => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isVisible, setIsVisible] = useState(false);
 
+  const handleClickOutside = () => {
+    setHover && setHover(false);
+    setIsVisible(false);
+    setIsOverlayVisible(false);
+  };
+
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
     if (activeDropdown === dropdown) {
       setActiveDropdown(undefined);
@@ -31,28 +38,20 @@ export const TopNavigation: FC<Props> = ({ isInGame }) => {
   };
 
   return (
-    <TopNavigationSection>
-      {isInGame && (
-        <>
-          <CountdownTimer isHovered={hover}>
-            <Timer />
-          </CountdownTimer>
-          <VerticalDivider />
-        </>
-      )}
-      <RulesDropdown
-        setHover={setHover}
-        isActive={activeDropdown === "rules" && isVisible}
-        setActiveDropdown={handleDropdownClick}
-        setIsVisible={setIsVisible}
-      />
-      <VerticalDivider />
-      <MenuDropdown
-        setHover={setHover}
-        isActive={activeDropdown === "menu" && isVisible}
-        setActiveDropdown={handleDropdownClick}
-        setIsVisible={setIsVisible}
-      />
-    </TopNavigationSection>
+    <OverlayWrapper handleClickOutside={handleClickOutside}>
+      <TopNavigationSection>
+        {isInGame && (
+          <>
+            <CountdownTimer isHovered={hover}>
+              <Timer />
+            </CountdownTimer>
+            <VerticalDivider />
+          </>
+        )}
+        <RulesDropdown setHover={setHover} isActive={activeDropdown === "rules" && isVisible} setActiveDropdown={handleDropdownClick} />
+        <VerticalDivider />
+        <MenuDropdown setHover={setHover} isActive={activeDropdown === "menu" && isVisible} setActiveDropdown={handleDropdownClick} />
+      </TopNavigationSection>
+    </OverlayWrapper>
   );
 };

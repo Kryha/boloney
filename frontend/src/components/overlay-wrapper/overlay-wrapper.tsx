@@ -1,10 +1,11 @@
 import { FC, ReactNode, useRef } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 
-import useOnClickOutside from "../../hooks/use-overlay";
 import { useUIState } from "../../store/ui";
+import { OverlayWrapperSection } from "./styles";
 
 interface OverlayWrapperProps {
-  handleClickOutside?: () => void;
+  handleClickOutside: () => void;
   children: ReactNode;
 }
 
@@ -14,8 +15,8 @@ export const OverlayWrapper: FC<OverlayWrapperProps> = ({ handleClickOutside, ch
 
   useOnClickOutside(ref, () => {
     setIsOverlayVisible(false);
-    handleClickOutside && handleClickOutside();
+    handleClickOutside();
   });
 
-  return <div ref={ref}>{children}</div>;
+  return <OverlayWrapperSection ref={ref}>{children}</OverlayWrapperSection>;
 };

@@ -12,7 +12,6 @@ interface Props {
 
   expand: () => void;
   setHover?: (hover: boolean) => void;
-  setIsVisible: (isVisible: boolean) => void;
 }
 
 export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, buttonText, buttonIcon }) => {
