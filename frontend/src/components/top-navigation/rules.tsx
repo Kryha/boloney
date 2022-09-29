@@ -2,8 +2,7 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { InfoIcon } from "../../assets/icons";
-import { ColorSpan, Paragraph } from "../atoms";
-import { ListSection } from "../atoms/containers";
+import { ColorSpan, ListSection, Paragraph } from "../atoms";
 import { LeadingZeroList } from "../leading-zero-list";
 import { Dropdown } from "./dropdown";
 import { RulesContainer, RulesLink, RulesSection, RulesSectionTitle } from "./styles";

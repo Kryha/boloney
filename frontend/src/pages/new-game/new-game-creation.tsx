@@ -2,8 +2,7 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
-import { FormContainer, Heading1, Heading4, PageTitleWrapper, Paragraph, PrimaryButton } from "../../components";
-import { GeneralContentWrapper } from "../../components/atoms/containers";
+import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton } from "../../components";
 import { PowerupType } from "../../interfaces";
 import { FakeCreditsField } from "./fake-credits-field";
 import { useGameCreationFormState } from "./game-creation-form-state";

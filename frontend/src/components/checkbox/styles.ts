@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 
 import { CloseIcon, ToggleSwitchOffIcon, ToggleSwitchOnIcon } from "../../assets";
 import { color, margins } from "../../design";
-import { GeneralText, Paragraph } from "../atoms";
-import { GeneralContentWrapper } from "../atoms/containers";
+import { GeneralText, Paragraph, GeneralContentWrapper } from "../atoms";
 
 export const Title = styled(GeneralText)`
   text-transform: uppercase;

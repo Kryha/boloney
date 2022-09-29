@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { GeneralText } from "../atoms";
-import { GeneralContentWrapper } from "../atoms/containers";
+import { GeneralText, GeneralContentWrapper } from "../atoms";
 
 import { CheckboxContainer, CheckContainer, Close, Description, DescriptionContainer, ToggleSwitchOff, ToggleSwitchOn } from "./styles";
 
