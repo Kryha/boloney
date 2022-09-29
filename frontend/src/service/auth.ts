@@ -1,5 +1,6 @@
 import { Session } from "inspector";
 import { useCallback, useState } from "react";
+import { StatusCodes } from "../interfaces";
 import { useAuthState } from "../store/auth";
 
 export const useAuth = () => {
@@ -11,7 +12,7 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const authenticateUser = useCallback(
-    async (username: string, password: string, newUser: boolean) => {
+    async (username: string, password: string, newUser = false) => {
       if (isAuthenticated) return;
       try {
         setIsLoading(true);
@@ -22,10 +23,12 @@ export const useAuth = () => {
         setSession(socketSession);
         setIsAuthenticated(true);
       } catch (error) {
-        // TODO: add error handling
-        console.log(error);
+        setIsLoading(false);
+        if (error instanceof Response) return error.status;
       }
+
       setIsLoading(false);
+      return StatusCodes.OK;
     },
     [isAuthenticated, client, setIsAuthenticated, setSession, setSocket]
   );

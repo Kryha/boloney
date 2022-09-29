@@ -1,46 +1,30 @@
 import sha256 from "crypto-js/sha256";
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
 import { AccountKeys } from "../interfaces/models";
-import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION, FAILED_GETTING_USERNAME } from "../utils/const";
-import { logError, getErrorMessage, handleHttpResponse, USERNAME_EXISTS } from "../utils/error-handling";
+import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION } from "../utils/const";
+import { logError, getErrorMessage, handleHttpResponse } from "../utils/error-handling";
 
 export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (
   _ctx: nkruntime.Context,
   logger: nkruntime.Logger,
   nk: nkruntime.Nakama,
   data: nkruntime.AuthenticateCustomRequest
-): nkruntime.AuthenticateCustomRequest | void => {
-  if (!data || !data.account) return;
+): nkruntime.AuthenticateCustomRequest => {
+  if (!data.username || !data.account?.id) {
+    throw logError("No username/password provided", nkruntime.Codes.INVALID_ARGUMENT, logger);
+  }
 
-  const username: string = data.username || "";
-  const password: string = data.account.id || "";
+  const isRegistering = !!data.create;
+  const username: string = data.username.toLowerCase();
+  const password: string = data.account.id;
+
+  const userExists = isRegistering && nk.usersGetUsername([username]).length;
+  if (userExists) throw logError("Username already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
+
   const encryptedKey = String(sha256(password + username));
-
-  // Registration check
-  if (data.create && isUsernameAlreadyTaken(nk, logger, username)) {
-    logger.debug("TRUE");
-    throw USERNAME_EXISTS;
-  }
-
   data.account.id = encryptedKey;
-  logger.info(JSON.stringify(data));
+
   return data;
-};
-
-const getUserFromNakama = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): nkruntime.User[] => {
-  try {
-    return nk.usersGetUsername([username]);
-  } catch (error) {
-    throw logError(`${FAILED_GETTING_USERNAME}: ${error}`, logger);
-  }
-};
-
-const isUsernameAlreadyTaken = (nk: nkruntime.Nakama, logger: nkruntime.Logger, username: string): boolean => {
-  const user = getUserFromNakama(nk, logger, username);
-  logger.debug("LENGTH");
-  logger.debug(String(user.length));
-
-  return user.length > 0 ? true : false;
 };
 
 export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (
@@ -53,7 +37,9 @@ export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Sess
   const payload = { collection: "Accounts", key: "keys" };
 
   // check if the user exist in the collection with keys/addresses
-  if (userKeysAreAvailable(nk, ctx, payload, logger)) return null;
+  if (userKeysAreAvailable(nk, ctx, payload, logger)) {
+    return logError("User already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
+  }
 
   //Get new keys from the toolkit
   const newKeys = getNewKeysFromToolkit(nk, logger);
@@ -85,9 +71,11 @@ export const userKeysAreAvailable = (
     ]);
     if (!existingKeys.length) false;
   } catch (error) {
-    throw logError(FAILED_WRITING_COLLECTION, logger);
+    throw logError(FAILED_WRITING_COLLECTION, nkruntime.Codes.INTERNAL, logger);
   }
+
   success(EXISTING_KEYS, logger);
+
   return true;
 };
 
@@ -99,7 +87,7 @@ export const getNewKeysFromToolkit = (nk: nkruntime.Nakama, logger: nkruntime.Lo
 
     return handleHttpResponse(res, logger);
   } catch (error) {
-    throw logError(getErrorMessage(error), logger);
+    throw logError(getErrorMessage(error), nkruntime.Codes.INTERNAL, logger);
   }
 };
 
@@ -129,7 +117,7 @@ export const storeNewKeysInCollection = (
     nk.storageWrite([payloadRequest, payloadPrivateKeyRequest]);
   } catch (error) {
     const errorMessage = getErrorMessage(error);
-    throw logError(errorMessage, logger);
+    throw logError(errorMessage, nkruntime.Codes.INTERNAL, logger);
   }
 
   logger.info("Aleo Keys are stored in the collection");
