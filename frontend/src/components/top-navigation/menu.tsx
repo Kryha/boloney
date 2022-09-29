@@ -1,6 +1,7 @@
 import { FC } from "react";
 
 import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
+import { useUIState } from "../../store/ui";
 import { HorizonalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
@@ -12,9 +13,10 @@ interface MenuDropdownProps {
   setHover?: (hover: boolean) => void;
   isActive: boolean;
   setActiveDropdown: (dropdown: ActiveDropdown) => void;
+  setIsVisible: (isVisible: boolean) => void;
 }
 
-export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown }) => {
+export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown, setIsVisible }) => {
   return (
     <Dropdown
       setHover={setHover}
@@ -22,6 +24,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       expand={() => setActiveDropdown("menu")}
       buttonText={text.general.menu}
       buttonIcon={<Ellipsis />}
+      setIsVisible={setIsVisible}
     >
       <MenuContainer>
         <DropdownButton text={text.general.settings} icon={<SettingsIcon />} />

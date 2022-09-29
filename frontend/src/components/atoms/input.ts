@@ -56,7 +56,7 @@ export const BaseInput = styled.input<ErrorProps>`
   }
 `;
 
-export const ChevronDown = styled(ChevronDownIcon)``;
+// export const ChevronDown = styled(ChevronDownIcon)``;
 
 export const BaseSelect = styled.select<ErrorProps>`
   font-family: ibm-plex-mono;

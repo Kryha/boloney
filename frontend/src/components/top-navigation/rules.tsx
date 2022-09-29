@@ -11,9 +11,10 @@ interface Props {
   setHover?: (hover: boolean) => void;
   isActive: boolean;
   setActiveDropdown: (dropdown: ActiveDropdown) => void;
+  setIsVisible: (isVisible: boolean) => void;
 }
 
-export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown }) => {
+export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown, setIsVisible }) => {
   return (
     <Dropdown
       setHover={setHover}
@@ -21,6 +22,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
       expand={() => setActiveDropdown("rules")}
       buttonText={text.general.rules}
       buttonIcon={<InfoIcon />}
+      setIsVisible={setIsVisible}
     >
       <RulesContainer>
         {/* basic */}

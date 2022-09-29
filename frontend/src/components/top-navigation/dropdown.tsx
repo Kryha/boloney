@@ -1,4 +1,6 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useRef } from "react";
+import { useOnClickOutside } from "usehooks-ts";
+import { useUIState } from "../../store/ui";
 
 import { DropdownButton } from "../buttons";
 import { ChildrenContainer, ButtonContainer, DropdownWrapper } from "./styles";
@@ -12,11 +14,23 @@ interface Props {
 
   expand: () => void;
   setHover?: (hover: boolean) => void;
+  setIsVisible: (isVisible: boolean) => void;
 }
 
-export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, buttonText, buttonIcon }) => {
+export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, buttonText, buttonIcon, setIsVisible }) => {
+  const ref = useRef(null);
+  const setIsOverlayVisible = useUIState((state) => state.setIsOverlayVisible);
+
+  const handleClickOutside = () => {
+    setIsOverlayVisible(false);
+    setHover && setHover(false);
+    setIsVisible(false);
+  };
+
+  useOnClickOutside(ref, handleClickOutside);
+
   return (
-    <DropdownWrapper>
+    <DropdownWrapper ref={ref}>
       <ButtonContainer
         isActive={isActive}
         onClick={() => expand()}

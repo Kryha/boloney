@@ -17,6 +17,7 @@ export const TopNavigation: FC<Props> = ({ isInGame }) => {
 
   const [hover, setHover] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
     if (activeDropdown === dropdown) {
@@ -25,6 +26,7 @@ export const TopNavigation: FC<Props> = ({ isInGame }) => {
     } else {
       setActiveDropdown(dropdown);
       setIsOverlayVisible(true);
+      setIsVisible(true);
     }
   };
 
@@ -38,9 +40,19 @@ export const TopNavigation: FC<Props> = ({ isInGame }) => {
           <VerticalDivider />
         </>
       )}
-      <RulesDropdown setHover={setHover} isActive={activeDropdown === "rules"} setActiveDropdown={handleDropdownClick} />
+      <RulesDropdown
+        setHover={setHover}
+        isActive={activeDropdown === "rules" && isVisible}
+        setActiveDropdown={handleDropdownClick}
+        setIsVisible={setIsVisible}
+      />
       <VerticalDivider />
-      <MenuDropdown setHover={setHover} isActive={activeDropdown === "menu"} setActiveDropdown={handleDropdownClick} />
+      <MenuDropdown
+        setHover={setHover}
+        isActive={activeDropdown === "menu" && isVisible}
+        setActiveDropdown={handleDropdownClick}
+        setIsVisible={setIsVisible}
+      />
     </TopNavigationSection>
   );
 };
