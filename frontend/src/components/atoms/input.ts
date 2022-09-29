@@ -18,6 +18,7 @@ export const BaseInput = styled.input<ErrorProps>`
   background-color: transparent;
   width: 100%;
   -moz-appearance: textfield;
+  -webkit-border-radius: 0px;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -41,19 +42,24 @@ export const BaseInput = styled.input<ErrorProps>`
   border-left: 1px solid transparent;
   padding: 23px ${margins.large0};
   :hover {
-    border: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
   }
   :active {
-    border: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
   }
   :focus {
-    border: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
+    outline-width: 0px !important;
+    box-shadow: none;
+    outline: none;
   }
   :disabled {
     &::placeholder {
       color: ${color.darkGrey};
     }
   }
+  -webkit-appearance: none;
+  -moz-appearance: none;
 `;
 
 export const BaseSelect = styled.select<ErrorProps>`
@@ -71,6 +77,7 @@ export const BaseSelect = styled.select<ErrorProps>`
     -webkit-appearance: none;
   }
   box-sizing: border-box;
+  -webkit-border-radius: 0px;
   border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
   border-right: 1px solid transparent;
   border-left: 1px solid transparent;
@@ -84,6 +91,9 @@ export const BaseSelect = styled.select<ErrorProps>`
   }
   :focus {
     border: 1px solid ${color.black} !important;
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+    outline-width: 0px!important;
   }
   :disabled {
     &::placeholder {
