@@ -3593,6 +3593,7 @@ __metadata:
     tslib: ^2.4.0
     ttypescript: ^1.5.13
     typescript: ^4.8.3
+    zod: ^3.19.1
   languageName: unknown
   linkType: soft
 
@@ -10036,6 +10037,13 @@ __metadata:
     typescript: ^4.7.4
   languageName: unknown
   linkType: soft
+
+"zod@npm:^3.19.1":
+  version: 3.19.1
+  resolution: "zod@npm:3.19.1"
+  checksum: 56e420ea5845912324a8fc61833714a2aec84954e418b52660d76502183c6e62fef9447cbfa64349640c5ce190cf2c24267e006bb80f066183e2f3fa9fe11864
+  languageName: node
+  linkType: hard
 
 "zustand@npm:^4.1.1":
   version: 4.1.1

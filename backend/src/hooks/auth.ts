@@ -11,7 +11,7 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   data: nkruntime.AuthenticateCustomRequest
 ): nkruntime.AuthenticateCustomRequest => {
   if (!data.username || !data.account?.id) {
-    throw logError("No username/password provided", nkruntime.Codes.INVALID_ARGUMENT, logger);
+    throw logError("No username/password provided", logger, nkruntime.Codes.INVALID_ARGUMENT);
   }
 
   data.username = data.username.toLowerCase();
@@ -20,7 +20,7 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   const password: string = data.account.id;
 
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
-  if (userExists) throw logError("Username already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
+  if (userExists) throw logError("Username already exists", logger, nkruntime.Codes.ALREADY_EXISTS);
 
   const encryptedKey = String(sha256(password + username));
   data.account.id = encryptedKey;
@@ -39,7 +39,7 @@ export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Sess
 
   // check if the user exist in the collection with keys/addresses
   if (userKeysAreAvailable(nk, ctx, payload, logger)) {
-    return logError("User already exists", nkruntime.Codes.ALREADY_EXISTS, logger);
+    return logError("User already exists", logger, nkruntime.Codes.ALREADY_EXISTS);
   }
 
   //Get new keys from the toolkit
@@ -72,7 +72,7 @@ export const userKeysAreAvailable = (
     ]);
     if (!existingKeys.length) false;
   } catch (error) {
-    throw logError(FAILED_WRITING_COLLECTION, nkruntime.Codes.INTERNAL, logger);
+    throw logError(FAILED_WRITING_COLLECTION, logger);
   }
 
   success(EXISTING_KEYS, logger);
@@ -88,7 +88,7 @@ export const getNewKeysFromToolkit = (nk: nkruntime.Nakama, logger: nkruntime.Lo
 
     return handleHttpResponse(res, logger);
   } catch (error) {
-    throw logError(getErrorMessage(error), nkruntime.Codes.INTERNAL, logger);
+    throw logError(getErrorMessage(error), logger);
   }
 };
 
@@ -118,7 +118,7 @@ export const storeNewKeysInCollection = (
     nk.storageWrite([payloadRequest, payloadPrivateKeyRequest]);
   } catch (error) {
     const errorMessage = getErrorMessage(error);
-    throw logError(errorMessage, nkruntime.Codes.INTERNAL, logger);
+    throw logError(errorMessage, logger);
   }
 
   logger.info("Aleo Keys are stored in the collection");
