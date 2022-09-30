@@ -15,15 +15,15 @@ export const useMatchMaker = () => {
     if (ticket) return;
     try {
       setIsLoading(true);
-      const socket = client.NewSocket();
-      const matchMakerTicket = await socket.AddMatchmakerAsync(query, minCount, maxCount);
-      setTicket(matchMakerTicket);
+      // const socket = client.NewSocket();
+      // const matchMakerTicket = await socket.AddMatchmakerAsync(query, minCount, maxCount);
+      // setTicket(matchMakerTicket);
     } catch (error) {
       // TODO: add error handling
       console.log(error);
     }
     setIsLoading(false);
-  }, [client, maxCount, minCount, query, setTicket, ticket]);
+  }, []);
 
   return {
     ticket,
