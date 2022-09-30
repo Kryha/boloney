@@ -15,3 +15,10 @@ export const ThrowDiceContainer = styled.section`
     display: flex;
   }
 `;
+
+export const DiceContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40vh;
+`;

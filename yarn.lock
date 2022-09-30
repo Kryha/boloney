@@ -2884,6 +2884,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cannon@npm:^0.1.2, @types/cannon@npm:^0.1.8":
+  version: 0.1.8
+  resolution: "@types/cannon@npm:0.1.8"
+  checksum: 84e975c7450b1d69783a99a0d3e75c2765a38601e9aacaafa419a315c2d2f8b540ee540fb0fce8cda2b032a8e2a7c50408d493825cddb5207957b8f5f2a37ee8
+  languageName: node
+  linkType: hard
+
 "@types/customize-cra@npm:^1.0.3":
   version: 1.0.3
   resolution: "@types/customize-cra@npm:1.0.3"
@@ -3071,10 +3078,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/stats.js@npm:^0.17.0":
+  version: 0.17.0
+  resolution: "@types/stats.js@npm:0.17.0"
+  checksum: ac8dc5e622fa3b7cc37b9e21663193a2f171a4f5896285e4dfc04f2874acbb75edc958f077bffbd85b0ae358daa5bf4ecbc71210386a4300bff05d09435e35f9
+  languageName: node
+  linkType: hard
+
 "@types/tapable@npm:^1":
   version: 1.0.8
   resolution: "@types/tapable@npm:1.0.8"
   checksum: b4b754dd0822c407b8f29ef6b766490721c276880f9e976d92ee2b3ef915f11a05a2442ae36c8978bcd872ad6bc833b0a2c4d267f2d611590668a366bad50652
+  languageName: node
+  linkType: hard
+
+"@types/three@npm:^0.144.0":
+  version: 0.144.0
+  resolution: "@types/three@npm:0.144.0"
+  dependencies:
+    "@types/webxr": "*"
+  checksum: 7ce69e1a48ba6d19dc9efb78c5c67a3e66c036f240386dd700eda7a5964e44550066ac45bc0997bd4fe7be446edae356313d992361c18415191468dfdbfb454d
+  languageName: node
+  linkType: hard
+
+"@types/three@npm:^0.89.11":
+  version: 0.89.12
+  resolution: "@types/three@npm:0.89.12"
+  dependencies:
+    "@types/webvr-api": "*"
+  checksum: 57423b5a28f17bf1a9b41b96207d09337923697abf2e133937f7610e8db16af6ecb6fc421b11f31ba059d6126771d1c265bb98e0112e4b5ed27801bd52820cb2
   languageName: node
   linkType: hard
 
@@ -3125,6 +3157,20 @@ __metadata:
     anymatch: ^3.0.0
     source-map: ^0.6.0
   checksum: e594a1357cbbc2f7c6ca47785c5a11adb5591a774a69afaeab07cd6f6bff6c6aea2030bd37b32bdd19d0ec2336a346db754e8d8d236ba8effeab542716fb32b7
+  languageName: node
+  linkType: hard
+
+"@types/webvr-api@npm:*":
+  version: 0.0.36
+  resolution: "@types/webvr-api@npm:0.0.36"
+  checksum: 5ed04f674caa4d137e263513099211b9c54c535436af8089c67bdff2f7bc3214524cce57a00be8fa02192d80df8fdf9975536b3299a87865eb480502e89170fb
+  languageName: node
+  linkType: hard
+
+"@types/webxr@npm:*":
+  version: 0.5.0
+  resolution: "@types/webxr@npm:0.5.0"
+  checksum: 891af0e96a229f45584d89daa3101232862da2ded14076aa631b2e12deb4e4b91fa35ff8d8d5ab4613aa8adce0870bd32cd61f070c1bc70d37303c515e1ae6ac
   languageName: node
   linkType: hard
 
@@ -3336,14 +3382,18 @@ __metadata:
     "@testing-library/dom": ^8.17.1
     "@testing-library/react": ^13.3.0
     "@testing-library/user-event": ^14.4.3
+    "@types/cannon": ^0.1.8
     "@types/customize-cra": ^1.0.3
     "@types/jest": ^28.1.7
     "@types/node": ^18.7.5
     "@types/react": ^18.0.15
     "@types/react-dom": ^18.0.6
+    "@types/stats.js": ^0.17.0
+    "@types/three": ^0.144.0
     "@typescript-eslint/eslint-plugin": ^5.33.0
     "@typescript-eslint/parser": ^5.33.0
     "@vitejs/plugin-react": ^2.0.0
+    cannon: ^0.6.2
     customize-cra: ^1.0.0
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
@@ -3355,10 +3405,14 @@ __metadata:
     jest: ^28.1.3
     jest-environment-jsdom: ^28.1.3
     react: ^18.2.0
+    react-dice-roll: ^1.2.2
     react-dom: ^18.2.0
     react-error-boundary: ^3.1.4
     react-hook-form: ^7.34.2
     react-router-dom: ^6.3.0
+    stats.js: ^0.17.0
+    three: ^0.145.0
+    threejs-dice: ^1.1.0
     ts-jest: ^28.0.8
     ts-node: ^10.9.1
     typescript: ^4.7.4
@@ -3967,6 +4021,13 @@ __metadata:
   version: 1.0.30001374
   resolution: "caniuse-lite@npm:1.0.30001374"
   checksum: a75656e971d7ef2af4d2f3529a4620ae1a45d09460601fbc34b26f6867f31bbca006f71d8840291c471a2f01fc1994044f319a5660241ffaf35a2d84535af442
+  languageName: node
+  linkType: hard
+
+"cannon@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "cannon@npm:0.6.2"
+  checksum: 67f318ab1585b1609b67155ef9d25efccaefcd02f84feabb4d7e9334303eb8c100a2bd7f4ac0f558545a42186e6e567f849cdef6ed302d9bf7a2ddaa292aa938
   languageName: node
   linkType: hard
 
@@ -7580,6 +7641,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dice-roll@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "react-dice-roll@npm:1.2.2"
+  peerDependencies:
+    react: ^16.13.1
+    react-dom: ^16.13.1
+  checksum: ea21186e70dcfee05ecb278eadfe9c5589fd212d520c208eca4663a262ee4a1838ae10640cc85880435b83e5f8b0592867796308415de2b5279637497a83d567
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -8138,6 +8209,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"stats.js@npm:^0.17.0":
+  version: 0.17.0
+  resolution: "stats.js@npm:0.17.0"
+  checksum: 62d55d9e28e701f5638eac312ab45f66da8cc14b43d4eba4d3ab5a26f444a91d3e0dd1f52e8fc182b03cae955dae4af471d54f1975525cc1e47dfa89a54a47c6
+  languageName: node
+  linkType: hard
+
 "string-length@npm:^4.0.1":
   version: 4.0.2
   resolution: "string-length@npm:4.0.2"
@@ -8354,6 +8432,32 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: b6937a38c80c7f84d9c11dd75e49d5c44f71d95e810a3250bd1f1797fc7117c57698204adf676b71497acc205d769d65c16ae8fa10afad832ae1322630aef10a
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.145.0":
+  version: 0.145.0
+  resolution: "three@npm:0.145.0"
+  checksum: 1469a5994666a8e76ee7fffda93bde9a5d1c0dfcc831377b1a6ce3579f2933b57e8a8004a3ff7b36529b68484b9fa58eec8f136e1ac9ec02413cdfc360300ec4
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.90.0":
+  version: 0.90.0
+  resolution: "three@npm:0.90.0"
+  checksum: 40dde5b226acdb6badb216bac6a3b95579cfdd9acd3c13e0cb6e096fd11426271e12f05dcf5b4dc37d7f07aa3a67eba0b916f63058cf532ec720ad25c1100e6e
+  languageName: node
+  linkType: hard
+
+"threejs-dice@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "threejs-dice@npm:1.1.0"
+  dependencies:
+    "@types/cannon": ^0.1.2
+    "@types/three": ^0.89.11
+    cannon: ^0.6.2
+    three: ^0.90.0
+  checksum: 82eee6f95e8df706d6f7ce6a7814d29bc670d06f7c8db0c548e0c609a9966ae198a4756e288f5c553610ff816885ebf8a9b605f3c88804a830e2c38f69d25853
   languageName: node
   linkType: hard
 
