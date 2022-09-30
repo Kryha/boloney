@@ -1,3 +1,4 @@
+import { isBasicError } from "../interfaces/error";
 import { AccountKeys } from "../interfaces/models";
 
 export const getErrorMessage = (error: unknown) => {
@@ -15,24 +16,34 @@ export const ERROR_WRITING_TO_COLLECTION: nkruntime.Error = {
   code: nkruntime.Codes.UNKNOWN,
 };
 
-export const logError = (error: string, code: nkruntime.Codes, logger: nkruntime.Logger): nkruntime.Error => {
-  logger.error(error);
-  return { message: error, code };
+export const logError = (error: unknown, logger: nkruntime.Logger, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
+  let message: string;
+  if (typeof error === "string") {
+    message = error;
+  } else if (isBasicError(error)) {
+    message = error.message;
+  } else {
+    message = "An error occurred.";
+  }
+
+  logger.error(message);
+
+  return { message, code };
 };
 
 export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntime.Logger): AccountKeys => {
   switch (Math.floor(res.code / 100)) {
     case 4: {
-      throw logError(res.body, res.code, logger);
+      throw logError(res.body, logger, res.code);
     }
     case 5: {
-      throw logError(res.body, res.code, logger);
+      throw logError(res.body, logger, res.code);
     }
     case 2: {
       return JSON.parse(res.body);
     }
     default: {
-      throw logError(res.body, res.code, logger);
+      throw logError(res.body, logger, res.code);
     }
   }
 };
