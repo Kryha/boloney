@@ -20,7 +20,6 @@ export const LoginForm: FC = () => {
     setError,
     formState: { errors },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
-
   const usernameError = errors.username && errors.username.type === "required";
   const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
 
@@ -31,7 +30,11 @@ export const LoginForm: FC = () => {
 
   const onSubmit = async (username: string, password: string) => {
     const statusCode = await authenticateUser(username, password);
-    if (statusCode === StatusCodes.NOT_FOUND) setError("password", { type: "invalid" });
+    if (statusCode === StatusCodes.NOT_FOUND) {
+      setError("password", { type: "invalid" });
+    } else {
+      navigate("/lobby");
+    }
   };
 
   return (

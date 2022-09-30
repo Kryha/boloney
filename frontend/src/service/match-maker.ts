@@ -16,7 +16,7 @@ export const useMatchMaker = () => {
       if (socket === undefined) return;
       setIsLoading(true);
 
-      const ticket = socket && (await socket.addMatchmaker("", 2, 7));
+      const ticket = socket && (await socket.addMatchmaker("*", 2, 4));
       console.log(ticket);
       socket.onmatchmakermatched = (matched) => {
         setMatchId(matched.match_id);
