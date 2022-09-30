@@ -23,7 +23,7 @@ export const useMatchMaker = () => {
       console.log(error);
     }
     setIsLoading(false);
-  }, []);
+  }, [ticket]);
 
   return {
     ticket,
