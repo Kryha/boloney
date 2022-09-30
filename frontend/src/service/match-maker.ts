@@ -25,7 +25,7 @@ export const useMatchMaker = () => {
       }
       setIsLoading(false);
     },
-    []
+    [ticket]
   );
 
   return {
