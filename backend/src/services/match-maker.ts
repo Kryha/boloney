@@ -1,11 +1,12 @@
-import { getErrorMessage, logError } from "../utils/error-handling";
+import { getErrorMessage } from "../utils/error-handling";
 
 export const matchmakerMatched = (
-  _context: nkruntime.Context,
+  context: nkruntime.Context,
   logger: nkruntime.Logger,
   nk: nkruntime.Nakama,
   matches: nkruntime.MatchmakerResult[]
 ): string => {
+  logger.info("Match is Made");
   matches.forEach(function (match) {
     logger.info("Matched user '%s' named '%s'", match.presence.userId, match.presence.username);
 
@@ -18,6 +19,7 @@ export const matchmakerMatched = (
     const matchId = nk.matchCreate("standard", { invited: matches });
     return matchId;
   } catch (err) {
-    throw logError(getErrorMessage(err), logger);
+    logger.error(getErrorMessage(err));
+    throw err;
   }
 };
