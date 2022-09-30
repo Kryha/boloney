@@ -47,3 +47,15 @@ export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntim
     }
   }
 };
+
+// TODO: we can define similar handlers for hooks
+export const rpcHandler =
+  (cb: nkruntime.RpcFunction): nkruntime.RpcFunction =>
+  (ctx, logger, nk, payload) => {
+    try {
+      const res = cb(ctx, logger, nk, payload);
+      return res;
+    } catch (error) {
+      throw logError(error, logger);
+    }
+  };
