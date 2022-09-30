@@ -21,7 +21,7 @@ export const TopNavigation: FC<Props> = ({ isInGame }) => {
   const [isComponentVisible, setIsComponentVisible] = useState(false);
 
   const handleClickOutside = () => {
-    setHover && setHover(false);
+    setHover(false);
     setIsComponentVisible(false);
     setIsOverlayVisible(false);
   };

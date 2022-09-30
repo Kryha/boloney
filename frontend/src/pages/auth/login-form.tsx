@@ -20,6 +20,7 @@ import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
+// TODO: make a form component
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuth();
   const navigate = useNavigate();

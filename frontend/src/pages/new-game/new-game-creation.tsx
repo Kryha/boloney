@@ -25,6 +25,7 @@ export interface Fields {
   isUsingFakeCredits: boolean;
 }
 
+// TODO: make a form component
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<Fields>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);

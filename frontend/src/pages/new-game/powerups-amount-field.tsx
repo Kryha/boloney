@@ -6,7 +6,7 @@ import { BaseOption, BaseSelect, Input } from "../../components";
 import { MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { range } from "../../util";
 import { Fields } from "./new-game-creation";
-import { FieldContainer, PowerupsAmountFieldContainer } from "./styles";
+import { PowerupsAmountFieldContainer } from "./styles";
 
 interface Props {
   register: UseFormRegister<Fields>;
