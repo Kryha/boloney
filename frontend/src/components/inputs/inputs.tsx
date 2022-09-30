@@ -21,7 +21,7 @@ export const Input: FC<InputProps> = ({ children, label, isError = false, errorM
       {isError && (
         <ErrorContainer>
           <Error />
-          <Paragraph>{errorMessage || text.loginForm.somethingWentWrong}</Paragraph>
+          <Paragraph>{errorMessage || text.authForm.somethingWentWrong}</Paragraph>
         </ErrorContainer>
       )}
     </InputContainer>
