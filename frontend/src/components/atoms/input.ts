@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { ChevronDownIcon } from "../../assets";
 
 import { color, fontSize, fontWeight, margins } from "../../design";
 
@@ -17,6 +18,7 @@ export const BaseInput = styled.input<ErrorProps>`
   background-color: transparent;
   width: 100%;
   -moz-appearance: textfield;
+  -webkit-border-radius: 0px;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -35,26 +37,31 @@ export const BaseInput = styled.input<ErrorProps>`
     color: ${color.black};
   }
   box-sizing: border-box;
-  outline: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-  border: none;
+  border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
   padding: 23px ${margins.large0};
   :hover {
-    outline: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
   }
   :active {
-    outline: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
   }
   :focus {
-    outline: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
+    outline-width: 0px !important;
+    box-shadow: none;
+    outline: none;
   }
   :disabled {
     &::placeholder {
       color: ${color.darkGrey};
     }
   }
+  -webkit-appearance: none;
+  -moz-appearance: none;
 `;
 
-// TODO: finish styling and use custom chevron
 export const BaseSelect = styled.select<ErrorProps>`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
@@ -70,24 +77,41 @@ export const BaseSelect = styled.select<ErrorProps>`
     -webkit-appearance: none;
   }
   box-sizing: border-box;
-  outline: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-  border: none;
-  border-right: ${margins.small2} solid transparent;
+  -webkit-border-radius: 0px;
+  border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+
   padding: 23px ${margins.large0};
   :hover {
-    outline: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
   }
   :active {
-    outline: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
   }
   :focus {
-    outline: 1px solid ${color.black};
+    border: 1px solid ${color.black} !important;
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+    outline-width: 0px!important;
   }
   :disabled {
     &::placeholder {
       color: ${color.darkGrey};
     }
   }
+  :focus {
+    box-shadow: none;
+    outline: none;
+  }
+  background-image: url(${ChevronDownIcon});
+  background-position: right ${margins.large0} center;
+  background-repeat: no-repeat;
+  select::-ms-expand {
+    display: none;
+  }
+  -webkit-appearance: none;
+  -moz-appearance: none;
 `;
 
 export const BaseOption = styled.option<ErrorProps>``;

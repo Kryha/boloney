@@ -3633,6 +3633,7 @@ __metadata:
     ts-jest: ^28.0.8
     ts-node: ^10.9.1
     typescript: ^4.7.4
+    usehooks-ts: ^2.7.1
     vite: ^3.0.0
     vite-plugin-svgr: ^2.2.1
     zustand: ^4.1.1
@@ -9677,6 +9678,16 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
+  languageName: node
+  linkType: hard
+
+"usehooks-ts@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "usehooks-ts@npm:2.7.1"
+  peerDependencies:
+    react: ^16.8.0  || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+  checksum: 316e96c141c129e5b592a4cfd9e803f62b56d6b22ed76534cc9e95a8d9277d157c4915d0460ae6ca634462ad7c5ef4c41cd439e061ed3932a0563a968a07e221
   languageName: node
   linkType: hard
 

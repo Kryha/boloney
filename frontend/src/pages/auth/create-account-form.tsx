@@ -3,7 +3,17 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
-import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
+import {
+  Heading1,
+  Heading4,
+  Input,
+  Paragraph,
+  BaseInput,
+  FormContainer,
+  Link,
+  PrimaryButton,
+  GeneralContentWrapper,
+} from "../../components";
 import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, StatusCodes } from "../../interfaces";
@@ -11,6 +21,7 @@ import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
+// TODO: make a form component
 export const CreateAccountForm: FC = () => {
   const { authenticateUser } = useAuth();
   const navigate = useNavigate();
@@ -40,10 +51,10 @@ export const CreateAccountForm: FC = () => {
 
   return (
     <LoginFormContainer>
-      <PageTitleWrapper>
+      <GeneralContentWrapper>
         <Heading1>{text.authForm.firstThingsFirst}</Heading1>
         <Heading4>{text.authForm.whoAreYou}</Heading4>
-      </PageTitleWrapper>
+      </GeneralContentWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
