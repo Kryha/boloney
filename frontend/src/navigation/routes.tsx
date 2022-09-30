@@ -5,12 +5,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount, NewGame, ThrowDice } from "../pages";
-<<<<<<< HEAD
-import { Login, ThrowDice } from "../pages";
-=======
-import { Login, CreateAccount } from "../pages/auth";
-import { NewGame } from "../pages/new-game";
->>>>>>> develop
 
 export const AppRoutes: FC = () => {
   const navigate = useNavigate();
