@@ -1,5 +1,14 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "transform": "ts-auto-mock/transformer",
+        "cacheBetweenTests": false
+      }
+    ],
+    "paths": {
+      "jest-ts-auto-mock": ["../../index"]
+    },
     "moduleResolution": "node",
     "esModuleInterop": true,
     "noUnusedLocals": true,

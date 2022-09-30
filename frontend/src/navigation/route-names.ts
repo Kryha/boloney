@@ -1,6 +1,8 @@
 export const routes = {
   root: "/",
   createAccount: "/create-account",
+  login: "/login",
   lobby: "/lobby",
-  throwDice: "throw-dice"
+  newGame: "/new-game",
+  throwDice: "throw-dice",
 };

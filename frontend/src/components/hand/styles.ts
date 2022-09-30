@@ -60,10 +60,12 @@ export const HandContainer = styled.div<HandContainerProps>`
     width: 100%;
     height: auto;
     position: absolute;
+    pointer-events: none;
   }
   ${Paint} {
     width: 100%;
     height: auto;
     position: absolute;
+    pointer-events: none;
   }
 `;

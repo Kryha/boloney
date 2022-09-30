@@ -14,8 +14,17 @@ export const FIFTY_NINE_SECONDS = 59;
 export const TEN_SECONDS = 10;
 export const GO_BACK = -1;
 
+export const MINIMUM_USERNAME_LENGTH = 2;
 export const MINIMUM_PASSWORD_LENGTH = 8;
 export const APPEAR_ONLINE = true;
 export const CREATE_ACCOUNT = true;
 export const USE_SSL = false;
+
+export const MAX_PLAYERS = 7;
+export const MIN_PLAYERS = 2;
+export const MAX_DICE_PER_PLAYER = 10;
+export const MIN_DICE_PER_PLAYER = 2;
+export const MAX_POWERUPS_PER_PLAYER = 3;
+export const MIN_POWERUPS_PER_PLAYER = 0;
+
 export const FLOATING_ANIMATION_SPEED = 4;
