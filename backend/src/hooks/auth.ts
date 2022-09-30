@@ -4,12 +4,7 @@ import { AccountKeys } from "../interfaces/models";
 import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION } from "../utils/const";
 import { logError, getErrorMessage, handleHttpResponse } from "../utils/error-handling";
 
-export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  nk: nkruntime.Nakama,
-  data: nkruntime.AuthenticateCustomRequest
-): nkruntime.AuthenticateCustomRequest => {
+export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (_ctx, logger, nk, data) => {
   if (!data.username || !data.account?.id) {
     throw logError("No username/password provided", logger, nkruntime.Codes.INVALID_ARGUMENT);
   }
@@ -29,11 +24,11 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
 };
 
 export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (
-  ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  nk: nkruntime.Nakama,
-  _data: nkruntime.Session,
-  _request: nkruntime.AuthenticateCustomRequest
+  ctx,
+  logger,
+  nk,
+  _data,
+  _request
 ) => {
   const payload = { collection: "Accounts", key: "keys" };
 
