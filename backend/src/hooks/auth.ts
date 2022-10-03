@@ -26,20 +26,16 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, dat
 export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data, _request) => {
   const payload = { collection: "Accounts", key: "keys" };
 
+  // if keys are already stored, skip their creation
   const storedKeys = readUserKeys(nk, ctx, payload);
-
-  // check if the user exist in the collection with keys/addresses
   if (storedKeys.length) return;
 
-  //Get new keys from the toolkit
+  // call the toolkit to generate some new keys and store them in the database
   const newKeys = getNewKeysFromToolkit(nk, logger);
-
-  //Store the keys in collection
   const newKeyPayload = {
     ...payload,
     value: { viewKey: newKeys.viewKey, privateKey: newKeys.privateKey, address: newKeys.address },
   };
-
   storeNewKeysInCollection(nk, ctx, newKeyPayload);
 });
 
