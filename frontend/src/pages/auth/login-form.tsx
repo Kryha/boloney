@@ -3,13 +3,24 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
-import { Heading1, Heading4, Input, Paragraph, BaseInput, PageTitleWrapper, FormContainer, Link, PrimaryButton } from "../../components";
+import {
+  Heading1,
+  Heading4,
+  Input,
+  Paragraph,
+  BaseInput,
+  FormContainer,
+  Link,
+  PrimaryButton,
+  GeneralContentWrapper,
+} from "../../components";
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, StatusCodes } from "../../interfaces";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 
+// TODO: make a form component
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuth();
   const navigate = useNavigate();
@@ -39,10 +50,10 @@ export const LoginForm: FC = () => {
 
   return (
     <LoginFormContainer>
-      <PageTitleWrapper>
+      <GeneralContentWrapper>
         <Heading1>{text.authForm.welcomeBack}</Heading1>
         <Heading4>{text.authForm.goodSeeingYouAgain}</Heading4>
-      </PageTitleWrapper>
+      </GeneralContentWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>

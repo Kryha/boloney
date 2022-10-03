@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, fontWeight, fontSize } from "../../design";
+import { color, fontWeight } from "../../design";
 
 interface TextProps {
   customColor?: string;
@@ -85,8 +85,8 @@ export const Paragraph = styled.p<TextProps>`
   }
 `;
 
-export const ListItem = styled.li<TextProps>`
-  font-family: ibm-plex-mono;
+export const GeneralText = styled.h3<TextProps>`
+  font-family: ibm-plex-mono, sans-serif;
   font-weight: ${fontWeight.light};
   font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
   line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
@@ -97,12 +97,24 @@ export const ListItem = styled.li<TextProps>`
   }
 `;
 
-export const GeneralText = styled.h3<TextProps>`
-  font-family: ibm-plex-mono, sans-serif;
-  font-weight: ${fontWeight.light};
-  font-size: ${fontSize.small2};
-  line-height: 24px;
-  letter-spacing: -0.01em;
+export const IntroText = styled.h3<TextProps>`
+  font-family: "itc-clearface-bold";
+  font-style: normal;
+  font-weight: ${fontWeight.bolder};
+  font-size: clamp(1.63rem, 0.63vw + 1.25rem, 2rem);
+  line-height: clamp(1.88rem, 0.63vw + 1.5rem, 2.25rem);
+  color: ${({ customColor }): string => customColor || color.black};
+  :first-letter {
+    text-transform: capitalize;
+  }
+`;
+
+export const FormHeadingText = styled.h2<TextProps>`
+  font-family: "itc-clearface-bold";
+  font-style: normal;
+  font-weight: ${fontWeight.bolder};
+  font-size: clamp(2rem, 2.92vw + 0.25rem, 3.75rem);
+  line-height: clamp(2.13rem, 2.92vw + 0.38rem, 3.88rem);
   color: ${({ customColor }): string => customColor || color.black};
   :first-letter {
     text-transform: capitalize;

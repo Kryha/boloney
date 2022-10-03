@@ -3593,6 +3593,7 @@ __metadata:
     tslib: ^2.4.0
     ttypescript: ^1.5.13
     typescript: ^4.8.3
+    zod: ^3.19.1
   languageName: unknown
   linkType: soft
 
@@ -3633,6 +3634,7 @@ __metadata:
     ts-jest: ^28.0.8
     ts-node: ^10.9.1
     typescript: ^4.7.4
+    usehooks-ts: ^2.7.1
     vite: ^3.0.0
     vite-plugin-svgr: ^2.2.1
     zustand: ^4.1.1
@@ -9680,6 +9682,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"usehooks-ts@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "usehooks-ts@npm:2.7.1"
+  peerDependencies:
+    react: ^16.8.0  || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+  checksum: 316e96c141c129e5b592a4cfd9e803f62b56d6b22ed76534cc9e95a8d9277d157c4915d0460ae6ca634462ad7c5ef4c41cd439e061ed3932a0563a968a07e221
+  languageName: node
+  linkType: hard
+
 "util-deprecate@npm:^1.0.1":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
@@ -10025,6 +10037,13 @@ __metadata:
     typescript: ^4.7.4
   languageName: unknown
   linkType: soft
+
+"zod@npm:^3.19.1":
+  version: 3.19.1
+  resolution: "zod@npm:3.19.1"
+  checksum: 56e420ea5845912324a8fc61833714a2aec84954e418b52660d76502183c6e62fef9447cbfa64349640c5ce190cf2c24267e006bb80f066183e2f3fa9fe11864
+  languageName: node
+  linkType: hard
 
 "zustand@npm:^4.1.1":
   version: 4.1.1

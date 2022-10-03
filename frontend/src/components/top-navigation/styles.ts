@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { TimerIcon } from "../../assets/icons";
 import { color, margins, zIndex } from "../../design";
-import { Heading6, ListItem, Paragraph } from "../atoms";
+import { Heading6, Paragraph } from "../atoms";
 import { Link } from "../buttons";
 
 export const TopNavigationSection = styled.section`
@@ -64,7 +64,7 @@ interface DropdownProps {
   isHidden: boolean;
 }
 
-export const ChildrenContainer = styled(DropdownWrapper)<DropdownProps>`
+export const ChildrenContainer = styled(DropdownWrapper) <DropdownProps>`
   display: ${({ isHidden }) => isHidden && "none"};
   z-index: ${zIndex.onTop};
   background: ${color.lightGrey};
@@ -84,6 +84,8 @@ export const RulesContainer = styled.div`
   width: 100%;
   right: 0;
   padding: 20px;
+  overflow-y: scroll;
+  height: 100vh;
 `;
 
 export const RulesSection = styled.section`
@@ -95,13 +97,5 @@ export const RulesSectionTitle = styled(Heading6)`
   margin-bottom: ${margins.small1};
 `;
 
-export const RulesSectionContent = styled(ListItem)``;
-
-export const RulesList = styled.ol`
-  ${RulesSectionContent}:not(:last-child) {
-    margin-bottom: ${margins.small2};
-  }
-  margin-bottom: ${margins.small1};
+export const RulesLink = styled(Link)`
 `;
-
-export const RulesLink = styled(Link)``;

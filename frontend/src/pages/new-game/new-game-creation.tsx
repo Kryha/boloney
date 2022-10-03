@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
-import { FormContainer, Heading1, Heading4, PageTitleWrapper, Paragraph, PrimaryButton } from "../../components";
+import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton } from "../../components";
 import { PowerupType } from "../../interfaces";
 import { FakeCreditsField } from "./fake-credits-field";
 import { useGameCreationFormState } from "./game-creation-form-state";
@@ -25,6 +25,7 @@ export interface Fields {
   isUsingFakeCredits: boolean;
 }
 
+// TODO: make a form component
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<Fields>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
@@ -46,10 +47,10 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
 
   return (
     <NewGameContainer>
-      <PageTitleWrapper>
+      <GeneralContentWrapper>
         <Heading1>{text.newGame.newGame}</Heading1>
         <Heading4>{text.newGame.newGameDescription}</Heading4>
-      </PageTitleWrapper>
+      </GeneralContentWrapper>
       <form onSubmit={handleFormSubmit}>
         <FormContainer>
           <PlayersField register={register} />
