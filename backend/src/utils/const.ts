@@ -35,4 +35,4 @@ export const SUCCES_CREATING_ACCOUNT = "Created new user account on Aleo success
 export const FAILED_WRITING_COLLECTION = "Writing to the collection failed";
 
 export const MAX_DICE_PER_PLAYER = 10;
-export const MIN_DICE_PER_PLAYER = 2;
+export const MIN_DICE_PER_PLAYER = 1;
