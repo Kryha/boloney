@@ -2,8 +2,7 @@ import sha256 from "crypto-js/sha256";
 
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
 import { AccountKeys } from "../interfaces/models";
-import { TOOLKIT_BASE_URL } from "../utils/const";
-import { logError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils/error-handling";
+import { tkUrl, logError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils";
 
 export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, data) => {
   if (!data.username || !data.account?.id) throw logError("No username/password provided", logger, nkruntime.Codes.INVALID_ARGUMENT);
@@ -51,10 +50,8 @@ export const readUserKeys = (nk: nkruntime.Nakama, ctx: nkruntime.Context, paylo
 };
 
 export const getNewKeysFromToolkit = (nk: nkruntime.Nakama, logger: nkruntime.Logger): AccountKeys => {
-  const url = TOOLKIT_BASE_URL + "/account/create";
-
+  const url = tkUrl("/account/create");
   const res = nk.httpRequest(url, "post", undefined, undefined, 60000);
-
   return handleHttpResponse(res, logger);
 };
 
