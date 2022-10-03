@@ -23,16 +23,7 @@ export const enum OP {
   Reject = 4,
 }
 
-export const TOOLKIT_BASE_URL = "http://localhost:5001/";
-
-export const success = (message: string, logger: nkruntime.Logger) => {
-  logger.info(message);
-  return JSON.stringify({ success: true });
-};
-
-export const EXISTING_KEYS = "User already has existing keys";
-export const SUCCES_CREATING_ACCOUNT = "Created new user account on Aleo successfully";
-export const FAILED_WRITING_COLLECTION = "Writing to the collection failed";
+export const TOOLKIT_BASE_URL = "http://zk-gaming-tk.zk-gaming-tk-local.svc.cluster.local:5001";
 
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
