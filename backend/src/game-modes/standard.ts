@@ -1,7 +1,3 @@
-const state = {
-  precences: {},
-  emptyTicks: 0,
-};
 export const matchInit = (
   _ctx: nkruntime.Context,
   logger: nkruntime.Logger,
@@ -10,8 +6,11 @@ export const matchInit = (
 ): { state: nkruntime.MatchState; tickRate: number; label: string } => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
   return {
-    state,
-    tickRate: 1, // 1 tick per second = 1 MatchLoop func invocations per second
+    state: {
+      presences: {},
+      emptyTicks: 0,
+    },
+    tickRate: 5, // 1 tick per second = 1 MatchLoop func invocations per second},
     label: "StandardGame",
   };
 };
