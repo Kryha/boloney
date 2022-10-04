@@ -16,7 +16,7 @@ import {
 } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, StatusCodes } from "../../interfaces";
+import { AuthFields, NkCode } from "../../interfaces";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
@@ -33,20 +33,18 @@ export const CreateAccountForm: FC = () => {
     formState: { errors },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const usernameError =
-    errors.username && (errors.username.type === "minLength" || errors.username.type === "required" || errors.username.type === "taken");
-  const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
-
   const showUsernameError = () => {
-    if (errors.username?.type === "taken") return text.authForm.errorMessages.usernameAlreadyTaken;
+    if (errors.username?.type === "alreadyExists") return text.authForm.errorMessages.usernameAlreadyTaken;
     if (errors.username?.type === "minLength") return text.authForm.errorMessages.usernameMinimum;
     if (errors.username?.type === "required") return text.authForm.errorMessages.usernameRequired;
   };
 
   const onSubmit = async (username: string, password: string) => {
-    const statusCode = await authenticateUser(username, password, true);
+    const res = await authenticateUser(username, password, true);
 
-    if (statusCode === StatusCodes.CONFLICT) setError("username", { type: "taken" });
+    if (!res) return;
+
+    if (res.code === NkCode.ALREADY_EXISTS) setError("username", { type: "alreadyExists" });
   };
 
   return (
@@ -58,18 +56,18 @@ export const CreateAccountForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.authForm.username} isError={usernameError} errorMessage={showUsernameError()}>
+            <Input label={text.authForm.username} isError={!!errors.username} errorMessage={showUsernameError()}>
               <BaseInput
-                isError={usernameError}
+                isError={!!errors.username}
                 type="text"
                 {...register("username", { required: true, minLength: MINIMUM_USERNAME_LENGTH })}
               />
             </Input>
-            <Input label={text.authForm.password} isError={passwordError} errorMessage={text.authForm.errorMessages.passwordMinimum}>
+            <Input label={text.authForm.password} isError={!!errors.password} errorMessage={text.authForm.errorMessages.passwordMinimum}>
               <BaseInput
                 type="password"
                 {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })}
-                isError={passwordError}
+                isError={!!errors.password}
               />
             </Input>
           </AuthContainer>

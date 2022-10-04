@@ -1,4 +1,4 @@
-import { isBasicError } from "../interfaces/error";
+import { isBasicError, isNkError } from "../interfaces/error";
 import { AccountKeys } from "../interfaces/models";
 
 export const ERROR_EXTERNAL_CALL: nkruntime.Error = {
@@ -50,6 +50,7 @@ export const rpcHandler: RpcHandler = (cb) => (ctx, logger, nk, payload) => {
     const res = cb(ctx, logger, nk, payload);
     return res;
   } catch (error) {
+    if (isNkError(error)) throw error;
     throw logError(error, logger);
   }
 };
@@ -63,6 +64,7 @@ export const beforeHookHandler: BeforeAuthHookHandler = (cb) => (ctx, logger, nk
     const res = cb(ctx, logger, nk, data);
     return res;
   } catch (error) {
+    if (isNkError(error)) throw error;
     throw logError(error, logger);
   }
 };
@@ -76,6 +78,7 @@ export const afterHookHandler: AfterAuthHookHandler = (cb) => (ctx, logger, nk, 
     const res = cb(ctx, logger, nk, data, request);
     return res;
   } catch (error) {
+    if (isNkError(error)) throw error;
     throw logError(error, logger);
   }
 };

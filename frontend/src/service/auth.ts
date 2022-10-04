@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
-import { StatusCodes } from "../interfaces";
+
 import { useAuthState } from "../store/auth";
+import { parseError } from "../util";
 
 export const useAuth = () => {
   const client = useAuthState((state) => state.client);
@@ -22,12 +23,11 @@ export const useAuth = () => {
         setSession(socketSession);
         setIsAuthenticated(true);
       } catch (error) {
+        const parsedErr = await parseError(error);
+        return parsedErr;
+      } finally {
         setIsLoading(false);
-        if (error instanceof Response) return error.status;
       }
-
-      setIsLoading(false);
-      return StatusCodes.OK;
     },
     [isAuthenticated, client, setIsAuthenticated, setSession, setSocket]
   );
