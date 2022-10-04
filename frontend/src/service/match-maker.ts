@@ -12,15 +12,14 @@ export const useMatchMaker = () => {
 
   const matchMaker = async () => {
     console.log("Started match making");
-    console.log(socket);
+
     try {
       if (socket === undefined) return;
       setIsLoading(true);
 
       const rpcRes: ApiRpc = await socket.rpc("find_match");
       if (!rpcRes.payload) return;
-      const matchId = JSON.parse(rpcRes.payload).split(".nakama")[0];
-      console.log(matchId);
+      const matchId = JSON.parse(rpcRes.payload).match_id;
       const match = await socket.joinMatch(matchId);
 
       // const query = "*";

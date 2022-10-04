@@ -8,10 +8,8 @@ export const findMatch = rpcHandler((ctx: nkruntime.Context, logger: nkruntime.L
   let matches: nkruntime.Match[] = [];
 
   try {
-    // TODO: add public-only to query
-    const query = "*";
-    matches = nk.matchList(5, null, null, null, 1, query);
-    logger.info("------- MATCHESSSSSSS -------");
+    matches = nk.matchList(1, true);
+    logger.info("------- MATCHES -------");
     logger.debug(JSON.stringify(matches));
   } catch (error) {
     throw logError("Error listing matches.", logger);
@@ -32,7 +30,12 @@ export const findMatch = rpcHandler((ctx: nkruntime.Context, logger: nkruntime.L
     }
   }
 
-  logger.debug(matchIds[0]);
+  logger.debug(JSON.stringify(nk.matchGet(matchIds[0])));
 
-  return JSON.stringify(matchIds[0]);
+  // Try again to check if matchList actually outputs a result
+  matches = nk.matchList(1, true);
+  logger.info("------- MATCHES V2 -------");
+  logger.debug(JSON.stringify(matches));
+
+  return JSON.stringify({ match_id: matchIds[0] });
 });

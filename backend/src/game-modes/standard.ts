@@ -11,7 +11,7 @@ export const matchInit = (
   logger.info("----------------- MATCH INITIALIZED -----------------");
   return {
     state,
-    tickRate: 5, // 1 tick per second = 1 MatchLoop func invocations per second
+    tickRate: 1, // 1 tick per second = 1 MatchLoop func invocations per second
     label: "StandardGame",
   };
 };
@@ -41,10 +41,9 @@ export const matchJoin = (
   state: nkruntime.MatchState,
   presences: nkruntime.Presence[]
 ): { state: nkruntime.MatchState } | null => {
-  presences.forEach((p) => {
-    logger.debug(p.username);
-    state.presences[p.sessionId] = p;
-  });
+  // presences.forEach((p) => {
+  //   state.presences[p.sessionId] = p;
+  // });
   logger.info("----------------- MATCH JOINED -----------------");
   logger.debug(String(presences.length));
 
@@ -64,13 +63,13 @@ export const matchLoop = (
 ): { state: nkruntime.MatchState } | null => {
   // If we have no presences in the match according to the match state, increment the empty ticks count
   _logger.debug(JSON.stringify(state));
-  _logger.debug(String(Object.keys(state.presences).length));
-  if (!Object.keys(state.presences).length) {
-    state.emptyTicks++;
-  }
+  // _logger.debug(state.presences && String(Object.keys(state.presences).length));
+  // if (state.presences && !Object.keys(state.presences).length) {
+  //   state.emptyTicks++;
+  // }
 
-  // If the match has been empty for more than 100 ticks, end the match by returning null
-  if (state.emptyTicks > 10000) return null;
+  // // If the match has been empty for more than 100 ticks, end the match by returning null
+  // if (state.emptyTicks > 10000) return null;
 
   return {
     state,
