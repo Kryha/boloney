@@ -22,4 +22,4 @@ spec:
                   name: backend-secrets
                   key: db_password
             - name: DB_URI
-              value: "postgres:$(DB_PASSWORD)@postgres.$(POD_NAMESPACE).svc.cluster.local:5432/nakama"
+              value: postgres:$(DB_PASSWORD)@postgres.$(POD_NAMESPACE).svc.cluster.local:5432/nakama

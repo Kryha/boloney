@@ -1,12 +1,11 @@
-//TO-DO: Check how to import this library
-//import * as dotenvFlow from "dotenv-flow";
-//dotenvFlow.config();
-
 import { beforeAuthenticateCustom, afterAuthenticateCustom } from "./hooks/auth";
 import { matchInit, matchJoin, matchJoinAttempt, matchLeave, matchLoop, matchSignal, matchTerminate } from "./game-modes/standard";
 import { rollDice } from "./rpc/dice";
+import { env } from "./utils";
 
-function InitModule(_ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
+function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
+  env.init(ctx);
+
   // match registration
   initializer.registerMatch("game-modes/standard", {
     matchInit,

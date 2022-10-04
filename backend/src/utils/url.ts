@@ -1,3 +1,3 @@
-import { TOOLKIT_BASE_URL } from "./const";
+import { env } from "./const";
 
-export const tkUrl = (route: string) => TOOLKIT_BASE_URL + route;
+export const tkUrl = (route: string) => env.TOOLKIT_BASE_URL + route;
