@@ -7,7 +7,7 @@ export const matchInit = (
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
   const state = {
-    precences: {},
+    presences: {},
     emptyTicks: 0,
   };
 
@@ -46,7 +46,7 @@ export const matchJoin = (
   logger.info("----------------- MATCH JOINED -----------------");
 
   presences.forEach((p) => {
-    state.precences[p.sessionId] = p;
+    state.presences[p.sessionId] = p;
   });
 
   return {
@@ -115,7 +115,7 @@ export const matchLeave = (
   logger.info("----------------- MATCH LEAVE -----------------");
 
   presences.forEach((p) => {
-    delete state.precences[p.sessionId];
+    delete state.presences[p.sessionId];
   });
 
   return {
