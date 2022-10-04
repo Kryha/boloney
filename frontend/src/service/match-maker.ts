@@ -17,25 +17,19 @@ export const useMatchMaker = () => {
       if (socket === undefined) return;
       setIsLoading(true);
 
-      const rpcRes: ApiRpc = await socket.rpc("find_match");
-      if (!rpcRes.payload) return;
-      const matchId = JSON.parse(rpcRes.payload).match_id;
-      const match = await socket.joinMatch(matchId);
-
-      // const query = "*";
-      // const minCount = 2;
-      // const maxCount = 2;
-      // const ticket = await socket.addMatchmaker(query, minCount, maxCount);
-      // console.log(ticket);
-      // const matchmaker: MatchmakerTicket = await socket.addMatchmaker("*", 2, 3);
+      //const rpcRes: ApiRpc = await socket.rpc("find_match");
+      //if (!rpcRes.payload) return;
+      //const matchId = JSON.parse(rpcRes.payload).match_id;
+      //const match = await socket.joinMatch(matchId);
+      const matchmaker: MatchmakerTicket = await socket.addMatchmaker("*", 2, 3);
 
       // const match: Match = await socket.createMatch();
-      console.log(match);
-      // socket.onmatchmakermatched = (matched) => {
-      //   console.info("Received MatchmakerMatched message: ", matched);
-      //   console.info("Matched opponents: ", matched.users);
-      //   setMatchId(matched.match_id);
-      // };
+      console.log(matchmaker);
+      socket.onmatchmakermatched = (matched) => {
+        console.info("Received MatchmakerMatched message: ", matched);
+        console.info("Matched opponents: ", matched.users);
+        setMatchId(matched.match_id);
+      };
       setIsLoading(false);
     } catch (error) {
       //TODO: add error handling

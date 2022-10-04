@@ -12,8 +12,11 @@ export const matchInit = (
   };
 
   return {
-    state,
-    tickRate: 1, // 1 tick per second = 1 MatchLoop func invocations per second
+    state: {
+      presences: {},
+      emptyTicks: 0,
+    },
+    tickRate: 5, // 1 tick per second = 1 MatchLoop func invocations per second},
     label: "StandardGame",
   };
 };
