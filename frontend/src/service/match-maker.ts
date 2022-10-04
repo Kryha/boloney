@@ -10,8 +10,8 @@ export const useMatchMaker = () => {
   const setMatchId = useMatchMakerState((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
 
-  const matchMaker = async () => {
-    console.log("Started match making");
+  const matchMaker = useCallback(async () => {
+    console.log("matchMaker is called");
 
     try {
       if (socket === undefined) return;
@@ -36,7 +36,7 @@ export const useMatchMaker = () => {
       console.log(error);
       setIsLoading(false);
     }
-  };
+  }, [setMatchId, socket]);
 
   return {
     matchMaker,
