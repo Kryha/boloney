@@ -1,4 +1,4 @@
-import { getErrorMessage } from "../utils/error-handling";
+import { logError } from "../utils";
 
 export const matchmakerMatched = (
   _context: nkruntime.Context,
@@ -21,8 +21,7 @@ export const matchmakerMatched = (
     logger.info("----------------- MATCHID HERE -----------------");
     logger.debug(matchId);
     return matchId;
-  } catch (err) {
-    logger.error(getErrorMessage(err));
-    throw err;
+  } catch (error) {
+    throw logError(error, logger);
   }
 };
