@@ -23,6 +23,7 @@ export const enum OP {
   Reject = 4,
 }
 
+// TODO: configure env vars and set to env var if present
 export const TOOLKIT_BASE_URL = "http://zk-gaming-tk.zk-gaming-tk-local.svc.cluster.local:5001";
 
 export const MAX_DICE_PER_PLAYER = 10;
