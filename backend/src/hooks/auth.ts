@@ -4,6 +4,14 @@ import { CollectionInteractionRead, CollectionInteractionWrite } from "../interf
 import { AccountKeys } from "../interfaces/models";
 import { tkUrl, logError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils";
 
+// TODO: fix the following scenario:
+// 1. user creates account
+// 2. before hook succeeds and user creation as well
+// 3. after hook fails, so no keys are stored
+// The after hook will be retriggered after login, so the server will try to recall the toolkit if keys were not generated.
+// The issue is in the fact that if the key creation fails, the user will receive an error, even though the nakama account is actually created.
+// In order to generate the keys, the user will have to counterintuitively try to login.
+
 export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, data) => {
   if (!data.username || !data.account?.id) throw logError("No username/password provided", logger, nkruntime.Codes.INVALID_ARGUMENT);
 
