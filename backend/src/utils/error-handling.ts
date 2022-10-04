@@ -1,11 +1,6 @@
 import { isBasicError } from "../interfaces/error";
 import { AccountKeys } from "../interfaces/models";
 
-export const getErrorMessage = (error: unknown) => {
-  if (error instanceof Error) return error.message;
-  return String(error);
-};
-
 export const ERROR_EXTERNAL_CALL: nkruntime.Error = {
   message: "The contract call failed",
   code: nkruntime.Codes.DATA_LOSS,
@@ -48,14 +43,39 @@ export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntim
   }
 };
 
-// TODO: we can define similar handlers for hooks
-export const rpcHandler =
-  (cb: nkruntime.RpcFunction): nkruntime.RpcFunction =>
-  (ctx, logger, nk, payload) => {
-    try {
-      const res = cb(ctx, logger, nk, payload);
-      return res;
-    } catch (error) {
-      throw logError(error, logger);
-    }
-  };
+type RpcHandler = (cb: nkruntime.RpcFunction) => nkruntime.RpcFunction;
+
+export const rpcHandler: RpcHandler = (cb) => (ctx, logger, nk, payload) => {
+  try {
+    const res = cb(ctx, logger, nk, payload);
+    return res;
+  } catch (error) {
+    throw logError(error, logger);
+  }
+};
+
+type BeforeAuthHookHandler = (
+  cb: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest>
+) => nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest>;
+
+export const beforeHookHandler: BeforeAuthHookHandler = (cb) => (ctx, logger, nk, data) => {
+  try {
+    const res = cb(ctx, logger, nk, data);
+    return res;
+  } catch (error) {
+    throw logError(error, logger);
+  }
+};
+
+type AfterAuthHookHandler = (
+  cb: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest>
+) => nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest>;
+
+export const afterHookHandler: AfterAuthHookHandler = (cb) => (ctx, logger, nk, data, request) => {
+  try {
+    const res = cb(ctx, logger, nk, data, request);
+    return res;
+  } catch (error) {
+    throw logError(error, logger);
+  }
+};

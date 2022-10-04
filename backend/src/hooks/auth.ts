@@ -1,18 +1,19 @@
 import sha256 from "crypto-js/sha256";
+
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
 import { AccountKeys } from "../interfaces/models";
-import { TOOLKIT_BASE_URL, success, EXISTING_KEYS, FAILED_WRITING_COLLECTION } from "../utils/const";
-import { logError, getErrorMessage, handleHttpResponse } from "../utils/error-handling";
+import { tkUrl, logError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils";
 
-export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest> = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  nk: nkruntime.Nakama,
-  data: nkruntime.AuthenticateCustomRequest
-): nkruntime.AuthenticateCustomRequest => {
-  if (!data.username || !data.account?.id) {
-    throw logError("No username/password provided", logger, nkruntime.Codes.INVALID_ARGUMENT);
-  }
+// TODO: fix the following scenario:
+// 1. user creates account
+// 2. before hook succeeds and user creation as well
+// 3. after hook fails, so no keys are stored
+// The after hook will be retriggered after login, so the server will try to recall the toolkit if keys were not generated.
+// The issue is in the fact that if the key creation fails, the user will receive an error, even though the nakama account is actually created.
+// In order to generate the keys, the user will have to counterintuitively try to login.
+
+export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, data) => {
+  if (!data.username || !data.account?.id) throw logError("No username/password provided", logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   data.username = data.username.toLowerCase();
   const isRegistering = !!data.create;
@@ -20,89 +21,54 @@ export const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Au
   const password: string = data.account.id;
 
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
+
   if (userExists) throw logError("Username already exists", logger, nkruntime.Codes.ALREADY_EXISTS);
 
   const encryptedKey = String(sha256(password + username));
   data.account.id = encryptedKey;
 
   return data;
-};
+});
 
-export const afterAuthenticateCustom: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest> = (
-  ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  nk: nkruntime.Nakama,
-  _data: nkruntime.Session,
-  _request: nkruntime.AuthenticateCustomRequest
-) => {
+export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data, _request) => {
   const payload = { collection: "Accounts", key: "keys" };
 
-  // check if the user exist in the collection with keys/addresses
-  if (userKeysAreAvailable(nk, ctx, payload, logger)) {
-    return logError("User already exists", logger, nkruntime.Codes.ALREADY_EXISTS);
-  }
+  // if keys are already stored, skip their creation
+  const storedKeys = readUserKeys(nk, ctx, payload);
+  if (storedKeys.length) return;
 
-  //Get new keys from the toolkit
+  // call the toolkit to generate some new keys and store them in the database
   const newKeys = getNewKeysFromToolkit(nk, logger);
-
-  //Store the keys in collection
   const newKeyPayload = {
     ...payload,
     value: { viewKey: newKeys.viewKey, privateKey: newKeys.privateKey, address: newKeys.address },
   };
-  storeNewKeysInCollection(nk, ctx, newKeyPayload, logger);
+  storeNewKeysInCollection(nk, ctx, newKeyPayload);
+});
 
-  //Check if the account is stored in the collection
-  userKeysAreAvailable(nk, ctx, payload, logger);
-};
-
-export const userKeysAreAvailable = (
-  nk: nkruntime.Nakama,
-  ctx: nkruntime.Context,
-  payload: CollectionInteractionRead,
-  logger: nkruntime.Logger
-): boolean => {
-  try {
-    const existingKeys = nk.storageRead([
-      {
-        key: payload.key,
-        collection: payload.collection,
-        userId: ctx.userId,
-      },
-    ]);
-    if (!existingKeys.length) false;
-  } catch (error) {
-    throw logError(FAILED_WRITING_COLLECTION, logger);
-  }
-
-  success(EXISTING_KEYS, logger);
-
-  return true;
+export const readUserKeys = (nk: nkruntime.Nakama, ctx: nkruntime.Context, payload: CollectionInteractionRead) => {
+  const existingKeys = nk.storageRead([
+    {
+      key: payload.key,
+      collection: payload.collection,
+      userId: ctx.userId,
+    },
+  ]);
+  return existingKeys;
 };
 
 export const getNewKeysFromToolkit = (nk: nkruntime.Nakama, logger: nkruntime.Logger): AccountKeys => {
-  const url = TOOLKIT_BASE_URL + "account/create";
-
-  try {
-    const res = nk.httpRequest(url, "post");
-
-    return handleHttpResponse(res, logger);
-  } catch (error) {
-    throw logError(getErrorMessage(error), logger);
-  }
+  const url = tkUrl("/account/create");
+  const res = nk.httpRequest(url, "post", undefined, undefined, 60000);
+  return handleHttpResponse(res, logger);
 };
 
-export const storeNewKeysInCollection = (
-  nk: nkruntime.Nakama,
-  ctx: nkruntime.Context,
-  payload: CollectionInteractionWrite,
-  logger: nkruntime.Logger
-) => {
+export const storeNewKeysInCollection = (nk: nkruntime.Nakama, ctx: nkruntime.Context, payload: CollectionInteractionWrite) => {
   const payloadRequest: nkruntime.StorageWriteRequest = {
     collection: payload.collection,
     key: payload.key,
     userId: ctx.userId,
-    value: [{ address: payload.value.address, viewKey: payload.value.viewKey }],
+    value: { address: payload.value.address, viewKey: payload.value.viewKey },
     permissionRead: 1,
     permissionWrite: 0,
   };
@@ -110,16 +76,10 @@ export const storeNewKeysInCollection = (
     collection: payload.collection,
     key: "privateKey",
     userId: ctx.userId,
-    value: [{ privateKey: payload.value.privateKey }],
+    value: { privateKey: payload.value.privateKey },
     permissionRead: 1,
     permissionWrite: 0,
   };
-  try {
-    nk.storageWrite([payloadRequest, payloadPrivateKeyRequest]);
-  } catch (error) {
-    const errorMessage = getErrorMessage(error);
-    throw logError(errorMessage, logger);
-  }
 
-  logger.info("Aleo Keys are stored in the collection");
+  nk.storageWrite([payloadRequest, payloadPrivateKeyRequest]);
 };
