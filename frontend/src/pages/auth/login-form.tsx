@@ -51,7 +51,7 @@ export const LoginForm: FC = () => {
       setError("password", { type: res.code.toString() });
     } else {
       // response is successful
-      navigate("/lobby");
+      navigate(routes.lobby);
     }
   };
 
