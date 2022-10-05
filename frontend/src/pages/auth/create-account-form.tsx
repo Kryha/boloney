@@ -49,8 +49,8 @@ export const CreateAccountForm: FC = () => {
   const onSubmit = async (username: string, password: string) => {
     if (!isValid) return;
     const res = await authenticateUser(username, password, true);
-    if (!res) return;
-    setError("username", { type: res.code.toString() });
+    if (!res) return; // reponse is successful
+    setError("username", { type: res.code.toString() }); // response is an error
   };
 
   return (

@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 
+import { NkResponse } from "../interfaces";
 import { useAuthState } from "../store/auth";
 import { parseError } from "../util";
 
@@ -12,7 +13,7 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const authenticateUser = useCallback(
-    async (username: string, password: string, newUser = false) => {
+    async (username: string, password: string, newUser = false): Promise<NkResponse> => {
       if (isAuthenticated) return;
       try {
         setIsLoading(true);
