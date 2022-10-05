@@ -1,4 +1,4 @@
-import { isBasicError } from "../interfaces/error";
+import { isBasicError, isNkError } from "../interfaces/error";
 import { AccountKeys } from "../interfaces/models";
 
 export const ERROR_EXTERNAL_CALL: nkruntime.Error = {
@@ -13,8 +13,13 @@ export const ERROR_WRITING_TO_COLLECTION: nkruntime.Error = {
 
 export const logError = (error: unknown, logger: nkruntime.Logger, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
   let message: string;
+  let errorCode = code;
+
   if (typeof error === "string") {
     message = error;
+  } else if (isNkError(error)) {
+    message = error.message;
+    errorCode = error.code;
   } else if (isBasicError(error)) {
     message = error.message;
   } else {
@@ -23,7 +28,7 @@ export const logError = (error: unknown, logger: nkruntime.Logger, code = nkrunt
 
   logger.error(message);
 
-  return { message, code };
+  return { message, code: errorCode };
 };
 
 export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntime.Logger): AccountKeys => {
