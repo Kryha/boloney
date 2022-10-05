@@ -94,12 +94,13 @@ export const matchTerminate = (
 
 export const matchSignal = (
   _ctx: nkruntime.Context,
-  _logger: nkruntime.Logger,
+  logger: nkruntime.Logger,
   _nk: nkruntime.Nakama,
   _dispatcher: nkruntime.MatchDispatcher,
   _tick: number,
   state: nkruntime.MatchState
 ): { state: nkruntime.MatchState } | null => {
+  logger.info("----------------- MATCH SIGNAL -----------------");
   return { state };
 };
 

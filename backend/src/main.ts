@@ -8,14 +8,14 @@ function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkrun
   env.init(ctx);
 
   // match registration
-  initializer.registerMatch("game-modes/standard", {
+  initializer.registerMatch("standard", {
     matchInit,
     matchJoinAttempt,
     matchJoin,
-    matchLeave,
     matchLoop,
-    matchSignal,
     matchTerminate,
+    matchLeave,
+    matchSignal,
   });
 
   // hooks registration
