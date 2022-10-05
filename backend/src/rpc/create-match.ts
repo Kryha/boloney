@@ -1,11 +1,12 @@
+import { MatchSettings } from "../interfaces";
 import { logError, rpcHandler } from "../utils/error-handling";
 
 export const createMatch = rpcHandler((ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkruntime.Nakama, payload: string) => {
   if (!ctx.userId) throw logError("No user ID in context", logger);
   if (!payload) throw logError("No payload provided", logger);
 
-  const matchSettings = JSON.parse(payload);
-  logger.debug(JSON.stringify(matchSettings));
+  const matchSettings: MatchSettings = JSON.parse(payload);
+  logger.debug(`Match Settings: ${JSON.stringify(matchSettings)}`);
 
   let matchId = "";
 

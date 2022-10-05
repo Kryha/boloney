@@ -41,7 +41,11 @@ export const Lobby: FC = () => {
       </ButtonContainer>
 
       <ButtonContainer>
-        <PrimaryButton text={`Join match (${openMatchCount} available)`} disabled={openMatchCount === 0} onClick={onJoin} />
+        <PrimaryButton
+          text={`Join match (${openMatchCount > 10 ? "10+" : openMatchCount} available)`}
+          disabled={openMatchCount === 0}
+          onClick={onJoin}
+        />
       </ButtonContainer>
 
       {isLoading && <Heading6>Hang on to your butts...</Heading6>}

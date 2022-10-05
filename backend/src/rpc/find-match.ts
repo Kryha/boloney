@@ -6,8 +6,8 @@ export const findMatch = rpcHandler((ctx: nkruntime.Context, logger: nkruntime.L
   let matches: nkruntime.Match[] = [];
 
   try {
-    matches = nk.matchList(100, true);
-    logger.debug("------- MATCHES -------", JSON.stringify(matches));
+    matches = nk.matchList(11, true);
+    logger.debug(`Match List: ${JSON.stringify(matches)}`);
   } catch (error) {
     throw logError("Error listing matches", logger);
   }
