@@ -63,18 +63,10 @@ export const CreateAccountForm: FC = () => {
         <FormContainer>
           <AuthContainer>
             <Input label={text.authForm.username} isError={!!errors.username} errorMessage={showUsernameError()}>
-              <BaseInput
-                isError={!!errors.username}
-                type="text"
-                {...register("username", { required: true, minLength: MINIMUM_USERNAME_LENGTH })}
-              />
+              <BaseInput type="text" {...register("username", { required: true, minLength: MINIMUM_USERNAME_LENGTH })} />
             </Input>
             <Input label={text.authForm.password} isError={!!errors.password} errorMessage={text.authForm.errorMessages.passwordMinimum}>
-              <BaseInput
-                type="password"
-                {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })}
-                isError={!!errors.password}
-              />
+              <BaseInput type="password" {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })} />
             </Input>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>

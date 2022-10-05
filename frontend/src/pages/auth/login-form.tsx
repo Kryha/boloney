@@ -60,10 +60,10 @@ export const LoginForm: FC = () => {
         <FormContainer>
           <AuthContainer>
             <Input label={text.authForm.username} isError={!!errors.username} errorMessage={text.authForm.errorMessages.usernameRequired}>
-              <BaseInput isError={!!errors.username} type="text" {...register("username", { required: true })} />
+              <BaseInput type="text" {...register("username", { required: true })} />
             </Input>
             <Input label={text.authForm.password} isError={!!errors.password} errorMessage={showPasswordError()}>
-              <BaseInput type="password" {...register("password", { required: true })} isError={!!errors.password} />
+              <BaseInput type="password" {...register("password", { required: true })} />
             </Input>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
