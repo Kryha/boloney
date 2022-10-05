@@ -30,21 +30,27 @@ export const CreateAccountForm: FC = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
   const showUsernameError = () => {
-    if (errors.username?.type === "alreadyExists") return text.authForm.errorMessages.usernameAlreadyTaken;
-    if (errors.username?.type === "minLength") return text.authForm.errorMessages.usernameMinimum;
-    if (errors.username?.type === "required") return text.authForm.errorMessages.usernameRequired;
+    switch (errors.username?.type) {
+      case NkCode.ALREADY_EXISTS.toString():
+        return text.authForm.errorMessages.usernameAlreadyTaken;
+      case "minLength":
+        return text.authForm.errorMessages.usernameMinimum;
+      case "required":
+        return text.authForm.errorMessages.usernameRequired;
+      default:
+        return "";
+    }
   };
 
   const onSubmit = async (username: string, password: string) => {
+    if (!isValid) return;
     const res = await authenticateUser(username, password, true);
-
     if (!res) return;
-
-    if (res.code === NkCode.ALREADY_EXISTS) setError("username", { type: "alreadyExists" });
+    setError("username", { type: res.code.toString() });
   };
 
   return (

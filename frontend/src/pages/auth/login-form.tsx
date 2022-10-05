@@ -29,20 +29,25 @@ export const LoginForm: FC = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
   const showPasswordError = () => {
-    if (errors.password?.type === "invalid") return text.authForm.errorMessages.invalidCredentials;
-    if (errors.password?.type === "required") return text.authForm.errorMessages.passwordRequired;
+    switch (errors.password?.type) {
+      case NkCode.NOT_FOUND.toString():
+        return text.authForm.errorMessages.invalidCredentials;
+      case "required":
+        return text.authForm.errorMessages.passwordRequired;
+      default:
+        return "";
+    }
   };
 
   const onSubmit = async (username: string, password: string) => {
+    if (!isValid) return;
     const res = await authenticateUser(username, password);
-
     if (!res) return;
-
-    if (res.code === NkCode.NOT_FOUND) setError("password", { type: "invalid" });
+    setError("password", { type: res.code.toString() });
   };
 
   return (
