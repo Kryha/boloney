@@ -1,31 +1,26 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GeneralContentWrapper, Heading1, Heading4, Heading6, PrimaryButton } from "../../components";
 import { routes } from "../../navigation";
 import { useMatchMaker } from "../../service/match-maker";
-import { StyledLobby } from "./styles";
+import { ButtonContainer } from "../new-game/styles";
 
 export const Lobby: FC = () => {
-  // TODO: Implement the designs and add match selection
-  // 1. useEffect to rpc find_match
-  // 2. store/view open game count
-  // 3. show new match button -> redirect to match create form
-  // 4. show join match button with open match count in it -> join first game (or have it sort on player count so they fill up faster)
+  // TODO: Implement the designs
 
   const { findMatches, joinMatch, isLoading } = useMatchMaker();
+  const [openMatchCount, setOpenMatchCount] = useState(0);
+  const [openMatches, setOpenMatches] = useState([""]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const init = async () => {
-      const openMatches = [];
-      // openMatches = await findMatches();
-      // setOpenMatches(openMatches);
+    const update = async () => {
+      const openMatches = await findMatches();
+      setOpenMatches(openMatches);
       setOpenMatchCount(openMatches.length);
     };
-    init();
-  }, []);
-
-  const [openMatchCount, setOpenMatchCount] = useState(0);
-  const [openMatches, setOpenMatches] = useState([]);
-  const navigate = useNavigate();
+    update();
+  }, [findMatches]);
 
   const onCreate = async () => {
     navigate(routes.newGame);
@@ -37,14 +32,19 @@ export const Lobby: FC = () => {
   };
 
   return (
-    <StyledLobby>
-      <h1>Hello Lobby 2</h1>
-      {isLoading ? <h1> is Loading ----</h1> : <h1>---- Found a match</h1>}
-      <button onClick={onCreate}>Create a match</button>
-      {/* <button disabled={openMatchCount === 0} onClick={onJoin}> */}
-      <button disabled={false} onClick={onJoin}>
-        Join match ({openMatchCount} available)
-      </button>
-    </StyledLobby>
+    <GeneralContentWrapper>
+      <Heading1>Hello Lobby!</Heading1>
+      <Heading4>What would you like to do? Choose wisely...</Heading4>
+
+      <ButtonContainer>
+        <PrimaryButton text="Create a match" onClick={onCreate} />
+      </ButtonContainer>
+
+      <ButtonContainer>
+        <PrimaryButton text={`Join match (${openMatchCount} available)`} disabled={openMatchCount === 0} onClick={onJoin} />
+      </ButtonContainer>
+
+      {isLoading && <Heading6>Hang on to your butts...</Heading6>}
+    </GeneralContentWrapper>
   );
 };

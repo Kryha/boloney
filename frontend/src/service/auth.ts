@@ -1,4 +1,3 @@
-import { Session } from "inspector";
 import { useCallback, useState } from "react";
 
 import { NkResponse } from "../interfaces";

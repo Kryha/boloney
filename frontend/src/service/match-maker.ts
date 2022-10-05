@@ -11,9 +11,8 @@ export const useMatchMaker = () => {
 
   const createMatch = useCallback(
     async (settings: MatchSettings): Promise<string | undefined> => {
-      console.log("createMatch is called");
-
       if (socket === undefined) return;
+      setIsLoading(true);
 
       try {
         const rpcRes: ApiRpc = await socket.rpc("create_match", JSON.stringify(settings));
@@ -23,39 +22,44 @@ export const useMatchMaker = () => {
       } catch (error) {
         //TODO: add error handling
         console.log(error);
+      } finally {
         setIsLoading(false);
       }
     },
     [socket]
   );
 
-  const findMatches = useCallback(async (): Promise<string[] | undefined> => {
-    console.log("findMatches is called");
-    if (socket === undefined) return;
+  const findMatches = useCallback(async (): Promise<string[]> => {
+    if (socket === undefined) return [];
+    setIsLoading(true);
 
     try {
       const rpcRes: ApiRpc = await socket.rpc("find_match");
-      if (!rpcRes.payload) return;
+      if (!rpcRes.payload) return [];
 
       return JSON.parse(rpcRes.payload).match_ids;
     } catch (error) {
       //TODO: add error handling
       console.log(error);
+      return [];
+    } finally {
+      setIsLoading(false);
     }
   }, [socket]);
 
   const joinMatch = useCallback(
-    async (matchId: string) => {
-      console.log(`joinMatch is called with matchId ${matchId}`);
+    async (matchId: string): Promise<void> => {
       if (socket === undefined) return;
+      setIsLoading(true);
 
       try {
         const match: Match = await socket.joinMatch(matchId);
         setMatchId(match.match_id);
-        // TODO: go to game view?
+        // TODO: go to game view
       } catch (error) {
-        //TODO: add error handling
         console.log(error);
+        // TODO: add error handling
+      } finally {
         setIsLoading(false);
       }
     },

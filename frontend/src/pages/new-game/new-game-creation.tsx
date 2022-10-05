@@ -1,4 +1,3 @@
-import { Match } from "@heroiclabs/nakama-js";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 
@@ -33,12 +32,12 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.availablePowerups = availablePowerups;
     data.isPrivate = isPrivate;
     data.isUsingFakeCredits = isUsingFakeCredits;
-    // TODO: call backend
-    console.log("SUBMITTING:", data);
+
     const matchId = await createMatch(data);
     if (matchId) await joinMatch(matchId);
+
     // TODO: retrieve url from backend
-    setUrl(`tml/url/${matchId}`);
+    setUrl(`tmp/url/${matchId}`);
   });
 
   return (

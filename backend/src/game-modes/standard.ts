@@ -2,14 +2,18 @@ export const matchInit = (
   _ctx: nkruntime.Context,
   logger: nkruntime.Logger,
   _nk: nkruntime.Nakama,
-  _params: Record<string, string>
+  params: Record<string, string>
 ): { state: nkruntime.MatchState; tickRate: number; label: string } => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
   const state = {
     presences: {},
     emptyTicks: 0,
+    ...params,
   };
+
+  logger.info("----------------- STATE -----------------");
+  logger.debug(JSON.stringify(state));
 
   return {
     state,
@@ -64,13 +68,14 @@ export const matchLoop = (
   _messages: nkruntime.MatchMessage[]
 ): { state: nkruntime.MatchState } | null => {
   logger.info("----------------- MATCH LOOP -----------------");
+  logger.info(`PRESENCE COUNT: ${String(Object.keys(state.presences).length)}`);
 
   // If we have no presences in the match according to the match state, increment the empty ticks count
   if (!state.presences) {
     state.emptyTicks++;
   }
 
-  // If the match has been empty for more than 100 ticks, end the match by returning null
+  // If the match has been empty for more than 500 ticks, end the match by returning null
   if (state.emptyTicks > 500) return null;
 
   return {
