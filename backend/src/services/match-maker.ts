@@ -18,7 +18,6 @@ export const matchmakerMatched = (
 
   try {
     const matchId = nk.matchCreate("standard", { invited: matches });
-    logger.info("----------------- MATCHID HERE -----------------");
     logger.debug(matchId);
     return matchId;
   } catch (error) {

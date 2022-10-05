@@ -1,9 +1,11 @@
+import { Match } from "@heroiclabs/nakama-js";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton } from "../../components";
-import { PowerupType } from "../../interfaces";
+import { MatchSettings } from "../../interfaces";
+import { useMatchMaker } from "../../service/match-maker";
 import { FakeCreditsField } from "./fake-credits-field";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { PlayersField } from "./players-field";
@@ -16,23 +18,15 @@ interface Props {
   setUrl: (url: string) => void;
 }
 
-export interface Fields {
-  players: number;
-  dicePerPlayer: number;
-  powerupsPerPlayer: number;
-  availablePowerups: PowerupType[];
-  isPrivate: boolean;
-  isUsingFakeCredits: boolean;
-}
-
 // TODO: make a form component
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
-  const { register, handleSubmit } = useForm<Fields>({ mode: "onChange", reValidateMode: "onChange" });
+  const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
   const isPrivate = useGameCreationFormState((state) => state.isPrivate);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
+  const { createMatch, joinMatch } = useMatchMaker();
 
-  const handleFormSubmit = handleSubmit((data) => {
+  const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     data.players = Number(data.players);
     data.dicePerPlayer = Number(data.dicePerPlayer);
     data.powerupsPerPlayer = Number(data.powerupsPerPlayer);
@@ -41,8 +35,10 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.isUsingFakeCredits = isUsingFakeCredits;
     // TODO: call backend
     console.log("SUBMITTING:", data);
+    const matchId = await createMatch(data);
+    if (matchId) await joinMatch(matchId);
     // TODO: retrieve url from backend
-    setUrl("tmp/url");
+    setUrl(`tml/url/${matchId}`);
   });
 
   return (

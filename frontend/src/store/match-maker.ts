@@ -1,6 +1,4 @@
 import create from "zustand";
-import { Socket } from "@heroiclabs/nakama-js";
-import { GameConfig } from "../interfaces";
 
 export interface MatchMakerState {
   ticket?: string | undefined;

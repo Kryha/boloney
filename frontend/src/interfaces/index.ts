@@ -5,4 +5,4 @@ export * from "./auth";
 export * from "./layout";
 export * from "./game";
 export * from "./error";
-export * from "./match-maker";
+export * from "./match-settings";

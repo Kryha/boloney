@@ -1,6 +1,6 @@
 import { beforeAuthenticateCustom, afterAuthenticateCustom } from "./hooks/auth";
 import { matchInit, matchJoin, matchJoinAttempt, matchLeave, matchLoop, matchSignal, matchTerminate } from "./game-modes/standard";
-import { rollDice, findMatch } from "./rpc";
+import { rollDice, createMatch, findMatch } from "./rpc";
 import { matchmakerMatched } from "./services/match-maker";
 import { env } from "./utils";
 
@@ -25,6 +25,7 @@ function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkrun
 
   // rpc registration
   initializer.registerRpc("roll_dice", rollDice);
+  initializer.registerRpc("create_match", createMatch);
   initializer.registerRpc("find_match", findMatch);
 
   logger.info("JavaScript logic loaded.");

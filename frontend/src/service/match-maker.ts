@@ -1,45 +1,71 @@
-import { Match, MatchmakerTicket } from "@heroiclabs/nakama-js";
+import { Match } from "@heroiclabs/nakama-js";
 import { ApiRpc } from "@heroiclabs/nakama-js/dist/api.gen";
 import { useCallback, useState } from "react";
-import { useAuthState, useMatchMakerState } from "../store/";
-import { useAuth } from "./auth";
+import { MatchSettings } from "../interfaces";
+import { useAuthState, useMatchMakerState } from "../store";
 
 export const useMatchMaker = () => {
   const socket = useAuthState((state) => state.socket);
-  const isAuthenticated = useAuthState((state) => state.isAuthenticated);
   const setMatchId = useMatchMakerState((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
 
-  const matchMaker = useCallback(async () => {
-    console.log("matchMaker is called");
+  const createMatch = useCallback(
+    async (settings: MatchSettings): Promise<string | undefined> => {
+      console.log("createMatch is called");
+
+      if (socket === undefined) return;
+
+      try {
+        const rpcRes: ApiRpc = await socket.rpc("create_match", JSON.stringify(settings));
+        if (!rpcRes.payload) return; // TODO: error handling
+
+        return JSON.parse(rpcRes.payload).match_id;
+      } catch (error) {
+        //TODO: add error handling
+        console.log(error);
+        setIsLoading(false);
+      }
+    },
+    [socket]
+  );
+
+  const findMatches = useCallback(async (): Promise<string[] | undefined> => {
+    console.log("findMatches is called");
+    if (socket === undefined) return;
 
     try {
-      if (socket === undefined) return;
-      setIsLoading(true);
+      const rpcRes: ApiRpc = await socket.rpc("find_match");
+      if (!rpcRes.payload) return;
 
-      //const rpcRes: ApiRpc = await socket.rpc("find_match");
-      //if (!rpcRes.payload) return;
-      //const matchId = JSON.parse(rpcRes.payload).match_id;
-      //const match = await socket.joinMatch(matchId);
-      const matchmaker: MatchmakerTicket = await socket.addMatchmaker("*", 2, 3);
-
-      // const match: Match = await socket.createMatch();
-      console.log(matchmaker);
-      socket.onmatchmakermatched = (matched) => {
-        console.info("Received MatchmakerMatched message: ", matched);
-        console.info("Matched opponents: ", matched.users);
-        setMatchId(matched.match_id);
-      };
-      setIsLoading(false);
+      return JSON.parse(rpcRes.payload).match_ids;
     } catch (error) {
       //TODO: add error handling
       console.log(error);
-      setIsLoading(false);
     }
-  }, [setMatchId, socket]);
+  }, [socket]);
+
+  const joinMatch = useCallback(
+    async (matchId: string) => {
+      console.log(`joinMatch is called with matchId ${matchId}`);
+      if (socket === undefined) return;
+
+      try {
+        const match: Match = await socket.joinMatch(matchId);
+        setMatchId(match.match_id);
+        // TODO: go to game view?
+      } catch (error) {
+        //TODO: add error handling
+        console.log(error);
+        setIsLoading(false);
+      }
+    },
+    [socket, setMatchId]
+  );
 
   return {
-    matchMaker,
+    createMatch,
+    findMatches,
+    joinMatch,
     isLoading,
   };
 };
