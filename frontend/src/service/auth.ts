@@ -1,6 +1,8 @@
 import { useCallback, useState } from "react";
-import { StatusCodes } from "../interfaces";
+
+import { NkResponse } from "../interfaces";
 import { useAuthState } from "../store/auth";
+import { parseError } from "../util";
 
 export const useAuth = () => {
   const client = useAuthState((state) => state.client);
@@ -11,7 +13,7 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const authenticateUser = useCallback(
-    async (username: string, password: string, newUser = false) => {
+    async (username: string, password: string, newUser = false): Promise<NkResponse> => {
       if (isAuthenticated) return;
       try {
         setIsLoading(true);
@@ -22,12 +24,11 @@ export const useAuth = () => {
         setSession(socketSession);
         setIsAuthenticated(true);
       } catch (error) {
+        const parsedErr = await parseError(error);
+        return parsedErr;
+      } finally {
         setIsLoading(false);
-        if (error instanceof Response) return error.status;
       }
-
-      setIsLoading(false);
-      return StatusCodes.OK;
     },
     [isAuthenticated, client, setIsAuthenticated, setSession, setSocket]
   );

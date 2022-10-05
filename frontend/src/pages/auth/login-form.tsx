@@ -15,7 +15,7 @@ import {
   GeneralContentWrapper,
 } from "../../components";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, StatusCodes } from "../../interfaces";
+import { AuthFields, NkCode } from "../../interfaces";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
@@ -29,20 +29,25 @@ export const LoginForm: FC = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const usernameError = errors.username && errors.username.type === "required";
-  const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
-
   const showPasswordError = () => {
-    if (errors.password?.type === "invalid") return text.authForm.errorMessages.invalidCredentials;
-    if (errors.password?.type === "required") return text.authForm.errorMessages.passwordRequired;
+    switch (errors.password?.type) {
+      case NkCode.NOT_FOUND.toString():
+        return text.authForm.errorMessages.invalidCredentials;
+      case "required":
+        return text.authForm.errorMessages.passwordRequired;
+      default:
+        return "";
+    }
   };
 
   const onSubmit = async (username: string, password: string) => {
-    const statusCode = await authenticateUser(username, password);
-    if (statusCode === StatusCodes.NOT_FOUND) setError("password", { type: "invalid" });
+    if (!isValid) return;
+    const res = await authenticateUser(username, password);
+    if (!res) return; // response is successful
+    setError("password", { type: res.code.toString() }); // response is an error
   };
 
   return (
@@ -54,11 +59,11 @@ export const LoginForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.authForm.username} isError={usernameError} errorMessage={text.authForm.errorMessages.usernameRequired}>
-              <BaseInput isError={usernameError} type="text" {...register("username", { required: true })} />
+            <Input label={text.authForm.username} isError={!!errors.username} errorMessage={text.authForm.errorMessages.usernameRequired}>
+              <BaseInput type="text" {...register("username", { required: true })} />
             </Input>
-            <Input label={text.authForm.password} isError={passwordError} errorMessage={showPasswordError()}>
-              <BaseInput type="password" {...register("password", { required: true })} isError={passwordError} />
+            <Input label={text.authForm.password} isError={!!errors.password} errorMessage={showPasswordError()}>
+              <BaseInput type="password" {...register("password", { required: true })} />
             </Input>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>

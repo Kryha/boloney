@@ -16,7 +16,7 @@ import {
 } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, StatusCodes } from "../../interfaces";
+import { AuthFields, NkCode } from "../../interfaces";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
@@ -30,23 +30,27 @@ export const CreateAccountForm: FC = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const usernameError =
-    errors.username && (errors.username.type === "minLength" || errors.username.type === "required" || errors.username.type === "taken");
-  const passwordError = errors.password && (errors.password.type === "minLength" || errors.password.type === "invalid");
-
   const showUsernameError = () => {
-    if (errors.username?.type === "taken") return text.authForm.errorMessages.usernameAlreadyTaken;
-    if (errors.username?.type === "minLength") return text.authForm.errorMessages.usernameMinimum;
-    if (errors.username?.type === "required") return text.authForm.errorMessages.usernameRequired;
+    switch (errors.username?.type) {
+      case NkCode.ALREADY_EXISTS.toString():
+        return text.authForm.errorMessages.usernameAlreadyTaken;
+      case "minLength":
+        return text.authForm.errorMessages.usernameMinimum;
+      case "required":
+        return text.authForm.errorMessages.usernameRequired;
+      default:
+        return "";
+    }
   };
 
   const onSubmit = async (username: string, password: string) => {
-    const statusCode = await authenticateUser(username, password, true);
-
-    if (statusCode === StatusCodes.CONFLICT) setError("username", { type: "taken" });
+    if (!isValid) return;
+    const res = await authenticateUser(username, password, true);
+    if (!res) return; // reponse is successful
+    setError("username", { type: res.code.toString() }); // response is an error
   };
 
   return (
@@ -58,19 +62,11 @@ export const CreateAccountForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.authForm.username} isError={usernameError} errorMessage={showUsernameError()}>
-              <BaseInput
-                isError={usernameError}
-                type="text"
-                {...register("username", { required: true, minLength: MINIMUM_USERNAME_LENGTH })}
-              />
+            <Input label={text.authForm.username} isError={!!errors.username} errorMessage={showUsernameError()}>
+              <BaseInput type="text" {...register("username", { required: true, minLength: MINIMUM_USERNAME_LENGTH })} />
             </Input>
-            <Input label={text.authForm.password} isError={passwordError} errorMessage={text.authForm.errorMessages.passwordMinimum}>
-              <BaseInput
-                type="password"
-                {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })}
-                isError={passwordError}
-              />
+            <Input label={text.authForm.password} isError={!!errors.password} errorMessage={text.authForm.errorMessages.passwordMinimum}>
+              <BaseInput type="password" {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })} />
             </Input>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
