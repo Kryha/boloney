@@ -1,3 +1,6 @@
+import { PowerupType } from "../interfaces";
+import { MatchState } from "../interfaces/match-state";
+
 export const matchInit = (
   _ctx: nkruntime.Context,
   logger: nkruntime.Logger,
@@ -6,18 +9,23 @@ export const matchInit = (
 ): { state: nkruntime.MatchState; tickRate: number; label: string } => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
-  const state = {
+  const initialState: MatchState = {
     presences: {},
     emptyTicks: 0,
-    ...params,
+    players: Number(params.players),
+    dicePerPlayer: Number(params.dicePerPlayer),
+    powerupsPerPlayer: Number(params.powerupsPerPlayer),
+    availablePowerups: <PowerupType[]>[...params.availablePowerups],
+    isPrivate: !!+params.isPrivate,
+    isUsingFakeCredits: !!+params.isUsingFakeCredits,
   };
 
   logger.info("----------------- STATE -----------------");
-  logger.debug(JSON.stringify(state));
+  logger.debug(JSON.stringify(initialState));
 
   return {
-    state,
-    tickRate: 1, // 1 tick per second = 1 MatchLoop func invocations per second},
+    state: initialState,
+    tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second,
     label: "StandardGame",
   };
 };
@@ -34,8 +42,9 @@ export const matchJoinAttempt = (
 ): { state: nkruntime.MatchState; accept: boolean; rejectMessage?: string } | null => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
-  logger.debug(JSON.stringify(state));
-  return { state, accept: true };
+  const canPlayerJoin = Object.keys(state.presences).length < state.players;
+
+  return { state, accept: canPlayerJoin };
 };
 
 export const matchJoin = (
@@ -52,6 +61,11 @@ export const matchJoin = (
   presences.forEach((p) => {
     state.presences[p.sessionId] = p;
   });
+
+  if (Object.keys(state.presences).length === state.players) {
+    logger.info("----------------- MATCH STARTED! -----------------");
+    // TODO: Implementation
+  }
 
   return {
     state,
