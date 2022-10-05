@@ -1,27 +1,52 @@
 import { FC } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
 import { NewGame } from "../pages/new-game";
+import { useAuth } from "../service";
 
-export const AppRoutes: FC = () => {
-  const navigate = useNavigate();
+// TODO: implement landing page
+const Root = () => {
+  const { isAuthenticated } = useAuth();
 
-  // TODO: add routes to navigate to when authenticated
+  return <Navigate to={isAuthenticated ? routes.newGame : routes.login} />;
+};
+
+const AppRoutes: FC = () => {
+  const { isAuthenticated } = useAuth();
+
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
-      <MainContainer>
-        <Routes>
+    <Routes>
+      <Route path={routes.root} element={<Root />} />
+
+      {/* if you try to abstract these cases in external components, the compiler will complain for some reason */}
+      {isAuthenticated ? (
+        <>
+          <Route path={routes.newGame} element={<NewGame />} />
+        </>
+      ) : (
+        <>
           <Route path={routes.createAccount} element={<CreateAccount />} />
           <Route path={routes.login} element={<Login />} />
-          <Route path={routes.newGame} element={<NewGame />} />
+        </>
+      )}
 
-          <Route path="*" element={<ErrorView />} />
-        </Routes>
-      </MainContainer>
+      <Route path="*" element={<ErrorView />} />
+    </Routes>
+  );
+};
+
+export const RoutesWrapper: FC = () => {
+  const navigate = useNavigate();
+  const { isRefreshing } = useAuth();
+
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
+      {/* TODO: create loading component */}
+      <MainContainer>{isRefreshing ? <>Authenticating...</> : <AppRoutes />}</MainContainer>
     </ErrorBoundary>
   );
 };
