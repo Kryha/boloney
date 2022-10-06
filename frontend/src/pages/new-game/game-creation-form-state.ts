@@ -3,7 +3,7 @@ import create from "zustand";
 import { PowerupType } from "../../interfaces";
 
 export interface NewGameState {
-  availablePowerups: PowerupType[] | [];
+  availablePowerups: PowerupType[];
   isUsingFakeCredits: boolean;
 
   toggleIsUsingFakeCredits: () => void;
