@@ -1,26 +1,19 @@
 import { FC } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
-import { NewGame } from "../pages/new-game";
+import { NewGame, Landing } from "../pages";
 import { useAuth } from "../service";
-
-// TODO: implement landing page
-const Root = () => {
-  const { isAuthenticated } = useAuth();
-
-  return <Navigate to={isAuthenticated ? routes.newGame : routes.login} />;
-};
 
 const AppRoutes: FC = () => {
   const { isAuthenticated } = useAuth();
 
   return (
     <Routes>
-      <Route path={routes.root} element={<Root />} />
+      <Route path={routes.root} element={<Landing />} />
 
       {/* if you try to abstract these cases in external components, the compiler will complain for some reason */}
       {isAuthenticated ? (
