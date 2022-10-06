@@ -5,7 +5,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
-import { Landing } from "../pages";
+import { Landing, NewGame } from "../pages";
 import { useAuth } from "../service";
 import { Home } from "../pages/home";
 
@@ -20,6 +20,7 @@ const AppRoutes: FC = () => {
       {isAuthenticated ? (
         <>
           <Route path={routes.home} element={<Home />} />
+          <Route path={routes.newGame} element={<NewGame />} />
         </>
       ) : (
         <>
