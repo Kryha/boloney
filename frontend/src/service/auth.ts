@@ -15,6 +15,7 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(true);
 
+  // TODO: see how sockets relate to matches and maybe abstract the following function
   const joinSession = useCallback(
     async (session: Session) => {
       const socket = client.createSocket();
