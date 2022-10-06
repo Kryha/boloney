@@ -24,7 +24,8 @@ export const matchInit = (
 
   return {
     state: initialState,
-    tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second,
+    tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second.
+    // TODO: Set tickRate to 5 after development is done for improved UX. But for dev purposes 1 is more than enough.
     label: "StandardGame",
   };
 };
@@ -41,6 +42,7 @@ export const matchJoinAttempt = (
 ): { state: nkruntime.MatchState; accept: boolean; rejectMessage?: string } | null => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
+  // A custom match starts right after creating it, so it needs to check manually if the room is full/joinable.
   const canPlayerJoin = Object.keys(state.presences).length < state.players;
 
   return { state, accept: canPlayerJoin };
@@ -61,6 +63,8 @@ export const matchJoin = (
     state.presences[p.sessionId] = p;
   });
 
+  // Do we have enough players in a custom game to kick off the match?
+  // This is always true in 'Quick play' mode, where a match only starts when enough players are in the lobby.
   if (Object.keys(state.presences).length === state.players) {
     logger.info("----------------- MATCH STARTED! -----------------");
     // TODO: Implementation

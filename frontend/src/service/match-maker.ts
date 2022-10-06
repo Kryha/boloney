@@ -40,6 +40,8 @@ export const useMatchMaker = () => {
     };
 
     try {
+      // These are just quick settings for development
+      // TODO: replace with agreed upon values
       const query = "*";
       const minPlayers = 2;
       const maxPlayers = 2;
