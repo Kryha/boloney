@@ -10,7 +10,6 @@ import { useGameCreationFormState } from "./game-creation-form-state";
 import { PlayersField } from "./players-field";
 import { PowerupsAmountField } from "./powerups-amount-field";
 import { PowerupsField } from "./powerups-field";
-import { PrivatePublicField } from "./private-public-field";
 import { BottomContainer, ButtonContainer, NewGameContainer } from "./styles";
 
 interface Props {
@@ -21,7 +20,6 @@ interface Props {
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
-  const isPrivate = useGameCreationFormState((state) => state.isPrivate);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
   const { createMatch, joinMatch } = useMatchMaker();
 
@@ -30,7 +28,6 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.dicePerPlayer = Number(data.dicePerPlayer);
     data.powerupsPerPlayer = Number(data.powerupsPerPlayer);
     data.availablePowerups = availablePowerups;
-    data.isPrivate = isPrivate;
     data.isUsingFakeCredits = isUsingFakeCredits;
 
     const matchId = await createMatch(data);
@@ -53,8 +50,6 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           <PowerupsAmountField register={register} />
 
           <PowerupsField />
-
-          <PrivatePublicField />
 
           <FakeCreditsField />
 

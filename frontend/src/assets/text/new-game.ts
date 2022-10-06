@@ -6,7 +6,6 @@ export const newGame = {
   dicePerPlayer: "dice per player",
   powerupsPerPlayer: "power-ups per player",
   whichPowerups: "which power-ups do you want?",
-  privateOrPublic: "private or public session?",
   typeOfBet: "type of bet",
 
   dice: "dice",
@@ -16,7 +15,6 @@ export const newGame = {
   powerup2: "power-up 02",
   powerup3: "power-up 03",
   powerup4: "power-up 04",
-  private: "private",
   fakeCredits: "fake credits",
 
   // TODO: update description labels
@@ -27,7 +25,6 @@ export const newGame = {
     "Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   powerup4Desc: "Here we have a description of the power-up itself.",
 
-  privateOrPublicDesc: "Your session will be private, which means that only players invited by you will be able to join and play the game.",
   typeOfBetDesc: "You are not going to play with real money. Let's play just for the sake of having fun!",
   bottomDesc:
     "By creating the game we will create a link for you to share with your friends. This link will lead you all to the game itself, enjoy it!",

@@ -5,6 +5,5 @@ export interface MatchSettings {
   dicePerPlayer: number;
   powerupsPerPlayer: number;
   availablePowerups: PowerupType[];
-  isPrivate: boolean;
   isUsingFakeCredits: boolean;
 }
