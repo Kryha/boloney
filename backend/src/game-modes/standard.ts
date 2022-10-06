@@ -15,7 +15,7 @@ export const matchInit = (
     players: Number(params.players),
     dicePerPlayer: Number(params.dicePerPlayer),
     powerupsPerPlayer: Number(params.powerupsPerPlayer),
-    availablePowerups: <PowerupType[] | []>[...params.availablePowerups],
+    availablePowerups: [params.availablePowerups] as PowerupType[],
     isUsingFakeCredits: !!+params.isUsingFakeCredits,
   };
 
