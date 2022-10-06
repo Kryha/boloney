@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { GeneralContentWrapper, Heading1, Heading4, Heading6, PrimaryButton } from "../../components";
 import { routes } from "../../navigation";
@@ -8,44 +8,28 @@ import { ButtonContainer } from "../new-game/styles";
 export const Lobby: FC = () => {
   // TODO: Implement the designs
 
-  const { findMatches, joinMatch, isLoading } = useMatchMaker();
-  const [openMatchCount, setOpenMatchCount] = useState(0);
-  const [openMatches, setOpenMatches] = useState([""]);
+  const { matchMaker, joinMatch, isLoading } = useMatchMaker();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const update = async () => {
-      const openMatches = await findMatches();
-      setOpenMatches(openMatches);
-      setOpenMatchCount(openMatches.length);
-    };
-    update();
-  }, [findMatches]);
-
-  const onCreate = async () => {
-    navigate(routes.newGame);
-  };
-
-  const onJoin = async () => {
-    if (openMatchCount === 0) return;
-    await joinMatch(openMatches[0]);
-  };
+  const createMatch = () => navigate(routes.newGame);
+  const joinMatchById = async (matchId: string) => await joinMatch(matchId);
+  const quickPlay = async () => matchMaker();
 
   return (
     <GeneralContentWrapper>
-      <Heading1>Hello Lobby!</Heading1>
+      <Heading1>Hello you!</Heading1>
       <Heading4>What would you like to do? Choose wisely...</Heading4>
 
       <ButtonContainer>
-        <PrimaryButton text="Create a match" onClick={onCreate} />
+        <PrimaryButton text="Quick Play" onClick={quickPlay} />
       </ButtonContainer>
 
       <ButtonContainer>
-        <PrimaryButton
-          text={`Join match (${openMatchCount > 10 ? "10+" : openMatchCount} available)`}
-          disabled={openMatchCount === 0}
-          onClick={onJoin}
-        />
+        <PrimaryButton text="Create a match" onClick={createMatch} />
+      </ButtonContainer>
+
+      <ButtonContainer>
+        <PrimaryButton text="Join match by ID:" onClick={() => joinMatchById("MATCHID")} />
       </ButtonContainer>
 
       {isLoading && <Heading6>Hang on to your butts...</Heading6>}

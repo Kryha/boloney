@@ -9,6 +9,31 @@ export const useMatchMaker = () => {
   const setMatchId = useMatchMakerState((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
 
+  const matchMaker = useCallback(async () => {
+    if (socket === undefined) return;
+    setIsLoading(true);
+
+    socket.onmatchmakermatched = async (matched) => {
+      console.info("Received MatchmakerMatched message: ", matched);
+      console.info("Matched opponents: ", matched.users);
+
+      await joinMatch(matched.match_id);
+    };
+
+    try {
+      const query = "*";
+      const minPlayers = 2;
+      const maxPlayers = 2;
+
+      await socket.addMatchmaker(query, minPlayers, maxPlayers);
+    } catch (error) {
+      //TODO: add error handling
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [socket]);
+
   const createMatch = useCallback(
     async (settings: MatchSettings): Promise<string | undefined> => {
       if (socket === undefined) return;
@@ -67,6 +92,7 @@ export const useMatchMaker = () => {
   );
 
   return {
+    matchMaker,
     createMatch,
     findMatches,
     joinMatch,

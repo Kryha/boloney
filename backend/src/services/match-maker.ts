@@ -7,6 +7,7 @@ export const matchmakerMatched = (
   matches: nkruntime.MatchmakerResult[]
 ): string => {
   logger.info("Match is Made");
+  logger.debug(JSON.stringify(matches));
 
   matches.forEach(function (match) {
     logger.info("Matched user '%s' named '%s'", match.presence.userId, match.presence.username);
