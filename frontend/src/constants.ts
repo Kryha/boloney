@@ -28,3 +28,6 @@ export const MAX_POWERUPS_PER_PLAYER = 3;
 export const MIN_POWERUPS_PER_PLAYER = 0;
 
 export const FLOATING_ANIMATION_SPEED = 4;
+
+export const AUTH_TOKEN_STORAGE_KEY = "auth_token";
+export const REFRESH_TOKEN_STORAGE_KEY = "refresh_token";

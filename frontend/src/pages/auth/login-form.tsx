@@ -46,13 +46,8 @@ export const LoginForm: FC = () => {
   const onSubmit = async (username: string, password: string) => {
     if (!isValid) return;
     const res = await authenticateUser(username, password);
-    if (res) {
-      // response is an error
-      setError("password", { type: res.code.toString() });
-    } else {
-      // response is successful
-      navigate(routes.home);
-    }
+    if (!res) return navigate(routes.home); // response is successful
+    setError("password", { type: res.code.toString() }); // response is an error
   };
 
   return (
