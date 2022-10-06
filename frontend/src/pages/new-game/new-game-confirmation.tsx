@@ -19,6 +19,7 @@ export const NewGameConfirmation: FC<Props> = ({ url }) => {
       <NewGameConfirmationContainer>
         <Heading1>{text.general.gameCreated}</Heading1>
         <Heading4>{text.general.yourGameHasBeenCreated}</Heading4>
+        Only players with this code are able to join the match.
         <CopyLink>
           {/* TODO: update with app url */}
           <Link text={url} onClick={() => navigator.clipboard.writeText(url)} />

@@ -9,6 +9,25 @@ export const useMatchMaker = () => {
   const setMatchId = useMatchMakerState((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
 
+  const joinMatch = useCallback(
+    async (matchId: string): Promise<void> => {
+      if (socket === undefined) return;
+      setIsLoading(true);
+
+      try {
+        const match: Match = await socket.joinMatch(matchId);
+        setMatchId(match.match_id);
+        // TODO: go to game view
+      } catch (error) {
+        console.log(error);
+        // TODO: add error handling
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [socket, setMatchId]
+  );
+
   const matchMaker = useCallback(async () => {
     if (socket === undefined) return;
     setIsLoading(true);
@@ -17,7 +36,7 @@ export const useMatchMaker = () => {
       console.info("Received MatchmakerMatched message: ", matched);
       console.info("Matched opponents: ", matched.users);
 
-      await joinMatch(matched.match_id);
+      if (matched.match_id) await joinMatch(matched.match_id);
     };
 
     try {
@@ -32,7 +51,7 @@ export const useMatchMaker = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [socket]);
+  }, [joinMatch, socket]);
 
   const createMatch = useCallback(
     async (settings: MatchSettings): Promise<string | undefined> => {
@@ -71,25 +90,6 @@ export const useMatchMaker = () => {
       setIsLoading(false);
     }
   }, [socket]);
-
-  const joinMatch = useCallback(
-    async (matchId: string): Promise<void> => {
-      if (socket === undefined) return;
-      setIsLoading(true);
-
-      try {
-        const match: Match = await socket.joinMatch(matchId);
-        setMatchId(match.match_id);
-        // TODO: go to game view
-      } catch (error) {
-        console.log(error);
-        // TODO: add error handling
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [socket, setMatchId]
-  );
 
   return {
     matchMaker,

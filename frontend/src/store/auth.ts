@@ -20,7 +20,3 @@ export const useAuthState = create<AuthState>()((set) => ({
   setSession: (session: Session) => set(() => ({ sessionState: session })),
   setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated: isAuthenticated })),
 }));
-
-export const isSocketObject = (data: unknown): data is Socket => {
-  return true;
-};
