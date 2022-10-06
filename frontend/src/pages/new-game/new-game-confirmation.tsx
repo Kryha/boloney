@@ -4,7 +4,6 @@ import { CopyIcon, text } from "../../assets";
 
 import { Heading1, Heading4, NewGameHands } from "../../components";
 import { Link, PrimaryButton } from "../../components/buttons";
-import { routes } from "../../navigation";
 import { CopyLink, GoToLobbyButton, NewGameConfirmationContainer } from "./styles";
 
 interface Props {
@@ -27,7 +26,7 @@ export const NewGameConfirmation: FC<Props> = ({ url }) => {
         </CopyLink>
       </NewGameConfirmationContainer>
       <GoToLobbyButton>
-        <PrimaryButton text={text.general.goToLobby} onClick={() => navigate(routes.lobby)} />
+        <PrimaryButton text={text.general.goToLobby} onClick={() => navigate("/lobby")} />
       </GoToLobbyButton>
       <NewGameHands />
     </>

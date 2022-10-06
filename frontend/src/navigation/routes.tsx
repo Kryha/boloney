@@ -6,7 +6,7 @@ import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
 import { NewGame } from "../pages/new-game";
-import { Lobby } from "../pages/lobby";
+import { Home } from "../pages/home";
 
 export const AppRoutes: FC = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export const AppRoutes: FC = () => {
           <Route path={routes.createAccount} element={<CreateAccount />} />
           <Route path={routes.login} element={<Login />} />
           <Route path={routes.newGame} element={<NewGame />} />
-          <Route path={routes.lobby} element={<Lobby />} />
+          <Route path={routes.home} element={<Home />} />
           <Route path="*" element={<ErrorView />} />
         </Routes>
       </MainContainer>

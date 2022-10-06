@@ -54,7 +54,7 @@ export const CreateAccountForm: FC = () => {
       setError("username", { type: res.code.toString() });
     } else {
       // response is successful
-      navigate(routes.lobby);
+      navigate(routes.home);
     }
   };
 
