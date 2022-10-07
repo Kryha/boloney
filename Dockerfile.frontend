@@ -11,6 +11,9 @@ ENV GENERATE_SOURCEMAP false
 ARG BACKEND_URL
 ENV BACKEND_URL $BACKEND_URL
 
+ARG API_URL
+ENV API_URL $API_URL
+
 COPY .yarnrc.yml ./.yarnrc.yml
 COPY yarn.lock ./yarn.lock
 COPY .yarn/ ./.yarn/
