@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import { color, fontSize, fontWeight, margins } from "../../design";
 import { ErrorIcon } from "../../assets/icons";
+import { BaseInput } from "../atoms";
 
 export const InputContainer = styled.div`
   display: flex;

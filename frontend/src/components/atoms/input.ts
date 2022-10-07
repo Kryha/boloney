@@ -38,8 +38,8 @@ export const BaseInput = styled.input<ErrorProps>`
   }
   box-sizing: border-box;
   border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-  border-right: 1px solid transparent;
-  border-left: 1px solid transparent;
+  border-right: 1px solid ${({ isError }) => (isError ? color.red : "transparent")};
+  border-left: 1px solid ${({ isError }) => (isError ? color.red : "transparent")};
   padding: 23px ${margins.large0};
   :hover {
     border: 1px solid ${color.black} !important;

@@ -57,7 +57,7 @@ export const CreateAccountForm: FC = () => {
       </GeneralContentWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
-          <AuthContainer>
+          <AuthContainer isError={usernameError}>
             <Input label={text.authForm.username} isError={usernameError} errorMessage={showUsernameError()}>
               <BaseInput
                 isError={usernameError}

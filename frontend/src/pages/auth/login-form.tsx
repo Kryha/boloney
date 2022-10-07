@@ -53,7 +53,7 @@ export const LoginForm: FC = () => {
       </GeneralContentWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
-          <AuthContainer>
+          <AuthContainer isError={usernameError}>
             <Input label={text.authForm.username} isError={usernameError} errorMessage={text.authForm.errorMessages.usernameRequired}>
               <BaseInput isError={usernameError} type="text" {...register("username", { required: true })} />
             </Input>
