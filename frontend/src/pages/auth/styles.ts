@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { BaseInput, BaseSelect } from "../../components";
 
 import { LinkContainer, PrimaryButtonContainer } from "../../components/buttons/styles";
 import { InputContainer } from "../../components/inputs/styles";
@@ -6,7 +7,11 @@ import { SMALL_VIEWPORT_WIDTH } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../interfaces";
 
-export const AuthContainer = styled.div`
+interface AuthProps {
+  isError?: boolean;
+}
+
+export const AuthContainer = styled.div<AuthProps>`
   display: flex;
   flex-direction: row;
   padding: 0px;
@@ -16,7 +21,13 @@ export const AuthContainer = styled.div`
     margin-top: ${margins.small5};
   }
   ${InputContainer}:nth-of-type(1) {
-    border-right: 1px solid ${color.mediumGrey};
+    border-right: 1px solid  ${({ isError }) => isError ? "transparent" : color.mediumGrey};
+  }
+  > div: nth-child(2) {
+    ${BaseInput}:nth-of-type(1) {
+      margin-left: -1px;
+      width: 100.2%;
+    }
   }
 `;
 
