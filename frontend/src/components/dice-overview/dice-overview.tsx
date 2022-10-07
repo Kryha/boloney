@@ -8,7 +8,7 @@ import { Die as Dice } from "../../interfaces/hud";
 import { useViewport } from "../../hooks/use-viewport";
 
 interface DiceOverviewProps {
-  dice: Dice[];
+  dice?: Dice[];
 }
 
 export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
@@ -17,12 +17,16 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
   return (
     <DieOverviewWrapper>
       <DieOverviewContainer height={height}>
-        <YourDiceContainer>
-          {dice.map((die, index) => (
-            <Die key={index} value={die.rolledValue} />
-          ))}
-        </YourDiceContainer>
-        <GeneralText>{text.param.yourDice(dice.length)}</GeneralText>
+        {dice && (
+          <>
+            <YourDiceContainer>
+              {dice.map((die, index) => (
+                <Die key={index} value={die.rolledValue} />
+              ))}
+            </YourDiceContainer>
+            <GeneralText>{text.param.yourDice(dice.length)}</GeneralText>
+          </>
+        )}
       </DieOverviewContainer>
     </DieOverviewWrapper>
   );

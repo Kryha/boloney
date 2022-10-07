@@ -1,6 +1,7 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
+import { DiceFiveIcon, DiceFourIcon, DiceOneIcon, DiceSixIcon, DiceThreeIcon, DiceTwoIcon } from "../../assets";
 
-import { FaceWrapper, PipContainer } from "./styles";
+import { DieWrapper } from "./styles";
 
 interface DieProps {
   value: number;
@@ -8,28 +9,32 @@ interface DieProps {
   pipSize?: string;
   faceColor?: string;
   pipColor?: string;
+  padding?: string;
 }
 
-interface FaceProps {
-  children: ReactNode;
-}
+export const findDie = (value: number) => {
+  switch (value) {
+    case 1:
+      return <DiceOneIcon />;
+    case 2:
+      return <DiceTwoIcon />;
+    case 3:
+      return <DiceThreeIcon />;
+    case 4:
+      return <DiceFourIcon />;
+    case 5:
+      return <DiceFiveIcon />;
+    case 6:
+      return <DiceSixIcon />;
+    default:
+      return <DiceOneIcon />;
+  }
+};
 
-interface PipProps {
-  pipColor?: string;
-  pipSize?: string;
-}
-
-export const Pip: FC<PipProps> = ({ pipColor, pipSize }) => <PipContainer pipColor={pipColor} pipSize={pipSize} />;
-
-export const Face: FC<FaceProps> = ({ children }) => <Face>{children}</Face>;
-
-export const Die: FC<DieProps> = ({ value, faceColor, faceSize, pipColor, pipSize }) => {
-  const pips = Array(value)
-    .fill(0)
-    .map((_, index) => <Pip key={index} pipColor={pipColor} pipSize={pipSize} />);
+export const Die: FC<DieProps> = ({ value, faceColor, faceSize, pipColor }) => {
   return (
-    <FaceWrapper faceColor={faceColor} faceSize={faceSize}>
-      {pips}
-    </FaceWrapper>
+    <DieWrapper faceColor={faceColor} faceSize={faceSize} pipColor={pipColor} isSixDie={value === 6}>
+      {findDie(value)}
+    </DieWrapper>
   );
 };

@@ -1,56 +1,51 @@
 import styled from "@emotion/styled";
 
-import { color, margins } from "../../design";
-
-interface PipProps {
-  pipColor?: string;
-  pipSize?: string;
-}
-
-export const PipContainer = styled.span<PipProps>`
-  display: block;
-  align-self: center;
-  justify-self: center;
-  width: ${({ pipSize }): string => pipSize || margins.small2};
-  height: ${({ pipSize }): string => pipSize || margins.small2};
-  background: ${({ pipColor }): string => pipColor || color.darkBlue};
-  border-radius: ${margins.small1};
-`;
+import { color } from "../../design";
 
 interface FaceProps {
   faceColor?: string;
   faceSize?: string;
+  padding?: string;
+  pipColor?: string;
+  isSixDie?: boolean;
 }
 
-export const FaceWrapper = styled.div<FaceProps>`
-  display: grid;
-  grid-template-areas:
-    "a . c"
-    "e g f"
-    "d . b";
-  flex: 0 0 auto;
-  padding: 2px;
-  width: ${({ faceSize }): string => faceSize || margins.large0};
-  height: ${({ faceSize }): string => faceSize || margins.large0};
-  background: ${({ faceColor }): string => faceColor || color.white};
-  box-shadow: 0px 0px ${margins.small2} rgba(0, 0, 0, 0.02), 0px 0px  ${margins.small5} rgba(0, 0, 0, 0.1);
-  border-radius: ${margins.small1};
-  ${PipContainer}:nth-of-type(2) {
-    grid-area: b;
-  }
-  ${PipContainer}:nth-of-type(3) {
-    grid-area: c;
-  }
-  ${PipContainer}:nth-of-type(4) {
-    grid-area: d;
-  }
-  ${PipContainer}:nth-of-type(5) {
-    grid-area: e;
-  }
-  ${PipContainer}:nth-of-type(6) {
-    grid-area: f;
-  }
-  ${PipContainer}:nth-of-type(odd):last-child {
-	 grid-area: g;
+export const DieWrapper = styled.div<FaceProps>`
+  > svg {
+    width: ${({ faceSize }): string => faceSize || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
+    height: ${({ faceSize }): string => faceSize || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
+    ${({ isSixDie, faceColor, pipColor }): string => {
+    return isSixDie
+      ? `
+        path: nth-of-type(1) {
+          fill: ${pipColor || color.pureWhite};
+        }
+          `
+      : `
+        path: nth-of-type(1) {
+          fill: ${faceColor || color.darkBlue};
+        }
+        `;
+  }};
+    path: nth-of-type(2) {
+      fill: ${({ pipColor }): string => pipColor || color.white};
+    }
+    path: nth-of-type(3) {
+      fill: ${({ pipColor }): string => pipColor || color.white};
+    }
+    path: nth-of-type(4) {
+      fill: ${({ pipColor }): string => pipColor || color.white};
+    }
+    path: nth-of-type(5) {
+      fill: ${({ pipColor }): string => pipColor || color.white};
+    }
+    path: nth-of-type(6) {
+      fill: ${({ pipColor }): string => pipColor || color.white};
+    }
+    g {
+      path {
+        fill: ${({ faceColor }): string => faceColor || color.darkBlue} !important;
+      }
+    }
   }
 `;

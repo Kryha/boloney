@@ -36,6 +36,6 @@ export const YourDiceContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: ${margins.small2};
-  margin-top: -22px;
+  margin-top: clamp(-22px, 1.35vw + 9px, -35px);
   margin-left: ${margins.small5};
 `;

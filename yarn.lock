@@ -5,6 +5,45 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@3d-dice/dice-box@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@3d-dice/dice-box@npm:1.0.5"
+  dependencies:
+    "@babylonjs/core": ^5.10.0
+    "@babylonjs/loaders": ^5.10.0
+    "@babylonjs/materials": ^5.10.0
+    copy-dir: ^1.3.0
+    node-abort-controller: ^3.0.1
+  checksum: 72d015590dec2e55ad5330d823bf997af938ca17cce3976b6915fe52cbe2bc2a69307a22e04a689998e23c51395761213551b04b8ae0cf300ebc1c16c9de228d
+  languageName: node
+  linkType: hard
+
+"@3d-dice/dice-parser-interface@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@3d-dice/dice-parser-interface@npm:0.2.0"
+  dependencies:
+    "@3d-dice/dice-roller-parser": ^0.2.6
+  checksum: 7057f251bf63d969e72fa766ac1cb5f192f8f3f2e30137d2ca7fca416cbfa2634bacdafe5800248a0403afe8304b6f6a13ac6650e217dac7003b1b0368fc0899
+  languageName: node
+  linkType: hard
+
+"@3d-dice/dice-roller-parser@npm:^0.2.6":
+  version: 0.2.6
+  resolution: "@3d-dice/dice-roller-parser@npm:0.2.6"
+  checksum: a0f4db91d831989c0e248f7717227f1c6a0d6837c55a0470f7049e8df456f6cf55187aa3ba1b0fee53d988c29e692841d7918a10ed1980bae62178d8714bb616
+  languageName: node
+  linkType: hard
+
+"@3d-dice/dice-ui@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@3d-dice/dice-ui@npm:0.4.2"
+  dependencies:
+    "@3d-dice/dice-parser-interface": ^0.2.0
+    dat.gui: ^0.7.9
+  checksum: c0ff8b6c17d3846280636c0d4f4e74f8b3389cfa3dc0e9dcc471b0d1ed9790d2a995b0ad4eabd6ebc2ce60d58aec052e62c56773f148b878521bd41daed972b8
+  languageName: node
+  linkType: hard
+
 "@ampproject/remapping@npm:^2.1.0":
   version: 2.2.0
   resolution: "@ampproject/remapping@npm:2.2.0"
@@ -1908,6 +1947,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babylonjs/core@npm:^5.10.0":
+  version: 5.26.1
+  resolution: "@babylonjs/core@npm:5.26.1"
+  checksum: 531bd2bc38b7b197f28f4eda19d32169191676c4a52f83b62e3e94e51900df3135333bfd6ed9c7d6358bdf4311051cf5c023c9c5d3b40ccb06b9bfaa6dfd6ad2
+  languageName: node
+  linkType: hard
+
+"@babylonjs/loaders@npm:^5.10.0":
+  version: 5.26.1
+  resolution: "@babylonjs/loaders@npm:5.26.1"
+  peerDependencies:
+    "@babylonjs/core": ^5.22.0
+    babylonjs-gltf2interface: ^5.22.0
+  checksum: b1714e01bab8653a982a6ee9d9e69d4f614361250f1317088460db89f0a15105b8d5e106f13ee6fb06a7a57ce8ba7bc6200e1558d06d41eaabce373b4ff27de9
+  languageName: node
+  linkType: hard
+
+"@babylonjs/materials@npm:^5.10.0":
+  version: 5.26.1
+  resolution: "@babylonjs/materials@npm:5.26.1"
+  peerDependencies:
+    "@babylonjs/core": ^5.22.0
+  checksum: 80ea3b282da410a3bcdf987d2d49c623998a40c2e9d6b4de59f90e2cd7a7f8c1b69a63d150445d2b57424dedfea4482caedbe7313a79cb2bda1aab0febe9623c
+  languageName: node
+  linkType: hard
+
 "@bcoe/v8-coverage@npm:^0.2.3":
   version: 0.2.3
   resolution: "@bcoe/v8-coverage@npm:0.2.3"
@@ -3646,6 +3711,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zk-liars-dice/frontend@workspace:frontend"
   dependencies:
+    "@3d-dice/dice-box": ^1.0.5
+    "@3d-dice/dice-ui": ^0.4.2
     "@emotion/babel-plugin": ^11.10.2
     "@emotion/react": ^11.9.3
     "@emotion/styled": ^11.9.3
@@ -3666,6 +3733,7 @@ __metadata:
     "@vitejs/plugin-react": ^2.0.0
     cannon: ^0.6.2
     customize-cra: ^1.0.0
+    dice-roller-parser: ^0.1.8
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
     eslint-config-react-app: ^7.0.1
@@ -3681,9 +3749,11 @@ __metadata:
     react-error-boundary: ^3.1.4
     react-hook-form: ^7.34.2
     react-router-dom: ^6.3.0
+    rollup-plugin-gltf: ^2.0.0
     stats.js: ^0.17.0
     three: ^0.145.0
     threejs-dice: ^1.1.0
+    threejs-dice-typescript: ^0.0.1
     ts-jest: ^28.0.8
     ts-node: ^10.9.1
     typescript: ^4.7.4
@@ -4549,6 +4619,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"copy-dir@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "copy-dir@npm:1.3.0"
+  checksum: 92779cd699964f1f13d4e6beeac2bc45a365f21e6e60956daaf4d565a20f56eebda0994fbf7aaa741bee7bbf56f854374667b38db1589adaa1148048c6b35f4d
+  languageName: node
+  linkType: hard
+
 "core-js-compat@npm:^3.21.0, core-js-compat@npm:^3.22.1":
   version: 3.24.1
   resolution: "core-js-compat@npm:3.24.1"
@@ -4647,6 +4724,13 @@ __metadata:
   version: 1.0.8
   resolution: "damerau-levenshtein@npm:1.0.8"
   checksum: d240b7757544460ae0586a341a53110ab0a61126570ef2d8c731e3eab3f0cb6e488e2609e6a69b46727635de49be20b071688698744417ff1b6c1d7ccd03e0de
+  languageName: node
+  linkType: hard
+
+"dat.gui@npm:^0.7.9":
+  version: 0.7.9
+  resolution: "dat.gui@npm:0.7.9"
+  checksum: b5b70160657224eacdb8e0a8d76376e6e59adcc654db577531c7bebce854c4f774d1511df6f064e8246a88cf9a3abe489e4d647cf9e53d26a26141a1b5d31e68
   languageName: node
   linkType: hard
 
@@ -4754,6 +4838,13 @@ __metadata:
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: ae6cd429c41ad01b164c59ea36f264a2c479598e61cba7c99da24175a7ab80ddf066420f2bec9a1c57a6bead411b4655ff15ad7d281c000a89791f48cbe939e7
+  languageName: node
+  linkType: hard
+
+"dice-roller-parser@npm:^0.1.8":
+  version: 0.1.8
+  resolution: "dice-roller-parser@npm:0.1.8"
+  checksum: 90fa7ef706364b237e60ffbf8cb2edbf8ce35eef27ead51b8d827870fd9b355a56f55abd7f2d00ecf71af663b376920d26440e77c214adf82b17c7f24e9be3b1
   languageName: node
   linkType: hard
 
@@ -5592,6 +5683,13 @@ __metadata:
   version: 5.3.0
   resolution: "estraverse@npm:5.3.0"
   checksum: 072780882dc8416ad144f8fe199628d2b3e7bbc9989d9ed43795d2c90309a2047e6bc5979d7e2322a341163d22cfad9e21f4110597fe487519697389497e4e2b
+  languageName: node
+  linkType: hard
+
+"estree-walker@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "estree-walker@npm:0.6.1"
+  checksum: 9d6f82a4921f11eec18f8089fb3cce6e53bcf45a8e545c42a2674d02d055fb30f25f90495f8be60803df6c39680c80dcee7f944526867eb7aa1fc9254883b23d
   languageName: node
   linkType: hard
 
@@ -7876,6 +7974,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mime@npm:^2.2.2":
+  version: 2.6.0
+  resolution: "mime@npm:2.6.0"
+  bin:
+    mime: cli.js
+  checksum: 1497ba7b9f6960694268a557eae24b743fd2923da46ec392b042469f4b901721ba0adcf8b0d3c2677839d0e243b209d76e5edcbd09cfdeffa2dfb6bb4df4b862
+  languageName: node
+  linkType: hard
+
 "mimic-fn@npm:^2.1.0":
   version: 2.1.0
   resolution: "mimic-fn@npm:2.1.0"
@@ -8028,6 +8135,13 @@ __metadata:
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
   checksum: b8ffeb1e262eff7968fc90a2b6767b04cfd9842582a9d0ece0af7049537266e7b2506dfb1d107a32f06dd849ab2aea834d5830f7f4d0e5cb7d36e1ae55d021d9
+  languageName: node
+  linkType: hard
+
+"node-abort-controller@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "node-abort-controller@npm:3.0.1"
+  checksum: 2b3d75c65249fea99e8ba22da3a8bc553f034f44dd12f5f4b38b520f718b01c88718c978f0c24c2a460fc01de9a80b567028f547b94440cb47adeacfeb82c2ee
   languageName: node
   linkType: hard
 
@@ -8847,6 +8961,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-gltf@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "rollup-plugin-gltf@npm:2.0.0"
+  dependencies:
+    mime: ^2.2.2
+    rollup-pluginutils: ^2.7.1
+  peerDependencies:
+    rollup: ">=1.1.2"
+  checksum: 12a89f7f3542a04ebf9f98d89a39b8a895a28b9ac3ecd31d5acb2818a6073512caf7605a4e39b27a7ad0bf233a228aa48f9c07073f75e322f24aba490dceb11f
+  languageName: node
+  linkType: hard
+
+"rollup-pluginutils@npm:^2.7.1":
+  version: 2.8.2
+  resolution: "rollup-pluginutils@npm:2.8.2"
+  dependencies:
+    estree-walker: ^0.6.1
+  checksum: 339fdf866d8f4ff6e408fa274c0525412f7edb01dc46b5ccda51f575b7e0d20ad72965773376fb5db95a77a7fcfcab97bf841ec08dbadf5d6b08af02b7a2cf5e
+  languageName: node
+  linkType: hard
+
 "rollup@npm:^2.75.6":
   version: 2.77.2
   resolution: "rollup@npm:2.77.2"
@@ -9375,6 +9510,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"threejs-dice-typescript@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "threejs-dice-typescript@npm:0.0.1"
+  dependencies:
+    tslib: ^1.10.0
+  peerDependencies:
+    cannon: ^0.6.2
+    three: ^0.117.1
+  checksum: 03974aed534c64ed1cc84bc54cd38fed9cded7ac1b3cc350a4f711d93506ec71c6774efc6e6b66ec30e417e32d3ed0121c985a698f5daa149ef7dc6440750b95
+  languageName: node
+  linkType: hard
+
 "threejs-dice@npm:^1.1.0":
   version: 1.1.0
   resolution: "threejs-dice@npm:1.1.0"
@@ -9566,7 +9713,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.8.1":
+"tslib@npm:^1.10.0, tslib@npm:^1.8.1":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd

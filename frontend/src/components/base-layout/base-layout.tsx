@@ -13,7 +13,7 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ leftSection, mainSection, righ
     <BaseLayoutWrapper>
       <LeftSection>{leftSection}</LeftSection>
       <MainSection>{mainSection}</MainSection>
-      <RightSection>{rightSection}</RightSection>
+      {rightSection && <RightSection>{rightSection}</RightSection>}
     </BaseLayoutWrapper>
   );
 };

@@ -11,6 +11,7 @@ export const PlayerMenuWrapper = styled.section`
   position: absolute;
   bottom: 0;
   left: 75vw;
+  z-index: 1;
 `;
 
 export const PlayerMenuContainer = styled.div`

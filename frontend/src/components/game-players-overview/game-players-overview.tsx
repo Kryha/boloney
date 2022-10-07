@@ -1,8 +1,9 @@
 import { FC } from "react";
 
-import { GamePlayersOverviewWrapper } from "./styles";
+import { GamePlayersHandWrapper, GamePlayersOverviewWrapper } from "./styles";
 import { GamePlayer } from "../game-player";
 import { Player } from "../../interfaces/player";
+import { Hand } from "../hand";
 
 interface GamePlayerOverviewProps {
   players: Player[];
@@ -10,10 +11,18 @@ interface GamePlayerOverviewProps {
 
 export const GamePlayersOverview: FC<GamePlayerOverviewProps> = ({ players }) => {
   return (
-    <GamePlayersOverviewWrapper>
-      {players.map((player) => (
-        <GamePlayer key={player.id} player={player} totalPlayers={players.length} />
-      ))}
-    </GamePlayersOverviewWrapper>
+    <>
+      {players.length === 1 ? (
+        <GamePlayersHandWrapper>
+          <Hand avatarName={players[0].avatarName} />
+        </GamePlayersHandWrapper>
+      ) : (
+        <GamePlayersOverviewWrapper>
+          {players.map((player) => (
+            <GamePlayer key={player.id} player={player} totalPlayers={players.length} />
+          ))}
+        </GamePlayersOverviewWrapper>
+      )}
+    </>
   );
 };

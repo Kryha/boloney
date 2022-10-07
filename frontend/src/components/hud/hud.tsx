@@ -5,7 +5,7 @@ import { PlayerMenu } from "../player-menu";
 import { PowerUpOverview } from "../power-up-overview";
 
 interface HUDProps {
-  dice: Die[];
+  dice?: Die[];
 }
 
 export const HUD: FC<HUDProps> = ({ dice }) => {
