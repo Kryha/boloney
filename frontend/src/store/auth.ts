@@ -10,6 +10,7 @@ export interface AuthState {
   setSession: (session: Session) => void;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
   setSocket: (socket: Socket) => void;
+  reset: () => void;
 }
 
 export const useAuthState = create<AuthState>()((set) => ({
@@ -19,4 +20,6 @@ export const useAuthState = create<AuthState>()((set) => ({
   setSocket: (socket: Socket) => set(() => ({ socket: socket })),
   setSession: (session: Session) => set(() => ({ sessionState: session })),
   setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated: isAuthenticated })),
+
+  reset: () => set(() => ({ socket: undefined, sessionState: undefined, isAuthenticated: false })),
 }));
