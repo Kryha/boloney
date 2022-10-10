@@ -1,7 +1,7 @@
 import { MatchSettings } from "../interfaces";
 import { logError } from "../utils";
 
-export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches): string => {
+export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   logger.info("Match is Made");
   logger.debug(JSON.stringify(matches));
 
