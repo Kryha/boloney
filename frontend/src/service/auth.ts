@@ -11,7 +11,7 @@ export const useAuth = () => {
   const setSocket = useAuthState((state) => state.setSocket);
   const setSession = useAuthState((state) => state.setSession);
   const setIsAuthenticated = useAuthState((state) => state.setIsAuthenticated);
-  const reset = useAuthState((state) => state.reset);
+  const resetAuthState = useAuthState((state) => state.reset);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(true);
@@ -77,8 +77,8 @@ export const useAuth = () => {
   const logout = useCallback(() => {
     removeAuthToken();
     removeRefreshToken();
-    reset();
-  }, [reset]);
+    resetAuthState();
+  }, [resetAuthState]);
 
   return {
     authenticateUser,
