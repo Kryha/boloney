@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { text } from "../../assets";
 import { GeneralContentWrapper, Heading1, Heading4, Heading6, PrimaryButton } from "../../components";
 import { routes } from "../../navigation";
 import { useMatchMaker } from "../../service/match-maker";
 import { ButtonContainer } from "../new-game/styles";
-import { HomeContainer } from "./style";
+import { MatchSelectContainer } from "./styles";
 
 export const MatchSelect: FC = () => {
   // TODO: Implement the designs
@@ -12,25 +13,22 @@ export const MatchSelect: FC = () => {
   const { matchMaker, isLoading } = useMatchMaker();
   const navigate = useNavigate();
 
-  const createMatch = () => navigate(routes.newGame);
-  const quickPlay = async () => matchMaker();
-
   return (
-    <HomeContainer>
+    <MatchSelectContainer>
       <GeneralContentWrapper>
-        <Heading1>Hello you!</Heading1>
-        <Heading4>What would you like to do? Choose wisely...</Heading4>
+        <Heading1>{text.home.helloYou}</Heading1>
+        <Heading4>{text.home.chooseWisely}</Heading4>
 
         <ButtonContainer>
-          <PrimaryButton text="Quick Play" onClick={quickPlay} />
+          <PrimaryButton text={text.home.quickPlay} onClick={async () => await matchMaker()} />
         </ButtonContainer>
 
         <ButtonContainer>
-          <PrimaryButton text="Create a match" onClick={createMatch} />
+          <PrimaryButton text={text.home.createMatch} onClick={() => navigate(routes.newGame)} />
         </ButtonContainer>
 
-        {isLoading && <Heading6>Hang on to your butts...</Heading6>}
+        {isLoading && <Heading6>{text.home.loading}</Heading6>}
       </GeneralContentWrapper>
-    </HomeContainer>
+    </MatchSelectContainer>
   );
 };

@@ -35,16 +35,15 @@ export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data,
 
   // if keys are already stored, skip their creation
   const storedKeys = readUserKeys(nk, ctx, payload);
-  logger.info(String(storedKeys.length));
-  if (storedKeys.length === 0) {
-    // call the toolkit to generate some new keys and store them in the database
-    const newKeys = getNewKeysFromToolkit(nk, logger);
-    const newKeyPayload = {
-      ...payload,
-      value: { viewKey: newKeys.viewKey, privateKey: newKeys.privateKey, address: newKeys.address },
-    };
-    storeNewKeysInCollection(nk, ctx, newKeyPayload);
-  }
+  if (storedKeys.length) return;
+
+  // call the toolkit to generate some new keys and store them in the database
+  const newKeys = getNewKeysFromToolkit(nk, logger);
+  const newKeyPayload = {
+    ...payload,
+    value: { viewKey: newKeys.viewKey, privateKey: newKeys.privateKey, address: newKeys.address },
+  };
+  storeNewKeysInCollection(nk, ctx, newKeyPayload);
 });
 
 export const readUserKeys = (nk: nkruntime.Nakama, ctx: nkruntime.Context, payload: CollectionInteractionRead) => {

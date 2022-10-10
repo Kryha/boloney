@@ -1,11 +1,11 @@
 import { PowerupType } from "../interfaces";
 import { MatchState } from "../interfaces/match-state";
 
-export const matchInit = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  params: Record<string, string>
+export const matchInit: nkruntime.MatchInitFunction = (
+  _ctx,
+  logger,
+  _nk,
+  params
 ): { state: nkruntime.MatchState; tickRate: number; label: string } => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
@@ -30,42 +30,42 @@ export const matchInit = (
   };
 };
 
-export const matchJoinAttempt = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  _presence: nkruntime.Presence,
+export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state,
+  _presence,
   _metadata: { [key: string]: any }
 ): { state: nkruntime.MatchState; accept: boolean; rejectMessage?: string } | null => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
   // A custom match starts right after creating it, so it needs to check manually if the room is full/joinable.
-  const canPlayerJoin = Object.keys(state.presences).length < state.players;
+  const canPlayerJoin = state.presences && Object.keys(state.presences).length < state.players;
 
   return { state, accept: canPlayerJoin };
 };
 
-export const matchJoin = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  presences: nkruntime.Presence[]
+export const matchJoin: nkruntime.MatchJoinFunction = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state,
+  presences
 ): { state: nkruntime.MatchState } | null => {
   logger.info("----------------- MATCH JOINED -----------------");
 
   presences.forEach((p) => {
-    state.presences[p.sessionId] = p;
+    if (state.presences) state.presences[p.sessionId] = p;
   });
 
   // Do we have enough players in a custom game to kick off the match?
   // This is always true in 'Quick play' mode, where a match only starts when enough players are in the lobby.
-  if (Object.keys(state.presences).length === state.players) {
+  if (state.presences && Object.keys(state.presences).length === state.players) {
     logger.info("----------------- MATCH STARTED! -----------------");
     // TODO: Implementation
   }
@@ -75,14 +75,14 @@ export const matchJoin = (
   };
 };
 
-export const matchLoop = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  _messages: nkruntime.MatchMessage[]
+export const matchLoop: nkruntime.MatchLoopFunction = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state,
+  _messages
 ): { state: nkruntime.MatchState } | null => {
   logger.info("----------------- MATCH LOOP -----------------");
   logger.info(`PRESENCE COUNT: ${String(Object.keys(state.presences).length)}`);
@@ -100,45 +100,45 @@ export const matchLoop = (
   };
 };
 
-export const matchTerminate = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  _graceSeconds: number
+export const matchTerminate: nkruntime.MatchTerminateFunction = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state,
+  _graceSeconds
 ): { state: nkruntime.MatchState } | null => {
   logger.info("----------------- MATCH TERMINATE -----------------");
 
   return { state };
 };
 
-export const matchSignal = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState
+export const matchSignal: nkruntime.MatchSignalFunction = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state
 ): { state: nkruntime.MatchState } | null => {
   logger.info("----------------- MATCH SIGNAL -----------------");
   return { state };
 };
 
-export const matchLeave = (
-  _ctx: nkruntime.Context,
-  logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  presences: nkruntime.Presence[]
+export const matchLeave: nkruntime.MatchLeaveFunction = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state,
+  presences
 ): { state: nkruntime.MatchState } | null => {
   logger.info("----------------- MATCH LEAVE -----------------");
 
   presences.forEach((p) => {
-    delete state.presences[p.sessionId];
+    delete state.presences?.[p.sessionId];
   });
 
   return {

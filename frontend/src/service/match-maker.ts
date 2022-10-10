@@ -11,10 +11,11 @@ export const useMatchMaker = () => {
 
   const joinMatch = useCallback(
     async (matchId: string): Promise<void> => {
-      if (socket === undefined) return;
-      setIsLoading(true);
-
       try {
+        if (socket === undefined) throw new Error("No socket connected");
+
+        setIsLoading(true);
+
         const match: Match = await socket.joinMatch(matchId);
         setMatchId(match.match_id);
         // TODO: go to game view
@@ -29,17 +30,17 @@ export const useMatchMaker = () => {
   );
 
   const matchMaker = useCallback(async () => {
-    if (socket === undefined) return;
-    setIsLoading(true);
-
-    socket.onmatchmakermatched = async (matched) => {
-      console.info("Received MatchmakerMatched message: ", matched);
-      console.info("Matched opponents: ", matched.users);
-
-      if (matched.match_id) await joinMatch(matched.match_id);
-    };
-
     try {
+      if (socket === undefined) throw new Error("No socket connected");
+      setIsLoading(true);
+
+      socket.onmatchmakermatched = async (matched) => {
+        console.info("Received MatchmakerMatched message: ", matched);
+        console.info("Matched opponents: ", matched.users);
+
+        if (matched.match_id) await joinMatch(matched.match_id);
+      };
+
       // These are just quick settings for development
       // TODO: replace with agreed upon values
       const query = "*";
@@ -57,10 +58,11 @@ export const useMatchMaker = () => {
 
   const createMatch = useCallback(
     async (settings: MatchSettings): Promise<string | undefined> => {
-      if (socket === undefined) return;
-      setIsLoading(true);
-
       try {
+        if (socket === undefined) throw new Error("No socket connected");
+
+        setIsLoading(true);
+
         const rpcRes: ApiRpc = await socket.rpc("create_match", JSON.stringify(settings));
         if (!rpcRes.payload) return; // TODO: error handling
 
@@ -76,10 +78,11 @@ export const useMatchMaker = () => {
   );
 
   const findMatches = useCallback(async (): Promise<string[]> => {
-    if (socket === undefined) return [];
-    setIsLoading(true);
-
     try {
+      if (socket === undefined) throw new Error("No socket connected");
+
+      setIsLoading(true);
+
       const rpcRes: ApiRpc = await socket.rpc("find_match");
       if (!rpcRes.payload) return [];
 

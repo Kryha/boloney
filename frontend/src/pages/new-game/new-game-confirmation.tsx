@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { CopyIcon, text } from "../../assets";
 
-import { Heading1, Heading4, NewGameHands } from "../../components";
+import { Heading1, Heading4, Heading6, NewGameHands } from "../../components";
 import { Link, PrimaryButton } from "../../components/buttons";
 import { CopyLink, GoToLobbyButton, NewGameConfirmationContainer } from "./styles";
 
@@ -18,7 +18,7 @@ export const NewGameConfirmation: FC<Props> = ({ url }) => {
       <NewGameConfirmationContainer>
         <Heading1>{text.general.gameCreated}</Heading1>
         <Heading4>{text.general.yourGameHasBeenCreated}</Heading4>
-        Only players with this code are able to join the match.
+        <Heading6>{text.general.onlyPlayersWithThisCode}</Heading6>
         <CopyLink>
           {/* TODO: update with app url */}
           <Link text={url} onClick={() => navigator.clipboard.writeText(url)} />

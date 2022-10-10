@@ -7,7 +7,6 @@ import { env } from "./utils";
 function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
   env.init(ctx);
 
-  // match registration
   initializer.registerMatch("standard", {
     matchInit,
     matchJoinAttempt,
@@ -30,5 +29,6 @@ function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkrun
 
   logger.info("JavaScript logic loaded.");
 }
+
 // Reference InitModule to avoid it getting removed on build
 !InitModule && InitModule.bind(null);

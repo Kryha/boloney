@@ -30,6 +30,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.availablePowerups = availablePowerups;
     data.isUsingFakeCredits = isUsingFakeCredits;
 
+    // TODO: add loading state
     const matchId = await createMatch(data);
     if (matchId) await joinMatch(matchId);
 
