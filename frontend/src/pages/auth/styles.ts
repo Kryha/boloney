@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { BaseInput } from "../../components";
 
 import { LinkContainer, PrimaryButtonContainer } from "../../components/buttons/styles";
 import { InputContainer } from "../../components/inputs/styles";
@@ -19,20 +18,6 @@ export const AuthContainer = styled.div<AuthProps>`
   width: 62.5vw;
   ${InputContainer} {
     margin-top: ${margins.small5};
-  }
-  ${InputContainer}: nth-child(1) {
-    border-right: 1px solid ${({ isError }) => (isError ? "transparent" : color.mediumGrey)};
-    border: none;
-    ${BaseInput} {
-      border-left: ${({ isError }) => (isError ? `1px solid ${color.red}` : "none")};
-      border-right: ${({ isError }) => (isError ? `1px solid ${color.red}` : "none")};
-    }
-  }
-  ${InputContainer}: nth-child(2) {
-    ${BaseInput} {
-      width: 31.25vw;
-      border-right: none;
-    }
   }
 `;
 
