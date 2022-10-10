@@ -8,14 +8,7 @@ export const createMatch = rpcHandler((ctx, logger, nk, payload) => {
   const matchSettings: MatchSettings = JSON.parse(payload);
   logger.debug(`Match Settings: ${JSON.stringify(matchSettings)}`);
 
-  let matchId = "";
-
-  try {
-    matchId = nk.matchCreate("standard", matchSettings);
-  } catch (error) {
-    logger.error("Error creating match: %v", error);
-    throw logError(error, logger);
-  }
+  const matchId = nk.matchCreate("standard", matchSettings);
 
   return JSON.stringify({ match_id: matchId });
 });
