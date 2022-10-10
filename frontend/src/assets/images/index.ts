@@ -12,6 +12,15 @@ import LobsterHandPaint from "./lobster-hand-paint.svg";
 import PlasticHandPaint from "./plastic-hand-paint.svg";
 import ScooperHandPaint from "./poop-scooper-hand-paint.svg";
 import ToyHandPaint from "./toy-hand-paint.svg";
+import CoupDTat from "./coupdtat.png";
+import Defection from "./defection.png";
+import Diversion from "./diversion.png";
+import Interrogate from "./interrogate.png";
+import Reconnaissance from "./reconnaissance.png";
+import Regroup from "./regroup.png";
+import Reinforce from "./reinforce.png";
+import Sabotage from "./sabotage.png";
+import Satellite from "./satellite.png";
 
 export {
   Hand,
@@ -28,4 +37,13 @@ export {
   PlasticHandPaint,
   ScooperHandPaint,
   ToyHandPaint,
+  CoupDTat,
+  Defection,
+  Diversion,
+  Interrogate,
+  Reconnaissance,
+  Regroup,
+  Reinforce,
+  Sabotage,
+  Satellite,
 };
