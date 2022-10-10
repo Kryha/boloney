@@ -49,47 +49,57 @@ export const PrimaryButtonText = styled.h3<TextProps>`
   margin-top: -10px;
   color: ${({ customColor }): string => customColor || color.black};
 `;
+export const Span = styled.span`
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: opacity 0.4s, black 0.4s, transform 0.4s;
+`;
 
-export const InitialButtonView = styled.span``;
+export const InitialButtonView = styled.span`
+  transform: translateZ(0)
+  transform: translate3d(0, 100%, 0);
+  transition: opacity 0.4s, black 0.4s,transform 0.4s;
+  visibility: visible;
+  height: 60px;
+`;
 
 export const SecondaryView = styled.span`
   left: 0;
   opacity: 0;
   position: absolute;
-  height: 70px;
+  height: 60px;
   top: 0;
   transform: rotateX(-90deg) translate3d(0, 50%, 0);
   transform-origin: bottom center;
-  transition: opacity 0.4s, visibility 1ms 0.4s, ${color.white} 0.4s, transform 0.4s;
+  transition: opacity 0.4s, visibility 1ms 0.4s, white 0.4s, transform 0.4s;
   visibility: hidden;
-  display: block;
 `;
 
 export const PrimaryButtonContainer = styled.div<ButtonProps>`
   ${({ disabled }) =>
     !disabled
       ? css`
-    transform-origin: center;
-    transform-style: preserve-3d;
-    transition: transform 0.4s;
-    :hover {
-      ${SecondaryView} {
-        opacity: 1;
-        transition: opacity 0.4s, ${color.white} 0.4s, transform 0.4s;
-        visibility: visible;
-      }
-      ${InitialButtonView} {
-        transform: translateZ(0)
-        transform: translate3d(0,100%,0);
-        transition: opacity 0.4s, ${color.white} 0.4s,transform 0.4s;
-      }
-      transform: rotateX(90deg);
-    }
-  `
-      : `${PrimaryButtonText} {
-        color: ${color.mediumGrey};
-      }
-    `};
+        transform-origin: center;
+        transform-style: preserve-3d;
+        transition: transform 0.4s;
+        :hover {
+          ${SecondaryView} {
+            opacity: 1;
+            transition: opacity 0.4s, white 0.4s, transform 0.4s;
+            visibility: visible;
+          }
+          ${InitialButtonView} {
+            transform: translateZ(0)
+            transform: translate3d(0,100%,0);
+            transition: opacity .4s, red .4s,transform .4s;
+          }
+          transform: rotateX(90deg);
+        }
+  ` : `
+  ${PrimaryButtonText} {
+    color: ${color.mediumGrey};
+  }
+  `};
 `;
 
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
