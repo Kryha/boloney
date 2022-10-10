@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { NkResponse } from "../interfaces";
 import { useAuthState } from "../store/auth";
-import { getAuthToken, getRefreshToken, parseError, setAuthToken, setRefreshToken } from "../util";
+import { getAuthToken, getRefreshToken, parseError, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
 
 export const useAuth = () => {
   const client = useAuthState((state) => state.client);
@@ -11,6 +11,7 @@ export const useAuth = () => {
   const setSocket = useAuthState((state) => state.setSocket);
   const setSession = useAuthState((state) => state.setSession);
   const setIsAuthenticated = useAuthState((state) => state.setIsAuthenticated);
+  const reset = useAuthState((state) => state.reset);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(true);
@@ -73,8 +74,15 @@ export const useAuth = () => {
     [isAuthenticated, client, joinSession]
   );
 
+  const logout = useCallback(() => {
+    removeAuthToken();
+    removeRefreshToken();
+    reset();
+  }, [reset]);
+
   return {
     authenticateUser,
+    logout,
     isLoading,
     isRefreshing,
     isAuthenticated,
