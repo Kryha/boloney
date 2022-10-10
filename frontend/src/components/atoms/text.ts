@@ -7,8 +7,8 @@ interface TextProps {
 }
 
 export const Heading1 = styled.h1<TextProps>`
-  font-family: "itc-clearface-bold";
-  font-weight: ${fontWeight.bolder};
+  font-family: "itc-clearface-regular";
+  font-weight: ${fontWeight.regular};
   font-size: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
   line-height: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
   letter-spacing: -0.02em;
@@ -19,8 +19,8 @@ export const Heading1 = styled.h1<TextProps>`
 `;
 
 export const Heading2 = styled.h2<TextProps>`
-  font-family: "itc-clearface-bold";
-  font-weight: ${fontWeight.bolder};
+  font-family: "itc-clearface-regular";
+  font-weight: ${fontWeight.regular};
   font-size: clamp(1.88rem, 3.13vw + 0rem, 3.75rem);
   line-height: clamp(2.25rem, 2.71vw + 0.63rem, 3.88rem);
   color: ${({ customColor }): string => customColor || color.black};
@@ -30,8 +30,8 @@ export const Heading2 = styled.h2<TextProps>`
 `;
 
 export const Heading3 = styled.h3<TextProps>`
-  font-family: "itc-clearface-bold";
-  font-weight: ${fontWeight.bolder};
+  font-family: "itc-clearface-regular";
+  font-weight: ${fontWeight.regular};
   font-size: clamp(1.5rem, 2.29vw + 0.13rem, 2.88rem);
   line-height: clamp(1.63rem, 2.29vw + 0.25rem, 3rem);
   color: ${({ customColor }): string => customColor || color.black};
@@ -41,8 +41,8 @@ export const Heading3 = styled.h3<TextProps>`
 `;
 
 export const Heading4 = styled.h4<TextProps>`
-  font-family: "itc-clearface-bold";
-  font-weight: ${fontWeight.bolder};
+  font-family: "itc-clearface-regular";
+  font-weight: ${fontWeight.regular};
   font-size: clamp(1.25rem, 0.83vw + 0.75rem, 1.75rem);
   line-height: clamp(1.38rem, 1.04vw + 0.75rem, 2rem);
   color: ${({ customColor }): string => customColor || color.black};
@@ -52,8 +52,8 @@ export const Heading4 = styled.h4<TextProps>`
 `;
 
 export const Heading5 = styled.h5<TextProps>`
-  font-family: "itc-clearface-bold";
-  font-weight: ${fontWeight.bolder};
+  font-family: "itc-clearface-regular";
+  font-weight: ${fontWeight.regular};
   font-size: clamp(1rem, 0.42vw + 0.75rem, 1.25rem);
   line-height: clamp(1.13rem, 0.63vw + 0.75rem, 1.5rem);
   color: ${({ customColor }): string => customColor || color.black};
@@ -98,9 +98,9 @@ export const GeneralText = styled.h3<TextProps>`
 `;
 
 export const IntroText = styled.h3<TextProps>`
-  font-family: "itc-clearface-bold";
+  font-family: "itc-clearface-regular";
   font-style: normal;
-  font-weight: ${fontWeight.bolder};
+  font-weight: ${fontWeight.regular};
   font-size: clamp(1.63rem, 0.63vw + 1.25rem, 2rem);
   line-height: clamp(1.88rem, 0.63vw + 1.5rem, 2.25rem);
   color: ${({ customColor }): string => customColor || color.black};
@@ -110,9 +110,9 @@ export const IntroText = styled.h3<TextProps>`
 `;
 
 export const FormHeadingText = styled.h2<TextProps>`
-  font-family: "itc-clearface-bold";
+  font-family: "itc-clearface-regular";
   font-style: normal;
-  font-weight: ${fontWeight.bolder};
+  font-weight: ${fontWeight.regular};
   font-size: clamp(2rem, 2.92vw + 0.25rem, 3.75rem);
   line-height: clamp(2.13rem, 2.92vw + 0.38rem, 3.88rem);
   color: ${({ customColor }): string => customColor || color.black};

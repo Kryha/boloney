@@ -17,6 +17,12 @@ import { ReactComponent as ToggleSwitchOnIcon } from "./toggle-switch-on.svg";
 import { ReactComponent as ToggleSwitchOffIcon } from "./toggle-switch-off.svg";
 import { ReactComponent as CopyIcon } from "./copy.svg";
 import ChevronDownIcon from "./chevron-down.svg";
+import { ReactComponent as DiceOneIcon } from "./dice-one.svg";
+import { ReactComponent as DiceTwoIcon } from "./dice-two.svg";
+import { ReactComponent as DiceThreeIcon } from "./dice-three.svg";
+import { ReactComponent as DiceFourIcon } from "./dice-four.svg";
+import { ReactComponent as DiceFiveIcon } from "./dice-five.svg";
+import { ReactComponent as DiceSixIcon } from "./dice-six.svg";
 
 export {
   PlusIcon,
@@ -38,4 +44,10 @@ export {
   ToggleSwitchOnIcon,
   CopyIcon,
   ChevronDownIcon,
+  DiceOneIcon,
+  DiceTwoIcon,
+  DiceThreeIcon,
+  DiceFourIcon,
+  DiceFiveIcon,
+  DiceSixIcon,
 };
