@@ -63,10 +63,16 @@ export const CreateAccountForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.authForm.username} isError={!!errors.username} errorMessage={showUsernameError()}>
+            <Input label={text.authForm.username} isError={!!errors.username} errorMessage={showUsernameError()} isRow>
               <BaseInput type="text" {...register("username", { required: true, minLength: MINIMUM_USERNAME_LENGTH })} />
             </Input>
-            <Input label={text.authForm.password} isError={!!errors.password} errorMessage={text.authForm.errorMessages.passwordMinimum}>
+            <Input
+              label={text.authForm.password}
+              isError={!!errors.password}
+              errorMessage={text.authForm.errorMessages.passwordMinimum}
+              isRow
+              childNode={2}
+            >
               <BaseInput type="password" {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })} />
             </Input>
           </AuthContainer>

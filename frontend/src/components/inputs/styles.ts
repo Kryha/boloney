@@ -6,6 +6,8 @@ import { BaseInput, BaseSelect } from "../atoms";
 
 interface InputContainerProps {
   isError?: boolean;
+  isRow: boolean;
+  childNode: number;
 }
 
 export const InputContainer = styled.div<InputContainerProps>`
@@ -24,6 +26,21 @@ export const InputContainer = styled.div<InputContainerProps>`
   ${BaseSelect} {
     border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
   }
+
+  ${({ isRow, isError, childNode }) => isRow && childNode === 1 && `
+    border-right: 1px solid ${isError ? "transparent" : color.mediumGrey};
+    border: none;
+    ${BaseInput} {
+      border-left: ${isError ? `1px solid ${color.red}` : "none"};
+      border-right: ${isError ? `1px solid ${color.red}` : "none"};
+    }
+  `};
+  ${({ isRow, childNode }) => isRow && childNode === 2 && `
+    ${BaseInput} {
+      width: 31.25vw;
+      border-right: none;
+    }
+  `};
 `;
 
 export const InputLabel = styled.h3`

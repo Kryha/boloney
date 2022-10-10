@@ -60,10 +60,15 @@ export const LoginForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.authForm.username} isError={!!errors.username} errorMessage={text.authForm.errorMessages.usernameRequired}>
+            <Input
+              label={text.authForm.username}
+              isError={!!errors.username}
+              errorMessage={text.authForm.errorMessages.usernameRequired}
+              isRow
+            >
               <BaseInput type="text" {...register("username", { required: true })} />
             </Input>
-            <Input label={text.authForm.password} isError={!!errors.password} errorMessage={showPasswordError()}>
+            <Input label={text.authForm.password} isError={!!errors.password} errorMessage={showPasswordError()} isRow childNode={2}>
               <BaseInput type="password" {...register("password", { required: true })} />
             </Input>
           </AuthContainer>
