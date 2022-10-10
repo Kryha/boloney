@@ -14,19 +14,17 @@ interface DiceOverviewProps {
 export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
   const { height } = useViewport();
 
+  if (!dice) return <></>;
+
   return (
     <DieOverviewWrapper>
       <DieOverviewContainer height={height}>
-        {dice && (
-          <>
-            <YourDiceContainer>
-              {dice.map((die, index) => (
-                <Die key={index} value={die.rolledValue} />
-              ))}
-            </YourDiceContainer>
-            <GeneralText>{text.param.yourDice(dice.length)}</GeneralText>
-          </>
-        )}
+        <YourDiceContainer>
+          {dice.map((die, index) => (
+            <Die key={index} value={die.rolledValue} />
+          ))}
+        </YourDiceContainer>
+        <GeneralText>{text.param.yourDice(dice.length)}</GeneralText>
       </DieOverviewContainer>
     </DieOverviewWrapper>
   );
