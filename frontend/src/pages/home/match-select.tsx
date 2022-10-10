@@ -10,7 +10,7 @@ import { MatchSelectContainer } from "./styles";
 export const MatchSelect: FC = () => {
   // TODO: Implement the designs
 
-  const { joinPool, isLoading } = useMatchMaker();
+  const { joinLobby, isLoading } = useMatchMaker();
   const navigate = useNavigate();
 
   return (
@@ -20,7 +20,7 @@ export const MatchSelect: FC = () => {
         <Heading4>{text.home.chooseWisely}</Heading4>
 
         <ButtonContainer>
-          <PrimaryButton text={text.home.quickPlay} onClick={async () => await joinPool()} />
+          <PrimaryButton text={text.home.quickPlay} onClick={async () => await joinLobby()} />
         </ButtonContainer>
 
         <ButtonContainer>

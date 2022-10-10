@@ -29,7 +29,7 @@ export const useMatchMaker = () => {
     [socket, setMatchId]
   );
 
-  const joinPool = useCallback(async () => {
+  const joinLobby = useCallback(async () => {
     try {
       if (socket === undefined) throw new Error("No socket connected");
       setIsLoading(true);
@@ -97,7 +97,7 @@ export const useMatchMaker = () => {
   }, [socket]);
 
   return {
-    joinPool,
+    joinLobby,
     createMatch,
     findMatches,
     joinMatch,
