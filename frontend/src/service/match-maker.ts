@@ -1,5 +1,4 @@
 import { Match } from "@heroiclabs/nakama-js";
-import { ApiRpc } from "@heroiclabs/nakama-js/dist/api.gen";
 import { useCallback, useState } from "react";
 import { MatchSettings } from "../interfaces";
 import { useAuthState, useMatchMakerState } from "../store";
@@ -63,7 +62,7 @@ export const useMatchMaker = () => {
 
         setIsLoading(true);
 
-        const rpcRes: ApiRpc = await socket.rpc("create_match", JSON.stringify(settings));
+        const rpcRes = await socket.rpc("create_match", JSON.stringify(settings));
         if (!rpcRes.payload) return; // TODO: error handling
 
         return JSON.parse(rpcRes.payload).match_id;
@@ -83,7 +82,7 @@ export const useMatchMaker = () => {
 
       setIsLoading(true);
 
-      const rpcRes: ApiRpc = await socket.rpc("find_match");
+      const rpcRes = await socket.rpc("find_match");
       if (!rpcRes.payload) return [];
 
       return JSON.parse(rpcRes.payload).match_ids;
