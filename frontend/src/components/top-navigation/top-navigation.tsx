@@ -32,7 +32,7 @@ export const TopNavigation: FC<Props> = ({ isInGame }) => {
       setIsOverlayVisible(false);
     } else {
       setActiveDropdown(dropdown);
-      setIsOverlayVisible(true);
+      setIsOverlayVisible(!!dropdown);
       setIsComponentVisible(true);
     }
   };
