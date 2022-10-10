@@ -6,11 +6,8 @@ import { SMALL_VIEWPORT_WIDTH } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../interfaces";
 
-interface AuthProps {
-  isError?: boolean;
-}
 
-export const AuthContainer = styled.div<AuthProps>`
+export const AuthContainer = styled.div`
   display: flex;
   flex-direction: row;
   padding: 0px;
