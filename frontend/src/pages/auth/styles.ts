@@ -23,13 +23,13 @@ export const AuthContainer = styled.div<AuthProps>`
   ${InputContainer}: nth-child(1) {
     border-right: 1px solid ${({ isError }) => (isError ? "transparent" : color.mediumGrey)};
     border: none;
-    ${BaseInput}:nth-of-type(1) {
+    ${BaseInput} {
       border-left: ${({ isError }) => (isError ? `1px solid ${color.red}` : "none")};
       border-right: ${({ isError }) => (isError ? `1px solid ${color.red}` : "none")};
     }
   }
   ${InputContainer}: nth-child(2) {
-    ${BaseInput}: nth-of-type(1) {
+    ${BaseInput} {
       width: 31.25vw;
       border-right: none;
     }
