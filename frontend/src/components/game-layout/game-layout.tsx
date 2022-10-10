@@ -3,9 +3,9 @@ import { FC, ReactNode } from "react";
 import { GamePlayersOverview } from "../game-players-overview";
 import { HUD } from "../hud";
 import { Player } from "../../interfaces/player";
-import { Die } from "../../interfaces/hud";
+
 import { ContentContainer, MainContentContainer } from "./styles";
-import { Hand } from "../hand";
+import { Die } from "../../interfaces";
 
 interface GameLayoutProps {
   players: Player[];

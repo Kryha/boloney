@@ -4,7 +4,7 @@ import { color } from "../../design";
 
 interface FaceProps {
   faceColor?: string;
-  faceSize?: string;
+  size?: string;
   padding?: string;
   pipColor?: string;
   isSixDie?: boolean;
@@ -12,8 +12,8 @@ interface FaceProps {
 
 export const DieWrapper = styled.div<FaceProps>`
   > svg {
-    width: ${({ faceSize }): string => faceSize || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
-    height: ${({ faceSize }): string => faceSize || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
+    width: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
+    height: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
     ${({ isSixDie, faceColor, pipColor }): string => {
     return isSixDie
       ? `

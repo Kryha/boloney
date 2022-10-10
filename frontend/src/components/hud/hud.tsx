@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Die } from "../../interfaces/hud";
+import { Die } from "../../interfaces";
 import { DiceOverview } from "../dice-overview";
 import { PlayerMenu } from "../player-menu";
 import { PowerUpOverview } from "../power-up-overview";
