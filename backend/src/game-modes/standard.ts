@@ -1,4 +1,4 @@
-import { PowerupType } from "../interfaces";
+import { PowerupType } from "../interfaces/game";
 import { MatchState } from "../interfaces/match-state";
 
 export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {

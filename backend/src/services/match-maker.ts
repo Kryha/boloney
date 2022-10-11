@@ -1,5 +1,4 @@
-import { MatchSettings } from "../interfaces";
-import { logError } from "../utils";
+import { DEFAULT_MATCH_SETTINGS, logError } from "../utils";
 
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   logger.info("Match is Made");
@@ -10,17 +9,8 @@ export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context,
     logger.info(`Matched user '${userId}' named '${username}'`);
   });
 
-  // TODO: decide upon defaults
-  const defaultSettings: MatchSettings = {
-    players: 2,
-    dicePerPlayer: 5,
-    powerupsPerPlayer: 3,
-    availablePowerups: ["p1", "p2", "p3", "p4"],
-    isUsingFakeCredits: true,
-  };
-
   try {
-    const matchId = nk.matchCreate("standard", { ...defaultSettings });
+    const matchId = nk.matchCreate("standard", DEFAULT_MATCH_SETTINGS);
     return matchId;
   } catch (error) {
     throw logError(error, logger);
