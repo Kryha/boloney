@@ -1,7 +1,7 @@
 import { Match } from "@heroiclabs/nakama-js";
 import { useCallback, useState } from "react";
 import { error } from "../assets/text/error";
-import { RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
+import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
 import { MatchSettings, NkResponse } from "../interfaces";
 import { useAuthState, useMatchMakerState } from "../store";
 import { parseError } from "../util";
@@ -43,13 +43,7 @@ export const useMatchMaker = () => {
         if (matched.match_id) await joinMatch(matched.match_id);
       };
 
-      // These are just quick settings for development
-      // TODO: replace with agreed upon values
-      const query = "*";
-      const minPlayers = 2;
-      const maxPlayers = 2;
-
-      await socket.addMatchmaker(query, minPlayers, maxPlayers);
+      await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
     } catch (error) {
       const parsedErr = await parseError(error);
       return parsedErr;
