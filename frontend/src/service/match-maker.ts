@@ -1,5 +1,7 @@
 import { Match } from "@heroiclabs/nakama-js";
 import { useCallback, useState } from "react";
+import { error } from "../assets/text/error";
+import { RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
 import { MatchSettings, NkResponse } from "../interfaces";
 import { useAuthState, useMatchMakerState } from "../store";
 import { parseError } from "../util";
@@ -12,7 +14,7 @@ export const useMatchMaker = () => {
   const joinMatch = useCallback(
     async (matchId: string): Promise<NkResponse> => {
       try {
-        if (!socket) throw new Error("No socket connected");
+        if (!socket) throw new Error(error.noSocketConnected);
 
         setIsLoading(true);
 
@@ -31,7 +33,7 @@ export const useMatchMaker = () => {
 
   const joinLobby = useCallback(async (): Promise<NkResponse> => {
     try {
-      if (!socket) throw new Error("No socket connected");
+      if (!socket) throw new Error(error.noSocketConnected);
       setIsLoading(true);
 
       socket.onmatchmakermatched = async (matched) => {
@@ -59,12 +61,12 @@ export const useMatchMaker = () => {
   const createMatch = useCallback(
     async (settings: MatchSettings): Promise<NkResponse<string | undefined>> => {
       try {
-        if (!socket) throw new Error("No socket connected");
+        if (!socket) throw new Error(error.noSocketConnected);
 
         setIsLoading(true);
 
-        const rpcRes = await socket.rpc("create_match", JSON.stringify(settings));
-        if (!rpcRes.payload) throw new Error("No payload returned from createMatch");
+        const rpcRes = await socket.rpc(RPC_CREATE_MATCH, JSON.stringify(settings));
+        if (!rpcRes.payload) throw new Error(error.noPayloadReturned);
 
         return JSON.parse(rpcRes.payload).match_id;
       } catch (error) {
@@ -79,12 +81,12 @@ export const useMatchMaker = () => {
 
   const findMatches = useCallback(async (): Promise<NkResponse<string[]>> => {
     try {
-      if (!socket) throw new Error("No socket connected");
+      if (!socket) throw new Error(error.noSocketConnected);
 
       setIsLoading(true);
 
-      const rpcRes = await socket.rpc("find_match");
-      if (!rpcRes.payload) throw new Error("No payload returned from createMatch");
+      const rpcRes = await socket.rpc(RPC_FIND_MATCH);
+      if (!rpcRes.payload) throw new Error(error.noPayloadReturned);
 
       return JSON.parse(rpcRes.payload).match_ids;
     } catch (error) {
