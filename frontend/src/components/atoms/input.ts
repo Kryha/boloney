@@ -73,6 +73,7 @@ export const BaseSelect = styled.select`
   box-sizing: border-box;
   border-radius: 0px;
   -webkit-border-radius: 0px;
+  border: 1px solid ${color.mediumGrey};
   border-right: 1px solid transparent;
   border-left: 1px solid transparent;
 

@@ -106,3 +106,8 @@ export const ListSection = styled.section<TextProps>`
     margin-top: ${margins.small3};
   }
 `;
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+`;

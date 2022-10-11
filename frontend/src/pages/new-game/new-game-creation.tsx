@@ -22,8 +22,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
-  const { createMatch, joinMatch, isLoading } = useMatchMaker();
-  const [isError, setIsError] = useState(false);
+  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     data.players = Number(data.players);
