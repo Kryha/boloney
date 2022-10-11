@@ -1,3 +1,4 @@
+import { NkCode } from "@zk-liars-dice/types";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +16,7 @@ import {
   GeneralContentWrapper,
 } from "../../components";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, NkCode } from "../../interfaces";
+import { AuthFields } from "../../interfaces";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";

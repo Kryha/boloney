@@ -45,6 +45,8 @@ COPY frontend/tsconfig.node.json ./frontend/tsconfig.node.json
 
 COPY frontend/vite.config.ts ./frontend/vite.config.ts
 
+COPY types ./types
+
 RUN yarn install --silent
 
 RUN NODE_OPTIONS='--max-old-space-size=4096' yarn build

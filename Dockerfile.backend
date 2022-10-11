@@ -22,6 +22,7 @@ COPY backend/tsconfig.json ./backend/tsconfig.json
 COPY backend/babel.config.json ./backend/babel.config.json
 COPY backend/rollup.config.js ./backend/rollup.config.js
 
+COPY types ./types
 
 RUN yarn
 RUN yarn build

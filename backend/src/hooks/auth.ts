@@ -1,8 +1,8 @@
+import { AccountKeys } from "@zk-liars-dice/types";
 import sha256 from "crypto-js/sha256";
 
 import { error } from "../text";
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
-import { AccountKeys } from "../interfaces/models";
 import { tkUrl, logError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils";
 
 // TODO: fix the following scenario:

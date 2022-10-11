@@ -36,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "@vitejs/plugin-react": "^2.0.0",
+    "@zk-liars-dice/types": "workspace:^",
     "customize-cra": "^1.0.0",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",

@@ -1,5 +1,5 @@
+import { AccountKeys } from "@zk-liars-dice/types";
 import { isBasicError, isNkError } from "../interfaces/error";
-import { AccountKeys } from "../interfaces/models";
 
 export const ERROR_EXTERNAL_CALL: nkruntime.Error = {
   message: "The contract call failed",

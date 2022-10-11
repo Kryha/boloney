@@ -6,7 +6,8 @@
   "packageManager": "yarn@3.2.2",
   "workspaces": [
     "frontend/",
-    "backend/"
+    "backend/",
+    "types/"
   ],
   "repository": {
     "type": "git",
