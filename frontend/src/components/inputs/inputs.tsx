@@ -9,11 +9,13 @@ interface InputProps {
   children: ReactNode;
   isError?: boolean;
   errorMessage?: string;
+  isRow?: boolean;
+  childNode?: number;
 }
 
-export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage }) => {
+export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
   return (
-    <InputContainer isError={isError}>
+    <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
       <LabelContainer>
         <InputLabel>{label}</InputLabel>
       </LabelContainer>

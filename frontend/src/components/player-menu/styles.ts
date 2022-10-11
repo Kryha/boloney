@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { PlusIcon } from "../../assets/icons";
-import { color, margins } from "../../design";
+import { color, margins, zIndex } from "../../design";
 
 export const PlayerMenuWrapper = styled.section`
   display: flex;
@@ -11,6 +11,7 @@ export const PlayerMenuWrapper = styled.section`
   position: absolute;
   bottom: 0;
   left: 75vw;
+  z-index: ${zIndex.background};
 `;
 
 export const PlayerMenuContainer = styled.div`

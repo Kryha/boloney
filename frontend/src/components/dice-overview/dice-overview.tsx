@@ -4,15 +4,17 @@ import { DieOverviewWrapper, DieOverviewContainer, YourDiceContainer } from "./s
 import { Die } from "../die";
 import { GeneralText } from "../atoms/text";
 import { text } from "../../assets/text";
-import { Die as Dice } from "../../interfaces/hud";
+import { Die as Dice } from "../../interfaces/game";
 import { useViewport } from "../../hooks/use-viewport";
 
 interface DiceOverviewProps {
-  dice: Dice[];
+  dice?: Dice[];
 }
 
 export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
   const { height } = useViewport();
+
+  if (!dice) return <></>;
 
   return (
     <DieOverviewWrapper>

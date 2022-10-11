@@ -42,7 +42,8 @@ export const GeneralContentWrapper = styled.div`
     margin-bottom: 0.3em;
   }
   ${Heading2} {
-    margin-bottom: ${margins.small1};
+    margin-bottom: ${margins.small0};
+    width: clamp(650px, 57.29vw + 100px, 1200px);
   }
   ${Heading3} {
     margin-bottom: ${margins.small1};
@@ -71,11 +72,12 @@ export const HeadingContentWrapper = styled.div`
 `;
 
 export const FormContentWrapper = styled.div`
-  margin-left: ${margins.large2};
+  margin-left: ${margins.large0};
   ${FormHeadingText} {
     margin-bottom: ${margins.small0};
   }
   ${GeneralText} {
+    margin-left: ${margins.medium1};
     width: clamp(400px, 41.67vw + 0px, 800px);
     margin-bottom: ${margins.large0};
   }

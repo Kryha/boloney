@@ -34,8 +34,6 @@ export const BaseInput = styled.input`
     color: ${color.black};
   }
   box-sizing: border-box;
-  border-right: 1px solid transparent;
-  border-left: 1px solid transparent;
   padding: 23px ${margins.large0};
   :hover {
     border: 1px solid ${color.black} !important;
