@@ -1,7 +1,8 @@
 import { Match } from "@heroiclabs/nakama-js";
 import { useCallback, useState } from "react";
-import { MatchSettings } from "../interfaces";
+import { MatchSettings, NkResponse } from "../interfaces";
 import { useAuthState, useMatchMakerState } from "../store";
+import { parseError } from "../util";
 
 export const useMatchMaker = () => {
   const socket = useAuthState((state) => state.socket);
@@ -9,7 +10,7 @@ export const useMatchMaker = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const joinMatch = useCallback(
-    async (matchId: string): Promise<void> => {
+    async (matchId: string): Promise<NkResponse> => {
       try {
         if (socket === undefined) throw new Error("No socket connected");
 
@@ -19,8 +20,8 @@ export const useMatchMaker = () => {
         setMatchId(match.match_id);
         // TODO: go to game view
       } catch (error) {
-        console.log(error);
-        // TODO: add error handling
+        const parsedErr = await parseError(error);
+        return parsedErr;
       } finally {
         setIsLoading(false);
       }
@@ -28,7 +29,7 @@ export const useMatchMaker = () => {
     [socket, setMatchId]
   );
 
-  const joinLobby = useCallback(async () => {
+  const joinLobby = useCallback(async (): Promise<NkResponse> => {
     try {
       if (socket === undefined) throw new Error("No socket connected");
       setIsLoading(true);
@@ -48,27 +49,27 @@ export const useMatchMaker = () => {
 
       await socket.addMatchmaker(query, minPlayers, maxPlayers);
     } catch (error) {
-      //TODO: add error handling
-      console.log(error);
+      const parsedErr = await parseError(error);
+      return parsedErr;
     } finally {
       setIsLoading(false);
     }
   }, [joinMatch, socket]);
 
   const createMatch = useCallback(
-    async (settings: MatchSettings): Promise<string | undefined> => {
+    async (settings: MatchSettings): Promise<NkResponse<string | undefined>> => {
       try {
         if (socket === undefined) throw new Error("No socket connected");
 
         setIsLoading(true);
 
         const rpcRes = await socket.rpc("create_match", JSON.stringify(settings));
-        if (!rpcRes.payload) return; // TODO: error handling
+        if (!rpcRes.payload) throw new Error("No payload returned from createMatch");
 
         return JSON.parse(rpcRes.payload).match_id;
       } catch (error) {
-        //TODO: add error handling
-        console.log(error);
+        const parsedErr = await parseError(error);
+        return parsedErr;
       } finally {
         setIsLoading(false);
       }
@@ -76,20 +77,19 @@ export const useMatchMaker = () => {
     [socket]
   );
 
-  const findMatches = useCallback(async (): Promise<string[]> => {
+  const findMatches = useCallback(async (): Promise<NkResponse<string[]>> => {
     try {
       if (socket === undefined) throw new Error("No socket connected");
 
       setIsLoading(true);
 
       const rpcRes = await socket.rpc("find_match");
-      if (!rpcRes.payload) return [];
+      if (!rpcRes.payload) throw new Error("No payload returned from createMatch");
 
       return JSON.parse(rpcRes.payload).match_ids;
     } catch (error) {
-      //TODO: add error handling
-      console.log(error);
-      return [];
+      const parsedErr = await parseError(error);
+      return parsedErr;
     } finally {
       setIsLoading(false);
     }

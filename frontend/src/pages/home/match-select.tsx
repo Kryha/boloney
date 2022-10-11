@@ -20,7 +20,7 @@ export const MatchSelect: FC = () => {
         <Heading4>{text.home.chooseWisely}</Heading4>
 
         <ButtonContainer>
-          <PrimaryButton text={text.home.quickPlay} onClick={async () => await joinLobby()} />
+          <PrimaryButton text={text.home.quickPlay} onClick={() => joinLobby()} />
         </ButtonContainer>
 
         <ButtonContainer>

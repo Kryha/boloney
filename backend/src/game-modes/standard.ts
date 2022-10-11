@@ -10,6 +10,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
     players: Number(params.players),
     dicePerPlayer: Number(params.dicePerPlayer),
     powerupsPerPlayer: Number(params.powerupsPerPlayer),
+    // TODO: define and handle types with Zod
     availablePowerups: [params.availablePowerups] as PowerupType[],
     isUsingFakeCredits: !!+params.isUsingFakeCredits,
   };
@@ -33,7 +34,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (
   _tick,
   state,
   _presence,
-  _metadata: { [key: string]: any }
+  _metadata: { [key: string]: any } // TODO: define and handle types with Zod
 ) => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
@@ -45,7 +46,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (
 
 export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
-
+  // TODO: define and handle types with Zod
   presences.forEach((p) => {
     if (state.presences) state.presences[p.sessionId] = p;
   });
@@ -64,6 +65,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispa
 
 export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
+  // TODO: define and handle types with Zod
   logger.info(`PRESENCE COUNT: ${String(Object.keys(state.presences).length)}`);
 
   // If we have no presences in the match according to the match state, increment the empty ticks count
@@ -81,18 +83,19 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispa
 
 export const matchTerminate: nkruntime.MatchTerminateFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _graceSeconds) => {
   logger.info("----------------- MATCH TERMINATE -----------------");
-
+  // TODO: define and handle types with Zod
   return { state };
 };
 
 export const matchSignal: nkruntime.MatchSignalFunction = (_ctx, logger, _nk, _dispatcher, _tick, state) => {
   logger.info("----------------- MATCH SIGNAL -----------------");
+  // TODO: define and handle types with Zod
   return { state };
 };
 
 export const matchLeave: nkruntime.MatchLeaveFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH LEAVE -----------------");
-
+  // TODO: define and handle types with Zod
   presences.forEach((p) => {
     delete state.presences?.[p.sessionId];
   });
