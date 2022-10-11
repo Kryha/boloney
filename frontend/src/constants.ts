@@ -31,3 +31,10 @@ export const FLOATING_ANIMATION_SPEED = 4;
 
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";
 export const REFRESH_TOKEN_STORAGE_KEY = "refresh_token";
+
+export const RPC_CREATE_MATCH = "create_match";
+export const RPC_FIND_MATCH = "find_match";
+
+export const DEFAULT_POOL_QUERY = "*";
+export const DEFAULT_POOL_MIN_PLAYERS = 2;
+export const DEFAULT_POOL_MAX_PLAYERS = 2;
