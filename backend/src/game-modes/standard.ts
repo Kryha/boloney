@@ -46,17 +46,10 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (
 
 export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
-  // TODO: define and handle types with Zod
+
   presences.forEach((p) => {
     if (state.presences) state.presences[p.sessionId] = p;
   });
-
-  // Do we have enough players in a custom game to kick off the match?
-  // This is always true in 'Quick play' mode, where a match only starts when enough players are in the lobby.
-  if (state.presences && Object.keys(state.presences).length === state.players) {
-    logger.info("----------------- MATCH STARTED! -----------------");
-    // TODO: Implementation
-  }
 
   return {
     state,
@@ -65,7 +58,6 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispa
 
 export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
-  // TODO: define and handle types with Zod
   logger.info(`PRESENCE COUNT: ${String(Object.keys(state.presences).length)}`);
 
   // If we have no presences in the match according to the match state, increment the empty ticks count
@@ -83,19 +75,16 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispa
 
 export const matchTerminate: nkruntime.MatchTerminateFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _graceSeconds) => {
   logger.info("----------------- MATCH TERMINATE -----------------");
-  // TODO: define and handle types with Zod
   return { state };
 };
 
 export const matchSignal: nkruntime.MatchSignalFunction = (_ctx, logger, _nk, _dispatcher, _tick, state) => {
   logger.info("----------------- MATCH SIGNAL -----------------");
-  // TODO: define and handle types with Zod
   return { state };
 };
 
 export const matchLeave: nkruntime.MatchLeaveFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH LEAVE -----------------");
-  // TODO: define and handle types with Zod
   presences.forEach((p) => {
     delete state.presences?.[p.sessionId];
   });

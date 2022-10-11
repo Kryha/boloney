@@ -27,6 +27,8 @@ export const enum OP {
 
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
+
+// TODO: define and handle types with Zod
 export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   players: 2,
   dicePerPlayer: 5,
