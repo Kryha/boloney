@@ -15,5 +15,5 @@ import { useAuth } from "../../service";
 export const Landing = () => {
   const { isAuthenticated } = useAuth();
 
-  return <Navigate to={isAuthenticated ? routes.newGame : routes.login} />;
+  return <Navigate to={isAuthenticated ? routes.home : routes.login} />;
 };

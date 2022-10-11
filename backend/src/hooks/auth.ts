@@ -1,6 +1,7 @@
 import { AccountKeys } from "@zk-liars-dice/types";
 import sha256 from "crypto-js/sha256";
 
+import { error } from "../text";
 import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
 import { tkUrl, logError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils";
 
@@ -13,7 +14,7 @@ import { tkUrl, logError, handleHttpResponse, beforeHookHandler, afterHookHandle
 // In order to generate the keys, the user will have to counterintuitively try to login.
 
 export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, data) => {
-  if (!data.username || !data.account?.id) throw logError("No username/password provided", logger, nkruntime.Codes.INVALID_ARGUMENT);
+  if (!data.username || !data.account?.id) throw logError(error.noUsernamePasswordProvided, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   data.username = data.username.toLowerCase();
   const isRegistering = !!data.create;
@@ -22,7 +23,7 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, dat
 
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
 
-  if (userExists) throw logError("Username already exists", logger, nkruntime.Codes.ALREADY_EXISTS);
+  if (userExists) throw logError(error.usernameAlreadyExists, logger, nkruntime.Codes.ALREADY_EXISTS);
 
   const encryptedKey = String(sha256(password + username));
   data.account.id = encryptedKey;

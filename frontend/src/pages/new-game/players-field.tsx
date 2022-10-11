@@ -4,12 +4,12 @@ import { UseFormRegister } from "react-hook-form";
 import { text } from "../../assets";
 import { BaseOption, BaseSelect, Input } from "../../components";
 import { MAX_DICE_PER_PLAYER, MAX_PLAYERS, MIN_DICE_PER_PLAYER, MIN_PLAYERS } from "../../constants";
+import { MatchSettings } from "../../interfaces";
 import { range } from "../../util";
-import { Fields } from "./new-game-creation";
 import { PlayersDiceContainer } from "./styles";
 
 interface Props {
-  register: UseFormRegister<Fields>;
+  register: UseFormRegister<MatchSettings>;
 }
 
 export const PlayersField: FC<Props> = ({ register }) => {

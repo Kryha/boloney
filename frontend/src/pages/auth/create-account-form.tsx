@@ -50,8 +50,7 @@ export const CreateAccountForm: FC = () => {
   const onSubmit = async (username: string, password: string) => {
     if (!isValid) return;
     const res = await authenticateUser(username, password, true);
-    // TODO: redirect to a more appropriate route
-    if (!res) return navigate(routes.root); // reponse is successful
+    if (!res) return navigate(routes.home); // reponse is successful
     setError("username", { type: res.code.toString() }); // response is an error
   };
 

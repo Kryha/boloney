@@ -27,7 +27,7 @@ COPY types ./types
 RUN yarn
 RUN yarn build
 
-FROM heroiclabs/nakama:3.9.0 as run
+FROM heroiclabs/nakama:3.13.1 as run
 
 COPY --from=build /usr/main/backend/build/index.js /nakama/data/modules/build/
 COPY --from=build /usr/main/backend/local.yml /nakama/data/
