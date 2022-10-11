@@ -1,11 +1,9 @@
+import { Die, Player } from "@zk-liars-dice/types";
 import { FC, ReactNode } from "react";
 
 import { GamePlayersOverview } from "../game-players-overview";
 import { HUD } from "../hud";
-import { Player } from "../../interfaces/player";
-
 import { ContentContainer, MainContentContainer } from "./styles";
-import { Die } from "../../interfaces";
 
 interface GameLayoutProps {
   players: Player[];

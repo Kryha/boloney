@@ -1,14 +1,16 @@
-import { NkCode, NkError, NkErrorSchema } from "../interfaces";
+import { NkCode, NkError, nkErrorSchema } from "@zk-liars-dice/types";
 
 export const parseError = async (error: unknown): Promise<NkError> => {
   const unknownErr = { code: NkCode.UNKNOWN, message: "Unknown error" };
 
+  if (error instanceof Error) return { code: NkCode.UNKNOWN, message: error.message };
+
   if (!(error instanceof Response)) return unknownErr;
 
   const body = await error.json();
-  const parseRes = await NkErrorSchema.safeParseAsync(body);
+  const parsed = await nkErrorSchema.safeParseAsync(body);
 
-  if (!parseRes.success) return unknownErr;
+  if (!parsed.success) return unknownErr;
 
-  return parseRes.data;
+  return parsed.data;
 };

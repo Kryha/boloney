@@ -1,6 +1,5 @@
+import { PowerupType } from "@zk-liars-dice/types";
 import create from "zustand";
-
-import { PowerupType } from "../../interfaces";
 
 export interface NewGameState {
   availablePowerups: PowerupType[];

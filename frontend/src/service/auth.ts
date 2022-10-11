@@ -1,7 +1,7 @@
 import { Session } from "@heroiclabs/nakama-js";
+import { NkResponse } from "@zk-liars-dice/types";
 import { useCallback, useEffect, useState } from "react";
 
-import { NkResponse } from "../interfaces";
 import { useAuthState } from "../store/auth";
 import { getAuthToken, getRefreshToken, parseError, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
 

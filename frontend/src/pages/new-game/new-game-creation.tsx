@@ -1,9 +1,9 @@
+import { PowerupType } from "@zk-liars-dice/types";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton } from "../../components";
-import { PowerupType } from "../../interfaces";
 import { FakeCreditsField } from "./fake-credits-field";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { PlayersField } from "./players-field";
