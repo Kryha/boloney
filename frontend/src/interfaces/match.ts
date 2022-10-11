@@ -1,4 +1,4 @@
-import { PowerupType } from "./game";
+import { PowerupType } from "@zk-liars-dice/types";
 
 // TODO: define and handle types with Zod
 export interface MatchSettings {
