@@ -17,6 +17,9 @@ export const newGame = {
   powerup4: "power-up 04",
   fakeCredits: "fake credits",
 
+  loading: "creating match...",
+  error: "something went wrong. Please try again!",
+
   // TODO: update description labels
   powerup1Desc:
     "Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",

@@ -12,7 +12,7 @@ export const useMatchMaker = () => {
   const joinMatch = useCallback(
     async (matchId: string): Promise<NkResponse> => {
       try {
-        if (socket === undefined) throw new Error("No socket connected");
+        if (!socket) throw new Error("No socket connected");
 
         setIsLoading(true);
 
@@ -31,7 +31,7 @@ export const useMatchMaker = () => {
 
   const joinLobby = useCallback(async (): Promise<NkResponse> => {
     try {
-      if (socket === undefined) throw new Error("No socket connected");
+      if (!socket) throw new Error("No socket connected");
       setIsLoading(true);
 
       socket.onmatchmakermatched = async (matched) => {
@@ -59,7 +59,7 @@ export const useMatchMaker = () => {
   const createMatch = useCallback(
     async (settings: MatchSettings): Promise<NkResponse<string | undefined>> => {
       try {
-        if (socket === undefined) throw new Error("No socket connected");
+        if (!socket) throw new Error("No socket connected");
 
         setIsLoading(true);
 
@@ -79,7 +79,7 @@ export const useMatchMaker = () => {
 
   const findMatches = useCallback(async (): Promise<NkResponse<string[]>> => {
     try {
-      if (socket === undefined) throw new Error("No socket connected");
+      if (!socket) throw new Error("No socket connected");
 
       setIsLoading(true);
 

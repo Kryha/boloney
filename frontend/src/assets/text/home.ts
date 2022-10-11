@@ -4,5 +4,5 @@ export const home = {
   quickPlay: "quick Play",
   newGame: "new game",
   createMatch: "create a match",
-  loading: "hang on to your butts...",
+  loading: "hold on to your butts...",
 };

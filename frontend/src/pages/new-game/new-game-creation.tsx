@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
-import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton } from "../../components";
+import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
 import { MatchSettings } from "../../interfaces";
 import { useMatchMaker } from "../../service/match-maker";
 import { FakeCreditsField } from "./fake-credits-field";
@@ -21,7 +21,8 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
-  const { createMatch, joinMatch } = useMatchMaker();
+  const { createMatch, joinMatch, isLoading } = useMatchMaker();
+  const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     data.players = Number(data.players);
@@ -30,12 +31,16 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.availablePowerups = availablePowerups;
     data.isUsingFakeCredits = isUsingFakeCredits;
 
-    // TODO: add loading state
-    const matchId = await createMatch(data);
-    if (matchId) await joinMatch(matchId);
-
-    // TODO: retrieve url from backend
-    setUrl(`tmp/url/${matchId}`);
+    const res = await createMatch(data);
+    if (typeof res === "string") {
+      const matchId = res;
+      await joinMatch(matchId);
+      // TODO: retrieve url from backend
+      setUrl(`tmp/url/${matchId}`);
+    } else {
+      console.log(res);
+      setIsError(true);
+    }
   });
 
   return (
@@ -57,6 +62,8 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           <BottomContainer>
             <Paragraph>{text.newGame.bottomDesc}</Paragraph>
           </BottomContainer>
+          {isLoading && <Heading6>{text.newGame.loading}</Heading6>}
+          {isError && <Heading6>{text.newGame.error}</Heading6>}
           <ButtonContainer>
             <PrimaryButton type="submit" text={text.newGame.continue} />
           </ButtonContainer>
