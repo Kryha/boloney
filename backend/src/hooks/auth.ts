@@ -23,7 +23,7 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, dat
 
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
 
-  if (userExists) throw logError(error.usernameExits, logger, nkruntime.Codes.ALREADY_EXISTS);
+  if (userExists) throw logError(error.usernameAlreadyExists, logger, nkruntime.Codes.ALREADY_EXISTS);
 
   const encryptedKey = String(sha256(password + username));
   data.account.id = encryptedKey;
