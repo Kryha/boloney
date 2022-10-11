@@ -12,25 +12,36 @@ export const newGame = {
   dice: "dice",
   powerups: "power-ups",
   powerup: "power-up",
-  powerup1: "power-up 01",
-  powerup2: "power-up 02",
-  powerup3: "power-up 03",
-  powerup4: "power-up 04",
+  interrogate: "interrogate",
+  satelliteImage: "satellite image",
+  reinforce: "reinforce",
+  reconnaissance: "reconnaissance",
+  sabotage: "sabotage",
+  regroup: "regroup",
+  coupDEtat: "coup d'etat",
+  diversion: "diversion",
+  defection: "defection",
   private: "private",
   fakeCredits: "fake credits",
 
   // TODO: update description labels
-  powerup1Desc:
-    "Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerup2Desc: "Here we have a description of the power-up itself. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerup3Desc:
-    "Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerup4Desc: "Here we have a description of the power-up itself.",
-
+  interrogateShortDesc:
+    "ask an opponent if they have x of y die faces",
+  satelliteImageShortDesc: "ask target opponent what the sum of their dice are.",
+  reinforceShortDesc:
+    "roll 3 extra dice to use this turn only.",
+  reconnaissanceShortDesc: "draw 2 extra cards.",
+  sabotageShortDesc: "an opponent reveals their hand of cards to you, they can't play cards for the rest of the round.",
+  regroupShortDesc: "you may re-roll any number of your dice.",
+  coupDEtatShortDesc: "target player discards all their cards, then the player taking the action draws that many cards.",
+  diversionShortDesc: "shuffle players order then skip your turn.",
+  defectionShortDesc: "target opponent reveals their hand to you, you choose one of their cards to gain to your hand.",
   privateOrPublicDesc: "Your session will be private, which means that only players invited by you will be able to join and play the game.",
   typeOfBetDesc: "You are not going to play with real money. Let's play just for the sake of having fun!",
   bottomDesc:
     "By creating the game we will create a link for you to share with your friends. This link will lead you all to the game itself, enjoy it!",
 
   continue: "continue",
+  total: "total",
+  outOfOneHundred: "/100 %",
 };

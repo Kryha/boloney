@@ -31,6 +31,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
   const isPrivate = useGameCreationFormState((state) => state.isPrivate);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
+  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
 
   const handleFormSubmit = handleSubmit((data) => {
     data.players = Number(data.players);

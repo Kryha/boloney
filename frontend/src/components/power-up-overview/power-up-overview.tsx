@@ -5,6 +5,7 @@ import { PowerUp } from "../power-up";
 import { GeneralText } from "../atoms/text";
 import { text } from "../../assets/text";
 import { useViewport } from "../../hooks/use-viewport";
+import { FakePowerUps } from "../../service/fake-power-ups";
 
 // TODO: update component when the power-up type is created
 export const PowerUpOverview: FC = () => {
@@ -13,7 +14,7 @@ export const PowerUpOverview: FC = () => {
     <PowerUpOverviewWrapper>
       <PowerUpOverviewContainer height={height}>
         <YourPowerUpContainer>
-          <PowerUp />
+          <PowerUp powerUp={FakePowerUps[0]} />
         </YourPowerUpContainer>
         <GeneralText>{text.param.yourPowerUp(1)}</GeneralText>
       </PowerUpOverviewContainer>

@@ -12,15 +12,16 @@ import LobsterHandPaint from "./lobster-hand-paint.svg";
 import PlasticHandPaint from "./plastic-hand-paint.svg";
 import ScooperHandPaint from "./poop-scooper-hand-paint.svg";
 import ToyHandPaint from "./toy-hand-paint.svg";
-import CoupDTat from "./coupdtat.png";
-import Defection from "./defection.png";
-import Diversion from "./diversion.png";
-import Interrogate from "./interrogate.png";
-import Reconnaissance from "./reconnaissance.png";
-import Regroup from "./regroup.png";
-import Reinforce from "./reinforce.png";
-import Sabotage from "./sabotage.png";
-import Satellite from "./satellite.png";
+import CoupDEtatIcon from "./coupdtat.png";
+import DefectionIcon from "./defection.png";
+import DiversionIcon from "./diversion.png";
+import InterrogateIcon from "./interrogate.png";
+import ReconnaissanceIcon from "./reconnaissance.png";
+import RegroupIcon from "./regroup.png";
+import ReinforceIcon from "./reinforce.png";
+import SabotageIcon from "./sabotage.png";
+import SatelliteIcon from "./satellite.png";
+import PercentageIcon from "./percentage.svg";
 
 export {
   Hand,
@@ -37,13 +38,14 @@ export {
   PlasticHandPaint,
   ScooperHandPaint,
   ToyHandPaint,
-  CoupDTat,
-  Defection,
-  Diversion,
-  Interrogate,
-  Reconnaissance,
-  Regroup,
-  Reinforce,
-  Sabotage,
-  Satellite,
+  CoupDEtatIcon,
+  DefectionIcon,
+  DiversionIcon,
+  InterrogateIcon,
+  ReconnaissanceIcon,
+  RegroupIcon,
+  ReinforceIcon,
+  SabotageIcon,
+  SatelliteIcon,
+  PercentageIcon
 };

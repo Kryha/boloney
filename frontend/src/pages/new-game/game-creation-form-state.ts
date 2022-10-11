@@ -2,20 +2,31 @@ import create from "zustand";
 
 import { PowerupType } from "../../interfaces";
 
+export interface ProbabilityType {
+  name: PowerupType;
+  probability: number;
+}
+
 export interface NewGameState {
   availablePowerups: PowerupType[];
   isPrivate: boolean;
   isUsingFakeCredits: boolean;
+  amountOfPowerUps: number;
+  powerUpProbability: ProbabilityType[];
 
   toggleIsPrivate: () => void;
   toggleIsUsingFakeCredits: () => void;
   togglePowerup: (powerup: PowerupType) => void;
+  setAmountOfPowerups: (amountOfPowerUps: number) => void;
+  setPowerUpProbability: (probability: ProbabilityType) => void;
 }
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
   availablePowerups: [],
   isPrivate: false,
   isUsingFakeCredits: false,
+  amountOfPowerUps: 0,
+  powerUpProbability: [],
 
   toggleIsPrivate: () => set(({ isPrivate }) => ({ isPrivate: !isPrivate })),
   toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
@@ -27,4 +38,13 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
 
       return { availablePowerups: Array.from(powerupsSet) };
     }),
+  setAmountOfPowerups: (amountOfPowerUps: number) => set(() => ({ amountOfPowerUps: amountOfPowerUps })),
+  setPowerUpProbability: ({ name: name, probability: probability }) => {
+    set((state) => ({
+      powerUpProbability: [
+        ...state.powerUpProbability,
+        { name: name, probability: probability },
+      ],
+    }));
+  },
 }));
