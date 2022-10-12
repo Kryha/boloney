@@ -1,6 +1,7 @@
 import { Session } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 
+import { USE_SSL } from "../constants";
 import { NkResponse } from "../interfaces";
 import { useAuthState } from "../store/auth";
 import { getAuthToken, getRefreshToken, parseError, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
@@ -19,7 +20,7 @@ export const useAuth = () => {
   // TODO: see how sockets relate to matches and maybe abstract the following function
   const joinSession = useCallback(
     async (session: Session) => {
-      const socket = client.createSocket();
+      const socket = client.createSocket(USE_SSL);
       const socketSession = await socket.connect(session, true);
 
       setSocket(socket);
