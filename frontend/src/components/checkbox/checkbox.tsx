@@ -1,9 +1,8 @@
-import { FC, MouseEventHandler } from "react";
+import { FC } from "react";
 import { PowerUp as PowerUpType, PowerupType } from "../../interfaces/game";
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
-import { GeneralText, GeneralContentWrapper, Heading6, Row } from "../atoms";
-import { CheckboxInput, Input } from "../inputs";
-import { PowerUp } from "../power-up";
+import { GeneralContentWrapper } from "../atoms";
+import { PowerUpInfo } from "./power-up";
 
 import {
   CheckboxContainer,
@@ -12,13 +11,9 @@ import {
   Close,
   Description,
   DescriptionContainer,
-  InputIconContainer,
-  PercentageInput,
-  TextLabel,
   Title,
   ToggleSwitchOff,
   ToggleSwitchOn,
-  Trophy,
 } from "./styles";
 
 interface Props {
@@ -29,7 +24,6 @@ interface Props {
   powerUp?: PowerUpType;
   isDisabled?: boolean;
   name: PowerupType;
-  isPowerUpError: boolean;
   isChecked: boolean;
 
   toggleCheck: () => void;
@@ -45,9 +39,9 @@ export const Checkbox: FC<Props> = ({
   powerUp,
   isDisabled,
   name,
-  isPowerUpError = false,
 }) => {
-  const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
+  const removeProbability = useGameCreationFormState((state) => state.removeProbability);
+
   const check = () => {
     if (isUsingSwitchIcon) {
       if (isChecked) return <ToggleSwitchOn />;
@@ -61,7 +55,10 @@ export const Checkbox: FC<Props> = ({
   return (
     <CheckboxContainer
       isTop={isTop}
-      onClick={() => toggleCheck()}
+      onClick={() => {
+        toggleCheck();
+        if (isChecked) removeProbability(name);
+      }}
       addHover={isUsingSwitchIcon}
       isChecked={isChecked}
       isDisabled={isDisabled}
@@ -70,27 +67,7 @@ export const Checkbox: FC<Props> = ({
         <CheckContainer>{check()}</CheckContainer>
       </CheckWrapper>
       {powerUp ? (
-        <>
-          <PowerUp powerUp={powerUp} />
-          <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
-            <GeneralContentWrapper>
-              {!isUsingSwitchIcon && (
-                <Row>
-                  <Trophy />
-                  <Heading6>{title}</Heading6>
-                </Row>
-              )}
-              {description && <Description>{description}</Description>}
-            </GeneralContentWrapper>
-          </DescriptionContainer>
-          <CheckboxInput isError={isPowerUpError}>
-            <PercentageInput
-              type="number"
-              onClick={(e) => e.stopPropagation()}
-              onBlur={(e) => setPowerUpProbability({ name: name, probability: Number(e.target.value) })}
-            />
-          </CheckboxInput>
-        </>
+        <PowerUpInfo powerUp={powerUp} name={name} description={description} isUsingSwitchIcon={isUsingSwitchIcon} isChecked={isChecked} />
       ) : (
         <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
           <GeneralContentWrapper>

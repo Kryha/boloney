@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { TrophyIcon } from "../../assets";
 
-import { BaseInput, GeneralText, Heading4, Heading6, Row } from "../../components";
+import { GeneralText, Heading4, Heading6, Row } from "../../components";
 import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper } from "../../components/buttons/styles";
 import { DescriptionContainer, CheckboxContainer as CheckboxWrapper, CheckContainer, CheckWrapper } from "../../components/checkbox/styles";
 import { InputContainer } from "../../components/inputs/styles";
@@ -113,15 +113,6 @@ export const InfoBox = styled.div`
     align-content: center;
     align-items: center;
   }
-`;
-
-export const PercentageInput = styled(BaseInput)`
-  width: 80px;
-  height: 40px;
-  border: 1px solid ${color.mediumGrey};
-  margin-top: ${margins.small6};
-  margin-right: ${margins.small6};
-  margin-left: ${margins.small6};
 `;
 
 export const TotalContainer = styled.section`
