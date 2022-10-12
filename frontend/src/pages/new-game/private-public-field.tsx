@@ -1,7 +1,7 @@
 import { text } from "../../assets";
 import { Checkbox, Input } from "../../components";
 import { useGameCreationFormState } from "./game-creation-form-state";
-import { FieldContainer, ToggleContainer } from "./styles";
+import { ToggleContainer } from "./styles";
 
 export const PrivatePublicField = () => {
   const isPrivate = useGameCreationFormState((state) => state.isPrivate);
@@ -17,6 +17,7 @@ export const PrivatePublicField = () => {
           isUsingSwitchIcon
           isChecked={isPrivate}
           toggleCheck={toggleIsPrivate}
+          name={"interrogate"}
         />
       </Input>
     </ToggleContainer>

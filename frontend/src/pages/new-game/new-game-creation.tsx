@@ -31,8 +31,9 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
   const isPrivate = useGameCreationFormState((state) => state.isPrivate);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
+  const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-
+  const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
   const handleFormSubmit = handleSubmit((data) => {
     data.players = Number(data.players);
     data.dicePerPlayer = Number(data.dicePerPlayer);
@@ -68,7 +69,11 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
             <Paragraph>{text.newGame.bottomDesc}</Paragraph>
           </BottomContainer>
           <ButtonContainer>
-            <PrimaryButton type="submit" text={text.newGame.continue} />
+            <PrimaryButton
+              type="submit"
+              text={text.newGame.continue}
+              disabled={probability > 100 || (powerUpProbability.length > 0 && probability < 100)}
+            />
           </ButtonContainer>
         </FormContainer>
       </form>

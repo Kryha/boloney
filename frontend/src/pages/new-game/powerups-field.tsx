@@ -1,19 +1,14 @@
 import { FC } from "react";
-import { UseFormGetValues } from "react-hook-form";
 import { text } from "../../assets";
-import { Checkbox, GeneralText, Heading6, InfoButton, Input, PowerUp, Row } from "../../components";
-import { InputLabel, LabelContainer } from "../../components/inputs/styles";
+import { Checkbox, GeneralText, Heading6, InfoButton, Input } from "../../components";
 import { PowerUpData } from "../../design/power-up";
-import { FakePowerUps } from "../../service/fake-power-ups";
 import { useGameCreationFormState } from "./game-creation-form-state";
-import { Fields } from "./new-game-creation";
 import {
   CheckboxContainer,
   FieldContainer,
   InfoBox,
   Percentage,
   PercentageContainer,
-  PercentageInput,
   TotalContainer,
   TrophyContainer,
   TrophyNewGame,
@@ -25,17 +20,17 @@ export const PowerupsField: FC = () => {
   const amountOfPowerUps = useGameCreationFormState((state) => state.amountOfPowerUps);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
-
+  const setButtonDisabled = useGameCreationFormState((state) => state.setButtonDisabled);
+  const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
+  {
+    /* {setButtonDisabled(probability > 100 && powerUpProbability.some((e) => e.name === data.name))} */
+  }
   return (
     <FieldContainer>
       <Input label={text.newGame.whichPowerups}>
         <>
           <InfoBox>
-            <GeneralText>
-              {
-                "Select the type of power-ups you want to put on the table. In every match, you have a % of chance to get a certain power-up. You can change this % as you wish, just keep in mind that the total must sum 100%!"
-              }
-            </GeneralText>
+            <GeneralText>{text.newGame.powerUpDesc}</GeneralText>
             <InfoButton text="chance" />
           </InfoBox>
           <CheckboxContainer>
@@ -52,7 +47,6 @@ export const PowerupsField: FC = () => {
                   (amountOfPowerUps === 0 || amountOfPowerUps === availablePowerups.length) && !availablePowerups.includes(data.name)
                 }
                 name={data.name}
-                isPowerUpError={probability > 100 && powerUpProbability.some((e) => e.name === data.name)}
               />
             ))}
           </CheckboxContainer>

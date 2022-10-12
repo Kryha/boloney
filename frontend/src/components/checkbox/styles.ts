@@ -103,7 +103,6 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   }
 `;
 
-
 export const PercentageInput = styled(BaseInput)`
   width: 80px;
   height: 40px;

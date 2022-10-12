@@ -13,12 +13,15 @@ export interface NewGameState {
   isUsingFakeCredits: boolean;
   amountOfPowerUps: number;
   powerUpProbability: ProbabilityType[];
+  isButtonDisabled: boolean;
 
+  setButtonDisabled: (isButtonDisabled: boolean) => void;
   toggleIsPrivate: () => void;
   toggleIsUsingFakeCredits: () => void;
   togglePowerup: (powerup: PowerupType) => void;
   setAmountOfPowerups: (amountOfPowerUps: number) => void;
   setPowerUpProbability: (probability: ProbabilityType) => void;
+  removeProbability: (name: PowerupType) => void;
 }
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
@@ -27,7 +30,7 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
   isUsingFakeCredits: false,
   amountOfPowerUps: 0,
   powerUpProbability: [],
-
+  isButtonDisabled: false,
   toggleIsPrivate: () => set(({ isPrivate }) => ({ isPrivate: !isPrivate })),
   toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
   togglePowerup: (powerup) =>
@@ -47,4 +50,8 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
       ],
     }));
   },
+  setButtonDisabled: () => set(({ isButtonDisabled }) => ({ isButtonDisabled: !isButtonDisabled })),
+  removeProbability: (name: PowerupType) => set((state) => ({
+    powerUpProbability: state.powerUpProbability.filter((probability) => probability.name !== name),
+  }))
 }));
