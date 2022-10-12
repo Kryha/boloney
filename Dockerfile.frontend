@@ -14,6 +14,9 @@ ENV VITE_BACKEND_URL $VITE_BACKEND_URL
 ARG VITE_API_URL
 ENV VITE_API_URL $VITE_API_URL
 
+ARG VITE_USE_SSL
+ENV VITE_USE_SSL $VITE_USE_SSL
+
 COPY .yarnrc.yml ./.yarnrc.yml
 COPY yarn.lock ./yarn.lock
 COPY .yarn/ ./.yarn/

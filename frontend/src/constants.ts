@@ -18,7 +18,7 @@ export const MINIMUM_USERNAME_LENGTH = 2;
 export const MINIMUM_PASSWORD_LENGTH = 8;
 export const APPEAR_ONLINE = true;
 export const CREATE_ACCOUNT = true;
-export const USE_SSL = false;
+export const USE_SSL = !!import.meta.env.VITE_USE_SSL || false;
 
 export const MAX_PLAYERS = 7;
 export const MIN_PLAYERS = 2;
