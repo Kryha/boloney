@@ -10,13 +10,12 @@ import { useAuth } from "../service";
 
 const AppRoutes: FC = () => {
   const { isAuthenticated } = useAuth();
-  console.log("hey");
   return (
     <Routes>
       <Route path={routes.root} element={<Landing />} />
 
       {/* if you try to abstract these cases in external components, the compiler will complain for some reason */}
-      {!isAuthenticated ? (
+      {isAuthenticated ? (
         <>
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.newGame} element={<NewGame />} />

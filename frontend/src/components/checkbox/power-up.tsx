@@ -23,6 +23,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ description, isUsingSwitchIcon, 
   const [value, setValue] = useState(0);
 
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    // set the error for the game
     removeProbability(name);
     setPowerUpProbability({ name: name, probability: Number(e.target.value) });
   };

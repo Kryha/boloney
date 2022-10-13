@@ -123,8 +123,11 @@ export const TotalContainer = styled.section`
   padding: ${margins.small5} ${margins.small5} ${margins.small5} ${margins.small2};
   gap: ${margins.small5};
   border-top: 1px solid ${color.mediumGrey};
-  width: 100%;
   margin-bottom: ${margins.large0};
+  z-index: 5;
+  width: 62.5vw;
+  background: ${color.lightGrey};
+  position: static;
 `;
 
 export const TrophyNewGame = styled(TrophyIcon)`
@@ -142,9 +145,15 @@ export const TrophyContainer = styled.div`
   }
 `;
 
-export const Percentage = styled(GeneralText)`
+interface Props {
+  isError?: boolean;
+}
+
+export const Percentage = styled(GeneralText) <Props>`
   font-weight: ${fontWeight.bolder};
+  color: ${({ isError }) => (isError ? color.red : color.black)};
 `;
+
 
 export const PercentageContainer = styled.div`
   display: flex;

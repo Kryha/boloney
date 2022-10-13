@@ -56,7 +56,7 @@ export const PowerupsField: FC = () => {
               <Heading6>{text.newGame.total}</Heading6>
             </TrophyContainer>
             <PercentageContainer>
-              <Percentage>{probability}</Percentage>
+              <Percentage isError={isButtonDisabled}>{probability}</Percentage>
               <GeneralText>{text.newGame.outOfOneHundred}</GeneralText>
             </PercentageContainer>
           </TotalContainer>
