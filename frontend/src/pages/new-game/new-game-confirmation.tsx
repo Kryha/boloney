@@ -2,9 +2,8 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { CopyIcon, text } from "../../assets";
 
-import { Heading1, Heading4, NewGameHands } from "../../components";
+import { Heading1, Heading4, Heading6, NewGameHands } from "../../components";
 import { Link, PrimaryButton } from "../../components/buttons";
-import { routes } from "../../navigation";
 import { CopyLink, GoToLobbyButton, NewGameConfirmationContainer } from "./styles";
 
 interface Props {
@@ -19,6 +18,7 @@ export const NewGameConfirmation: FC<Props> = ({ url }) => {
       <NewGameConfirmationContainer>
         <Heading1>{text.general.gameCreated}</Heading1>
         <Heading4>{text.general.yourGameHasBeenCreated}</Heading4>
+        <Heading6>{text.general.onlyPlayersWithThisCode}</Heading6>
         <CopyLink>
           {/* TODO: update with app url */}
           <Link text={url} onClick={() => navigator.clipboard.writeText(url)} />
@@ -26,7 +26,8 @@ export const NewGameConfirmation: FC<Props> = ({ url }) => {
         </CopyLink>
       </NewGameConfirmationContainer>
       <GoToLobbyButton>
-        <PrimaryButton text={text.general.goToLobby} onClick={() => navigate(routes.lobby)} />
+        {/* TODO: implement lobby route */}
+        <PrimaryButton text={text.general.goToLobby} onClick={() => navigate("")} />
       </GoToLobbyButton>
       <NewGameHands />
     </>

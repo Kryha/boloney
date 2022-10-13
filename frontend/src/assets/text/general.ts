@@ -18,5 +18,6 @@ export const general = {
   appName: "liar's dice",
   gameCreated: "game created!",
   yourGameHasBeenCreated: "your game has been successfully created! Now you can share it with your friends using the link below. Have fun!",
+  onlyPlayersWithThisCode: "only players with this code are able to join the match.",
   goToLobby: "go to lobby",
 };

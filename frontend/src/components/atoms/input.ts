@@ -1,13 +1,9 @@
 import styled from "@emotion/styled";
-import { ChevronDownIcon } from "../../assets";
 
+import { ChevronDownIcon } from "../../assets";
 import { color, fontSize, fontWeight, margins } from "../../design";
 
-interface ErrorProps {
-  isError?: boolean;
-}
-
-export const BaseInput = styled.input<ErrorProps>`
+export const BaseInput = styled.input`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
   font-size: ${fontSize.small2};
@@ -18,6 +14,7 @@ export const BaseInput = styled.input<ErrorProps>`
   background-color: transparent;
   width: 100%;
   -moz-appearance: textfield;
+  border-radius: 0px;
   -webkit-border-radius: 0px;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -37,9 +34,6 @@ export const BaseInput = styled.input<ErrorProps>`
     color: ${color.black};
   }
   box-sizing: border-box;
-  border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-  border-right: 1px solid transparent;
-  border-left: 1px solid transparent;
   padding: 23px ${margins.large0};
   :hover {
     border: 1px solid ${color.black} !important;
@@ -62,7 +56,7 @@ export const BaseInput = styled.input<ErrorProps>`
   -moz-appearance: none;
 `;
 
-export const BaseSelect = styled.select<ErrorProps>`
+export const BaseSelect = styled.select`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
   font-size: ${fontSize.small1};
@@ -77,8 +71,8 @@ export const BaseSelect = styled.select<ErrorProps>`
     -webkit-appearance: none;
   }
   box-sizing: border-box;
+  border-radius: 0px;
   -webkit-border-radius: 0px;
-  border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
   border-right: 1px solid transparent;
   border-left: 1px solid transparent;
 
@@ -93,7 +87,7 @@ export const BaseSelect = styled.select<ErrorProps>`
     border: 1px solid ${color.black} !important;
     outline-color: -webkit-focus-ring-color;
     outline-style: auto;
-    outline-width: 0px!important;
+    outline-width: 0px !important;
   }
   :disabled {
     &::placeholder {
@@ -114,4 +108,4 @@ export const BaseSelect = styled.select<ErrorProps>`
   -moz-appearance: none;
 `;
 
-export const BaseOption = styled.option<ErrorProps>``;
+export const BaseOption = styled.option``;

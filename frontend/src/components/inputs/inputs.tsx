@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { text } from "../../assets/text";
 
 import { Paragraph } from "../atoms";
@@ -9,11 +9,13 @@ interface InputProps {
   children: ReactNode;
   isError?: boolean;
   errorMessage?: string;
+  isRow?: boolean;
+  childNode?: number;
 }
 
-export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage }) => {
+export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
   return (
-    <InputContainer>
+    <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
       <LabelContainer>
         <InputLabel>{label}</InputLabel>
       </LabelContainer>

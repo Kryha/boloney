@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 
-import { AppRoutes } from "./navigation";
+import { RoutesWrapper } from "./navigation";
 import "./App.css";
 import { Overlay } from "./components";
 import { useUIState } from "./store/ui";
@@ -11,7 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       {isOverlayVisible && <Overlay />}
-      <AppRoutes />
+      <RoutesWrapper />
     </BrowserRouter>
   );
 }

@@ -26,7 +26,6 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   width: 31.25vw;
   height: 7.198vh;
   background: transparent;
-  border-right: 1px solid ${color.darkGrey};
   border-top: 1px solid ${color.darkGrey};
   ${GeneralText} {
     margin-left: ${margins.small5};
@@ -37,6 +36,6 @@ export const YourDiceContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: ${margins.small2};
-  margin-top: -22px;
+  margin-top: clamp(-22px, 1.35vw + 9px, -35px);
   margin-left: ${margins.small5};
 `;

@@ -1,3 +1,5 @@
+import { MatchSettings } from "../interfaces";
+
 export const enum Scene {
   Initializer = 0,
   Home = 1,
@@ -23,13 +25,30 @@ export const enum OP {
   Reject = 4,
 }
 
-export const TOOLKIT_BASE_URL = "http://localhost:5001/";
+export const MAX_DICE_PER_PLAYER = 10;
+export const MIN_DICE_PER_PLAYER = 2;
 
-export const success = (message: string, logger: nkruntime.Logger) => {
-  logger.info(message);
-  return JSON.stringify({ success: true });
+// TODO: define and handle types with Zod
+// Power-ups will be in the form of:
+// powerUps: {
+// 	1: 0.25,
+// 	2: 0,
+// 	3: 0.3,
+// 	4: 0.1,
+// }
+// Where the ones that are not available will have probability 0.
+export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
+  players: 2,
+  dicePerPlayer: 5,
+  powerupsPerPlayer: 3,
+  availablePowerups: ["p1", "p2", "p3", "p4"],
+  isUsingFakeCredits: true,
 };
 
-export const EXISTING_KEYS = "User already has existing keys";
-export const SUCCES_CREATING_ACCOUNT = "Created new user account on Aleo successfully";
-export const FAILED_WRITING_COLLECTION = "Writing to the collection failed";
+export const env = {
+  TOOLKIT_BASE_URL: "http://zk-gaming-tk.zk-gaming-tk-local.svc.cluster.local:5001",
+
+  init(ctx: nkruntime.Context) {
+    if (ctx.env.TOOLKIT_BASE_URL) this.TOOLKIT_BASE_URL = ctx.env.TOOLKIT_BASE_URL;
+  },
+};

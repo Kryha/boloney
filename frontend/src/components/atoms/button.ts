@@ -23,7 +23,7 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
   color: ${(props): string => props.fontColor || color.black};
   cursor: pointer;
   padding: 10px;
-  height: 70px;
+  height: 60px;
   ${({ disabled }) =>
     disabled &&
     `

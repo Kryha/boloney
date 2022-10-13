@@ -1,7 +1,7 @@
 import { createMock } from "ts-auto-mock";
 import { On, method, Method } from "ts-auto-mock/extension";
 import { AccountKeys } from "../interfaces/models";
-import { afterAuthenticateCustom, storeNewKeysInCollection, getNewKeysFromToolkit, userKeysAreAvailable } from "./auth";
+import { storeNewKeysInCollection, getNewKeysFromToolkit, readUserKeys, afterAuthenticateCustom } from "./auth";
 
 describe("After authentication hook", () => {
   let mockNk: nkruntime.Nakama;
@@ -55,7 +55,7 @@ describe("After authentication hook", () => {
 
     const payload = { collection: "Accounts", key: "keys" };
 
-    const res = userKeysAreAvailable(mockNk, mockCtx, payload, mockLogger);
+    const res = !!readUserKeys(mockNk, mockCtx, payload).length;
 
     expect(res).toBe(true);
   });
@@ -65,7 +65,7 @@ describe("After authentication hook", () => {
 
     const payload = { collection: "Accounts", key: "keys", value: { ...mockAccountKeys } };
 
-    const res = storeNewKeysInCollection(mockNk, mockCtx, payload, mockLogger);
+    const res = storeNewKeysInCollection(mockNk, mockCtx, payload);
 
     expect(res).toBe(true);
   });

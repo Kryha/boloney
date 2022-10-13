@@ -13,7 +13,9 @@ build:
       docker:
         dockerfile: Dockerfile.frontend
         buildArgs:
-          BACKEND_URL: backend.liars-dice.staging.kryha.dev
+          VITE_BACKEND_URL: backend.liars-dice.staging.kryha.dev
+          VITE_API_URL: api.liars-dice.staging.kryha.dev
+          VITE_USE_SSL: true
     - image: eu.gcr.io/web3-335312/aleo/liars-dice/backend
       docker:
         dockerfile: Dockerfile.backend

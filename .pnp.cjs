@@ -6606,7 +6606,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:5.33.0"],\
             ["@typescript-eslint/parser", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:5.33.0"],\
             ["crypto-js", "npm:4.1.1"],\
-            ["dotenv-flow", "npm:3.2.0"],\
             ["eslint", "npm:8.21.0"],\
             ["eslint-config-prettier", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:8.5.0"],\
             ["eslint-plugin-import", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:2.26.0"],\
@@ -6618,7 +6617,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:10.9.1"],\
             ["tslib", "npm:2.4.0"],\
             ["ttypescript", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:1.5.13"],\
-            ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=f456af"]\
+            ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=f456af"],\
+            ["zod", "npm:3.19.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -6664,6 +6664,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["usehooks-ts", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:2.7.1"],\
             ["vite", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:3.0.5"],\
             ["vite-plugin-svgr", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:2.2.1"],\
+            ["zod", "npm:3.19.1"],\
             ["zustand", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:4.1.1"]\
           ],\
           "linkType": "SOFT"\
@@ -8124,25 +8125,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["domexception", "npm:4.0.0"],\
             ["webidl-conversions", "npm:7.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["dotenv", [\
-        ["npm:8.6.0", {\
-          "packageLocation": "./.yarn/cache/dotenv-npm-8.6.0-2ce3e9f7bb-38e902c80b.zip/node_modules/dotenv/",\
-          "packageDependencies": [\
-            ["dotenv", "npm:8.6.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["dotenv-flow", [\
-        ["npm:3.2.0", {\
-          "packageLocation": "./.yarn/cache/dotenv-flow-npm-3.2.0-46fffd82c1-8e34ea8f5c.zip/node_modules/dotenv-flow/",\
-          "packageDependencies": [\
-            ["dotenv-flow", "npm:3.2.0"],\
-            ["dotenv", "npm:8.6.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14436,6 +14418,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"]\
           ],\
           "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["zod", [\
+        ["npm:3.19.1", {\
+          "packageLocation": "./.yarn/cache/zod-npm-3.19.1-5084a5dfc9-56e420ea58.zip/node_modules/zod/",\
+          "packageDependencies": [\
+            ["zod", "npm:3.19.1"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["zustand", [\

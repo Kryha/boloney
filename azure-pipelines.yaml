@@ -4,6 +4,12 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
+variables:
+  - name: GIT_MIRROR_URL
+    value: "$(gitMirrorURL)"
+  - name: GIT_MIRROR_TOKEN
+    value: "$(gitMirrorToken)"
+
 stages:
   - stage: build_and_deploy
     displayName: Build and Deploy
@@ -35,3 +41,18 @@ stages:
             displayName: Build and push docker images
             env:
               DB_PASSWORD: $(DB_PASSWORD)
+
+  - stage: mirror
+    displayName: Mirror
+    dependsOn:
+      - build_and_deploy
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - job:
+        displayName: Mirror repository
+        steps:
+          - task: CmdLine@2
+            displayName: Push repository to mirror
+            continueOnError: true
+            inputs:
+              script: 'git -c http.$(GIT_MIRROR_URL).extraheader="AUTHORIZATION: basic $(GIT_MIRROR_TOKEN)" push --force $(GIT_MIRROR_URL) HEAD:$(Build.SourceBranch)'

@@ -26,7 +26,7 @@ COPY backend/rollup.config.js ./backend/rollup.config.js
 RUN yarn
 RUN yarn build
 
-FROM heroiclabs/nakama:3.9.0 as run
+FROM heroiclabs/nakama:3.13.1 as run
 
 COPY --from=build /usr/main/backend/build/index.js /nakama/data/modules/build/
 COPY --from=build /usr/main/backend/local.yml /nakama/data/
@@ -35,4 +35,4 @@ EXPOSE 7349
 EXPOSE 7350
 EXPOSE 7351
 
-ENTRYPOINT /nakama/nakama migrate up --database.address $DB_URI && exec /nakama/nakama --config /nakama/data/local.yml --database.address $DB_URI
+ENTRYPOINT /nakama/nakama migrate up --database.address $DB_URI && exec /nakama/nakama --config /nakama/data/local.yml --database.address $DB_URI --runtime.env "TOOLKIT_BASE_URL=$TOOLKIT_BASE_URL"

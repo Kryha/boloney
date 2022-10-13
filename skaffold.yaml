@@ -12,8 +12,6 @@ build:
     - image: localhost:5000/aleo/liars-dice/frontend
       docker:
         dockerfile: Dockerfile.frontend
-        buildArgs:
-          BACKEND_URL: backend.localhost
     - image: localhost:5000/aleo/liars-dice/backend
       docker:
         dockerfile: Dockerfile.backend

@@ -1,44 +1,54 @@
-const state = {
-  precences: {},
-  emptyTicks: 0,
-};
-export const matchInit = (
-  _ctx: nkruntime.Context,
-  _logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _params: Record<string, string>
-): { state: nkruntime.MatchState; tickRate: number; label: string } => {
+import { PowerupType } from "../interfaces/game";
+import { MatchState } from "../interfaces/match";
+
+export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {
+  logger.info("----------------- MATCH INITIALIZED -----------------");
+
+  const initialState: MatchState = {
+    presences: {},
+    emptyTicks: 0,
+    players: Number(params.players),
+    dicePerPlayer: Number(params.dicePerPlayer),
+    powerupsPerPlayer: Number(params.powerupsPerPlayer),
+    // TODO: define and handle types with Zod
+    availablePowerups: [params.availablePowerups] as PowerupType[],
+    isUsingFakeCredits: !!+params.isUsingFakeCredits,
+  };
+
+  logger.info("----------------- STATE -----------------");
+  logger.debug(JSON.stringify(initialState));
+
   return {
-    state: state,
-    tickRate: 5, // 1 tick per second = 1 MatchLoop func invocations per second
+    state: initialState,
+    tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second.
+    // TODO: Set tickRate to 5 after development is done for improved UX. But for dev purposes 1 is more than enough.
     label: "StandardGame",
   };
 };
 
-export const matchJoinAttempt = (
-  _ctx: nkruntime.Context,
-  _logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  _presence: nkruntime.Presence,
-  _metadata: { [key: string]: any }
-): { state: nkruntime.MatchState; accept: boolean; rejectMessage?: string } | null => {
-  return { state: state, accept: true };
+export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state,
+  _presence,
+  _metadata: { [key: string]: any } // TODO: define and handle types with Zod
+) => {
+  logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
+
+  // A custom match starts right after creating it, so it needs to check manually if the room is full/joinable.
+  const canPlayerJoin = state.presences && Object.keys(state.presences).length < state.players;
+
+  return { state, accept: canPlayerJoin };
 };
 
-export const matchJoin = (
-  _ctx: nkruntime.Context,
-  _logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  presences: nkruntime.Presence[]
-): { state: nkruntime.MatchState } | null => {
+export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
+  logger.info("----------------- MATCH JOINED -----------------");
+
   presences.forEach((p) => {
-    state.presences[p.sessionId] = p;
+    if (state.presences) state.presences[p.sessionId] = p;
   });
 
   return {
@@ -46,62 +56,37 @@ export const matchJoin = (
   };
 };
 
-export const matchLoop = (
-  _ctx: nkruntime.Context,
-  _logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  _messages: nkruntime.MatchMessage[]
-): { state: nkruntime.MatchState } | null => {
+export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _messages) => {
+  logger.info("----------------- MATCH LOOP -----------------");
+  logger.info(`PRESENCE COUNT: ${String(Object.keys(state.presences).length)}`);
+
   // If we have no presences in the match according to the match state, increment the empty ticks count
-  if (!state.presences.length) {
+  if (!state.presences) {
     state.emptyTicks++;
   }
 
-  // If the match has been empty for more than 100 ticks, end the match by returning null
-  if (state.emptyTicks > 100) return null;
+  // If the match has been empty for more than 500 ticks, end the match by returning null
+  if (state.emptyTicks > 500) return null;
 
   return {
     state,
   };
 };
 
-export const matchTerminate = (
-  _ctx: nkruntime.Context,
-  _logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  _graceSeconds: number
-): { state: nkruntime.MatchState } | null => {
+export const matchTerminate: nkruntime.MatchTerminateFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _graceSeconds) => {
+  logger.info("----------------- MATCH TERMINATE -----------------");
   return { state };
 };
 
-export const matchSignal = (
-  _ctx: nkruntime.Context,
-  _logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState
-): { state: nkruntime.MatchState } | null => {
+export const matchSignal: nkruntime.MatchSignalFunction = (_ctx, logger, _nk, _dispatcher, _tick, state) => {
+  logger.info("----------------- MATCH SIGNAL -----------------");
   return { state };
 };
 
-export const matchLeave = (
-  _ctx: nkruntime.Context,
-  _logger: nkruntime.Logger,
-  _nk: nkruntime.Nakama,
-  _dispatcher: nkruntime.MatchDispatcher,
-  _tick: number,
-  state: nkruntime.MatchState,
-  presences: nkruntime.Presence[]
-): { state: nkruntime.MatchState } | null => {
+export const matchLeave: nkruntime.MatchLeaveFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
+  logger.info("----------------- MATCH LEAVE -----------------");
   presences.forEach((p) => {
-    delete state.presences[p.sessionId];
+    delete state.presences?.[p.sessionId];
   });
 
   return {

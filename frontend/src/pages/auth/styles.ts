@@ -6,6 +6,7 @@ import { SMALL_VIEWPORT_WIDTH } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../interfaces";
 
+
 export const AuthContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -14,9 +15,6 @@ export const AuthContainer = styled.div`
   width: 62.5vw;
   ${InputContainer} {
     margin-top: ${margins.small5};
-  }
-  ${InputContainer}:nth-of-type(1) {
-    border-right: 1px solid ${color.mediumGrey};
   }
 `;
 
