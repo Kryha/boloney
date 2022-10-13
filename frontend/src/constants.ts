@@ -5,6 +5,7 @@ export const SERVER_KEY = "defaultkey";
 
 export const SMALL_VIEWPORT_HEIGHT = 800;
 export const SMALL_VIEWPORT_WIDTH = 670;
+export const MEDIUM_VIEWPORT_WIDTH = 1440;
 
 // TODO: Add real game time
 export const GAME_TIME_MINUTES = 1;

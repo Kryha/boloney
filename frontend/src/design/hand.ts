@@ -29,8 +29,8 @@ export const handProportion = (avatarName: string): HandProps => {
   switch (avatarName) {
     case "hand":
       return {
-        width: "clamp(120px, 8.33vw + 40px, 200px)",
-        height: "clamp(190px, 13.54vw + 60px, 320px)",
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(140px, 17.6vw + -29px, 309px)",
         shadowSmallWidth: 4,
         shadowLargeWidth: 8,
         speed: 3,
@@ -39,8 +39,8 @@ export const handProportion = (avatarName: string): HandProps => {
       };
     case "toy":
       return {
-        width: "clamp(120px, 8.33vw + 40px, 200px)",
-        height: "clamp(190px, 13.54vw + 60px, 320px)",
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(140px, 17.6vw + -29px, 309px)",
         shadowSmallWidth: 5,
         shadowLargeWidth: 7,
         speed: 3.5,
@@ -49,8 +49,8 @@ export const handProportion = (avatarName: string): HandProps => {
       };
     case "hook":
       return {
-        width: "clamp(120px, 8.33vw + 40px, 200px)",
-        height: "clamp(190px, 13.54vw + 60px, 320px)",
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(140px, 17.6vw + -29px, 309px)",
         shadowSmallWidth: 7,
         shadowLargeWidth: 10,
         speed: 2,
@@ -59,8 +59,8 @@ export const handProportion = (avatarName: string): HandProps => {
       };
     case "plastic":
       return {
-        width: "clamp(120px, 8.33vw + 40px, 200px)",
-        height: "clamp(190px, 13.54vw + 60px, 320px)",
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(140px, 17.6vw + -29px, 309px)",
         shadowSmallWidth: 7,
         shadowLargeWidth: 8,
         speed: 6,
@@ -69,8 +69,8 @@ export const handProportion = (avatarName: string): HandProps => {
       };
     case "scooper":
       return {
-        width: "clamp(120px, 8.33vw + 40px, 200px)",
-        height: "clamp(190px, 13.54vw + 60px, 320px)",
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(140px, 17.6vw + -29px, 309px)",
         shadowSmallWidth: 4,
         shadowLargeWidth: 5,
         speed: 5,
@@ -79,8 +79,8 @@ export const handProportion = (avatarName: string): HandProps => {
       };
     case "lobster":
       return {
-        width: "clamp(120px, 8.33vw + 40px, 200px)",
-        height: "clamp(190px, 13.54vw + 60px, 320px)",
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(140px, 17.6vw + -29px, 309px)",
         shadowSmallWidth: 5,
         shadowLargeWidth: 8,
         speed: 4.5,
@@ -89,8 +89,8 @@ export const handProportion = (avatarName: string): HandProps => {
       };
     case "skeleton":
       return {
-        width: "clamp(120px, 8.33vw + 40px, 200px)",
-        height: "clamp(190px, 13.54vw + 60px, 320px)",
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(140px, 17.6vw + -29px, 309px)",
         shadowSmallWidth: 3,
         shadowLargeWidth: 5,
         speed: 2.5,
@@ -99,8 +99,8 @@ export const handProportion = (avatarName: string): HandProps => {
       };
     default:
       return {
-        width: "clamp(120px, 8.33vw + 40px, 200px)",
-        height: "clamp(190px, 13.54vw + 60px, 320px)",
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(140px, 17.6vw + -29px, 309px)",
         shadowSmallWidth: 7,
         shadowLargeWidth: 13,
         speed: 4,

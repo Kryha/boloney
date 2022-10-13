@@ -1,50 +1,82 @@
 import styled from "@emotion/styled";
-import { Heading1, HorizontalDivider } from "../../components";
+import { BoloneyIcon } from "../../assets";
+import { HorizontalDivider } from "../../components";
+import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
+import { ViewProps } from "../../interfaces";
+import { ChatSection } from "../chat/styles";
+import { HandWrapper } from "../hand/styles";
+import { LobbyPlayerWrapper } from "../lobby-player/styles";
 
-export const GameName = styled(Heading1)`
-  color: transparent;
-  -webkit-text-stroke: 1px ${color.black};
-  font-size: 24.5vw;
-  position: absolute;
-  bottom: clamp(3.75rem, 3.13vw + 1.88rem, 5.63rem);
-  margin-left: 19px;
-`;
 
-export const LineContainer = styled.section`
+export const LineWrapper = styled.section`
   display: flex;
   flex-direction: column;
+  ${ChatSection}{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
 `;
 
-export const ChildrenWrapper = styled.div`
+export const ChildrenWrapper = styled.div<ViewProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: 42.5vh;
+  width: 100vw;
+  overflow: hidden;
+  ${LobbyPlayerWrapper} {
+    height: 100%;
+    border-top: none;
+    border-bottom: none;
+    ${HandWrapper} {
+      margin-top: ${({ width }) => (width > MEDIUM_VIEWPORT_WIDTH ? "clamp(50px, -1.04vw + 60px, 40px)" : "clamp(40px, 8.33vw + -40px, 120px)")};
+    }
+  }
 `;
 
-export const HorizontalLineContainer = styled.div`
+export const HorizontalLineContainer = styled.div<ViewProps>`
   display: flex;
   flex-direction: column;
-  gap: clamp(16px, 2.29vw + -6px, 38px);
+  gap: ${({ width }) => (width < MEDIUM_VIEWPORT_WIDTH ? "clamp(21px, 2.81vw + -6px, 48px)" : "clamp(21px, 2.08vw + 1px, 41px)")};
   width: 100%;
   background: linear-gradient(to right, ${color.mediumGrey} 1px, transparent 1px);
-  background-size: clamp(16px, 2.29vw + -6px, 38px);
+  background-size: clamp(2.38rem, 1.15vw + 1.69rem, 3.06rem);
 `;
 
+export const HorizontalContainer = styled(HorizontalLineContainer)`
+  position: relative;
+  gap: 28px;
+  height: 10vh;
+  border-top: 1px solid ${color.mediumGrey};
+  border-bottom: 1px solid ${color.mediumGrey};
+`;
 export const HorizontalLine = styled(HorizontalDivider)`
   height: 1px;
   border-bottom: 1px solid ${color.mediumGrey};
   width: 100%;
+  background: none;
+  margin-top: 5vh;
+`;
+
+export const HorizontalLineContainerTwo = styled.div<ViewProps>`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ width }) => (width < MEDIUM_VIEWPORT_WIDTH ? "clamp(21px, 2.81vw + -6px, 48px)" : "clamp(21px, 2.08vw + 1px, 41px)")};
+  width: 100%;
+  background: linear-gradient(to right, ${color.mediumGrey} 1px, transparent 1px);
+  background-size: clamp(2.38rem, 1.15vw + 1.69rem, 3.06rem);
+  gap: 28px;
+  height: 15vh;
+  border-top: 1px solid ${color.mediumGrey};
+  border-bottom: 1px solid ${color.mediumGrey};
+  ${HorizontalLine}: nth-child(2) {
+    margin-top: ${({ height }) => (height < SMALL_VIEWPORT_HEIGHT ? "1vh" : "2vh")};
+  }
 `;
 
 export const HorizontalLineInitial = styled(HorizontalDivider)``;
-
-export const VerticalLine = styled.div`
-  width: 1px;
-  border-right: 1px solid ${color.mediumGrey};
-  height: 45vh;
-  margin-left: 57vw;
-`;
 
 export const WaitForOthersContainer = styled.div`
   background: ${color.lightGrey};
@@ -56,9 +88,9 @@ export const WaitForOthersContainer = styled.div`
   right: 0;
   text-align: center;
   width: 358.5px;
-  height: clamp(34px, 4.58vw + -10px, 78px);
   display: flex;
   align-items: center;
+  height: 100%;
 `;
 
 export const WaitingText = styled.h3`
@@ -68,8 +100,39 @@ export const WaitingText = styled.h3`
   font-size: 16px;
   line-height: 16px;
   color: ${color.black};
-  margin-top: clamp(0px, 3.13vw + -30px, 30px);
   :first-letter {
     text-transform: capitalize;
   }
+`;
+
+export const AppName = styled(BoloneyIcon)`
+  height: 31.5vh;
+  width: 100%;
+  margin-top: 1vh;
+`;
+
+export const LineWrap = styled.section`
+  height: 57.5vh;
+`;
+
+export const NameContainer = styled.section`
+  width: 70vw;
+  height: 32.5vh;
+  margin-left: clamp(20px, -1.67vw + 36px, 4px);
+`;
+
+export const NameWrapper = styled.section`
+  height: 32.5vh;
+  ${ChatSection} {
+    display: block;
+    height: 32.5vh;
+    border-left: 1px solid ${color.mediumGrey};
+  }
+`;
+
+export const WaitingWrapper = styled.section`
+  height: 42.5vh;
+  bottom: 0;
+  position: absolute;
+  width: 100vw;
 `;

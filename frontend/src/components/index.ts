@@ -21,3 +21,4 @@ export * from "./checkbox";
 export * from "./new-game-hands";
 export * from "./leading-zero-list";
 export * from "./overlay-wrapper";
+export * from "./line-container";
