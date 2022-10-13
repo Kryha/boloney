@@ -7,10 +7,15 @@ import { LobbyWrapper } from "./styles";
 
 export const Lobby: FC = () => {
   // TODO: integrate
+  const startGame = () => {
+    // TODO: send to backend
+    console.log("start game");
+  };
+
   return (
     <LobbyWrapper>
       <TopNavigation isInGame />
-      <LineContainer>
+      <LineContainer playersReady onClick={startGame}>
         {Players.map((player) => (
           <LobbyPlayer key={player.id} player={player} />
         ))}
