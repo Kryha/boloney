@@ -45,19 +45,23 @@ export const HorizontalLineContainer = styled.div<ViewProps>`
   background-size: clamp(2.38rem, 1.15vw + 1.69rem, 3.06rem);
 `;
 
-export const HorizontalContainer = styled(HorizontalLineContainer)`
-  position: relative;
-  gap: 28px;
-  height: 10vh;
-  border-top: 1px solid ${color.mediumGrey};
-  border-bottom: 1px solid ${color.mediumGrey};
-`;
 export const HorizontalLine = styled(HorizontalDivider)`
   height: 1px;
   border-bottom: 1px solid ${color.mediumGrey};
   width: 100%;
   background: none;
   margin-top: 5vh;
+`;
+
+export const HorizontalContainer = styled(HorizontalLineContainer)`
+  position: relative;
+  gap: 28px;
+  height: 60px;
+  border-top: 1px solid ${color.mediumGrey};
+  border-bottom: 1px solid ${color.mediumGrey};
+  ${HorizontalLine}: nth-of-type(1) {
+    margin-top: 30px;
+  }
 `;
 
 export const HorizontalLineContainerTwo = styled.div<ViewProps>`
@@ -71,15 +75,19 @@ export const HorizontalLineContainerTwo = styled.div<ViewProps>`
   height: 15vh;
   border-top: 1px solid ${color.mediumGrey};
   border-bottom: 1px solid ${color.mediumGrey};
-  ${HorizontalLine}: nth-child(2) {
+  ${HorizontalLine}: nth-of-type(2) {
     margin-top: ${({ height }) => (height < SMALL_VIEWPORT_HEIGHT ? "1vh" : "2vh")};
   }
 `;
 
 export const HorizontalLineInitial = styled(HorizontalDivider)``;
 
-export const WaitForOthersContainer = styled.div`
-  background: ${color.lightGrey};
+interface WaitingProps {
+  playersReady?: boolean;
+}
+
+export const WaitForOthersContainer = styled.div<WaitingProps>`
+  background:  ${({ playersReady }) => (playersReady ? "none" : color.lightGrey)};
   position: absolute;
   padding: ${margins.small2} ${margins.small2} ${margins.small2} 1.5em;
   margin-left: auto;
@@ -117,22 +125,21 @@ export const LineWrap = styled.section`
 
 export const NameContainer = styled.section`
   width: 70vw;
-  height: 32.5vh;
+  height: 100%;
   margin-left: clamp(20px, -1.67vw + 36px, 4px);
 `;
 
 export const NameWrapper = styled.section`
-  height: 32.5vh;
+  height: 37vh;
+  position: relative;
   ${ChatSection} {
     display: block;
-    height: 32.5vh;
+    height: 100%;
     border-left: 1px solid ${color.mediumGrey};
   }
 `;
 
 export const WaitingWrapper = styled.section`
-  height: 42.5vh;
-  bottom: 0;
-  position: absolute;
+  height: 100%;
   width: 100vw;
 `;
