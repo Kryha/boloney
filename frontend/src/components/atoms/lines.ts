@@ -8,7 +8,7 @@ export const VerticalDivider = styled.div`
   background: ${color.mediumGrey};
 `;
 
-export const HorizonalDivider = styled.div`
+export const HorizontalDivider = styled.div`
   height: 1px;
   width: 100%;
   background: ${color.mediumGrey};
