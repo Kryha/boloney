@@ -23,9 +23,6 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
   const { createMatch, joinMatch, isLoading } = useMatchMaker();
   const [isError, setIsError] = useState(false);
-  const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
-  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     data.players = Number(data.players);
@@ -33,7 +30,6 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.powerUpsPerPlayer = Number(data.powerUpsPerPlayer);
     data.availablePowerUps = availablePowerUps;
     data.isUsingFakeCredits = isUsingFakeCredits;
-    // TODO: add probability thing
 
     const res = await createMatch(data);
     if (typeof res === "string") {
@@ -69,11 +65,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           {isLoading && <Heading6>{text.newGame.loading}</Heading6>}
           {isError && <Heading6>{text.newGame.error}</Heading6>}
           <ButtonContainer>
-            <PrimaryButton
-              type="submit"
-              text={text.newGame.continue}
-              disabled={probability > 100 || (powerUpProbability.length > 0 && probability < 100)}
-            />
+            <PrimaryButton type="submit" text={text.newGame.continue} />
           </ButtonContainer>
         </FormContainer>
       </form>

@@ -1,62 +1,43 @@
-import { FC } from "react";
 import { text } from "../../assets";
-import { Checkbox, GeneralText, Heading6, InfoButton, Input } from "../../components";
-import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
-import { PowerUpData } from "../../design/power-up";
+import { Checkbox, Input } from "../../components";
 import { useGameCreationFormState } from "./game-creation-form-state";
-import {
-  CheckboxContainer,
-  FieldContainer,
-  InfoBox,
-  Percentage,
-  PercentageContainer,
-  TotalContainer,
-  TrophyContainer,
-  TrophyNewGame,
-} from "./styles";
+import { CheckboxContainer, FieldContainer } from "./styles";
 
-export const PowerUpsField: FC = () => {
+export const PowerUpsField = () => {
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const togglePowerUp = useGameCreationFormState((state) => state.togglePowerUp);
-  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
-  const amountOfPowerUps = useGameCreationFormState((state) => state.amountOfPowerUps);
-  const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
 
+  // TODO: refractor and remove lower case powerup
   return (
     <FieldContainer>
       <Input label={text.newGame.whichPowerUps}>
-        <>
-          <InfoBox>
-            <GeneralText>{text.newGame.powerUpDesc}</GeneralText>
-            {/* TODO: add pop up info */}
-            <InfoButton text="chance" />
-          </InfoBox>
-          <CheckboxContainer>
-            {PowerUpData.map((data, index) => (
-              <PowerUpCheckbox
-                key={index}
-                isTop
-                description={data.shortDescription}
-                isChecked={availablePowerUps.includes(data.name)}
-                toggleCheck={() => togglePowerUp(data.name)}
-                powerUp={{ name: data.name, image: data.iconImage }}
-                isDisabled={(isButtonDisabled && !availablePowerUps.includes(data.name)) || amountOfPowerUps === availablePowerUps.length}
-                name={data.name}
-              />
-            ))}
-          </CheckboxContainer>
-          <TotalContainer>
-            <TrophyContainer>
-              <TrophyNewGame />
-              <Heading6>{text.newGame.total}</Heading6>
-            </TrophyContainer>
-            <PercentageContainer>
-              <Percentage isError={probability > 100}>{probability}</Percentage>
-              <GeneralText>{text.newGame.outOfOneHundred}</GeneralText>
-            </PercentageContainer>
-          </TotalContainer>
-        </>
+        <CheckboxContainer>
+          <Checkbox
+            isTop
+            title={text.newGame.powerup1}
+            description={text.newGame.powerup1Desc}
+            isChecked={availablePowerUps.includes("defection")}
+            toggleCheck={() => togglePowerUp("defection")}
+          />
+          <Checkbox
+            title={text.newGame.powerup2}
+            description={text.newGame.powerup2Desc}
+            isChecked={availablePowerUps.includes("diversion")}
+            toggleCheck={() => togglePowerUp("diversion")}
+          />
+          <Checkbox
+            title={text.newGame.powerup3}
+            description={text.newGame.powerup3Desc}
+            isChecked={availablePowerUps.includes("interrogate")}
+            toggleCheck={() => togglePowerUp("interrogate")}
+          />
+          <Checkbox
+            title={text.newGame.powerup4}
+            description={text.newGame.powerup4Desc}
+            isChecked={availablePowerUps.includes("reconnaissance")}
+            toggleCheck={() => togglePowerUp("reconnaissance")}
+          />
+        </CheckboxContainer>
       </Input>
     </FieldContainer>
   );

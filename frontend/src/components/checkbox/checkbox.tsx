@@ -1,47 +1,19 @@
 import { FC } from "react";
-import { PowerUpType, PowerUp as PowerUpData } from "../../interfaces/game";
-import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
-import { GeneralContentWrapper } from "../atoms";
-import { PowerUpInfo } from "./power-up";
+import { GeneralText, GeneralContentWrapper } from "../atoms";
 
-import {
-  CheckboxContainer,
-  CheckContainer,
-  CheckWrapper,
-  Close,
-  Description,
-  DescriptionContainer,
-  Title,
-  ToggleSwitchOff,
-  ToggleSwitchOn,
-} from "./styles";
+import { CheckboxContainer, CheckContainer, Close, Description, DescriptionContainer, ToggleSwitchOff, ToggleSwitchOn } from "./styles";
 
 interface Props {
   title: string;
   description?: string;
   isUsingSwitchIcon?: boolean;
   isTop?: boolean;
-  powerUp?: PowerUpData;
-  isDisabled?: boolean;
-  name: PowerUpType;
-  isChecked: boolean;
 
+  isChecked: boolean;
   toggleCheck: () => void;
 }
 
-export const Checkbox: FC<Props> = ({
-  title,
-  description,
-  isChecked,
-  toggleCheck,
-  isUsingSwitchIcon,
-  isTop,
-  powerUp,
-  isDisabled,
-  name,
-}) => {
-  const removeProbability = useGameCreationFormState((state) => state.removeProbability);
-
+export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck, isUsingSwitchIcon, isTop }) => {
   const check = () => {
     if (isUsingSwitchIcon) {
       if (isChecked) return <ToggleSwitchOn />;
@@ -53,29 +25,14 @@ export const Checkbox: FC<Props> = ({
   };
 
   return (
-    <CheckboxContainer
-      isTop={isTop}
-      onClick={() => {
-        toggleCheck();
-        if (isChecked) removeProbability(name);
-      }}
-      addHover={isUsingSwitchIcon}
-      isChecked={isChecked}
-      isDisabled={isDisabled}
-    >
-      <CheckWrapper>
-        <CheckContainer>{check()}</CheckContainer>
-      </CheckWrapper>
-      {powerUp ? (
-        <PowerUpInfo powerUp={powerUp} name={name} description={description} isUsingSwitchIcon={isUsingSwitchIcon} isChecked={isChecked} />
-      ) : (
-        <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
-          <GeneralContentWrapper>
-            <Title>{title}</Title>
-            {description && <Description>{description}</Description>}
-          </GeneralContentWrapper>
-        </DescriptionContainer>
-      )}
+    <CheckboxContainer isTop={isTop} onClick={() => toggleCheck()} addHover={isUsingSwitchIcon}>
+      <CheckContainer>{check()}</CheckContainer>
+      <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
+        <GeneralContentWrapper>
+          <GeneralText>{title}</GeneralText>
+          {description && <Description>{description}</Description>}
+        </GeneralContentWrapper>
+      </DescriptionContainer>
     </CheckboxContainer>
   );
 };
