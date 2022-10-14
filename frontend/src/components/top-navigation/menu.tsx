@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service";
-import { HorizonalDivider } from "../atoms";
+import { HorizontalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
 import { Dropdown } from "./dropdown";
@@ -39,11 +39,11 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
         <DropdownButton text={text.general.settings} icon={<SettingsIcon />} />
         {isAuthenticated && (
           <>
-            <HorizonalDivider />
+            <HorizontalDivider />
             <DropdownButton onClick={() => handleLogout()} text={text.general.logout} icon={<LogoutIcon />} />
           </>
         )}
-        <HorizonalDivider />
+        <HorizontalDivider />
         <DropdownButton text={text.general.exit} icon={<ExitIcon />} />
       </MenuContainer>
     </Dropdown>
