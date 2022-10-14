@@ -5,7 +5,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
-import { NewGame, Landing } from "../pages";
+import { Landing, NewGame, Home, Lobby } from "../pages";
 import { useAuth } from "../service";
 
 const AppRoutes: FC = () => {
@@ -17,12 +17,14 @@ const AppRoutes: FC = () => {
       {/* if you try to abstract these cases in external components, the compiler will complain for some reason */}
       {isAuthenticated ? (
         <>
+          <Route path={routes.home} element={<Home />} />
           <Route path={routes.newGame} element={<NewGame />} />
+          <Route path={routes.lobby} element={<Lobby />} />
         </>
       ) : (
         <>
-          <Route path={routes.createAccount} element={<CreateAccount />} />
           <Route path={routes.login} element={<Login />} />
+          <Route path={routes.createAccount} element={<CreateAccount />} />
         </>
       )}
 

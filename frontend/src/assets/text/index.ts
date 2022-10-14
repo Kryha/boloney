@@ -4,6 +4,8 @@ import { error } from "./error";
 import { authForm } from "./auth-form";
 import { rules } from "./rules";
 import { newGame } from "./new-game";
+import { match } from "./match";
+import { home } from "./home";
 import { newGameForm } from "./new-game-form";
 
 export const text = {
@@ -14,4 +16,6 @@ export const text = {
   rules,
   newGame,
   newGameForm
+  match,
+  home,
 };

@@ -5,6 +5,7 @@ export const SERVER_KEY = "defaultkey";
 
 export const SMALL_VIEWPORT_HEIGHT = 800;
 export const SMALL_VIEWPORT_WIDTH = 670;
+export const MEDIUM_VIEWPORT_WIDTH = 1440;
 
 // TODO: Add real game time
 export const GAME_TIME_MINUTES = 1;
@@ -18,7 +19,7 @@ export const MINIMUM_USERNAME_LENGTH = 2;
 export const MINIMUM_PASSWORD_LENGTH = 8;
 export const APPEAR_ONLINE = true;
 export const CREATE_ACCOUNT = true;
-export const USE_SSL = false;
+export const USE_SSL = !!import.meta.env.VITE_USE_SSL || false;
 
 export const MAX_PLAYERS = 7;
 export const MIN_PLAYERS = 2;
@@ -31,3 +32,10 @@ export const FLOATING_ANIMATION_SPEED = 4;
 
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";
 export const REFRESH_TOKEN_STORAGE_KEY = "refresh_token";
+
+export const RPC_CREATE_MATCH = "create_match";
+export const RPC_FIND_MATCH = "find_match";
+
+export const DEFAULT_POOL_QUERY = "*";
+export const DEFAULT_POOL_MIN_PLAYERS = 2;
+export const DEFAULT_POOL_MAX_PLAYERS = 2;

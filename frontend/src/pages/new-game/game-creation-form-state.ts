@@ -9,7 +9,6 @@ export interface ProbabilityType {
 
 export interface NewGameState {
   availablePowerups: PowerupType[];
-  isPrivate: boolean;
   isUsingFakeCredits: boolean;
   amountOfPowerUps: number;
   powerUpProbability: ProbabilityType[];
@@ -26,7 +25,6 @@ export interface NewGameState {
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
   availablePowerups: [],
-  isPrivate: false,
   isUsingFakeCredits: false,
   amountOfPowerUps: 0,
   powerUpProbability: [],

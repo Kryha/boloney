@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 
-import { TimerIcon } from "../../assets/icons";
+import { LightningIcon, TimerIcon } from "../../assets/icons";
 import { color, margins, zIndex } from "../../design";
-import { Heading6, Paragraph } from "../atoms";
+import { GeneralText, Heading6, Paragraph } from "../atoms";
 import { Link } from "../buttons";
+import { DieWrapper } from "../die/styles";
 
 export const TopNavigationSection = styled.section`
   display: flex;
@@ -11,6 +12,7 @@ export const TopNavigationSection = styled.section`
   width: 100%;
   justify-content: flex-end;
   position: absolute;
+  z-index: ${zIndex.inFront};
 `;
 
 export const Timer = styled(TimerIcon)`
@@ -64,7 +66,7 @@ interface DropdownProps {
   isHidden: boolean;
 }
 
-export const ChildrenContainer = styled(DropdownWrapper) <DropdownProps>`
+export const ChildrenContainer = styled(DropdownWrapper)<DropdownProps>`
   display: ${({ isHidden }) => isHidden && "none"};
   z-index: ${zIndex.onTop};
   background: ${color.lightGrey};
@@ -81,7 +83,7 @@ export const MenuContainer = styled.div`
 export const RulesContainer = styled.div`
   position: absolute;
   background: ${color.lightGrey};
-  width: 100%;
+  width: 25vw;
   right: 0;
   padding: 20px;
   overflow-y: scroll;
@@ -97,5 +99,50 @@ export const RulesSectionTitle = styled(Heading6)`
   margin-bottom: ${margins.small1};
 `;
 
-export const RulesLink = styled(Link)`
+export const RulesLink = styled(Link)``;
+
+interface LightningProps {
+  size: string;
+}
+
+export const Lightning = styled(LightningIcon)<LightningProps>`
+  width: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
+  height: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
+`;
+
+export const MatchStateItemContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${margins.small0};
+  padding: ${margins.small0};
+  justify-content: flex-end;
+  ${GeneralText} {
+    padding: ${margins.small0};
+  }
+  ${GeneralText}:first-letter {
+    text-transform: none;
+  }
+`;
+
+export const MatchStateVerticalDivider = styled.div`
+  height: 13px;
+  width: 1px;
+  margin: ${margins.small0};
+  background: ${color.black};
+`;
+
+export const MatchStatsContainer = styled.div`
+  display: flex;
+  background: ${color.grey};
+  flex-direction: row;
+  align-items: center;
+  padding: ${margins.small2};
+  height: 52px;
+  gap: ${margins.small1};
+  ${DieWrapper} {
+    margin-top: 0.125em;
+  }
+  ${Lightning} {
+    margin-top: 0.125em;
+  }
 `;

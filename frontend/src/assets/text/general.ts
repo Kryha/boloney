@@ -14,9 +14,10 @@ export const general = {
   connected: "connected",
   waiting: "waiting",
   waitingForTheOthersToJoin: "waiting for the others to join...",
-  // TODO: change app name
-  appName: "liar's dice",
+  appName: "Boloney",
   gameCreated: "game created!",
   yourGameHasBeenCreated: "your game has been successfully created! Now you can share it with your friends using the link below. Have fun!",
+  onlyPlayersWithThisCode: "only players with this code are able to join the match.",
   goToLobby: "go to lobby",
+  startGame: "start game",
 };

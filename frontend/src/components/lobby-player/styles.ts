@@ -20,7 +20,7 @@ export const LobbyPlayerWrapper = styled.div<LobbyPlayerProps>`
   }
   ${HandWrapper} {
     margin-top: 2.813em;
-    opacity: ${({ isWaiting }) => (!isWaiting ? "0.4" : "1")};
-    filter: ${({ isWaiting }) => (!isWaiting ? "blur(1.2px)" : "blur(0)")};
+    opacity: ${({ isWaiting }) => (isWaiting ? "0.4" : "1")};
+    filter: ${({ isWaiting }) => (isWaiting ? "blur(1.2px)" : "blur(0)")};
   }
 `;

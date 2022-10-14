@@ -6,7 +6,6 @@ export const newGame = {
   dicePerPlayer: "dice per player",
   powerupsPerPlayer: "power-ups per player",
   whichPowerups: "which power-ups do you want?",
-  privateOrPublic: "private or public session?",
   typeOfBet: "type of bet",
 
   dice: "dice",
@@ -23,6 +22,9 @@ export const newGame = {
   defection: "defection",
   private: "private",
   fakeCredits: "fake credits",
+
+  loading: "creating match...",
+  error: "something went wrong. Please try again!",
 
   // TODO: update description labels
   powerUpDesc: "Select the type of power-ups you want to put on the table. In every match, you have a % of chance to get a certain power-up. You can change this % as you wish, just keep in mind that the total must sum 100%!",
