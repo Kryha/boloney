@@ -14,7 +14,7 @@ export const Lobby: FC = () => {
 
   return (
     <LobbyWrapper>
-      <TopNavigation isInGame />
+      <TopNavigation isInMatch />
       <LineContainer arePlayersReady onClick={startGame}>
         {Players.map((player) => (
           <LobbyPlayer key={player.id} player={player} />
