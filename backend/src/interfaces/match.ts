@@ -6,7 +6,7 @@ export interface MatchSettings {
   players: number;
   dicePerPlayer: number;
   powerupsPerPlayer: number;
-  availablePowerUps: PowerupType[];
+  availablePowerups: PowerupType[];
   isUsingFakeCredits: boolean;
 }
 

@@ -11,7 +11,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
     dicePerPlayer: Number(params.dicePerPlayer),
     powerupsPerPlayer: Number(params.powerupsPerPlayer),
     // TODO: define and handle types with Zod
-    availablePowerUps: [params.availablePowerUps] as PowerupType[],
+    availablePowerups: [params.availablePowerups] as PowerupType[],
     isUsingFakeCredits: !!+params.isUsingFakeCredits,
   };
 
