@@ -79,8 +79,7 @@ export const BaseSelect = styled.select`
   cursor: pointer;
   padding: 23px ${margins.large0};
   :hover {
-    // border: 1px solid ${color.black} !important;
-    background: ${color.white};
+    background-color: ${color.white};
   }
   :active {
     border: 1px solid ${color.black} !important;

@@ -3,7 +3,7 @@ import { PowerUp } from "../interfaces";
 
 export const FakePowerUps: PowerUp[] = [
   {
-    name: "coup d'etat",
+    name: "coupDetat",
     image: CoupDEtatIcon,
   },
   {
@@ -35,7 +35,7 @@ export const FakePowerUps: PowerUp[] = [
     image: SabotageIcon,
   },
   {
-    name: "satellite image",
+    name: "satelliteImage",
     image: SatelliteIcon,
   }
 ];

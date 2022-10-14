@@ -17,7 +17,7 @@ import {
 
 export const PowerUpsField: FC = () => {
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
-  const togglePowerup = useGameCreationFormState((state) => state.togglePowerup);
+  const togglePowerUp = useGameCreationFormState((state) => state.togglePowerUp);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
   const amountOfPowerUps = useGameCreationFormState((state) => state.amountOfPowerUps);
@@ -39,7 +39,7 @@ export const PowerUpsField: FC = () => {
                 isTop
                 description={data.shortDescription}
                 isChecked={availablePowerUps.includes(data.name)}
-                toggleCheck={() => togglePowerup(data.name)}
+                toggleCheck={() => togglePowerUp(data.name)}
                 powerUp={{ name: data.name, image: data.iconImage }}
                 isDisabled={(isButtonDisabled && !availablePowerUps.includes(data.name)) || amountOfPowerUps === availablePowerUps.length}
                 name={data.name}

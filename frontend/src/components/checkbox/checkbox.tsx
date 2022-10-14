@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { PowerUp as PowerUpType, PowerupType } from "../../interfaces/game";
+import { PowerUpType, PowerUp as PowerUpData } from "../../interfaces/game";
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
 import { GeneralContentWrapper } from "../atoms";
 import { PowerUpInfo } from "./power-up";
@@ -21,9 +21,9 @@ interface Props {
   description?: string;
   isUsingSwitchIcon?: boolean;
   isTop?: boolean;
-  powerUp?: PowerUpType;
+  powerUp?: PowerUpData;
   isDisabled?: boolean;
-  name: PowerupType;
+  name: PowerUpType;
   isChecked: boolean;
 
   toggleCheck: () => void;

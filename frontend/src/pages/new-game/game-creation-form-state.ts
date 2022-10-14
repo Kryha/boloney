@@ -3,24 +3,23 @@ import create from "zustand";
 import { PowerupType } from "../../types";
 
 export interface ProbabilityType {
-  name: PowerupType;
+  name: PowerUpType;
   probability: number;
 }
 
 export interface NewGameState {
-  availablePowerUps: PowerupType[];
+  availablePowerUps: PowerUpType[];
   isUsingFakeCredits: boolean;
   amountOfPowerUps: number;
   powerUpProbability: ProbabilityType[];
   isButtonDisabled: boolean;
 
   setButtonDisabled: (isButtonDisabled: boolean) => void;
-  toggleIsPrivate: () => void;
   toggleIsUsingFakeCredits: () => void;
-  togglePowerup: (powerup: PowerupType) => void;
+  togglePowerUp: (powerUp: PowerUpType) => void;
   setAmountOfPowerUps: (amountOfPowerUps: number) => void;
   setPowerUpProbability: (probability: ProbabilityType) => void;
-  removeProbability: (name: PowerupType) => void;
+  removeProbability: (name: PowerUpType) => void;
 }
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
@@ -29,15 +28,14 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
   amountOfPowerUps: 0,
   powerUpProbability: [],
   isButtonDisabled: true,
-  toggleIsPrivate: () => set(({ isPrivate }) => ({ isPrivate: !isPrivate })),
   toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
-  togglePowerup: (powerup) =>
+  togglePowerUp: (powerUp) =>
     set(({ availablePowerUps }) => {
-      const powerupsSet = new Set(availablePowerUps);
-      const itemFound = powerupsSet.delete(powerup);
-      if (!itemFound) powerupsSet.add(powerup);
+      const powerUpsSet = new Set(availablePowerUps);
+      const itemFound = powerUpsSet.delete(powerUp);
+      if (!itemFound) powerUpsSet.add(powerUp);
 
-      return { availablePowerUps: Array.from(powerupsSet) };
+      return { availablePowerUps: Array.from(powerUpsSet) };
     }),
   setAmountOfPowerUps: (amountOfPowerUps: number) => set(() => ({ amountOfPowerUps: amountOfPowerUps })),
   setPowerUpProbability: ({ name: name, probability: probability }) => {

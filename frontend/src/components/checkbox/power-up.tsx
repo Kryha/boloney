@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { PowerUp as PowerUpType, PowerupType } from "../../interfaces/game";
+import { PowerUp as PowerUpData, PowerUpType } from "../../interfaces/game";
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
 import { GeneralContentWrapper, Heading6, Row } from "../atoms";
 import { CheckboxInput } from "../inputs";
@@ -7,15 +7,15 @@ import { PowerUp } from "../power-up";
 
 import { Description, DescriptionContainer, PercentageInput, Trophy } from "./styles";
 
-interface PowerUpsInfo {
+interface PowerUpsInfoProps {
   description?: string;
   isUsingSwitchIcon?: boolean;
-  powerUp: PowerUpType;
-  name: PowerupType;
+  powerUp: PowerUpData;
+  name: PowerUpType;
   isChecked: boolean;
 }
 
-export const PowerUpInfo: FC<PowerUpsInfo> = ({ description, isUsingSwitchIcon, powerUp, name, isChecked }) => {
+export const PowerUpInfo: FC<PowerUpsInfoProps> = ({ description, isUsingSwitchIcon, powerUp, name, isChecked }) => {
   const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const removeProbability = useGameCreationFormState((state) => state.removeProbability);
