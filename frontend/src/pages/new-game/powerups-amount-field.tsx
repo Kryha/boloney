@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
@@ -15,10 +15,18 @@ interface Props {
 
 export const PowerupsAmountField: FC<Props> = ({ register }) => {
   const setAmountOfPowerups = useGameCreationFormState((state) => state.setAmountOfPowerups);
+  const setButtonDisabled = useGameCreationFormState((state) => state.setButtonDisabled);
+
   return (
     <PowerupsAmountFieldContainer>
       <Input label={text.newGame.powerupsPerPlayer}>
-        <BaseSelect {...register("powerupsPerPlayer")} onChange={(e) => setAmountOfPowerups(Number(e.target.value))}>
+        <BaseSelect
+          {...register("powerupsPerPlayer")}
+          onChange={(e) => {
+            setAmountOfPowerups(Number(e.target.value));
+            setButtonDisabled(Number(e.target.value) === 0);
+          }}
+        >
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
               {text.param.powerups(n)}

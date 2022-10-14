@@ -30,7 +30,7 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
   isUsingFakeCredits: false,
   amountOfPowerUps: 0,
   powerUpProbability: [],
-  isButtonDisabled: false,
+  isButtonDisabled: true,
   toggleIsPrivate: () => set(({ isPrivate }) => ({ isPrivate: !isPrivate })),
   toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
   togglePowerup: (powerup) =>
