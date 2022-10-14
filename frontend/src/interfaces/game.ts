@@ -7,6 +7,7 @@ export interface Die {
 
 // TODO: update type
 export interface PowerUp {
+  id: string;
   name: PowerUpType;
   image: string;
 }
