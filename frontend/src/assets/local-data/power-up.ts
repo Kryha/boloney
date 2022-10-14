@@ -1,5 +1,5 @@
-import { CoupDEtatIcon, DefectionIcon, DiversionIcon, InterrogateIcon, ReconnaissanceIcon, RegroupIcon, ReinforceIcon, SabotageIcon, SatelliteIcon } from "../assets";
-import { PowerUpType } from "../interfaces";
+import { CoupDEtatIcon, DefectionIcon, DiversionIcon, InterrogateIcon, ReconnaissanceIcon, RegroupIcon, ReinforceIcon, SabotageIcon, SatelliteIcon } from "../images";
+import { PowerUpType } from "../../interfaces";
 
 interface PowerUpDataProps {
   name: PowerUpType;
@@ -9,6 +9,7 @@ interface PowerUpDataProps {
   cardImage: string;
 }
 
+// TODO: Update info
 export const PowerUpData: PowerUpDataProps[] = [
   {
     name: "interrogate",

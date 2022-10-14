@@ -6,7 +6,6 @@ import { BaseOption, BaseSelect, Input } from "../../components";
 import { MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
-import { useGameCreationFormState } from "./game-creation-form-state";
 import { PowerUpsAmountFieldContainer } from "./styles";
 
 interface Props {
@@ -14,22 +13,13 @@ interface Props {
 }
 
 export const PowerUpsAmountField: FC<Props> = ({ register }) => {
-  const setAmountOfPowerUps = useGameCreationFormState((state) => state.setAmountOfPowerUps);
-  const setButtonDisabled = useGameCreationFormState((state) => state.setButtonDisabled);
-
   return (
     <PowerUpsAmountFieldContainer>
-      <Input label={text.newGame.powerupsPerPlayer}>
-        <BaseSelect
-          {...register("powerUpsPerPlayer")}
-          onChange={(e) => {
-            setAmountOfPowerUps(Number(e.target.value));
-            setButtonDisabled(Number(e.target.value) === 0);
-          }}
-        >
+      <Input label={text.newGame.powerUpsPerPlayer}>
+        <BaseSelect {...register("powerUpsPerPlayer")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
-              {text.param.powerups(n)}
+              {text.param.powerUps(n)}
             </BaseOption>
           ))}
         </BaseSelect>

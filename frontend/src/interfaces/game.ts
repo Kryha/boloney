@@ -5,6 +5,7 @@ export interface Die {
   rolledValue: number;
 }
 
+// TODO: update type
 export interface PowerUp {
   name: PowerUpType;
   image: string;

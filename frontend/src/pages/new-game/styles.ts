@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
-import { TrophyIcon } from "../../assets";
 
-import { GeneralText, Heading4, Heading6, Row } from "../../components";
-import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper } from "../../components/buttons/styles";
-import { DescriptionContainer, CheckboxContainer as CheckboxWrapper, CheckContainer, CheckWrapper } from "../../components/checkbox/styles";
+import { Heading4 } from "../../components";
+import { PrimaryButtonWrapper } from "../../components/buttons/styles";
+import { DescriptionContainer, CheckboxContainer as CheckboxWrapper, CheckContainer } from "../../components/checkbox/styles";
 import { InputContainer } from "../../components/inputs/styles";
-import { color, fontWeight, margins, zIndex } from "../../design";
+import { color, margins, zIndex } from "../../design";
 
 export const NewGameContainer = styled.section``;
 
@@ -31,11 +30,6 @@ export const PowerUpsAmountFieldContainer = styled.section`
 `;
 
 export const CheckboxContainer = styled.section`
-  width: 62.5vw;
-  // ${Row} {
-  //   border-top: 1px solid ${color.mediumGrey};
-  //   border-bottom: 1px solid ${color.mediumGrey};
-  // }
   ${CheckboxWrapper}:nth-of-type(1) {
     ${DescriptionContainer} {
       padding-top: ${margins.small5};
@@ -44,16 +38,11 @@ export const CheckboxContainer = styled.section`
 `;
 
 export const ToggleContainer = styled(FieldContainer)`
-  ${CheckWrapper}{
+  ${CheckContainer}{
     align-items: flex-start;
-    padding: ${margins.small4} ${margins.small2} ${margins.small2} ${margins.small6};
+    padding: ${margins.small4} ${margins.small2} ${margins.small2} ${margins.small2};
     justify-content: flex-start;
   }
-  ${CheckContainer}{
-   border: none;
-   width: 60px;
-  }
-  border-bottom: 1px solid ${color.mediumGrey};
 `;
 
 export const BottomContainer = styled.section`
@@ -97,69 +86,4 @@ export const CopyLink = styled.div`
   flex-direction: row;
   gap: ${margins.small4};
   align-items: flex-end;
-`;
-
-export const InfoBox = styled.div`
-  border-top: 1px solid ${color.mediumGrey};
-  width: 100%;
-  ${GeneralText} {
-    margin: ${margins.small3} ${margins.large0} ${margins.small5} ${margins.large0};
-  }
-  ${ButtonWrapper} {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-content: center;
-    align-items: center;
-  }
-`;
-
-export const TotalContainer = styled.section`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: ${margins.small5} ${margins.small5} ${margins.small5} ${margins.small2};
-  gap: ${margins.small5};
-  border-top: 1px solid ${color.mediumGrey};
-  margin-bottom: ${margins.large0};
-  z-index: 5;
-  width: 62.5vw;
-  background: ${color.lightGrey};
-  position: static;
-`;
-
-export const TrophyNewGame = styled(TrophyIcon)`
-  margin-top: 3px;
-`;
-
-export const TrophyContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  gap: ${margins.small0};
-  ${Heading6} {
-    text-transform: uppercase;
-  }
-`;
-
-interface Props {
-  isError?: boolean;
-}
-
-export const Percentage = styled(GeneralText) <Props>`
-  font-weight: ${fontWeight.bolder};
-  color: ${({ isError }) => (isError ? color.red : color.black)};
-`;
-
-
-export const PercentageContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  ${GeneralText} {
-    display: inline;
-  }
 `;
