@@ -21,7 +21,7 @@ export const PowerUpsAmountField: FC<Props> = ({ register }) => {
     <PowerUpsAmountFieldContainer>
       <Input label={text.newGame.powerupsPerPlayer}>
         <BaseSelect
-          {...register("powerupsPerPlayer")}
+          {...register("powerUpsPerPlayer")}
           onChange={(e) => {
             setAmountOfPowerUps(Number(e.target.value));
             setButtonDisabled(Number(e.target.value) === 0);

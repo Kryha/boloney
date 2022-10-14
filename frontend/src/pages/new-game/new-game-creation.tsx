@@ -26,12 +26,14 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
+
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     data.players = Number(data.players);
     data.dicePerPlayer = Number(data.dicePerPlayer);
-    data.powerupsPerPlayer = Number(data.powerupsPerPlayer);
+    data.powerUpsPerPlayer = Number(data.powerUpsPerPlayer);
     data.availablePowerUps = availablePowerUps;
     data.isUsingFakeCredits = isUsingFakeCredits;
+    // TODO: add probability thing
 
     const res = await createMatch(data);
     if (typeof res === "string") {

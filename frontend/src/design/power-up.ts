@@ -1,8 +1,8 @@
 import { CoupDEtatIcon, DefectionIcon, DiversionIcon, InterrogateIcon, ReconnaissanceIcon, RegroupIcon, ReinforceIcon, SabotageIcon, SatelliteIcon } from "../assets";
-import { PowerupType } from "../interfaces";
+import { PowerUpType } from "../interfaces";
 
 interface PowerUpDataProps {
-  name: PowerupType;
+  name: PowerUpType;
   shortDescription: string;
   longDescription: string;
   iconImage: string;
@@ -18,7 +18,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: InterrogateIcon,
   },
   {
-    name: "satellite image",
+    name: "satelliteImage",
     shortDescription: "ask target opponent what the sum of their dice are.",
     longDescription: "ask target opponent what the sum of their dice are.",
     iconImage: SatelliteIcon,
@@ -53,7 +53,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: RegroupIcon,
   },
   {
-    name: "coup d'etat",
+    name: "coupDetat",
     shortDescription: "target player discards all their cards, then the player taking the action draws that many cards.",
     longDescription: "target player discards all their cards, then the player taking the action draws that many cards.",
     iconImage: CoupDEtatIcon,

@@ -1,15 +1,15 @@
 import { FC } from "react";
-import { PowerUp as PowerUpType, PowerupType } from "../../interfaces/game";
+import { PowerUp as PowerUpData, PowerUpType } from "../../interfaces/game";
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
 import { PowerUpInfo } from "./power-up";
 
 import { CheckboxContainer, CheckContainer, CheckWrapper, Close } from "./styles";
 
 interface Props {
-  name: PowerupType;
+  name: PowerUpType;
   description?: string;
   isTop?: boolean;
-  powerUp: PowerUpType;
+  powerUp: PowerUpData;
   isDisabled?: boolean;
   isChecked: boolean;
 
