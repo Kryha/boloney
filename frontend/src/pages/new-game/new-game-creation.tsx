@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
-import { MatchSettings } from "../../interfaces";
 import { useMatchMaker } from "../../service";
+import { MatchSettings } from "../../types";
 import { FakeCreditsField } from "./fake-credits-field";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { PlayersField } from "./players-field";

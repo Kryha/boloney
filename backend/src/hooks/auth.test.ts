@@ -1,6 +1,6 @@
 import { createMock } from "ts-auto-mock";
 import { On, method, Method } from "ts-auto-mock/extension";
-import { AccountKeys } from "../interfaces/models";
+import { AccountKeys } from "../types/models";
 import { storeNewKeysInCollection, getNewKeysFromToolkit, readUserKeys, afterAuthenticateCustom } from "./auth";
 
 describe("After authentication hook", () => {

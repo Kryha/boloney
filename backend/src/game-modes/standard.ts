@@ -1,5 +1,5 @@
-import { PowerupType } from "../interfaces/game";
-import { MatchState } from "../interfaces/match";
+import { PowerupType } from "../types/game";
+import { MatchState } from "../types/match";
 
 export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {
   logger.info("----------------- MATCH INITIALIZED -----------------");

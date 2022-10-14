@@ -19,3 +19,13 @@ export const dieSchema = z.object({
 });
 
 export type Die = z.infer<typeof dieSchema>;
+
+export const matchSettingsSchema = z.object({
+  players: z.number(),
+  dicePerPlayer: z.number(),
+  powerupsPerPlayer: z.number(),
+  availablePowerups: z.array(powerUpTypeSchema),
+  isUsingFakeCredits: z.boolean(),
+});
+
+export type MatchSettings = z.infer<typeof matchSettingsSchema>;

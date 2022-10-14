@@ -7,3 +7,8 @@ export const accountKeysSchema = z.object({
 });
 
 export type AccountKeys = z.infer<typeof accountKeysSchema>;
+
+export interface AuthFields {
+  username: string;
+  password: string;
+}

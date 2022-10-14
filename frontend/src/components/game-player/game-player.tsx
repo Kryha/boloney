@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { Player } from "@zk-liars-dice/types";
 
 import { avatarHeight } from "../atoms";
 import { GamePlayersWrapper, PlayerColor, PlayerNameContainer, PlayerAvatar, PlayerName as Name } from "./styles";
 import { handProportion } from "../../design/hand";
+import { Player } from "../../types";
 
 interface GamePlayerProps {
   totalPlayers: number;
