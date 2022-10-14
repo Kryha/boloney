@@ -11,6 +11,7 @@ export const newGame = {
   dice: "dice",
   powerUps: "power-ups",
   powerUp: "power-up",
+  // TODO: delete these
   powerup1: "power-up 01",
   powerup2: "power-up 02",
   powerup3: "power-up 03",
