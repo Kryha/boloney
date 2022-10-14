@@ -9,7 +9,7 @@ const MockState = {
   numberOfDice: 30,
   phaseNumber: 7,
   tillDrawRound: 2,
-  amountOfPowerups: 1,
+  amountOfPowerUps: 1,
 };
 
 export const MatchStats: FC = () => {
@@ -19,7 +19,7 @@ export const MatchStats: FC = () => {
       <MatchStateVerticalDivider />
       <MatchStateItemStage phaseNumber={MockState.phaseNumber} />
       <MatchStateVerticalDivider />
-      <MatchStateItemDrawRound powerUpAmount={MockState.amountOfPowerups} roundNumber={MockState.tillDrawRound} />
+      <MatchStateItemDrawRound powerUpAmount={MockState.amountOfPowerUps} roundNumber={MockState.tillDrawRound} />
     </MatchStatsContainer>
   );
 };

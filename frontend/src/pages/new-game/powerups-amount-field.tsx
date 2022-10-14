@@ -7,24 +7,23 @@ import { MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER } from "../../constant
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
 import { useGameCreationFormState } from "./game-creation-form-state";
-import { Fields } from "./new-game-creation";
-import { PowerupsAmountFieldContainer } from "./styles";
+import { PowerUpsAmountFieldContainer } from "./styles";
 
 interface Props {
   register: UseFormRegister<MatchSettings>;
 }
 
-export const PowerupsAmountField: FC<Props> = ({ register }) => {
-  const setAmountOfPowerups = useGameCreationFormState((state) => state.setAmountOfPowerups);
+export const PowerUpsAmountField: FC<Props> = ({ register }) => {
+  const setAmountOfPowerUps = useGameCreationFormState((state) => state.setAmountOfPowerUps);
   const setButtonDisabled = useGameCreationFormState((state) => state.setButtonDisabled);
 
   return (
-    <PowerupsAmountFieldContainer>
+    <PowerUpsAmountFieldContainer>
       <Input label={text.newGame.powerupsPerPlayer}>
         <BaseSelect
           {...register("powerupsPerPlayer")}
           onChange={(e) => {
-            setAmountOfPowerups(Number(e.target.value));
+            setAmountOfPowerUps(Number(e.target.value));
             setButtonDisabled(Number(e.target.value) === 0);
           }}
         >
@@ -35,6 +34,6 @@ export const PowerupsAmountField: FC<Props> = ({ register }) => {
           ))}
         </BaseSelect>
       </Input>
-    </PowerupsAmountFieldContainer>
+    </PowerUpsAmountFieldContainer>
   );
 };

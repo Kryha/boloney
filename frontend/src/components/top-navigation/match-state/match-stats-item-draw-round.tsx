@@ -16,7 +16,7 @@ export const MatchStateItemDrawRound: FC<PropItem> = ({ powerUpAmount, roundNumb
   return (
     <MatchStateItemContainer>
       <Lightning size={margins.small5} />
-      <GeneralText>{param.drawPowerupsRound(powerUpAmount)}</GeneralText>
+      <GeneralText>{param.drawPowerUpsRound(powerUpAmount)}</GeneralText>
       <GeneralText>{text.match.inXAmountOfRounds}</GeneralText>
       <GeneralText>{param.matchStatusItemNumber(roundNumber)}</GeneralText>
       <GeneralText>{param.round(roundNumber)}</GeneralText>

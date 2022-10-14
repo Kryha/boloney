@@ -26,7 +26,7 @@ export const FieldContainer = styled.section`
   margin-top: ${margins.medium1};
 `;
 
-export const PowerupsAmountFieldContainer = styled.section`
+export const PowerUpsAmountFieldContainer = styled.section`
   margin-top: ${margins.medium1};
 `;
 

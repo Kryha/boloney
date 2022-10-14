@@ -40,7 +40,7 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   players: 2,
   dicePerPlayer: 5,
   powerupsPerPlayer: 3,
-  availablePowerups: ["p1", "p2", "p3", "p4"],
+  availablePowerUps: ["p1", "p2", "p3", "p4"],
   isUsingFakeCredits: true,
 };
 

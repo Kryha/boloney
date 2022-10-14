@@ -28,11 +28,6 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, _param
     playerOrder: [],
     matchStage: 1,
     emptyTicks: 0,
-    players: params.players,
-    dicePerPlayer: params.dicePerPlayer,
-    powerupsPerPlayer: params.powerupsPerPlayer,
-    availablePowerups: params.availablePowerups,
-    isUsingFakeCredits: params.isUsingFakeCredits,
   };
 
   logger.info("----------------- STATE -----------------");
