@@ -15,7 +15,7 @@ export const text = {
   authForm,
   rules,
   newGame,
-  newGameForm
+  newGameForm,
   match,
   home,
 };
