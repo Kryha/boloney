@@ -1,4 +1,16 @@
-import { PowerupType } from "./game";
+export interface Player {
+  id: string;
+  name: string;
+  color: string;
+  avatarName: string;
+  connected: boolean;
+}
+
+export type PowerupType = "p1" | "p2" | "p3" | "p4";
+
+export interface Die {
+  rolledValue: number;
+}
 
 // TODO: define and handle types with Zod
 // TODO: use shared file for front- and backend since this is a copy of the one at frontend/src/interfaces/match-settings.ts
@@ -47,3 +59,5 @@ export enum MatchStage {
 export enum OpCode {
   getPowerups = 1,
 }
+
+// TODO: define predicates and parsers

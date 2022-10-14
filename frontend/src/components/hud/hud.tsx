@@ -1,5 +1,6 @@
-import { Die } from "@zk-liars-dice/types";
 import { FC } from "react";
+
+import { Die } from "../../types";
 import { DiceOverview } from "../dice-overview";
 import { PlayerMenu } from "../player-menu";
 import { PowerUpOverview } from "../power-up-overview";

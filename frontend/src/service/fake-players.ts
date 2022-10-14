@@ -1,5 +1,5 @@
 // TODO: delete this file
-import { Player } from "@zk-liars-dice/types";
+import { Player } from "../types";
 
 export const Players: Player[] = [
   {

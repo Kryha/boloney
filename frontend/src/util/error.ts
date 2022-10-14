@@ -1,4 +1,4 @@
-import { NkCode, NkError, nkErrorSchema } from "@zk-liars-dice/types";
+import { NkCode, NkError, nkErrorSchema } from "../types";
 
 export const parseError = async (error: unknown): Promise<NkError> => {
   const unknownErr = { code: NkCode.UNKNOWN, message: "Unknown error" };

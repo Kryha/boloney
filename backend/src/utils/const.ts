@@ -1,4 +1,4 @@
-import { MatchSettings } from "../interfaces";
+import { MatchSettings } from "../types";
 
 export const enum Scene {
   Initializer = 0,
@@ -28,8 +28,7 @@ export const enum OP {
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
 
-// TODO: define and handle types with Zod
-// Power-ups will be in the form of:
+// TODO: Power-ups will be in the form of:
 // powerUps: {
 // 	1: 0.25,
 // 	2: 0,

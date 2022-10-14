@@ -1,11 +1,11 @@
-import { Die } from "@zk-liars-dice/types";
 import { FC } from "react";
 
 import { DieOverviewWrapper, DieOverviewContainer, YourDiceContainer } from "./styles";
 import { Die as DieComponent } from "../die";
 import { GeneralText } from "../atoms/text";
 import { text } from "../../assets/text";
-import { useViewport } from "../../hooks/use-viewport";
+import { useViewport } from "../../hooks";
+import { Die } from "../../types";
 
 interface DiceOverviewProps {
   dice?: Die[];

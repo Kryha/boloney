@@ -1,4 +1,5 @@
-import { MatchSettings, MatchState, OpCode, PlayerState } from "../interfaces/match";
+import { PowerupType } from "../types/game";
+import { MatchState } from "../types/match";
 
 const defaultSettings: MatchSettings = {
   requiredPlayers: 7,

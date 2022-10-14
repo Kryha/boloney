@@ -1,8 +1,0 @@
-{
-  "name": "@zk-liars-dice/types",
-  "packageManager": "yarn@3.2.2",
-  "type": "module",
-  "dependencies": {
-    "zod": "^3.19.1"
-  }
-}

@@ -9,3 +9,5 @@ export const isBasicError = (error: unknown): error is BasicError => {
 export const isNkError = (error: unknown): error is nkruntime.Error => {
   return isBasicError(error) && "code" in error;
 };
+
+// TODO: improve predicates

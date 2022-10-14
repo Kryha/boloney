@@ -3579,7 +3579,6 @@ __metadata:
     "@types/node": ^18.7.6
     "@typescript-eslint/eslint-plugin": ^5.33.0
     "@typescript-eslint/parser": ^5.33.0
-    "@zk-liars-dice/types": "workspace:^"
     crypto-js: ^4.1.1
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
@@ -3593,7 +3592,6 @@ __metadata:
     tslib: ^2.4.0
     ttypescript: ^1.5.13
     typescript: ^4.8.3
-    zod: ^3.19.1
   languageName: unknown
   linkType: soft
 
@@ -3616,7 +3614,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.33.0
     "@typescript-eslint/parser": ^5.33.0
     "@vitejs/plugin-react": ^2.0.0
-    "@zk-liars-dice/types": "workspace:^"
     customize-cra: ^1.0.0
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
@@ -3640,14 +3637,6 @@ __metadata:
     vite-plugin-svgr: ^2.2.1
     zod: ^3.19.1
     zustand: ^4.1.1
-  languageName: unknown
-  linkType: soft
-
-"@zk-liars-dice/types@workspace:^, @zk-liars-dice/types@workspace:types":
-  version: 0.0.0-use.local
-  resolution: "@zk-liars-dice/types@workspace:types"
-  dependencies:
-    zod: ^3.19.1
   languageName: unknown
   linkType: soft
 
