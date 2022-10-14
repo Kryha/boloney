@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@3d-dice/dice-box": "^1.0.5",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@heroiclabs/nakama-js": "^2.4.1",

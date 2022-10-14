@@ -1,0 +1,15 @@
+{
+  "name": "Smooth Dice",
+  "systemName": "smooth",
+  "author": "Frank Ali",
+  "version": 0.1,
+  "meshName": "smoothDice",
+  "meshFile": "smoothDice.json",
+  "material": {
+    "type": "standard",
+    "diffuseTexture": "new-temp.png",
+    "diffuseLevel": 1,
+    "bumpTexture": "normal3.png",
+    "bumpLevel": 0.2
+  }
+}

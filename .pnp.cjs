@@ -49,6 +49,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"\
         }]\
       ]],\
+      ["@3d-dice/dice-box", [\
+        ["npm:1.0.5", {\
+          "packageLocation": "./.yarn/unplugged/@3d-dice-dice-box-npm-1.0.5-09b475fd7e/node_modules/@3d-dice/dice-box/",\
+          "packageDependencies": [\
+            ["@3d-dice/dice-box", "npm:1.0.5"],\
+            ["@babylonjs/core", "npm:5.28.0"],\
+            ["@babylonjs/loaders", "virtual:09b475fd7e96cca1881b11956e66dc5fabe9f370f2874a34d96b5a9b1c825e8393c82d8776baf57c55b89a6e097c2f20c20ed0d8357a0b539b2099c56c5e7b70#npm:5.28.0"],\
+            ["@babylonjs/materials", "virtual:09b475fd7e96cca1881b11956e66dc5fabe9f370f2874a34d96b5a9b1c825e8393c82d8776baf57c55b89a6e097c2f20c20ed0d8357a0b539b2099c56c5e7b70#npm:5.28.0"],\
+            ["copy-dir", "npm:1.3.0"],\
+            ["node-abort-controller", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@ampproject/remapping", [\
         ["npm:2.2.0", {\
           "packageLocation": "./.yarn/cache/@ampproject-remapping-npm-2.2.0-114878fa50-d74d170d06.zip/node_modules/@ampproject/remapping/",\
@@ -4316,6 +4330,63 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@babylonjs/core", [\
+        ["npm:5.28.0", {\
+          "packageLocation": "./.yarn/cache/@babylonjs-core-npm-5.28.0-61574514ea-13792397cf.zip/node_modules/@babylonjs/core/",\
+          "packageDependencies": [\
+            ["@babylonjs/core", "npm:5.28.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@babylonjs/loaders", [\
+        ["npm:5.28.0", {\
+          "packageLocation": "./.yarn/cache/@babylonjs-loaders-npm-5.28.0-b92162131e-c73c7e3c64.zip/node_modules/@babylonjs/loaders/",\
+          "packageDependencies": [\
+            ["@babylonjs/loaders", "npm:5.28.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:09b475fd7e96cca1881b11956e66dc5fabe9f370f2874a34d96b5a9b1c825e8393c82d8776baf57c55b89a6e097c2f20c20ed0d8357a0b539b2099c56c5e7b70#npm:5.28.0", {\
+          "packageLocation": "./.yarn/__virtual__/@babylonjs-loaders-virtual-d6719f6595/0/cache/@babylonjs-loaders-npm-5.28.0-b92162131e-c73c7e3c64.zip/node_modules/@babylonjs/loaders/",\
+          "packageDependencies": [\
+            ["@babylonjs/loaders", "virtual:09b475fd7e96cca1881b11956e66dc5fabe9f370f2874a34d96b5a9b1c825e8393c82d8776baf57c55b89a6e097c2f20c20ed0d8357a0b539b2099c56c5e7b70#npm:5.28.0"],\
+            ["@babylonjs/core", "npm:5.28.0"],\
+            ["@types/babylonjs-gltf2interface", null],\
+            ["@types/babylonjs__core", null],\
+            ["babylonjs-gltf2interface", null]\
+          ],\
+          "packagePeers": [\
+            "@babylonjs/core",\
+            "@types/babylonjs-gltf2interface",\
+            "@types/babylonjs__core",\
+            "babylonjs-gltf2interface"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@babylonjs/materials", [\
+        ["npm:5.28.0", {\
+          "packageLocation": "./.yarn/cache/@babylonjs-materials-npm-5.28.0-f17d2a7735-d1ee0ccac4.zip/node_modules/@babylonjs/materials/",\
+          "packageDependencies": [\
+            ["@babylonjs/materials", "npm:5.28.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:09b475fd7e96cca1881b11956e66dc5fabe9f370f2874a34d96b5a9b1c825e8393c82d8776baf57c55b89a6e097c2f20c20ed0d8357a0b539b2099c56c5e7b70#npm:5.28.0", {\
+          "packageLocation": "./.yarn/__virtual__/@babylonjs-materials-virtual-d149c91a7c/0/cache/@babylonjs-materials-npm-5.28.0-f17d2a7735-d1ee0ccac4.zip/node_modules/@babylonjs/materials/",\
+          "packageDependencies": [\
+            ["@babylonjs/materials", "virtual:09b475fd7e96cca1881b11956e66dc5fabe9f370f2874a34d96b5a9b1c825e8393c82d8776baf57c55b89a6e097c2f20c20ed0d8357a0b539b2099c56c5e7b70#npm:5.28.0"],\
+            ["@babylonjs/core", "npm:5.28.0"],\
+            ["@types/babylonjs__core", null]\
+          ],\
+          "packagePeers": [\
+            "@babylonjs/core",\
+            "@types/babylonjs__core"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@bcoe/v8-coverage", [\
         ["npm:0.2.3", {\
           "packageLocation": "./.yarn/cache/@bcoe-v8-coverage-npm-0.2.3-9e27b3c57e-850f930553.zip/node_modules/@bcoe/v8-coverage/",\
@@ -6628,6 +6699,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./frontend/",\
           "packageDependencies": [\
             ["@zk-liars-dice/frontend", "workspace:frontend"],\
+            ["@3d-dice/dice-box", "npm:1.0.5"],\
             ["@emotion/babel-plugin", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.2"],\
             ["@emotion/react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.0"],\
             ["@emotion/styled", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.0"],\
@@ -7775,6 +7847,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["convert-source-map", "npm:1.8.0"],\
             ["safe-buffer", "npm:5.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["copy-dir", [\
+        ["npm:1.3.0", {\
+          "packageLocation": "./.yarn/cache/copy-dir-npm-1.3.0-04bd189206-92779cd699.zip/node_modules/copy-dir/",\
+          "packageDependencies": [\
+            ["copy-dir", "npm:1.3.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11906,6 +11987,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/negotiator-npm-0.6.3-9d50e36171-b8ffeb1e26.zip/node_modules/negotiator/",\
           "packageDependencies": [\
             ["negotiator", "npm:0.6.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["node-abort-controller", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/node-abort-controller-npm-3.0.1-0ee00c2bea-2b3d75c652.zip/node_modules/node-abort-controller/",\
+          "packageDependencies": [\
+            ["node-abort-controller", "npm:3.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\

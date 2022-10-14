@@ -5,7 +5,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
-import { Landing, NewGame, Home, Lobby } from "../pages";
+import { Landing, NewGame, Home, Lobby, ThrowDice, Game } from "../pages";
 import { useAuth } from "../service";
 
 const AppRoutes: FC = () => {
@@ -21,6 +21,8 @@ const AppRoutes: FC = () => {
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.newGame} element={<NewGame />} />
           <Route path={routes.lobby} element={<Lobby />} />
+          <Route path={routes.throwDice} element={<ThrowDice />} />
+          <Route path={routes.game} element={<Game />} />
         </>
       ) : (
         <>

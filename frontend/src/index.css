@@ -5,6 +5,31 @@
   font-weight: 400;
 }
 
+#dice-box {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  width: 75vw;
+  height: 100%;
+}
+
+#dice-box canvas {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  width: 80vw;
+  height: 92.802vh;
+  margin-left: 12.5vw;
+}
+
+.adv-roller {
+  display: none;
+}
+
+.dg{
+  display: none;
+}
+
 @font-face {
   font-family: "itc-clearface-black-italic";
   src: url("./assets/fonts/itc-clearface-W03-Black-italic.otf") format("opentype");
