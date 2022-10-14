@@ -6,6 +6,7 @@ import { Player } from "../../interfaces/player";
 
 import { ContentContainer, MainContentContainer } from "./styles";
 import { Die } from "../../interfaces";
+import { TopNavigation } from "../top-navigation";
 
 interface GameLayoutProps {
   players: Player[];
@@ -16,6 +17,7 @@ interface GameLayoutProps {
 export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children }) => {
   return (
     <>
+      <TopNavigation isInMatch />
       <GamePlayersOverview players={players} />
       <HUD dice={dice} />
       <MainContentContainer>
