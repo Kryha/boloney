@@ -82,7 +82,7 @@ export const TextLabel = styled(GeneralText)`
     position: absolute;
     content: "% ";
     font-family: ibm-plex-mono, sans-serif;
-    font-weight: 400;
+    font-weight: ${fontWeight.regular};
     font-size: 16px;
     line-height: 24px;
     padding-left: 3px;
