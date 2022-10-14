@@ -83,7 +83,7 @@ export const MenuContainer = styled.div`
 export const RulesContainer = styled.div`
   position: absolute;
   background: ${color.lightGrey};
-  width: 100%;
+  width: 25vw;
   right: 0;
   padding: 20px;
   overflow-y: scroll;
