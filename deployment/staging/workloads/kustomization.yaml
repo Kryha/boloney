@@ -5,7 +5,6 @@ resources:
 
   - ingresses/frontend.yaml
   - ingresses/backend.yaml
-  - ingresses/backend-api.yaml
 
   - secrets/backend.yaml
 patchesStrategicMerge:
