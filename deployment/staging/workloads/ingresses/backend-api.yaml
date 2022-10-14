@@ -9,17 +9,17 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
 spec:
   tls:
-    - secretName: "backend.liars-dice.staging.kryha.dev"
+    - secretName: "api.liars-dice.staging.kryha.dev"
       hosts:
-        - "backend.liars-dice.staging.kryha.dev"
+        - "api.liars-dice.staging.kryha.dev"
   rules:
-    - host: "backend.liars-dice.staging.kryha.dev"
+    - host: "api.liars-dice.staging.kryha.dev"
       http:
         paths:
           - path: "/(.*)"
             pathType: Prefix
             backend:
               service:
-                name: backend
+                name: api
                 port:
-                  name: dashboard
+                  name: api
