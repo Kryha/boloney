@@ -20,11 +20,11 @@ import {
 
 interface LineContainerProps {
   children: ReactNode;
-  playersReady?: boolean;
+  arePlayersReady?: boolean;
   onClick?: () => void;
 }
 
-export const LineContainer: FC<LineContainerProps> = ({ children, playersReady, onClick }) => {
+export const LineContainer: FC<LineContainerProps> = ({ children, arePlayersReady, onClick }) => {
   const { width, height } = useViewport();
 
   return (
@@ -41,8 +41,8 @@ export const LineContainer: FC<LineContainerProps> = ({ children, playersReady, 
       <WaitingWrapper>
         <HorizontalContainer height={height} width={width}>
           <HorizontalLine />
-          <WaitForOthersContainer playersReady={playersReady}>
-            {playersReady ? (
+          <WaitForOthersContainer arePlayersReady={arePlayersReady}>
+            {arePlayersReady ? (
               <PrimaryButton text={text.general.startGame} onClick={onClick && onClick} />
             ) : (
               <WaitingText>{text.general.waitingForTheOthersToJoin}</WaitingText>

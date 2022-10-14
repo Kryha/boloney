@@ -83,11 +83,11 @@ export const HorizontalLineContainerTwo = styled.div<ViewProps>`
 export const HorizontalLineInitial = styled(HorizontalDivider)``;
 
 interface WaitingProps {
-  playersReady?: boolean;
+  arePlayersReady?: boolean;
 }
 
 export const WaitForOthersContainer = styled.div<WaitingProps>`
-  background:  ${({ playersReady }) => (playersReady ? "none" : color.lightGrey)};
+  background:  ${({ arePlayersReady }) => (arePlayersReady ? "none" : color.lightGrey)};
   position: absolute;
   padding: ${margins.small2} ${margins.small2} ${margins.small2} 1.5em;
   margin-left: auto;
@@ -95,7 +95,7 @@ export const WaitForOthersContainer = styled.div<WaitingProps>`
   left: 0;
   right: 0;
   text-align: center;
-  width: 358.5px;
+  width: 358px;
   display: flex;
   align-items: center;
   height: 100%;
