@@ -20,6 +20,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ description, isUsingSwitchIcon, 
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const removeProbability = useGameCreationFormState((state) => state.removeProbability);
   const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
+  const setButtonDisabled = useGameCreationFormState((state) => state.setButtonDisabled);
   const [value, setValue] = useState(0);
 
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
