@@ -15,8 +15,8 @@ import {
   TrophyNewGame,
 } from "./styles";
 
-export const PowerupsField: FC = () => {
-  const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
+export const PowerUpsField: FC = () => {
+  const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const togglePowerup = useGameCreationFormState((state) => state.togglePowerup);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
@@ -25,7 +25,7 @@ export const PowerupsField: FC = () => {
 
   return (
     <FieldContainer>
-      <Input label={text.newGame.whichPowerups}>
+      <Input label={text.newGame.whichPowerUps}>
         <>
           <InfoBox>
             <GeneralText>{text.newGame.powerUpDesc}</GeneralText>
@@ -38,10 +38,10 @@ export const PowerupsField: FC = () => {
                 key={index}
                 isTop
                 description={data.shortDescription}
-                isChecked={availablePowerups.includes(data.name)}
+                isChecked={availablePowerUps.includes(data.name)}
                 toggleCheck={() => togglePowerup(data.name)}
                 powerUp={{ name: data.name, image: data.iconImage }}
-                isDisabled={(isButtonDisabled && !availablePowerups.includes(data.name)) || amountOfPowerUps === availablePowerups.length}
+                isDisabled={(isButtonDisabled && !availablePowerUps.includes(data.name)) || amountOfPowerUps === availablePowerUps.length}
                 name={data.name}
               />
             ))}

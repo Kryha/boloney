@@ -8,7 +8,7 @@ export interface ProbabilityType {
 }
 
 export interface NewGameState {
-  availablePowerups: PowerupType[];
+  availablePowerUps: PowerupType[];
   isUsingFakeCredits: boolean;
   amountOfPowerUps: number;
   powerUpProbability: ProbabilityType[];
@@ -18,13 +18,13 @@ export interface NewGameState {
   toggleIsPrivate: () => void;
   toggleIsUsingFakeCredits: () => void;
   togglePowerup: (powerup: PowerupType) => void;
-  setAmountOfPowerups: (amountOfPowerUps: number) => void;
+  setAmountOfPowerUps: (amountOfPowerUps: number) => void;
   setPowerUpProbability: (probability: ProbabilityType) => void;
   removeProbability: (name: PowerupType) => void;
 }
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
-  availablePowerups: [],
+  availablePowerUps: [],
   isUsingFakeCredits: false,
   amountOfPowerUps: 0,
   powerUpProbability: [],
@@ -32,14 +32,14 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
   toggleIsPrivate: () => set(({ isPrivate }) => ({ isPrivate: !isPrivate })),
   toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
   togglePowerup: (powerup) =>
-    set(({ availablePowerups }) => {
-      const powerupsSet = new Set(availablePowerups);
+    set(({ availablePowerUps }) => {
+      const powerupsSet = new Set(availablePowerUps);
       const itemFound = powerupsSet.delete(powerup);
       if (!itemFound) powerupsSet.add(powerup);
 
-      return { availablePowerups: Array.from(powerupsSet) };
+      return { availablePowerUps: Array.from(powerupsSet) };
     }),
-  setAmountOfPowerups: (amountOfPowerUps: number) => set(() => ({ amountOfPowerUps: amountOfPowerUps })),
+  setAmountOfPowerUps: (amountOfPowerUps: number) => set(() => ({ amountOfPowerUps: amountOfPowerUps })),
   setPowerUpProbability: ({ name: name, probability: probability }) => {
     set((state) => ({
       powerUpProbability: [

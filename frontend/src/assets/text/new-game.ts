@@ -5,7 +5,7 @@ export const newGame = {
   players: "players",
   dicePerPlayer: "dice per player",
   powerupsPerPlayer: "power-ups per player",
-  whichPowerups: "which power-ups do you want?",
+  whichPowerUps: "which power-ups do you want?",
   typeOfBet: "type of bet",
 
   dice: "dice",
