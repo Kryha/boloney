@@ -1,4 +1,4 @@
 export * from "./collection";
-export * from "./match";
+export * from "./game";
 export * from "./auth";
 export * from "./error";
