@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { text } from "../../assets";
 import { GeneralContentWrapper, Heading1, Heading4, Heading6, PrimaryButton } from "../../components";
 import { routes } from "../../navigation";
-import { useMatchMaker } from "../../service/match-maker";
+import { useMatchMaker } from "../../service";
 import { ButtonContainer } from "../new-game/styles";
 import { MatchSelectContainer } from "./styles";
 
