@@ -8,6 +8,7 @@ export const color = {
   purple: "#AB8EFF",
   lightGrey: "#DDDDD9",
   mediumGrey: "#B6B4B2",
+  grey: "#D4D4D1",
   darkGrey: "#989898",
   white: "#EEEAE9",
   offWhite: "#EEEAE9",

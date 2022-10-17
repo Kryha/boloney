@@ -1,10 +1,11 @@
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "backend.localhost";
 export const API_URL = import.meta.env.VITE_API_URL || "api.localhost";
-export const API_PORT = "80";
+export const API_PORT = import.meta.env.VITE_API_PORT || "80";
 export const SERVER_KEY = "defaultkey";
 
 export const SMALL_VIEWPORT_HEIGHT = 800;
 export const SMALL_VIEWPORT_WIDTH = 670;
+export const MEDIUM_VIEWPORT_WIDTH = 1440;
 
 // TODO: Add real game time
 export const GAME_TIME_MINUTES = 1;
@@ -18,7 +19,7 @@ export const MINIMUM_USERNAME_LENGTH = 2;
 export const MINIMUM_PASSWORD_LENGTH = 8;
 export const APPEAR_ONLINE = true;
 export const CREATE_ACCOUNT = true;
-export const USE_SSL = false;
+export const USE_SSL = !!import.meta.env.VITE_USE_SSL || false;
 
 export const MAX_PLAYERS = 7;
 export const MIN_PLAYERS = 2;
