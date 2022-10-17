@@ -1,3 +1,5 @@
+import { isBoolean, isNumber, isObject, isString } from "./primitive";
+
 export interface Player {
   id: string;
   name: string;
@@ -15,11 +17,11 @@ export const isPlayer = (value: unknown): value is Player => {
     assertedVal.color !== undefined &&
     assertedVal.avatarName !== undefined &&
     assertedVal.color !== undefined &&
-    typeof assertedVal.id === "string" &&
-    typeof assertedVal.name === "string" &&
-    typeof assertedVal.color === "string" &&
-    typeof assertedVal.avatarName === "string" &&
-    typeof assertedVal.connected === "boolean"
+    isString(assertedVal.id) &&
+    isString(assertedVal.name) &&
+    isString(assertedVal.color) &&
+    isString(assertedVal.avatarName) &&
+    isBoolean(assertedVal.connected)
   );
 };
 
@@ -46,7 +48,7 @@ export interface Die {
 export const isDie = (value: unknown): value is Die => {
   const assertedVal = value as Die;
 
-  return assertedVal.rolledValue !== undefined && typeof assertedVal.rolledValue === "number";
+  return assertedVal.rolledValue !== undefined && isNumber(assertedVal.rolledValue);
 };
 
 export interface MatchSettings {
@@ -66,10 +68,10 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     assertedVal.powerupsPerPlayer !== undefined &&
     assertedVal.availablePowerups !== undefined &&
     assertedVal.isUsingFakeCredits !== undefined &&
-    typeof assertedVal.players === "number" &&
-    typeof assertedVal.dicePerPlayer === "number" &&
-    typeof assertedVal.powerupsPerPlayer === "number" &&
-    typeof assertedVal.isUsingFakeCredits === "boolean" &&
+    isNumber(assertedVal.players) &&
+    isNumber(assertedVal.dicePerPlayer) &&
+    isNumber(assertedVal.powerupsPerPlayer) &&
+    isBoolean(assertedVal.isUsingFakeCredits) &&
     isPowerupTypeArray(assertedVal.availablePowerups)
   );
 };
@@ -87,7 +89,7 @@ export const isMatchState = (value: unknown): value is MatchState => {
   return (
     assertedVal.presences !== undefined &&
     assertedVal.emptyTicks !== undefined &&
-    typeof assertedVal.presences === "object" &&
-    typeof assertedVal.emptyTicks === "number"
+    isObject(assertedVal.presences) &&
+    isNumber(assertedVal.emptyTicks)
   );
 };

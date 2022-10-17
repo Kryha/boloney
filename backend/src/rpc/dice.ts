@@ -1,4 +1,5 @@
 import { text } from "../text";
+import { isNumber } from "../types";
 import { handleError, MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER, range, rpcHandler } from "../utils";
 
 interface RollPayload {
@@ -10,7 +11,7 @@ const isRollPayload = (value: unknown): value is RollPayload => {
 
   return (
     assertedVal.diceAmount !== undefined &&
-    typeof assertedVal.diceAmount === "number" &&
+    isNumber(assertedVal.diceAmount) &&
     assertedVal.diceAmount >= MIN_DICE_PER_PLAYER &&
     assertedVal.diceAmount <= MAX_DICE_PER_PLAYER
   );

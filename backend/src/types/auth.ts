@@ -1,3 +1,5 @@
+import { isString } from "./primitive";
+
 export interface AccountKeys {
   privateKey: string;
   viewKey: string;
@@ -11,8 +13,8 @@ export const isAccountKeys = (value: unknown): value is AccountKeys => {
     assertedVal.address !== undefined &&
     assertedVal.viewKey !== undefined &&
     assertedVal.privateKey !== undefined &&
-    typeof assertedVal.address === "string" &&
-    typeof assertedVal.viewKey === "string" &&
-    typeof assertedVal.privateKey === "string"
+    isString(assertedVal.address) &&
+    isString(assertedVal.viewKey) &&
+    isString(assertedVal.privateKey)
   );
 };
