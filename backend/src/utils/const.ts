@@ -44,6 +44,14 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   isUsingFakeCredits: true,
 };
 
+export const PRIVATE_KEY_LENGTH = 58;
+export const VIEW_KEY_LENGTH = 56;
+export const ADDRESS_LENGTH = 63;
+
+export const PRIVATE_KEY_PREFIX = "APrivateKey1";
+export const VIEW_KEY_PREFIX = "AViewKey1";
+export const ADDRESS_PREFIX = "aleo1";
+
 export const env = {
   TOOLKIT_BASE_URL: "http://zk-gaming-tk.zk-gaming-tk-local.svc.cluster.local:5001",
 
