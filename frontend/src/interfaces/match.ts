@@ -2,7 +2,7 @@ import { PowerupType } from "./game";
 
 // TODO: define and handle types with Zod
 export interface MatchSettings {
-  players: number;
+  requiredPlayerCount: number;
   dicePerPlayer: number;
   powerupsPerPlayer: number;
   availablePowerups: PowerupType[];

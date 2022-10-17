@@ -1,18 +1,21 @@
 import { PowerupType } from "../interfaces/game";
-import { MatchState } from "../interfaces/match";
+import { MatchPhase, MatchState } from "../interfaces/match";
+import { MatchOpCode } from "../utils";
 
 export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
   const initialState: MatchState = {
-    presences: {},
+    settings: {
+      requiredPlayerCount: Number(params.players),
+      dicePerPlayer: Number(params.dicePerPlayer),
+      powerupsPerPlayer: Number(params.powerupsPerPlayer),
+      availablePowerups: [params.availablePowerups] as PowerupType[],
+      isUsingFakeCredits: !!+params.isUsingFakeCredits,
+    },
+    players: {},
+    phase: MatchPhase.WaitingForPlayers,
     emptyTicks: 0,
-    players: Number(params.players),
-    dicePerPlayer: Number(params.dicePerPlayer),
-    powerupsPerPlayer: Number(params.powerupsPerPlayer),
-    // TODO: define and handle types with Zod
-    availablePowerups: [params.availablePowerups] as PowerupType[],
-    isUsingFakeCredits: !!+params.isUsingFakeCredits,
   };
 
   logger.info("----------------- STATE -----------------");
@@ -22,7 +25,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
     state: initialState,
     tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second.
     // TODO: Set tickRate to 5 after development is done for improved UX. But for dev purposes 1 is more than enough.
-    label: "StandardGame",
+    label: "StandardMatch",
   };
 };
 
@@ -56,9 +59,34 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispa
   };
 };
 
-export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _messages) => {
+export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
   logger.info(`PRESENCE COUNT: ${String(Object.keys(state.presences).length)}`);
+
+  messages.forEach((message) => {
+    logger.debug("------ MESSAGE ------");
+    logger.debug(JSON.stringify(message));
+
+    // If the message is a Ready message, update the player's isReady status and broadcast it to other players
+    if (message.opCode === MatchOpCode.READY) {
+      state.players[message.sender.userId].isReady = true;
+      dispatcher.broadcastMessage(MatchOpCode.READY, JSON.stringify({ userId: message.sender.userId }));
+
+      // Check to see if all players are now ready
+      let allReady = true;
+      Object.keys(state.players).forEach((userId) => {
+        if (!state.players[userId].isReady) {
+          allReady = false;
+        }
+      });
+
+      // If all players are ready, transition to InProgress state and broadcast the game starting event
+      if (allReady && Object.keys(state.players).length === state.requiredPlayerCount) {
+        state.gameState = GameState.InProgress;
+        dispatcher.broadcastMessage(GAME_STARTING_OP_CODE);
+      }
+    }
+  });
 
   // If we have no presences in the match according to the match state, increment the empty ticks count
   if (!state.presences) {

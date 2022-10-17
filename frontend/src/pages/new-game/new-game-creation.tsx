@@ -25,7 +25,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
-    data.players = Number(data.players);
+    data.requiredPlayerCount = Number(data.requiredPlayerCount);
     data.dicePerPlayer = Number(data.dicePerPlayer);
     data.powerupsPerPlayer = Number(data.powerupsPerPlayer);
     data.availablePowerups = availablePowerups;

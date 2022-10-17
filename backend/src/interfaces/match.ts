@@ -1,17 +1,27 @@
 import { PowerupType } from "./game";
 
-// TODO: define and handle types with Zod
-// TODO: use shared file for front- and backend since this is a copy of the one at frontend/src/interfaces/match-settings.ts
+export enum MatchPhase {
+  WaitingForPlayers,
+  WaitingForPlayersReady,
+  InProgress,
+}
+
+export interface PlayerState {
+  presence: nkruntime.Presence;
+  isReady: boolean;
+}
+
 export interface MatchSettings {
-  players: number;
+  requiredPlayerCount: number;
   dicePerPlayer: number;
   powerupsPerPlayer: number;
   availablePowerups: PowerupType[];
   isUsingFakeCredits: boolean;
 }
 
-// TODO: define and handle types with Zod
-export interface MatchState extends MatchSettings {
-  presences: object;
+export interface MatchState {
+  settings: MatchSettings;
+  players: { [userId: string]: PlayerState };
+  phase: MatchPhase;
   emptyTicks: number;
 }

@@ -16,7 +16,7 @@ export const PlayersField: FC<Props> = ({ register }) => {
   return (
     <PlayersDiceContainer>
       <Input label={text.newGame.players}>
-        <BaseSelect {...register("players")}>
+        <BaseSelect {...register("requiredPlayerCount")}>
           {range(MAX_PLAYERS, MIN_PLAYERS).map((n) => (
             <BaseOption key={n} value={n}>
               {text.param.players(n)}
