@@ -3,11 +3,13 @@ export interface BasicError {
 }
 
 export const isBasicError = (error: unknown): error is BasicError => {
-  return !!(error && typeof error === "object" && "message" in error);
+  const assertedVal = error as BasicError;
+
+  return assertedVal.message !== undefined && typeof assertedVal.message === "string";
 };
 
 export const isNkError = (error: unknown): error is nkruntime.Error => {
-  return isBasicError(error) && "code" in error;
-};
+  const assertedVal = error as nkruntime.Error;
 
-// TODO: improve predicates
+  return isBasicError(assertedVal) && typeof assertedVal.code === "number" && assertedVal.code >= 1 && assertedVal.code <= 16;
+};
