@@ -1,5 +1,5 @@
 // TODO: convert to zod
-export type PowerUpType = "interrogate" | "satelliteImage" | "reinforce" | "reconnaissance" | "sabotage" | "regroup" | "coupDetat" | "diversion" | "defection";
+export type PowerUpType = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 
 export interface Die {
   rolledValue: number;
@@ -8,6 +8,7 @@ export interface Die {
 // TODO: update type
 export interface PowerUp {
   id: string;
-  name: PowerUpType;
+  type: PowerUpType
+  name: string;
   image: string;
 }
