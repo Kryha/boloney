@@ -75,6 +75,19 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
 };
 
 export interface MatchState extends MatchSettings {
-  presences: object; // TODO: use a better type
+  presences: Record<string, nkruntime.Presence>;
   emptyTicks: number;
 }
+
+export const isMatchState = (value: unknown): value is MatchState => {
+  if (!isMatchSettings(value)) return false;
+
+  const assertedVal = value as MatchState;
+
+  return (
+    assertedVal.presences !== undefined &&
+    assertedVal.emptyTicks !== undefined &&
+    typeof assertedVal.presences === "object" &&
+    typeof assertedVal.emptyTicks === "number"
+  );
+};
