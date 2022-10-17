@@ -16,26 +16,26 @@ export const PowerUpsField = () => {
             isTop
             title={text.newGame.powerup1}
             description={text.newGame.powerup1Desc}
-            isChecked={availablePowerUps.includes("defection")}
-            toggleCheck={() => togglePowerUp("defection")}
+            isChecked={availablePowerUps.includes("1")}
+            toggleCheck={() => togglePowerUp("1")}
           />
           <Checkbox
             title={text.newGame.powerup2}
             description={text.newGame.powerup2Desc}
-            isChecked={availablePowerUps.includes("diversion")}
-            toggleCheck={() => togglePowerUp("diversion")}
+            isChecked={availablePowerUps.includes("2")}
+            toggleCheck={() => togglePowerUp("2")}
           />
           <Checkbox
             title={text.newGame.powerup3}
             description={text.newGame.powerup3Desc}
-            isChecked={availablePowerUps.includes("interrogate")}
-            toggleCheck={() => togglePowerUp("interrogate")}
+            isChecked={availablePowerUps.includes("3")}
+            toggleCheck={() => togglePowerUp("3")}
           />
           <Checkbox
             title={text.newGame.powerup4}
             description={text.newGame.powerup4Desc}
-            isChecked={availablePowerUps.includes("reconnaissance")}
-            toggleCheck={() => togglePowerUp("reconnaissance")}
+            isChecked={availablePowerUps.includes("4")}
+            toggleCheck={() => togglePowerUp("4")}
           />
         </CheckboxContainer>
       </Input>
