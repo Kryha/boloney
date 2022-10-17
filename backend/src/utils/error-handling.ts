@@ -27,20 +27,9 @@ export const handleError = (error: unknown, logger: nkruntime.Logger, code = nkr
 };
 
 export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntime.Logger): AccountKeys => {
-  switch (Math.floor(res.code / 100)) {
-    case 4: {
-      throw handleError(res.body, logger, res.code);
-    }
-    case 5: {
-      throw handleError(res.body, logger, res.code);
-    }
-    case 2: {
-      return JSON.parse(res.body);
-    }
-    default: {
-      throw handleError(res.body, logger, res.code);
-    }
-  }
+  const resKind = Math.floor(res.code / 100);
+  if (resKind === 2) return JSON.parse(res.body);
+  throw handleError(res.body, logger, res.code);
 };
 
 type RpcHandler = (cb: nkruntime.RpcFunction) => nkruntime.RpcFunction;
