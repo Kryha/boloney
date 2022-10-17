@@ -1,4 +1,4 @@
-import { AccountKeys, isBasicError, isNkError } from "../types";
+import { AccountKeys, isBasicError, isNkError, isString } from "../types";
 
 export const ERROR_EXTERNAL_CALL: nkruntime.Error = {
   message: "The contract call failed",
@@ -11,7 +11,7 @@ export const ERROR_WRITING_TO_COLLECTION: nkruntime.Error = {
 };
 
 export const parseError = (error: unknown, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
-  if (typeof error === "string") return { code, message: error };
+  if (isString(error)) return { code, message: error };
 
   if (isNkError(error)) return error;
 
