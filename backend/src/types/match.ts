@@ -6,32 +6,49 @@ export interface Player {
   connected: boolean;
 }
 
+export const isPlayer = (value: unknown): value is Player => {
+  const assertedVal = value as Player;
+
+  return (
+    assertedVal.id !== undefined &&
+    assertedVal.name !== undefined &&
+    assertedVal.color !== undefined &&
+    assertedVal.avatarName !== undefined &&
+    assertedVal.color !== undefined &&
+    typeof assertedVal.id === "string" &&
+    typeof assertedVal.name === "string" &&
+    typeof assertedVal.color === "string" &&
+    typeof assertedVal.avatarName === "string" &&
+    typeof assertedVal.connected === "boolean"
+  );
+};
+
 export type PowerupType = "p1" | "p2" | "p3" | "p4";
+
+export const isPowerupType = (value: unknown): value is PowerupType => {
+  const assertedVal = value as PowerupType;
+
+  return assertedVal === "p1" || assertedVal === "p2" || assertedVal === "p3" || assertedVal === "p4";
+};
+
+export const isPowerupTypeArray = (types: unknown): types is PowerupType[] => {
+  if (!types) return false;
+  if (!(types instanceof Array)) return false;
+
+  const areValid = types.reduce((valid, pt) => valid && isPowerupType(pt), true);
+  return areValid;
+};
 
 export interface Die {
   rolledValue: number;
 }
 
-// TODO: define and handle types with Zod
-// TODO: use shared file for front- and backend since this is a copy of the one at frontend/src/interfaces/match-settings.ts
-export interface LobbyState {
-  matchSettings: MatchSettings;
-  playerCount: number;
-}
-export interface MatchState {
-  setting: MatchSettings;
-  presences: nkruntime.Presence[];
-  players: PlayerState[];
-  playerCount: number;
-  playerOrder: string[];
-  matchStage: MatchStage;
-  emptyTicks: number;
-}
+export const isDie = (value: unknown): value is Die => {
+  const assertedVal = value as Die;
 
-export interface PlayerState {
-  presence: nkruntime.Presence;
-  isReady: boolean;
-}
+  return assertedVal.rolledValue !== undefined && typeof assertedVal.rolledValue === "number";
+};
+
 export interface MatchSettings {
   requiredPlayers: number;
   dicePerPlayer: number;
@@ -40,24 +57,24 @@ export interface MatchSettings {
   isUsingFakeCredits: boolean;
 }
 
-export enum RoundPhases {
-  matchStart = 1,
-  roundStart,
-  turnStart,
-  matchEnd,
-}
+export const isMatchSettings = (value: unknown): value is MatchSettings => {
+  const assertedVal = value as MatchSettings;
 
-export enum MatchStage {
-  WaitingForPlayers = 1, // waiting for people to join the lobby
-  WaitingForPlayersReady, // waiting for players to be ready
-  roundPhase1, // Get powerups
-  roundPhase2, // Roll the dice
-  roundPhase3, // Players turn loop
-  roundPhase4, // Round summery
-  EndGame, // Match summery
-}
-export enum OpCode {
-  getPowerups = 1,
-}
+  return (
+    assertedVal.players !== undefined &&
+    assertedVal.dicePerPlayer !== undefined &&
+    assertedVal.powerupsPerPlayer !== undefined &&
+    assertedVal.availablePowerups !== undefined &&
+    assertedVal.isUsingFakeCredits !== undefined &&
+    typeof assertedVal.players === "number" &&
+    typeof assertedVal.dicePerPlayer === "number" &&
+    typeof assertedVal.powerupsPerPlayer === "number" &&
+    typeof assertedVal.isUsingFakeCredits === "boolean" &&
+    isPowerupTypeArray(assertedVal.availablePowerups)
+  );
+};
 
-// TODO: define predicates and parsers
+export interface MatchState extends MatchSettings {
+  presences: object; // TODO: use a better type
+  emptyTicks: number;
+}
