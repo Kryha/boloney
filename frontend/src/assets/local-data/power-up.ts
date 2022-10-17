@@ -2,7 +2,8 @@ import { CoupDEtatIcon, DefectionIcon, DiversionIcon, InterrogateIcon, Reconnais
 import { PowerUpType } from "../../interfaces";
 
 interface PowerUpDataProps {
-  name: PowerUpType;
+  type: PowerUpType;
+  name: string;
   shortDescription: string;
   longDescription: string;
   iconImage: string;
@@ -12,6 +13,7 @@ interface PowerUpDataProps {
 // TODO: Update info
 export const PowerUpData: PowerUpDataProps[] = [
   {
+    type: "1",
     name: "interrogate",
     shortDescription: "ask an opponent if they have x of y die faces",
     longDescription: "ask an opponent if they have x of y die faces",
@@ -19,6 +21,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: InterrogateIcon,
   },
   {
+    type: "2",
     name: "satelliteImage",
     shortDescription: "ask target opponent what the sum of their dice are.",
     longDescription: "ask target opponent what the sum of their dice are.",
@@ -26,6 +29,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: SatelliteIcon,
   },
   {
+    type: "3",
     name: "reinforce",
     shortDescription: "roll 3 extra dice to use this turn only.",
     longDescription: "roll 3 extra dice to use this turn only.",
@@ -33,6 +37,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: ReinforceIcon,
   },
   {
+    type: "4",
     name: "reconnaissance",
     shortDescription: "draw 2 extra cards.",
     longDescription: "draw 2 extra cards.",
@@ -40,6 +45,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: ReconnaissanceIcon,
   },
   {
+    type: "5",
     name: "sabotage",
     shortDescription: "an opponent reveals their hand of cards to you, they can't play cards for the rest of the round.",
     longDescription: "an opponent reveals their hand of cards to you, they can't play cards for the rest of the round.",
@@ -47,6 +53,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: SabotageIcon,
   },
   {
+    type: "6",
     name: "regroup",
     shortDescription: "you may re-roll any number of your dice.",
     longDescription: "you may re-roll any number of your dice.",
@@ -54,6 +61,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: RegroupIcon,
   },
   {
+    type: "7",
     name: "coupDetat",
     shortDescription: "target player discards all their cards, then the player taking the action draws that many cards.",
     longDescription: "target player discards all their cards, then the player taking the action draws that many cards.",
@@ -61,6 +69,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: CoupDEtatIcon,
   },
   {
+    type: "8",
     name: "diversion",
     shortDescription: "shuffle players order then skip your turn.",
     longDescription: "shuffle players order then skip your turn.",
@@ -68,6 +77,7 @@ export const PowerUpData: PowerUpDataProps[] = [
     cardImage: DiversionIcon,
   },
   {
+    type: "9",
     name: "defection",
     shortDescription: "target opponent reveals their hand to you, you choose one of their cards to gain to your hand.",
     longDescription: "target opponent reveals their hand to you, you choose one of their cards to gain to your hand.",
