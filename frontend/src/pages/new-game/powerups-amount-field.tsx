@@ -6,7 +6,7 @@ import { BaseOption, BaseSelect, Input } from "../../components";
 import { MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
-import { PowerUpsAmountFieldContainer } from "./styles";
+import { InputFieldContainer } from "./styles";
 
 interface Props {
   register: UseFormRegister<MatchSettings>;
@@ -14,7 +14,7 @@ interface Props {
 
 export const PowerUpsAmountField: FC<Props> = ({ register }) => {
   return (
-    <PowerUpsAmountFieldContainer>
+    <InputFieldContainer>
       <Input label={text.newGame.powerUpsPerPlayer}>
         <BaseSelect {...register("powerUpsPerPlayer")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
@@ -33,6 +33,6 @@ export const PowerUpsAmountField: FC<Props> = ({ register }) => {
           ))}
         </BaseSelect>
       </Input>
-    </PowerUpsAmountFieldContainer>
+    </InputFieldContainer>
   );
 };

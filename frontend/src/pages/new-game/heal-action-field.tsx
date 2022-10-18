@@ -6,7 +6,7 @@ import { BaseOption, BaseSelect, Input } from "../../components";
 import { MAX_POWERUPS_PER_PLAYER, MAX_STAGE_NUMBER_DIVISOR, MIN_POWERUPS_PER_PLAYER, MIN_STAGE_NUMBER_DIVISOR } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
-import { HealFieldContainer } from "./styles";
+import { InputFieldContainer } from "./styles";
 
 interface Props {
   register: UseFormRegister<MatchSettings>;
@@ -14,7 +14,7 @@ interface Props {
 
 export const HealActionField: FC<Props> = ({ register }) => {
   return (
-    <HealFieldContainer>
+    <InputFieldContainer>
       <Input label={text.newGame.healAction}>
         <BaseSelect {...register("healAction")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
@@ -33,6 +33,6 @@ export const HealActionField: FC<Props> = ({ register }) => {
           ))}
         </BaseSelect>
       </Input>
-    </HealFieldContainer>
+    </InputFieldContainer>
   );
 };

@@ -26,9 +26,6 @@ export const FieldContainer = styled.section`
   margin-top: ${margins.medium1};
 `;
 
-export const PowerUpsAmountFieldContainer = styled.section`
-  margin-top: ${margins.medium1};
-`;
 
 export const CheckboxContainer = styled.section`
   ${CheckboxWrapper}:nth-of-type(1) {
@@ -38,7 +35,7 @@ export const CheckboxContainer = styled.section`
   }
 `;
 
-export const HealFieldContainer = styled(FieldContainer)`
+export const InputFieldContainer = styled(FieldContainer)`
   display: flex;
   flex-direction: column;
   gap: ${margins.large2};

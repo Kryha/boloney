@@ -39,12 +39,6 @@ export const CheckContainer = styled.div`
 `;
 
 export const CheckWrapper = styled.div`
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // flex: 1;
-
-  // border-bottom: 1px solid ${color.mediumGrey};
   padding: ${margins.small6} ${margins.small6} ${margins.large0} ${margins.small6};
   user-select: none;
   cursor: pointer;
@@ -55,8 +49,6 @@ interface DescriptionContainerProps {
 }
 
 export const DescriptionContainer = styled.div<DescriptionContainerProps>`
-  // border-bottom: 1px solid ${color.mediumGrey};
-  // border-left: 1px solid ${color.mediumGrey};
   ${CheckContainer} {
     display: ${({ removeLeftBorder }) => (removeLeftBorder ? "none" : "none")};
   }
@@ -86,7 +78,6 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   opacity:${({ isDisabled }) => (isDisabled ? "0.5" : "1")}; 0.5;
   pointer-events:${({ isDisabled }) => (isDisabled ? "none" : "")};
   border-top: ${({ isTop }) => (isTop ? `1px solid ${color.mediumGrey}` : "0px")};
-  // border-bottom: 1px solid ${color.mediumGrey};
   background: ${({ isChecked }) => (isChecked ? color.white : "transparent")};
   :hover {
     background: ${color.white};
