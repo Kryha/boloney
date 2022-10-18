@@ -28,6 +28,9 @@ export const MIN_DICE_PER_PLAYER = 2;
 export const MAX_POWERUPS_PER_PLAYER = 10;
 export const MIN_POWERUPS_PER_PLAYER = 0;
 
+export const MAX_STAGE_NUMBER_DIVISOR = 10;
+export const MIN_STAGE_NUMBER_DIVISOR = 1;
+
 export const FLOATING_ANIMATION_SPEED = 4;
 
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { powerUpTypeSchema } from "./power-up";
+import { powerUpTypeSchema, powerUpProbabilitySchema } from "./power-up";
 
 export const playerSchema = z.object({
   id: z.string(),
@@ -18,6 +18,10 @@ export const matchSettingsSchema = z.object({
   powerUpsPerPlayer: z.number(),
   availablePowerUps: z.array(powerUpTypeSchema),
   isUsingFakeCredits: z.boolean(),
+  healAction: z.number(),
+  stageNumber: z.number(),
+  drawRoundOffset: z.number(),
+  powerUpProbability: z.array(powerUpProbabilitySchema),
 });
 
 export type MatchSettings = z.infer<typeof matchSettingsSchema>;

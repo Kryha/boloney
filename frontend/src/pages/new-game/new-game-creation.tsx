@@ -6,6 +6,7 @@ import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, Pr
 import { useMatchMaker } from "../../service";
 import { isString, MatchSettings } from "../../types";
 import { useGameCreationFormState } from "./game-creation-form-state";
+import { HealActionField } from "./heal-action-field";
 import { PlayersField } from "./players-field";
 import { PowerUpsAmountField } from "./powerups-amount-field";
 import { PowerUpsField } from "./powerups-field";
@@ -29,6 +30,11 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.powerUpsPerPlayer = Number(data.powerUpsPerPlayer);
     data.availablePowerUps = availablePowerUps;
     data.isUsingFakeCredits = isUsingFakeCredits;
+    data.healAction = Number(data.healAction);
+    data.stageNumber = Number(data.stageNumber);
+    // TODO: use newer stuff
+    data.powerUpProbability = [{ id: "1", probability: 0.25 }];
+    data.drawRoundOffset = Number(data.drawRoundOffset);
 
     const res = await createMatch(data);
     if (isString(res)) {
@@ -55,6 +61,8 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           <PowerUpsAmountField register={register} />
 
           <PowerUpsField />
+
+          <HealActionField register={register} />
 
           <BottomContainer>
             <Paragraph>{text.newGame.bottomDesc}</Paragraph>

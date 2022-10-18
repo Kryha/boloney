@@ -12,3 +12,10 @@ export const powerUpSchema = z.object({
 });
 
 export type PowerUp = z.infer<typeof powerUpSchema>;
+
+export const powerUpProbabilitySchema = z.object({
+  id: z.string(),
+  probability: z.number(),
+});
+
+export type PowerUpProbability = z.infer<typeof powerUpProbabilitySchema>;

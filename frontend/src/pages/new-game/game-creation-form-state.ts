@@ -1,14 +1,14 @@
 import create from "zustand";
 
-import { PowerUpType, } from "../../types";
+import { PowerUpType, PowerUpProbability } from "../../types";
 
 
 export interface NewGameState {
-  availablePowerups: PowerUpType[];
+  availablePowerUps: PowerUpType[];
   isPrivate: boolean;
   isUsingFakeCredits: boolean;
   amountOfPowerUps: number;
-  powerUpProbability: ProbabilityType[];
+  powerUpProbability: PowerUpProbability[];
   isButtonDisabled: boolean;
 
 
@@ -16,14 +16,14 @@ export interface NewGameState {
   toggleIsUsingFakeCredits: () => void;
   togglePowerUp: (powerUp: PowerUpType) => void;
   setAmountOfPowerUps: (amountOfPowerUps: number) => void;
-  setPowerUpProbability: (probability: ProbabilityType) => void;
+  setPowerUpProbability: (probability: PowerUpProbability) => void;
   setButtonDisabled: (isButtonDisabled: boolean) => void;
   removeProbability: (name: PowerUpType) => void;
 
 }
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
-  availablePowerups: [],
+  availablePowerUps: [],
   isPrivate: false,
   isUsingFakeCredits: false,
   amountOfPowerUps: 0,
@@ -33,24 +33,24 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
   toggleIsPrivate: () => set(({ isPrivate }) => ({ isPrivate: !isPrivate })),
   toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
   togglePowerUp: (powerUp) =>
-    set(({ availablePowerups }) => {
-      const powerUpsSet = new Set(availablePowerups);
+    set(({ availablePowerUps }) => {
+      const powerUpsSet = new Set(availablePowerUps);
       const itemFound = powerUpsSet.delete(powerUp);
       if (!itemFound) powerUpsSet.add(powerUp);
 
-      return { availablePowerups: Array.from(powerUpsSet) };
+      return { availablePowerUps: Array.from(powerUpsSet) };
     }),
   setAmountOfPowerUps: (amountOfPowerUps: number) => set(() => ({ amountOfPowerUps: amountOfPowerUps })),
-  setPowerUpProbability: ({ name: name, probability: probability }) => {
+  setPowerUpProbability: ({ id: name, probability: probability }) => {
     set((state) => ({
       powerUpProbability: [
         ...state.powerUpProbability,
-        { name: name, probability: probability },
+        { id: name, probability: probability },
       ],
     }));
   },
   setButtonDisabled: () => set(({ isButtonDisabled }) => ({ isButtonDisabled: !isButtonDisabled })),
   removeProbability: (name: PowerUpType) => set((state) => ({
-    powerUpProbability: state.powerUpProbability.filter((probability) => probability.name !== name),
+    powerUpProbability: state.powerUpProbability.filter((probability) => probability.id !== name),
   }))
 }));

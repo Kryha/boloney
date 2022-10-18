@@ -1,21 +1,19 @@
 import { FC, useState } from "react";
-import { PowerUp as PowerUpType, PowerupType } from "../../interfaces/game";
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
 import { GeneralContentWrapper, Heading6, Row } from "../atoms";
 import { CheckboxInput } from "../inputs";
 import { PowerUp } from "../power-up";
 
-import { Description, DescriptionContainer, PercentageInput, Trophy } from "./styles";
+import { Description, DescriptionContainer, Lightning, PercentageInput } from "./styles";
+import { PowerUpDataProps } from "../../assets";
 
 interface PowerUpsInfo {
-  description?: string;
   isUsingSwitchIcon?: boolean;
-  powerUp: PowerUpType;
-  name: PowerupType;
+  powerUp: PowerUpDataProps;
   isChecked: boolean;
 }
 
-export const PowerUpInfo: FC<PowerUpsInfo> = ({ description, isUsingSwitchIcon, powerUp, name, isChecked }) => {
+export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked }) => {
   const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const removeProbability = useGameCreationFormState((state) => state.removeProbability);
@@ -25,27 +23,23 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ description, isUsingSwitchIcon, 
 
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     // set the error for the game
-    removeProbability(name);
-    setPowerUpProbability({ name: name, probability: Number(e.target.value) });
+    // removeProbability(name);
+    // setPowerUpProbability({ id: name, probability: Number(e.target.value) });
   };
 
   return (
     <>
-      {/* <PowerUp powerUp={powerUp} />
+      <PowerUp powerUp={{ id: powerUp.id, image: powerUp.iconImage, name: powerUp.name }} />
       <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
         <GeneralContentWrapper>
           <Row>
-            <Trophy />
-            <Heading6>{name}</Heading6>
+            <Lightning />
+            <Heading6>{powerUp.name}</Heading6>
           </Row>
-          {description && <Description>{description}</Description>}
+          <Description>{powerUp.shortDescription}</Description>
         </GeneralContentWrapper>
       </DescriptionContainer>
-      <CheckboxInput
-        isError={
-          (probability > 100 && powerUpProbability.some((e) => e.name === name)) || (powerUpProbability.length > 0 && probability < 100)
-        }
-      >
+      <CheckboxInput>
         <PercentageInput
           type="number"
           value={isChecked ? value : 0}
@@ -53,7 +47,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ description, isUsingSwitchIcon, 
           onBlur={(e) => newProbability(e)}
           onChange={(e) => setValue(Number(e.target.value))}
         />
-      </CheckboxInput> */}
+      </CheckboxInput>
     </>
   );
 };
