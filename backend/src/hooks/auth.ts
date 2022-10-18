@@ -1,9 +1,8 @@
 import sha256 from "crypto-js/sha256";
 
-import { error } from "../text";
-import { CollectionInteractionRead, CollectionInteractionWrite } from "../interfaces/collection";
-import { AccountKeys } from "../interfaces/models";
-import { tkUrl, logError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils";
+import { text } from "../text";
+import { AccountKeys, CollectionInteractionRead, CollectionInteractionWrite } from "../types";
+import { tkUrl, handleError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils";
 
 // TODO: fix the following scenario:
 // 1. user creates account
@@ -14,7 +13,8 @@ import { tkUrl, logError, handleHttpResponse, beforeHookHandler, afterHookHandle
 // In order to generate the keys, the user will have to counterintuitively try to login.
 
 export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, data) => {
-  if (!data.username || !data.account?.id) throw logError(error.noUsernamePasswordProvided, logger, nkruntime.Codes.INVALID_ARGUMENT);
+  if (!data.username || !data.account?.id)
+    throw handleError(text.error.noUsernamePasswordProvided, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   data.username = data.username.toLowerCase();
   const isRegistering = !!data.create;
@@ -23,7 +23,7 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, dat
 
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
 
-  if (userExists) throw logError(error.usernameAlreadyExists, logger, nkruntime.Codes.ALREADY_EXISTS);
+  if (userExists) throw handleError(text.error.usernameAlreadyExists, logger, nkruntime.Codes.ALREADY_EXISTS);
 
   const encryptedKey = String(sha256(password + username));
   data.account.id = encryptedKey;

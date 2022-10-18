@@ -1,5 +1,5 @@
 // TODO: delete this file
-import { Player } from "../interfaces/player";
+import { Player } from "../types";
 
 export const Players: Player[] = [
   {
@@ -50,5 +50,5 @@ export const Players: Player[] = [
     color: "#91C342",
     avatarName: "skeleton",
     connected: true,
-  }
+  },
 ];

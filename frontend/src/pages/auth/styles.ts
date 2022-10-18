@@ -4,8 +4,7 @@ import { LinkContainer, PrimaryButtonContainer } from "../../components/buttons/
 import { InputContainer } from "../../components/inputs/styles";
 import { SMALL_VIEWPORT_WIDTH } from "../../constants";
 import { color, margins } from "../../design";
-import { ViewProps } from "../../interfaces";
-
+import { ViewProps } from "../../types";
 
 export const AuthContainer = styled.div`
   display: flex;

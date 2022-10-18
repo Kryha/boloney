@@ -1,5 +1,12 @@
 import create from "zustand";
-import { MatchMakerState } from "../interfaces";
+
+interface MatchMakerState {
+  ticket?: string | undefined;
+  matchId?: string | undefined;
+
+  setTicket: (ticket: string) => void;
+  setMatchId: (match_id: string) => void;
+}
 
 export const useMatchMakerState = create<MatchMakerState>()((set) => ({
   ticket: undefined,
