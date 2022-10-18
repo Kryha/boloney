@@ -35,4 +35,6 @@ export const newGame = {
 
   continue: "continue",
   invalidPercentage: "Match to 100%",
+  healAction: "heal action",
+  stageNumberDivisor: "stage number divisor",
 };

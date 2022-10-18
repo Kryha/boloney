@@ -5,7 +5,6 @@ import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
 import { useMatchMaker } from "../../service";
 import { isString, MatchSettings } from "../../types";
-import { FakeCreditsField } from "./fake-credits-field";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { PlayersField } from "./players-field";
 import { PowerUpsAmountField } from "./powerups-amount-field";
@@ -56,8 +55,6 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           <PowerUpsAmountField register={register} />
 
           <PowerUpsField />
-
-          <FakeCreditsField />
 
           <BottomContainer>
             <Paragraph>{text.newGame.bottomDesc}</Paragraph>
