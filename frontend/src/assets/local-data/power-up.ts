@@ -11,7 +11,7 @@ interface PowerUpDataProps {
 }
 
 // TODO: Update info
-export const PowerUpData: PowerUpDataProps[] = [
+export const POWER_UP_DATA: PowerUpDataProps[] = [
   {
     id: "1",
     name: "interrogate",
