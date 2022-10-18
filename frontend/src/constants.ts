@@ -33,6 +33,7 @@ export const FLOATING_ANIMATION_SPEED = 4;
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";
 export const REFRESH_TOKEN_STORAGE_KEY = "refresh_token";
 
+// TODO: define these in a separate file
 export const RPC_CREATE_MATCH = "create_match";
 export const RPC_FIND_MATCH = "find_match";
 
