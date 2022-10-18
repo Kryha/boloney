@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { powerUpTypeSchema } from "./power-up";
+
 export const playerSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -9,16 +11,6 @@ export const playerSchema = z.object({
 });
 
 export type Player = z.infer<typeof playerSchema>;
-
-export const powerUpTypeSchema = z.enum(["p1", "p2", "p3", "p4"]);
-
-export type PowerupType = z.infer<typeof powerUpTypeSchema>;
-
-export const dieSchema = z.object({
-  rolledValue: z.number().max(6).min(1),
-});
-
-export type Die = z.infer<typeof dieSchema>;
 
 export const matchSettingsSchema = z.object({
   players: z.number(),
