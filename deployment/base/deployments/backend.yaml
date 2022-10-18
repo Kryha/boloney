@@ -24,6 +24,7 @@ spec:
           ports:
             - containerPort: 7351
             - containerPort: 7350
+            - containerPort: 7349
           env:
             - name: POD_NAMESPACE
               valueFrom:
