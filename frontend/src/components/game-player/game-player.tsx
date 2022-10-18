@@ -1,9 +1,9 @@
 import { FC } from "react";
 
 import { avatarHeight } from "../atoms";
-import { Player } from "../../interfaces/player";
 import { GamePlayersWrapper, PlayerColor, PlayerNameContainer, PlayerAvatar, PlayerName as Name } from "./styles";
 import { handProportion } from "../../design/hand";
+import { Player } from "../../types";
 
 interface GamePlayerProps {
   totalPlayers: number;

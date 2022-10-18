@@ -1,4 +1,4 @@
-import { MatchSettings } from "../interfaces";
+import { MatchSettings } from "../types";
 
 export const enum Scene {
   Initializer = 0,
@@ -28,8 +28,7 @@ export const enum OP {
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
 
-// TODO: define and handle types with Zod
-// Power-ups will be in the form of:
+// TODO: Power-ups will be in the form of:
 // powerUps: {
 // 	1: 0.25,
 // 	2: 0,
@@ -44,6 +43,14 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   availablePowerups: ["p1", "p2", "p3", "p4"],
   isUsingFakeCredits: true,
 };
+
+export const PRIVATE_KEY_LENGTH = 58;
+export const VIEW_KEY_LENGTH = 56;
+export const ADDRESS_LENGTH = 63;
+
+export const PRIVATE_KEY_PREFIX = "APrivateKey1";
+export const VIEW_KEY_PREFIX = "AViewKey1";
+export const ADDRESS_PREFIX = "aleo1";
 
 export const env = {
   TOOLKIT_BASE_URL: "http://zk-gaming-tk.zk-gaming-tk-local.svc.cluster.local:5001",

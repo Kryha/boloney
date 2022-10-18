@@ -17,6 +17,7 @@ export type ActiveDropdown = "rules" | "menu" | undefined;
 export const TopNavigation: FC<Props> = ({ isInMatch }) => {
   const setIsOverlayVisible = useUIState((state) => state.setIsOverlayVisible);
 
+  // TODO: use state variable
   const [hover, setHover] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);

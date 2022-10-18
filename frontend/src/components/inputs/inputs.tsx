@@ -1,17 +1,8 @@
 import { FC, ReactNode } from "react";
 import { text } from "../../assets/text";
 
-import { GeneralText, Paragraph } from "../atoms";
-import {
-  InputContainer,
-  InputLabel,
-  LabelContainer,
-  Error,
-  ErrorContainer,
-  InputIconContainer,
-  PercentageInput,
-  TextLabel,
-} from "./styles";
+import { Paragraph } from "../atoms";
+import { InputContainer, InputLabel, LabelContainer, Error, ErrorContainer, InputIconContainer, TextLabel } from "./styles";
 
 interface InputProps {
   label?: string;
@@ -23,7 +14,7 @@ interface InputProps {
   description?: string;
 }
 
-export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1, description }) => {
+export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
   return (
     <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
       <LabelContainer>
@@ -40,14 +31,14 @@ export const Input: FC<InputProps> = ({ children, label, isError = false, errorM
   );
 };
 
-export const CheckboxInput: FC<InputProps> = ({ children, label, isError = false, errorMessage }) => {
+export const CheckboxInput: FC<InputProps> = ({ children, isError = false, errorMessage }) => {
   return (
-    <InputIconContainer isError={isError}>
+    <InputIconContainer>
       <TextLabel>{children}</TextLabel>
       {isError && (
         <ErrorContainer>
           <Error />
-          <Paragraph>{errorMessage || text.newGameForm.errorMessages.invalidPercentage}</Paragraph>
+          <Paragraph>{errorMessage || text.newGame.invalidPercentage}</Paragraph>
         </ErrorContainer>
       )}
     </InputIconContainer>

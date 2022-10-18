@@ -17,7 +17,6 @@ export const FakeCreditsField = () => {
           isUsingSwitchIcon
           isChecked={isUsingFakeCredits}
           toggleCheck={toggleIsUsingFakeCredits}
-          name={"interrogate"}
         />
       </Input>
     </ToggleContainer>

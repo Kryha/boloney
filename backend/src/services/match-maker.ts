@@ -1,4 +1,4 @@
-import { DEFAULT_MATCH_SETTINGS, logError } from "../utils";
+import { DEFAULT_MATCH_SETTINGS, handleError } from "../utils";
 
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   try {
@@ -13,6 +13,6 @@ export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context,
     const matchId = nk.matchCreate("standard", DEFAULT_MATCH_SETTINGS);
     return matchId;
   } catch (error) {
-    throw logError(error, logger);
+    throw handleError(error, logger);
   }
 };

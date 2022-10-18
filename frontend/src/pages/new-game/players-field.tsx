@@ -4,7 +4,7 @@ import { UseFormRegister } from "react-hook-form";
 import { text } from "../../assets";
 import { BaseOption, BaseSelect, Input } from "../../components";
 import { MAX_DICE_PER_PLAYER, MAX_PLAYERS, MIN_DICE_PER_PLAYER, MIN_PLAYERS } from "../../constants";
-import { MatchSettings } from "../../interfaces";
+import { MatchSettings } from "../../types";
 import { range } from "../../util";
 import { PlayersDiceContainer } from "./styles";
 

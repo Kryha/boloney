@@ -10,6 +10,7 @@ import { useAuth } from "../service";
 
 const AppRoutes: FC = () => {
   const { isAuthenticated } = useAuth();
+
   return (
     <Routes>
       <Route path={routes.root} element={<Landing />} />

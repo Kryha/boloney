@@ -40,7 +40,6 @@ export const InputContainer = styled.div<InputContainerProps>`
   ${({ isRow, childNode }) => isRow && childNode === 2 && `
     ${BaseInput} {
       width: 31.25vw;
-      // border-right: none;
     }
   `};
 `;
@@ -75,31 +74,6 @@ export const ErrorContainer = styled.div`
   margin-top: ${margins.small2};
 `;
 
-
-interface CheckboxContainerProps {
-  isError?: boolean;
-}
-
-export const PercentageInput = styled(BaseInput)`
-  width: 80px;
-  height: 40px;
-  border: 1px solid ${color.mediumGrey};
-  padding: ${margins.small2} ${margins.small6} ${margins.small2} ${margins.small2};
-  ::after {
-    position: absolute;
-    content: "%";
-    font-family: ibm-plex-mono, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    padding-left: 3px;
-    padding-right: 3px;
-    padding-top: 7px;
-    color: ${color.black};
-    right: 35px;
-  }
-`;
-
 export const TextLabel = styled(GeneralText)`
   display: flex;
   align-self: flex-end;
@@ -108,7 +82,7 @@ export const TextLabel = styled(GeneralText)`
     position: absolute;
     content: "% ";
     font-family: ibm-plex-mono, sans-serif;
-    font-weight: 400;
+    font-weight: ${fontWeight.regular};
     font-size: 16px;
     line-height: 24px;
     padding-left: 3px;
@@ -119,12 +93,8 @@ export const TextLabel = styled(GeneralText)`
   }
 `;
 
-export const InputIconContainer = styled.div<CheckboxContainerProps>`
+export const InputIconContainer = styled.div`
   margin-top: ${margins.small6};
   margin-right: ${margins.small5};
   margin-left: ${margins.small6};
-  ${PercentageInput} {
-    border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-    color: ${({ isError }) => (isError ? color.red : color.black)};
-  }
 `;

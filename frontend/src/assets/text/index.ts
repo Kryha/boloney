@@ -6,7 +6,6 @@ import { rules } from "./rules";
 import { newGame } from "./new-game";
 import { match } from "./match";
 import { home } from "./home";
-import { newGameForm } from "./new-game-form";
 
 export const text = {
   param,
@@ -15,7 +14,6 @@ export const text = {
   authForm,
   rules,
   newGame,
-  newGameForm,
   match,
   home,
 };

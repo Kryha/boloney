@@ -1,6 +1,6 @@
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "backend.localhost";
 export const API_URL = import.meta.env.VITE_API_URL || "api.localhost";
-export const API_PORT = "80";
+export const API_PORT = import.meta.env.VITE_API_PORT || "80";
 export const SERVER_KEY = "defaultkey";
 
 export const SMALL_VIEWPORT_HEIGHT = 800;
@@ -33,9 +33,18 @@ export const FLOATING_ANIMATION_SPEED = 4;
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";
 export const REFRESH_TOKEN_STORAGE_KEY = "refresh_token";
 
+// TODO: define these in a separate file
 export const RPC_CREATE_MATCH = "create_match";
 export const RPC_FIND_MATCH = "find_match";
 
 export const DEFAULT_POOL_QUERY = "*";
 export const DEFAULT_POOL_MIN_PLAYERS = 2;
 export const DEFAULT_POOL_MAX_PLAYERS = 2;
+
+export const PRIVATE_KEY_LENGTH = 58;
+export const VIEW_KEY_LENGTH = 56;
+export const ADDRESS_LENGTH = 63;
+
+export const PRIVATE_KEY_PREFIX = "APrivateKey1";
+export const VIEW_KEY_PREFIX = "AViewKey1";
+export const ADDRESS_PREFIX = "aleo1";

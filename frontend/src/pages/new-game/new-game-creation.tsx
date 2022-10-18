@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
-import { MatchSettings } from "../../interfaces";
-import { useMatchMaker } from "../../service/match-maker";
+import { useMatchMaker } from "../../service";
+import { isString, MatchSettings } from "../../types";
 import { FakeCreditsField } from "./fake-credits-field";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { PlayersField } from "./players-field";
@@ -23,9 +23,6 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
   const { createMatch, joinMatch, isLoading } = useMatchMaker();
   const [isError, setIsError] = useState(false);
-  const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
-  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     data.players = Number(data.players);
@@ -33,10 +30,9 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.powerUpsPerPlayer = Number(data.powerUpsPerPlayer);
     data.availablePowerUps = availablePowerUps;
     data.isUsingFakeCredits = isUsingFakeCredits;
-    // TODO: add probability thing
 
     const res = await createMatch(data);
-    if (typeof res === "string") {
+    if (isString(res)) {
       const matchId = res;
       await joinMatch(matchId);
       // TODO: retrieve url from backend
@@ -69,11 +65,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           {isLoading && <Heading6>{text.newGame.loading}</Heading6>}
           {isError && <Heading6>{text.newGame.error}</Heading6>}
           <ButtonContainer>
-            <PrimaryButton
-              type="submit"
-              text={text.newGame.continue}
-              disabled={probability > 100 || (powerUpProbability.length > 0 && probability < 100)}
-            />
+            <PrimaryButton type="submit" text={text.newGame.continue} />
           </ButtonContainer>
         </FormContainer>
       </form>
