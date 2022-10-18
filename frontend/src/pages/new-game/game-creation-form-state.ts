@@ -1,6 +1,6 @@
 import create from "zustand";
 
-import { PowerUpType } from "../../interfaces";
+import { PowerUpType } from "../../types";
 
 export interface NewGameState {
   availablePowerUps: PowerUpType[];

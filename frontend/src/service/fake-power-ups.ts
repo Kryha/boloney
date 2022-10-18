@@ -1,5 +1,5 @@
 import { CoupDEtatIcon, DefectionIcon, DiversionIcon, InterrogateIcon, ReconnaissanceIcon, RegroupIcon, ReinforceIcon, SabotageIcon, SatelliteIcon } from "../assets";
-import { PowerUp } from "../interfaces";
+import { PowerUp } from "../types";
 
 export const FakePowerUps: PowerUp[] = [
   {

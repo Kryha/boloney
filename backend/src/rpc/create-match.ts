@@ -1,14 +1,14 @@
-import { MatchSettings } from "../interfaces";
-import { error } from "../text";
-import { logError, rpcHandler } from "../utils/error-handling";
+import { text } from "../text";
+import { isMatchSettings } from "../types";
+import { handleError, rpcHandler } from "../utils";
 
 export const createMatch = rpcHandler((ctx, logger, nk, payload) => {
-  if (!ctx.userId) throw logError(error.noIdInContext, logger);
-  if (!payload) throw logError(error.noPayload, logger);
+  if (!ctx.userId) throw handleError(text.error.noIdInContext, logger);
+  if (!payload) throw handleError(text.error.noPayload, logger);
 
-  // TODO: define and handle types with Zod
-  const matchSettings: MatchSettings = JSON.parse(payload);
-  logger.debug(`Match Settings: ${JSON.stringify(matchSettings)}`);
+  const matchSettings = JSON.parse(payload);
+
+  if (!isMatchSettings(matchSettings)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   const matchId = nk.matchCreate("standard", matchSettings);
 

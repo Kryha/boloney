@@ -2,8 +2,8 @@ import { Session } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 
 import { USE_SSL } from "../constants";
-import { NkResponse } from "../interfaces";
 import { useAuthState } from "../store/auth";
+import { NkResponse } from "../types";
 import { getAuthToken, getRefreshToken, parseError, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
 
 export const useAuth = () => {

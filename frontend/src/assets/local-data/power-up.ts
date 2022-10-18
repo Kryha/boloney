@@ -1,5 +1,5 @@
 import { CoupDEtatIcon, DefectionIcon, DiversionIcon, InterrogateIcon, ReconnaissanceIcon, RegroupIcon, ReinforceIcon, SabotageIcon, SatelliteIcon } from "../images";
-import { PowerUpType } from "../../interfaces";
+import { PowerUpType } from "../../types";
 
 interface PowerUpDataProps {
   id: PowerUpType;

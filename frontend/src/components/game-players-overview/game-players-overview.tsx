@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { GamePlayersOverviewWrapper } from "./styles";
 import { GamePlayer } from "../game-player";
-import { Player } from "../../interfaces/player";
+import { Player } from "../../types";
 
 interface GamePlayerOverviewProps {
   players: Player[];

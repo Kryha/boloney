@@ -19,8 +19,8 @@ export enum NkCode {
   UNAUTHENTICATED = 16, // The request does not have valid authentication credentials for the operation.
 }
 
-export const NkCodeSchema = z.nativeEnum(NkCode);
+export const nkCodeSchema = z.nativeEnum(NkCode);
 
-export const NkErrorSchema = z.object({ code: NkCodeSchema, message: z.string() });
+export const nkErrorSchema = z.object({ code: nkCodeSchema, message: z.string() });
 
-export type NkError = z.infer<typeof NkErrorSchema>;
+export type NkError = z.infer<typeof nkErrorSchema>;
