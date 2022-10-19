@@ -49,9 +49,6 @@ interface DescriptionContainerProps {
 }
 
 export const DescriptionContainer = styled.div<DescriptionContainerProps>`
-  ${CheckContainer} {
-    display: ${({ removeLeftBorder }) => (removeLeftBorder ? "none" : "none")};
-  }
   flex: 11;
 
   padding: ${margins.small2};

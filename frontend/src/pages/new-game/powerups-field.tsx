@@ -38,7 +38,7 @@ export const PowerUpsField: FC = () => {
               toggleCheck={() => togglePowerUp(powerUp.id)}
               powerUp={powerUp}
               isDisabled={amountOfPowerUps === availablePowerUps.length && !availablePowerUps.includes(powerUp.id)}
-              isError={isPowerUpError}
+              isError={false}
             />
           ))}
         </CheckboxContainer>

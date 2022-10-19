@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
 import { GeneralContentWrapper, Heading6, Row } from "../atoms";
 import { CheckboxInput } from "../inputs";
@@ -17,11 +17,7 @@ interface PowerUpsInfo {
 export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError }) => {
   const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
 
-  const [value, setValue] = useState(0);
-
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    // set the error for the game
-    // removeProbability(name);
     setPowerUpProbability({ id: powerUp.id, probability: Number(e.target.value) });
   };
 
@@ -39,12 +35,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
       </DescriptionContainer>
       <CheckboxInput isError={isError}>
         <PercentageInputContainer onClick={(e) => e.stopPropagation()} isChecked={isChecked}>
-          <PercentageInput
-            type="number"
-            onBlur={(e) => newProbability(e)}
-            onChange={(e) => setValue(Number(e.target.value))}
-            disabled={!isChecked}
-          />
+          <PercentageInput type="number" onBlur={(e) => newProbability(e)} disabled={!isChecked} />
         </PercentageInputContainer>
       </CheckboxInput>
     </>

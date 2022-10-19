@@ -14,7 +14,7 @@ export interface NewGameState {
   amountOfPowerUps: number;
   powerUpProbability: PowerUpProbability[];
   probability: number;
-  isPowerUpError: PowerUpError[];
+  isPowerUpError: boolean;
   isPowerUpDisabled: boolean;
 
   toggleIsPrivate: () => void;
@@ -25,6 +25,9 @@ export interface NewGameState {
   setPowerUpProbability: (probability: PowerUpProbability) => void;
   removeProbability: (name: PowerUpType) => void;
 }
+
+// setpowerup -> power up values, if theres an error, id, propbability
+// check for the general error in arrary
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
   availablePowerUps: [],
