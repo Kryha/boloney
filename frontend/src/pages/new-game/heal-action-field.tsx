@@ -28,7 +28,7 @@ export const HealActionField: FC<Props> = ({ register }) => {
         <BaseSelect {...register("stageNumber")}>
           {range(MAX_STAGE_NUMBER_DIVISOR, MIN_STAGE_NUMBER_DIVISOR).map((n) => (
             <BaseOption key={n} value={n}>
-              {text.param.dice(n)}
+              {n}
             </BaseOption>
           ))}
         </BaseSelect>

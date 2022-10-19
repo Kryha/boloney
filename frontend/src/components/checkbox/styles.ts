@@ -75,7 +75,7 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   display: flex;
   width: 62.5vw;
   cursor: pointer;
-  opacity:${({ isDisabled }) => (isDisabled ? "0.5" : "1")}; 0.5;
+  opacity: ${({ isDisabled }) => (isDisabled ? "0.5" : "1")};
   pointer-events:${({ isDisabled }) => (isDisabled ? "none" : "")};
   border-top: ${({ isTop }) => (isTop ? `1px solid ${color.mediumGrey}` : "0px")};
   background: ${({ isChecked }) => (isChecked ? color.white : "transparent")};
@@ -92,6 +92,12 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   ${Row} {
     gap: ${margins.small1};
   }
+`;
+
+interface PercentageInputProps {
+  isChecked?: boolean;
+}
+export const PercentageInputContainer = styled.div<PercentageInputProps>`
 `;
 
 export const PercentageInput = styled(BaseInput)`

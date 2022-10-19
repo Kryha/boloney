@@ -12,25 +12,9 @@ export const newGame = {
   powerUps: "power-ups",
   powerUp: "power-up",
   powerUpDesc: "Select the type of power-ups you want to put on the table. In every match, you have a % of chance to get a certain power-up. You can change this % as you wish, just keep in mind that the total must sum 100%!",
-  // TODO: delete these
-  powerup1: "power-up 01",
-  powerup2: "power-up 02",
-  powerup3: "power-up 03",
-  powerup4: "power-up 04",
-  fakeCredits: "fake credits",
 
   loading: "creating match...",
   error: "something went wrong. Please try again!",
-
-  // TODO: update description labels
-  powerup1Desc:
-    "Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerup2Desc: "Here we have a description of the power-up itself. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerup3Desc:
-    "Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Here we have a description of the power-up itself. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  powerup4Desc: "Here we have a description of the power-up itself.",
-
-  typeOfBetDesc: "You are not going to play with real money. Let's play just for the sake of having fun!",
   bottomDesc:
     "By creating the game we will create a link for you to share with your friends. This link will lead you all to the game itself, enjoy it!",
 

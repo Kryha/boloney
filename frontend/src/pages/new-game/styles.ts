@@ -135,8 +135,13 @@ export const LightningContainer = styled.div`
   }
 `;
 
-export const Percentage = styled(GeneralText)`
+interface PercentProps {
+  isError?: boolean;
+}
+
+export const Percentage = styled(GeneralText) <PercentProps>`
   font-weight: ${fontWeight.bolder};
+  color: ${({ isError }) => (isError ? color.red : color.black)};
 `;
 
 export const PercentageContainer = styled.div`

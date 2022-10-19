@@ -1,9 +1,7 @@
 import { FC } from "react";
 import { POWER_UP_DATA, text } from "../../assets";
-import { Checkbox, GeneralText, Heading6, InfoButton, Input } from "../../components";
+import { GeneralText, Heading6, InfoButton, Input } from "../../components";
 import { PowerUpCheckbox } from "../../components/checkbox/power-up-checbox";
-// import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
-// import { PowerUpData } from "../../design/power-up";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import {
   CheckboxContainer,
@@ -19,10 +17,9 @@ import {
 export const PowerUpsField: FC = () => {
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const togglePowerUp = useGameCreationFormState((state) => state.togglePowerUp);
-  // const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  // const isButtonDisabled = useGameCreationFormState((state) => state.isButtonDisabled);
-  // const i = useGameCreationFormState((state) => state.isButtonDisabled);
-  // const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
+  const amountOfPowerUps = useGameCreationFormState((state) => state.amountOfPowerUps);
+  const probability = useGameCreationFormState((state) => state.probability);
+  const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
 
   return (
     <FieldContainer>
@@ -40,6 +37,8 @@ export const PowerUpsField: FC = () => {
               isChecked={availablePowerUps.includes(powerUp.id)}
               toggleCheck={() => togglePowerUp(powerUp.id)}
               powerUp={powerUp}
+              isDisabled={amountOfPowerUps === availablePowerUps.length && !availablePowerUps.includes(powerUp.id)}
+              isError={isPowerUpError}
             />
           ))}
         </CheckboxContainer>
@@ -50,7 +49,7 @@ export const PowerUpsField: FC = () => {
           <Heading6>{text.newGame.total}</Heading6>
         </LightningContainer>
         <PercentageContainer>
-          <Percentage>{"1"}</Percentage>
+          <Percentage isError={isPowerUpError}>{probability}</Percentage>
           <GeneralText>{text.newGame.outOfOneHundred}</GeneralText>
         </PercentageContainer>
       </TotalContainer>

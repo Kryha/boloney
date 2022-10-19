@@ -4,27 +4,25 @@ import { GeneralContentWrapper, Heading6, Row } from "../atoms";
 import { CheckboxInput } from "../inputs";
 import { PowerUp } from "../power-up";
 
-import { Description, DescriptionContainer, Lightning, PercentageInput } from "./styles";
+import { Description, DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
 import { PowerUpDataProps } from "../../assets";
 
 interface PowerUpsInfo {
   isUsingSwitchIcon?: boolean;
   powerUp: PowerUpDataProps;
   isChecked: boolean;
+  isError: boolean;
 }
 
-export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked }) => {
+export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError }) => {
   const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
-  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  const removeProbability = useGameCreationFormState((state) => state.removeProbability);
-  const probability = powerUpProbability.reduce((a, b) => a + b.probability, 0);
-  const setButtonDisabled = useGameCreationFormState((state) => state.setButtonDisabled);
+
   const [value, setValue] = useState(0);
 
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     // set the error for the game
     // removeProbability(name);
-    // setPowerUpProbability({ id: name, probability: Number(e.target.value) });
+    setPowerUpProbability({ id: powerUp.id, probability: Number(e.target.value) });
   };
 
   return (
@@ -39,14 +37,15 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
           <Description>{powerUp.shortDescription}</Description>
         </GeneralContentWrapper>
       </DescriptionContainer>
-      <CheckboxInput>
-        <PercentageInput
-          type="number"
-          value={isChecked ? value : 0}
-          onClick={(e) => e.stopPropagation()}
-          onBlur={(e) => newProbability(e)}
-          onChange={(e) => setValue(Number(e.target.value))}
-        />
+      <CheckboxInput isError={isError}>
+        <PercentageInputContainer onClick={(e) => e.stopPropagation()} isChecked={isChecked}>
+          <PercentageInput
+            type="number"
+            onBlur={(e) => newProbability(e)}
+            onChange={(e) => setValue(Number(e.target.value))}
+            disabled={!isChecked}
+          />
+        </PercentageInputContainer>
       </CheckboxInput>
     </>
   );

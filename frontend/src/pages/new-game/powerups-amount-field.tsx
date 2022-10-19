@@ -6,6 +6,7 @@ import { BaseOption, BaseSelect, Input } from "../../components";
 import { MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
+import { useGameCreationFormState } from "./game-creation-form-state";
 import { InputFieldContainer } from "./styles";
 
 interface Props {
@@ -13,10 +14,11 @@ interface Props {
 }
 
 export const PowerUpsAmountField: FC<Props> = ({ register }) => {
+  const setAmountOfPowerUps = useGameCreationFormState((state) => state.setAmountOfPowerUps);
   return (
     <InputFieldContainer>
       <Input label={text.newGame.powerUpsPerPlayer}>
-        <BaseSelect {...register("powerUpsPerPlayer")}>
+        <BaseSelect {...register("powerUpsPerPlayer")} onChange={(e) => setAmountOfPowerUps(Number(e.target.value))}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
               {text.param.powerUps(n)}
@@ -28,7 +30,7 @@ export const PowerUpsAmountField: FC<Props> = ({ register }) => {
         <BaseSelect {...register("drawRoundOffset")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
-              {text.param.powerUps(n)}
+              {n}
             </BaseOption>
           ))}
         </BaseSelect>

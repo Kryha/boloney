@@ -1,25 +1,29 @@
+import { z } from "zod";
 import create from "zustand";
 
 import { PowerUpType, PowerUpProbability } from "../../types";
 
-
+interface PowerUpError {
+  id: string,
+  isError: boolean;
+}
 export interface NewGameState {
   availablePowerUps: PowerUpType[];
   isPrivate: boolean;
   isUsingFakeCredits: boolean;
   amountOfPowerUps: number;
   powerUpProbability: PowerUpProbability[];
-  isButtonDisabled: boolean;
-
+  probability: number;
+  isPowerUpError: PowerUpError[];
+  isPowerUpDisabled: boolean;
 
   toggleIsPrivate: () => void;
   toggleIsUsingFakeCredits: () => void;
   togglePowerUp: (powerUp: PowerUpType) => void;
+  setIsPowerUpDisabled: (powerUp?: PowerUpType) => void;
   setAmountOfPowerUps: (amountOfPowerUps: number) => void;
   setPowerUpProbability: (probability: PowerUpProbability) => void;
-  setButtonDisabled: (isButtonDisabled: boolean) => void;
   removeProbability: (name: PowerUpType) => void;
-
 }
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
@@ -28,7 +32,9 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
   isUsingFakeCredits: false,
   amountOfPowerUps: 0,
   powerUpProbability: [],
-  isButtonDisabled: true,
+  isPowerUpError: false,
+  isPowerUpDisabled: true,
+  probability: 0,
 
   toggleIsPrivate: () => set(({ isPrivate }) => ({ isPrivate: !isPrivate })),
   toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
@@ -41,16 +47,38 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
       return { availablePowerUps: Array.from(powerUpsSet) };
     }),
   setAmountOfPowerUps: (amountOfPowerUps: number) => set(() => ({ amountOfPowerUps: amountOfPowerUps })),
-  setPowerUpProbability: ({ id: name, probability: probability }) => {
-    set((state) => ({
-      powerUpProbability: [
-        ...state.powerUpProbability,
-        { id: name, probability: probability },
-      ],
-    }));
+  setPowerUpProbability: ({ id: id, probability: prob }) => {
+    set(({ powerUpProbability }) => {
+      const probabilitySet = new Set(powerUpProbability);
+
+      probabilitySet.forEach((setId) => {
+        if (setId.id === id) {
+          probabilitySet.delete(setId);
+        }
+      });
+
+      probabilitySet.add({ id: id, probability: prob });
+
+      const probabilities = Array.from(probabilitySet);
+      const probability = probabilities.reduce((a, b) => a + b.probability, 0);
+
+      const powerUpError = probability > 100 && powerUpProbability.some((e) => e.id === id);
+
+      // Add the id to power up error
+      return { powerUpProbability: probabilities, probability: probability, isPowerUpError: !powerUpError };
+    });
   },
-  setButtonDisabled: () => set(({ isButtonDisabled }) => ({ isButtonDisabled: !isButtonDisabled })),
   removeProbability: (name: PowerUpType) => set((state) => ({
     powerUpProbability: state.powerUpProbability.filter((probability) => probability.id !== name),
-  }))
+  })),
+  setIsPowerUpDisabled: (powerUp) =>
+    set(({ availablePowerUps, amountOfPowerUps }) => {
+      let isDisabled = true;
+      if (powerUp) {
+        isDisabled = !availablePowerUps.includes(powerUp);
+      } else {
+        isDisabled = amountOfPowerUps === availablePowerUps.length;
+      }
+      return { isPowerUpDisabled: isDisabled };
+    }),
 }));

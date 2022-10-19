@@ -11,13 +11,12 @@ interface Props {
   powerUp: PowerUpDataProps;
   isDisabled?: boolean;
   isChecked: boolean;
-
+  isError: boolean;
   toggleCheck: () => void;
 }
 
-export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powerUp, isDisabled }) => {
+export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powerUp, isDisabled, isError }) => {
   const removeProbability = useGameCreationFormState((state) => state.removeProbability);
-
   const check = () => {
     if (isChecked) return <Close />;
     return <></>;
@@ -36,7 +35,7 @@ export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powe
       <CheckWrapper>
         <CheckContainer>{check()}</CheckContainer>
       </CheckWrapper>
-      <PowerUpInfo powerUp={powerUp} isChecked={isChecked} />
+      <PowerUpInfo powerUp={powerUp} isChecked={isChecked} isError={isError} />
     </CheckboxContainer>
   );
 };
