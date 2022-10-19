@@ -15,9 +15,7 @@ metadata:
     #     proxy_pass 127.0.0.1:80;
     #   }
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      if ($http_origin ~* "^https?://(?:.*\.kryha\.dev))$" {
-        set $cors "true";
-      }
+      set $cors "true";
       if ($request_method = 'OPTIONS') {
         set $cors "${cors}options";
       }
