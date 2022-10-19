@@ -3,19 +3,21 @@ import { LineContainer, TopNavigation } from "../../components";
 
 import { LobbyPlayer } from "../../components/lobby-player";
 import { Players } from "../../service/fake-players";
+import { useAuthState } from "../../store";
 import { LobbyWrapper } from "./styles";
 
 export const Lobby: FC = () => {
-  // TODO: integrate
-  const startGame = () => {
-    // TODO: send to backend
-    console.log("start game");
+  const { socket } = useAuthState();
+
+  const setReady = () => {
+    console.log("ready!");
+    socket?.updateStatus;
   };
 
   return (
     <LobbyWrapper>
       <TopNavigation isInMatch />
-      <LineContainer arePlayersReady onClick={startGame}>
+      <LineContainer arePlayersReady onClick={setReady}>
         {Players.map((player) => (
           <LobbyPlayer key={player.id} player={player} />
         ))}

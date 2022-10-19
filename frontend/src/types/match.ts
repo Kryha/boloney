@@ -13,7 +13,7 @@ export const playerSchema = z.object({
 export type Player = z.infer<typeof playerSchema>;
 
 export const matchSettingsSchema = z.object({
-  players: z.number(),
+  requiredPlayerCount: z.number(),
   dicePerPlayer: z.number(),
   powerUpsPerPlayer: z.number(),
   availablePowerUps: z.array(powerUpTypeSchema),

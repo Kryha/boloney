@@ -19,5 +19,6 @@ export const general = {
   yourGameHasBeenCreated: "your game has been successfully created! Now you can share it with your friends using the link below. Have fun!",
   onlyPlayersWithThisCode: "only players with this code are able to join the match.",
   goToLobby: "go to lobby",
-  startGame: "start game",
+  ready: "ready",
+  imReady: "I'm ready!",
 };
