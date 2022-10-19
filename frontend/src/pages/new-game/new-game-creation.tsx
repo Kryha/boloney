@@ -20,6 +20,7 @@ interface Props {
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
+  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
   const { createMatch, joinMatch, isLoading } = useMatchMaker();
   const [isError, setIsError] = useState(false);
@@ -33,7 +34,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     data.healAction = Number(data.healAction);
     data.stageNumber = Number(data.stageNumber);
     // TODO: use newer stuff
-    data.powerUpProbability = [{ id: "1", probability: 0.25 }];
+    data.powerUpProbability = powerUpProbability;
     data.drawRoundOffset = Number(data.drawRoundOffset);
 
     const res = await createMatch(data);
