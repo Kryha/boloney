@@ -1,26 +1,26 @@
 import create from "zustand";
 
-import { PowerupType } from "../../types";
+import { PowerUpType } from "../../types";
 
 export interface NewGameState {
-  availablePowerups: PowerupType[];
+  availablePowerUps: PowerUpType[];
   isUsingFakeCredits: boolean;
 
   toggleIsUsingFakeCredits: () => void;
-  togglePowerup: (powerup: PowerupType) => void;
+  togglePowerUp: (powerUp: PowerUpType) => void;
 }
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
-  availablePowerups: [],
+  availablePowerUps: [],
   isUsingFakeCredits: false,
 
   toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
-  togglePowerup: (powerup) =>
-    set(({ availablePowerups }) => {
-      const powerupsSet = new Set(availablePowerups);
-      const itemFound = powerupsSet.delete(powerup);
-      if (!itemFound) powerupsSet.add(powerup);
+  togglePowerUp: (powerUp) =>
+    set(({ availablePowerUps }) => {
+      const powerUpsSet = new Set(availablePowerUps);
+      const itemFound = powerUpsSet.delete(powerUp);
+      if (!itemFound) powerUpsSet.add(powerUp);
 
-      return { availablePowerups: Array.from(powerupsSet) };
+      return { availablePowerUps: Array.from(powerUpsSet) };
     }),
 }));

@@ -4,13 +4,14 @@ export const newGame = {
 
   players: "players",
   dicePerPlayer: "dice per player",
-  powerupsPerPlayer: "power-ups per player",
-  whichPowerups: "which power-ups do you want?",
+  powerUpsPerPlayer: "power-ups per player",
+  whichPowerUps: "which power-ups do you want?",
   typeOfBet: "type of bet",
 
   dice: "dice",
-  powerups: "power-ups",
-  powerup: "power-up",
+  powerUps: "power-ups",
+  powerUp: "power-up",
+  // TODO: delete these
   powerup1: "power-up 01",
   powerup2: "power-up 02",
   powerup3: "power-up 03",
@@ -33,4 +34,5 @@ export const newGame = {
     "By creating the game we will create a link for you to share with your friends. This link will lead you all to the game itself, enjoy it!",
 
   continue: "continue",
+  invalidPercentage: "match to 100%",
 };

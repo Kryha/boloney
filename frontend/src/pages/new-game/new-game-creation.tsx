@@ -8,8 +8,8 @@ import { isString, MatchSettings } from "../../types";
 import { FakeCreditsField } from "./fake-credits-field";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { PlayersField } from "./players-field";
-import { PowerupsAmountField } from "./powerups-amount-field";
-import { PowerupsField } from "./powerups-field";
+import { PowerUpsAmountField } from "./powerups-amount-field";
+import { PowerUpsField } from "./powerups-field";
 import { BottomContainer, ButtonContainer, NewGameContainer } from "./styles";
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 // TODO: make a form component
 export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
-  const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
+  const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
   const { createMatch, joinMatch, isLoading } = useMatchMaker();
   const [isError, setIsError] = useState(false);
@@ -27,8 +27,8 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     data.players = Number(data.players);
     data.dicePerPlayer = Number(data.dicePerPlayer);
-    data.powerupsPerPlayer = Number(data.powerupsPerPlayer);
-    data.availablePowerups = availablePowerups;
+    data.powerUpsPerPlayer = Number(data.powerUpsPerPlayer);
+    data.availablePowerUps = availablePowerUps;
     data.isUsingFakeCredits = isUsingFakeCredits;
 
     const res = await createMatch(data);
@@ -53,9 +53,9 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
         <FormContainer>
           <PlayersField register={register} />
 
-          <PowerupsAmountField register={register} />
+          <PowerUpsAmountField register={register} />
 
-          <PowerupsField />
+          <PowerUpsField />
 
           <FakeCreditsField />
 

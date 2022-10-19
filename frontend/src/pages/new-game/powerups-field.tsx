@@ -3,38 +3,39 @@ import { Checkbox, Input } from "../../components";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { CheckboxContainer, FieldContainer } from "./styles";
 
-export const PowerupsField = () => {
-  const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
-  const togglePowerup = useGameCreationFormState((state) => state.togglePowerup);
+export const PowerUpsField = () => {
+  const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
+  const togglePowerUp = useGameCreationFormState((state) => state.togglePowerUp);
 
+  // TODO: refractor and remove lower case powerup
   return (
     <FieldContainer>
-      <Input label={text.newGame.whichPowerups}>
+      <Input label={text.newGame.whichPowerUps}>
         <CheckboxContainer>
           <Checkbox
             isTop
             title={text.newGame.powerup1}
             description={text.newGame.powerup1Desc}
-            isChecked={availablePowerups.includes("p1")}
-            toggleCheck={() => togglePowerup("p1")}
+            isChecked={availablePowerUps.includes("1")}
+            toggleCheck={() => togglePowerUp("1")}
           />
           <Checkbox
             title={text.newGame.powerup2}
             description={text.newGame.powerup2Desc}
-            isChecked={availablePowerups.includes("p2")}
-            toggleCheck={() => togglePowerup("p2")}
+            isChecked={availablePowerUps.includes("2")}
+            toggleCheck={() => togglePowerUp("2")}
           />
           <Checkbox
             title={text.newGame.powerup3}
             description={text.newGame.powerup3Desc}
-            isChecked={availablePowerups.includes("p3")}
-            toggleCheck={() => togglePowerup("p3")}
+            isChecked={availablePowerUps.includes("3")}
+            toggleCheck={() => togglePowerUp("3")}
           />
           <Checkbox
             title={text.newGame.powerup4}
             description={text.newGame.powerup4Desc}
-            isChecked={availablePowerups.includes("p4")}
-            toggleCheck={() => togglePowerup("p4")}
+            isChecked={availablePowerUps.includes("4")}
+            toggleCheck={() => togglePowerUp("4")}
           />
         </CheckboxContainer>
       </Input>
