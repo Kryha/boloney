@@ -9,6 +9,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
     # nginx.ingress.kubernetes.io/enable-cors: "true"
     # nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    # nginx.ingress.kubernetes.io/stream-snippet: |
+    #   server {
+    #     listen 8000;
+    #     proxy_pass 127.0.0.1:80;
+    #   }
     nginx.ingress.kubernetes.io/configuration-snippet: |
       if ($request_method = 'OPTIONS') {
         add_header 'Access-Control-Allow-Origin' '*';
@@ -30,7 +35,6 @@ metadata:
         add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
         add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
       }
-      proxy_pass https://api.liars-dice.staging.kryha.dev;
 spec:
   tls:
     - secretName: "backend.liars-dice.staging.kryha.dev"
