@@ -39,23 +39,23 @@ metadata:
     #   }
 spec:
   tls:
-    - secretName: "backend.liars-dice.staging.kryha.dev"
-      hosts:
-        - "backend.liars-dice.staging.kryha.dev"
+    # - secretName: "backend.liars-dice.staging.kryha.dev"
+    #   hosts:
+    #     - "backend.liars-dice.staging.kryha.dev"
     - secretName: "api.liars-dice.staging.kryha.dev"
       hosts:
         - "api.liars-dice.staging.kryha.dev"
   rules:
-    - host: "backend.liars-dice.staging.kryha.dev"
-      http:
-        paths:
-          - path: "/(.*)"
-            pathType: Prefix
-            backend:
-              service:
-                name: backend
-                port:
-                  name: dashboard
+    # - host: "backend.liars-dice.staging.kryha.dev"
+    #   http:
+    #     paths:
+    #       - path: "/(.*)"
+    #         pathType: Prefix
+    #         backend:
+    #           service:
+    #             name: backend
+    #             port:
+    #               name: dashboard
     - host: "api.liars-dice.staging.kryha.dev"
       http:
         paths:
