@@ -14,75 +14,77 @@ metadata:
     #     listen 8000;
     #     proxy_pass 127.0.0.1:80;
     #   }
-    nginx.ingress.kubernetes.io/configuration-snippet: |
+    nginx.ingress.kubernetes.io/stream-snippet: |
       # Nakama HTTP API.
-      # listen 80 ssl;
-      # listen [::]:80 ssl;
+      server {
+        listen 80 ssl;
+        listen [::]:80 ssl;
 
-      # Domain names this server should respond to.
-      server_name api.liars-dice.staging.kryha.dev;
+        # Domain names this server should respond to.
+        server_name api.liars-dice.staging.kryha.dev;
 
-      # SSL certificate configuration.
-      # ssl_certificate         /etc/letsencrypt/live/nakama/fullchain.pem;
-      # ssl_certificate_key     /etc/letsencrypt/live/nakama/privkey.pem;
-      # ssl_trusted_certificate /etc/letsencrypt/live/nakama/chain.pem;
-      # ssl_dhparam /etc/letsencrypt/dhparams/dhparam.pem;
+        # SSL certificate configuration.
+        # ssl_certificate         /etc/letsencrypt/live/nakama/fullchain.pem;
+        # ssl_certificate_key     /etc/letsencrypt/live/nakama/privkey.pem;
+        # ssl_trusted_certificate /etc/letsencrypt/live/nakama/chain.pem;
+        # ssl_dhparam /etc/letsencrypt/dhparams/dhparam.pem;
 
-      location / {
-        # Enable CORS from anywhere with support for pre-flight requests.
-        # See: https://enable-cors.org/server_nginx.html
-        if ($request_method = 'OPTIONS') {
-          add_header 'Access-Control-Allow-Origin' '*';
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
-          # Tell client that this pre-flight info is valid for 20 days
-          add_header 'Access-Control-Max-Age' 1728000;
-          add_header 'Content-Type' 'text/plain; charset=utf-8';
-          add_header 'Content-Length' 0;
-          return 204;
-        }
-        if ($request_method = 'POST') {
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
-          add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
-        }
-        if ($request_method = 'GET') {
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
-          add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
-        }
+        location / {
+          # Enable CORS from anywhere with support for pre-flight requests.
+          # See: https://enable-cors.org/server_nginx.html
+          if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+            # Tell client that this pre-flight info is valid for 20 days
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+          }
+          if ($request_method = 'POST') {
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+          }
+          if ($request_method = 'GET') {
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+          }
 
-        # proxy_pass http://nakama:7350;
-      }
-
-      location /ws {
-        # Enable CORS from anywhere with support for pre-flight requests.
-        # See: https://enable-cors.org/server_nginx.html
-        if ($request_method = 'OPTIONS') {
-          add_header 'Access-Control-Allow-Origin' '*';
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
-          # Tell client that this pre-flight info is valid for 20 days
-          add_header 'Access-Control-Max-Age' 1728000;
-          add_header 'Content-Type' 'text/plain; charset=utf-8';
-          add_header 'Content-Length' 0;
-          return 204;
-        }
-        if ($request_method = 'POST') {
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
-          add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
-        }
-        if ($request_method = 'GET') {
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
-          add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+          # proxy_pass http://nakama:7350;
         }
 
-        # proxy_pass http://nakama:7350/ws;
-        # proxy_http_version 1.1;
-        # proxy_set_header Upgrade $http_upgrade;
-        # proxy_set_header Connection "Upgrade";
+        location /ws {
+          # Enable CORS from anywhere with support for pre-flight requests.
+          # See: https://enable-cors.org/server_nginx.html
+          if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+            # Tell client that this pre-flight info is valid for 20 days
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+          }
+          if ($request_method = 'POST') {
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+          }
+          if ($request_method = 'GET') {
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+          }
+
+          # proxy_pass http://nakama:7350/ws;
+          # proxy_http_version 1.1;
+          # proxy_set_header Upgrade $http_upgrade;
+          # proxy_set_header Connection "Upgrade";
+        }
       }
 spec:
   tls:
