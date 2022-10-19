@@ -34,5 +34,5 @@ export const newGame = {
     "By creating the game we will create a link for you to share with your friends. This link will lead you all to the game itself, enjoy it!",
 
   continue: "continue",
-  invalidPercentage: "Match to 100%",
+  invalidPercentage: "match to 100%",
 };
