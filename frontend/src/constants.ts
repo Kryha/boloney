@@ -25,7 +25,7 @@ export const MAX_PLAYERS = 7;
 export const MIN_PLAYERS = 2;
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
-export const MAX_POWERUPS_PER_PLAYER = 3;
+export const MAX_POWERUPS_PER_PLAYER = 10;
 export const MIN_POWERUPS_PER_PLAYER = 0;
 
 export const FLOATING_ANIMATION_SPEED = 4;
@@ -33,6 +33,7 @@ export const FLOATING_ANIMATION_SPEED = 4;
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";
 export const REFRESH_TOKEN_STORAGE_KEY = "refresh_token";
 
+// TODO: define these in a separate file
 export const RPC_CREATE_MATCH = "create_match";
 export const RPC_FIND_MATCH = "find_match";
 

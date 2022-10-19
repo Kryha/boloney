@@ -73,12 +73,13 @@ export const BaseSelect = styled.select`
   box-sizing: border-box;
   border-radius: 0px;
   -webkit-border-radius: 0px;
+  border: 1px solid ${color.mediumGrey};
   border-right: 1px solid transparent;
   border-left: 1px solid transparent;
-
+  cursor: pointer;
   padding: 23px ${margins.large0};
   :hover {
-    border: 1px solid ${color.black} !important;
+    background-color: ${color.white};
   }
   :active {
     border: 1px solid ${color.black} !important;
