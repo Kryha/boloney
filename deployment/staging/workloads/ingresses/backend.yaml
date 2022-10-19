@@ -21,7 +21,7 @@ metadata:
         listen [::]:80 ssl;
 
         # Domain names this server should respond to.
-        server_name api.liars-dice.staging.kryha.dev;
+        # server_name api.liars-dice.staging.kryha.dev;
 
         # SSL certificate configuration.
         # ssl_certificate         /etc/letsencrypt/live/nakama/fullchain.pem;
