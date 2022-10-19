@@ -51,7 +51,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   };
 };
 
-export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
+export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
 
   // Populate the presence property for each player that joined
@@ -63,6 +63,15 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispa
   if (Object.keys(state.players).length === state.settings.requiredPlayerCount) {
     state.phase = MatchPhase.WaitingForPlayersReady;
   }
+
+  // For each "ready" player, let the joining players know about their status
+  Object.keys(state.players).forEach((key) => {
+    const player = state.players[key];
+
+    if (player.isReady && player.presence) {
+      dispatcher.broadcastMessage(MatchOpCode.READY, JSON.stringify({ userId: player.presence.userId }), presences);
+    }
+  });
 
   return {
     state,
@@ -97,12 +106,14 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
     }
   });
 
-  // If we have no presences in the match according to the match state, increment the empty ticks count
+  // If we have no presences in the match according to the match state, increment the empty ticks count or reset once a player has joined
   if (!state.players) {
     state.emptyTicks++;
+  } else {
+    state.emptyTicks = 0;
   }
 
-  // If the match has been empty for more than 500 ticks, end the match by returning null
+  // If the match has been empty for more than X ticks, end the match by returning null
   if (state.emptyTicks > 500) return null;
 
   return {
