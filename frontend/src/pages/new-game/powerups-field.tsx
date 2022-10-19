@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { POWER_UP_DATA, text } from "../../assets";
 import { GeneralText, Heading6, InfoButton, Input } from "../../components";
-import { PowerUpCheckbox } from "../../components/checkbox/power-up-checbox";
+import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import {
   CheckboxContainer,
