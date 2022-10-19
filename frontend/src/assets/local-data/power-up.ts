@@ -15,8 +15,8 @@ export const POWER_UP_DATA: PowerUpDataProps[] = [
   {
     id: "1",
     name: "interrogate",
-    shortDescription: "ask an opponent if they have x of y die faces",
-    longDescription: "ask an opponent if they have x of y die faces",
+    shortDescription: "ask an opponent if they have x of y die faces.",
+    longDescription: "ask an opponent if they have x of y die faces.",
     iconImage: InterrogateIcon,
     cardImage: InterrogateIcon,
   },
