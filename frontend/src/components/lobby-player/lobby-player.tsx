@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { Player } from "../../interfaces";
+
+import { Player } from "../../types";
 import { Hand } from "../hand";
 import { LobbyPlayerStatus } from "../lobby-player-status";
 import { LobbyPlayerWrapper } from "./styles";

@@ -1,30 +1,37 @@
-import { PowerupType } from "../interfaces/game";
-import { MatchPhase, MatchState } from "../interfaces/match";
-import { MatchOpCode } from "../utils";
+import { MatchOpCode, MatchPhase, handleError } from "../utils";
+import { text } from "../text";
+import { MatchState, isMatchSettings } from "../types";
+
+/**
+ * Using isMatchState predicate to check for state type in each hook will make nakama env to throw,
+ * so apparently we can't use the predicate in these hooks
+ */
 
 export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
+  if (!isMatchSettings(params)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
+
   const initialState: MatchState = {
-    settings: {
-      requiredPlayerCount: Number(params.players),
-      dicePerPlayer: Number(params.dicePerPlayer),
-      powerupsPerPlayer: Number(params.powerupsPerPlayer),
-      availablePowerups: [params.availablePowerups] as PowerupType[],
-      isUsingFakeCredits: !!+params.isUsingFakeCredits,
-    },
     players: {},
     phase: MatchPhase.WaitingForPlayers,
+    settings: {
+      requiredPlayerCount: params.requiredPlayerCount,
+      dicePerPlayer: params.dicePerPlayer,
+      powerupsPerPlayer: params.powerupsPerPlayer,
+      availablePowerups: params.availablePowerups,
+      isUsingFakeCredits: params.isUsingFakeCredits,
+    },
     emptyTicks: 0,
   };
 
   logger.info("----------------- STATE -----------------");
-  logger.debug(JSON.stringify(initialState));
+  logger.debug("Initial state: ", initialState);
 
   return {
     state: initialState,
-    tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second.
     // TODO: Set tickRate to 5 after development is done for improved UX. But for dev purposes 1 is more than enough.
+    tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second.
     label: "StandardMatch",
   };
 };
@@ -37,12 +44,12 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (
   _tick,
   state,
   _presence,
-  _metadata: { [key: string]: any } // TODO: define and handle types with Zod
+  _metadata
 ) => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
   // A custom match starts right after creating it, so it needs to check manually if the room is full/joinable.
-  const canPlayerJoin = state.presences && Object.keys(state.presences).length < state.players;
+  const canPlayerJoin = Object.keys(state.presences).length < state.players;
 
   return { state, accept: canPlayerJoin };
 };
@@ -51,7 +58,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispa
   logger.info("----------------- MATCH JOINED -----------------");
 
   presences.forEach((p) => {
-    if (state.presences) state.presences[p.sessionId] = p;
+    state.presences[p.sessionId] = p;
   });
 
   return {
@@ -61,7 +68,6 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispa
 
 export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
-  logger.info(`PRESENCE COUNT: ${String(Object.keys(state.presences).length)}`);
 
   messages.forEach((message) => {
     logger.debug("------ MESSAGE ------");
@@ -82,8 +88,8 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
 
       // If all players are ready, transition to InProgress state and broadcast the game starting event
       if (allReady && Object.keys(state.players).length === state.requiredPlayerCount) {
-        state.gameState = GameState.InProgress;
-        dispatcher.broadcastMessage(GAME_STARTING_OP_CODE);
+        state.gameState = MatchPhase.InProgress;
+        dispatcher.broadcastMessage(MatchOpCode.GAME_START);
       }
     }
   });
@@ -113,6 +119,7 @@ export const matchSignal: nkruntime.MatchSignalFunction = (_ctx, logger, _nk, _d
 
 export const matchLeave: nkruntime.MatchLeaveFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH LEAVE -----------------");
+
   presences.forEach((p) => {
     delete state.presences?.[p.sessionId];
   });

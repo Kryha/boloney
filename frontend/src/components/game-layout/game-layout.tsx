@@ -1,11 +1,9 @@
 import { FC, ReactNode } from "react";
 
+import { Die, Player } from "../../types";
 import { GamePlayersOverview } from "../game-players-overview";
 import { HUD } from "../hud";
-import { Player } from "../../interfaces/player";
-
 import { ContentContainer, MainContentContainer } from "./styles";
-import { Die } from "../../interfaces";
 import { TopNavigation } from "../top-navigation";
 
 interface GameLayoutProps {

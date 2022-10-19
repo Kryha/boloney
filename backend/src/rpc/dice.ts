@@ -1,12 +1,23 @@
-import { z } from "zod";
+import { text } from "../text";
+import { isNumber } from "../types";
+import { handleError, MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER, range, rpcHandler } from "../utils";
 
-import { MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER, range, rpcHandler } from "../utils";
+interface RollPayload {
+  diceAmount: number;
+}
 
-export const rollSchema = z.object({
-  diceAmount: z.number().min(MIN_DICE_PER_PLAYER).max(MAX_DICE_PER_PLAYER),
-});
+const isRollPayload = (value: unknown): value is RollPayload => {
+  const assertedVal = value as RollPayload;
 
-export const rollDice = rpcHandler((_ctx, _logger, _nk, payload) => {
+  return (
+    assertedVal.diceAmount !== undefined &&
+    isNumber(assertedVal.diceAmount) &&
+    assertedVal.diceAmount >= MIN_DICE_PER_PLAYER &&
+    assertedVal.diceAmount <= MAX_DICE_PER_PLAYER
+  );
+};
+
+export const rollDice = rpcHandler((_ctx, logger, _nk, payload) => {
   // TODO: implement wanted behaviour for this function
   // - check if user is allowed to roll
   // - check if diceAmount respects the game settings
@@ -14,10 +25,12 @@ export const rollDice = rpcHandler((_ctx, _logger, _nk, payload) => {
   // - store generated proofs
   // - update game state
 
-  const { diceAmount } = rollSchema.parse(JSON.parse(payload));
+  const parsed = JSON.parse(payload);
+
+  if (!isRollPayload(parsed)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   // TODO: make the call to toolkit for number generation
-  const values = range(diceAmount, 1).map(() => Math.floor(Math.random() * 6) + 1);
+  const values = range(parsed.diceAmount, 1).map(() => Math.floor(Math.random() * 6) + 1);
 
   return JSON.stringify({ values });
 });
