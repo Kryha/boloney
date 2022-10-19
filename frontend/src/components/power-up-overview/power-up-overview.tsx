@@ -5,18 +5,26 @@ import { PowerUp } from "../power-up";
 import { GeneralText } from "../atoms/text";
 import { text } from "../../assets/text";
 import { useViewport } from "../../hooks/use-viewport";
-import { FakePowerUps } from "../../service/fake-power-ups";
+import { PowerUp as PowerUps } from "../../types";
 
-// TODO: update component when the power-up type is created
-export const PowerUpOverview: FC = () => {
+interface PowerUpOverviewProps {
+  powerUps?: PowerUps[];
+}
+
+export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUps }) => {
   const { height } = useViewport();
+
+  if (!powerUps) return <></>;
+
   return (
     <PowerUpOverviewWrapper>
       <PowerUpOverviewContainer height={height}>
         <YourPowerUpContainer>
-          <PowerUp powerUp={FakePowerUps[0]} />
+          {powerUps.map((powerUp) => (
+            <PowerUp key={powerUp.id} powerUp={powerUp} />
+          ))}
         </YourPowerUpContainer>
-        <GeneralText>{text.param.yourPowerUp(1)}</GeneralText>
+        <GeneralText>{text.param.yourPowerUp(powerUps.length)}</GeneralText>
       </PowerUpOverviewContainer>
     </PowerUpOverviewWrapper>
   );
