@@ -92,10 +92,8 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
 `;
 
 interface PercentageInputProps {
-  isChecked?: boolean;
+  isError?: boolean;
 }
-export const PercentageInputContainer = styled.div<PercentageInputProps>`
-`;
 
 export const PercentageInput = styled(BaseInput)`
   width: 80px;
@@ -116,6 +114,15 @@ export const PercentageInput = styled(BaseInput)`
     right: 35px;
   }
 `;
+
+export const PercentageInputContainer = styled.div<PercentageInputProps>`
+  ${PercentageInput} {
+    border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
+    color: ${({ isError }) => (isError ? color.red : color.black)};
+  }
+`;
+
+
 
 export const TextLabel = styled(GeneralText)`
   display: flex;

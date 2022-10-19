@@ -3,10 +3,6 @@ import create from "zustand";
 
 import { PowerUpType, PowerUpProbability } from "../../types";
 
-interface PowerUpError {
-  id: string,
-  isError: boolean;
-}
 export interface NewGameState {
   availablePowerUps: PowerUpType[];
   isPrivate: boolean;
@@ -60,15 +56,14 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
         }
       });
 
-      probabilitySet.add({ id: id, probability: prob });
+      probabilitySet.add({ id: id, probability: prob, isError: false });
 
       const probabilities = Array.from(probabilitySet);
       const probability = probabilities.reduce((a, b) => a + b.probability, 0);
 
-      const powerUpError = probability > 100 && powerUpProbability.some((e) => e.id === id);
+      const powerUpError = probability > 100;
 
-      // Add the id to power up error
-      return { powerUpProbability: probabilities, probability: probability, isPowerUpError: !powerUpError };
+      return { powerUpProbability: probabilities, probability: probability, isPowerUpError: powerUpError };
     });
   },
   removeProbability: (name: PowerUpType) => set((state) => ({

@@ -23,6 +23,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
   const { createMatch, joinMatch, isLoading } = useMatchMaker();
+  const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
   const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
@@ -71,7 +72,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           {isLoading && <Heading6>{text.newGame.loading}</Heading6>}
           {isError && <Heading6>{text.newGame.error}</Heading6>}
           <ButtonContainer>
-            <PrimaryButton type="submit" text={text.newGame.continue} />
+            <PrimaryButton type="submit" text={text.newGame.continue} disabled={isPowerUpError} />
           </ButtonContainer>
         </FormContainer>
       </form>

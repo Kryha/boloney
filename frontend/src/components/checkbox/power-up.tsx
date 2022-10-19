@@ -12,13 +12,15 @@ interface PowerUpsInfo {
   powerUp: PowerUpDataProps;
   isChecked: boolean;
   isError: boolean;
+  probability: number;
+  setProbability: (probability: number) => void;
 }
 
-export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError }) => {
+export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError, probability, setProbability }) => {
   const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
 
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    setPowerUpProbability({ id: powerUp.id, probability: Number(e.target.value) });
+    setPowerUpProbability({ id: powerUp.id, probability: Number(e.target.value), isError: false });
   };
 
   return (
@@ -34,8 +36,14 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
         </GeneralContentWrapper>
       </DescriptionContainer>
       <CheckboxInput isError={isError}>
-        <PercentageInputContainer onClick={(e) => e.stopPropagation()} isChecked={isChecked}>
-          <PercentageInput type="number" onBlur={(e) => newProbability(e)} disabled={!isChecked} />
+        <PercentageInputContainer onClick={(e) => e.stopPropagation()} isError={isError}>
+          <PercentageInput
+            type="number"
+            onBlur={(e) => newProbability(e)}
+            disabled={!isChecked}
+            value={probability}
+            onChange={(e) => setProbability(Number(e.target.value))}
+          />
         </PercentageInputContainer>
       </CheckboxInput>
     </>
