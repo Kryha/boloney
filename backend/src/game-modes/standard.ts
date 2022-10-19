@@ -1,28 +1,33 @@
-import { PowerupType } from "../interfaces/game";
-import { MatchState } from "../interfaces/match";
+import { MatchSettings, MatchState, OpCode, PlayerState } from "../interfaces/match";
 
-export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {
+const defaultSettings: MatchSettings = {
+  requiredPlayers: 7,
+  dicePerPlayer: 5,
+  powerupsPerPlayer: 3,
+  availablePowerups: ["p1", "p2", "p3"],
+  isUsingFakeCredits: true,
+};
+
+export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, _params) => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
   const initialState: MatchState = {
-    presences: {},
+    setting: defaultSettings,
+    presences: [],
+    players: [],
+    playerCount: 0,
+    playerOrder: [],
+    matchStage: 1,
     emptyTicks: 0,
-    players: Number(params.players),
-    dicePerPlayer: Number(params.dicePerPlayer),
-    powerupsPerPlayer: Number(params.powerupsPerPlayer),
-    // TODO: define and handle types with Zod
-    availablePowerups: [params.availablePowerups] as PowerupType[],
-    isUsingFakeCredits: !!+params.isUsingFakeCredits,
   };
 
   logger.info("----------------- STATE -----------------");
   logger.debug(JSON.stringify(initialState));
-
   return {
     state: initialState,
     tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second.
     // TODO: Set tickRate to 5 after development is done for improved UX. But for dev purposes 1 is more than enough.
-    label: "StandardGame",
+    label: "standardGame",
   };
 };
 
@@ -49,6 +54,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispa
 
   presences.forEach((p) => {
     if (state.presences) state.presences[p.sessionId] = p;
+    if (state.players) state.players.push({ presence: p, isReady: false });
   });
 
   return {
@@ -56,7 +62,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispa
   };
 };
 
-export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _messages) => {
+export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
   logger.info(`PRESENCE COUNT: ${String(Object.keys(state.presences).length)}`);
 
@@ -64,7 +70,12 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispa
   if (!state.presences) {
     state.emptyTicks++;
   }
-
+  messages.forEach((message: nkruntime.MatchMessage) => {
+    if (state.matchStage === 2) {
+      state.players.players.forEach((player: PlayerState) => {});
+      dispatcher.broadcastMessage(OpCode.getPowerups);
+    }
+  });
   // If the match has been empty for more than 500 ticks, end the match by returning null
   if (state.emptyTicks > 500) return null;
 
