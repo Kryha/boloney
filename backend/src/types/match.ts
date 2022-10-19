@@ -28,7 +28,7 @@ export const isPlayer = (value: unknown): value is Player => {
 };
 
 export interface PlayerState {
-  presence: nkruntime.Presence;
+  presence: nkruntime.Presence | null;
   isReady: boolean;
 }
 

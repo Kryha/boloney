@@ -36,30 +36,33 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
   };
 };
 
-export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (
-  _ctx,
-  logger,
-  _nk,
-  _dispatcher,
-  _tick,
-  state,
-  _presence,
-  _metadata
-) => {
+export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presence, _metadata) => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
-  // A custom match starts right after creating it, so it needs to check manually if the room is full/joinable.
-  const canPlayerJoin = Object.keys(state.presences).length < state.players;
+  // Accept new players unless the required amount has been fulfilled
+  const accept = state.phase === MatchPhase.WaitingForPlayers && Object.keys(state.players).length < state.settings.requiredPlayerCount;
 
-  return { state, accept: canPlayerJoin };
+  // Reserve the spot in the match
+  state.players[presence.userId] = { presence: null, isReady: false };
+
+  return {
+    state,
+    accept,
+  };
 };
 
 export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
 
-  presences.forEach((p) => {
-    state.presences[p.sessionId] = p;
+  // Populate the presence property for each player that joined
+  presences.forEach((presence) => {
+    state.players[presence.userId].presence = presence;
   });
+
+  // If the match is full then move to the next phase
+  if (Object.keys(state.players).length === state.settings.requiredPlayerCount) {
+    state.phase = MatchPhase.WaitingForPlayersReady;
+  }
 
   return {
     state,
@@ -87,15 +90,15 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       });
 
       // If all players are ready, transition to InProgress state and broadcast the game starting event
-      if (allReady && Object.keys(state.players).length === state.requiredPlayerCount) {
-        state.gameState = MatchPhase.InProgress;
+      if (allReady && Object.keys(state.players).length === state.settings.requiredPlayerCount) {
+        state.phase = MatchPhase.InProgress;
         dispatcher.broadcastMessage(MatchOpCode.GAME_START);
       }
     }
   });
 
   // If we have no presences in the match according to the match state, increment the empty ticks count
-  if (!state.presences) {
+  if (!state.players) {
     state.emptyTicks++;
   }
 
@@ -120,8 +123,9 @@ export const matchSignal: nkruntime.MatchSignalFunction = (_ctx, logger, _nk, _d
 export const matchLeave: nkruntime.MatchLeaveFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH LEAVE -----------------");
 
-  presences.forEach((p) => {
-    delete state.presences?.[p.sessionId];
+  // Remove the player from match state
+  presences.forEach(function (presence) {
+    delete state.players[presence.userId];
   });
 
   return {
