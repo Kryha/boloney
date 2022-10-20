@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import { PowerUp as PowerUpType } from "../../types";
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
 import { PowerUpInfo } from "./power-up";
 
@@ -9,13 +8,12 @@ import { PowerUpDataProps } from "../../assets";
 interface Props {
   isTop?: boolean;
   powerUp: PowerUpDataProps;
-  isDisabled?: boolean;
   isChecked: boolean;
   isError: boolean;
   toggleCheck: () => void;
 }
 
-export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powerUp, isDisabled, isError }) => {
+export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powerUp, isError }) => {
   const removeProbability = useGameCreationFormState((state) => state.removeProbability);
   const [probability, setProbability] = useState(0);
 
@@ -35,7 +33,6 @@ export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powe
         }
       }}
       isChecked={isChecked}
-      isDisabled={isDisabled}
     >
       <CheckWrapper>
         <CheckContainer>{check()}</CheckContainer>

@@ -17,7 +17,6 @@ import {
 export const PowerUpsField: FC = () => {
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const togglePowerUp = useGameCreationFormState((state) => state.togglePowerUp);
-  const amountOfPowerUps = useGameCreationFormState((state) => state.amountOfPowerUps);
   const probability = useGameCreationFormState((state) => state.probability);
   const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
 
@@ -37,7 +36,6 @@ export const PowerUpsField: FC = () => {
               isChecked={availablePowerUps.includes(powerUp.id)}
               toggleCheck={() => togglePowerUp(powerUp.id)}
               powerUp={powerUp}
-              isDisabled={amountOfPowerUps === availablePowerUps.length && !availablePowerUps.includes(powerUp.id)}
               isError={isPowerUpError && availablePowerUps.includes(powerUp.id)}
             />
           ))}

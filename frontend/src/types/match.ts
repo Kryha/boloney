@@ -15,9 +15,9 @@ export type Player = z.infer<typeof playerSchema>;
 export const matchSettingsSchema = z.object({
   players: z.number(),
   dicePerPlayer: z.number(),
-  powerUpsPerPlayer: z.number(),
+  initialPowerUpAmount: z.number(),
+  maxPowerUpAmount: z.number(),
   availablePowerUps: z.array(powerUpTypeSchema),
-  isUsingFakeCredits: z.boolean(),
   healAction: z.number(),
   stageNumber: z.number(),
   drawRoundOffset: z.number(),

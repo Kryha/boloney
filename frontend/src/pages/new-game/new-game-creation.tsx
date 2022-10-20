@@ -8,8 +8,8 @@ import { isString, MatchSettings } from "../../types";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { HealActionField } from "./heal-action-field";
 import { PlayersField } from "./players-field";
-import { PowerUpsAmountField } from "./powerups-amount-field";
-import { PowerUpsField } from "./powerups-field";
+import { DrawRoundOffsetField } from "./draw-round-offset-field";
+import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewGameContainer } from "./styles";
 
 interface Props {
@@ -21,7 +21,6 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
   const { createMatch, joinMatch, isLoading } = useMatchMaker();
   const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
   const [isError, setIsError] = useState(false);
@@ -29,12 +28,11 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     data.players = Number(data.players);
     data.dicePerPlayer = Number(data.dicePerPlayer);
-    data.powerUpsPerPlayer = Number(data.powerUpsPerPlayer);
     data.availablePowerUps = availablePowerUps;
-    data.isUsingFakeCredits = isUsingFakeCredits;
     data.healAction = Number(data.healAction);
     data.stageNumber = Number(data.stageNumber);
-    // TODO: use newer stuff
+    data.maxPowerUpAmount = Number(data.maxPowerUpAmount);
+    data.initialPowerUpAmount = Number(data.initialPowerUpAmount);
     data.powerUpProbability = powerUpProbability;
     data.drawRoundOffset = Number(data.drawRoundOffset);
 
@@ -60,7 +58,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
         <FormContainer>
           <PlayersField register={register} />
 
-          <PowerUpsAmountField register={register} />
+          <DrawRoundOffsetField register={register} />
 
           <PowerUpsField />
 

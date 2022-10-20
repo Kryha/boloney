@@ -31,6 +31,12 @@ export const MIN_POWERUPS_PER_PLAYER = 0;
 export const MAX_STAGE_NUMBER_DIVISOR = 10;
 export const MIN_STAGE_NUMBER_DIVISOR = 1;
 
+export const MAX_DRAW_ROUND_OFFSET = -10;
+export const MIN_DRAW_ROUND_OFFSET = 10;
+
+export const MAX_HEAL_POWER_UP_AMOUNT = 10;
+export const MIN_HEAL_POWER_UP_AMOUNT = 1;
+
 export const FLOATING_ANIMATION_SPEED = 4;
 
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";

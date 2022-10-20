@@ -16,7 +16,6 @@ export type PowerUp = z.infer<typeof powerUpSchema>;
 export const powerUpProbabilitySchema = z.object({
   id: z.string(),
   probability: z.number(),
-  isError: z.boolean(),
 });
 
 export type PowerUpProbability = z.infer<typeof powerUpProbabilitySchema>;

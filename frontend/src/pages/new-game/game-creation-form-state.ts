@@ -1,42 +1,24 @@
-import { z } from "zod";
 import create from "zustand";
 
 import { PowerUpType, PowerUpProbability } from "../../types";
 
 export interface NewGameState {
   availablePowerUps: PowerUpType[];
-  isPrivate: boolean;
-  isUsingFakeCredits: boolean;
-  amountOfPowerUps: number;
   powerUpProbability: PowerUpProbability[];
   probability: number;
   isPowerUpError: boolean;
-  isPowerUpDisabled: boolean;
 
-  toggleIsPrivate: () => void;
-  toggleIsUsingFakeCredits: () => void;
   togglePowerUp: (powerUp: PowerUpType) => void;
-  setIsPowerUpDisabled: (powerUp?: PowerUpType) => void;
-  setAmountOfPowerUps: (amountOfPowerUps: number) => void;
   setPowerUpProbability: (probability: PowerUpProbability) => void;
   removeProbability: (name: PowerUpType) => void;
 }
 
-// setpowerup -> power up values, if theres an error, id, propbability
-// check for the general error in arrary
-
 export const useGameCreationFormState = create<NewGameState>((set) => ({
   availablePowerUps: [],
-  isPrivate: false,
-  isUsingFakeCredits: false,
-  amountOfPowerUps: 0,
   powerUpProbability: [],
   isPowerUpError: false,
-  isPowerUpDisabled: true,
   probability: 0,
 
-  toggleIsPrivate: () => set(({ isPrivate }) => ({ isPrivate: !isPrivate })),
-  toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
   togglePowerUp: (powerUp) =>
     set(({ availablePowerUps }) => {
       const powerUpsSet = new Set(availablePowerUps);
@@ -45,7 +27,6 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
 
       return { availablePowerUps: Array.from(powerUpsSet) };
     }),
-  setAmountOfPowerUps: (amountOfPowerUps: number) => set(() => ({ amountOfPowerUps: amountOfPowerUps })),
   setPowerUpProbability: ({ id: id, probability: prob }) => {
     set(({ powerUpProbability }) => {
       const probabilitySet = new Set(powerUpProbability);
@@ -56,7 +37,7 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
         }
       });
 
-      probabilitySet.add({ id: id, probability: prob, isError: false });
+      probabilitySet.add({ id: id, probability: prob });
 
       const probabilities = Array.from(probabilitySet);
       const probability = probabilities.reduce((a, b) => a + b.probability, 0);
@@ -66,17 +47,8 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
       return { powerUpProbability: probabilities, probability: probability, isPowerUpError: powerUpError };
     });
   },
-  removeProbability: (name: PowerUpType) => set((state) => ({
-    powerUpProbability: state.powerUpProbability.filter((probability) => probability.id !== name),
-  })),
-  setIsPowerUpDisabled: (powerUp) =>
-    set(({ availablePowerUps, amountOfPowerUps }) => {
-      let isDisabled = true;
-      if (powerUp) {
-        isDisabled = !availablePowerUps.includes(powerUp);
-      } else {
-        isDisabled = amountOfPowerUps === availablePowerUps.length;
-      }
-      return { isPowerUpDisabled: isDisabled };
-    }),
+  removeProbability: (name: PowerUpType) =>
+    set((state) => ({
+      powerUpProbability: state.powerUpProbability.filter((probability) => probability.id !== name),
+    })),
 }));

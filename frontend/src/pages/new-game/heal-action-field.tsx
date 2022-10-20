@@ -3,7 +3,7 @@ import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
 import { BaseOption, BaseSelect, Input } from "../../components";
-import { MAX_POWERUPS_PER_PLAYER, MAX_STAGE_NUMBER_DIVISOR, MIN_POWERUPS_PER_PLAYER, MIN_STAGE_NUMBER_DIVISOR } from "../../constants";
+import { MAX_HEAL_POWER_UP_AMOUNT, MAX_STAGE_NUMBER_DIVISOR, MIN_HEAL_POWER_UP_AMOUNT, MIN_STAGE_NUMBER_DIVISOR } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
 import { InputFieldContainer } from "./styles";
@@ -17,7 +17,7 @@ export const HealActionField: FC<Props> = ({ register }) => {
     <InputFieldContainer>
       <Input label={text.newGame.healAction}>
         <BaseSelect {...register("healAction")}>
-          {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
+          {range(MAX_HEAL_POWER_UP_AMOUNT, MIN_HEAL_POWER_UP_AMOUNT).map((n) => (
             <BaseOption key={n} value={n}>
               {text.param.healAmount(n)}
             </BaseOption>
