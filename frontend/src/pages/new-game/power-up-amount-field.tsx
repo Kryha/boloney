@@ -12,23 +12,23 @@ interface Props {
   register: UseFormRegister<MatchSettings>;
 }
 
-export const PowerUpAmountField: FC<Props> = ({ register }) => {
+export const PowerUpsAmountField: FC<Props> = ({ register }) => {
   return (
     <PlayersDiceContainer>
-      <Input label={text.newGame.players}>
+      <Input label={text.newGame.initialPowerUpAmount}>
         <BaseSelect {...register("initialPowerUpAmount")}>
           {range(MAX_PLAYERS, MIN_PLAYERS).map((n) => (
             <BaseOption key={n} value={n}>
-              {text.param.players(n)}
+              {text.param.powerUps(n)}
             </BaseOption>
           ))}
         </BaseSelect>
       </Input>
-      <Input label={text.newGame.dicePerPlayer}>
+      <Input label={text.newGame.maxPowerUpAmount}>
         <BaseSelect {...register("maxPowerUpAmount")}>
           {range(MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
-              {text.param.dice(n)}
+              {text.param.powerUps(n)}
             </BaseOption>
           ))}
         </BaseSelect>

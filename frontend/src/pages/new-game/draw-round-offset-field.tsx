@@ -17,7 +17,7 @@ export const DrawRoundOffsetField: FC<Props> = ({ register }) => {
     <InputFieldContainer>
       <Input label={text.newGame.drawRoundOffset}>
         <BaseSelect {...register("drawRoundOffset")}>
-          {range(MAX_DRAW_ROUND_OFFSET, MIN_DRAW_ROUND_OFFSET).map((n) => (
+          {range(MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET).map((n) => (
             <BaseOption key={n} value={n}>
               {n}
             </BaseOption>

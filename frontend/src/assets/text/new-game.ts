@@ -11,7 +11,8 @@ export const newGame = {
   dice: "dice",
   powerUps: "power-ups",
   powerUp: "power-up",
-  powerUpDesc: "select the type of power-ups you want to put on the table. In every match, you have a % of chance to get a certain power-up. You can change this % as you wish, just keep in mind that the total must sum 100%!",
+  powerUpDesc:
+    "select the type of power-ups you want to put on the table. In every match, you have a % of chance to get a certain power-up. You can change this % as you wish, just keep in mind that the total must sum 100%!",
 
   loading: "creating match...",
   error: "something went wrong. Please try again!",
@@ -26,4 +27,6 @@ export const newGame = {
   total: "total",
   outOfOneHundred: "/100 %",
   drawRoundOffset: "draw round offset",
+  initialPowerUpAmount: "power-ups initial amount",
+  maxPowerUpAmount: "power-Up max",
 };

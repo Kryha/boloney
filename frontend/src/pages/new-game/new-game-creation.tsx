@@ -11,6 +11,7 @@ import { PlayersField } from "./players-field";
 import { DrawRoundOffsetField } from "./draw-round-offset-field";
 import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewGameContainer } from "./styles";
+import { PowerUpsAmountField } from "./power-up-amount-field";
 
 interface Props {
   setUrl: (url: string) => void;
@@ -57,6 +58,8 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
       <form onSubmit={handleFormSubmit}>
         <FormContainer>
           <PlayersField register={register} />
+
+          <PowerUpsAmountField register={register} />
 
           <DrawRoundOffsetField register={register} />
 
