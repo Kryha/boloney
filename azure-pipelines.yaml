@@ -1,8 +1,5 @@
-# TODO: set back to develop
-# trigger:
-#   - develop
 trigger:
-  - hotfix/cors
+  - develop
 
 pool:
   vmImage: "ubuntu-latest"
