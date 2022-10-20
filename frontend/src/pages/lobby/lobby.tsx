@@ -1,4 +1,4 @@
-import { MatchmakerMatched } from "@heroiclabs/nakama-js";
+import { MatchData, MatchmakerMatched, Presence } from "@heroiclabs/nakama-js";
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { error } from "../../assets/text/error";
@@ -54,13 +54,20 @@ export const Lobby: FC = () => {
     if (matched.match_id) await joinMatch(matched.match_id);
   };
 
-  socket.onmatchdata = (matchData) => {
-    console.log({ matchData });
-  };
-
   socket.onchannelpresence = async (presence) => {
     // Not sure why, but these do not get picked up on, otherwise I could've addded it to the players array so players can get displayed before the match is made
     console.log({ presence });
+  };
+
+  socket.onmatchdata = (matchData: MatchData) => {
+    // All opcode related messages will be received here
+    console.log({ matchData });
+
+    if (matchData.op_code === MatchOpCode.READY) {
+      // A player has set himself to "ready", so we have to reflect that in the client
+      const readyUser: Presence = JSON.parse(String.fromCharCode(...matchData.data)); // Yes. This is the way to parse. Gotta love Nakama!
+      // players[readyUser.username].isReady = true; // Pseudo-code, opcodes aren't working yet
+    }
   };
 
   const setReady = async () => {
