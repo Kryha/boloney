@@ -17,7 +17,7 @@ export const newGame = {
   loading: "creating match...",
   error: "something went wrong. Please try again!",
   bottomDesc:
-    "sy creating the game we will create a link for you to share with your friends. This link will lead you all to the game itself, enjoy it!",
+    "by creating the game we will create a link for you to share with your friends. This link will lead you all to the game itself, enjoy it!",
 
   continue: "continue",
   invalidPercentage: "match to 100%",

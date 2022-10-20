@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { CloseIcon, LightningIcon, ToggleSwitchOffIcon, ToggleSwitchOnIcon } from "../../assets";
-import { color, margins } from "../../design";
+import { color, fontWeight, margins } from "../../design";
 import { GeneralText, Paragraph, GeneralContentWrapper, Heading6, Row, BaseInput } from "../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
 
@@ -65,15 +65,12 @@ interface CheckboxContainerProps {
   isTop?: boolean;
   addHover?: boolean;
   isChecked?: boolean;
-  isDisabled?: boolean;
 }
 
 export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   display: flex;
   width: 62.5vw;
   cursor: pointer;
-  opacity: ${({ isDisabled }) => (isDisabled ? "0.5" : "1")};
-  pointer-events:${({ isDisabled }) => (isDisabled ? "none" : "")};
   border-top: ${({ isTop }) => (isTop ? `1px solid ${color.mediumGrey}` : "0px")};
   background: ${({ isChecked }) => (isChecked ? color.white : "transparent")};
   :hover {
@@ -100,19 +97,6 @@ export const PercentageInput = styled(BaseInput)`
   height: 40px;
   border: 1px solid ${color.mediumGrey};
   padding: ${margins.small2} ${margins.small6} ${margins.small2} ${margins.small2};
-  ::after {
-    position: absolute;
-    content: "%";
-    font-family: ibm-plex-mono, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    padding-left: 3px;
-    padding-right: 3px;
-    padding-top: 7px;
-    color: ${color.black};
-    right: 35px;
-  }
 `;
 
 export const PercentageInputContainer = styled.div<PercentageInputProps>`
@@ -122,8 +106,6 @@ export const PercentageInputContainer = styled.div<PercentageInputProps>`
   }
 `;
 
-
-
 export const TextLabel = styled(GeneralText)`
   display: flex;
   width: 100%;
@@ -131,7 +113,7 @@ export const TextLabel = styled(GeneralText)`
     position: absolute;
     content: "%";
     font-family: ibm-plex-mono, sans-serif;
-    font-weight: 400;
+    font-weight: ${fontWeight.regular};
     font-size: 16px;
     line-height: 24px;
     padding-left: 3px;
