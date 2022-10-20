@@ -36,7 +36,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
 export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presence, _metadata) => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
-  // Accept new players unless the required amount has been fulfilled
+  // Accept new players if we are still waiting and until the required amount has been fulfilled
   const accept = state.phase === MatchPhase.WaitingForPlayers && Object.keys(state.players).length < state.settings.requiredPlayerCount;
 
   // Reserve the spot in the match
@@ -56,21 +56,6 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
     state.players[presence.userId].presence = presence;
   });
 
-  // Broadcast newly connected player to already connected players in the lobby
-  dispatcher.broadcastMessage(MatchOpCode.CONNECTED, JSON.stringify(presences));
-
-  // Broadcast currently connected players in lobby to the newly connected player
-  Object.keys(state.players).forEach((userId) => {
-    const player = state.players[userId];
-    dispatcher.broadcastMessage(MatchOpCode.CONNECTED, JSON.stringify(player), presences);
-  });
-
-  // If the match is full then move to the next phase
-  if (Object.keys(state.players).length === state.settings.requiredPlayerCount) {
-    state.phase = MatchPhase.WaitingForPlayersReady;
-    dispatcher.broadcastMessage(MatchOpCode.LOBBY_FULL, JSON.stringify(state.players));
-  }
-
   return {
     state,
   };
@@ -78,36 +63,24 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
 
 export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
-  logger.debug(JSON.stringify(state.players));
-  logger.debug(JSON.stringify(messages));
 
   messages.forEach((message) => {
     logger.debug("------ MESSAGE ------");
     logger.debug(JSON.stringify(message));
 
-    if (message.opCode === MatchOpCode.CONNECTED) {
-      logger.debug(`${message.sender.username} IS CONNECTED!`);
-      const data = JSON.parse(nk.binaryToString(message.data));
-      logger.debug(JSON.stringify(data));
-    }
-
     // If the message is a Ready message, update the player's isReady status and broadcast it to other players
     if (message.opCode === MatchOpCode.READY) {
       logger.debug(`${message.sender.username} IS READY!`);
-      const data = JSON.parse(nk.binaryToString(message.data));
-      logger.debug(JSON.stringify(data));
       state.players[message.sender.userId].isReady = true;
       dispatcher.broadcastMessage(MatchOpCode.READY, JSON.stringify({ userId: message.sender.userId }));
 
-      // Check to see if all players are now ready
-      const allReady = !Object.keys(state.players).find((userId) => !state.players[userId].isReady);
-      // let allReady = true;
-      // Object.keys(state.players).forEach((userId) => {
-      //   if (!state.players[userId].isReady) {
-      //     allReady = false;
-      //   }
-      // });
-      logger.debug(String(allReady));
+      // Check to see if all players are now ready (could be done in a one-liner but that's not readable)
+      let allReady = true;
+      Object.keys(state.players).forEach((userId) => {
+        if (!state.players[userId].isReady) {
+          allReady = false;
+        }
+      });
 
       // If all players are ready, transition to InProgress state and broadcast the game starting event
       if (allReady && Object.keys(state.players).length === state.settings.requiredPlayerCount) {

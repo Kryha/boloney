@@ -16,13 +16,6 @@ export const useMatchMaker = () => {
   const setMatchId = useMatchMakerState((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
 
-  socket.onmatchmakermatched = async (matched) => {
-    console.info("Received MatchmakerMatched message: ", matched);
-    console.info("Matched opponents: ", matched.users);
-
-    if (matched.match_id) await joinMatch(matched.match_id);
-  };
-
   const joinMatch = useCallback(
     async (matchId: string): Promise<NkResponse> => {
       try {
