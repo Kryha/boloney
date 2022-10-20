@@ -5,7 +5,7 @@ import { PowerUpType, PowerUpProbability } from "../../types";
 export interface NewGameState {
   availablePowerUps: PowerUpType[];
   powerUpProbability: PowerUpProbability[];
-  probability: number;
+  totalProbability: number;
   isPowerUpError: boolean;
 
   togglePowerUp: (powerUp: PowerUpType) => void;
@@ -17,7 +17,7 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
   availablePowerUps: [],
   powerUpProbability: [],
   isPowerUpError: false,
-  probability: 0,
+  totalProbability: 0,
 
   togglePowerUp: (powerUp) =>
     set(({ availablePowerUps }) => {

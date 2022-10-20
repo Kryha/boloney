@@ -1,8 +1,8 @@
 import { GameLayout } from "../../components";
-import { DiceRolls, Players } from "../../service";
-import { FakePowerUps } from "../../service/fake-power-ups";
+import { fakeDiceRolls, fakePlayers } from "../../service";
+import { fakePowerUps } from "../../service/fake-power-ups";
 
 // TODO: finish page
 export const Match = () => {
-  return <GameLayout players={Players} dice={DiceRolls} powerUp={FakePowerUps} />;
+  return <GameLayout players={fakePlayers} dice={fakeDiceRolls} powerUps={fakePowerUps} />;
 };

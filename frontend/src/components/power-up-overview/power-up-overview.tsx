@@ -1,14 +1,14 @@
 import { FC } from "react";
 
 import { PowerUpOverviewWrapper, PowerUpOverviewContainer, YourPowerUpContainer } from "./styles";
-import { PowerUp } from "../power-up";
+import { PowerUpComponent } from "../power-up";
 import { GeneralText } from "../atoms/text";
 import { text } from "../../assets/text";
 import { useViewport } from "../../hooks/use-viewport";
-import { PowerUp as PowerUps } from "../../types";
+import { PowerUp } from "../../types";
 
 interface PowerUpOverviewProps {
-  powerUps?: PowerUps[];
+  powerUps?: PowerUp[];
 }
 
 export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUps }) => {
@@ -21,7 +21,7 @@ export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUps }) => {
       <PowerUpOverviewContainer height={height}>
         <YourPowerUpContainer>
           {powerUps.map((powerUp) => (
-            <PowerUp key={powerUp.id} powerUp={powerUp} />
+            <PowerUpComponent key={powerUp.id} powerUp={powerUp} />
           ))}
         </YourPowerUpContainer>
         <GeneralText>{text.param.yourPowerUp(powerUps.length)}</GeneralText>

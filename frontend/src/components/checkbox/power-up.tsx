@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
 import { GeneralContentWrapper, Heading6, Row } from "../atoms";
 import { CheckboxInput } from "../inputs";
-import { PowerUp } from "../power-up";
+import { PowerUpComponent } from "../power-up";
 
 import { Description, DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
 import { PowerUpDataProps } from "../../assets";
@@ -25,7 +25,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
 
   return (
     <>
-      <PowerUp powerUp={{ id: powerUp.id, image: powerUp.iconImage, name: powerUp.name }} />
+      <PowerUpComponent powerUp={{ id: powerUp.id, image: powerUp.iconImage, name: powerUp.name }} />
       <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
         <GeneralContentWrapper>
           <Row>

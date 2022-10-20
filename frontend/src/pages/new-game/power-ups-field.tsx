@@ -17,7 +17,7 @@ import {
 export const PowerUpsField: FC = () => {
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const togglePowerUp = useGameCreationFormState((state) => state.togglePowerUp);
-  const probability = useGameCreationFormState((state) => state.probability);
+  const totalProbability = useGameCreationFormState((state) => state.totalProbability);
   const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
 
   return (
@@ -47,7 +47,7 @@ export const PowerUpsField: FC = () => {
           <Heading6>{text.newGame.total}</Heading6>
         </LightningContainer>
         <PercentageContainer>
-          <Percentage isError={isPowerUpError}>{probability}</Percentage>
+          <Percentage isError={isPowerUpError}>{totalProbability}</Percentage>
           <GeneralText>{text.newGame.outOfOneHundred}</GeneralText>
         </PercentageContainer>
       </TotalContainer>

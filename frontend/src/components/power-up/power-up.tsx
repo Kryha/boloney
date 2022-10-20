@@ -1,13 +1,13 @@
 import { FC } from "react";
 
 import { PowerUpCardImage, PowerUpWrapper } from "./styles";
-import { PowerUp as PowerUps } from "../../types";
+import { PowerUp } from "../../types";
 
-interface PowerUpProps {
-  powerUp: PowerUps;
+interface PowerUpComponentProps {
+  powerUp: PowerUp;
 }
 
-export const PowerUp: FC<PowerUpProps> = ({ powerUp }) => {
+export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp }) => {
   return (
     <PowerUpWrapper>
       <PowerUpCardImage src={powerUp.image} alt={powerUp.name} />
