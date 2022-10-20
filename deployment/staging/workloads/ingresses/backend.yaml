@@ -17,8 +17,10 @@ metadata:
     nginx.ingress.kubernetes.io/stream-snippet: |
       # Nakama HTTP API.
       server {
-        listen 80 ssl;
-        listen [::]:80 ssl;
+        # listen 80 ssl;
+        # listen [::]:80 ssl;
+        listen 80;
+        listen [::]:80;
 
         # Domain names this server should respond to.
         # server_name api.liars-dice.staging.kryha.dev;
