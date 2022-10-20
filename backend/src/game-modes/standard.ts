@@ -48,7 +48,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   };
 };
 
-export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispatcher, _tick, state, presences) => {
+export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
 
   // Populate the presence property for each player that joined
@@ -61,7 +61,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
   };
 };
 
-export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatcher, _tick, state, messages) => {
+export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
 
   messages.forEach((message) => {
