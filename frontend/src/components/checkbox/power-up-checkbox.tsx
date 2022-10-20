@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powerUp, isError }) => {
-  const removeProbability = useGameCreationFormState((state) => state.removeProbability);
+  const removePowerUpProbability = useGameCreationFormState((state) => state.removePowerUpProbability);
   const [probability, setProbability] = useState(0);
 
   const check = () => {
@@ -28,7 +28,7 @@ export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powe
       onClick={() => {
         toggleCheck();
         if (isChecked) {
-          removeProbability(powerUp.id);
+          removePowerUpProbability(powerUp.id);
           setProbability(0);
         }
       }}
