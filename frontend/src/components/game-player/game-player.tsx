@@ -27,8 +27,8 @@ export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
   const { avatar } = handProportion(player.avatarName);
   return (
     <GamePlayersWrapper>
-      <PlayerAvatar src={avatar} alt={player.name} height={avatarHeight[totalPlayers - 1]} />
-      <PlayerName name={player.name} color={player.color} />
+      <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
+      <PlayerName name={player.username} color={player.color} />
     </GamePlayersWrapper>
   );
 };

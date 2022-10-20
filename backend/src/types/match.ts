@@ -3,43 +3,30 @@ import { isPowerupTypeArray, PowerupType } from "./power-up";
 import { isBoolean, isNumber, isObject, isString } from "./primitive";
 
 export interface Player {
-  id: string;
-  name: string;
+  username: string;
   color: string;
   avatarName: string;
-  connected: boolean;
+  isConnected: boolean;
+  isReady: boolean;
+  presence: nkruntime.Presence | null;
 }
 
 export const isPlayer = (value: unknown): value is Player => {
   const assertedVal = value as Player;
 
   return (
-    assertedVal.id !== undefined &&
-    assertedVal.name !== undefined &&
+    assertedVal.username !== undefined &&
     assertedVal.color !== undefined &&
     assertedVal.avatarName !== undefined &&
-    assertedVal.color !== undefined &&
-    isString(assertedVal.id) &&
-    isString(assertedVal.name) &&
+    assertedVal.isConnected !== undefined &&
+    assertedVal.isReady !== undefined &&
+    assertedVal.presence !== undefined &&
+    isString(assertedVal.username) &&
     isString(assertedVal.color) &&
     isString(assertedVal.avatarName) &&
-    isBoolean(assertedVal.connected)
-  );
-};
-
-export interface PlayerState {
-  presence: nkruntime.Presence | null;
-  isReady: boolean;
-}
-
-export const isPlayerState = (value: unknown): value is PlayerState => {
-  const assertedVal = value as PlayerState;
-
-  return (
-    assertedVal.presence !== undefined &&
-    assertedVal.isReady !== undefined &&
-    isObject(assertedVal.presence) &&
-    isBoolean(assertedVal.isReady)
+    isBoolean(assertedVal.isConnected) &&
+    isBoolean(assertedVal.isReady) &&
+    isObject(assertedVal.presence)
   );
 };
 
@@ -69,7 +56,7 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
 };
 
 export interface MatchState {
-  players: { [userId: string]: PlayerState };
+  players: { [userId: string]: Player };
   phase: MatchPhase;
   settings: MatchSettings;
   emptyTicks: number;

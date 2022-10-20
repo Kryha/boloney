@@ -1,16 +1,27 @@
-import { Match } from "@heroiclabs/nakama-js";
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { error } from "../assets/text/error";
 import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
+import { routes } from "../navigation";
 import { useAuthState, useMatchMakerState } from "../store";
 import { MatchSettings, NkResponse } from "../types";
 import { parseError } from "../util";
 
 export const useMatchMaker = () => {
   const socket = useAuthState((state) => state.socket);
+  if (!socket) throw new Error(error.noSocketConnected);
+  const navigate = useNavigate();
+  const setTicket = useMatchMakerState((state) => state.setTicket);
   const setMatchId = useMatchMakerState((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
+
+  socket.onmatchmakermatched = async (matched) => {
+    console.info("Received MatchmakerMatched message: ", matched);
+    console.info("Matched opponents: ", matched.users);
+
+    if (matched.match_id) await joinMatch(matched.match_id);
+  };
 
   const joinMatch = useCallback(
     async (matchId: string): Promise<NkResponse> => {
@@ -18,10 +29,10 @@ export const useMatchMaker = () => {
         if (!socket) throw new Error(error.noSocketConnected);
 
         setIsLoading(true);
+        setMatchId(matchId);
 
-        const match: Match = await socket.joinMatch(matchId);
-        setMatchId(match.match_id);
-        // TODO: go to game view
+        await socket.joinMatch(matchId);
+        navigate(routes.lobby);
       } catch (error) {
         const parsedErr = await parseError(error);
         return parsedErr;
@@ -29,29 +40,26 @@ export const useMatchMaker = () => {
         setIsLoading(false);
       }
     },
-    [socket, setMatchId]
+    [socket, setMatchId, navigate]
   );
 
-  const joinLobby = useCallback(async (): Promise<NkResponse> => {
+  const joinPool = useCallback(async (): Promise<NkResponse> => {
     try {
       if (!socket) throw new Error(error.noSocketConnected);
+
       setIsLoading(true);
 
-      socket.onmatchmakermatched = async (matched) => {
-        console.info("Received MatchmakerMatched message: ", matched);
-        console.info("Matched opponents: ", matched.users);
+      const matchmakerTicket = await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
+      setTicket(matchmakerTicket.ticket);
 
-        if (matched.match_id) await joinMatch(matched.match_id);
-      };
-
-      await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
+      navigate(routes.lobby);
     } catch (error) {
       const parsedErr = await parseError(error);
       return parsedErr;
     } finally {
       setIsLoading(false);
     }
-  }, [joinMatch, socket]);
+  }, [navigate, setTicket, socket]);
 
   const createMatch = useCallback(
     async (settings: MatchSettings): Promise<NkResponse<string | undefined>> => {
@@ -93,7 +101,7 @@ export const useMatchMaker = () => {
   }, [socket]);
 
   return {
-    joinLobby,
+    joinPool,
     createMatch,
     findMatches,
     joinMatch,
