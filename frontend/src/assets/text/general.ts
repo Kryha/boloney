@@ -20,4 +20,5 @@ export const general = {
   onlyPlayersWithThisCode: "only players with this code are able to join the match.",
   goToLobby: "go to lobby",
   startGame: "start game",
+  loading: "loading",
 };

@@ -1,59 +1,39 @@
 import { ReactNode } from "react";
 import { text } from "../../assets";
 
-import { GameLayout, GeneralContentWrapper, Heading1, Heading2, PrimaryButton } from "../../components";
+import { EndOfGame, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
 import { DiceRolls, Players } from "../../service";
 import { useMatch } from "../../service/match";
 import { useMatchState } from "../../store";
+import { GET_POWERUPS_OP_CODE, ROLL_DICE_OP_CODE, PLAYER_TURN_OP_CODE, END_OF_ROUND_OP_CODE, END_OF_GAME_OP_CODE } from "../../constants";
 
 export const Match = () => {
   const { getPowerUps, isLoading } = useMatch();
   const roundPhase = useMatchState((state) => state.roundPhase);
 
   const gameState = (): ReactNode => {
-    // TODO: update with actual views/pages
     switch (roundPhase) {
-      case 0:
-        return (
-          <>
-            <Heading1>{text.match.getPowerUps}</Heading1>
-            <PrimaryButton text={text.match.goForIt} onClick={async () => await getPowerUps()} />
-          </>
-        );
-      case 1:
-        return <Heading1>{text.match.throwDice}</Heading1>;
-      case 2:
-        return <Heading1>{text.match.playerTurns}</Heading1>;
-      case 3:
-        return (
-          <>
-            <Heading1>{text.match.endOfRound}</Heading1>
-            <PrimaryButton text={text.match.goForIt} />
-          </>
-        );
-      case 4:
-        return (
-          <>
-            <Heading1>{text.match.endOfGame}</Heading1>
-            <PrimaryButton text={text.match.newGame} />
-          </>
-        );
+      case GET_POWERUPS_OP_CODE:
+        return <GetPowerUps getPowerUps={getPowerUps} />;
+      case ROLL_DICE_OP_CODE:
+        return <RollDice />;
+      case PLAYER_TURN_OP_CODE:
+        return <PlayerTurns />;
+      case END_OF_ROUND_OP_CODE:
+        return <EndOfRound />;
+      case END_OF_GAME_OP_CODE:
+        return <EndOfGame />;
       default:
-        return (
-          <>
-            <Heading1>{text.match.getPowerUps}</Heading1>
-            <PrimaryButton text={text.match.goForIt} />
-          </>
-        );
+        return <GetPowerUps getPowerUps={getPowerUps} />;
     }
   };
 
   // TODO: add loading animation
-  if (isLoading) return <Heading2>{"loading"}</Heading2>;
+  if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
   return (
     <GameLayout players={Players} dice={DiceRolls}>
-      <GeneralContentWrapper>{GameState()}</GeneralContentWrapper>
+      <GeneralContentWrapper>{gameState()}</GeneralContentWrapper>
     </GameLayout>
   );
 };

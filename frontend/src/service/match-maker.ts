@@ -20,16 +20,6 @@ export const useMatchMaker = () => {
         setIsLoading(true);
 
         const match: Match = await socket.joinMatch(matchId);
-
-        socket.onmatchdata = (data) => {
-          // hey, maybe it's op code, maybe it's somthing else lol
-          switch (data.op_code) {
-            case 0: {
-              // do stuff
-              setPhase();
-            }
-          }
-        };
         setMatchId(match.match_id);
         // TODO: go to game view
       } catch (error) {
