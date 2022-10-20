@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
 import { useMatchMaker } from "../../service";
-import { isString, MatchSettings, matchSettingsSchema } from "../../types";
+import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { HealActionField } from "./heal-action-field";
 import { PlayersField } from "./players-field";
@@ -27,7 +27,11 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
-    const result = matchSettingsSchema.safeParse({ ...data, availablePowerUps: availablePowerUps, powerUpProbability: powerUpProbability });
+    const result = matchFormSettingsSchema.safeParse({
+      ...data,
+      availablePowerUps: availablePowerUps,
+      powerUpProbability: powerUpProbability,
+    });
 
     if (!result.success) {
       setIsError(true);
