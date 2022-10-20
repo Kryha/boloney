@@ -37,7 +37,7 @@ export const MIN_DICE_PER_PLAYER = 2;
 // }
 // Where the ones that are not available will have probability 0.
 export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
-  players: 2,
+  requiredPlayers: 2,
   dicePerPlayer: 5,
   powerupsPerPlayer: 3,
   availablePowerups: ["p1", "p2", "p3", "p4"],

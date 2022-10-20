@@ -1,32 +1,36 @@
 import { text } from "../text";
-import { MatchState, isMatchSettings } from "../types";
-import { handleError } from "../utils";
+import {
+  MatchState,
+  MatchSettings,
+  isMatchSettings,
+  OpCode,
+  PlayerState,
+  isMatchState,
+  isWaitingForPlayers,
+  PowerupType,
+  isRoundPhase1,
+} from "../types";
+import { DEFAULT_MATCH_SETTINGS, handleError } from "../utils";
 
+const utf8encode = new TextEncoder();
+const utf8decode = new TextDecoder();
 /**
  * Using isMatchState predicate to check for state type in each hook will make nakama env to throw,
  * so apparently we can't use the predicate in these hooks
  */
 
-const defaultSettings: MatchSettings = {
-  requiredPlayers: 7,
-  dicePerPlayer: 5,
-  powerupsPerPlayer: 3,
-  availablePowerups: ["p1", "p2", "p3"],
-  isUsingFakeCredits: true,
-};
-
-export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, _params) => {
+export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
   if (!isMatchSettings(params)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   const initialState: MatchState = {
-    setting: defaultSettings,
-    presences: [],
+    settings: DEFAULT_MATCH_SETTINGS,
     players: [],
     playerCount: 0,
+    phaseReady: [],
     playerOrder: [],
-    matchStage: 1,
+    matchPhase: "waitingForPlayers",
     emptyTicks: 0,
   };
 
@@ -75,15 +79,47 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
   logger.info("----------------- MATCH LOOP -----------------");
 
   // If we have no presences in the match according to the match state, increment the empty ticks count
-  if (!state.presences) {
+  if (!state.players) {
     state.emptyTicks++;
   }
-  messages.forEach((message: nkruntime.MatchMessage) => {
-    if (state.matchStage === 2) {
-      state.players.players.forEach((player: PlayerState) => {});
-      dispatcher.broadcastMessage(OpCode.getPowerups);
+  //TODO: Proper error
+  if (!isMatchState(state)) throw "Match state is invalid";
+
+  switch (state.matchPhase) {
+    case "waitingForPlayers": {
+      break;
     }
-  });
+    case "waitingForPlayersReady": {
+      break;
+    }
+    case "roundPhase1": {
+      messages.forEach((message: nkruntime.MatchMessage) => {
+        const payload = "";
+        if (isRoundPhase1(payload)) {
+          state.phaseReady.push(message.sender.userId);
+        }
+
+        if (state.phaseReady.length === state.playerCount) {
+          state.matchPhase = "roundPhase2";
+          dispatcher.broadcastMessage(OpCode.PhaseTransition);
+        }
+      });
+      break;
+    }
+    case "roundPhase2": {
+      break;
+    }
+    case "roundPhase3": {
+      break;
+    }
+    case "roundPhase4": {
+      break;
+    }
+    case "endGame": {
+      break;
+    }
+  }
+
   // If the match has been empty for more than 500 ticks, end the match by returning null
   if (state.emptyTicks > 500) return null;
 
