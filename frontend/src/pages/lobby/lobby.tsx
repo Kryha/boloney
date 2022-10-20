@@ -23,6 +23,26 @@ export const Lobby: FC = () => {
   if (!session) throw new Error(error.noSessionAvailable);
   if (!ticket) navigate(routes.home);
 
+  const addPlayer = useCallback(
+    (username: string): Player | void => {
+      // Skip if already in the list
+      if (players.find((player) => player.username === username)) return;
+
+      const player: Player = {
+        username: username,
+        color: AvatarColors.options[players.length],
+        avatarName: AvatarName.options[players.length],
+        isConnected: true,
+        isReady: false,
+      };
+
+      players.push(player);
+
+      return player;
+    },
+    [players]
+  );
+
   // On matchmake event where no match ID is set yet, show loading spinner with "connecting..."" at the bottom until all spots are filled
   // When this is a custom game, you can set the player right after joining the lobby
   useEffect(() => {
@@ -62,23 +82,6 @@ export const Lobby: FC = () => {
     // Not sure why, but these do not get picked up on, otherwise I could've addded it to the players array so players can get displayed before the match is made
     console.log({ ticket });
   };
-
-  const addPlayer = useCallback((username: string): Player | void => {
-    // Skip if already in the list
-    if (players.find((player) => player.username === username)) return;
-
-    const player: Player = {
-      username: username,
-      color: AvatarColors.options[players.length],
-      avatarName: AvatarName.options[players.length],
-      isConnected: true,
-      isReady: false,
-    };
-
-    players.push(player);
-
-    return player;
-  });
 
   const setReady = async () => {
     // Only make this possible once a matchId is set (matchmaker matched), otherwise we can't send an opcode to the backend state
