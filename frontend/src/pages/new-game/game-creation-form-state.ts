@@ -43,9 +43,13 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
       return { powerUpProbability: probabilities, totalProbability: totalProbability, isPowerUpError: powerUpError };
     });
   },
-  removePowerUpProbability: (name: PowerUpType) =>
-    set((state) => ({
-      powerUpProbability: state.powerUpProbability.filter((probability) => probability.id !== name),
-      totalProbability: state.powerUpProbability.reduce((a, b) => a + b.probability, 0),
-    })),
+  removePowerUpProbability: (name: PowerUpType) => {
+    set(({ powerUpProbability }) => {
+      const powerUpProbabilities = powerUpProbability.filter((probability) => probability.id !== name);
+
+      const totalProbability = powerUpProbabilities.reduce((a, b) => a + b.probability, 0);
+
+      return { powerUpProbability: powerUpProbabilities, totalProbability: totalProbability };
+    });
+  },
 }));

@@ -4,6 +4,7 @@ import { PowerUpInfo } from "./power-up";
 
 import { CheckboxContainer, CheckContainer, CheckWrapper, Close } from "./styles";
 import { PowerUpDataProps } from "../../assets";
+import { PowerUpType } from "../../types";
 
 interface Props {
   isTop?: boolean;
@@ -22,15 +23,17 @@ export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powe
     return <></>;
   };
 
+  const clearCheckProbability = (id: PowerUpType) => {
+    removePowerUpProbability(id);
+    setProbability(0);
+  };
+
   return (
     <CheckboxContainer
       isTop={isTop}
       onClick={() => {
         toggleCheck();
-        if (isChecked) {
-          removePowerUpProbability(powerUp.id);
-          setProbability(0);
-        }
+        isChecked && clearCheckProbability(powerUp.id);
       }}
       isChecked={isChecked}
     >
