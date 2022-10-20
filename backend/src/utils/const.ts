@@ -1,7 +1,7 @@
 import { MatchSettings } from "../types";
 
 export const enum MatchOpCode {
-  CONNECTED = 1, // OpCodes can't be 0 (had to find it out the hard way)
+  CONNECTED = 1, // OpCodes can't be 0 (had to find out the hard way)
   LOBBY_FULL,
   READY,
   MATCH_START,

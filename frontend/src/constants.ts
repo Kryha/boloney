@@ -39,7 +39,7 @@ export const RPC_FIND_MATCH = "find_match";
 
 export const DEFAULT_POOL_QUERY = "*";
 export const DEFAULT_POOL_MIN_PLAYERS = 2;
-export const DEFAULT_POOL_MAX_PLAYERS = 3;
+export const DEFAULT_POOL_MAX_PLAYERS = 2;
 
 export const PRIVATE_KEY_LENGTH = 58;
 export const VIEW_KEY_LENGTH = 56;
@@ -50,7 +50,7 @@ export const VIEW_KEY_PREFIX = "AViewKey1";
 export const ADDRESS_PREFIX = "aleo1";
 
 export const enum MatchOpCode {
-  CONNECTED = 1, // OpCodes can't be 0 (had to find it out the hard way)
+  CONNECTED = 1,
   LOBBY_FULL,
   READY,
   GAME_START,

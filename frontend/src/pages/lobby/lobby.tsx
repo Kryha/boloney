@@ -26,21 +26,17 @@ export const Lobby: FC = () => {
   if (!ticket) navigate(routes.home);
 
   const addPlayer = useCallback(
-    (username: string): Player | void => {
-      // Skip if user  already in the list
+    (username: string): void => {
+      // Skip if the user is already in the list
       if (players.find((player) => player.username === username)) return;
 
-      const player: Player = {
+      players.push({
         username: username,
         color: AvatarColors.options[players.length],
         avatarName: AvatarName.options[players.length],
         isConnected: true,
         isReady: false,
-      };
-
-      players.push(player);
-
-      return player;
+      });
     },
     [players]
   );

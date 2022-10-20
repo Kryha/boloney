@@ -9,7 +9,6 @@ export const error = {
   goHome: "go home",
   noSocketConnected: "no socket connected",
   noSessionAvailable: "no session available",
-  // noUserIdFound: "no user id found",
   noUsernameFound: "no username found",
   noPayloadReturned: "no payload returned",
 };

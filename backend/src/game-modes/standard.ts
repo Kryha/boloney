@@ -65,6 +65,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
   logger.info("----------------- MATCH LOOP -----------------");
 
   messages.forEach((message) => {
+    // TODO: This is the only part of the PR that is not working. Messages don't get picked up on so we can't communicate. Already asked the Heroic Forum....
     logger.debug("------ MESSAGE ------");
     logger.debug(JSON.stringify(message));
 
@@ -82,7 +83,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
         }
       });
 
-      // If all players are ready, transition to InProgress state and broadcast the game starting event
+      // If all players are ready, transition to InProgress state and broadcast the match starting event
       if (allReady && Object.keys(state.players).length === state.settings.requiredPlayerCount) {
         state.phase = MatchPhase.InProgress;
         logger.debug("AND WE ARE LIVE!");
@@ -98,8 +99,8 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
     state.emptyTicks = 0;
   }
 
-  // If the match has been empty for more than X ticks, end the match by returning null
-  if (state.emptyTicks > 50) return null;
+  // If the match has been empty for more than 500 ticks, end the match by returning null
+  if (state.emptyTicks > 500) return null;
 
   return {
     state,
