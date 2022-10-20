@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { margins } from "../../design";
 
 export const MainContentContainer = styled.div`
   left: 12.5vw;
@@ -10,4 +11,5 @@ export const MainContentContainer = styled.div`
 
 export const ContentContainer = styled.div`
   margin-left: 1px;
+  margin-top: ${margins.large0};
 `;

@@ -6,6 +6,10 @@ import { useAuthState } from "../store/auth";
 import { NkResponse } from "../types";
 import { getAuthToken, getRefreshToken, parseError, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
 
+const initSocket = (socket) => {
+  socket.idk = () => {};
+};
+
 export const useAuth = () => {
   const client = useAuthState((state) => state.client);
   const isAuthenticated = useAuthState((state) => state.isAuthenticated);
@@ -22,6 +26,11 @@ export const useAuth = () => {
     async (session: Session) => {
       const socket = client.createSocket(USE_SSL);
       const socketSession = await socket.connect(session, true);
+
+      socket.onchannelmessage = (msg) => {
+        if (msg.code === "tx1") {
+        }
+      };
 
       setSocket(socket);
       setSession(socketSession);

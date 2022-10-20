@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { text } from "../../assets";
 
-import { GameLayout, Heading1, Heading2, PrimaryButton } from "../../components";
+import { GameLayout, GeneralContentWrapper, Heading1, Heading2, PrimaryButton } from "../../components";
 import { DiceRolls, Players } from "../../service";
 import { useMatch } from "../../service/match";
 import { useMatchState } from "../../store";
@@ -10,7 +10,7 @@ export const Match = () => {
   const { getPowerUps, isLoading } = useMatch();
   const roundPhase = useMatchState((state) => state.roundPhase);
 
-  const GameState = (): ReactNode => {
+  const gameState = (): ReactNode => {
     // TODO: update with actual views/pages
     switch (roundPhase) {
       case 0:
@@ -53,7 +53,7 @@ export const Match = () => {
 
   return (
     <GameLayout players={Players} dice={DiceRolls}>
-      {GameState()}
+      <GeneralContentWrapper>{GameState()}</GeneralContentWrapper>
     </GameLayout>
   );
 };

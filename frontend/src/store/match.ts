@@ -1,11 +1,14 @@
 import create from "zustand";
 import { Die } from "../types";
 
+// TODO: define on backend as well
+type RoundPhase = "getPowerUps" | "rollDice";
+
 // update power ups types
 interface MatchState {
-  powerUps?: string[] | undefined;
-  diceRollsAmount: Die[] | undefined;
-  roundPhase: number;
+  powerUps?: string[];
+  diceRollsAmount?: Die[];
+  roundPhase: RoundPhase;
 
   setDiceRollsAmount: (diceRollsAmount: Die[]) => void;
   setPowerUpIds: (powerUpIds: string[]) => void;
@@ -15,7 +18,7 @@ interface MatchState {
 export const useMatchState = create<MatchState>()((set) => ({
   powerUps: undefined,
   diceRollsAmount: undefined,
-  roundPhase: 0,
+  roundPhase: "getPowerUps",
 
   setPowerUpIds: (powerUpIds: string[]) => set(() => ({ powerUps: powerUpIds })),
   setDiceRollsAmount: (diceRollsAmount: Die[]) => set(() => ({ diceRollsAmount: diceRollsAmount })),
