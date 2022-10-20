@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
 import { useMatchMaker } from "../../service";
-import { isString, MatchSettings } from "../../types";
+import { isString, MatchSettings, matchSettingsSchema } from "../../types";
 import { useGameCreationFormState } from "./game-creation-form-state";
 import { HealActionField } from "./heal-action-field";
 import { PlayersField } from "./players-field";
@@ -27,25 +27,23 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
-    data.players = Number(data.players);
-    data.dicePerPlayer = Number(data.dicePerPlayer);
-    data.availablePowerUps = availablePowerUps;
-    data.healAction = Number(data.healAction);
-    data.stageNumber = Number(data.stageNumber);
-    data.maxPowerUpAmount = Number(data.maxPowerUpAmount);
-    data.initialPowerUpAmount = Number(data.initialPowerUpAmount);
-    data.powerUpProbability = powerUpProbability;
-    data.drawRoundOffset = Number(data.drawRoundOffset);
+    const matchSettings = { ...data, availablePowerUps: availablePowerUps, powerUpProbability: powerUpProbability };
 
-    const res = await createMatch(data);
-    if (isString(res)) {
-      const matchId = res;
-      await joinMatch(matchId);
-      // TODO: retrieve url from backend
-      setUrl(`tmp/url/${matchId}`);
-    } else {
-      console.log(res);
+    const result = matchSettingsSchema.safeParse(matchSettings);
+
+    if (!result.success) {
       setIsError(true);
+    } else {
+      const res = await createMatch(matchSettings);
+      if (isString(res)) {
+        const matchId = res;
+        await joinMatch(matchId);
+        // TODO: retrieve url from backend
+        setUrl(`tmp/url/${matchId}`);
+      } else {
+        console.log(res);
+        setIsError(true);
+      }
     }
   });
 

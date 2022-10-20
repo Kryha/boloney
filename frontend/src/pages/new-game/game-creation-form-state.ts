@@ -46,5 +46,6 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
   removePowerUpProbability: (name: PowerUpType) =>
     set((state) => ({
       powerUpProbability: state.powerUpProbability.filter((probability) => probability.id !== name),
+      totalProbability: state.powerUpProbability.reduce((a, b) => a + b.probability, 0),
     })),
 }));
