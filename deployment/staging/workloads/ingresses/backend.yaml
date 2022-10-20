@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-    # nginx.ingress.kubernetes.io/proxy-body-size: 200m
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
     # nginx.ingress.kubernetes.io/enable-cors: "true"
     # nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     # nginx.ingress.kubernetes.io/stream-snippet: |
@@ -48,12 +48,12 @@ metadata:
           #   add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
           # }
           # if ($request_method = 'GET') {
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
-            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+            # add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            # add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization';
+            # add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
           # }
 
-          # proxy_pass http://nakama:7350;
+          proxy_pass http://localhost:7350;
         # }
 
         # location /ws {
