@@ -27,14 +27,12 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
-    const matchSettings = { ...data, availablePowerUps: availablePowerUps, powerUpProbability: powerUpProbability };
-
-    const result = matchSettingsSchema.safeParse(matchSettings);
+    const result = matchSettingsSchema.safeParse({ ...data, availablePowerUps: availablePowerUps, powerUpProbability: powerUpProbability });
 
     if (!result.success) {
       setIsError(true);
     } else {
-      const res = await createMatch(matchSettings);
+      const res = await createMatch(data);
       if (isString(res)) {
         const matchId = res;
         await joinMatch(matchId);

@@ -18,6 +18,7 @@ interface PowerUpsInfo {
 
 export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError, probability, setProbability }) => {
   const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
+  const powerUpData = { id: powerUp.id, image: powerUp.iconImage, name: powerUp.name };
 
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     setPowerUpProbability({ id: powerUp.id, probability: Number(e.target.value) });
@@ -25,7 +26,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
 
   return (
     <>
-      <PowerUpComponent powerUp={{ id: powerUp.id, image: powerUp.iconImage, name: powerUp.name }} />
+      <PowerUpComponent powerUp={powerUpData} />
       <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
         <GeneralContentWrapper>
           <Row>
