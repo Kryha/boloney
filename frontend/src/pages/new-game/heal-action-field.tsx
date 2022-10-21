@@ -16,7 +16,7 @@ export const HealActionField: FC<Props> = ({ register }) => {
   return (
     <InputFieldContainer>
       <Input label={text.newGame.healAction}>
-        <BaseSelect {...register("healAction")}>
+        <BaseSelect {...register("healPowerUpAmount")}>
           {range(MAX_HEAL_POWER_UP_AMOUNT, MIN_HEAL_POWER_UP_AMOUNT).map((n) => (
             <BaseOption key={n} value={n}>
               {text.param.healAmount(n)}
@@ -25,7 +25,7 @@ export const HealActionField: FC<Props> = ({ register }) => {
         </BaseSelect>
       </Input>
       <Input label={text.newGame.stageNumberDivisor}>
-        <BaseSelect {...register("stageNumber")}>
+        <BaseSelect {...register("stageNumberDivisor")}>
           {range(MAX_STAGE_NUMBER_DIVISOR, MIN_STAGE_NUMBER_DIVISOR).map((n) => (
             <BaseOption key={n} value={n}>
               {n}

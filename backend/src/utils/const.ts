@@ -32,10 +32,10 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   players: 2,
   dicePerPlayer: 5,
   initialPowerUpAmount: 3,
-  stageNumber: 5,
+  stageNumberDivisor: 5,
   drawRoundOffset: 0,
   availablePowerUps: ["1", "2", "3", "4"],
-  healAction: 1,
+  healPowerUpAmount: 1,
   maxPowerUpAmount: 3,
   powerUpProbability: [
     {

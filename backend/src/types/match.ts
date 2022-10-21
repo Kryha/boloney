@@ -32,8 +32,8 @@ export interface MatchSettings {
   initialPowerUpAmount: number;
   maxPowerUpAmount: number;
   availablePowerUps: PowerUpType[];
-  healAction: number;
-  stageNumber: number;
+  healPowerUpAmount: number;
+  stageNumberDivisor: number;
   drawRoundOffset: number;
   powerUpProbability: PowerUpProbability[];
 }
@@ -47,8 +47,8 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     assertedVal.initialPowerUpAmount !== undefined &&
     assertedVal.maxPowerUpAmount !== undefined &&
     assertedVal.availablePowerUps !== undefined &&
-    assertedVal.healAction !== undefined &&
-    assertedVal.stageNumber !== undefined &&
+    assertedVal.healPowerUpAmount !== undefined &&
+    assertedVal.stageNumberDivisor !== undefined &&
     assertedVal.drawRoundOffset !== undefined &&
     assertedVal.powerUpProbability !== undefined &&
     isNumber(assertedVal.players) &&
@@ -56,8 +56,8 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     isNumber(assertedVal.initialPowerUpAmount) &&
     isNumber(assertedVal.maxPowerUpAmount) &&
     isPowerUpTypeArray(assertedVal.availablePowerUps) &&
-    isNumber(assertedVal.healAction) &&
-    isNumber(assertedVal.stageNumber) &&
+    isNumber(assertedVal.healPowerUpAmount) &&
+    isNumber(assertedVal.stageNumberDivisor) &&
     isNumber(assertedVal.drawRoundOffset) &&
     isPowerUpProbabilityArray(assertedVal.powerUpProbability)
   );
