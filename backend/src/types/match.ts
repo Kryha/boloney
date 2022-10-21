@@ -1,4 +1,4 @@
-import { isPowerUpProbabilityArray, isPowerupTypeArray, PowerUpProbability, PowerupType } from "./power-up";
+import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
 import { isBoolean, isNumber, isObject, isString } from "./primitive";
 
 export interface Player {
@@ -31,7 +31,7 @@ export interface MatchSettings {
   dicePerPlayer: number;
   initialPowerUpAmount: number;
   maxPowerUpAmount: number;
-  availablePowerUps: PowerupType[];
+  availablePowerUps: PowerUpType[];
   healAction: number;
   stageNumber: number;
   drawRoundOffset: number;
@@ -55,7 +55,7 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     isNumber(assertedVal.dicePerPlayer) &&
     isNumber(assertedVal.initialPowerUpAmount) &&
     isNumber(assertedVal.maxPowerUpAmount) &&
-    isPowerupTypeArray(assertedVal.availablePowerUps) &&
+    isPowerUpTypeArray(assertedVal.availablePowerUps) &&
     isNumber(assertedVal.healAction) &&
     isNumber(assertedVal.stageNumber) &&
     isNumber(assertedVal.drawRoundOffset) &&
@@ -63,20 +63,20 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
   );
 };
 
-export interface MatchState extends MatchSettings {
+export interface MatchState {
   presences: Record<string, nkruntime.Presence>;
   emptyTicks: number;
+  settings: MatchSettings;
 }
 
 export const isMatchState = (value: unknown): value is MatchState => {
-  if (!isMatchSettings(value)) return false;
-
   const assertedVal = value as MatchState;
 
   return (
     assertedVal.presences !== undefined &&
     assertedVal.emptyTicks !== undefined &&
     isObject(assertedVal.presences) &&
-    isNumber(assertedVal.emptyTicks)
+    isNumber(assertedVal.emptyTicks) &&
+    isMatchSettings(assertedVal.settings)
   );
 };

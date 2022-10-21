@@ -1,9 +1,9 @@
 import { isNumber, isString } from "./primitive";
 
-export type PowerupType = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+export type PowerUpType = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 
-export const isPowerupType = (value: unknown): value is PowerupType => {
-  const assertedVal = value as PowerupType;
+export const isPowerUpType = (value: unknown): value is PowerUpType => {
+  const assertedVal = value as PowerUpType;
 
   return (
     assertedVal === "1" ||
@@ -18,11 +18,11 @@ export const isPowerupType = (value: unknown): value is PowerupType => {
   );
 };
 
-export const isPowerupTypeArray = (types: unknown): types is PowerupType[] => {
+export const isPowerUpTypeArray = (types: unknown): types is PowerUpType[] => {
   if (!types) return false;
   if (!(types instanceof Array)) return false;
 
-  const areValid = types.reduce((valid, pt) => valid && isPowerupType(pt), true);
+  const areValid = types.reduce((valid, pt) => valid && isPowerUpType(pt), true);
   return areValid;
 };
 

@@ -28,20 +28,33 @@ export const enum OP {
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
 
-// TODO: Power-ups will be in the form of:
-// powerUps: {
-// 	1: 0.25,
-// 	2: 0,
-// 	3: 0.3,
-// 	4: 0.1,
-// }
-// Where the ones that are not available will have probability 0.
 export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   players: 2,
   dicePerPlayer: 5,
-  powerupsPerPlayer: 3,
-  availablePowerups: ["p1", "p2", "p3", "p4"],
-  isUsingFakeCredits: true,
+  initialPowerUpAmount: 3,
+  stageNumber: 5,
+  drawRoundOffset: 0,
+  availablePowerUps: ["1", "2", "3", "4"],
+  healAction: 1,
+  maxPowerUpAmount: 3,
+  powerUpProbability: [
+    {
+      id: "1",
+      probability: 25,
+    },
+    {
+      id: "2",
+      probability: 25,
+    },
+    {
+      id: "3",
+      probability: 25,
+    },
+    {
+      id: "4",
+      probability: 25,
+    },
+  ],
 };
 
 export const PRIVATE_KEY_LENGTH = 58;
