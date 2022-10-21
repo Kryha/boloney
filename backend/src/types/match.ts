@@ -1,4 +1,4 @@
-import { isPowerupTypeArray, PowerupType } from "./power-up";
+import { isPowerUpProbabilityArray, isPowerupTypeArray, PowerUpProbability, PowerupType } from "./power-up";
 import { isBoolean, isNumber, isObject, isString } from "./primitive";
 
 export interface Player {
@@ -29,9 +29,13 @@ export const isPlayer = (value: unknown): value is Player => {
 export interface MatchSettings {
   players: number;
   dicePerPlayer: number;
-  powerupsPerPlayer: number;
-  availablePowerups: PowerupType[];
-  isUsingFakeCredits: boolean;
+  initialPowerUpAmount: number;
+  maxPowerUpAmount: number;
+  availablePowerUps: PowerupType[];
+  healAction: number;
+  stageNumber: number;
+  drawRoundOffset: number;
+  powerUpProbability: PowerUpProbability[];
 }
 
 export const isMatchSettings = (value: unknown): value is MatchSettings => {
@@ -40,14 +44,22 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
   return (
     assertedVal.players !== undefined &&
     assertedVal.dicePerPlayer !== undefined &&
-    assertedVal.powerupsPerPlayer !== undefined &&
-    assertedVal.availablePowerups !== undefined &&
-    assertedVal.isUsingFakeCredits !== undefined &&
+    assertedVal.initialPowerUpAmount !== undefined &&
+    assertedVal.maxPowerUpAmount !== undefined &&
+    assertedVal.availablePowerUps !== undefined &&
+    assertedVal.healAction !== undefined &&
+    assertedVal.stageNumber !== undefined &&
+    assertedVal.drawRoundOffset !== undefined &&
+    assertedVal.powerUpProbability !== undefined &&
     isNumber(assertedVal.players) &&
     isNumber(assertedVal.dicePerPlayer) &&
-    isNumber(assertedVal.powerupsPerPlayer) &&
-    isBoolean(assertedVal.isUsingFakeCredits) &&
-    isPowerupTypeArray(assertedVal.availablePowerups)
+    isNumber(assertedVal.initialPowerUpAmount) &&
+    isNumber(assertedVal.maxPowerUpAmount) &&
+    isPowerupTypeArray(assertedVal.availablePowerUps) &&
+    isNumber(assertedVal.healAction) &&
+    isNumber(assertedVal.stageNumber) &&
+    isNumber(assertedVal.drawRoundOffset) &&
+    isPowerUpProbabilityArray(assertedVal.powerUpProbability)
   );
 };
 

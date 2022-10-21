@@ -15,7 +15,7 @@ export type PowerUp = z.infer<typeof powerUpSchema>;
 
 export const powerUpProbabilitySchema = z.object({
   id: z.string(),
-  probability: z.number(),
+  probability: z.number().min(0),
 });
 
 export type PowerUpProbability = z.infer<typeof powerUpProbabilitySchema>;
