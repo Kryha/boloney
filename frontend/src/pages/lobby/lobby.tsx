@@ -31,7 +31,7 @@ export const Lobby: FC = () => {
       if (players.find((player) => player.username === username)) return;
 
       players.push({
-        username: username,
+        username,
         color: AvatarColors.options[players.length],
         avatarName: AvatarName.options[players.length],
         isConnected: true,
@@ -55,18 +55,18 @@ export const Lobby: FC = () => {
   };
 
   socket.onchannelpresence = async (presence) => {
-    // Not sure why, but these do not get picked up on, otherwise I could've addded it to the players array so players can get displayed before the match is made
+    // Not sure why, but this is not getting picked up on. Otherwise I could've addded the new presence to the players array, so new players can get displayed before the match is made
     console.log({ presence });
   };
 
   socket.onmatchdata = (matchData: MatchData) => {
-    // All opcode related messages will be received here
+    // All opcode related messages from the backend will be received here
     console.log({ matchData });
 
     if (matchData.op_code === MatchOpCode.READY) {
-      // A player has set himself to "ready", so we have to reflect that in the client
-      const readyUser: Presence = JSON.parse(String.fromCharCode(...matchData.data)); // Yes. This is the way to parse. Gotta love Nakama!
-      // players[readyUser.username].isReady = true; // Pseudo-code, opcodes aren't working yet
+      // A player has set himself "ready", so we have to reflect that in the client
+      const readyUser: Presence = JSON.parse(String.fromCharCode(...matchData.data)); // Yes. This is the way to parse. Gotta love Nakama.
+      // TODO: Set player as "ready"
     }
   };
 

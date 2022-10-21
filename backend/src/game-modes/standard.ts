@@ -69,7 +69,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
     logger.debug("------ MESSAGE ------");
     logger.debug(JSON.stringify(message));
 
-    // If the message is a Ready message, update the player's isReady status and broadcast it to other players
+    // If the message is a "ready" message, update the player's isReady state and broadcast it to other players
     if (message.opCode === MatchOpCode.READY) {
       logger.debug(`${message.sender.username} IS READY!`);
       state.players[message.sender.userId].isReady = true;
