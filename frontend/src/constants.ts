@@ -28,6 +28,15 @@ export const MIN_DICE_PER_PLAYER = 2;
 export const MAX_POWERUPS_PER_PLAYER = 10;
 export const MIN_POWERUPS_PER_PLAYER = 0;
 
+export const MAX_STAGE_NUMBER_DIVISOR = 10;
+export const MIN_STAGE_NUMBER_DIVISOR = 1;
+
+export const MAX_DRAW_ROUND_OFFSET = -10;
+export const MIN_DRAW_ROUND_OFFSET = 10;
+
+export const MAX_HEAL_POWER_UP_AMOUNT = 10;
+export const MIN_HEAL_POWER_UP_AMOUNT = 1;
+
 export const FLOATING_ANIMATION_SPEED = 4;
 
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";
@@ -49,6 +58,7 @@ export const PRIVATE_KEY_PREFIX = "APrivateKey1";
 export const VIEW_KEY_PREFIX = "AViewKey1";
 export const ADDRESS_PREFIX = "aleo1";
 
+// TODO: move to types
 export const enum MatchOpCode {
   CONNECTED = 1,
   LOBBY_FULL,

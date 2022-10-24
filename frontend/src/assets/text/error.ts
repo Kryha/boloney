@@ -11,4 +11,5 @@ export const error = {
   noSessionAvailable: "no session available",
   noUsernameFound: "no username found",
   noPayloadReturned: "no payload returned",
+  receivedUnexpectedPayload: "received unexpected payload",
 };

@@ -1,13 +1,12 @@
 import { MatchData, MatchmakerMatched, Presence } from "@heroiclabs/nakama-js";
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { error } from "../../assets/text/error";
-import { LineContainer, TopNavigation } from "../../components";
 
-import { LobbyPlayer } from "../../components/lobby-player";
+import { text } from "../../assets";
+import { LineContainer, TopNavigation, LobbyPlayer } from "../../components";
 import { MatchOpCode } from "../../constants";
 import { routes } from "../../navigation";
-import { useMatchMaker } from "../../service";
+import { useMatchMaker, fakePlayers } from "../../service";
 import { useAuthState, useMatchMakerState } from "../../store";
 import { AvatarColors, AvatarName, Player } from "../../types";
 import { LobbyWrapper } from "./styles";
@@ -21,8 +20,8 @@ export const Lobby: FC = () => {
   const matchId = useMatchMakerState((state) => state.matchId);
   const players = useMemo(() => [] as Player[], []);
 
-  if (!socket) throw new Error(error.noSocketConnected);
-  if (!session) throw new Error(error.noSessionAvailable);
+  if (!socket) throw new Error(text.error.noSocketConnected);
+  if (!session) throw new Error(text.error.noSessionAvailable);
   if (!ticket) navigate(routes.home);
 
   const addPlayer = useCallback(
@@ -42,7 +41,7 @@ export const Lobby: FC = () => {
   );
 
   useEffect(() => {
-    if (!session.username) throw new Error(error.noUsernameFound);
+    if (!session.username) throw new Error(text.error.noUsernameFound);
     addPlayer(session.username);
   }, [addPlayer, session.username]);
 
@@ -79,7 +78,7 @@ export const Lobby: FC = () => {
     <LobbyWrapper>
       <TopNavigation isInMatch />
       <LineContainer arePlayersReady onClick={setReady}>
-        {players.map((player) => (
+        {fakePlayers.map((player) => (
           <LobbyPlayer key={player.username} player={player} />
         ))}
       </LineContainer>

@@ -14,15 +14,10 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
 
   const initialState: MatchState = {
     players: {},
+    presences: {},
     phase: MatchPhase.WaitingForPlayers,
-    settings: {
-      requiredPlayerCount: params.requiredPlayerCount,
-      dicePerPlayer: params.dicePerPlayer,
-      powerupsPerPlayer: params.powerupsPerPlayer,
-      availablePowerups: params.availablePowerups,
-      isUsingFakeCredits: params.isUsingFakeCredits,
-    },
     emptyTicks: 0,
+    settings: params,
   };
 
   return {
@@ -37,7 +32,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
   // Accept new players if we are still waiting and until the required amount has been fulfilled
-  const accept = state.phase === MatchPhase.WaitingForPlayers && Object.keys(state.players).length < state.settings.requiredPlayerCount;
+  const accept = state.phase === MatchPhase.WaitingForPlayers && Object.keys(state.players).length < state.settings.players;
 
   // Reserve the spot in the match
   state.players[presence.userId] = { presence: null, isReady: false };
@@ -84,7 +79,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       });
 
       // If all players are ready, transition to InProgress state and broadcast the match starting event
-      if (allReady && Object.keys(state.players).length === state.settings.requiredPlayerCount) {
+      if (allReady && Object.keys(state.players).length === state.settings.players) {
         state.phase = MatchPhase.InProgress;
         logger.debug("AND WE ARE LIVE!");
         dispatcher.broadcastMessage(MatchOpCode.MATCH_START);

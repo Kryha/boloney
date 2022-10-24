@@ -1,8 +1,16 @@
 import { FC } from "react";
 
-import { PowerUpWrapper } from "./styles";
+import { PowerUpCardImage, PowerUpWrapper } from "./styles";
+import { PowerUp } from "../../types";
 
-// TODO: update component when designs are updated
-export const PowerUp: FC = () => {
-  return <PowerUpWrapper />;
+interface PowerUpComponentProps {
+  powerUp: PowerUp;
+}
+
+export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp }) => {
+  return (
+    <PowerUpWrapper>
+      <PowerUpCardImage src={powerUp.image} alt={powerUp.name} />
+    </PowerUpWrapper>
+  );
 };

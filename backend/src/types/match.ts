@@ -1,5 +1,5 @@
 import { MatchPhase } from "../utils";
-import { isPowerupTypeArray, PowerupType } from "./power-up";
+import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
 import { isBoolean, isNumber, isObject, isString } from "./primitive";
 
 export interface Player {
@@ -30,36 +30,52 @@ export const isPlayer = (value: unknown): value is Player => {
   );
 };
 
+// TODO: in the future we may want to merge 'availablePowerUps' and 'powerUpProbability' into one single attribute
 export interface MatchSettings {
-  requiredPlayerCount: number;
+  players: number;
   dicePerPlayer: number;
-  powerupsPerPlayer: number;
-  availablePowerups: PowerupType[];
-  isUsingFakeCredits: boolean;
+  initialPowerUpAmount: number;
+  maxPowerUpAmount: number;
+  availablePowerUps: PowerUpType[];
+  healPowerUpAmount: number;
+  stageNumberDivisor: number;
+  drawRoundOffset: number;
+  powerUpProbability: PowerUpProbability[];
 }
 
 export const isMatchSettings = (value: unknown): value is MatchSettings => {
   const assertedVal = value as MatchSettings;
 
   return (
-    assertedVal.requiredPlayerCount !== undefined &&
+    assertedVal.players !== undefined &&
     assertedVal.dicePerPlayer !== undefined &&
-    assertedVal.powerupsPerPlayer !== undefined &&
-    assertedVal.availablePowerups !== undefined &&
-    assertedVal.isUsingFakeCredits !== undefined &&
-    isNumber(assertedVal.requiredPlayerCount) &&
+    assertedVal.initialPowerUpAmount !== undefined &&
+    assertedVal.maxPowerUpAmount !== undefined &&
+    assertedVal.availablePowerUps !== undefined &&
+    assertedVal.healPowerUpAmount !== undefined &&
+    assertedVal.stageNumberDivisor !== undefined &&
+    assertedVal.drawRoundOffset !== undefined &&
+    assertedVal.powerUpProbability !== undefined &&
+    isNumber(assertedVal.players) &&
     isNumber(assertedVal.dicePerPlayer) &&
-    isNumber(assertedVal.powerupsPerPlayer) &&
-    isBoolean(assertedVal.isUsingFakeCredits) &&
-    isPowerupTypeArray(assertedVal.availablePowerups)
+    isNumber(assertedVal.initialPowerUpAmount) &&
+    isNumber(assertedVal.maxPowerUpAmount) &&
+    isPowerUpTypeArray(assertedVal.availablePowerUps) &&
+    isNumber(assertedVal.healPowerUpAmount) &&
+    isNumber(assertedVal.stageNumberDivisor) &&
+    isNumber(assertedVal.drawRoundOffset) &&
+    isPowerUpProbabilityArray(assertedVal.powerUpProbability)
   );
 };
 
+// TODO: see how it relates to nakama's default match state type
 export interface MatchState {
-  players: { [userId: string]: Player };
+  // TODO: should we keep both presences and players?
+  players: Record<string, Player>;
+  presences: Record<string, nkruntime.Presence>;
   phase: MatchPhase;
-  settings: MatchSettings;
   emptyTicks: number;
+  settings: MatchSettings;
 }
 
 export const isMatchState = (value: unknown): value is MatchState => {
@@ -67,12 +83,15 @@ export const isMatchState = (value: unknown): value is MatchState => {
 
   return (
     assertedVal.players !== undefined &&
+    assertedVal.presences !== undefined &&
     assertedVal.phase !== undefined &&
-    assertedVal.settings !== undefined &&
     assertedVal.emptyTicks !== undefined &&
+    assertedVal.settings !== undefined &&
     isObject(assertedVal.players) &&
-    isNumber(assertedVal.phase) &&
+    isObject(assertedVal.presences) &&
+    isNumber(assertedVal.phase) && // TODO: use custom predicate after defining
     isObject(assertedVal.settings) &&
-    isNumber(assertedVal.emptyTicks)
+    isNumber(assertedVal.emptyTicks) &&
+    isMatchSettings(assertedVal.settings)
   );
 };
