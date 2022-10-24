@@ -26,6 +26,7 @@ export const isPlayer = (value: unknown): value is Player => {
   );
 };
 
+// TODO: in the future we may want to merge 'availablePowerUps' and 'powerUpProbability' into one single attribute
 export interface MatchSettings {
   players: number;
   dicePerPlayer: number;

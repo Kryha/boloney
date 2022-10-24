@@ -26,6 +26,7 @@ export const isPowerUpTypeArray = (types: unknown): types is PowerUpType[] => {
   return areValid;
 };
 
+// TODO: add description field in the future
 export interface PowerUp {
   id: string;
   name: string;

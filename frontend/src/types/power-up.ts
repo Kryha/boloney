@@ -4,6 +4,7 @@ export const powerUpTypeSchema = z.enum(["1", "2", "3", "4", "5", "6", "7", "8",
 
 export type PowerUpType = z.infer<typeof powerUpTypeSchema>;
 
+// TODO: add description field in the future
 export const powerUpSchema = z.object({
   id: z.string(),
   name: z.string(),

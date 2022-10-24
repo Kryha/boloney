@@ -13,6 +13,7 @@ export const playerSchema = z.object({
 
 export type Player = z.infer<typeof playerSchema>;
 
+// TODO: in the future we may want to merge 'availablePowerUps' and 'powerUpProbability' into one single attribute
 export const matchSettingsSchema = z.object({
   players: z.number(),
   dicePerPlayer: z.number(),
