@@ -13,14 +13,15 @@ export const playerSchema = z.object({
 
 export type Player = z.infer<typeof playerSchema>;
 
+// TODO: in the future we may want to merge 'availablePowerUps' and 'powerUpProbability' into one single attribute
 export const matchSettingsSchema = z.object({
   players: z.number(),
   dicePerPlayer: z.number(),
   initialPowerUpAmount: z.number(),
   maxPowerUpAmount: z.number().max(MAX_POWERUPS_PER_PLAYER),
   availablePowerUps: z.array(powerUpTypeSchema),
-  healAction: z.number(),
-  stageNumber: z.number(),
+  healPowerUpAmount: z.number(),
+  stageNumberDivisor: z.number(),
   drawRoundOffset: z.number(),
   powerUpProbability: z.array(powerUpProbabilitySchema),
 });
@@ -34,8 +35,8 @@ export const matchFormSettingsSchema = z.object({
     .max(MAX_POWERUPS_PER_PLAYER)
     .transform((val) => Number(val)),
   availablePowerUps: z.array(powerUpTypeSchema),
-  healAction: z.string().transform((val) => Number(val)),
-  stageNumber: z.string().transform((val) => Number(val)),
+  healPowerUpAmount: z.string().transform((val) => Number(val)),
+  stageNumberDivisor: z.string().transform((val) => Number(val)),
   drawRoundOffset: z.string().transform((val) => Number(val)),
   powerUpProbability: z.array(powerUpProbabilitySchema),
 });

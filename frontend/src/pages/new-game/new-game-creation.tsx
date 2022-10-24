@@ -29,21 +29,19 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     const result = matchFormSettingsSchema.safeParse({
       ...data,
-      availablePowerUps: availablePowerUps,
-      powerUpProbability: powerUpProbability,
+      availablePowerUps,
+      powerUpProbability,
     });
 
     if (!result.success) {
       setIsError(true);
     } else {
-      const res = await createMatch(data);
-      if (isString(res)) {
-        const matchId = res;
+      const matchId = await createMatch(result.data);
+      if (isString(matchId)) {
         await joinMatch(matchId);
         // TODO: retrieve url from backend
         setUrl(`tmp/url/${matchId}`);
       } else {
-        console.log(res);
         setIsError(true);
       }
     }

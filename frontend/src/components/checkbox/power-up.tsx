@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { useGameCreationFormState } from "../../pages/new-game/game-creation-form-state";
 import { GeneralContentWrapper, Heading6, Row } from "../atoms";
 import { CheckboxInput } from "../inputs";
@@ -24,6 +25,16 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
     setPowerUpProbability({ id: powerUp.id, probability: Number(e.target.value) });
   };
 
+  const updateProbability = (probability: number) => {
+    if (probability > 100) {
+      setProbability(100);
+    } else if (probability < 0) {
+      setProbability(0);
+    } else {
+      setProbability(probability);
+    }
+  };
+
   return (
     <>
       <PowerUpComponent powerUp={powerUpData} />
@@ -43,7 +54,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
             onBlur={(e) => newProbability(e)}
             disabled={!isChecked}
             value={probability}
-            onChange={(e) => setProbability(Number(e.target.value))}
+            onChange={(e) => updateProbability(Number(e.target.value))}
           />
         </PercentageInputContainer>
       </CheckboxInput>
