@@ -38,16 +38,16 @@ interface LayoutProps {
   isToggled: boolean;
 }
 
-export const ChatSection = styled(MenuSection) <LayoutProps>`
-  height: 5.105vh;
+export const ChatSection = styled(MenuSection)<LayoutProps>`
+  height: 5.5vh;
   cursor: pointer;
-  display: ${({ isToggled }) => (isToggled && "none")};
+  display: ${({ isToggled }) => isToggled && "none"};
 `;
 
-export const HistorySection = styled(MenuSection) <LayoutProps>`
-  height: 5.105vh;
+export const HistorySection = styled(MenuSection)<LayoutProps>`
+  height: 5.5vh;
   cursor: pointer;
-  display: ${({ isToggled }) => (isToggled && "none")};
+  display: ${({ isToggled }) => isToggled && "none"};
   border-top: 1px solid ${color.darkGrey};
   border-bottom: 1px solid ${color.darkGrey};
 `;

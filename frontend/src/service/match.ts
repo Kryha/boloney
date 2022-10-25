@@ -1,26 +1,59 @@
-import { useCallback, useState } from "react";
-
-import { text } from "../assets/text";
-import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
+import { MatchData } from "@heroiclabs/nakama-js";
+import { useCallback, useEffect, useState } from "react";
+import { text } from "../assets";
 import { useAuthState, useMatchMakerState } from "../store";
-import { MatchJoinMetadata, MatchSettings, NkResponse } from "../types";
+import { useMatchState } from "../store/match";
+import { MatchOpCode, NkResponse } from "../types";
 import { parseError } from "../util";
+import { fakeDiceRolls } from "./fake-dice-rolls";
+import { fakePowerUps } from "./fake-power-ups";
 
-export const useMatchMaker = () => {
+export const useMatch = () => {
   const socket = useAuthState((state) => state.socket);
-  const setTicket = useMatchMakerState((state) => state.setTicket);
-  const setMatchId = useMatchMakerState((state) => state.setMatchId);
+  const setRoundStage = useMatchState((state) => state.setRoundStage);
+  const roundStage = useMatchState((state) => state.roundStage);
+  const setPowerUps = useMatchState((state) => state.setPowerUps);
+  const setFaceValues = useMatchState((state) => state.setFaceValues);
+  const matchId = useMatchMakerState((state) => state.matchId);
   const [isLoading, setIsLoading] = useState(false);
 
-  const joinMatch = useCallback(
-    async (matchId: string, metadata: MatchJoinMetadata): Promise<NkResponse> => {
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.onmatchdata = (matchData: MatchData) => {
+      if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
+        // TODO: replace setRoundStage("getPowerUpStage"); with setRoundStage(matchData.data.matchStage);
+        setRoundStage("getPowerUpStage");
+        // TODO: use matchData.data.matchStage instead of roundStage
+        switch (roundStage) {
+          case "getPowerUpStage":
+            // TODO: remove fake data
+            setPowerUps(fakePowerUps);
+            break;
+          case "rollDiceStage":
+            // TODO: remove fake data
+            setFaceValues(fakeDiceRolls);
+            break;
+          case "playerTurnLoopStage":
+            // TODO: add other stages
+            break;
+          case "roundSummaryStage":
+            break;
+          case "endOfMatchStage":
+            break;
+        }
+      }
+    };
+  }, [roundStage, setFaceValues, setPowerUps, setRoundStage, socket]);
+
+  const sendMatchState = useCallback(
+    async (payload: string): Promise<NkResponse> => {
       try {
         if (!socket) throw new Error(text.error.noSocketConnected);
-
+        if (!matchId) throw new Error(text.error.noMatchIdFound);
         setIsLoading(true);
-        setMatchId(matchId);
 
-        await socket.joinMatch(matchId, undefined, metadata);
+        socket.sendMatchState(matchId, MatchOpCode.PLAYER_READY, payload);
       } catch (error) {
         const parsedErr = await parseError(error);
         return parsedErr;
@@ -28,70 +61,12 @@ export const useMatchMaker = () => {
         setIsLoading(false);
       }
     },
-    [socket, setMatchId]
+    [matchId, socket]
   );
-
-  const joinPool = useCallback(async (): Promise<NkResponse> => {
-    try {
-      if (!socket) throw new Error(text.error.noSocketConnected);
-      setIsLoading(true);
-
-      const matchmakerTicket = await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
-      setTicket(matchmakerTicket.ticket);
-    } catch (error) {
-      const parsedErr = await parseError(error);
-      return parsedErr;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [setTicket, socket]);
-
-  const createMatch = useCallback(
-    async (settings: MatchSettings): Promise<NkResponse<string>> => {
-      setIsLoading(true);
-      try {
-        if (!socket) throw new Error(text.error.noSocketConnected);
-
-        const rpcRes = await socket.rpc(RPC_CREATE_MATCH, JSON.stringify(settings));
-        if (!rpcRes.payload) throw new Error(text.error.noPayloadReturned);
-
-        const parsed = JSON.parse(rpcRes.payload);
-        if (!parsed.match_id) throw new Error(text.error.receivedUnexpectedPayload);
-
-        return parsed.match_id;
-      } catch (error) {
-        const parsedErr = await parseError(error);
-        return parsedErr;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [socket]
-  );
-
-  const findMatches = useCallback(async (): Promise<NkResponse<string[]>> => {
-    try {
-      if (!socket) throw new Error(text.error.noSocketConnected);
-
-      setIsLoading(true);
-
-      const rpcRes = await socket.rpc(RPC_FIND_MATCH);
-      if (!rpcRes.payload) throw new Error(text.error.noPayloadReturned);
-
-      return JSON.parse(rpcRes.payload).match_ids;
-    } catch (error) {
-      const parsedErr = await parseError(error);
-      return parsedErr;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [socket]);
 
   return {
-    joinPool,
-    createMatch,
-    findMatches,
-    joinMatch,
+    roundStage,
     isLoading,
+    sendMatchState,
   };
 };

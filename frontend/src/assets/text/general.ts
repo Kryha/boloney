@@ -21,4 +21,5 @@ export const general = {
   goToLobby: "go to lobby",
   ready: "ready",
   imReady: "i'm ready!",
+  loading: "loading...",
 };

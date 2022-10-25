@@ -14,7 +14,7 @@ interface PowerUpOverviewProps {
 export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUps }) => {
   const { height } = useViewport();
 
-  if (!powerUps) return <></>;
+  if (!powerUps || !powerUps.length) return <></>;
 
   return (
     <PowerUpOverviewWrapper>
