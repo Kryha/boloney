@@ -12,14 +12,16 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
 
   if (!isMatchSettings(params)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
+  //TODO: If match settings are not et through parameters set the default settings
   const initialState: MatchState = {
-    settings: DEFAULT_MATCH_SETTINGS,
+    settings: params,
     players: [],
     playerCount: 0,
     phaseReady: [],
     playerOrder: [],
     matchPhase: "LobbyStage",
     emptyTicks: 0,
+    settings: params,
   };
 
   logger.info("----------------- STATE -----------------");

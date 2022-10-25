@@ -37,9 +37,10 @@ export const InputContainer = styled.div<InputContainerProps>`
       border-right: ${isError ? `1px solid ${color.red}` : "none"};
     }
   `};
-  ${({ isRow, childNode }) => isRow && childNode === 2 && `
+  ${({ isRow, childNode, isError }) => isRow && childNode === 2 && `
     ${BaseInput} {
       width: 31.25vw;
+      border-right: ${isError ? `1px solid ${color.red}` : "none"};
     }
   `};
 `;

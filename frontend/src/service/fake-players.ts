@@ -1,7 +1,7 @@
 // TODO: delete this file
 import { Player } from "../types";
 
-export const Players: Player[] = [
+export const fakePlayers: Player[] = [
   {
     id: "1",
     name: "umpalumpa",

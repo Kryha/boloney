@@ -9,4 +9,5 @@ export const error = {
   goHome: "go home",
   noSocketConnected: "no socket connected",
   noPayloadReturned: "no payload returned",
+  receivedUnexpectedPayload: "received unexpected payload",
 };

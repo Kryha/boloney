@@ -1,20 +1,24 @@
 import create from "zustand";
 
-import { PowerupType } from "../../types";
+import { PowerUpType, PowerUpProbability } from "../../types";
 
 export interface NewGameState {
   availablePowerUps: PowerUpType[];
-  isUsingFakeCredits: boolean;
+  powerUpProbability: PowerUpProbability[];
+  totalProbability: number;
+  isPowerUpError: boolean;
 
-  toggleIsUsingFakeCredits: () => void;
   togglePowerUp: (powerUp: PowerUpType) => void;
+  setPowerUpProbability: (probability: PowerUpProbability) => void;
+  removePowerUpProbability: (name: PowerUpType) => void;
 }
 
 export const useGameCreationFormState = create<NewGameState>((set) => ({
   availablePowerUps: [],
-  isUsingFakeCredits: false,
+  powerUpProbability: [],
+  isPowerUpError: false,
+  totalProbability: 0,
 
-  toggleIsUsingFakeCredits: () => set(({ isUsingFakeCredits }) => ({ isUsingFakeCredits: !isUsingFakeCredits })),
   togglePowerUp: (powerUp) =>
     set(({ availablePowerUps }) => {
       const powerUpsSet = new Set(availablePowerUps);
@@ -23,4 +27,29 @@ export const useGameCreationFormState = create<NewGameState>((set) => ({
 
       return { availablePowerUps: Array.from(powerUpsSet) };
     }),
+  setPowerUpProbability: ({ id: id, probability: prob }) => {
+    set(({ powerUpProbability }) => {
+      const probabilitySet = new Set(powerUpProbability);
+
+      probabilitySet.delete({ id: id, probability: prob });
+
+      probabilitySet.add({ id: id, probability: prob });
+
+      const probabilities = Array.from(probabilitySet);
+      const totalProbability = probabilities.reduce((a, b) => a + b.probability, 0);
+
+      const powerUpError = totalProbability > 100;
+
+      return { powerUpProbability: probabilities, totalProbability: totalProbability, isPowerUpError: powerUpError };
+    });
+  },
+  removePowerUpProbability: (name: PowerUpType) => {
+    set(({ powerUpProbability }) => {
+      const powerUpProbabilities = powerUpProbability.filter((probability) => probability.id !== name);
+
+      const totalProbability = powerUpProbabilities.reduce((a, b) => a + b.probability, 0);
+
+      return { powerUpProbability: powerUpProbabilities, totalProbability: totalProbability };
+    });
+  },
 }));

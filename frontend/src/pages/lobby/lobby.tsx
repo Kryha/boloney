@@ -2,7 +2,7 @@ import { FC } from "react";
 import { LineContainer, TopNavigation } from "../../components";
 
 import { LobbyPlayer } from "../../components/lobby-player";
-import { Players } from "../../service/fake-players";
+import { fakePlayers } from "../../service/fake-players";
 import { LobbyWrapper } from "./styles";
 
 export const Lobby: FC = () => {
@@ -14,9 +14,9 @@ export const Lobby: FC = () => {
 
   return (
     <LobbyWrapper>
-      <TopNavigation isInGame />
+      <TopNavigation isInMatch />
       <LineContainer arePlayersReady onClick={startGame}>
-        {Players.map((player) => (
+        {fakePlayers.map((player) => (
           <LobbyPlayer key={player.id} player={player} />
         ))}
       </LineContainer>

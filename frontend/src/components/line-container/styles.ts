@@ -3,16 +3,15 @@ import { BoloneyIcon } from "../../assets";
 import { HorizontalDivider } from "../../components";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
-import { ViewProps } from "../../interfaces";
+import { ViewProps } from "../../types";
 import { ChatSection } from "../chat/styles";
 import { HandWrapper } from "../hand/styles";
 import { LobbyPlayerWrapper } from "../lobby-player/styles";
 
-
 export const LineWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  ${ChatSection}{
+  ${ChatSection} {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -31,7 +30,8 @@ export const ChildrenWrapper = styled.div<ViewProps>`
     border-top: none;
     border-bottom: none;
     ${HandWrapper} {
-      margin-top: ${({ width }) => (width > MEDIUM_VIEWPORT_WIDTH ? "clamp(50px, -1.04vw + 60px, 40px)" : "clamp(40px, 8.33vw + -40px, 120px)")};
+      margin-top: ${({ width }) =>
+        width > MEDIUM_VIEWPORT_WIDTH ? "clamp(50px, -1.04vw + 60px, 40px)" : "clamp(40px, 8.33vw + -40px, 120px)"};
     }
   }
 `;
@@ -87,7 +87,7 @@ interface WaitingProps {
 }
 
 export const WaitForOthersContainer = styled.div<WaitingProps>`
-  background:  ${({ arePlayersReady }) => (arePlayersReady ? "none" : color.lightGrey)};
+  background: ${({ arePlayersReady }) => (arePlayersReady ? "none" : color.lightGrey)};
   position: absolute;
   padding: ${margins.small2} ${margins.small2} ${margins.small2} 1.5em;
   margin-left: auto;

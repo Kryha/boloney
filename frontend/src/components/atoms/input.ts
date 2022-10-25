@@ -51,6 +51,9 @@ export const BaseInput = styled.input`
     &::placeholder {
       color: ${color.darkGrey};
     }
+    :hover {
+      border: 1px solid ${color.mediumGrey} !important;
+    }
   }
   -webkit-appearance: none;
   -moz-appearance: none;
