@@ -48,15 +48,8 @@ export const Lobby: FC = () => {
       setPlayers(players);
     };
 
-    socket.onchannelpresence = (presence) => {
-      // Not sure why, but this is not getting picked up on. Otherwise I could've addded the new presence to the players array, so new players can get displayed before the match is made
-      console.log({ presence });
-    };
-
     socket.onmatchdata = (matchData: MatchData) => {
       // All opcode related messages from the backend will be received here
-      console.log({ matchData });
-
       if (matchData.op_code === MatchOpCode.READY) {
         // A player has set himself "ready", so we have to reflect that in the client
         const readyUser: Presence = JSON.parse(String.fromCharCode(...matchData.data)); // Yes. This is the way to parse. Gotta love Nakama.
