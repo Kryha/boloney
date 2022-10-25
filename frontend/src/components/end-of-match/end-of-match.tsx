@@ -8,7 +8,7 @@ interface Props {
 }
 
 // TODO: finish component
-export const EndOfGame: FC<Props> = ({ matchStageReady }) => {
+export const EndOfMatch: FC<Props> = ({ matchStageReady }) => {
   return (
     <BottomButtonWrapper>
       <Heading1>{text.match.getPowerUps}</Heading1>

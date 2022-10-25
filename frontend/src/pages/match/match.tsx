@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 import { text } from "../../assets";
-import { EndOfGame, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
+import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
 import { fakePlayers } from "../../service";
 import { useMatch } from "../../service/match";
 import { useMatchState } from "../../store/match";
@@ -27,7 +27,7 @@ export const Match = () => {
       case "roundSummaryStage":
         return <EndOfRound matchStageReady={matchStageReady} />;
       case "endOfMatchStage":
-        return <EndOfGame matchStageReady={matchStageReady} />;
+        return <EndOfMatch matchStageReady={matchStageReady} />;
     }
   };
 

@@ -25,5 +25,5 @@ export * from "./line-container";
 export * from "./roll-dice";
 export * from "./player-turns";
 export * from "./get-power-ups";
-export * from "./end-of-game";
+export * from "./end-of-match";
 export * from "./end-of-round";
