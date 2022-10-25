@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { text } from "../../assets";
-import { Heading1 } from "../atoms";
+import { BottomButtonWrapper, Heading1 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 
 interface Props {
@@ -9,9 +9,9 @@ interface Props {
 // TODO: finish component
 export const GetPowerUps: FC<Props> = ({ matchStageReady }) => {
   return (
-    <>
+    <BottomButtonWrapper>
       <Heading1>{text.match.getPowerUps}</Heading1>
       <PrimaryButton text={text.match.goForIt} onClick={() => matchStageReady()} />
-    </>
+    </BottomButtonWrapper>
   );
 };

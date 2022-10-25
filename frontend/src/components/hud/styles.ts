@@ -4,7 +4,7 @@ import { color } from "../../design";
 export const PlayerOverview = styled.section`
   border-top: 1px solid ${color.darkGrey};
   width: 62.5vw;
-  height: 7.198vh;
+  height: 11vh;
   display: flex;
   flex-direction: row;
   align-items: flex-start;

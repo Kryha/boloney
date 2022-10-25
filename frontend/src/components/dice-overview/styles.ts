@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { GeneralText } from "../atoms/text";
-import { color, margins } from "../../design";
+import { margins } from "../../design";
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 
 export const DieOverviewWrapper = styled.div`
@@ -25,7 +25,6 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   width: 31.25vw;
   height: 7.198vh;
   background: transparent;
-  border-top: 1px solid ${color.darkGrey};
   ${GeneralText} {
     margin-left: ${margins.small5};
   }

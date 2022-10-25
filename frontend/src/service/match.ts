@@ -20,7 +20,6 @@ export const useMatch = () => {
 
   if (!socket) throw new Error(text.error.noSocketConnected);
 
-  // option 2
   socket.onmatchdata = (matchData: MatchData) => {
     if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
       // setRoundStage(matchData.data.matchStage);
