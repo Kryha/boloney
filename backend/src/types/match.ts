@@ -57,7 +57,7 @@ export interface MatchState {
   phaseReady: string[];
   playerCount: number;
   playerOrder: string[];
-  matchPhase: MatchPhase;
+  matchPhase: MatchStage;
   emptyTicks: number;
 }
 
@@ -76,7 +76,7 @@ export const isMatchState = (value: unknown): value is MatchState => {
     isStringArray(assertedVal.phaseReady) &&
     isNumber(assertedVal.playerCount) &&
     isStringArray(assertedVal.playerOrder) &&
-    isMatchPhase(assertedVal.matchPhase) &&
+    isMatchState(assertedVal.matchPhase) &&
     isNumber(assertedVal.emptyTicks)
   );
 };
@@ -109,54 +109,53 @@ export enum RoundPhases {
   matchEnd,
 }
 
-export type MatchPhase =
-  | "waitingForPlayers" // waiting for people to join the lobby
-  | "waitingForPlayersReady" // waiting for players to be ready
-  | "roundPhase1" // Get powerups
-  | "roundPhase2" // Roll the dice
-  | "roundPhase3" // Players turn loop
-  | "roundPhase4" // Round summery
+export type MatchStage =
+  | "LobbyStage" // waiting for people to join the lobby
+  | "GetPowerUpStage" // waiting for players to be ready
+  | "RollDiceStage" // Get powerups
+  | "PlayerTurnLoopStage" // Roll the dice
+  | "RoundSummaryStage" // Players turn loop
+  | "EndOfMatchStage" // Round summery
   | "endGame"; // Match summery
 
-export const isMatchPhase = (value: unknown): value is MatchPhase => {
-  const assertedVal = value as MatchPhase;
+export const isMatchStage = (value: unknown): value is MatchStage => {
+  const assertedVal = value as MatchStage;
 
   return (
-    assertedVal === "waitingForPlayers" ||
-    assertedVal === "waitingForPlayersReady" ||
-    assertedVal === "roundPhase1" ||
-    assertedVal === "roundPhase2" ||
-    assertedVal === "roundPhase3" ||
-    assertedVal === "roundPhase4" ||
-    assertedVal === "endGame"
+    assertedVal === "LobbyStage" ||
+    assertedVal === "GetPowerUpStage" ||
+    assertedVal === "RollDiceStage" ||
+    assertedVal === "PlayerTurnLoopStage" ||
+    assertedVal === "RoundSummaryStage" ||
+    assertedVal === "EndOfMatchStage"
   );
 };
 
-export const isWaitingForPlayers = (value: unknown): value is "waitingForPlayers" => {
-  return isMatchPhase(value) && value === "waitingForPlayers";
+export const isLobbyStage = (value: unknown): value is "LobbyStage" => {
+  return isMatchStage(value) && value === "LobbyStage";
 };
-export const isWaitingForPlayersReady = (value: unknown): value is "waitingForPlayersReady" => {
-  return isMatchPhase(value) && value === "waitingForPlayersReady";
+export const isGetPowerUpStage = (value: unknown): value is "GetPowerUpStage" => {
+  return isMatchStage(value) && value === "GetPowerUpStage";
 };
-export const isRoundPhase1 = (value: unknown): value is "roundPhase1" => {
-  return isMatchPhase(value) && value === "roundPhase1";
+export const isRollDiceStage = (value: unknown): value is "RollDiceStage" => {
+  return isMatchStage(value) && value === "RollDiceStage";
 };
-export const isRoundPhase2 = (value: unknown): value is "roundPhase2" => {
-  return isMatchPhase(value) && value === "roundPhase2";
+export const isPlayerTurnLoopStage = (value: unknown): value is "PlayerTurnLoopStage" => {
+  return isMatchStage(value) && value === "PlayerTurnLoopStage";
 };
-export const isRoundPhase3 = (value: unknown): value is "roundPhase3" => {
-  return isMatchPhase(value) && value === "roundPhase3";
+export const isRoundSummaryStage = (value: unknown): value is "RoundSummaryStage" => {
+  return isMatchStage(value) && value === "RoundSummaryStage";
 };
-export const isRoundPhase4 = (value: unknown): value is "roundPhase4" => {
-  return isMatchPhase(value) && value === "roundPhase4";
-};
-export const isEndGame = (value: unknown): value is "endGame" => {
-  return isMatchPhase(value) && value === "endGame";
+export const isEndOfMatchStage = (value: unknown): value is "EndOfMatchStage" => {
+  return isMatchStage(value) && value === "EndOfMatchStage";
 };
 
 export enum OpCode {
-  PhaseReady = 1,
-  PhaseTransition = 2,
+  StageTransition = 1,
+  PlayerReady = 2,
+  RollDice = 3,
+  FaceValues = 4,
+  LeaveMatch = 5,
 }
 
 export const isPresence = (value: unknown): value is nkruntime.Presence => {

@@ -1,19 +1,7 @@
 import { text } from "../text";
-import {
-  MatchState,
-  MatchSettings,
-  isMatchSettings,
-  OpCode,
-  PlayerState,
-  isMatchState,
-  isWaitingForPlayers,
-  PowerupType,
-  isRoundPhase1,
-} from "../types";
+import { MatchState, MatchSettings, isMatchSettings, OpCode, PlayerState, isMatchState, PowerupType, isLobbyStage } from "../types";
 import { DEFAULT_MATCH_SETTINGS, handleError } from "../utils";
 
-const utf8encode = new TextEncoder();
-const utf8decode = new TextDecoder();
 /**
  * Using isMatchState predicate to check for state type in each hook will make nakama env to throw,
  * so apparently we can't use the predicate in these hooks
@@ -30,7 +18,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
     playerCount: 0,
     phaseReady: [],
     playerOrder: [],
-    matchPhase: "waitingForPlayers",
+    matchPhase: "LobbyStage",
     emptyTicks: 0,
   };
 
@@ -86,36 +74,33 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
   if (!isMatchState(state)) throw "Match state is invalid";
 
   switch (state.matchPhase) {
-    case "waitingForPlayers": {
-      break;
-    }
-    case "waitingForPlayersReady": {
-      break;
-    }
-    case "roundPhase1": {
+    case "LobbyStage": {
       messages.forEach((message: nkruntime.MatchMessage) => {
         const payload = "";
-        if (isRoundPhase1(payload)) {
+        if (isLobbyStage(payload)) {
           state.phaseReady.push(message.sender.userId);
         }
 
         if (state.phaseReady.length === state.playerCount) {
-          state.matchPhase = "roundPhase2";
-          dispatcher.broadcastMessage(OpCode.PhaseTransition);
+          state.matchPhase = "GetPowerUpStage";
+          dispatcher.broadcastMessage(OpCode.StageTransition);
         }
       });
       break;
     }
-    case "roundPhase2": {
+    case "GetPowerUpStage": {
       break;
     }
-    case "roundPhase3": {
+    case "RollDiceStage": {
       break;
     }
-    case "roundPhase4": {
+    case "PlayerTurnLoopStage": {
       break;
     }
-    case "endGame": {
+    case "RoundSummaryStage": {
+      break;
+    }
+    case "EndOfMatchStage": {
       break;
     }
   }
