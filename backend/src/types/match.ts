@@ -1,28 +1,55 @@
 import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
-import { isBoolean, isNumber, isObject, isString } from "./primitive";
+import { isBoolean, isNumber, isString } from "./primitive";
+
+export enum MatchOpCode {
+  CONNECTED = 1, // OpCodes can't be 0
+  LOBBY_FULL,
+  READY,
+  MATCH_START,
+}
+
+export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
+  return isNumber(value) && value >= MatchOpCode.CONNECTED && value <= MatchOpCode.MATCH_START;
+};
+
+export type MatchPhase = "waitingForPlayers" | "waitingForPlayersReady" | "inProgress";
+
+export const isMatchPhase = (value: unknown): value is MatchPhase => {
+  return value === "waitingForPlayers" || value === "waitingForPlayersReady" || value === "inProgress";
+};
+
+export interface MatchJoinMetadata {
+  username: string;
+}
+
+export const isMatchJoinMetadata = (value: unknown): value is MatchJoinMetadata => {
+  const assertedVal = value as MatchJoinMetadata;
+
+  return assertedVal.username !== undefined && isString(assertedVal.username);
+};
 
 export interface Player {
-  id: string;
-  name: string;
+  username: string;
   color: string;
   avatarName: string;
-  connected: boolean;
+  isConnected: boolean;
+  isReady: boolean;
 }
 
 export const isPlayer = (value: unknown): value is Player => {
   const assertedVal = value as Player;
 
   return (
-    assertedVal.id !== undefined &&
-    assertedVal.name !== undefined &&
+    assertedVal.username !== undefined &&
     assertedVal.color !== undefined &&
     assertedVal.avatarName !== undefined &&
-    assertedVal.color !== undefined &&
-    isString(assertedVal.id) &&
-    isString(assertedVal.name) &&
+    assertedVal.isConnected !== undefined &&
+    assertedVal.isReady !== undefined &&
+    isString(assertedVal.username) &&
     isString(assertedVal.color) &&
     isString(assertedVal.avatarName) &&
-    isBoolean(assertedVal.connected)
+    isBoolean(assertedVal.isConnected) &&
+    isBoolean(assertedVal.isReady)
   );
 };
 
@@ -65,7 +92,9 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
 };
 
 export interface MatchState {
+  players: Record<string, Player>;
   presences: Record<string, nkruntime.Presence>;
+  phase: MatchPhase;
   emptyTicks: number;
   settings: MatchSettings;
 }
@@ -74,10 +103,13 @@ export const isMatchState = (value: unknown): value is MatchState => {
   const assertedVal = value as MatchState;
 
   return (
+    assertedVal.players !== undefined &&
     assertedVal.presences !== undefined &&
+    assertedVal.phase !== undefined &&
     assertedVal.emptyTicks !== undefined &&
-    isObject(assertedVal.presences) &&
-    isNumber(assertedVal.emptyTicks) &&
-    isMatchSettings(assertedVal.settings)
+    assertedVal.settings !== undefined &&
+    isMatchPhase(assertedVal.phase) &&
+    isMatchSettings(assertedVal.settings) &&
+    isNumber(assertedVal.emptyTicks)
   );
 };

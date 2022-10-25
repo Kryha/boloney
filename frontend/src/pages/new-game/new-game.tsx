@@ -6,11 +6,14 @@ import { NewGameCreation } from "./new-game-creation";
 
 export const NewGame: FC = () => {
   const [url, setUrl] = useState<string>();
+  const [matchId, setMatchId] = useState<string>();
 
   return (
     <BaseLayout
       leftSection={<Logo />}
-      mainSection={url ? <NewGameConfirmation url={url} /> : <NewGameCreation setUrl={setUrl} />}
+      mainSection={
+        url && matchId ? <NewGameConfirmation url={url} matchId={matchId} /> : <NewGameCreation setUrl={setUrl} setMatchId={setMatchId} />
+      }
       rightSection={<TopNavigation />}
     />
   );
