@@ -3,25 +3,23 @@ import { text } from "../../assets";
 
 import { EndOfGame, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
 import { DiceRolls, Players } from "../../service";
-import { useMatch } from "../../service/match";
-import { useMatchState } from "../../store";
-import { GET_POWERUPS_OP_CODE, ROLL_DICE_OP_CODE, PLAYER_TURN_OP_CODE, END_OF_ROUND_OP_CODE, END_OF_GAME_OP_CODE } from "../../constants";
+import { useSocket } from "../../service/socket";
+import { RoundStage } from "../../types";
 
 export const Match = () => {
-  const { getPowerUps, isLoading } = useMatch();
-  const roundPhase = useMatchState((state) => state.roundPhase);
+  const { roundStage } = useSocket();
 
   const gameState = (): ReactNode => {
-    switch (roundPhase) {
-      case GET_POWERUPS_OP_CODE:
+    switch (roundStage) {
+      case RoundStage.GET_POWERUP_STAGE:
         return <GetPowerUps getPowerUps={getPowerUps} />;
-      case ROLL_DICE_OP_CODE:
+      case RoundStage.ROLL_DICE_STAGE:
         return <RollDice />;
-      case PLAYER_TURN_OP_CODE:
+      case RoundStage.PLAYER_TURN_STAGE:
         return <PlayerTurns />;
-      case END_OF_ROUND_OP_CODE:
+      case RoundStage.ROUND_SUMMARY_STAGE:
         return <EndOfRound />;
-      case END_OF_GAME_OP_CODE:
+      case RoundStage.END_OF_MATCH_STAGE:
         return <EndOfGame />;
       default:
         return <GetPowerUps getPowerUps={getPowerUps} />;

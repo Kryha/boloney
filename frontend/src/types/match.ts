@@ -21,3 +21,20 @@ export const matchSettingsSchema = z.object({
 });
 
 export type MatchSettings = z.infer<typeof matchSettingsSchema>;
+
+export const enum RoundStage {
+  LOBBY_STAGE = "LobbyStage",
+  GET_POWERUP_STAGE = "GetPowerUpStage",
+  ROLL_DICE_STAGE = "RollDiceStage",
+  PLAYER_TURN_STAGE = "PlayerTurnLoopStage",
+  ROUND_SUMMARY_STAGE = "RoundSummaryStage",
+  END_OF_MATCH_STAGE = "EndOfMatchStage",
+}
+
+export const enum MatchOpCode {
+  STAGE_TRANSITION = 1,
+  PLAYER_READY = 2,
+  ROLL_DICE = 3,
+  FACE_VALUES = 4,
+  LEAVE_MATCH = 5,
+}
