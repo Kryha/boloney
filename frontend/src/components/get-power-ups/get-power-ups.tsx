@@ -4,14 +4,14 @@ import { Heading1 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 
 interface Props {
-  getPowerUps: () => void;
+  matchStageReady: () => void;
 }
 // TODO: finish component
-export const GetPowerUps: FC<Props> = ({ getPowerUps }) => {
+export const GetPowerUps: FC<Props> = ({ matchStageReady }) => {
   return (
     <>
       <Heading1>{text.match.getPowerUps}</Heading1>
-      <PrimaryButton text={text.match.goForIt} onClick={async () => await getPowerUps()} />
+      <PrimaryButton text={text.match.goForIt} onClick={() => matchStageReady()} />
     </>
   );
 };

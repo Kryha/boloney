@@ -1,102 +1,47 @@
-// import { DiceRolls } from "./fake-dice-rolls";
+import { MatchData } from "@heroiclabs/nakama-js";
+import { useState } from "react";
+import { text } from "../assets";
+import { useAuthState } from "../store";
+import { useMatchState } from "../store/match";
+import { MatchOpCode, RoundStage } from "../types";
 
-import { text } from "../assets/text";
-import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
-import { useAuthState, useMatchMakerState } from "../store";
-import { MatchSettings, NkResponse } from "../types";
-import { parseError } from "../util";
+// ask about error handling
+export const useMatch = () => {
+  const socket = useAuthState((state) => state.socket);
+  const setRoundStage = useMatchState((state) => state.setRoundStage);
+  const roundStage = useMatchState((state) => state.roundStage);
+  const isMatchStageReady = useMatchState((state) => state.isMatchStageReady);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // const getPowerUps = useCallback(async (): Promise<NkResponse> => {
-  //   try {
-  //     if (!socket) throw new Error(error.noSocketConnected);
+  if (!socket) throw new Error(text.error.noSocketConnected);
 
-  const joinMatch = useCallback(
-    async (matchId: string): Promise<NkResponse> => {
-      try {
-        if (!socket) throw new Error(text.error.noSocketConnected);
-
-  // const rollDice = useCallback(async (): Promise<NkResponse> => {
-  //   try {
-  //     if (!socket) throw new Error(error.noSocketConnected);
-
-        const match: Match = await socket.joinMatch(matchId);
-        setMatchId(match.match_id);
-        // TODO: go to game view
-      } catch (error) {
-        const parsedErr = await parseError(error);
-        return parsedErr;
-      } finally {
-        setIsLoading(false);
+  try {
+    socket.onmatchdata = (matchData: MatchData) => {
+      switch (matchData.op_code) {
+        case MatchOpCode.STAGE_TRANSITION:
+          // setRoundStage(matchData.data.matchStage);
+          setRoundStage(RoundStage.ROLL_DICE_STAGE);
+          // check for what the match stage is and save it in the store, with whatever payload
+          break;
+        case MatchOpCode.PLAYER_READY:
+          // TODO: send payload
+          if (isMatchStageReady) socket.sendMatchState(matchData.match_id, MatchOpCode.PLAYER_READY, roundStage);
+          break;
+        case MatchOpCode.ROLL_DICE:
+        case MatchOpCode.FACE_VALUES:
+        case MatchOpCode.LEAVE_MATCH:
+        default:
+          return text.error.couldNotFindEvent;
       }
-    },
-    [socket, setMatchId]
-  );
-
-  const joinLobby = useCallback(async (): Promise<NkResponse> => {
-    try {
-      if (!socket) throw new Error(text.error.noSocketConnected);
-      setIsLoading(true);
-
-      socket.onmatchmakermatched = async (matched) => {
-        console.info("Received MatchmakerMatched message: ", matched);
-        console.info("Matched opponents: ", matched.users);
-
-        if (matched.match_id) await joinMatch(matched.match_id);
-      };
-
-      await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
-    } catch (error) {
-      const parsedErr = await parseError(error);
-      return parsedErr;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [joinMatch, socket]);
-
-  const createMatch = useCallback(
-    async (settings: MatchSettings): Promise<NkResponse<string>> => {
-      setIsLoading(true);
-      try {
-        if (!socket) throw new Error(text.error.noSocketConnected);
-
-        const rpcRes = await socket.rpc(RPC_CREATE_MATCH, JSON.stringify(settings));
-        if (!rpcRes.payload) throw new Error(text.error.noPayloadReturned);
-
-        const parsed = JSON.parse(rpcRes.payload);
-        if (!parsed.match_id) throw new Error(text.error.receivedUnexpectedPayload);
-
-        return parsed.match_id;
-      } catch (error) {
-        const parsedErr = await parseError(error);
-        return parsedErr;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [socket]
-  );
-
-  const findMatches = useCallback(async (): Promise<NkResponse<string[]>> => {
-    try {
-      if (!socket) throw new Error(text.error.noSocketConnected);
-
-      setIsLoading(true);
-
-      const rpcRes = await socket.rpc(RPC_FIND_MATCH);
-      if (!rpcRes.payload) throw new Error(text.error.noPayloadReturned);
-
-      return JSON.parse(rpcRes.payload).match_ids;
-    } catch (error) {
-      const parsedErr = await parseError(error);
-      return parsedErr;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [socket]);
+    };
+  } catch (error) {
+    // TODO: error handling
+  } finally {
+    setIsLoading(false);
+  }
 
   return {
-    // getPowerUps,
-    // rollDice,
-    // isLoading,
+    roundStage,
+    isLoading,
   };
 };
