@@ -1,13 +1,18 @@
+import { FC } from "react";
 import { text } from "../../assets";
-import { Heading1 } from "../atoms";
+import { BottomButtonWrapper, Heading1 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 
+interface Props {
+  matchStageReady: () => void;
+}
+
 // TODO: finish component
-export const EndOfRound = () => {
+export const EndOfRound: FC<Props> = ({ matchStageReady }) => {
   return (
-    <>
+    <BottomButtonWrapper>
       <Heading1>{text.match.getPowerUps}</Heading1>
-      <PrimaryButton text={text.match.goForIt} />
-    </>
+      <PrimaryButton text={text.match.goForIt} onClick={() => matchStageReady()} />
+    </BottomButtonWrapper>
   );
 };

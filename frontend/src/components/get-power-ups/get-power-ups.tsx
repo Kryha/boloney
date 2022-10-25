@@ -6,6 +6,7 @@ import { PrimaryButton } from "../buttons";
 interface Props {
   matchStageReady: () => void;
 }
+
 // TODO: finish component
 export const GetPowerUps: FC<Props> = ({ matchStageReady }) => {
   return (

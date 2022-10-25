@@ -21,13 +21,13 @@ export const Match = () => {
       case "getPowerUpStage":
         return <GetPowerUps matchStageReady={matchStageReady} />;
       case "rollDiceStage":
-        return <RollDice />;
+        return <RollDice matchStageReady={matchStageReady} />;
       case "playerTurnLoopStage":
-        return <PlayerTurns />;
+        return <PlayerTurns matchStageReady={matchStageReady} />;
       case "roundSummaryStage":
-        return <EndOfRound />;
+        return <EndOfRound matchStageReady={matchStageReady} />;
       case "endOfMatchStage":
-        return <EndOfGame />;
+        return <EndOfGame matchStageReady={matchStageReady} />;
     }
   };
 
