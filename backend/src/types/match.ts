@@ -1,17 +1,6 @@
 import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
-export enum MatchOpCode {
-  CONNECTED = 1, // OpCodes can't be 0
-  LOBBY_FULL,
-  READY,
-  MATCH_START,
-}
-
-export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.CONNECTED && value <= MatchOpCode.MATCH_START;
-};
-
 export interface MatchJoinMetadata {
   username: string;
 }
@@ -87,10 +76,9 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
 
 export interface MatchState {
   settings: MatchSettings;
-  players: Record<string, Player>;
-  presences: Record<string, nkruntime.Presence>;
-  phaseReady: string[];
-  playerCount: number;
+  //QUESTION: How do we keep track of the player state? as presence or player state or player object? or separate presence and player state
+  players: Record<string, PlayerState>;
+  stageReady: string[];
   playerOrder: string[];
   matchStage: MatchStage;
   emptyTicks: number;
@@ -102,14 +90,13 @@ export const isMatchState = (value: unknown): value is MatchState => {
     assertedVal.settings !== undefined &&
     assertedVal.emptyTicks !== undefined &&
     assertedVal.players !== undefined &&
-    assertedVal.phaseReady !== undefined &&
-    assertedVal.playerCount !== undefined &&
+    assertedVal.stageReady !== undefined &&
     assertedVal.playerOrder !== undefined &&
     assertedVal.matchStage !== undefined &&
     isMatchSettings(assertedVal.settings) &&
-    isPlayerStateArray(assertedVal.players) &&
-    isStringArray(assertedVal.phaseReady) &&
-    isNumber(assertedVal.playerCount) &&
+    // TODO: find a way to check Records
+    // isPlayerState(assertedVal.players) &&
+    isStringArray(assertedVal.stageReady) &&
     isStringArray(assertedVal.playerOrder) &&
     isMatchState(assertedVal.matchStage) &&
     isNumber(assertedVal.emptyTicks)
@@ -118,6 +105,9 @@ export const isMatchState = (value: unknown): value is MatchState => {
 
 export interface PlayerState {
   presence: nkruntime.Presence;
+  color: string;
+  avatarName: string;
+  isConnected: boolean;
   isReady: boolean;
 }
 export const isPlayerState = (value: unknown): value is PlayerState => {
@@ -125,8 +115,14 @@ export const isPlayerState = (value: unknown): value is PlayerState => {
 
   return (
     assertedVal.presence !== undefined &&
+    assertedVal.color !== undefined &&
+    assertedVal.avatarName !== undefined &&
+    assertedVal.isConnected !== undefined &&
     assertedVal.isReady !== undefined &&
     isPresence(assertedVal.presence) &&
+    isString(assertedVal.color) &&
+    isString(assertedVal.avatarName) &&
+    isBoolean(assertedVal.isConnected) &&
     isBoolean(assertedVal.presence)
   );
 };
@@ -146,8 +142,8 @@ export enum RoundPhases {
 
 export type MatchStage =
   | "WaitingForPlayers"
-  | "WaitingForPlayersReady"
-  | "GetPowerUpStage" // waiting for players to be ready
+  | "WaitingForPlayersReady" // waiting for players to be ready
+  | "GetPowerUpStage"
   | "RollDiceStage" // Get powerups
   | "PlayerTurnLoopStage" // Roll the dice
   | "RoundSummaryStage" // Players turn loop
@@ -190,14 +186,16 @@ export const isEndOfMatchStage = (value: unknown): value is "EndOfMatchStage" =>
   return isMatchStage(value) && value === "EndOfMatchStage";
 };
 
-export enum OpCode {
+export enum MatchOpCode {
   StageTransition = 1,
   PlayerReady = 2,
   RollDice = 3,
   FaceValues = 4,
   LeaveMatch = 5,
 }
-
+export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
+  return isNumber(value) && value >= MatchOpCode.StageTransition && value <= MatchOpCode.LeaveMatch;
+};
 export const isPresence = (value: unknown): value is nkruntime.Presence => {
   const assertedVal = value as nkruntime.Presence;
 
