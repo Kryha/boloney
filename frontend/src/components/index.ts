@@ -22,3 +22,8 @@ export * from "./new-game-hands";
 export * from "./leading-zero-list";
 export * from "./overlay-wrapper";
 export * from "./line-container";
+export * from "./roll-dice";
+export * from "./player-turns";
+export * from "./get-power-ups";
+export * from "./end-of-match";
+export * from "./end-of-round";

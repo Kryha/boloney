@@ -4,6 +4,7 @@ import { Die, PowerUp } from "../../types";
 import { DiceOverview } from "../dice-overview";
 import { PlayerMenu } from "../player-menu";
 import { PowerUpOverview } from "../power-up-overview";
+import { PlayerOverview } from "./styles";
 
 interface HUDProps {
   dice?: Die[];
@@ -13,8 +14,10 @@ interface HUDProps {
 export const HUD: FC<HUDProps> = ({ dice, powerUp }) => {
   return (
     <>
-      <DiceOverview dice={dice} />
-      <PowerUpOverview powerUps={powerUp} />
+      <PlayerOverview>
+        <DiceOverview dice={dice} />
+        <PowerUpOverview powerUps={powerUp} />
+      </PlayerOverview>
       <PlayerMenu />
     </>
   );

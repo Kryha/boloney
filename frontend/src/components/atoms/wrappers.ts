@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, fontWeight, margins, zIndex } from "../../design";
-import { LinkContainer } from "../buttons/styles";
+import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 import { FormHeadingText, GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, IntroText, Paragraph } from "./text";
 
 interface TextProps {
@@ -93,7 +93,7 @@ export const ListSection = styled.section<TextProps>`
     text-transform: capitalize;
   }
   counter-reset: css-counter 0;
-  ${Heading6}{
+  ${Heading6} {
     counter-increment: css-counter 1;
   }
   ${Heading6}:after {
@@ -110,4 +110,12 @@ export const ListSection = styled.section<TextProps>`
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+export const BottomButtonWrapper = styled.section`
+  ${PrimaryButtonWrapper} {
+    position: absolute;
+    bottom: 0;
+    left: 1px;
+  }
 `;

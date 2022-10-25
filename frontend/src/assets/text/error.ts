@@ -12,4 +12,5 @@ export const error = {
   noUsernameFound: "no username found",
   noPayloadReturned: "no payload returned",
   receivedUnexpectedPayload: "received unexpected payload",
+  noMatchIdFound: "no match id found",
 };
