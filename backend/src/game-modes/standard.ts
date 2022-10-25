@@ -41,10 +41,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   const playersArr = Object.values(state.players);
 
   // accept a user that has already joined
-  let alreadyJoined = false;
-  playersArr.forEach((player) => {
-    if (player.username === metadata.username) alreadyJoined = true;
-  });
+  const alreadyJoined = playersArr.find((player) => player.username === metadata.username);
   if (alreadyJoined) return { state, accept: true };
 
   // Accept new players if we are still waiting and until the required amount has been fulfilled
