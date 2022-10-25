@@ -52,7 +52,7 @@ export const Lobby: FC = () => {
       // All opcode related messages from the backend will be received here
       if (matchData.op_code === MatchOpCode.READY) {
         // A player has set himself "ready", so we have to reflect that in the client
-        const readyUser: Presence = JSON.parse(String.fromCharCode(...matchData.data)); // Yes. This is the way to parse. Gotta love Nakama.
+        const readyUser: Presence = JSON.parse(String.fromCharCode(...matchData.data));
         // TODO: delete console log
         console.log("🚀 ~ file: lobby.tsx ~ line 70 ~ readyUser", readyUser);
         // TODO: Set player as "ready"
