@@ -12,8 +12,6 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
 
   if (!isMatchSettings(params)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
-  logger.debug("PARAMS:", params);
-
   const initialState: MatchState = {
     players: {},
     presences: {},
