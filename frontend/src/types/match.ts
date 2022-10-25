@@ -65,6 +65,8 @@ export const matchFormSettingsSchema = z.object({
   powerUpProbability: z.array(powerUpProbabilitySchema),
 });
 
+export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
+
 export type RoundStage =
   | "lobbyStage"
   | "getPowerUpStage"

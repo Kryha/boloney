@@ -28,8 +28,6 @@ export const Match = () => {
         return <EndOfRound />;
       case "endOfMatchStage":
         return <EndOfGame />;
-      default:
-        return <GetPowerUps matchStageReady={matchStageReady} />;
     }
   };
 
