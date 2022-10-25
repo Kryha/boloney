@@ -16,10 +16,8 @@ export const LobbyPlayerStatus: FC<LobbyPlayerStatusProps> = ({ isWaiting, isRea
       <Heading4>{playerName} </Heading4>
       {isWaiting ? (
         <Waiting>{text.general.waiting} </Waiting>
-      ) : isReady ? (
-        <Paragraph>{text.general.ready}</Paragraph>
       ) : (
-        <Paragraph>{text.general.connected}</Paragraph>
+        <Paragraph>{isReady ? text.general.ready : text.general.connected}</Paragraph>
       )}
     </LobbyPlayerStatusWrapper>
   );
