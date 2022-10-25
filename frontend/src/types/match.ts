@@ -9,6 +9,7 @@ export type AvatarName = z.infer<typeof avatarNameSchema>;
 export const avatarColorsSchema = z.enum(["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#91C342"]);
 export type AvatarColors = z.infer<typeof avatarColorsSchema>;
 
+// TODO: update type in backend
 export enum MatchOpCode {
   CONNECTED = 1,
   LOBBY_FULL,

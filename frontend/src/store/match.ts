@@ -16,7 +16,6 @@ export const useMatchState = create<MatchState>()((set) => ({
   powerUps: undefined,
   faceValues: undefined,
   roundStage: "getPowerUpStage",
-  isMatchStageReady: false,
 
   setPowerUps: (powerUps: PowerUp[]) => set(() => ({ powerUps: powerUps })),
   setFaceValues: (faceValues: Die[]) => set(() => ({ faceValues: faceValues })),
