@@ -12,7 +12,7 @@ export const GamePlayersOverview: FC<GamePlayerOverviewProps> = ({ players }) =>
   return (
     <GamePlayersOverviewWrapper>
       {players.map((player) => (
-        <GamePlayer key={player.id} player={player} totalPlayers={players.length} />
+        <GamePlayer key={player.username} player={player} totalPlayers={players.length} />
       ))}
     </GamePlayersOverviewWrapper>
   );

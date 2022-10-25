@@ -1,28 +1,49 @@
-import { isPowerUpTypeArray, PowerUpType, PowerUpProbability, isPowerUpProbabilityArray } from "./power-up";
-import { isBoolean, isNumber, isObject, isString, isStringArray } from "./primitive";
+import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
+import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
+
+export enum MatchOpCode {
+  CONNECTED = 1, // OpCodes can't be 0
+  LOBBY_FULL,
+  READY,
+  MATCH_START,
+}
+
+export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
+  return isNumber(value) && value >= MatchOpCode.CONNECTED && value <= MatchOpCode.MATCH_START;
+};
+
+export interface MatchJoinMetadata {
+  username: string;
+}
+
+export const isMatchJoinMetadata = (value: unknown): value is MatchJoinMetadata => {
+  const assertedVal = value as MatchJoinMetadata;
+
+  return assertedVal.username !== undefined && isString(assertedVal.username);
+};
 
 export interface Player {
-  id: string;
-  name: string;
+  username: string;
   color: string;
   avatarName: string;
-  connected: boolean;
+  isConnected: boolean;
+  isReady: boolean;
 }
 
 export const isPlayer = (value: unknown): value is Player => {
   const assertedVal = value as Player;
 
   return (
-    assertedVal.id !== undefined &&
-    assertedVal.name !== undefined &&
+    assertedVal.username !== undefined &&
     assertedVal.color !== undefined &&
     assertedVal.avatarName !== undefined &&
-    assertedVal.color !== undefined &&
-    isString(assertedVal.id) &&
-    isString(assertedVal.name) &&
+    assertedVal.isConnected !== undefined &&
+    assertedVal.isReady !== undefined &&
+    isString(assertedVal.username) &&
     isString(assertedVal.color) &&
     isString(assertedVal.avatarName) &&
-    isBoolean(assertedVal.connected)
+    isBoolean(assertedVal.isConnected) &&
+    isBoolean(assertedVal.isReady)
   );
 };
 
@@ -66,11 +87,12 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
 
 export interface MatchState {
   settings: MatchSettings;
-  players: PlayerState[];
+  players: Record<string, Player>;
+  presences: Record<string, nkruntime.Presence>;
   phaseReady: string[];
   playerCount: number;
   playerOrder: string[];
-  matchPhase: MatchStage;
+  matchStage: MatchStage;
   emptyTicks: number;
 }
 
@@ -83,13 +105,13 @@ export const isMatchState = (value: unknown): value is MatchState => {
     assertedVal.phaseReady !== undefined &&
     assertedVal.playerCount !== undefined &&
     assertedVal.playerOrder !== undefined &&
-    assertedVal.matchPhase !== undefined &&
+    assertedVal.matchStage !== undefined &&
     isMatchSettings(assertedVal.settings) &&
     isPlayerStateArray(assertedVal.players) &&
     isStringArray(assertedVal.phaseReady) &&
     isNumber(assertedVal.playerCount) &&
     isStringArray(assertedVal.playerOrder) &&
-    isMatchState(assertedVal.matchPhase) &&
+    isMatchState(assertedVal.matchStage) &&
     isNumber(assertedVal.emptyTicks)
   );
 };
@@ -123,7 +145,8 @@ export enum RoundPhases {
 }
 
 export type MatchStage =
-  | "LobbyStage" // waiting for people to join the lobby
+  | "WaitingForPlayers"
+  | "WaitingForPlayersReady"
   | "GetPowerUpStage" // waiting for players to be ready
   | "RollDiceStage" // Get powerups
   | "PlayerTurnLoopStage" // Roll the dice
@@ -135,7 +158,8 @@ export const isMatchStage = (value: unknown): value is MatchStage => {
   const assertedVal = value as MatchStage;
 
   return (
-    assertedVal === "LobbyStage" ||
+    assertedVal === "WaitingForPlayers" ||
+    assertedVal === "WaitingForPlayersReady" ||
     assertedVal === "GetPowerUpStage" ||
     assertedVal === "RollDiceStage" ||
     assertedVal === "PlayerTurnLoopStage" ||
@@ -144,8 +168,11 @@ export const isMatchStage = (value: unknown): value is MatchStage => {
   );
 };
 
-export const isLobbyStage = (value: unknown): value is "LobbyStage" => {
-  return isMatchStage(value) && value === "LobbyStage";
+export const isWaitingForPlayers = (value: unknown): value is "WaitingForPlayers" => {
+  return isMatchStage(value) && value === "WaitingForPlayers";
+};
+export const isWaitingForPlayersReady = (value: unknown): value is "waitingForPlayersReady" => {
+  return isMatchStage(value) && value === "WaitingForPlayersReady";
 };
 export const isGetPowerUpStage = (value: unknown): value is "GetPowerUpStage" => {
   return isMatchStage(value) && value === "GetPowerUpStage";

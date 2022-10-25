@@ -1,17 +1,35 @@
 import { z } from "zod";
-import { MAX_POWERUPS_PER_PLAYER } from "../constants";
 
+import { MAX_POWERUPS_PER_PLAYER } from "../constants";
 import { powerUpTypeSchema, powerUpProbabilitySchema } from "./power-up";
 
+export const avatarNameSchema = z.enum(["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
+export type AvatarName = z.infer<typeof avatarNameSchema>;
+
+export const avatarColorsSchema = z.enum(["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#91C342"]);
+export type AvatarColors = z.infer<typeof avatarColorsSchema>;
+
+export enum MatchOpCode {
+  CONNECTED = 1,
+  LOBBY_FULL,
+  READY,
+  GAME_START,
+}
+export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
+
 export const playerSchema = z.object({
-  id: z.string(),
-  name: z.string(),
+  username: z.string(),
   color: z.string(),
   avatarName: z.string(),
-  connected: z.boolean(),
+  isConnected: z.boolean(),
+  isReady: z.boolean(),
 });
-
 export type Player = z.infer<typeof playerSchema>;
+
+export const matchJoinMetadataSchema = z.object({
+  username: z.string(),
+});
+export type MatchJoinMetadata = z.infer<typeof matchJoinMetadataSchema>;
 
 // TODO: in the future we may want to merge 'availablePowerUps' and 'powerUpProbability' into one single attribute
 export const matchSettingsSchema = z.object({
@@ -25,6 +43,7 @@ export const matchSettingsSchema = z.object({
   drawRoundOffset: z.number(),
   powerUpProbability: z.array(powerUpProbabilitySchema),
 });
+export type MatchSettings = z.infer<typeof matchSettingsSchema>;
 
 export const matchFormSettingsSchema = z.object({
   players: z.string().transform((val) => Number(val)),
@@ -40,7 +59,4 @@ export const matchFormSettingsSchema = z.object({
   drawRoundOffset: z.string().transform((val) => Number(val)),
   powerUpProbability: z.array(powerUpProbabilitySchema),
 });
-
-export type MatchSettings = z.infer<typeof matchSettingsSchema>;
-
 export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
