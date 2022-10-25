@@ -78,6 +78,7 @@ export interface MatchState {
   settings: MatchSettings;
   //QUESTION: How do we keep track of the player state? as presence or player state or player object? or separate presence and player state
   players: Record<string, PlayerState>;
+  presences: Record<string, nkruntime.Presence>;
   stageReady: string[];
   playerOrder: string[];
   matchStage: MatchStage;

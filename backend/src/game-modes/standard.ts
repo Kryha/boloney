@@ -14,6 +14,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
     playerOrder: [],
     matchStage: "WaitingForPlayers",
     players: {},
+    presences: {},
     emptyTicks: 0,
   };
 
@@ -41,6 +42,8 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   const accept = state.matchStage === "WaitingForPlayers" && playersArr.length < state.settings.players;
 
   if (accept) {
+    // Reserve the spot in the match
+    state.presences[presence.userId] = presence;
     // TODO: create a function to correctly generate player's attributes
     state.players[presence.userId] = { presence: presence, color: "", avatarName: "", isConnected: true, isReady: false };
   }
@@ -67,7 +70,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
 
 // TODO: improve flow
 // TODO: remove debug logs after improving flow
-export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
+export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
 
   // If we have no presences in the match according to the match state, increment the empty ticks count or reset once a player has joined
@@ -95,24 +98,36 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       case "WaitingForPlayersReady": {
         if (message.opCode === 2) {
           currentPlayer.isReady = true;
+          state.stageReady.push(currentPlayer.presence.userId);
         }
 
-        const playersArr = Object.values(state.players);
-
-        let allReady = true;
-        playersArr.forEach((player) => {
-          if (!player.isReady) allReady = false;
-        });
-
         // If all players are ready, transition to InProgress state and broadcast the match starting event
-        if (allReady && playersArr.length === state.settings.players) {
+        if (state.stageReady.length === state.settings.players) {
           state.matchStage = "GetPowerUpStage";
+          state.stageReady = [];
           dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "GetPowerUpStage" }));
         }
 
         break;
       }
       case "GetPowerUpStage": {
+        //TODO: Also check for payload if matchStage is correct
+        if (message.opCode == MatchOpCode.PlayerReady) {
+          state.stageReady.push(currentPlayer.presence.userId);
+        }
+
+        if (state.stageReady.length === state.settings.players) {
+          state.matchStage = "RollDiceStage";
+          state.stageReady = [];
+          const presencesArr = Object.values(state.presences);
+          //FIXME: sending a message with propper payload
+          dispatcher.broadcastMessage(
+            MatchOpCode.StageTransition,
+            //TODO:Change match stage to RollDiceStage
+            JSON.stringify({ matchStage: "RoundSummaryStage", payload: [{ id: "", name: "", image: "" }] }),
+            presencesArr
+          );
+        }
         break;
       }
       case "RollDiceStage": {
