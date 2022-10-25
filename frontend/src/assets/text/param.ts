@@ -5,8 +5,9 @@ export const param = {
   amountXOfDice: (amount: number) => `x${amount}`,
   players: (amount: number) => `${amount} ${amount === 1 ? "player" : "players"}`,
   dice: (amount: number) => `${amount} ${amount === 1 ? "die" : "dice"}`,
-  powerups: (amount: number) => `${amount} ${amount === 1 ? "power-up" : "power-ups"}`,
+  powerUps: (amount: number) => `${amount} ${amount === 1 ? "power-up" : "power-ups"}`,
   matchStatusItemNumber: (amount: number) => `${amount === undefined ? "?" : amount}`,
   round: (amount: number) => `${amount === 1 ? "round" : "rounds"}`,
-  drawPowerupsRound: (amount: number) => `+${amount}`,
+  drawPowerUpsRound: (amount: number) => `+${amount}`,
+  healAmount: (amount: number) => amount === 1 ? `x${amount} power-up` : `x${amount} power-ups`,
 };

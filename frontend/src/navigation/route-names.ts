@@ -6,5 +6,4 @@ export const routes = {
   newGame: "/new-game",
   lobby: "/lobby",
   match: "/match",
-
 };

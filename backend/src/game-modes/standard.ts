@@ -15,11 +15,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
   const initialState: MatchState = {
     presences: {},
     emptyTicks: 0,
-    players: params.players,
-    dicePerPlayer: params.dicePerPlayer,
-    powerupsPerPlayer: params.powerupsPerPlayer,
-    availablePowerups: params.availablePowerups,
-    isUsingFakeCredits: params.isUsingFakeCredits,
+    settings: params,
   };
 
   logger.info("----------------- STATE -----------------");

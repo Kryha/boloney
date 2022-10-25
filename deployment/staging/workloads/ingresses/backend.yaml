@@ -35,6 +35,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: api
+                name: backend
                 port:
                   name: api
