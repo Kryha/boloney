@@ -6,13 +6,11 @@ interface MatchState {
   faceValues?: Die[];
   roundStage: RoundStage;
   opCode: MatchOpCode;
-  isMatchStageReady: boolean;
 
   setFaceValues: (faceValues: Die[]) => void;
   setPowerUps: (powerUps: PowerUp[]) => void;
   setRoundStage: (roundStage: RoundStage) => void;
   setOpCode: (opCode: MatchOpCode) => void;
-  setIsMatchStageReady: (isMatchStageReady: boolean) => void;
 }
 
 export const useMatchState = create<MatchState>()((set) => ({
@@ -26,5 +24,4 @@ export const useMatchState = create<MatchState>()((set) => ({
   setFaceValues: (faceValues: Die[]) => set(() => ({ faceValues: faceValues })),
   setRoundStage: (roundStage: RoundStage) => set(() => ({ roundStage: roundStage })),
   setOpCode: (opCode: MatchOpCode) => set(() => ({ opCode: opCode })),
-  setIsMatchStageReady: (isMatchStageReady: boolean) => set(() => ({ isMatchStageReady: isMatchStageReady })),
 }));

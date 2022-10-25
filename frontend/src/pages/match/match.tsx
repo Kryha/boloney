@@ -4,15 +4,14 @@ import { text } from "../../assets";
 import { EndOfGame, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
 import { fakeDiceRolls, fakePlayers } from "../../service";
 import { useMatch } from "../../service/match";
-import { useMatchState } from "../../store/match";
 import { RoundStage } from "../../types";
 
 export const Match = () => {
-  const { roundStage, isLoading } = useMatch();
-  const setIsMatchStageReady = useMatchState((state) => state.setIsMatchStageReady);
+  const { roundStage, sendMatchState, isLoading } = useMatch();
 
   const matchStageReady = () => {
-    setIsMatchStageReady(true);
+    // TODO: add payload
+    sendMatchState("");
   };
 
   const gameState = (): ReactNode => {

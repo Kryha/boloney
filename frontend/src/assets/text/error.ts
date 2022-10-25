@@ -10,4 +10,5 @@ export const error = {
   noSocketConnected: "no socket connected",
   noPayloadReturned: "no payload returned",
   receivedUnexpectedPayload: "received unexpected payload",
+  noMatchIdFound: "no match id found",
 };
