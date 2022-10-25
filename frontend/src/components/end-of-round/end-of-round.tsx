@@ -11,8 +11,8 @@ interface Props {
 export const EndOfRound: FC<Props> = ({ matchStageReady }) => {
   return (
     <BottomButtonWrapper>
-      <Heading1>{text.match.endOfGame}</Heading1>
-      <PrimaryButton text={text.match.newGame} onClick={() => matchStageReady()} />
+      <Heading1>{text.match.endOfMatch}</Heading1>
+      <PrimaryButton text={text.match.newMatch} onClick={() => matchStageReady()} />
     </BottomButtonWrapper>
   );
 };

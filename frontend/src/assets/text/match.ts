@@ -9,6 +9,6 @@ export const match = {
   throwDice: "throw dice",
   playerTurns: "player turns",
   endOfRound: "end of round",
-  endOfGame: "end of game",
-  newGame: "new game/create game",
+  endOfMatch: "end of match",
+  newMatch: "new match/create match",
 };
