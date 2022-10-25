@@ -1,5 +1,6 @@
 import create from "zustand";
 import { Session, Client, Socket } from "@heroiclabs/nakama-js";
+
 import { API_PORT, API_URL, SERVER_KEY, USE_SSL } from "../constants";
 
 export interface AuthState {

@@ -57,11 +57,3 @@ export const ADDRESS_LENGTH = 63;
 export const PRIVATE_KEY_PREFIX = "APrivateKey1";
 export const VIEW_KEY_PREFIX = "AViewKey1";
 export const ADDRESS_PREFIX = "aleo1";
-
-// TODO: move to types
-export const enum MatchOpCode {
-  CONNECTED = 1,
-  LOBBY_FULL,
-  READY,
-  GAME_START,
-}

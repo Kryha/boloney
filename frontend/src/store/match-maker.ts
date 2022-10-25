@@ -1,8 +1,10 @@
 import create from "zustand";
 
+// TODO: is this store useful? can't these attributes be stored only in the url?
+
 interface MatchMakerState {
-  ticket?: string | undefined;
-  matchId?: string | undefined;
+  ticket?: string;
+  matchId?: string;
 
   setTicket: (ticket: string) => void;
   setMatchId: (match_id: string) => void;

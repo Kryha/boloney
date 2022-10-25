@@ -1,6 +1,32 @@
-import { MatchPhase } from "../utils";
 import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
-import { isBoolean, isNumber, isObject, isString } from "./primitive";
+import { isBoolean, isNumber, isString } from "./primitive";
+
+export enum MatchOpCode {
+  CONNECTED = 1, // OpCodes can't be 0
+  LOBBY_FULL,
+  READY,
+  MATCH_START,
+}
+
+export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
+  return isNumber(value) && value >= MatchOpCode.CONNECTED && value <= MatchOpCode.MATCH_START;
+};
+
+export type MatchPhase = "waitingForPlayers" | "waitingForPlayersReady" | "inProgress";
+
+export const isMatchPhase = (value: unknown): value is MatchPhase => {
+  return value === "waitingForPlayers" || value === "waitingForPlayersReady" || value === "inProgress";
+};
+
+export interface MatchJoinMetadata {
+  username: string;
+}
+
+export const isMatchJoinMetadata = (value: unknown): value is MatchJoinMetadata => {
+  const assertedVal = value as MatchJoinMetadata;
+
+  return assertedVal.username !== undefined && isString(assertedVal.username);
+};
 
 export interface Player {
   username: string;
@@ -8,7 +34,6 @@ export interface Player {
   avatarName: string;
   isConnected: boolean;
   isReady: boolean;
-  presence: nkruntime.Presence | null;
 }
 
 export const isPlayer = (value: unknown): value is Player => {
@@ -20,13 +45,11 @@ export const isPlayer = (value: unknown): value is Player => {
     assertedVal.avatarName !== undefined &&
     assertedVal.isConnected !== undefined &&
     assertedVal.isReady !== undefined &&
-    assertedVal.presence !== undefined &&
     isString(assertedVal.username) &&
     isString(assertedVal.color) &&
     isString(assertedVal.avatarName) &&
     isBoolean(assertedVal.isConnected) &&
-    isBoolean(assertedVal.isReady) &&
-    isObject(assertedVal.presence)
+    isBoolean(assertedVal.isReady)
   );
 };
 
@@ -68,9 +91,7 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
   );
 };
 
-// TODO: see how it relates to nakama's default match state type
 export interface MatchState {
-  // TODO: should we keep both presences and players?
   players: Record<string, Player>;
   presences: Record<string, nkruntime.Presence>;
   phase: MatchPhase;
@@ -87,11 +108,8 @@ export const isMatchState = (value: unknown): value is MatchState => {
     assertedVal.phase !== undefined &&
     assertedVal.emptyTicks !== undefined &&
     assertedVal.settings !== undefined &&
-    isObject(assertedVal.players) &&
-    isObject(assertedVal.presences) &&
-    isNumber(assertedVal.phase) && // TODO: use custom predicate after defining
-    isObject(assertedVal.settings) &&
-    isNumber(assertedVal.emptyTicks) &&
-    isMatchSettings(assertedVal.settings)
+    isMatchPhase(assertedVal.phase) &&
+    isMatchSettings(assertedVal.settings) &&
+    isNumber(assertedVal.emptyTicks)
   );
 };

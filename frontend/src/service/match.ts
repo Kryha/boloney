@@ -1,30 +1,26 @@
 import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { text } from "../assets/text";
 import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
-import { routes } from "../navigation";
 import { useAuthState, useMatchMakerState } from "../store";
-import { MatchSettings, NkResponse } from "../types";
+import { MatchJoinMetadata, MatchSettings, NkResponse } from "../types";
 import { parseError } from "../util";
 
 export const useMatchMaker = () => {
   const socket = useAuthState((state) => state.socket);
-  const navigate = useNavigate();
   const setTicket = useMatchMakerState((state) => state.setTicket);
   const setMatchId = useMatchMakerState((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
 
   const joinMatch = useCallback(
-    async (matchId: string): Promise<NkResponse> => {
+    async (matchId: string, metadata: MatchJoinMetadata): Promise<NkResponse> => {
       try {
         if (!socket) throw new Error(text.error.noSocketConnected);
 
         setIsLoading(true);
         setMatchId(matchId);
 
-        await socket.joinMatch(matchId);
-        navigate(routes.lobby);
+        await socket.joinMatch(matchId, undefined, metadata);
       } catch (error) {
         const parsedErr = await parseError(error);
         return parsedErr;
@@ -32,7 +28,7 @@ export const useMatchMaker = () => {
         setIsLoading(false);
       }
     },
-    [socket, setMatchId, navigate]
+    [socket, setMatchId]
   );
 
   const joinPool = useCallback(async (): Promise<NkResponse> => {
@@ -42,15 +38,13 @@ export const useMatchMaker = () => {
 
       const matchmakerTicket = await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
       setTicket(matchmakerTicket.ticket);
-
-      navigate(routes.lobby);
     } catch (error) {
       const parsedErr = await parseError(error);
       return parsedErr;
     } finally {
       setIsLoading(false);
     }
-  }, [navigate, setTicket, socket]);
+  }, [setTicket, socket]);
 
   const createMatch = useCallback(
     async (settings: MatchSettings): Promise<NkResponse<string>> => {

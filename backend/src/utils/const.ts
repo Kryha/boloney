@@ -1,22 +1,5 @@
 import { MatchSettings } from "../types";
 
-// TODO: move these enums to types and define predicates as well
-
-export const enum MatchOpCode {
-  CONNECTED = 1, // OpCodes can't be 0 (had to find out the hard way)
-  LOBBY_FULL,
-  READY,
-  MATCH_START,
-}
-
-export enum MatchPhase {
-  WaitingForPlayers,
-  WaitingForPlayersReady,
-  InProgress,
-}
-
-export const isObject = (value: unknown): value is object => typeof value === "object";
-
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
 

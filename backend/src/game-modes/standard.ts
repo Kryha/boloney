@@ -1,6 +1,6 @@
-import { MatchOpCode, MatchPhase, handleError } from "../utils";
+import { handleError } from "../utils";
 import { text } from "../text";
-import { MatchState, isMatchSettings } from "../types";
+import { MatchState, isMatchSettings, MatchOpCode, isMatchState, isMatchJoinMetadata } from "../types";
 
 /**
  * Using isMatchState predicate to check for state type in each hook will make nakama env to throw,
@@ -12,10 +12,12 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
 
   if (!isMatchSettings(params)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
+  logger.debug("PARAMS:", params);
+
   const initialState: MatchState = {
     players: {},
     presences: {},
-    phase: MatchPhase.WaitingForPlayers,
+    phase: "waitingForPlayers",
     emptyTicks: 0,
     settings: params,
   };
@@ -28,41 +30,62 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
   };
 };
 
-export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presence, _metadata) => {
+export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presence, metadata) => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
+  logger.debug("METADATA: ", metadata.username);
+
+  if (!isMatchState(state)) throw text.error.invalidState;
+  if (!isMatchJoinMetadata(metadata)) throw handleError(text.error.invalidMetadata, logger, nkruntime.Codes.INVALID_ARGUMENT);
+
+  const playersArr = Object.values(state.players);
+
+  // accept a user that has already joined
+  let alreadyJoined = false;
+  playersArr.forEach((player) => {
+    if (player.username === metadata.username) alreadyJoined = true;
+  });
+  if (alreadyJoined) return { state, accept: true };
+
   // Accept new players if we are still waiting and until the required amount has been fulfilled
-  const accept = state.phase === MatchPhase.WaitingForPlayers && Object.keys(state.players).length < state.settings.players;
+  const accept = state.phase === "waitingForPlayers" && playersArr.length < state.settings.players;
 
-  // Reserve the spot in the match
-  state.players[presence.userId] = { presence: null, isReady: false };
+  if (accept) {
+    // Reserve the spot in the match
+    state.presences[presence.userId] = presence;
+    // TODO: create a function to correctly generate player's attributes
+    state.players[presence.userId] = { ...metadata, color: "", avatarName: "", isConnected: true, isReady: false };
+  }
 
-  return {
-    state,
-    accept,
-  };
+  return { state, accept };
 };
 
-export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
+export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
 
-  // Populate the presence property for each player that joined
-  presences.forEach((presence) => {
-    state.players[presence.userId].presence = presence;
-  });
+  if (!isMatchState(state)) throw text.error.invalidState;
 
-  return {
-    state,
-  };
+  return { state };
 };
 
+// TODO: improve flow
+// TODO: remove debug logs after improving flow
 export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
 
+  logger.debug("STATE IN LOOP:", state);
+
+  if (!isMatchState(state)) throw text.error.invalidState;
+
   messages.forEach((message) => {
-    // TODO: This is the only part of the PR that is not working. Messages don't get picked up on so we can't communicate. Already asked the Heroic Forum....
     logger.debug("------ MESSAGE ------");
     logger.debug(JSON.stringify(message));
+
+    const currentPlayer = state.players[message.sender.userId];
+
+    logger.debug("CURRENT PLAYER:", currentPlayer);
+
+    if (!currentPlayer) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
 
     // If the message is a "ready" message, update the player's isReady state and broadcast it to other players
     if (message.opCode === MatchOpCode.READY) {
@@ -70,17 +93,16 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       state.players[message.sender.userId].isReady = true;
       dispatcher.broadcastMessage(MatchOpCode.READY, JSON.stringify({ userId: message.sender.userId }));
 
-      // Check to see if all players are now ready (could be done in a one-liner but that's not readable)
+      const playersArr = Object.values(state.players);
+
       let allReady = true;
-      Object.keys(state.players).forEach((userId) => {
-        if (!state.players[userId].isReady) {
-          allReady = false;
-        }
+      playersArr.forEach((player) => {
+        if (!player.isReady) allReady = false;
       });
 
       // If all players are ready, transition to InProgress state and broadcast the match starting event
-      if (allReady && Object.keys(state.players).length === state.settings.players) {
-        state.phase = MatchPhase.InProgress;
+      if (allReady && playersArr.length === state.settings.players) {
+        state.phase = "inProgress";
         logger.debug("AND WE ARE LIVE!");
         dispatcher.broadcastMessage(MatchOpCode.MATCH_START);
       }
