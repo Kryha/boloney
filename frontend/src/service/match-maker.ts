@@ -1,27 +1,26 @@
-import { Match } from "@heroiclabs/nakama-js";
 import { useCallback, useState } from "react";
 
-import { error } from "../assets/text/error";
+import { text } from "../assets/text";
 import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
 import { useAuthState, useMatchMakerState } from "../store";
-import { MatchSettings, NkResponse } from "../types";
+import { MatchJoinMetadata, MatchSettings, NkResponse } from "../types";
 import { parseError } from "../util";
 
 export const useMatchMaker = () => {
   const socket = useAuthState((state) => state.socket);
+  const setTicket = useMatchMakerState((state) => state.setTicket);
   const setMatchId = useMatchMakerState((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
 
   const joinMatch = useCallback(
-    async (matchId: string): Promise<NkResponse> => {
+    async (matchId: string, metadata: MatchJoinMetadata): Promise<NkResponse> => {
       try {
-        if (!socket) throw new Error(error.noSocketConnected);
+        if (!socket) throw new Error(text.error.noSocketConnected);
 
         setIsLoading(true);
+        setMatchId(matchId);
 
-        const match: Match = await socket.joinMatch(matchId);
-        setMatchId(match.match_id);
-        // TODO: go to game view
+        await socket.joinMatch(matchId, undefined, metadata);
       } catch (error) {
         const parsedErr = await parseError(error);
         return parsedErr;
@@ -32,38 +31,34 @@ export const useMatchMaker = () => {
     [socket, setMatchId]
   );
 
-  const joinLobby = useCallback(async (): Promise<NkResponse> => {
+  const joinPool = useCallback(async (): Promise<NkResponse> => {
     try {
-      if (!socket) throw new Error(error.noSocketConnected);
+      if (!socket) throw new Error(text.error.noSocketConnected);
       setIsLoading(true);
 
-      socket.onmatchmakermatched = async (matched) => {
-        console.info("Received MatchmakerMatched message: ", matched);
-        console.info("Matched opponents: ", matched.users);
-
-        if (matched.match_id) await joinMatch(matched.match_id);
-      };
-
-      await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
+      const matchmakerTicket = await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
+      setTicket(matchmakerTicket.ticket);
     } catch (error) {
       const parsedErr = await parseError(error);
       return parsedErr;
     } finally {
       setIsLoading(false);
     }
-  }, [joinMatch, socket]);
+  }, [setTicket, socket]);
 
   const createMatch = useCallback(
-    async (settings: MatchSettings): Promise<NkResponse<string | undefined>> => {
+    async (settings: MatchSettings): Promise<NkResponse<string>> => {
+      setIsLoading(true);
       try {
-        if (!socket) throw new Error(error.noSocketConnected);
-
-        setIsLoading(true);
+        if (!socket) throw new Error(text.error.noSocketConnected);
 
         const rpcRes = await socket.rpc(RPC_CREATE_MATCH, JSON.stringify(settings));
-        if (!rpcRes.payload) throw new Error(error.noPayloadReturned);
+        if (!rpcRes.payload) throw new Error(text.error.noPayloadReturned);
 
-        return JSON.parse(rpcRes.payload).match_id;
+        const parsed = JSON.parse(rpcRes.payload);
+        if (!parsed.match_id) throw new Error(text.error.receivedUnexpectedPayload);
+
+        return parsed.match_id;
       } catch (error) {
         const parsedErr = await parseError(error);
         return parsedErr;
@@ -76,12 +71,12 @@ export const useMatchMaker = () => {
 
   const findMatches = useCallback(async (): Promise<NkResponse<string[]>> => {
     try {
-      if (!socket) throw new Error(error.noSocketConnected);
+      if (!socket) throw new Error(text.error.noSocketConnected);
 
       setIsLoading(true);
 
       const rpcRes = await socket.rpc(RPC_FIND_MATCH);
-      if (!rpcRes.payload) throw new Error(error.noPayloadReturned);
+      if (!rpcRes.payload) throw new Error(text.error.noPayloadReturned);
 
       return JSON.parse(rpcRes.payload).match_ids;
     } catch (error) {
@@ -93,7 +88,7 @@ export const useMatchMaker = () => {
   }, [socket]);
 
   return {
-    joinLobby,
+    joinPool,
     createMatch,
     findMatches,
     joinMatch,

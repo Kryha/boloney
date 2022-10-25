@@ -1,6 +1,6 @@
-import { text } from "../text";
-import { MatchState, isMatchSettings } from "../types";
 import { handleError } from "../utils";
+import { text } from "../text";
+import { MatchState, isMatchSettings, MatchOpCode, isMatchState, isMatchJoinMetadata } from "../types";
 
 /**
  * Using isMatchState predicate to check for state type in each hook will make nakama env to throw,
@@ -13,58 +13,102 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
   if (!isMatchSettings(params)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   const initialState: MatchState = {
+    players: {},
     presences: {},
+    phase: "waitingForPlayers",
     emptyTicks: 0,
     settings: params,
   };
-
-  logger.info("----------------- STATE -----------------");
-  logger.debug("Initial state: ", initialState);
 
   return {
     state: initialState,
     // TODO: Set tickRate to 5 after development is done for improved UX. But for dev purposes 1 is more than enough.
     tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second.
-    label: "StandardGame",
+    label: "StandardMatch",
   };
 };
 
-export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (
-  _ctx,
-  logger,
-  _nk,
-  _dispatcher,
-  _tick,
-  state,
-  _presence,
-  _metadata
-) => {
+export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presence, metadata) => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
-  // A custom match starts right after creating it, so it needs to check manually if the room is full/joinable.
-  const canPlayerJoin = Object.keys(state.presences).length < state.players;
+  logger.debug("METADATA: ", metadata.username);
 
-  return { state, accept: canPlayerJoin };
+  if (!isMatchState(state)) throw text.error.invalidState;
+  if (!isMatchJoinMetadata(metadata)) throw handleError(text.error.invalidMetadata, logger, nkruntime.Codes.INVALID_ARGUMENT);
+
+  const playersArr = Object.values(state.players);
+
+  // accept a user that has already joined
+  const alreadyJoined = playersArr.find((player) => player.username === metadata.username);
+  if (alreadyJoined) return { state, accept: true };
+
+  // Accept new players if we are still waiting and until the required amount has been fulfilled
+  const accept = state.phase === "waitingForPlayers" && playersArr.length < state.settings.players;
+
+  if (accept) {
+    // Reserve the spot in the match
+    state.presences[presence.userId] = presence;
+    // TODO: create a function to correctly generate player's attributes
+    state.players[presence.userId] = { ...metadata, color: "", avatarName: "", isConnected: true, isReady: false };
+  }
+
+  return { state, accept };
 };
 
-export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
+export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
 
-  presences.forEach((p) => {
-    state.presences[p.sessionId] = p;
-  });
+  if (!isMatchState(state)) throw text.error.invalidState;
 
-  return {
-    state,
-  };
+  return { state };
 };
 
-export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _messages) => {
+// TODO: improve flow
+// TODO: remove debug logs after improving flow
+export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
 
-  // If we have no presences in the match according to the match state, increment the empty ticks count
-  if (!state.presences) {
+  logger.debug("STATE IN LOOP:", state);
+
+  if (!isMatchState(state)) throw text.error.invalidState;
+
+  messages.forEach((message) => {
+    logger.debug("------ MESSAGE ------");
+    logger.debug(JSON.stringify(message));
+
+    const currentPlayer = state.players[message.sender.userId];
+
+    logger.debug("CURRENT PLAYER:", currentPlayer);
+
+    if (!currentPlayer) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
+
+    // If the message is a "ready" message, update the player's isReady state and broadcast it to other players
+    if (message.opCode === MatchOpCode.READY) {
+      logger.debug(`${message.sender.username} IS READY!`);
+      state.players[message.sender.userId].isReady = true;
+      dispatcher.broadcastMessage(MatchOpCode.READY, JSON.stringify({ userId: message.sender.userId }));
+
+      const playersArr = Object.values(state.players);
+
+      let allReady = true;
+      playersArr.forEach((player) => {
+        if (!player.isReady) allReady = false;
+      });
+
+      // If all players are ready, transition to InProgress state and broadcast the match starting event
+      if (allReady && playersArr.length === state.settings.players) {
+        state.phase = "inProgress";
+        logger.debug("AND WE ARE LIVE!");
+        dispatcher.broadcastMessage(MatchOpCode.MATCH_START);
+      }
+    }
+  });
+
+  // If we have no presences in the match according to the match state, increment the empty ticks count or reset once a player has joined
+  if (!state.players) {
     state.emptyTicks++;
+  } else {
+    state.emptyTicks = 0;
   }
 
   // If the match has been empty for more than 500 ticks, end the match by returning null
@@ -88,8 +132,9 @@ export const matchSignal: nkruntime.MatchSignalFunction = (_ctx, logger, _nk, _d
 export const matchLeave: nkruntime.MatchLeaveFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH LEAVE -----------------");
 
-  presences.forEach((p) => {
-    delete state.presences?.[p.sessionId];
+  // Remove the player from match state
+  presences.forEach(function (presence) {
+    delete state.players[presence.userId];
   });
 
   return {

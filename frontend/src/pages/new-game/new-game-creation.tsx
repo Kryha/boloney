@@ -12,17 +12,19 @@ import { DrawRoundOffsetField } from "./draw-round-offset-field";
 import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewGameContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
+import { parseLobbyUrl, splitMatchId } from "../../util";
 
 interface Props {
   setUrl: (url: string) => void;
+  setMatchId: (matchId: string) => void;
 }
 
 // TODO: make a form component
-export const NewGameCreation: FC<Props> = ({ setUrl }) => {
+export const NewGameCreation: FC<Props> = ({ setUrl, setMatchId }) => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  const { createMatch, joinMatch, isLoading } = useMatchMaker();
+  const { createMatch, isLoading } = useMatchMaker();
   const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
   const [isError, setIsError] = useState(false);
 
@@ -38,9 +40,8 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
     } else {
       const matchId = await createMatch(result.data);
       if (isString(matchId)) {
-        await joinMatch(matchId);
-        // TODO: retrieve url from backend
-        setUrl(`tmp/url/${matchId}`);
+        setMatchId(splitMatchId(matchId));
+        setUrl(parseLobbyUrl(matchId));
       } else {
         setIsError(true);
       }
