@@ -11,7 +11,7 @@ export const PowerUpOverviewWrapper = styled.div`
   padding: 0px;
   position: absolute;
   bottom: 0;
-  left: 43.75vw;
+  left: 30.75vw;
 `;
 
 interface ViewportProps {

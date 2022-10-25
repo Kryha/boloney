@@ -57,9 +57,3 @@ export const ADDRESS_LENGTH = 63;
 export const PRIVATE_KEY_PREFIX = "APrivateKey1";
 export const VIEW_KEY_PREFIX = "AViewKey1";
 export const ADDRESS_PREFIX = "aleo1";
-
-export const GET_POWERUPS_OP_CODE = 0;
-export const ROLL_DICE_OP_CODE = 1;
-export const PLAYER_TURN_OP_CODE = 2;
-export const END_OF_ROUND_OP_CODE = 3;
-export const END_OF_GAME_OP_CODE = 4;

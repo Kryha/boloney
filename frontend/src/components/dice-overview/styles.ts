@@ -11,7 +11,6 @@ export const DieOverviewWrapper = styled.div`
   padding: 0px;
   position: absolute;
   bottom: 0;
-  left: 12.5vw;
 `;
 
 interface ViewportProps {
@@ -22,7 +21,7 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: ${({ height }) => height > SMALL_VIEWPORT_HEIGHT ? margins.small2 : margins.small0};
+  gap: ${({ height }) => (height > SMALL_VIEWPORT_HEIGHT ? margins.small2 : margins.small0)};
   width: 31.25vw;
   height: 7.198vh;
   background: transparent;
