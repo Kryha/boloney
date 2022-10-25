@@ -36,13 +36,12 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   if (!isMatchState(state)) throw text.error.invalidState;
   if (!isMatchJoinMetadata(metadata)) throw handleError(text.error.invalidMetadata, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
-  const playersArr = Object.values(state.players);
-
   // accept a user that has already joined
-  const alreadyJoined = playersArr.find((player) => player.username === metadata.username);
+  const alreadyJoined = state.players[presence.userId];
   if (alreadyJoined) return { state, accept: true };
 
   // Accept new players if we are still waiting and until the required amount has been fulfilled
+  const playersArr = Object.values(state.players);
   const accept = state.phase === "waitingForPlayers" && playersArr.length < state.settings.players;
 
   if (accept) {
