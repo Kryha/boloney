@@ -1,27 +1,24 @@
 import create from "zustand";
-import { Die, MatchOpCode, PowerUp, RoundStage } from "../types";
+import { Die, PowerUp, RoundStage } from "../types";
 
 interface MatchState {
   powerUps?: PowerUp[];
   faceValues?: Die[];
   roundStage: RoundStage;
-  opCode: MatchOpCode;
+  // TODO: see if other players need to be tracked
 
   setFaceValues: (faceValues: Die[]) => void;
   setPowerUps: (powerUps: PowerUp[]) => void;
   setRoundStage: (roundStage: RoundStage) => void;
-  setOpCode: (opCode: MatchOpCode) => void;
 }
 
 export const useMatchState = create<MatchState>()((set) => ({
   powerUps: undefined,
   faceValues: undefined,
-  roundStage: RoundStage.GET_POWERUP_STAGE,
-  opCode: MatchOpCode.STAGE_TRANSITION,
+  roundStage: "getPowerUpStage",
   isMatchStageReady: false,
 
   setPowerUps: (powerUps: PowerUp[]) => set(() => ({ powerUps: powerUps })),
   setFaceValues: (faceValues: Die[]) => set(() => ({ faceValues: faceValues })),
   setRoundStage: (roundStage: RoundStage) => set(() => ({ roundStage: roundStage })),
-  setOpCode: (opCode: MatchOpCode) => set(() => ({ opCode: opCode })),
 }));

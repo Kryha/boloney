@@ -3,12 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import { text } from "../assets";
 import { useAuthState, useMatchMakerState } from "../store";
 import { useMatchState } from "../store/match";
-import { MatchOpCode, NkResponse, RoundStage } from "../types";
+import { MatchOpCode, NkResponse } from "../types";
 import { parseError } from "../util";
 import { fakeDiceRolls } from "./fake-dice-rolls";
 import { fakePowerUps } from "./fake-power-ups";
 
-// ask about error handling
 export const useMatch = () => {
   const socket = useAuthState((state) => state.socket);
   const setRoundStage = useMatchState((state) => state.setRoundStage);
@@ -18,32 +17,29 @@ export const useMatch = () => {
   const matchId = useMatchMakerState((state) => state.matchId);
   const [isLoading, setIsLoading] = useState(false);
 
-  if (!socket) throw new Error(text.error.noSocketConnected);
-
   useEffect(() => {
+    if (!socket) return;
+
     socket.onmatchdata = (matchData: MatchData) => {
       if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
-        // setRoundStage(matchData.data.matchStage);
-        setRoundStage(RoundStage.ROLL_DICE_STAGE);
-        // add a switch statement and then save data based on stage
-        // TODO: use matchData.data.matchStage
+        // TODO: replace setRoundStage("getPowerUpStage"); with setRoundStage(matchData.data.matchStage);
+        setRoundStage("getPowerUpStage");
+        // TODO: use matchData.data.matchStage instead of roundStage
         switch (roundStage) {
-          case RoundStage.GET_POWERUP_STAGE:
+          case "getPowerUpStage":
+            // TODO: remove fake data
             setPowerUps(fakePowerUps);
             break;
-          case RoundStage.ROLL_DICE_STAGE:
+          case "rollDiceStage":
+            // TODO: remove fake data
             setFaceValues(fakeDiceRolls);
             break;
-          case RoundStage.PLAYER_TURN_STAGE:
-            // TODO: add other phases
+          case "playerTurnLoopStage":
+            // TODO: add other stages
             break;
-          case RoundStage.ROUND_SUMMARY_STAGE:
+          case "roundSummaryStage":
             break;
-          case RoundStage.END_OF_MATCH_STAGE:
-            break;
-          default:
-            // add an error
-            setPowerUps(fakePowerUps);
+          case "endOfMatchStage":
             break;
         }
       }
@@ -53,6 +49,7 @@ export const useMatch = () => {
   const sendMatchState = useCallback(
     async (payload: string): Promise<NkResponse> => {
       try {
+        if (!socket) throw new Error(text.error.noSocketConnected);
         if (!matchId) throw new Error(text.error.noMatchIdFound);
         setIsLoading(true);
 

@@ -1,13 +1,15 @@
 import { ReactNode } from "react";
-import { text } from "../../assets";
 
+import { text } from "../../assets";
 import { EndOfGame, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
-import { fakeDiceRolls, fakePlayers } from "../../service";
+import { fakePlayers } from "../../service";
 import { useMatch } from "../../service/match";
-import { RoundStage } from "../../types";
+import { useMatchState } from "../../store/match";
 
 export const Match = () => {
   const { roundStage, sendMatchState, isLoading } = useMatch();
+  const powerUps = useMatchState((state) => state.powerUps);
+  const faceValues = useMatchState((state) => state.faceValues);
 
   const matchStageReady = () => {
     // TODO: add payload
@@ -16,15 +18,15 @@ export const Match = () => {
 
   const gameState = (): ReactNode => {
     switch (roundStage) {
-      case RoundStage.GET_POWERUP_STAGE:
+      case "getPowerUpStage":
         return <GetPowerUps matchStageReady={matchStageReady} />;
-      case RoundStage.ROLL_DICE_STAGE:
+      case "rollDiceStage":
         return <RollDice />;
-      case RoundStage.PLAYER_TURN_STAGE:
+      case "playerTurnLoopStage":
         return <PlayerTurns />;
-      case RoundStage.ROUND_SUMMARY_STAGE:
+      case "roundSummaryStage":
         return <EndOfRound />;
-      case RoundStage.END_OF_MATCH_STAGE:
+      case "endOfMatchStage":
         return <EndOfGame />;
       default:
         return <GetPowerUps matchStageReady={matchStageReady} />;
@@ -34,8 +36,9 @@ export const Match = () => {
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
+  // TODO: remove fake players
   return (
-    <GameLayout players={fakePlayers} dice={fakeDiceRolls}>
+    <GameLayout players={fakePlayers} dice={faceValues} powerUps={powerUps}>
       <GeneralContentWrapper>{gameState()}</GeneralContentWrapper>
     </GameLayout>
   );
