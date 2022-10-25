@@ -14,11 +14,11 @@ export enum MatchOpCode {
   LOBBY_FULL,
   READY,
   GAME_START,
-  STAGE_TRANSITION = 1,
-  PLAYER_READY = 2,
-  ROLL_DICE = 3,
-  FACE_VALUES = 4,
-  LEAVE_MATCH = 5,
+  STAGE_TRANSITION,
+  PLAYER_READY,
+  ROLL_DICE,
+  FACE_VALUES,
+  LEAVE_MATCH,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
