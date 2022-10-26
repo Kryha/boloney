@@ -33,6 +33,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   if (!isMatchState(state)) throw text.error.invalidState;
   if (!isMatchJoinMetadata(metadata)) throw handleError(text.error.invalidMetadata, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
+  const playersArr = Object.values(state.players);
   // accept a user that has already joined
   const alreadyJoined = state.players[presence.userId];
   if (alreadyJoined) return { state, accept: true };
@@ -41,11 +42,6 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   const accept = state.matchStage === "LobbyStage" && playersArr.length < state.settings.players;
 
   if (accept) {
-    const [color, updatedColors] = pickAvatarColor(state.availableAvatarColors);
-    if (!color) throw text.error.internal;
-    const [avatarName, updatedNames] = pickAvatarName(state.availableAvatarNames);
-    if (!avatarName) throw text.error.internal;
-
     state.presences[presence.userId] = presence;
     state.players[presence.userId] = {
       userId: presence.userId,
