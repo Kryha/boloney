@@ -9,18 +9,6 @@ export const getMessageSender = (state: MatchState, message: nkruntime.MatchMess
   return messageSender;
 };
 
-export const isGameActive = (state: MatchState): boolean => {
-  // If we have no presences in the match according to the match state, increment the empty ticks count or reset once a player has joined
-  if (!state.players) {
-    state.emptyTicks++;
-  } else {
-    state.emptyTicks = 0;
-  }
-  // If the match has been empty for more than 500 ticks, end the match by returning null
-  if (state.emptyTicks > 500) return false;
-  return true;
-};
-
 export const canTransitionStage = (state: MatchState, nextStage: MatchStage): boolean => {
   if (state.stageReady.length !== state.settings.players) return false;
   state.matchStage = nextStage;
