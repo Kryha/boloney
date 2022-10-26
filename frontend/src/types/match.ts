@@ -6,20 +6,22 @@ import { powerUpTypeSchema, powerUpProbabilitySchema } from "./power-up";
 export const avatarNameSchema = z.enum(["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
 export type AvatarName = z.infer<typeof avatarNameSchema>;
 
-export const avatarColorsSchema = z.enum(["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#91C342"]);
-export type AvatarColors = z.infer<typeof avatarColorsSchema>;
+export const avatarColorSchema = z.enum(["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#91C342"]);
+export type AvatarColor = z.infer<typeof avatarColorSchema>;
 
+// TODO: normalise match codes
 // TODO: update type in backend
 export enum MatchOpCode {
   CONNECTED = 1,
   LOBBY_FULL,
   READY,
-  GAME_START,
+  MATCH_START,
   STAGE_TRANSITION,
   PLAYER_READY,
   ROLL_DICE,
   FACE_VALUES,
   LEAVE_MATCH,
+  PLAYER_JOINED = 100,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
@@ -31,6 +33,30 @@ export const playerSchema = z.object({
   isReady: z.boolean(),
 });
 export type Player = z.infer<typeof playerSchema>;
+
+export const isPlayerArray = (players: unknown): players is Player[] => {
+  if (!players) return false;
+  if (!(players instanceof Array)) return false;
+
+  const areValid = players.reduce((valid, player) => {
+    const parsed = playerSchema.safeParse(player);
+    return valid && parsed.success;
+  }, true);
+
+  return areValid;
+};
+
+export const isPlayerRecord = (players: unknown): players is Record<string, Player> => {
+  if (!players) return false;
+  if (typeof players !== "object") return false;
+
+  const areValid = Object.values(players).reduce((valid, player) => {
+    const parsed = playerSchema.safeParse(player);
+    return valid && parsed.success;
+  }, true);
+
+  return areValid;
+};
 
 export const matchJoinMetadataSchema = z.object({
   username: z.string(),

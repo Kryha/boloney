@@ -7,4 +7,5 @@ export const error = {
   invalidState: "Invalid state",
   invalidMetadata: "Invalid metadata",
   notFound: "Not found",
+  internal: "Internal error",
 };

@@ -1,11 +1,49 @@
 import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
 import { isBoolean, isNumber, isString } from "./primitive";
 
+// TODO: use avatar IDs instead of colors and names
+
+export type AvatarName = "toy" | "hook" | "plastic" | "scooper" | "hand" | "lobster" | "skeleton";
+
+export const AVATAR_NAMES: AvatarName[] = ["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"];
+
+export const isAvatarName = (value: unknown): value is AvatarName => {
+  const assertedVal = String(value) as AvatarName;
+  return AVATAR_NAMES.includes(assertedVal);
+};
+
+export const isAvatarNameArray = (names: unknown): names is AvatarName[] => {
+  if (!names) return false;
+  if (!(names instanceof Array)) return false;
+
+  const areValid = names.reduce((valid, name) => valid && isAvatarName(name), true);
+  return areValid;
+};
+
+export type AvatarColor = "#FFC300" | "#FF8059" | "#FFA7E9" | "#989EFF" | "#92C9FF" | "#91C342" | "#91C342";
+
+export const AVATAR_COLORS: AvatarColor[] = ["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#91C342"];
+
+export const isAvatarColor = (value: unknown): value is AvatarColor => {
+  const assertedVal = String(value) as AvatarColor;
+  return AVATAR_COLORS.includes(assertedVal);
+};
+
+export const isAvatarColorArray = (colors: unknown): colors is AvatarColor[] => {
+  if (!colors) return false;
+  if (!(colors instanceof Array)) return false;
+
+  const areValid = colors.reduce((valid, color) => valid && isAvatarColor(color), true);
+  return areValid;
+};
+
+// TODO: normalise match codes
 export enum MatchOpCode {
   CONNECTED = 1, // OpCodes can't be 0
   LOBBY_FULL,
   READY,
   MATCH_START,
+  PLAYER_JOINED = 100,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
@@ -97,6 +135,8 @@ export interface MatchState {
   phase: MatchPhase;
   emptyTicks: number;
   settings: MatchSettings;
+  availableAvatarNames: AvatarName[];
+  availableAvatarColors: AvatarColor[];
 }
 
 export const isMatchState = (value: unknown): value is MatchState => {
@@ -108,8 +148,12 @@ export const isMatchState = (value: unknown): value is MatchState => {
     assertedVal.phase !== undefined &&
     assertedVal.emptyTicks !== undefined &&
     assertedVal.settings !== undefined &&
+    assertedVal.availableAvatarNames !== undefined &&
+    assertedVal.availableAvatarColors !== undefined &&
     isMatchPhase(assertedVal.phase) &&
     isMatchSettings(assertedVal.settings) &&
-    isNumber(assertedVal.emptyTicks)
+    isNumber(assertedVal.emptyTicks) &&
+    isAvatarNameArray(assertedVal.availableAvatarNames) &&
+    isAvatarColorArray(assertedVal.availableAvatarColors)
   );
 };
