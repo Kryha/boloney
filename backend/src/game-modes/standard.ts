@@ -1,11 +1,6 @@
-import { handleError } from "../utils";
+import { handleError, pickAvatarColor, pickAvatarName } from "../utils";
 import { text } from "../text";
-import { MatchState, isMatchSettings, MatchOpCode, isMatchState, isMatchJoinMetadata } from "../types";
-
-/**
- * Using isMatchState predicate to check for state type in each hook will make nakama env to throw,
- * so apparently we can't use the predicate in these hooks
- */
+import { MatchState, isMatchSettings, MatchOpCode, isMatchState, isMatchJoinMetadata, AVATAR_COLORS, AVATAR_NAMES } from "../types";
 
 export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
@@ -18,6 +13,8 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
     phase: "waitingForPlayers",
     emptyTicks: 0,
     settings: params,
+    availableAvatarColors: AVATAR_COLORS,
+    availableAvatarNames: AVATAR_NAMES,
   };
 
   return {
@@ -45,59 +42,53 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   const accept = state.phase === "waitingForPlayers" && playersArr.length < state.settings.players;
 
   if (accept) {
-    // Reserve the spot in the match
+    const [color, updatedColors] = pickAvatarColor(state.availableAvatarColors);
+    if (!color) throw text.error.internal;
+    const [avatarName, updatedNames] = pickAvatarName(state.availableAvatarNames);
+    if (!avatarName) throw text.error.internal;
+
     state.presences[presence.userId] = presence;
-    // TODO: create a function to correctly generate player's attributes
-    state.players[presence.userId] = { ...metadata, color: "", avatarName: "", isConnected: true, isReady: false };
+    state.players[presence.userId] = { ...metadata, color, avatarName, isConnected: true, isReady: false };
+    state.availableAvatarColors = updatedColors;
+    state.availableAvatarNames = updatedNames;
   }
 
   return { state, accept };
 };
 
-export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _presences) => {
+export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispatcher, _tick, state, _presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
 
   if (!isMatchState(state)) throw text.error.invalidState;
 
+  dispatcher.broadcastMessage(MatchOpCode.USER_JOINED, JSON.stringify(state.players));
+
   return { state };
 };
 
-// TODO: improve flow
-// TODO: remove debug logs after improving flow
 export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
-
-  logger.debug("STATE IN LOOP:", state);
 
   if (!isMatchState(state)) throw text.error.invalidState;
 
   messages.forEach((message) => {
-    logger.debug("------ MESSAGE ------");
-    logger.debug(JSON.stringify(message));
-
     const currentPlayer = state.players[message.sender.userId];
-
-    logger.debug("CURRENT PLAYER:", currentPlayer);
 
     if (!currentPlayer) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
 
+    // TODO: use switch statement
     // If the message is a "ready" message, update the player's isReady state and broadcast it to other players
     if (message.opCode === MatchOpCode.READY) {
-      logger.debug(`${message.sender.username} IS READY!`);
       state.players[message.sender.userId].isReady = true;
-      dispatcher.broadcastMessage(MatchOpCode.READY, JSON.stringify({ userId: message.sender.userId }));
+      dispatcher.broadcastMessage(MatchOpCode.READY, JSON.stringify(state.players));
 
       const playersArr = Object.values(state.players);
 
-      let allReady = true;
-      playersArr.forEach((player) => {
-        if (!player.isReady) allReady = false;
-      });
+      const allReady = playersArr.reduce((prevReady, player) => prevReady && player.isReady, true);
 
       // If all players are ready, transition to InProgress state and broadcast the match starting event
       if (allReady && playersArr.length === state.settings.players) {
         state.phase = "inProgress";
-        logger.debug("AND WE ARE LIVE!");
         dispatcher.broadcastMessage(MatchOpCode.MATCH_START);
       }
     }
