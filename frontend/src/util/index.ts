@@ -1,5 +1,5 @@
 export * from "./array";
 export * from "./error";
-export * from "./json";
+export * from "./parsers";
 export * from "./jwt";
 export * from "./url";
