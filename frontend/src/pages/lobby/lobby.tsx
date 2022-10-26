@@ -23,7 +23,7 @@ export const Lobby: FC = () => {
     if (matchId && session?.username) joinMatch(matchId, { username: session.username });
   }, [joinMatch, matchId, session?.username]);
 
-  // TODO: define these in a service
+  // TODO: define these in match service
   useEffect(() => {
     if (!socket) return;
 
