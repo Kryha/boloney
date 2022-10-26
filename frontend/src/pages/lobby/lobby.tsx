@@ -47,6 +47,7 @@ export const Lobby: FC = () => {
           break;
         }
         case MatchOpCode.MATCH_START: {
+          // TODO: redirect to game route
           console.log("Match Started!");
         }
       }
