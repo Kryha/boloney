@@ -1,6 +1,8 @@
 import { AvatarColor, AvatarName } from "../types";
 import { randomInt } from "./math";
 
+// TODO: use avatar IDs instead of colors and names
+
 export const pickAvatarColor = (colors: AvatarColor[]): [AvatarColor | undefined, AvatarColor[]] => {
   if (!colors.length) return [undefined, colors];
 

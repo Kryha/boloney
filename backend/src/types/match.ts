@@ -1,6 +1,8 @@
 import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
 import { isBoolean, isNumber, isString } from "./primitive";
 
+// TODO: use avatar IDs instead of colors and names
+
 export type AvatarName = "toy" | "hook" | "plastic" | "scooper" | "hand" | "lobster" | "skeleton";
 
 export const AVATAR_NAMES: AvatarName[] = ["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"];
@@ -35,6 +37,7 @@ export const isAvatarColorArray = (colors: unknown): colors is AvatarColor[] => 
   return areValid;
 };
 
+// TODO: normalise match codes
 export enum MatchOpCode {
   CONNECTED = 1, // OpCodes can't be 0
   LOBBY_FULL,
