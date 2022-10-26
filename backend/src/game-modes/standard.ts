@@ -1,3 +1,4 @@
+import { canTransitionStage, getAvailableAvatar, getMessageSender, isGameActive } from "../services/match";
 import { text } from "../text";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchState, isMatchJoinMetadata } from "../types";
 import { handleError } from "../utils";
@@ -12,7 +13,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
     settings: params,
     stageReady: [],
     playerOrder: [],
-    matchStage: "WaitingForPlayers",
+    matchStage: "LobbyStage",
     players: {},
     presences: {},
     emptyTicks: 0,
@@ -35,17 +36,22 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   const playersArr = Object.values(state.players);
 
   // accept a user that has already joined
-  const alreadyJoined = playersArr.find((player) => player.presence.username === metadata.username);
+  const alreadyJoined = playersArr.find((player) => player.username === metadata.username);
   if (alreadyJoined) return { state, accept: true };
 
   // Accept new players if we are still waiting and until the required amount has been fulfilled
-  const accept = state.matchStage === "WaitingForPlayers" && playersArr.length < state.settings.players;
+  const accept = state.matchStage === "LobbyStage" && playersArr.length < state.settings.players;
 
   if (accept) {
     // Reserve the spot in the match
     state.presences[presence.userId] = presence;
-    // TODO: create a function to correctly generate player's attributes
-    state.players[presence.userId] = { presence: presence, color: "", avatarName: "", isConnected: true, isReady: false };
+    state.players[presence.userId] = {
+      userId: presence.userId,
+      username: presence.username,
+      avatarId: getAvailableAvatar(state),
+      isConnected: true,
+      isReady: false,
+    };
   }
 
   return { state, accept };
@@ -55,14 +61,14 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
   logger.info("----------------- MATCH JOINED -----------------");
   if (!isMatchState(state)) throw text.error.invalidState;
 
-  //QUESTION: how do we define the order of the players?
+  //TODO: Shuffle player order
   presences.forEach((presence) => {
     const player = state.players[presence.userId];
     if (player) {
       state.playerOrder.push(presence.userId);
     }
   });
-  //QUESTION: How do we communicate with the client for update messages
+
   //TODO: Return list of users currently in their match
   dispatcher.broadcastMessage(MatchOpCode.PlayerReady, JSON.stringify({ players: [{}] }));
   return { state };
@@ -73,79 +79,106 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
 export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
 
-  // If we have no presences in the match according to the match state, increment the empty ticks count or reset once a player has joined
-  if (!state.players) {
-    state.emptyTicks++;
-  } else {
-    state.emptyTicks = 0;
-  }
   if (!isMatchState(state)) throw text.error.invalidState;
 
-  messages.forEach((message) => {
-    const currentPlayer = state.players[message.sender.userId];
+  // if (!isGameActive(state)) return null;
 
-    if (!currentPlayer) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
+  switch (state.matchStage) {
+    case "LobbyStage": {
+      logger.debug("-----LobbyStage-----");
+      messages.forEach((message) => {
+        const messageSender = getMessageSender(state, message, logger);
 
-    switch (state.matchStage) {
-      case "WaitingForPlayers": {
-        const playersArr = Object.values(state.players);
-        if (playersArr.length === state.settings.players) {
-          state.matchStage = "WaitingForPlayersReady";
-          dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "WaitingForPlayersReady" }));
-        }
-        break;
-      }
-      case "WaitingForPlayersReady": {
         if (message.opCode === 2) {
-          currentPlayer.isReady = true;
-          state.stageReady.push(currentPlayer.presence.userId);
+          messageSender.isReady = true;
+          state.stageReady.push(messageSender.userId);
         }
+      });
+      // If all players are ready, transition to InProgress state and broadcast the match starting event
+      if (canTransitionStage(state, "GetPowerUpStage")) {
+        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "GetPowerUpStage" }));
+      }
 
-        // If all players are ready, transition to InProgress state and broadcast the match starting event
-        if (state.stageReady.length === state.settings.players) {
-          state.matchStage = "GetPowerUpStage";
-          state.stageReady = [];
-          dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "GetPowerUpStage" }));
-        }
-
-        break;
-      }
-      case "GetPowerUpStage": {
-        //TODO: Also check for payload if matchStage is correct
-        if (message.opCode == MatchOpCode.PlayerReady) {
-          state.stageReady.push(currentPlayer.presence.userId);
-        }
-
-        if (state.stageReady.length === state.settings.players) {
-          state.matchStage = "RollDiceStage";
-          state.stageReady = [];
-          const presencesArr = Object.values(state.presences);
-          //FIXME: sending a message with propper payload
-          dispatcher.broadcastMessage(
-            MatchOpCode.StageTransition,
-            //TODO:Change match stage to RollDiceStage
-            JSON.stringify({ matchStage: "RoundSummaryStage", payload: [{ id: "", name: "", image: "" }] }),
-            presencesArr
-          );
-        }
-        break;
-      }
-      case "RollDiceStage": {
-        break;
-      }
-      case "PlayerTurnLoopStage": {
-        break;
-      }
-      case "RoundSummaryStage": {
-        break;
-      }
-      case "EndOfMatchStage": {
-        break;
-      }
+      break;
     }
-  });
-  // If the match has been empty for more than 500 ticks, end the match by returning null
-  if (state.emptyTicks > 500) return null;
+    case "GetPowerUpStage": {
+      logger.debug("-----GetPowerupStage-----");
+      messages.forEach((message) => {
+        const messageSender = getMessageSender(state, message, logger);
+
+        if (message.opCode == MatchOpCode.PlayerReady) {
+          state.stageReady.push(messageSender.userId);
+        }
+      });
+
+      if (canTransitionStage(state, "RollDiceStage")) {
+        //TODO: sending a message with proper payload
+        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RoundSummaryStage" }));
+      }
+      break;
+    }
+    case "RollDiceStage": {
+      logger.debug("-----RollDiceStage-----");
+      messages.forEach((message) => {
+        const messageSender = getMessageSender(state, message, logger);
+
+        if (message.opCode == MatchOpCode.RollDice) {
+          state.stageReady.push(messageSender.userId);
+        }
+      });
+
+      if (canTransitionStage(state, "PlayerTurnLoopStage")) {
+        //TODO: sending a message with proper payload
+        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RollDiceStage" }));
+      }
+      break;
+    }
+    case "PlayerTurnLoopStage": {
+      logger.debug("-----PlayerTurnLoopStage-----");
+      messages.forEach((message) => {
+        const messageSender = getMessageSender(state, message, logger);
+
+        if (message.opCode == MatchOpCode.RollDice) {
+          state.stageReady.push(messageSender.userId);
+        }
+      });
+
+      if (canTransitionStage(state, "RoundSummaryStage")) {
+        //TODO: sending a message with proper payload
+        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "PlayerTurnLoopStage" }));
+      }
+      break;
+    }
+    case "RoundSummaryStage": {
+      logger.debug("-----RoundSummaryStage-----");
+      messages.forEach((message) => {
+        const messageSender = getMessageSender(state, message, logger);
+
+        if (message.opCode == MatchOpCode.RollDice) {
+          state.stageReady.push(messageSender.userId);
+        }
+      });
+
+      if (canTransitionStage(state, "EndOfMatchStage")) {
+        //TODO: sending a message with proper payload
+        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RoundSummaryStage" }));
+      }
+      break;
+    }
+    case "EndOfMatchStage": {
+      logger.debug("-----EndOfMatchStage-----");
+      messages.forEach((message) => {
+        const messageSender = getMessageSender(state, message, logger);
+
+        if (message.opCode == MatchOpCode.RollDice) {
+          state.stageReady.push(messageSender.userId);
+        }
+      });
+
+      dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "EndOfMatchStage" }));
+      break;
+    }
+  }
 
   return {
     state,
