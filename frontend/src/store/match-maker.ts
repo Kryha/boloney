@@ -11,12 +11,8 @@ interface MatchMakerState {
 }
 
 export const useMatchMakerState = create<MatchMakerState>()((set) => ({
-  minCount: 2,
-  maxCount: 7,
-  query: "*",
   ticket: undefined,
-  setMinCount: (min: number) => set(() => ({ minCount: min })),
-  setMaxCount: (max: number) => set(() => ({ maxCount: max })),
-  setTicket: (ticket: any) => set(() => ({ ticket: ticket })),
-  setQuery: (query: GameConfig) => set(() => ({ query: query })),
+  matchId: undefined,
+  setTicket: (ticket: string) => set(() => ({ ticket })),
+  setMatchId: (matchId: string) => set(() => ({ matchId })),
 }));
