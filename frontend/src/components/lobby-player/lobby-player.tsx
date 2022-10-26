@@ -11,7 +11,7 @@ interface LobbyPlayerProps {
 
 export const LobbyPlayer: FC<LobbyPlayerProps> = ({ player }) => {
   return (
-    <LobbyPlayerWrapper isWaiting={player.isConnected}>
+    <LobbyPlayerWrapper isWaiting={!player.isReady}>
       <Hand key={player.username} avatarName={player.avatarName} name={player.username} />
       <LobbyPlayerStatus playerName={player.username} isWaiting={!player.isConnected} isReady={player.isReady} />
     </LobbyPlayerWrapper>
