@@ -26,8 +26,9 @@ export const FieldContainer = styled.section`
   margin-top: ${margins.medium1};
 `;
 
-
 export const CheckboxContainer = styled.section`
+  height: 1000px;
+  overflow: auto;
   ${CheckboxWrapper}:nth-of-type(1) {
     ${DescriptionContainer} {
       padding-top: ${margins.small5};
@@ -117,7 +118,9 @@ export const TotalContainer = styled.section`
   padding: ${margins.small5} ${margins.small5} ${margins.small5} ${margins.small2};
   gap: ${margins.small5};
   border-top: 1px solid ${color.mediumGrey};
-  width: 100%;
+  position: sticky;
+  bottom: 0;
+  background-color: ${color.lightGrey};
 `;
 
 export const LightningNewGame = styled(LightningIcon)`
@@ -139,7 +142,7 @@ interface PercentProps {
   isError?: boolean;
 }
 
-export const Percentage = styled(GeneralText) <PercentProps>`
+export const Percentage = styled(GeneralText)<PercentProps>`
   font-weight: ${fontWeight.bolder};
   color: ${({ isError }) => (isError ? color.red : color.black)};
 `;
@@ -152,3 +155,19 @@ export const PercentageContainer = styled.div`
     display: inline;
   }
 `;
+
+export const PowerUpFieldContainer = styled.section`
+  margin-top: ${margins.medium1};
+`;
+
+export const Container = styled.section`
+  height: 1000px;
+  overflow: auto;
+`;
+export const Sticky = styled.section`
+  position: sticky;
+  bottom: 0px;
+  background-color: #2ecc71;
+`;
+
+export const HealFieldContainer = styled(InputFieldContainer)``;
