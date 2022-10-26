@@ -32,9 +32,9 @@ export const Lobby: FC = () => {
       // All opcode related messages from the backend will be received here
       switch (matchData.op_code) {
         // TODO: handle all op codes
-        case MatchOpCode.USER_JOINED: {
+        case MatchOpCode.PLAYER_JOINED: {
           const players = parseMatchData(matchData.data);
-          console.log("USER_JOINED:", players);
+          console.log("PLAYER_JOINED:", players);
           if (!isPlayerRecord(players)) return;
           setPlayers(players);
           break;

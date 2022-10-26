@@ -20,7 +20,7 @@ export enum MatchOpCode {
   ROLL_DICE,
   FACE_VALUES,
   LEAVE_MATCH,
-  USER_JOINED = 100,
+  PLAYER_JOINED = 100,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 

@@ -40,7 +40,7 @@ export enum MatchOpCode {
   LOBBY_FULL,
   READY,
   MATCH_START,
-  USER_JOINED = 100,
+  PLAYER_JOINED = 100,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {

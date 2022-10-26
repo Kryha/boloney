@@ -61,7 +61,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
 
   if (!isMatchState(state)) throw text.error.invalidState;
 
-  dispatcher.broadcastMessage(MatchOpCode.USER_JOINED, JSON.stringify(state.players));
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(state.players));
 
   return { state };
 };
