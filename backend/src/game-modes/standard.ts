@@ -36,8 +36,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   const playersArr = Object.values(state.players);
   // accept a user that has already joined
   const alreadyJoined = state.players[presence.userId];
-  if (alreadyJoined) return { state, accept: true };
-
+  if (alreadyJoined) return { state, accept: false };
   // Accept new players if we are still waiting and until the required amount has been fulfilled
   const accept = state.matchStage === "lobbyStage" && playersArr.length < state.settings.players;
 
@@ -68,7 +67,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
   });
 
   //TODO: Return list of users currently in their match
-  dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify({ players: [{}] }));
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(state.players));
   return { state };
 };
 
@@ -96,8 +95,9 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
         const messageSender = getMessageSender(state, message, logger);
 
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          messageSender.isReady = true;
           state.stageReady.push(messageSender.userId);
+          state.players[messageSender.userId].isReady = true;
+          dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(state.players));
         }
       });
       // If all players are ready, transition to InProgress state and broadcast the match starting event

@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { text } from "../assets";
 import { useAuthState, useMatchMakerState } from "../store";
 import { useMatchState } from "../store/match";
-import { MatchOpCode, NkResponse } from "../types";
-import { parseError } from "../util";
+import { isStageTransition, MatchOpCode, NkResponse, RoundStage } from "../types";
+import { parseError, parseMatchData } from "../util";
 import { fakeDiceRolls } from "./fake-dice-rolls";
 import { fakePowerUps } from "./fake-power-ups";
 
@@ -22,10 +22,11 @@ export const useMatch = () => {
 
     socket.onmatchdata = (matchData: MatchData) => {
       if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
-        // TODO: replace setRoundStage("getPowerUpStage"); with setRoundStage(matchData.data.matchStage);
-        setRoundStage("getPowerUpStage");
-        // TODO: use matchData.data.matchStage instead of roundStage
-        switch (roundStage) {
+        const payload = parseMatchData(matchData.data);
+        if (!isStageTransition(payload)) return;
+
+        // TODO: make a type guard for Roundstage
+        switch (payload.matchStage as RoundStage) {
           case "getPowerUpStage":
             // TODO: remove fake data
             setPowerUps(fakePowerUps);

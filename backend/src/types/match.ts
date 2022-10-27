@@ -161,9 +161,10 @@ export enum MatchOpCode {
   ROLL_DICE = 3,
   FACE_VALUES = 4,
   LEAVE_MATCH = 5,
+  PLAYER_JOINED = 6,
 }
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.LEAVE_MATCH;
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_JOINED;
 };
 export const isPresence = (value: unknown): value is nkruntime.Presence => {
   const assertedVal = value as nkruntime.Presence;

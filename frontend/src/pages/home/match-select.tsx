@@ -20,7 +20,10 @@ export const MatchSelect: FC = () => {
     if (!socket) return;
 
     socket.onmatchmakermatched = (matched: MatchmakerMatched) => {
-      navigate(`${routes.lobby}/${matched.match_id}`);
+      //FIXME: For some reason the received match ID comes with .nakama after the match id but why?
+      const id = matched.match_id.split(".")[0];
+      console.log(`${routes.lobby}/${id}`);
+      navigate(`${routes.lobby}/${id}`);
     };
   }, [joinPool, navigate, socket]);
 

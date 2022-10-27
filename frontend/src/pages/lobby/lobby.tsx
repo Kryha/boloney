@@ -39,14 +39,14 @@ export const Lobby: FC = () => {
           setPlayers(players);
           break;
         }
-        case MatchOpCode.READY: {
+        case MatchOpCode.PLAYER_READY: {
           const players = parseMatchData(matchData.data);
           console.log("READY:", players);
           if (!isPlayerRecord(players)) return;
           setPlayers(players);
           break;
         }
-        case MatchOpCode.MATCH_START: {
+        case MatchOpCode.STAGE_TRANSITION: {
           // TODO: redirect to game route
           console.log("Match Started!");
         }
@@ -57,7 +57,7 @@ export const Lobby: FC = () => {
   if (!matchId) return <Navigate to={routes.home} />;
 
   const setReady = () => {
-    if (matchId) socket?.sendMatchState(matchId, MatchOpCode.READY, "");
+    if (matchId) socket?.sendMatchState(matchId, MatchOpCode.PLAYER_READY, "");
   };
 
   return (
