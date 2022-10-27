@@ -13,7 +13,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
     settings: params,
     stageReady: [],
     playerOrder: [],
-    matchStage: "LobbyStage",
+    matchStage: "lobbyStage",
     players: {},
     presences: {},
     emptyTicks: 0,
@@ -39,7 +39,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   if (alreadyJoined) return { state, accept: true };
 
   // Accept new players if we are still waiting and until the required amount has been fulfilled
-  const accept = state.matchStage === "LobbyStage" && playersArr.length < state.settings.players;
+  const accept = state.matchStage === "lobbyStage" && playersArr.length < state.settings.players;
 
   if (accept) {
     state.presences[presence.userId] = presence;
@@ -90,7 +90,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
   if (state.emptyTicks > 500) return null;
 
   switch (state.matchStage) {
-    case "LobbyStage": {
+    case "lobbyStage": {
       logger.debug("-----LobbyStage-----");
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
@@ -101,13 +101,13 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
         }
       });
       // If all players are ready, transition to InProgress state and broadcast the match starting event
-      if (canTransitionStage(state, "GetPowerUpStage")) {
+      if (canTransitionStage(state, "getPowerUpStage")) {
         dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "GetPowerUpStage" }));
       }
 
       break;
     }
-    case "GetPowerUpStage": {
+    case "getPowerUpStage": {
       logger.debug("-----GetPowerupStage-----");
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
@@ -117,13 +117,13 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
         }
       });
 
-      if (canTransitionStage(state, "RollDiceStage")) {
+      if (canTransitionStage(state, "rollDiceStage")) {
         //TODO: sending a message with proper payload
         dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RoundSummaryStage" }));
       }
       break;
     }
-    case "RollDiceStage": {
+    case "rollDiceStage": {
       logger.debug("-----RollDiceStage-----");
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
@@ -133,13 +133,13 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
         }
       });
 
-      if (canTransitionStage(state, "PlayerTurnLoopStage")) {
+      if (canTransitionStage(state, "playerTurnLoopStage")) {
         //TODO: sending a message with proper payload
         dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RollDiceStage" }));
       }
       break;
     }
-    case "PlayerTurnLoopStage": {
+    case "playerTurnLoopStage": {
       logger.debug("-----PlayerTurnLoopStage-----");
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
@@ -149,13 +149,13 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
         }
       });
 
-      if (canTransitionStage(state, "RoundSummaryStage")) {
+      if (canTransitionStage(state, "roundSummaryStage")) {
         //TODO: sending a message with proper payload
         dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "PlayerTurnLoopStage" }));
       }
       break;
     }
-    case "RoundSummaryStage": {
+    case "roundSummaryStage": {
       logger.debug("-----RoundSummaryStage-----");
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
@@ -165,13 +165,13 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
         }
       });
 
-      if (canTransitionStage(state, "EndOfMatchStage")) {
+      if (canTransitionStage(state, "endOfMatchStage")) {
         //TODO: sending a message with proper payload
         dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RoundSummaryStage" }));
       }
       break;
     }
-    case "EndOfMatchStage": {
+    case "endOfMatchStage": {
       logger.debug("-----EndOfMatchStage-----");
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);

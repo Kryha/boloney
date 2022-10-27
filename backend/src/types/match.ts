@@ -122,44 +122,43 @@ export enum RoundPhases {
 }
 
 export type MatchStage =
-  | "LobbyStage" // waiting for players to be ready
-  | "GetPowerUpStage"
-  | "RollDiceStage" // Get powerups
-  | "PlayerTurnLoopStage" // Roll the dice
-  | "RoundSummaryStage" // Players turn loop
-  | "EndOfMatchStage" // Round summery
-  | "endGame"; // Match summery
+  | "lobbyStage" // waiting for players to be ready
+  | "getPowerUpStage"
+  | "rollDiceStage" // Get powerups
+  | "playerTurnLoopStage" // Roll the dice
+  | "roundSummaryStage" // Players turn loop
+  | "endOfMatchStage"; // Round summery
 
 export const isMatchStage = (value: unknown): value is MatchStage => {
   const assertedVal = value as MatchStage;
 
   return (
-    assertedVal === "LobbyStage" ||
-    assertedVal === "GetPowerUpStage" ||
-    assertedVal === "RollDiceStage" ||
-    assertedVal === "PlayerTurnLoopStage" ||
-    assertedVal === "RoundSummaryStage" ||
-    assertedVal === "EndOfMatchStage"
+    assertedVal === "lobbyStage" ||
+    assertedVal === "getPowerUpStage" ||
+    assertedVal === "rollDiceStage" ||
+    assertedVal === "playerTurnLoopStage" ||
+    assertedVal === "roundSummaryStage" ||
+    assertedVal === "endOfMatchStage"
   );
 };
 
-export const isLobbyStage = (value: unknown): value is "LobbyStage" => {
-  return isMatchStage(value) && value === "LobbyStage";
+export const isLobbyStage = (value: unknown): value is "lobbyStage" => {
+  return isMatchStage(value) && value === "lobbyStage";
 };
-export const isGetPowerUpStage = (value: unknown): value is "GetPowerUpStage" => {
-  return isMatchStage(value) && value === "GetPowerUpStage";
+export const isGetPowerUpStage = (value: unknown): value is "getPowerUpStage" => {
+  return isMatchStage(value) && value === "getPowerUpStage";
 };
-export const isRollDiceStage = (value: unknown): value is "RollDiceStage" => {
-  return isMatchStage(value) && value === "RollDiceStage";
+export const isRollDiceStage = (value: unknown): value is "rollDiceStage" => {
+  return isMatchStage(value) && value === "rollDiceStage";
 };
-export const isPlayerTurnLoopStage = (value: unknown): value is "PlayerTurnLoopStage" => {
-  return isMatchStage(value) && value === "PlayerTurnLoopStage";
+export const isPlayerTurnLoopStage = (value: unknown): value is "playerTurnLoopStage" => {
+  return isMatchStage(value) && value === "playerTurnLoopStage";
 };
-export const isRoundSummaryStage = (value: unknown): value is "RoundSummaryStage" => {
-  return isMatchStage(value) && value === "RoundSummaryStage";
+export const isRoundSummaryStage = (value: unknown): value is "roundSummaryStage" => {
+  return isMatchStage(value) && value === "roundSummaryStage";
 };
-export const isEndOfMatchStage = (value: unknown): value is "EndOfMatchStage" => {
-  return isMatchStage(value) && value === "EndOfMatchStage";
+export const isEndOfMatchStage = (value: unknown): value is "endOfMatchStage" => {
+  return isMatchStage(value) && value === "endOfMatchStage";
 };
 
 export enum MatchOpCode {
