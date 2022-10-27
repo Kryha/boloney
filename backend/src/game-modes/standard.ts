@@ -68,7 +68,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
   });
 
   //TODO: Return list of users currently in their match
-  dispatcher.broadcastMessage(MatchOpCode.PlayerReady, JSON.stringify({ players: [{}] }));
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify({ players: [{}] }));
   return { state };
 };
 
@@ -95,14 +95,14 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
 
-        if (message.opCode === 2) {
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
           messageSender.isReady = true;
           state.stageReady.push(messageSender.userId);
         }
       });
       // If all players are ready, transition to InProgress state and broadcast the match starting event
       if (canTransitionStage(state, "getPowerUpStage")) {
-        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "GetPowerUpStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "getPowerUpStage" }));
       }
 
       break;
@@ -112,14 +112,14 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
 
-        if (message.opCode == MatchOpCode.PlayerReady) {
+        if (message.opCode == MatchOpCode.PLAYER_READY) {
           state.stageReady.push(messageSender.userId);
         }
       });
 
       if (canTransitionStage(state, "rollDiceStage")) {
         //TODO: sending a message with proper payload
-        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RoundSummaryStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "rollDiceStage" }));
       }
       break;
     }
@@ -128,14 +128,14 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
 
-        if (message.opCode == MatchOpCode.RollDice) {
+        if (message.opCode == MatchOpCode.PLAYER_READY) {
           state.stageReady.push(messageSender.userId);
         }
       });
 
       if (canTransitionStage(state, "playerTurnLoopStage")) {
         //TODO: sending a message with proper payload
-        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RollDiceStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "playerTurnLoopStage" }));
       }
       break;
     }
@@ -144,14 +144,14 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
 
-        if (message.opCode == MatchOpCode.RollDice) {
+        if (message.opCode == MatchOpCode.PLAYER_READY) {
           state.stageReady.push(messageSender.userId);
         }
       });
 
       if (canTransitionStage(state, "roundSummaryStage")) {
         //TODO: sending a message with proper payload
-        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "PlayerTurnLoopStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "roundSummaryStage" }));
       }
       break;
     }
@@ -160,14 +160,14 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
 
-        if (message.opCode == MatchOpCode.RollDice) {
+        if (message.opCode == MatchOpCode.PLAYER_READY) {
           state.stageReady.push(messageSender.userId);
         }
       });
 
       if (canTransitionStage(state, "endOfMatchStage")) {
         //TODO: sending a message with proper payload
-        dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "RoundSummaryStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "endOfMatchStage" }));
       }
       break;
     }
@@ -176,12 +176,13 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatc
       messages.forEach((message) => {
         const messageSender = getMessageSender(state, message, logger);
 
-        if (message.opCode == MatchOpCode.RollDice) {
+        if (message.opCode == MatchOpCode.PLAYER_READY) {
           state.stageReady.push(messageSender.userId);
         }
       });
 
-      dispatcher.broadcastMessage(MatchOpCode.StageTransition, JSON.stringify({ matchStage: "EndOfMatchStage" }));
+      //TODO: Proper handling end of match
+      dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "EndOfMatchStage" }));
       break;
     }
   }

@@ -114,12 +114,6 @@ export const isPlayerArray = (value: unknown): value is Player[] => {
   const areValid = value.reduce((valid, pt) => valid && isPlayer(pt), true);
   return areValid;
 };
-export enum RoundPhases {
-  matchStart = 1,
-  roundStart,
-  turnStart,
-  matchEnd,
-}
 
 export type MatchStage =
   | "lobbyStage" // waiting for players to be ready
@@ -162,14 +156,14 @@ export const isEndOfMatchStage = (value: unknown): value is "endOfMatchStage" =>
 };
 
 export enum MatchOpCode {
-  StageTransition = 1,
-  PlayerReady = 2,
-  RollDice = 3,
-  FaceValues = 4,
-  LeaveMatch = 5,
+  STAGE_TRANSITION = 1,
+  PLAYER_READY = 2,
+  ROLL_DICE = 3,
+  FACE_VALUES = 4,
+  LEAVE_MATCH = 5,
 }
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.StageTransition && value <= MatchOpCode.LeaveMatch;
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.LEAVE_MATCH;
 };
 export const isPresence = (value: unknown): value is nkruntime.Presence => {
   const assertedVal = value as nkruntime.Presence;
