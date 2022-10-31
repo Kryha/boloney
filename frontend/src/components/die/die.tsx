@@ -1,17 +1,19 @@
 import { FC } from "react";
-import { DiceFiveIcon, DiceFourIcon, DiceOneIcon, DiceSixIcon, DiceThreeIcon, DiceTwoIcon } from "../../assets";
+import { DiceFiveIcon, DiceFourIcon, DiceHiddenIcon, DiceOneIcon, DiceSixIcon, DiceThreeIcon, DiceTwoIcon } from "../../assets";
 
 import { DieWrapper } from "./styles";
 
 interface DieProps {
-  value: number;
+  value?: number;
   size?: string;
   faceColor?: string;
   pipColor?: string;
   padding?: string;
 }
 
-export const findDieFace = (value: number) => {
+export const findDieFace = (value?: number) => {
+  if (!value) return <DiceHiddenIcon />;
+
   switch (value) {
     case 1:
       return <DiceOneIcon />;
@@ -26,7 +28,7 @@ export const findDieFace = (value: number) => {
     case 6:
       return <DiceSixIcon />;
     default:
-      return <DiceOneIcon />;
+      return <DiceHiddenIcon />;
   }
 };
 

@@ -10,7 +10,7 @@ export const GamePlayersOverviewWrapper = styled.div`
   align-items: flex-start;
   padding: 0px;
   position: absolute;
-  height: 100vh;
+  height: 89vh;
   left: 0px;
   top: 0px;
   border-right: 1px solid ${color.darkGrey};

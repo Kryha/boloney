@@ -12,21 +12,21 @@ interface FaceProps {
 
 export const DieWrapper = styled.div<FaceProps>`
   > svg {
-    width: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
-    height: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
+    width: ${({ size }): string => size || "clamp(25px, 2.6vw + 0px, 50px)"};
+    height: ${({ size }): string => size || "clamp(25px, 2.6vw + 0px, 50px)"};
     ${({ isSixDie, faceColor, pipColor }): string => {
-    return isSixDie
-      ? `
+      return isSixDie
+        ? `
         path: nth-of-type(1) {
           fill: ${pipColor || color.pureWhite};
         }
           `
-      : `
+        : `
         path: nth-of-type(1) {
           fill: ${faceColor || color.darkBlue};
         }
         `;
-  }};
+    }};
     path: nth-of-type(2) {
       fill: ${({ pipColor }): string => pipColor || color.white};
     }

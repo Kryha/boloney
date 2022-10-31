@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 
 import { text } from "../../assets";
 import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
-import { fakePlayers } from "../../service";
+import { fakeActivePlayer, fakeDiceRolls, fakePlayers } from "../../service";
+import { fakePowerUps } from "../../service/fake-power-ups";
 import { useMatch } from "../../service/match";
 import { useMatchState } from "../../store/match";
 
@@ -36,7 +37,7 @@ export const Match = () => {
 
   // TODO: remove fake players
   return (
-    <GameLayout players={fakePlayers} dice={faceValues} powerUps={powerUps}>
+    <GameLayout players={fakePlayers} dice={fakeDiceRolls} powerUps={fakePowerUps} currentPlayer={fakeActivePlayer}>
       <GeneralContentWrapper>{gameState()}</GeneralContentWrapper>
     </GameLayout>
   );
