@@ -5,15 +5,15 @@ import { Navigate, useParams } from "react-router-dom";
 import { LineContainer, TopNavigation, LobbyPlayer } from "../../components";
 import { routes } from "../../navigation";
 import { useMatchMaker } from "../../service";
-import { useAuthState } from "../../store";
+import { useStore } from "../../store";
 import { isPlayerRecord, MatchOpCode, Player } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 import { LobbyWrapper } from "./styles";
 
 export const Lobby: FC = () => {
   const { joinMatch } = useMatchMaker();
-  const socket = useAuthState((state) => state.socket);
-  const session = useAuthState((state) => state.sessionState);
+  const socket = useStore((state) => state.socket);
+  const session = useStore((state) => state.sessionState);
   const [players, setPlayers] = useState<Record<string, Player>>({});
 
   const { matchId: unparsedId } = useParams();
