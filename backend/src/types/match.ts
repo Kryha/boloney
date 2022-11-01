@@ -44,6 +44,29 @@ export const isPlayer = (value: unknown): value is Player => {
   );
 };
 
+export const isPlayerArray = (value: unknown): value is Player[] => {
+  if (!value) return false;
+  if (!(value instanceof Array)) return false;
+
+  const areValid = value.reduce((valid, pt) => valid && isPlayer(pt), true);
+  return areValid;
+};
+
+export const isPresence = (value: unknown): value is nkruntime.Presence => {
+  const assertedVal = value as nkruntime.Presence;
+
+  return (
+    assertedVal.node !== undefined &&
+    assertedVal.userId !== undefined &&
+    assertedVal.sessionId !== undefined &&
+    assertedVal.username !== undefined &&
+    isString(assertedVal.node) &&
+    isString(assertedVal.userId) &&
+    isString(assertedVal.sessionId) &&
+    isString(assertedVal.username)
+  );
+};
+
 // TODO: in the future we may want to merge 'availablePowerUps' and 'powerUpProbability' into one single attribute
 export interface MatchSettings {
   players: number;
@@ -110,14 +133,6 @@ export const isMatchState = (value: unknown): value is MatchState => {
   );
 };
 
-export const isPlayerArray = (value: unknown): value is Player[] => {
-  if (!value) return false;
-  if (!(value instanceof Array)) return false;
-
-  const areValid = value.reduce((valid, pt) => valid && isPlayer(pt), true);
-  return areValid;
-};
-
 export type MatchStage =
   | "lobbyStage" // waiting for players to be ready
   | "getPowerUpStage" // Get powerups
@@ -142,21 +157,6 @@ export enum MatchOpCode {
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
   return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_JOINED;
-};
-
-export const isPresence = (value: unknown): value is nkruntime.Presence => {
-  const assertedVal = value as nkruntime.Presence;
-
-  return (
-    assertedVal.node !== undefined &&
-    assertedVal.userId !== undefined &&
-    assertedVal.sessionId !== undefined &&
-    assertedVal.username !== undefined &&
-    isString(assertedVal.node) &&
-    isString(assertedVal.userId) &&
-    isString(assertedVal.sessionId) &&
-    isString(assertedVal.username)
-  );
 };
 
 export interface MatchLoopParams {
