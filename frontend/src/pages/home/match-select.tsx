@@ -15,17 +15,17 @@ export const MatchSelect: FC = () => {
   const { joinPool, isLoading } = useMatchMaker();
   const navigate = useNavigate();
 
-  // TODO: define these in a service ?
+  // TODO: define these in a service!!
   useEffect(() => {
     if (!socket) return;
 
     socket.onmatchmakermatched = (matched: MatchmakerMatched) => {
-      //FIXME: For some reason the received match ID comes with .nakama after the match id but why?
+      //For some reason the received match ID comes with .nakama after the match id
       const id = matched.match_id.split(".")[0];
       console.log(`${routes.lobby}/${id}`);
       navigate(`${routes.lobby}/${id}`);
     };
-  }, [joinPool, navigate, socket]);
+  }, [navigate, socket]);
 
   return (
     <MatchSelectContainer>

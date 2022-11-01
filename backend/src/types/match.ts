@@ -117,11 +117,11 @@ export const isPlayerArray = (value: unknown): value is Player[] => {
 
 export type MatchStage =
   | "lobbyStage" // waiting for players to be ready
-  | "getPowerUpStage"
-  | "rollDiceStage" // Get powerups
-  | "playerTurnLoopStage" // Roll the dice
-  | "roundSummaryStage" // Players turn loop
-  | "endOfMatchStage"; // Round summery
+  | "getPowerUpStage" // Get powerups
+  | "rollDiceStage" // Roll the dice
+  | "playerTurnLoopStage" // Players turn loop
+  | "roundSummaryStage" // Round summery
+  | "endOfMatchStage"; // Match summery
 
 export const isMatchStage = (value: unknown): value is MatchStage => {
   const assertedVal = value as MatchStage;

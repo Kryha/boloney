@@ -72,8 +72,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
 };
 
 // TODO: improve flow
-// TODO: remove debug logs after improving flow
-export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, nk, dispatcher, _tick, state, messages) => {
+export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
 
   if (!isMatchState(state)) throw text.error.invalidState;
