@@ -11,7 +11,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
   //TODO: If match settings are not specified as param use the default ones
   const initialState: MatchState = {
     settings: params,
-    stageReady: [],
+    playersReady: [],
     playerOrder: [],
     matchStage: "lobbyStage",
     players: {},

@@ -84,10 +84,9 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
 
 export interface MatchState {
   settings: MatchSettings;
-  //QUESTION: How do we keep track of the player state? as presence or player state or player object? or separate presence and player state
   players: Record<string, Player>;
   presences: Record<string, nkruntime.Presence>;
-  stageReady: string[];
+  playersReady: string[];
   playerOrder: string[];
   matchStage: MatchStage;
   emptyTicks: number;
@@ -97,15 +96,14 @@ export const isMatchState = (value: unknown): value is MatchState => {
   const assertedVal = value as MatchState;
   return (
     assertedVal.settings !== undefined &&
-    assertedVal.emptyTicks !== undefined &&
     assertedVal.players !== undefined &&
-    assertedVal.stageReady !== undefined &&
+    assertedVal.presences !== undefined &&
+    assertedVal.playersReady !== undefined &&
     assertedVal.playerOrder !== undefined &&
     assertedVal.matchStage !== undefined &&
+    assertedVal.emptyTicks !== undefined &&
     isMatchSettings(assertedVal.settings) &&
-    // TODO: find a way to check Records
-    // isPlayerState(assertedVal.players) &&
-    isStringArray(assertedVal.stageReady) &&
+    isStringArray(assertedVal.playersReady) &&
     isStringArray(assertedVal.playerOrder) &&
     isMatchStage(assertedVal.matchStage) &&
     isNumber(assertedVal.emptyTicks)

@@ -13,7 +13,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state, dispatcher }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          state.stageReady.push(sender.userId);
+          state.playersReady.push(sender.userId);
           state.players[sender.userId].isReady = true;
           dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(state.players));
         }
@@ -28,7 +28,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode == MatchOpCode.PLAYER_READY) {
-          state.stageReady.push(sender.userId);
+          state.playersReady.push(sender.userId);
         }
       },
       ({ dispatcher }, nextStage) => {
@@ -41,7 +41,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode == MatchOpCode.PLAYER_READY) {
-          state.stageReady.push(sender.userId);
+          state.playersReady.push(sender.userId);
         }
       },
       ({ dispatcher }, nextStage) => {
@@ -54,7 +54,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode == MatchOpCode.PLAYER_READY) {
-          state.stageReady.push(sender.userId);
+          state.playersReady.push(sender.userId);
         }
       },
       ({ dispatcher }, nextStage) => {
@@ -67,7 +67,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode == MatchOpCode.PLAYER_READY) {
-          state.stageReady.push(sender.userId);
+          state.playersReady.push(sender.userId);
         }
       },
       ({ dispatcher }, nextStage) => {
@@ -78,7 +78,7 @@ export const handleStage: StageHandlers = {
   endOfMatchStage: (loopParams) =>
     handleMatchStage(loopParams, (message, sender, { state }) => {
       if (message.opCode == MatchOpCode.PLAYER_READY) {
-        state.stageReady.push(sender.userId);
+        state.playersReady.push(sender.userId);
       }
     }),
 };
