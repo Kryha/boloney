@@ -11,7 +11,14 @@ export const isMatchJoinMetadata = (value: unknown): value is MatchJoinMetadata 
 
   return assertedVal.username !== undefined && isString(assertedVal.username);
 };
+
 export type AvatarId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+export const isAvatarId = (value: unknown): value is AvatarId => {
+  if (!isNumber(value)) return false;
+  return value >= 1 || value <= 7;
+};
+
 export interface Player {
   userId: string;
   username: string;
@@ -19,10 +26,7 @@ export interface Player {
   isConnected: boolean;
   isReady: boolean;
 }
-export const isAvatarId = (value: unknown): value is AvatarId => {
-  if (!isNumber(value)) return false;
-  return value === 1 || value == 2 || value == 3 || value == 4 || value == 5 || value == 6 || value == 7;
-};
+
 export const isPlayer = (value: unknown): value is Player => {
   const assertedVal = value as Player;
 
