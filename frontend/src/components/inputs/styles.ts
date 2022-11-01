@@ -18,31 +18,6 @@ export const InputContainer = styled.div<InputContainerProps>`
   isolation: isolate;
   position: relative;
   flex: 1;
-
-  ${BaseInput} {
-    border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-  }
-
-  ${BaseSelect} {
-    border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-    border-left: 1px solid ${({ isError }) => (isError ? color.red : "transparent")};
-    border-right: 1px solid ${({ isError }) => (isError ? color.red : "transparent")};
-  }
-
-  ${({ isRow, isError, childNode }) => isRow && childNode === 1 && `
-    border-right: 1px solid ${isError ? "transparent" : color.mediumGrey};
-    border: none;
-    ${BaseInput} {
-      border-left: ${isError ? `1px solid ${color.red}` : "none"};
-      border-right: ${isError ? `1px solid ${color.red}` : "none"};
-    }
-  `};
-  ${({ isRow, childNode, isError }) => isRow && childNode === 2 && `
-    ${BaseInput} {
-      width: 31.25vw;
-      border-right: ${isError ? `1px solid ${color.red}` : "none"};
-    }
-  `};
 `;
 
 export const InputLabel = styled.h3`
@@ -99,3 +74,95 @@ export const InputIconContainer = styled.div`
   margin-right: ${margins.small5};
   margin-left: ${margins.small6};
 `;
+
+export const FieldSet = styled.fieldset<InputContainerProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  isolation: isolate;
+  position: relative;
+  flex: 1;
+  width: 100%;
+  border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  max-height: 83px;
+  :hover {
+    background: ${color.white};
+  }
+  :active {
+    border: 1px solid ${color.black} !important;
+  }
+  :focus {
+    border: 1px solid ${color.black} !important;
+    outline-width: 0px !important;
+    box-shadow: none;
+    outline: none;
+  }
+  :focus-within {
+    border: 1px solid ${color.black} !important;
+    outline-width: 0px !important;
+    box-shadow: none;
+    outline: none;
+  }
+  ${BaseInput} {
+    border: none;
+    margin-top: -12px;
+  }
+  ${BaseSelect} {
+    border: none;
+    margin-top: -12px;
+  }
+  ${({ isRow, isError, childNode }) =>
+    isRow &&
+    childNode === 1 &&
+    `
+    border-right: 1px solid ${isError ? "transparent" : color.mediumGrey};
+    border-left: ${isError ? `1px solid ${color.red}` : "none"};
+`};
+  ${({ isRow, childNode, isError }) =>
+    isRow &&
+    childNode === 2 &&
+    `
+    width: 31.25vw;
+    border-right: ${isError ? `1px solid ${color.red}` : "none"};
+    border-left: ${isError ? `1px solid ${color.red}` : "none"};
+`};
+`;
+
+export const Legend = styled.legend`
+  font-family: ibm-plex-mono;
+  font-weight: ${fontWeight.bolder};
+  font-size: ${fontSize.small1};
+  line-height: 24px;
+  text-transform: uppercase;
+  color: ${color.black};
+  padding: 0px ${margins.small1};
+  margin-left: ${margins.medium0};
+`;
+
+// ${BaseInput} {
+//   border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
+// }
+
+// ${BaseSelect} {
+//   border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
+//   border-left: 1px solid ${({ isError }) => (isError ? color.red : "transparent")};
+//   border-right: 1px solid ${({ isError }) => (isError ? color.red : "transparent")};
+// }
+
+// ${({ isRow, isError, childNode }) => isRow && childNode === 1 && `
+//   border-right: 1px solid ${isError ? "transparent" : color.mediumGrey};
+//   border: none;
+//   ${BaseInput} {
+//     border-left: ${isError ? `1px solid ${color.red}` : "none"};
+//     border-right: ${isError ? `1px solid ${color.red}` : "none"};
+//   }
+// `};
+// ${({ isRow, childNode, isError }) => isRow && childNode === 2 && `
+//   ${BaseInput} {
+//     width: 31.25vw;
+//     border-right: ${isError ? `1px solid ${color.red}` : "none"};
+//   }
+// `};

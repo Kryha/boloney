@@ -2,7 +2,7 @@ import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
-import { BaseOption, BaseSelect, Input } from "../../components";
+import { BaseOption, BaseSelect, InputLegend } from "../../components";
 import { MAX_DICE_PER_PLAYER, MAX_PLAYERS, MIN_DICE_PER_PLAYER, MIN_PLAYERS } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
@@ -15,7 +15,7 @@ interface Props {
 export const PlayersField: FC<Props> = ({ register }) => {
   return (
     <PlayersDiceContainer>
-      <Input label={text.newGame.players}>
+      <InputLegend label={text.newGame.players} isRow>
         <BaseSelect {...register("players")}>
           {range(MAX_PLAYERS, MIN_PLAYERS).map((n) => (
             <BaseOption key={n} value={n}>
@@ -23,8 +23,8 @@ export const PlayersField: FC<Props> = ({ register }) => {
             </BaseOption>
           ))}
         </BaseSelect>
-      </Input>
-      <Input label={text.newGame.dicePerPlayer}>
+      </InputLegend>
+      <InputLegend label={text.newGame.dicePerPlayer} isRow childNode={2}>
         <BaseSelect {...register("dicePerPlayer")}>
           {range(MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
@@ -32,7 +32,7 @@ export const PlayersField: FC<Props> = ({ register }) => {
             </BaseOption>
           ))}
         </BaseSelect>
-      </Input>
+      </InputLegend>
     </PlayersDiceContainer>
   );
 };

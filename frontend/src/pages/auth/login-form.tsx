@@ -6,13 +6,13 @@ import { text } from "../../assets/text";
 import {
   Heading1,
   Heading4,
-  Input,
   Paragraph,
   BaseInput,
   FormContainer,
   Link,
   PrimaryButton,
   GeneralContentWrapper,
+  InputLegend,
 } from "../../components";
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, NkCode } from "../../types";
@@ -59,17 +59,17 @@ export const LoginForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input
+            <InputLegend
               label={text.authForm.username}
               isError={!!errors.username}
               errorMessage={text.authForm.errorMessages.usernameRequired}
               isRow
             >
               <BaseInput type="text" {...register("username", { required: true })} />
-            </Input>
-            <Input label={text.authForm.password} isError={!!errors.password} errorMessage={showPasswordError()} isRow childNode={2}>
+            </InputLegend>
+            <InputLegend label={text.authForm.password} isError={!!errors.password} errorMessage={showPasswordError()} isRow childNode={2}>
               <BaseInput type="password" {...register("password", { required: true })} />
-            </Input>
+            </InputLegend>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
             <Paragraph>{text.authForm.iDontHaveAnAccountYet}</Paragraph>

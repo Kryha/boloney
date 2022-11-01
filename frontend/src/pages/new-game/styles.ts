@@ -17,9 +17,6 @@ export const PlayersDiceContainer = styled.section`
   ${InputContainer} {
     margin-top: ${margins.small5};
   }
-  ${InputContainer}:nth-of-type(1) {
-    border-right: 1px solid ${color.mediumGrey};
-  }
 `;
 
 export const FieldContainer = styled.section`
