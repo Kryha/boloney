@@ -2,17 +2,17 @@ import { Session } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 
 import { USE_SSL } from "../constants";
-import { useAuthState } from "../store/auth";
+import { useStore } from "../store";
 import { NkResponse } from "../types";
 import { getAuthToken, getRefreshToken, parseError, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
 
 export const useAuth = () => {
-  const client = useAuthState((state) => state.client);
-  const isAuthenticated = useAuthState((state) => state.isAuthenticated);
-  const setSocket = useAuthState((state) => state.setSocket);
-  const setSession = useAuthState((state) => state.setSession);
-  const setIsAuthenticated = useAuthState((state) => state.setIsAuthenticated);
-  const resetAuthState = useAuthState((state) => state.reset);
+  const client = useStore((state) => state.client);
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
+  const setSocket = useStore((state) => state.setSocket);
+  const setSession = useStore((state) => state.setSession);
+  const setIsAuthenticated = useStore((state) => state.setIsAuthenticated);
+  const resetAuthState = useStore((state) => state.reset);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(true);

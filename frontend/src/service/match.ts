@@ -1,20 +1,19 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 import { text } from "../assets";
-import { useAuthState, useMatchMakerState } from "../store";
-import { useMatchState } from "../store/match";
-import { isStageTransition, MatchOpCode, NkResponse, RoundStage } from "../types";
+import { useStore } from "../store";
+import { isStageTransition, MatchOpCode, NkResponse } from "../types";
 import { parseError, parseMatchData } from "../util";
 import { fakeDiceRolls } from "./fake-dice-rolls";
 import { fakePowerUps } from "./fake-power-ups";
 
 export const useMatch = () => {
-  const socket = useAuthState((state) => state.socket);
-  const setRoundStage = useMatchState((state) => state.setRoundStage);
-  const roundStage = useMatchState((state) => state.roundStage);
-  const setPowerUps = useMatchState((state) => state.setPowerUps);
-  const setFaceValues = useMatchState((state) => state.setFaceValues);
-  const matchId = useMatchMakerState((state) => state.matchId);
+  const socket = useStore((state) => state.socket);
+  const setRoundStage = useStore((state) => state.setRoundStage);
+  const roundStage = useStore((state) => state.roundStage);
+  const setPowerUps = useStore((state) => state.setPowerUps);
+  const setFaceValues = useStore((state) => state.setFaceValues);
+  const matchId = useStore((state) => state.matchId);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -25,8 +24,7 @@ export const useMatch = () => {
         const payload = parseMatchData(matchData.data);
         if (!isStageTransition(payload)) return;
 
-        // TODO: make a type guard for Roundstage
-        switch (payload.matchStage as RoundStage) {
+        switch (payload.matchStage) {
           case "getPowerUpStage":
             // TODO: remove fake data
             setPowerUps(fakePowerUps);
