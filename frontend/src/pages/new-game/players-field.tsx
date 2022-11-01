@@ -15,7 +15,7 @@ interface Props {
 export const PlayersField: FC<Props> = ({ register }) => {
   return (
     <PlayersDiceContainer>
-      <InputLegend label={text.newGame.players} isRow>
+      <InputLegend label={text.newGame.players} isRow tooltipInfo={text.general.toolTipInfo} tooltipTitle={text.general.toolTipTitle}>
         <BaseSelect {...register("players")}>
           {range(MAX_PLAYERS, MIN_PLAYERS).map((n) => (
             <BaseOption key={n} value={n}>
@@ -24,7 +24,13 @@ export const PlayersField: FC<Props> = ({ register }) => {
           ))}
         </BaseSelect>
       </InputLegend>
-      <InputLegend label={text.newGame.dicePerPlayer} isRow childNode={2}>
+      <InputLegend
+        label={text.newGame.dicePerPlayer}
+        isRow
+        childNode={2}
+        tooltipInfo={text.general.toolTipInfo}
+        tooltipTitle={text.general.toolTipTitle}
+      >
         <BaseSelect {...register("dicePerPlayer")}>
           {range(MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>

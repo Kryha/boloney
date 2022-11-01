@@ -2,6 +2,7 @@ import { FC, ReactNode } from "react";
 import { text } from "../../assets/text";
 
 import { Paragraph } from "../atoms";
+import { Tooltip } from "../tooltip";
 import {
   InputContainer,
   InputLabel,
@@ -12,6 +13,7 @@ import {
   TextLabel,
   FieldSet,
   Legend,
+  LegendContainer,
 } from "./styles";
 
 interface InputProps {
@@ -22,6 +24,8 @@ interface InputProps {
   isRow?: boolean;
   childNode?: number;
   description?: string;
+  tooltipInfo?: string;
+  tooltipTitle?: string;
 }
 
 export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
@@ -41,11 +45,25 @@ export const Input: FC<InputProps> = ({ children, label, isError = false, errorM
   );
 };
 
-export const InputLegend: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
+export const InputLegend: FC<InputProps> = ({
+  children,
+  label,
+  isError = false,
+  errorMessage,
+  isRow = false,
+  childNode = 1,
+  tooltipInfo,
+  tooltipTitle,
+}) => {
   return (
     <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
       <FieldSet isError={isError} isRow={isRow} childNode={childNode}>
-        <Legend>{label}</Legend>
+        <Legend>
+          <LegendContainer>
+            {label}
+            <Tooltip title={tooltipTitle} info={tooltipInfo} />
+          </LegendContainer>
+        </Legend>
         {children}
       </FieldSet>
       {isError && (

@@ -15,7 +15,7 @@ interface Props {
 export const DrawRoundOffsetField: FC<Props> = ({ register }) => {
   return (
     <InputFieldContainer>
-      <InputLegend label={text.newGame.drawRoundOffset}>
+      <InputLegend label={text.newGame.drawRoundOffset} tooltipInfo={text.general.toolTipInfo} tooltipTitle={text.general.toolTipTitle}>
         <BaseSelect {...register("drawRoundOffset")}>
           {range(MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET).map((n) => (
             <BaseOption key={n} value={n}>

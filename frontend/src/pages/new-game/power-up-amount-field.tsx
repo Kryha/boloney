@@ -15,7 +15,12 @@ interface Props {
 export const PowerUpsAmountField: FC<Props> = ({ register }) => {
   return (
     <PlayersDiceContainer>
-      <InputLegend label={text.newGame.initialPowerUpAmount} isRow>
+      <InputLegend
+        label={text.newGame.initialPowerUpAmount}
+        isRow
+        tooltipInfo={text.general.toolTipInfo}
+        tooltipTitle={text.general.toolTipTitle}
+      >
         <BaseSelect {...register("initialPowerUpAmount")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
@@ -24,7 +29,13 @@ export const PowerUpsAmountField: FC<Props> = ({ register }) => {
           ))}
         </BaseSelect>
       </InputLegend>
-      <InputLegend label={text.newGame.maxPowerUpAmount} isRow childNode={2}>
+      <InputLegend
+        label={text.newGame.maxPowerUpAmount}
+        isRow
+        childNode={2}
+        tooltipInfo={text.general.toolTipInfo}
+        tooltipTitle={text.general.toolTipTitle}
+      >
         <BaseSelect {...register("maxPowerUpAmount")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>

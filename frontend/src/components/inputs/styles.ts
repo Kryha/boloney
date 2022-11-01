@@ -142,27 +142,7 @@ export const Legend = styled.legend`
   margin-left: ${margins.medium0};
 `;
 
-// ${BaseInput} {
-//   border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-// }
-
-// ${BaseSelect} {
-//   border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-//   border-left: 1px solid ${({ isError }) => (isError ? color.red : "transparent")};
-//   border-right: 1px solid ${({ isError }) => (isError ? color.red : "transparent")};
-// }
-
-// ${({ isRow, isError, childNode }) => isRow && childNode === 1 && `
-//   border-right: 1px solid ${isError ? "transparent" : color.mediumGrey};
-//   border: none;
-//   ${BaseInput} {
-//     border-left: ${isError ? `1px solid ${color.red}` : "none"};
-//     border-right: ${isError ? `1px solid ${color.red}` : "none"};
-//   }
-// `};
-// ${({ isRow, childNode, isError }) => isRow && childNode === 2 && `
-//   ${BaseInput} {
-//     width: 31.25vw;
-//     border-right: ${isError ? `1px solid ${color.red}` : "none"};
-//   }
-// `};
+export const LegendContainer = styled.span`
+  display: flex;
+  flex-direction: row;
+`;

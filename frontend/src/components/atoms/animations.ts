@@ -32,3 +32,14 @@ export const ellipsis = keyframes`
     width: 2.25em;
   }
 `;
+
+// Tooltip
+export const tooltipAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
