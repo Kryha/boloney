@@ -4,9 +4,6 @@ import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES, randomInt } from "..
 
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   try {
-    logger.info("Match is Made");
-    logger.debug(JSON.stringify(matches));
-
     matches.forEach((match) => {
       const { userId, username } = match.presence;
       logger.info(`Matched user '${userId}' named '${username}'`);
