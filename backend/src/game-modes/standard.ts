@@ -72,7 +72,7 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
   return { state };
 };
 
-// TODO: improve flow
+// TODO: implement handlers for each case and declare them in another file in order to not make this funciton huge
 export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispatcher, _tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
 
