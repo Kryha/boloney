@@ -15,18 +15,18 @@ export const DieWrapper = styled.div<FaceProps>`
     width: ${({ size }): string => size || "clamp(25px, 2.6vw + 0px, 50px)"};
     height: ${({ size }): string => size || "clamp(25px, 2.6vw + 0px, 50px)"};
     ${({ isSixDie, faceColor, pipColor }): string => {
-      return isSixDie
-        ? `
+    return isSixDie
+      ? `
         path: nth-of-type(1) {
           fill: ${pipColor || color.pureWhite};
         }
           `
-        : `
+      : `
         path: nth-of-type(1) {
           fill: ${faceColor || color.darkBlue};
         }
         `;
-    }};
+  }};
     path: nth-of-type(2) {
       fill: ${({ pipColor }): string => pipColor || color.white};
     }

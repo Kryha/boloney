@@ -155,19 +155,3 @@ export const PercentageContainer = styled.div`
     display: inline;
   }
 `;
-
-export const PowerUpFieldContainer = styled.section`
-  margin-top: ${margins.medium1};
-`;
-
-export const Container = styled.section`
-  height: 1000px;
-  overflow: auto;
-`;
-export const Sticky = styled.section`
-  position: sticky;
-  bottom: 0px;
-  background-color: #2ecc71;
-`;
-
-export const HealFieldContainer = styled(InputFieldContainer)``;

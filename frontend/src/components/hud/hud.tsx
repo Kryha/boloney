@@ -20,7 +20,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUp, currentPlayer }) => {
     <>
       <PlayerOverview>
         <CurrentPlayer>
-          <PlayerAvatar height={"10vh"} playersAmount={0} src={avatar} />
+          <PlayerAvatar height="10vh" src={avatar} />
         </CurrentPlayer>
         <DiceOverview dice={dice} />
         <PowerUpOverview powerUps={powerUp} />

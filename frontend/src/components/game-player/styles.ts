@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { GAME_PLAYER_HEIGHT } from "../../constants";
 
 import { color, margins } from "../../design";
 import { avatarHeight, Heading5 } from "../atoms";
@@ -6,14 +7,14 @@ import { avatarHeight, Heading5 } from "../atoms";
 interface GamePlayersProps {
   isActive?: boolean;
   customColor?: string;
-  playersAmount: number;
+  totalPlayers: number;
 }
 
 export const GamePlayersWrapper = styled.div<GamePlayersProps>`
   padding: 0px;
   width: 12.5vw;
   background: ${({ isActive, customColor }): string => (isActive ? customColor || color.white : color.lightGrey)};
-  height: ${({ playersAmount }): string => `${89 / playersAmount}vh` || "89vh"};
+  height: ${({ totalPlayers }): string => `${GAME_PLAYER_HEIGHT / totalPlayers}vh` || "89vh"};
   border-bottom: 1px solid ${color.darkGrey};
   position: relative;
 `;
@@ -41,13 +42,11 @@ export const PlayerNameContainer = styled.div`
 
 interface AvatarProps {
   height: string;
-  playersAmount: number;
 }
 
-export const PlayerAvatarContainer = styled.div<AvatarProps>`
+export const PlayerAvatarContainer = styled.div`
   width: 12.5vw;
-  // height: ${({ playersAmount }): string => `${89 / playersAmount}vh` || "89vh"};
-  padding-top: 0.625em;
+  padding-top: ${margins.small2};
   align-items: center;
   justify-content: center;
   display: flex;
@@ -71,9 +70,13 @@ export const GameStateContainer = styled(PlayerNameContainer)`
 
 export const PlayerInfoContainer = styled.section``;
 
-export const GamePlayersContainer = styled.div<AvatarProps>`
-  ${({ playersAmount }) => {
-    return playersAmount != 1
+interface PlayersContainerProps {
+  totalPlayers: number;
+}
+
+export const GamePlayersContainer = styled.div<PlayersContainerProps>`
+  ${({ totalPlayers }) => {
+    return totalPlayers != 1
       ? `
       position: absolute;
       bottom: 0.325em;
@@ -86,7 +89,7 @@ export const GamePlayersContainer = styled.div<AvatarProps>`
       flex-direction: column;
       ${PlayerInfoContainer} {
         position: absolute;
-        bottom: 0.625em;
+        bottom: ${margins.small2};
         left: 0.425em;
       }
       `;
