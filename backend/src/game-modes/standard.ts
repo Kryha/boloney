@@ -8,7 +8,7 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
 
   if (!isMatchSettings(params)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
-  //TODO: If match settings are not et through parameters set the default settings
+  //TODO: If match settings are not specified as param use the default ones
   const initialState: MatchState = {
     settings: params,
     stageReady: [],
@@ -33,14 +33,15 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   if (!isMatchState(state)) throw text.error.invalidState;
   if (!isMatchJoinMetadata(metadata)) throw handleError(text.error.invalidMetadata, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
-  const playersArr = Object.values(state.players);
   // accept a user that has already joined
   const alreadyJoined = state.players[presence.userId];
   if (alreadyJoined) return { state, accept: false };
-  // Accept new players if we are still waiting and until the required amount has been fulfilled
-  const accept = state.matchStage === "lobbyStage" && playersArr.length < state.settings.players;
 
-  if (accept) {
+  // Accept new players if we are still waiting and until the required amount has been fulfilled
+  const players = Object.values(state.players);
+  const isAccepted = state.matchStage === "lobbyStage" && players.length < state.settings.players;
+
+  if (isAccepted) {
     state.presences[presence.userId] = presence;
     state.players[presence.userId] = {
       userId: presence.userId,
@@ -51,7 +52,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
     };
   }
 
-  return { state, accept };
+  return { state, accept: isAccepted };
 };
 
 export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispatcher, _tick, state, presences) => {
