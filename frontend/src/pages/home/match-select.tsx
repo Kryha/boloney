@@ -1,28 +1,27 @@
 import { MatchmakerMatched } from "@heroiclabs/nakama-js";
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { text } from "../../assets";
 import { GeneralContentWrapper, Heading1, Heading4, Heading6, PrimaryButton } from "../../components";
 import { routes } from "../../navigation";
 import { useMatchMaker } from "../../service";
-import { useAuthState } from "../../store";
-import { ButtonContainer } from "../new-game/styles";
-import { MatchSelectContainer } from "./styles";
+import { useStore } from "../../store";
+import { splitMatchId } from "../../util";
+import { MatchSelectContainer, ButtonContainer } from "./styles";
 
 export const MatchSelect: FC = () => {
   // TODO: Implement the designs
-  const socket = useAuthState((state) => state.socket);
+  const socket = useStore((state) => state.socket);
   const { joinPool, isLoading } = useMatchMaker();
   const navigate = useNavigate();
 
-  // TODO: define these in a service!!
+  // TODO: define these in a service, improve this logic, discuss the whole flow
   useEffect(() => {
     if (!socket) return;
 
     socket.onmatchmakermatched = (matched: MatchmakerMatched) => {
-      //For some reason the received match ID comes with .nakama after the match id
-      const id = matched.match_id.split(".")[0];
-      console.log(`${routes.lobby}/${id}`);
+      const id = splitMatchId(matched.match_id);
       navigate(`${routes.lobby}/${id}`);
     };
   }, [navigate, socket]);
