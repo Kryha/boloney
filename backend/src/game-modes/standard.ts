@@ -100,7 +100,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
           dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(state.players));
         }
       });
-      // If all players are ready, transition to InProgress state and broadcast the match starting event
+
       if (canTransitionStage(state, "getPowerUpStage")) {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "getPowerUpStage" }));
       }
@@ -118,7 +118,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       });
 
       if (canTransitionStage(state, "rollDiceStage")) {
-        //TODO: sending a message with proper payload
+        //TODO: send a message with proper payload
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "rollDiceStage" }));
       }
       break;
@@ -134,7 +134,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       });
 
       if (canTransitionStage(state, "playerTurnLoopStage")) {
-        //TODO: sending a message with proper payload
+        //TODO: send a message with proper payload
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "playerTurnLoopStage" }));
       }
       break;
@@ -150,7 +150,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       });
 
       if (canTransitionStage(state, "roundSummaryStage")) {
-        //TODO: sending a message with proper payload
+        //TODO: send a message with proper payload
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "roundSummaryStage" }));
       }
       break;
@@ -166,7 +166,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       });
 
       if (canTransitionStage(state, "endOfMatchStage")) {
-        //TODO: sending a message with proper payload
+        //TODO: send a message with proper payload
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "endOfMatchStage" }));
       }
       break;
