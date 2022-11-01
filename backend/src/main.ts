@@ -3,11 +3,12 @@ import { matchInit, matchJoin, matchJoinAttempt, matchLeave, matchLoop, matchSig
 import { rollDice, createMatch, findMatch } from "./rpc";
 import { matchmakerMatched } from "./services";
 import { env } from "./utils";
+import { MatchState } from "./types";
 
 function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
   env.init(ctx);
 
-  initializer.registerMatch("standard", {
+  initializer.registerMatch<MatchState>("standard", {
     matchInit,
     matchJoinAttempt,
     matchJoin,

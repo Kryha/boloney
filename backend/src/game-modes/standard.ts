@@ -103,22 +103,31 @@ export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, 
   return { state };
 };
 
-export const matchTerminate: nkruntime.MatchTerminateFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, _graceSeconds) => {
+export const matchTerminate: nkruntime.MatchTerminateFunction<MatchState> = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state,
+  _graceSeconds
+) => {
   logger.info("----------------- MATCH TERMINATE -----------------");
   return { state };
 };
 
-export const matchSignal: nkruntime.MatchSignalFunction = (_ctx, logger, _nk, _dispatcher, _tick, state) => {
+export const matchSignal: nkruntime.MatchSignalFunction<MatchState> = (_ctx, logger, _nk, _dispatcher, _tick, state) => {
   logger.info("----------------- MATCH SIGNAL -----------------");
   return { state };
 };
 
-export const matchLeave: nkruntime.MatchLeaveFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
+export const matchLeave: nkruntime.MatchLeaveFunction<MatchState> = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH LEAVE -----------------");
 
   // Remove the player from match state
   presences.forEach(function (presence) {
     delete state.players[presence.userId];
+    delete state.presences[presence.userId];
   });
 
   return {
