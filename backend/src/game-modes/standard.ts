@@ -1,9 +1,9 @@
 import { getAvailableAvatar, handleStage } from "../services";
 import { text } from "../text";
-import { MatchState, isMatchSettings, MatchOpCode, isMatchState, isMatchJoinMetadata, MatchLoopParams } from "../types";
+import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams } from "../types";
 import { handleError } from "../utils";
 
-export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params) => {
+export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger, _nk, params) => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
 
   if (!isMatchSettings(params)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
@@ -27,10 +27,18 @@ export const matchInit: nkruntime.MatchInitFunction = (_ctx, logger, _nk, params
   };
 };
 
-export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logger, _nk, _dispatcher, _tick, state, presence, metadata) => {
+export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = (
+  _ctx,
+  logger,
+  _nk,
+  _dispatcher,
+  _tick,
+  state,
+  presence,
+  metadata
+) => {
   logger.info("----------------- MATCH JOIN ATTEMPT -----------------");
 
-  if (!isMatchState(state)) throw text.error.invalidState;
   if (!isMatchJoinMetadata(metadata)) throw handleError(text.error.invalidMetadata, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   // accept a user that has already joined
@@ -59,9 +67,8 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   return { state, accept: isAccepted };
 };
 
-export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispatcher, _tick, state, presences) => {
+export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger, _nk, dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
-  if (!isMatchState(state)) throw text.error.invalidState;
 
   //TODO: Shuffle player order
   presences.forEach((presence) => {
@@ -76,10 +83,8 @@ export const matchJoin: nkruntime.MatchJoinFunction = (_ctx, logger, _nk, dispat
   return { state };
 };
 
-export const matchLoop: nkruntime.MatchLoopFunction = (ctx, logger, nk, dispatcher, tick, state, messages) => {
+export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, nk, dispatcher, tick, state, messages) => {
   logger.info("----------------- MATCH LOOP -----------------");
-
-  if (!isMatchState(state)) throw text.error.invalidState;
 
   const loopParams: MatchLoopParams = { ctx, logger, nk, dispatcher, tick, state, messages };
 
