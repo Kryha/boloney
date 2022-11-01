@@ -104,7 +104,6 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
       if (canTransitionStage(state, "getPowerUpStage")) {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "getPowerUpStage" }));
       }
-
       break;
     }
     case "getPowerUpStage": {
