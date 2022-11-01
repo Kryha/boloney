@@ -41,12 +41,16 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction = (_ctx, logge
   const players = Object.values(state.players);
   const isAccepted = state.matchStage === "lobbyStage" && players.length < state.settings.players;
 
+  const avatarId = getAvailableAvatar(state);
+
+  if (!avatarId) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
+
   if (isAccepted) {
     state.presences[presence.userId] = presence;
     state.players[presence.userId] = {
       userId: presence.userId,
       username: presence.username,
-      avatarId: getAvailableAvatar(state),
+      avatarId,
       isConnected: true,
       isReady: false,
     };

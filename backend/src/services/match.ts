@@ -1,6 +1,6 @@
 import { text } from "../text";
-import { AvatarId, isAvatarId, MatchLoopParams, MatchStage, MatchState, Player } from "../types";
-import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES } from "../utils";
+import { AvatarId, MatchLoopParams, MatchStage, MatchState, Player } from "../types";
+import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES, randomInt } from "../utils";
 
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   try {
@@ -42,17 +42,15 @@ export const getNextStage = (state: MatchState): MatchStage => {
   return nextStage;
 };
 
-export const getAvailableAvatar = (state: MatchState): AvatarId => {
-  const avatarIds = [1, 2, 3, 4, 5, 6, 7];
-  const playerArr = Object.values(state.players);
-
-  playerArr.forEach((player) => {
-    avatarIds.splice(avatarIds.indexOf(player.avatarId), 1);
+export const getAvailableAvatar = (state: MatchState): AvatarId | undefined => {
+  const availableIds: AvatarId[] = [1, 2, 3, 4, 5, 6, 7];
+  const players = Object.values(state.players);
+  players.forEach((player) => {
+    availableIds.splice(availableIds.indexOf(player.avatarId), 1);
   });
-  const id = avatarIds[Math.floor(Math.random() * avatarIds.length)];
-  if (isAvatarId(id)) return id;
-  //TODO add proper error
-  throw new Error("");
+  const id = availableIds[randomInt(availableIds.length - 1)];
+  if (!id) return;
+  return id;
 };
 
 type MessageCallback = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => void;
