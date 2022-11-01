@@ -1,6 +1,23 @@
 import { text } from "../text";
 import { AvatarId, isAvatarId, MatchStage, MatchState, Player } from "../types";
-import { handleError } from "../utils";
+import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES } from "../utils";
+
+export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
+  try {
+    logger.info("Match is Made");
+    logger.debug(JSON.stringify(matches));
+
+    matches.forEach((match) => {
+      const { userId, username } = match.presence;
+      logger.info(`Matched user '${userId}' named '${username}'`);
+    });
+
+    const matchId = nk.matchCreate("standard", DEFAULT_MATCH_SETTINGS);
+    return matchId;
+  } catch (error) {
+    throw handleError(error, logger);
+  }
+};
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage, logger: nkruntime.Logger): Player => {
   const messageSender = state.players[message.sender.userId];
@@ -14,6 +31,15 @@ export const canTransitionStage = (state: MatchState, nextStage: MatchStage): bo
   state.matchStage = nextStage;
   state.stageReady = [];
   return true;
+};
+
+// "endOfMatchStage" has itself as next stage
+export const getNextStage = (state: MatchState): MatchStage => {
+  if (state.matchStage === "endOfMatchStage") return state.matchStage;
+  const currentStageIndex = MATCH_STAGES.indexOf(state.matchStage);
+  const nextStage = MATCH_STAGES[currentStageIndex + 1];
+  if (!nextStage) return "endOfMatchStage";
+  return nextStage;
 };
 
 export const getAvailableAvatar = (state: MatchState): AvatarId => {

@@ -1,7 +1,7 @@
 import { beforeAuthenticateCustom, afterAuthenticateCustom } from "./hooks/auth";
 import { matchInit, matchJoin, matchJoinAttempt, matchLeave, matchLoop, matchSignal, matchTerminate } from "./game-modes/standard";
 import { rollDice, createMatch, findMatch } from "./rpc";
-import { matchmakerMatched } from "./services/match-maker";
+import { matchmakerMatched } from "./services";
 import { env } from "./utils";
 
 function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {

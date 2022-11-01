@@ -1,4 +1,4 @@
-import { canTransitionStage, getAvailableAvatar, getMessageSender } from "../services/match";
+import { canTransitionStage, getAvailableAvatar, getMessageSender, getNextStage } from "../services";
 import { text } from "../text";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchState, isMatchJoinMetadata } from "../types";
 import { handleError } from "../utils";
@@ -88,6 +88,8 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
   // If the match has been empty for more than 500 ticks, end the match by returning null
   if (state.emptyTicks > 500) return null;
 
+  const nextStage = getNextStage(state);
+
   switch (state.matchStage) {
     case "lobbyStage": {
       logger.debug("-----LobbyStage-----");
@@ -101,8 +103,8 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
         }
       });
 
-      if (canTransitionStage(state, "getPowerUpStage")) {
-        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "getPowerUpStage" }));
+      if (canTransitionStage(state, nextStage)) {
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
       break;
     }
@@ -116,9 +118,9 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
         }
       });
 
-      if (canTransitionStage(state, "rollDiceStage")) {
+      if (canTransitionStage(state, nextStage)) {
         //TODO: send a message with proper payload
-        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "rollDiceStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
       break;
     }
@@ -132,9 +134,9 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
         }
       });
 
-      if (canTransitionStage(state, "playerTurnLoopStage")) {
+      if (canTransitionStage(state, nextStage)) {
         //TODO: send a message with proper payload
-        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "playerTurnLoopStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
       break;
     }
@@ -148,9 +150,9 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
         }
       });
 
-      if (canTransitionStage(state, "roundSummaryStage")) {
+      if (canTransitionStage(state, nextStage)) {
         //TODO: send a message with proper payload
-        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "roundSummaryStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
       break;
     }
@@ -164,9 +166,9 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
         }
       });
 
-      if (canTransitionStage(state, "endOfMatchStage")) {
+      if (canTransitionStage(state, nextStage)) {
         //TODO: send a message with proper payload
-        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "endOfMatchStage" }));
+        dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
       break;
     }
@@ -180,8 +182,7 @@ export const matchLoop: nkruntime.MatchLoopFunction = (_ctx, logger, _nk, dispat
         }
       });
 
-      //TODO: Proper handling end of match
-      dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "EndOfMatchStage" }));
+      //TODO: handle end of match properly
       break;
     }
   }

@@ -1,3 +1,4 @@
+import { MATCH_STAGES } from "../utils";
 import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
@@ -125,34 +126,7 @@ export type MatchStage =
 
 export const isMatchStage = (value: unknown): value is MatchStage => {
   const assertedVal = value as MatchStage;
-
-  return (
-    assertedVal === "lobbyStage" ||
-    assertedVal === "getPowerUpStage" ||
-    assertedVal === "rollDiceStage" ||
-    assertedVal === "playerTurnLoopStage" ||
-    assertedVal === "roundSummaryStage" ||
-    assertedVal === "endOfMatchStage"
-  );
-};
-
-export const isLobbyStage = (value: unknown): value is "lobbyStage" => {
-  return isMatchStage(value) && value === "lobbyStage";
-};
-export const isGetPowerUpStage = (value: unknown): value is "getPowerUpStage" => {
-  return isMatchStage(value) && value === "getPowerUpStage";
-};
-export const isRollDiceStage = (value: unknown): value is "rollDiceStage" => {
-  return isMatchStage(value) && value === "rollDiceStage";
-};
-export const isPlayerTurnLoopStage = (value: unknown): value is "playerTurnLoopStage" => {
-  return isMatchStage(value) && value === "playerTurnLoopStage";
-};
-export const isRoundSummaryStage = (value: unknown): value is "roundSummaryStage" => {
-  return isMatchStage(value) && value === "roundSummaryStage";
-};
-export const isEndOfMatchStage = (value: unknown): value is "endOfMatchStage" => {
-  return isMatchStage(value) && value === "endOfMatchStage";
+  return MATCH_STAGES.includes(assertedVal);
 };
 
 export enum MatchOpCode {
