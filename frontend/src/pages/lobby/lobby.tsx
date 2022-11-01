@@ -1,12 +1,12 @@
 import { MatchData } from "@heroiclabs/nakama-js";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import { LineContainer, TopNavigation, LobbyPlayer } from "../../components";
 import { routes } from "../../navigation";
 import { useMatchMaker } from "../../service";
 import { useStore } from "../../store";
-import { isPlayerRecord, MatchOpCode, Player } from "../../types";
+import { isPlayerRecord, MatchOpCode } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 import { LobbyWrapper } from "./styles";
 
@@ -15,7 +15,8 @@ export const Lobby: FC = () => {
   const { joinMatch } = useMatchMaker();
   const socket = useStore((state) => state.socket);
   const session = useStore((state) => state.sessionState);
-  const [players, setPlayers] = useState<Record<string, Player>>({});
+  const players = useStore((state) => state.players);
+  const setPlayers = useStore((state) => state.setPlayers);
 
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);
@@ -28,7 +29,6 @@ export const Lobby: FC = () => {
   useEffect(() => {
     if (!socket) return;
 
-    // TODO: delete logs
     socket.onmatchdata = (matchData: MatchData) => {
       // All opcode related messages from the backend will be received here
       switch (matchData.op_code) {
@@ -50,7 +50,7 @@ export const Lobby: FC = () => {
         }
       }
     };
-  }, [joinMatch, navigate, session?.username, socket]);
+  }, [joinMatch, navigate, session?.username, setPlayers, socket]);
 
   if (!matchId) return <Navigate to={routes.home} />;
 

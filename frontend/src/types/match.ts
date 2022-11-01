@@ -19,8 +19,6 @@ export type Avatar = z.infer<typeof avatarSchema>;
 export const availableAvatarsSchema = z.array(avatarSchema);
 export type AvailableAvatars = z.infer<typeof availableAvatarsSchema>;
 
-// TODO: normalise match codes
-// TODO: update type in backend
 export enum MatchOpCode {
   STAGE_TRANSITION = 1,
   PLAYER_READY = 2,

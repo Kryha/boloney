@@ -20,6 +20,9 @@ export const useMatch = () => {
     if (!socket) return;
 
     socket.onmatchdata = (matchData: MatchData) => {
+      // TODO: game server manages to transition and broadcast the message, but for some reason the following log is not called, so the listener does not get triggered on the frontend
+      console.log("🚀 ~ file: match.ts ~ line 23 ~ useEffect ~ matchData", matchData);
+
       if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
         const payload = parseMatchData(matchData.data);
         if (!isStageTransition(payload)) return;

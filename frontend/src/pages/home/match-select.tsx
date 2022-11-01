@@ -17,6 +17,7 @@ export const MatchSelect: FC = () => {
   const navigate = useNavigate();
 
   // TODO: define these in a service, improve this logic, discuss the whole flow
+  // ?is it even useful? where do we use ticket?
   useEffect(() => {
     if (!socket) return;
 

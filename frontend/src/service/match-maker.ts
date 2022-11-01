@@ -38,6 +38,7 @@ export const useMatchMaker = () => {
       setIsLoading(true);
 
       const matchmakerTicket = await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
+      // TODO: where is this ticket being used???
       setTicket(matchmakerTicket.ticket);
     } catch (error) {
       const parsedErr = await parseError(error);

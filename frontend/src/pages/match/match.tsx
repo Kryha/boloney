@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 
 import { text } from "../../assets";
 import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
-import { fakePlayers } from "../../service";
 import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
 import { MatchOpCode } from "../../types";
@@ -11,6 +10,7 @@ export const Match = () => {
   const { roundStage, sendMatchState, isLoading } = useMatch();
   const powerUps = useStore((state) => state.powerUps);
   const faceValues = useStore((state) => state.faceValues);
+  const players = useStore((state) => state.players);
 
   const matchStageReady = () => {
     // TODO: add payload and handle properly
@@ -35,9 +35,8 @@ export const Match = () => {
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
-  // TODO: remove fake players
   return (
-    <GameLayout players={fakePlayers} dice={faceValues} powerUps={powerUps}>
+    <GameLayout players={Object.values(players)} dice={faceValues} powerUps={powerUps}>
       <GeneralContentWrapper>{gameState()}</GeneralContentWrapper>
     </GameLayout>
   );
