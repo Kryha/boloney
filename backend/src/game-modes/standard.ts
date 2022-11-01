@@ -43,17 +43,16 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
 
   // accept a user that has already joined
   const alreadyJoined = state.players[presence.userId];
-  if (alreadyJoined) return { state, accept: false };
+  if (alreadyJoined) return { state, accept: true };
 
   // Accept new players if we are still waiting and until the required amount has been fulfilled
   const players = Object.values(state.players);
   const isAccepted = state.matchStage === "lobbyStage" && players.length < state.settings.players;
 
-  const avatarId = getAvailableAvatar(state);
-
-  if (!avatarId) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
-
   if (isAccepted) {
+    const avatarId = getAvailableAvatar(state);
+    if (!avatarId) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
+
     state.presences[presence.userId] = presence;
     state.players[presence.userId] = {
       userId: presence.userId,
@@ -62,23 +61,16 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
       isConnected: true,
       isReady: false,
     };
+    //TODO: Shuffle player order
+    state.playerOrder.push(presence.userId);
   }
 
   return { state, accept: isAccepted };
 };
 
-export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger, _nk, dispatcher, _tick, state, presences) => {
+// !don't do any operations related to state update in this function!
+export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger, _nk, dispatcher, _tick, state, _presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
-
-  //TODO: Shuffle player order
-  presences.forEach((presence) => {
-    const player = state.players[presence.userId];
-    if (player) {
-      state.playerOrder.push(presence.userId);
-    }
-  });
-
-  //TODO: Return list of users currently in their match
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(state.players));
   return { state };
 };

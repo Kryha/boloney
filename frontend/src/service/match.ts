@@ -46,13 +46,13 @@ export const useMatch = () => {
   }, [roundStage, setFaceValues, setPowerUps, setRoundStage, socket]);
 
   const sendMatchState = useCallback(
-    async (payload: string): Promise<NkResponse> => {
+    async (opCode: MatchOpCode, payload?: string): Promise<NkResponse> => {
       try {
         if (!socket) throw new Error(text.error.noSocketConnected);
         if (!matchId) throw new Error(text.error.noMatchIdFound);
         setIsLoading(true);
 
-        socket.sendMatchState(matchId, MatchOpCode.PLAYER_READY, payload);
+        socket.sendMatchState(matchId, opCode, payload || "");
       } catch (error) {
         const parsedErr = await parseError(error);
         return parsedErr;

@@ -8,6 +8,7 @@ import { parseError } from "../util";
 
 export const useMatchMaker = () => {
   const socket = useStore((state) => state.socket);
+  // TODO: are we using this ticket mechanism???
   const setTicket = useStore((state) => state.setTicket);
   const setMatchId = useStore((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);

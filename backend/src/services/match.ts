@@ -51,8 +51,8 @@ export const attemptStageTransition = (loopParams: MatchLoopParams, cb?: StageTr
   const { state } = loopParams;
   const nextStage = getNextStage(state);
 
-  // TODO: handle when setting players as inactive
-  if (state.playersReady.length !== Object.keys(state.players).length) return;
+  // TODO: consider also players that are not playing anymore in this check
+  if (state.playersReady.length < state.settings.players) return;
   state.matchStage = nextStage;
   state.playersReady = [];
 

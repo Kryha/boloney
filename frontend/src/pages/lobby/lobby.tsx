@@ -1,6 +1,6 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { FC, useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import { LineContainer, TopNavigation, LobbyPlayer } from "../../components";
 import { routes } from "../../navigation";
@@ -11,6 +11,7 @@ import { parseMatchData, parseMatchIdParam } from "../../util";
 import { LobbyWrapper } from "./styles";
 
 export const Lobby: FC = () => {
+  const navigate = useNavigate();
   const { joinMatch } = useMatchMaker();
   const socket = useStore((state) => state.socket);
   const session = useStore((state) => state.sessionState);
@@ -34,25 +35,22 @@ export const Lobby: FC = () => {
         // TODO: handle all op codes
         case MatchOpCode.PLAYER_JOINED: {
           const players = parseMatchData(matchData.data);
-          console.log("PLAYER_JOINED:", players);
           if (!isPlayerRecord(players)) return;
           setPlayers(players);
           break;
         }
         case MatchOpCode.PLAYER_READY: {
           const players = parseMatchData(matchData.data);
-          console.log("READY:", players);
           if (!isPlayerRecord(players)) return;
           setPlayers(players);
           break;
         }
         case MatchOpCode.STAGE_TRANSITION: {
-          // TODO: redirect to game route
-          console.log("Match Started!");
+          navigate(routes.match);
         }
       }
     };
-  }, [joinMatch, session?.username, socket]);
+  }, [joinMatch, navigate, session?.username, socket]);
 
   if (!matchId) return <Navigate to={routes.home} />;
 

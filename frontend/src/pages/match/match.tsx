@@ -5,6 +5,7 @@ import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps,
 import { fakePlayers } from "../../service";
 import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
+import { MatchOpCode } from "../../types";
 
 export const Match = () => {
   const { roundStage, sendMatchState, isLoading } = useMatch();
@@ -12,8 +13,8 @@ export const Match = () => {
   const faceValues = useStore((state) => state.faceValues);
 
   const matchStageReady = () => {
-    // TODO: add payload
-    sendMatchState("");
+    // TODO: add payload and handle properly
+    sendMatchState(MatchOpCode.PLAYER_READY);
   };
 
   const gameState = (): ReactNode => {
