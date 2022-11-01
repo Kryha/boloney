@@ -10,6 +10,7 @@ export const PowerUpOverviewWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
+  margin-left: ${margins.large0};
 `;
 
 interface ViewportProps {
@@ -39,4 +40,11 @@ export const YourPowerUpContainer = styled.div`
   flex-direction: row;
   gap: ${margins.small2};
   margin-left: ${margins.small5};
+`;
+
+export const PowerUpOverview = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 `;

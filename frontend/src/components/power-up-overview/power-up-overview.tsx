@@ -1,12 +1,10 @@
 import { FC } from "react";
 
-import { PowerUpOverviewWrapper, PowerUpOverviewContainer, YourPowerUpContainer } from "./styles";
-import { PowerUpComponent } from "../power-up";
-import { GeneralText } from "../atoms/text";
-import { text } from "../../assets/text";
+import { PowerUpOverviewWrapper, PowerUpOverviewContainer } from "./styles";
 import { useViewport } from "../../hooks/use-viewport";
 import { PowerUp } from "../../types";
 import { PowerUpIcon } from "../icons";
+import { PowerUpList } from "./power-up-list";
 
 interface PowerUpOverviewProps {
   powerUps?: PowerUp[];
@@ -21,11 +19,7 @@ export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUps }) => {
     <PowerUpOverviewWrapper>
       <PowerUpOverviewContainer height={height}>
         <PowerUpIcon powerUpAmount={powerUps.length} />
-        <YourPowerUpContainer>
-          {powerUps.map((powerUp) => (
-            <PowerUpComponent key={powerUp.id} powerUp={powerUp} />
-          ))}
-        </YourPowerUpContainer>
+        <PowerUpList powerUps={powerUps} />
       </PowerUpOverviewContainer>
     </PowerUpOverviewWrapper>
   );

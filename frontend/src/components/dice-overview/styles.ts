@@ -20,7 +20,7 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   flex-direction: row;
   align-items: flex-start;
   gap: ${({ height }) => (height > SMALL_VIEWPORT_HEIGHT ? margins.small2 : margins.small0)};
-  width: 31.25vw;
+  width: 27.5vw;
   background: transparent;
   margin-top: ${margins.small2};
   ${GeneralText} {

@@ -9,6 +9,7 @@ export const Lightning = styled(LightningIcon)`
   path {
     stroke: ${color.darkGrey};
   }
+  margin-top: 3px;
 `;
 
 export const PowerUpIconWrapper = styled(Row)`
