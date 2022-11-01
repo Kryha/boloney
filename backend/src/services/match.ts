@@ -22,13 +22,6 @@ export const getMessageSender = (state: MatchState, message: nkruntime.MatchMess
   return messageSender;
 };
 
-export const canTransitionStage = (state: MatchState, nextStage: MatchStage): boolean => {
-  if (state.stageReady.length !== state.settings.players) return false;
-  state.matchStage = nextStage;
-  state.stageReady = [];
-  return true;
-};
-
 // TODO: improve function after adding other functionality
 // "endOfMatchStage" has itself as next stage
 export const getNextStage = (state: MatchState): MatchStage => {
@@ -54,6 +47,18 @@ type MessageCallback = (message: nkruntime.MatchMessage, sender: Player, loopPar
 
 type StageTransitionCallback = (loopParams: MatchLoopParams, nextStage: MatchStage) => void;
 
+export const attemptStageTransition = (loopParams: MatchLoopParams, cb?: StageTransitionCallback): void => {
+  const { state } = loopParams;
+  const nextStage = getNextStage(state);
+
+  // TODO: handle when setting players as inactive
+  if (state.stageReady.length !== Object.keys(state.players).length) return;
+  state.matchStage = nextStage;
+  state.stageReady = [];
+
+  cb && cb(loopParams, nextStage);
+};
+
 const handleMessages = (loopParams: MatchLoopParams, cb: MessageCallback) => {
   const { messages, state, logger } = loopParams;
 
@@ -65,11 +70,6 @@ const handleMessages = (loopParams: MatchLoopParams, cb: MessageCallback) => {
 };
 
 export const handleMatchStage = (loopParams: MatchLoopParams, messageCb: MessageCallback, transitionCb?: StageTransitionCallback) => {
-  const { state } = loopParams;
-  const nextStage = getNextStage(state);
-
   handleMessages(loopParams, messageCb);
-  if (transitionCb && canTransitionStage(state, nextStage)) {
-    transitionCb(loopParams, nextStage);
-  }
+  attemptStageTransition(loopParams, transitionCb);
 };
