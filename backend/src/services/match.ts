@@ -1,5 +1,5 @@
 import { text } from "../text";
-import { AvatarId, isAvatarId, MatchStage, MatchState, Player } from "../types";
+import { AvatarId, isAvatarId, MatchLoopParams, MatchStage, MatchState, Player } from "../types";
 import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES } from "../utils";
 
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
@@ -19,10 +19,9 @@ export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context,
   }
 };
 
-export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage, logger: nkruntime.Logger): Player => {
+export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
   const messageSender = state.players[message.sender.userId];
-  //TODO check if this condition needs to be checked
-  if (!messageSender) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
+  if (!messageSender) return;
   return messageSender;
 };
 
@@ -53,4 +52,28 @@ export const getAvailableAvatar = (state: MatchState): AvatarId => {
   if (isAvatarId(id)) return id;
   //TODO add proper error
   throw new Error("");
+};
+
+type MessageCallback = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => void;
+
+type StageTransitionCallback = (loopParams: MatchLoopParams, nextStage: MatchStage) => void;
+
+const handleMessages = (loopParams: MatchLoopParams, cb: MessageCallback) => {
+  const { messages, state, logger } = loopParams;
+
+  messages.forEach((message) => {
+    const messageSender = getMessageSender(state, message);
+    if (!messageSender) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
+    cb(message, messageSender, loopParams);
+  });
+};
+
+export const handleMatchStage = (loopParams: MatchLoopParams, messageCb: MessageCallback, transitionCb?: StageTransitionCallback) => {
+  const { state } = loopParams;
+  const nextStage = getNextStage(state);
+
+  handleMessages(loopParams, messageCb);
+  if (transitionCb && canTransitionStage(state, nextStage)) {
+    transitionCb(loopParams, nextStage);
+  }
 };

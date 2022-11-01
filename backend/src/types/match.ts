@@ -137,9 +137,11 @@ export enum MatchOpCode {
   LEAVE_MATCH = 5,
   PLAYER_JOINED = 6,
 }
+
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
   return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_JOINED;
 };
+
 export const isPresence = (value: unknown): value is nkruntime.Presence => {
   const assertedVal = value as nkruntime.Presence;
 
@@ -154,3 +156,13 @@ export const isPresence = (value: unknown): value is nkruntime.Presence => {
     isString(assertedVal.username)
   );
 };
+
+export interface MatchLoopParams {
+  ctx: nkruntime.Context;
+  logger: nkruntime.Logger;
+  nk: nkruntime.Nakama;
+  dispatcher: nkruntime.MatchDispatcher;
+  tick: number;
+  state: MatchState;
+  messages: nkruntime.MatchMessage[];
+}
