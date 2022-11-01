@@ -32,6 +32,7 @@ export const canTransitionStage = (state: MatchState, nextStage: MatchStage): bo
   return true;
 };
 
+// TODO: improve function after adding other functionality
 // "endOfMatchStage" has itself as next stage
 export const getNextStage = (state: MatchState): MatchStage => {
   if (state.matchStage === "endOfMatchStage") return state.matchStage;
