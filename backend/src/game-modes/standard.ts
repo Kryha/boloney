@@ -82,7 +82,11 @@ export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, 
 
   // If we have no presences nor messages, increment empty ticks
   updateEmptyTicks(state, messages);
-  if (state.emptyTicks > 50) return null;
+  // End match if players are inactive
+  if (state.emptyTicks > 50) {
+    dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "endOfMatchStage" }));
+    return null;
+  }
 
   handleStage[state.matchStage](loopParams);
 
