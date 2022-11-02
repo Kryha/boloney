@@ -73,3 +73,11 @@ export const handleMatchStage = (loopParams: MatchLoopParams, messageCb: Message
   handleMessages(loopParams, messageCb);
   attemptStageTransition(loopParams, transitionCb);
 };
+
+export const updateEmptyTicks = (state: MatchState, messages: nkruntime.MatchMessage[]): void => {
+  if (!state.players || !messages.length) {
+    state.emptyTicks++;
+  } else {
+    state.emptyTicks = 0;
+  }
+};
