@@ -1,13 +1,20 @@
 import { FC, useState } from "react";
 
-import { PowerUpCardImage, PowerUpWrapper } from "./styles";
+import { PowerUpCardImage, PowerUpListOverviewWrapper } from "./styles";
 import { PowerUp } from "../../types";
+import { useStore } from "../../store";
+import { Modal } from "../modal";
 
 interface PowerUpListOverviewProps {
-  powerUps: PowerUp;
+  powerUps: PowerUp[];
 }
 
 export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUps }) => {
-  const [showModal, setShowModal] = useState(false);
-  return <PowerUpWrapper onClick={() => setShowModal(true)}></PowerUpWrapper>;
+  const setIsModalVisible = useStore((state) => state.setIsModalVisible);
+
+  return (
+    <Modal hasCloseButton>
+      <PowerUpListOverviewWrapper onClick={() => setIsModalVisible(true)}></PowerUpListOverviewWrapper>
+    </Modal>
+  );
 };

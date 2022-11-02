@@ -1,9 +1,9 @@
 export const general = {
   chat: "chat",
   history: "history",
-  settings: "settings",
+  matchSettings: " match settings",
   logout: "logout",
-  exit: "exit",
+  leaveMatch: "leave match",
   defaultTime: "0:00",
   amount: "amount",
   pips: "pips",
@@ -22,4 +22,5 @@ export const general = {
   ready: "ready",
   imReady: "i'm ready!",
   loading: "loading...",
+  close: "close",
 };

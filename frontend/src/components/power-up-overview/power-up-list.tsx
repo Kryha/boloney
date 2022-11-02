@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { text } from "../../assets";
 import { MEDIUM_VIEWPORT_WIDTH, POWER_UP_DEFAULT_VIEW, POWER_UP_DEFAULT_VIEW_SMALL } from "../../constants";
 import { useViewport } from "../../hooks";
+import { useStore } from "../../store";
 import { PowerUp } from "../../types";
 import { GeneralText } from "../atoms/text";
 import { PowerUpComponent } from "../power-up";
@@ -13,19 +14,21 @@ interface PowerUpListProps {
 }
 
 export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
-  const [showModal, setShowModal] = useState(false);
+  const setIsModalVisible = useStore((state) => state.setIsModalVisible);
+  const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
   const { width } = useViewport();
 
   const defaultPowerUps = width > MEDIUM_VIEWPORT_WIDTH ? POWER_UP_DEFAULT_VIEW : POWER_UP_DEFAULT_VIEW_SMALL;
 
   const toggleShowModel = () => {
-    setShowModal(!showModal);
+    setIsModalVisible(true);
+    setIsOverlayVisible(true);
   };
 
   return (
     <YourPowerUpContainer>
       {powerUps.slice(0, defaultPowerUps).map((powerUp) => (
-        <PowerUpComponent key={powerUp.id} powerUp={powerUp} />
+        <PowerUpComponent key={powerUp.id} powerUp={powerUp} showPowerUps={toggleShowModel} />
       ))}
       {powerUps.length > defaultPowerUps && (
         <PowerUpWrapper onClick={() => toggleShowModel()}>
