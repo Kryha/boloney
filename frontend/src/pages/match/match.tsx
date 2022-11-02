@@ -2,18 +2,20 @@ import { ReactNode } from "react";
 
 import { text } from "../../assets";
 import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
-import { fakeActivePlayer, fakePlayers } from "../../service";
+import { fakeActivePlayer } from "../../service";
 import { useMatch } from "../../service/match";
-import { useMatchState } from "../../store/match";
+import { useStore } from "../../store";
+import { MatchOpCode } from "../../types";
 
 export const Match = () => {
   const { roundStage, sendMatchState, isLoading } = useMatch();
-  const powerUps = useMatchState((state) => state.powerUps);
-  const faceValues = useMatchState((state) => state.faceValues);
+  const powerUps = useStore((state) => state.powerUps);
+  const faceValues = useStore((state) => state.faceValues);
+  const players = useStore((state) => state.players);
 
   const matchStageReady = () => {
-    // TODO: add payload
-    sendMatchState("");
+    // TODO: add payload and handle properly
+    sendMatchState(MatchOpCode.PLAYER_READY);
   };
 
   const gameState = (): ReactNode => {
@@ -34,9 +36,8 @@ export const Match = () => {
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
-  // TODO: remove fake players
   return (
-    <GameLayout players={fakePlayers} dice={faceValues} powerUps={powerUps} currentPlayer={fakeActivePlayer}>
+    <GameLayout players={Object.values(players)} dice={faceValues} powerUps={powerUps} currentPlayer={fakeActivePlayer}>
       <GeneralContentWrapper>{gameState()}</GeneralContentWrapper>
     </GameLayout>
   );

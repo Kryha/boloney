@@ -1,23 +1,34 @@
-import create from "zustand";
-import { Die, PowerUp, RoundStage } from "../types";
+import { StateCreator } from "zustand";
+import { Die, Player, PowerUp, RoundStage } from "../types";
 
-interface MatchState {
+export interface MatchSlice {
+  ticket?: string;
+  matchId?: string;
   powerUps?: PowerUp[];
   faceValues?: Die[];
   roundStage: RoundStage;
-  // TODO: see if other players need to be tracked
+  players: Record<string, Player>;
 
+  setTicket: (ticket: string) => void;
+  setMatchId: (match_id: string) => void;
   setFaceValues: (faceValues: Die[]) => void;
   setPowerUps: (powerUps: PowerUp[]) => void;
   setRoundStage: (roundStage: RoundStage) => void;
+  setPlayers: (players: Record<string, Player>) => void;
 }
 
-export const useMatchState = create<MatchState>()((set) => ({
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+  ticket: undefined,
+  matchId: undefined,
   powerUps: undefined,
   faceValues: undefined,
   roundStage: "getPowerUpStage",
+  players: {},
 
-  setPowerUps: (powerUps: PowerUp[]) => set(() => ({ powerUps: powerUps })),
-  setFaceValues: (faceValues: Die[]) => set(() => ({ faceValues: faceValues })),
-  setRoundStage: (roundStage: RoundStage) => set(() => ({ roundStage: roundStage })),
-}));
+  setTicket: (ticket) => set(() => ({ ticket })),
+  setMatchId: (matchId) => set(() => ({ matchId })),
+  setPowerUps: (powerUps) => set(() => ({ powerUps })),
+  setFaceValues: (faceValues) => set(() => ({ faceValues })),
+  setRoundStage: (roundStage) => set(() => ({ roundStage })),
+  setPlayers: (players) => set(() => ({ players })),
+});

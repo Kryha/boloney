@@ -27,7 +27,7 @@ stages:
             inputs:
               secureFile: web3-aleo.json
               retryCount: "2"
-          - script: gcloud auth activate-service-account  web3-aleo@web3-335312.iam.gserviceaccount.com --key-file=$(authkey.secureFilePath)
+          - script: gcloud auth activate-service-account  web3-aleo-0@web3-335312.iam.gserviceaccount.com --key-file=$(authkey.secureFilePath)
             displayName: Activate Service Account
           - task: Kubernetes@1
             inputs:

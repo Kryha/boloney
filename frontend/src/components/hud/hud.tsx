@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { avatars } from "../../assets/local-data/avatar";
 import { handProportion } from "../../design/hand";
 
 import { Die, Player, PowerUp } from "../../types";
@@ -15,7 +16,7 @@ interface HUDProps {
 }
 
 export const HUD: FC<HUDProps> = ({ dice, powerUp, currentPlayer }) => {
-  const { avatar } = handProportion(currentPlayer.avatarName);
+  const { avatar } = handProportion(avatars[currentPlayer.avatarId].name);
   return (
     <>
       <PlayerOverview>

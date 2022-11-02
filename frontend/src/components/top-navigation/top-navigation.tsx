@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import { TopNavigationSection } from "./styles";
 import { MenuDropdown } from "./menu";
 import { RulesDropdown } from "./rules";
-import { useUIState } from "../../store/ui";
+import { useStore } from "../../store";
 import { VerticalDivider } from "../atoms";
 import { OverlayWrapper } from "../overlay-wrapper";
 import { MatchStats } from "./match-state/match-stats";
@@ -15,7 +15,7 @@ interface Props {
 export type ActiveDropdown = "rules" | "menu" | undefined;
 
 export const TopNavigation: FC<Props> = ({ isInMatch }) => {
-  const setIsOverlayVisible = useUIState((state) => state.setIsOverlayVisible);
+  const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
 
   // TODO: use state variable
   const [hover, setHover] = useState(false);

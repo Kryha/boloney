@@ -12,6 +12,7 @@ import {
 } from "./styles";
 import { handProportion } from "../../design/hand";
 import { Player } from "../../types";
+import { avatars } from "../../assets";
 import { PlayerGameState } from "./game-player-info";
 
 interface GamePlayerProps {
@@ -20,7 +21,7 @@ interface GamePlayerProps {
 }
 
 export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
-  const { avatar } = handProportion(player.avatarName);
+  const { avatar } = handProportion(avatars[player.avatarId].name);
   return (
     <GamePlayersWrapper totalPlayers={totalPlayers}>
       <GamePlayersContainer totalPlayers={totalPlayers}>
