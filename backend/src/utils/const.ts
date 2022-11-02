@@ -1,4 +1,4 @@
-import { MatchSettings } from "../types";
+import { MatchSettings, MatchStage } from "../types";
 
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
@@ -47,3 +47,12 @@ export const env = {
     if (ctx.env.TOOLKIT_BASE_URL) this.TOOLKIT_BASE_URL = ctx.env.TOOLKIT_BASE_URL;
   },
 };
+
+export const MATCH_STAGES: readonly MatchStage[] = [
+  "lobbyStage",
+  "getPowerUpStage",
+  "rollDiceStage",
+  "playerTurnLoopStage",
+  "roundSummaryStage",
+  "endOfMatchStage",
+];

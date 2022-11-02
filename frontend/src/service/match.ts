@@ -2,8 +2,8 @@ import { MatchData } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 import { text } from "../assets";
 import { useStore } from "../store";
-import { MatchOpCode, NkResponse } from "../types";
-import { parseError } from "../util";
+import { isStageTransition, MatchOpCode, NkResponse } from "../types";
+import { parseError, parseMatchData } from "../util";
 import { fakeDiceRolls } from "./fake-dice-rolls";
 import { fakePowerUps } from "./fake-power-ups";
 
@@ -20,11 +20,14 @@ export const useMatch = () => {
     if (!socket) return;
 
     socket.onmatchdata = (matchData: MatchData) => {
+      // TODO: game server manages to transition and broadcast the message, but for some reason the following log is not called, so the listener does not get triggered on the frontend
+      console.log("🚀 ~ file: match.ts ~ line 23 ~ useEffect ~ matchData", matchData);
+
       if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
-        // TODO: replace setRoundStage("getPowerUpStage"); with setRoundStage(matchData.data.matchStage);
-        setRoundStage("getPowerUpStage");
-        // TODO: use matchData.data.matchStage instead of roundStage
-        switch (roundStage) {
+        const payload = parseMatchData(matchData.data);
+        if (!isStageTransition(payload)) return;
+
+        switch (payload.matchStage) {
           case "getPowerUpStage":
             // TODO: remove fake data
             setPowerUps(fakePowerUps);
@@ -46,13 +49,13 @@ export const useMatch = () => {
   }, [roundStage, setFaceValues, setPowerUps, setRoundStage, socket]);
 
   const sendMatchState = useCallback(
-    async (payload: string): Promise<NkResponse> => {
+    async (opCode: MatchOpCode, payload?: string): Promise<NkResponse> => {
       try {
         if (!socket) throw new Error(text.error.noSocketConnected);
         if (!matchId) throw new Error(text.error.noMatchIdFound);
         setIsLoading(true);
 
-        socket.sendMatchState(matchId, MatchOpCode.PLAYER_READY, payload);
+        socket.sendMatchState(matchId, opCode, payload || "");
       } catch (error) {
         const parsedErr = await parseError(error);
         return parsedErr;

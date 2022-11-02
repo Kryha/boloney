@@ -6,29 +6,33 @@ import { powerUpTypeSchema, powerUpProbabilitySchema } from "./power-up";
 export const avatarNameSchema = z.enum(["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
 export type AvatarName = z.infer<typeof avatarNameSchema>;
 
-export const avatarColorSchema = z.enum(["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#91C342"]);
+export const avatarColorSchema = z.enum(["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#5573F6"]);
 export type AvatarColor = z.infer<typeof avatarColorSchema>;
 
-// TODO: normalise match codes
-// TODO: update type in backend
+export const avatarSchema = z.object({
+  color: avatarColorSchema,
+  name: avatarNameSchema,
+});
+
+export type Avatar = z.infer<typeof avatarSchema>;
+
+export const availableAvatarsSchema = z.array(avatarSchema);
+export type AvailableAvatars = z.infer<typeof availableAvatarsSchema>;
+
 export enum MatchOpCode {
-  CONNECTED = 1,
-  LOBBY_FULL,
-  READY,
-  MATCH_START,
-  STAGE_TRANSITION,
-  PLAYER_READY,
-  ROLL_DICE,
-  FACE_VALUES,
-  LEAVE_MATCH,
-  PLAYER_JOINED = 100,
+  STAGE_TRANSITION = 1,
+  PLAYER_READY = 2,
+  ROLL_DICE = 3,
+  FACE_VALUES = 4,
+  LEAVE_MATCH = 5,
+  PLAYER_JOINED = 6,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
 export const playerSchema = z.object({
+  userId: z.string(),
   username: z.string(),
-  color: z.string(),
-  avatarName: z.string(),
+  avatarId: z.number(),
   isConnected: z.boolean(),
   isReady: z.boolean(),
 });
@@ -57,7 +61,18 @@ export const isPlayerRecord = (players: unknown): players is Record<string, Play
 
   return areValid;
 };
+export const stageTransitionSchema = z.object({
+  matchStage: z.string(),
+});
+export type StageTration = z.infer<typeof stageTransitionSchema>;
 
+export const isStageTransition = (payload: unknown): payload is StageTration => {
+  if (!payload) return false;
+  if (typeof payload !== "object") return false;
+
+  const parsed = stageTransitionSchema.safeParse(payload);
+  return parsed.success;
+};
 export const matchJoinMetadataSchema = z.object({
   username: z.string(),
 });

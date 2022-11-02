@@ -1,60 +1,6 @@
+import { MATCH_STAGES } from "../utils";
 import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
-import { isBoolean, isNumber, isString } from "./primitive";
-
-// TODO: use avatar IDs instead of colors and names
-
-export type AvatarName = "toy" | "hook" | "plastic" | "scooper" | "hand" | "lobster" | "skeleton";
-
-export const AVATAR_NAMES: AvatarName[] = ["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"];
-
-export const isAvatarName = (value: unknown): value is AvatarName => {
-  const assertedVal = String(value) as AvatarName;
-  return AVATAR_NAMES.includes(assertedVal);
-};
-
-export const isAvatarNameArray = (names: unknown): names is AvatarName[] => {
-  if (!names) return false;
-  if (!(names instanceof Array)) return false;
-
-  const areValid = names.reduce((valid, name) => valid && isAvatarName(name), true);
-  return areValid;
-};
-
-export type AvatarColor = "#FFC300" | "#FF8059" | "#FFA7E9" | "#989EFF" | "#92C9FF" | "#91C342" | "#91C342";
-
-export const AVATAR_COLORS: AvatarColor[] = ["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#91C342"];
-
-export const isAvatarColor = (value: unknown): value is AvatarColor => {
-  const assertedVal = String(value) as AvatarColor;
-  return AVATAR_COLORS.includes(assertedVal);
-};
-
-export const isAvatarColorArray = (colors: unknown): colors is AvatarColor[] => {
-  if (!colors) return false;
-  if (!(colors instanceof Array)) return false;
-
-  const areValid = colors.reduce((valid, color) => valid && isAvatarColor(color), true);
-  return areValid;
-};
-
-// TODO: normalise match codes
-export enum MatchOpCode {
-  CONNECTED = 1, // OpCodes can't be 0
-  LOBBY_FULL,
-  READY,
-  MATCH_START,
-  PLAYER_JOINED = 100,
-}
-
-export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.CONNECTED && value <= MatchOpCode.MATCH_START;
-};
-
-export type MatchPhase = "waitingForPlayers" | "waitingForPlayersReady" | "inProgress";
-
-export const isMatchPhase = (value: unknown): value is MatchPhase => {
-  return value === "waitingForPlayers" || value === "waitingForPlayersReady" || value === "inProgress";
-};
+import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
 export interface MatchJoinMetadata {
   username: string;
@@ -66,10 +12,17 @@ export const isMatchJoinMetadata = (value: unknown): value is MatchJoinMetadata 
   return assertedVal.username !== undefined && isString(assertedVal.username);
 };
 
+export type AvatarId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+export const isAvatarId = (value: unknown): value is AvatarId => {
+  if (!isNumber(value)) return false;
+  return value >= 1 || value <= 7;
+};
+
 export interface Player {
+  userId: string;
   username: string;
-  color: string;
-  avatarName: string;
+  avatarId: AvatarId;
   isConnected: boolean;
   isReady: boolean;
 }
@@ -78,16 +31,39 @@ export const isPlayer = (value: unknown): value is Player => {
   const assertedVal = value as Player;
 
   return (
+    assertedVal.userId !== undefined &&
     assertedVal.username !== undefined &&
-    assertedVal.color !== undefined &&
-    assertedVal.avatarName !== undefined &&
+    assertedVal.avatarId !== undefined &&
     assertedVal.isConnected !== undefined &&
     assertedVal.isReady !== undefined &&
+    isString(assertedVal.userId) &&
     isString(assertedVal.username) &&
-    isString(assertedVal.color) &&
-    isString(assertedVal.avatarName) &&
+    isAvatarId(assertedVal) &&
     isBoolean(assertedVal.isConnected) &&
     isBoolean(assertedVal.isReady)
+  );
+};
+
+export const isPlayerArray = (value: unknown): value is Player[] => {
+  if (!value) return false;
+  if (!(value instanceof Array)) return false;
+
+  const areValid = value.reduce((valid, pt) => valid && isPlayer(pt), true);
+  return areValid;
+};
+
+export const isPresence = (value: unknown): value is nkruntime.Presence => {
+  const assertedVal = value as nkruntime.Presence;
+
+  return (
+    assertedVal.node !== undefined &&
+    assertedVal.userId !== undefined &&
+    assertedVal.sessionId !== undefined &&
+    assertedVal.username !== undefined &&
+    isString(assertedVal.node) &&
+    isString(assertedVal.userId) &&
+    isString(assertedVal.sessionId) &&
+    isString(assertedVal.username)
   );
 };
 
@@ -130,30 +106,65 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
 };
 
 export interface MatchState {
+  settings: MatchSettings;
   players: Record<string, Player>;
   presences: Record<string, nkruntime.Presence>;
-  phase: MatchPhase;
+  playersReady: string[];
+  playerOrder: string[];
+  matchStage: MatchStage;
   emptyTicks: number;
-  settings: MatchSettings;
-  availableAvatarNames: AvatarName[];
-  availableAvatarColors: AvatarColor[];
 }
 
 export const isMatchState = (value: unknown): value is MatchState => {
   const assertedVal = value as MatchState;
-
   return (
+    assertedVal.settings !== undefined &&
     assertedVal.players !== undefined &&
     assertedVal.presences !== undefined &&
-    assertedVal.phase !== undefined &&
+    assertedVal.playersReady !== undefined &&
+    assertedVal.playerOrder !== undefined &&
+    assertedVal.matchStage !== undefined &&
     assertedVal.emptyTicks !== undefined &&
-    assertedVal.settings !== undefined &&
-    assertedVal.availableAvatarNames !== undefined &&
-    assertedVal.availableAvatarColors !== undefined &&
-    isMatchPhase(assertedVal.phase) &&
     isMatchSettings(assertedVal.settings) &&
-    isNumber(assertedVal.emptyTicks) &&
-    isAvatarNameArray(assertedVal.availableAvatarNames) &&
-    isAvatarColorArray(assertedVal.availableAvatarColors)
+    isStringArray(assertedVal.playersReady) &&
+    isStringArray(assertedVal.playerOrder) &&
+    isMatchStage(assertedVal.matchStage) &&
+    isNumber(assertedVal.emptyTicks)
   );
 };
+
+export type MatchStage =
+  | "lobbyStage" // waiting for players to be ready
+  | "getPowerUpStage" // Get powerups
+  | "rollDiceStage" // Roll the dice
+  | "playerTurnLoopStage" // Players turn loop
+  | "roundSummaryStage" // Round summery
+  | "endOfMatchStage"; // Match summery
+
+export const isMatchStage = (value: unknown): value is MatchStage => {
+  const assertedVal = value as MatchStage;
+  return MATCH_STAGES.includes(assertedVal);
+};
+
+export enum MatchOpCode {
+  STAGE_TRANSITION = 1,
+  PLAYER_READY = 2,
+  ROLL_DICE = 3,
+  FACE_VALUES = 4,
+  LEAVE_MATCH = 5,
+  PLAYER_JOINED = 6,
+}
+
+export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_JOINED;
+};
+
+export interface MatchLoopParams {
+  ctx: nkruntime.Context;
+  logger: nkruntime.Logger;
+  nk: nkruntime.Nakama;
+  dispatcher: nkruntime.MatchDispatcher;
+  tick: number;
+  state: MatchState;
+  messages: nkruntime.MatchMessage[];
+}
