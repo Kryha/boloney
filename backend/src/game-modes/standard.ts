@@ -1,4 +1,4 @@
-import { getAvailableAvatar, handleStage, updateEmptyTicks } from "../services";
+import { getAvailableAvatar, handleInactiveMatch, handleStage, updateEmptyTicks } from "../services";
 import { text } from "../text";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams } from "../types";
 import { handleError } from "../utils";
@@ -80,13 +80,10 @@ export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, 
 
   const loopParams: MatchLoopParams = { ctx, logger, nk, dispatcher, tick, state, messages };
 
-  // If we have no presences nor messages, increment empty ticks
-  updateEmptyTicks(state, messages);
   // End match if players are inactive
-  if (state.emptyTicks > 50) {
-    dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "endOfMatchStage" }));
-    return null;
-  }
+  updateEmptyTicks(state, messages);
+  const isMatchInactive = handleInactiveMatch(state, dispatcher);
+  if (isMatchInactive) return null;
 
   handleStage[state.matchStage](loopParams);
 
