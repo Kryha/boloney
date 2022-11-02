@@ -1,7 +1,7 @@
 import { text } from "../text";
 import { AvatarId, MatchLoopParams, MatchStage, MatchState, Player } from "../types";
 import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES, randomInt } from "../utils";
-
+//This gets called when enough players are in a pool
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   try {
     matches.forEach((match) => {

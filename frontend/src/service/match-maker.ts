@@ -36,7 +36,7 @@ export const useMatchMaker = () => {
     try {
       if (!socket) throw new Error(text.error.noSocketConnected);
       setIsLoading(true);
-
+      //This is where the player get the ticket
       const matchmakerTicket = await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
       // TODO: where is this ticket being used???
       setTicket(matchmakerTicket.ticket);
