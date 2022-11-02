@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { text } from "../../assets";
 import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
-import { useMatch } from "../../service/match";
+import { useMatch } from "../../service";
 import { useStore } from "../../store";
 import { MatchOpCode } from "../../types";
 
