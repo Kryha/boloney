@@ -56,9 +56,9 @@ export const Span = styled.span`
 `;
 
 export const InitialButtonView = styled.span`
-  transform: translateZ(0)
+  transform: translateZ(0);
   transform: translate3d(0, 100%, 0);
-  transition: opacity 0.4s, black 0.4s,transform 0.4s;
+  transition: opacity 0.4s, black 0.4s, transform 0.4s;
   visibility: visible;
   height: 60px;
 `;
@@ -95,7 +95,8 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
           }
           transform: rotateX(90deg);
         }
-  ` : `
+  `
+      : `
   ${PrimaryButtonText} {
     color: ${color.mediumGrey};
   }

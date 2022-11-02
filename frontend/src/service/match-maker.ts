@@ -2,14 +2,15 @@ import { useCallback, useState } from "react";
 
 import { text } from "../assets/text";
 import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH, RPC_FIND_MATCH } from "../constants";
-import { useAuthState, useMatchMakerState } from "../store";
+import { useStore } from "../store";
 import { MatchJoinMetadata, MatchSettings, NkResponse } from "../types";
 import { parseError } from "../util";
 
 export const useMatchMaker = () => {
-  const socket = useAuthState((state) => state.socket);
-  const setTicket = useMatchMakerState((state) => state.setTicket);
-  const setMatchId = useMatchMakerState((state) => state.setMatchId);
+  const socket = useStore((state) => state.socket);
+  // TODO: are we using this ticket mechanism???
+  const setTicket = useStore((state) => state.setTicket);
+  const setMatchId = useStore((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
 
   const joinMatch = useCallback(
@@ -35,8 +36,9 @@ export const useMatchMaker = () => {
     try {
       if (!socket) throw new Error(text.error.noSocketConnected);
       setIsLoading(true);
-
+      //This is where the player get the ticket
       const matchmakerTicket = await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
+      // TODO: where is this ticket being used???
       setTicket(matchmakerTicket.ticket);
     } catch (error) {
       const parsedErr = await parseError(error);

@@ -1,20 +1,22 @@
-import { MatchData, MatchmakerMatched, Presence } from "@heroiclabs/nakama-js";
-import { FC, useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { MatchData } from "@heroiclabs/nakama-js";
+import { FC, useEffect } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import { LineContainer, TopNavigation, LobbyPlayer } from "../../components";
 import { routes } from "../../navigation";
 import { useMatchMaker } from "../../service";
-import { useAuthState } from "../../store";
-import { avatarColorsSchema, avatarNameSchema, MatchOpCode, Player } from "../../types";
-import { parseMatchIdParam } from "../../util";
+import { useStore } from "../../store";
+import { isPlayerRecord, MatchOpCode } from "../../types";
+import { parseMatchData, parseMatchIdParam } from "../../util";
 import { LobbyWrapper } from "./styles";
 
 export const Lobby: FC = () => {
+  const navigate = useNavigate();
   const { joinMatch } = useMatchMaker();
-  const socket = useAuthState((state) => state.socket);
-  const session = useAuthState((state) => state.sessionState);
-  const [players, setPlayers] = useState<Record<string, Player>>({});
+  const socket = useStore((state) => state.socket);
+  const session = useStore((state) => state.sessionState);
+  const players = useStore((state) => state.players);
+  const setPlayers = useStore((state) => state.setPlayers);
 
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);
@@ -23,48 +25,37 @@ export const Lobby: FC = () => {
     if (matchId && session?.username) joinMatch(matchId, { username: session.username });
   }, [joinMatch, matchId, session?.username]);
 
-  // TODO: define these in a service ?
+  // TODO: define these in match service
   useEffect(() => {
     if (!socket) return;
 
-    socket.onmatchmakermatched = (matched: MatchmakerMatched) => {
-      const usernames = matched.users.map((user) => user.presence.username);
-
-      let imageIndex = -1;
-      const players = usernames.reduce((allUsers, username) => {
-        imageIndex++;
-        return {
-          ...allUsers,
-          [username]: {
-            username,
-            color: avatarColorsSchema.options[imageIndex],
-            avatarName: avatarNameSchema.options[imageIndex],
-            isConnected: true,
-            isReady: false,
-          },
-        };
-      }, {} as Record<string, Player>);
-
-      setPlayers(players);
-    };
-
     socket.onmatchdata = (matchData: MatchData) => {
       // All opcode related messages from the backend will be received here
-      if (matchData.op_code === MatchOpCode.READY) {
-        // A player has set himself "ready", so we have to reflect that in the client
-        const readyUser: Presence = JSON.parse(String.fromCharCode(...matchData.data));
-        // TODO: delete console log
-        console.log("🚀 ~ file: lobby.tsx ~ line 70 ~ readyUser", readyUser);
-        // TODO: Set player as "ready"
-        // TODO: continue flow
+      switch (matchData.op_code) {
+        // TODO: handle all op codes
+        case MatchOpCode.PLAYER_JOINED: {
+          const players = parseMatchData(matchData.data);
+          if (!isPlayerRecord(players)) return;
+          setPlayers(players);
+          break;
+        }
+        case MatchOpCode.PLAYER_READY: {
+          const players = parseMatchData(matchData.data);
+          if (!isPlayerRecord(players)) return;
+          setPlayers(players);
+          break;
+        }
+        case MatchOpCode.STAGE_TRANSITION: {
+          navigate(routes.match);
+        }
       }
     };
-  }, [joinMatch, session?.username, socket]);
+  }, [joinMatch, navigate, session?.username, setPlayers, socket]);
 
   if (!matchId) return <Navigate to={routes.home} />;
 
   const setReady = () => {
-    if (matchId) socket?.sendMatchState(matchId, MatchOpCode.READY, "");
+    if (matchId) socket?.sendMatchState(matchId, MatchOpCode.PLAYER_READY, "");
   };
 
   return (
