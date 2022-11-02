@@ -16,21 +16,21 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
   const [showModal, setShowModal] = useState(false);
   const { width } = useViewport();
 
-  const defaultPowerUps = width > MEDIUM_VIEWPORT_WIDTH ? POWER_UP_DEFAULT_VIEW : POWER_UP_DEFAULT_VIEW_SMALL;
+  const initialPowerUpsShown = width > MEDIUM_VIEWPORT_WIDTH ? POWER_UP_DEFAULT_VIEW : POWER_UP_DEFAULT_VIEW_SMALL;
 
-  const toggleShowModel = () => {
+  const toggleShowModal = () => {
     setShowModal(!showModal);
   };
 
   return (
     <YourPowerUpContainer>
-      {powerUps.slice(0, defaultPowerUps).map((powerUp) => (
+      {powerUps.slice(0, initialPowerUpsShown).map((powerUp) => (
         <PowerUpComponent key={powerUp.id} powerUp={powerUp} />
       ))}
-      {powerUps.length > defaultPowerUps && (
-        <PowerUpWrapper onClick={() => toggleShowModel()}>
+      {powerUps.length > initialPowerUpsShown && (
+        <PowerUpWrapper onClick={() => toggleShowModal()}>
           <PowerUpOverview>
-            <GeneralText>{text.param.powerUpAmount(powerUps.length - defaultPowerUps)}</GeneralText>
+            <GeneralText>{text.param.powerUpAmount(powerUps.length - initialPowerUpsShown)}</GeneralText>
           </PowerUpOverview>
         </PowerUpWrapper>
       )}
