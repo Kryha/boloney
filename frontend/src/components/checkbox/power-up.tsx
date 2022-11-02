@@ -7,6 +7,7 @@ import { PowerUpComponent } from "../power-up";
 
 import { Description, DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
 import { PowerUpDataProps } from "../../assets";
+import { PowerUpProbability, PowerUpType } from "../../types";
 
 interface PowerUpsInfo {
   isUsingSwitchIcon?: boolean;
@@ -15,12 +16,26 @@ interface PowerUpsInfo {
   isError: boolean;
   probability: number;
   setProbability: (probability: number) => void;
+  setPowerUpValue: (name: PowerUpType, value: number) => void;
+  powerUpValue: PowerUpProbability[];
 }
 
-export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError, probability, setProbability }) => {
+export const PowerUpInfo: FC<PowerUpsInfo> = ({
+  isUsingSwitchIcon,
+  powerUp,
+  isChecked,
+  isError,
+  probability,
+  setProbability,
+  powerUpValue,
+  setPowerUpValue,
+}) => {
   const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
+  const value = useGameCreationFormState((state) => state.value);
+  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const powerUpData = { id: powerUp.id, image: powerUp.iconImage, name: powerUp.name };
-
+  const proba = powerUpProbability.find((o) => o.id === powerUp.id);
+  console.log("a", proba);
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     setPowerUpProbability({ id: powerUp.id, probability: Number(e.target.value) });
   };
@@ -53,7 +68,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
             type="number"
             onBlur={(e) => newProbability(e)}
             disabled={!isChecked}
-            value={probability}
+            value={proba?.probability || probability}
             onChange={(e) => updateProbability(Number(e.target.value))}
           />
         </PercentageInputContainer>
