@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { PowerUpCardImage, PowerUpWrapper } from "./styles";
 import { PowerUp } from "../../types";
@@ -8,8 +8,10 @@ interface PowerUpComponentProps {
 }
 
 export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp }) => {
+  const [showModal, setShowModal] = useState(false);
+  if (showModal) return <PowerUpListOverview />;
   return (
-    <PowerUpWrapper>
+    <PowerUpWrapper onClick={() => setShowModal(true)}>
       <PowerUpCardImage src={powerUp.image} alt={powerUp.name} />
     </PowerUpWrapper>
   );
