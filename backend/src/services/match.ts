@@ -47,7 +47,7 @@ type MessageCallback = (message: nkruntime.MatchMessage, sender: Player, loopPar
 
 type StageTransitionCallback = (loopParams: MatchLoopParams, nextStage: MatchStage) => void;
 
-export const attemptStageTransition = (loopParams: MatchLoopParams, cb?: StageTransitionCallback): void => {
+export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: StageTransitionCallback): void => {
   const { state } = loopParams;
   const nextStage = getNextStage(state);
 
@@ -56,16 +56,16 @@ export const attemptStageTransition = (loopParams: MatchLoopParams, cb?: StageTr
   state.matchStage = nextStage;
   state.playersReady = [];
 
-  cb && cb(loopParams, nextStage);
+  callback?.(loopParams, nextStage);
 };
 
-const handleMessages = (loopParams: MatchLoopParams, cb: MessageCallback) => {
+const handleMessages = (loopParams: MatchLoopParams, callback: MessageCallback) => {
   const { messages, state, logger } = loopParams;
 
   messages.forEach((message) => {
     const messageSender = getMessageSender(state, message);
     if (!messageSender) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
-    cb(message, messageSender, loopParams);
+    callback(message, messageSender, loopParams);
   });
 };
 
