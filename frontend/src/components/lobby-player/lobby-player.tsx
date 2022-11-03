@@ -15,7 +15,7 @@ export const LobbyPlayer: FC<LobbyPlayerProps> = ({ player }) => {
   if (!avatars[player.avatarId]) return <>Loading</>;
   return (
     <LobbyPlayerWrapper isWaiting={!player.isReady}>
-      <Hand key={player.username} avatarName={avatars[player.avatarId].name} name={player.username} />
+      <Hand key={player.username} avatarName={avatars[player.avatarId].name} name={player.username} isInLobby />
       <LobbyPlayerStatus playerName={player.username} isWaiting={!player.isConnected} isReady={player.isReady} />
     </LobbyPlayerWrapper>
   );

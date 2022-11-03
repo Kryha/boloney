@@ -22,5 +22,6 @@ export const LobbyPlayerWrapper = styled.div<LobbyPlayerProps>`
     margin-top: 2.813em;
     opacity: ${({ isWaiting }) => (isWaiting ? "0.4" : "1")};
     filter: ${({ isWaiting }) => (isWaiting ? "blur(1.2px)" : "blur(0)")};
+    height: 35.19vh;
   }
 `;
