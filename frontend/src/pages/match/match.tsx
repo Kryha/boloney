@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 import { text } from "../../assets";
 import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
+import { fakeActivePlayer } from "../../service";
 import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
 import { MatchOpCode } from "../../types";
@@ -36,7 +37,7 @@ export const Match = () => {
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
   return (
-    <GameLayout players={Object.values(players)} dice={faceValues} powerUps={powerUps}>
+    <GameLayout players={Object.values(players)} dice={faceValues} powerUps={powerUps} currentPlayer={fakeActivePlayer}>
       <GeneralContentWrapper>{gameState()}</GeneralContentWrapper>
     </GameLayout>
   );

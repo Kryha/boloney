@@ -57,3 +57,6 @@ export const ADDRESS_LENGTH = 63;
 export const PRIVATE_KEY_PREFIX = "APrivateKey1";
 export const VIEW_KEY_PREFIX = "AViewKey1";
 export const ADDRESS_PREFIX = "aleo1";
+export const POWER_UP_DEFAULT_VIEW = 6;
+export const POWER_UP_DEFAULT_VIEW_SMALL = 5;
+export const GAME_PLAYER_HEIGHT = 89;
