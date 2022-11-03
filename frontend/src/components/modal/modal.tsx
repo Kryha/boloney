@@ -15,24 +15,15 @@ interface ModalProps {
 export const Modal: FC<ModalProps> = ({ hasContainer = true, children, hasCloseButton }) => {
   const setIsModalVisible = useStore((state) => state.setIsModalVisible);
   const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
+  const isModalVisible = useStore((state) => state.isModalVisible);
 
   const handleClose = () => {
     setIsOverlayVisible(false);
     setIsModalVisible(false);
   };
   return (
-    <ModalWrapper>
-      <OverlayWrapper handleClickOutside={() => handleClose()}>
-        {hasCloseButton && (
-          <CloseWrapper>
-            <CloseButton onClick={() => handleClose()}>
-              <GeneralText>{text.general.close}</GeneralText>
-              <Close />
-            </CloseButton>
-          </CloseWrapper>
-        )}
-        <ChildrenWrapper hasContainer={hasContainer}>{children}</ChildrenWrapper>
-      </OverlayWrapper>
+    <ModalWrapper isModalVisible={isModalVisible}>
+      <ChildrenWrapper hasContainer={hasContainer}>{children}</ChildrenWrapper>
     </ModalWrapper>
   );
 };

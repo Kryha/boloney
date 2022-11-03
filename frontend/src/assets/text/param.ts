@@ -13,4 +13,5 @@ export const param = {
   xAmount: (amount: number) => `x${amount}`,
   powerUpAmount: (amount: number) => `+${amount}`,
   powerUpsHiddenMoves: (username: string) => `welcome ${username}, let's find out which hidden moves you will have...`,
+  zeroAmount: (amount: string | number) => `0${amount}`,
 };

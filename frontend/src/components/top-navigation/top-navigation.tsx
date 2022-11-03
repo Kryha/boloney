@@ -17,10 +17,6 @@ export const TopNavigation: FC<Props> = ({ isInMatch }) => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
 
-  const handleClickOutside = () => {
-    setIsComponentVisible(false);
-  };
-
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
     if (activeDropdown === dropdown) {
       setActiveDropdown(undefined);
@@ -31,13 +27,11 @@ export const TopNavigation: FC<Props> = ({ isInMatch }) => {
   };
 
   return (
-    <OverlayWrapper handleClickOutside={handleClickOutside}>
-      <TopNavigationSection>
-        {isInMatch && <MatchStats />}
-        <RulesDropdown isActive={activeDropdown === "rules" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
-        <VerticalDivider />
-        <MenuDropdown isActive={activeDropdown === "menu" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
-      </TopNavigationSection>
-    </OverlayWrapper>
+    <TopNavigationSection>
+      {isInMatch && <MatchStats />}
+      <RulesDropdown isActive={activeDropdown === "rules" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
+      <VerticalDivider />
+      <MenuDropdown isActive={activeDropdown === "menu" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
+    </TopNavigationSection>
   );
 };

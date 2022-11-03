@@ -12,8 +12,11 @@ export const CloseButton = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px 26px 16px 30px;
+  padding: 16px 26px 0px 30px;
   gap: 8px;
+  background: ${color.lightGrey};
+  z-index: 6;
+  cursor: pointer;
 `;
 
 export const CloseWrapper = styled.div`
@@ -35,12 +38,32 @@ export const ChildrenWrapper = styled.div<ChildrenWrapperProps>`
   padding: 0px;
   gap: 16px;
 
-  background: ${color.lightGrey};
-  box-shadow: 0px 2px 19px rgba(0, 0, 0, 0.28);
+  box-shadow: ${({ hasContainer }) => (hasContainer ? "0px 2px 19px rgba(0, 0, 0, 0.28)" : "none")};
   border-radius: 10px;
+  background: ${({ hasContainer }) => (hasContainer ? `${color.white}` : "transparent")};
+  width: 94.4vw;
+  height: 85.6vh;
+  position: fixed;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
-export const ModalWrapper = styled.section`
+interface ModalProps {
+  isModalVisible: boolean;
+}
+
+export const ModalWrapper = styled.section<ModalProps>`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: ${({ isModalVisible }) => !isModalVisible && "none"};
+
   ${TopNavigationSection} {
     z-index: 1;
   }

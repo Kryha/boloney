@@ -1,4 +1,14 @@
-import { CoupDEtatIcon, DefectionIcon, DiversionIcon, InterrogateIcon, ReconnaissanceIcon, RegroupIcon, ReinforceIcon, SabotageIcon, SatelliteIcon } from "../images";
+import {
+  CoupDEtatIcon,
+  DefectionIcon,
+  DiversionIcon,
+  InterrogateIcon,
+  ReconnaissanceIcon,
+  RegroupIcon,
+  ReinforceIcon,
+  SabotageIcon,
+  SatelliteIcon,
+} from "../images";
 import { PowerUpType } from "../../types";
 
 export interface PowerUpDataProps {
@@ -22,7 +32,7 @@ export const POWER_UP_DATA: PowerUpDataProps[] = [
   },
   {
     id: "2",
-    name: "satelliteImage",
+    name: "satellite image",
     shortDescription: "ask target opponent what the sum of their dice are.",
     longDescription: "ask target opponent what the sum of their dice are.",
     iconImage: SatelliteIcon,
