@@ -24,8 +24,8 @@ import { ReactComponent as DiceFourIcon } from "./dice-four.svg";
 import { ReactComponent as DiceFiveIcon } from "./dice-five.svg";
 import { ReactComponent as DiceSixIcon } from "./dice-six.svg";
 import { ReactComponent as LightningIcon } from "./lightning.svg";
-import { ReactComponent as DiceHiddenIcon } from "./dice-hidden.svg";
 import { ReactComponent as BoloneyIcon } from "./boloney.svg";
+import { ReactComponent as DiceHiddenIcon } from "./dice-hidden.svg";
 
 export {
   PlusIcon,

@@ -1,60 +1,23 @@
-import { MatchData } from "@heroiclabs/nakama-js";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { text } from "../assets";
 import { useStore } from "../store";
-import { isStageTransition, MatchOpCode, NkResponse } from "../types";
-import { parseError, parseMatchData } from "../util";
-import { fakeDiceRolls } from "./fake-dice-rolls";
-import { fakePowerUps } from "./fake-power-ups";
+import { MatchOpCode, NkResponse } from "../types";
+import { parseError } from "../util";
 
 export const useMatch = () => {
   const socket = useStore((state) => state.socket);
-  const setRoundStage = useStore((state) => state.setRoundStage);
-  const roundStage = useStore((state) => state.roundStage);
-  const setPowerUps = useStore((state) => state.setPowerUps);
-  const setFaceValues = useStore((state) => state.setFaceValues);
+
+  const matchStage = useStore((state) => state.matchStage);
+
   const matchId = useStore((state) => state.matchId);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (!socket) return;
-
-    socket.onmatchdata = (matchData: MatchData) => {
-      // TODO: game server manages to transition and broadcast the message, but for some reason the following log is not called, so the listener does not get triggered on the frontend
-      console.log("🚀 ~ file: match.ts ~ line 23 ~ useEffect ~ matchData", matchData);
-
-      if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
-        const payload = parseMatchData(matchData.data);
-        if (!isStageTransition(payload)) return;
-
-        switch (payload.matchStage) {
-          case "getPowerUpStage":
-            // TODO: remove fake data
-            setPowerUps(fakePowerUps);
-            break;
-          case "rollDiceStage":
-            // TODO: remove fake data
-            setFaceValues(fakeDiceRolls);
-            break;
-          case "playerTurnLoopStage":
-            // TODO: add other stages
-            break;
-          case "roundSummaryStage":
-            break;
-          case "endOfMatchStage":
-            break;
-        }
-      }
-    };
-  }, [roundStage, setFaceValues, setPowerUps, setRoundStage, socket]);
-
   const sendMatchState = useCallback(
     async (opCode: MatchOpCode, payload?: string): Promise<NkResponse> => {
+      if (!socket) throw new Error(text.error.noSocketConnected);
+      if (!matchId) throw new Error(text.error.noMatchIdFound);
       try {
-        if (!socket) throw new Error(text.error.noSocketConnected);
-        if (!matchId) throw new Error(text.error.noMatchIdFound);
         setIsLoading(true);
-
         socket.sendMatchState(matchId, opCode, payload || "");
       } catch (error) {
         const parsedErr = await parseError(error);
@@ -67,7 +30,7 @@ export const useMatch = () => {
   );
 
   return {
-    roundStage,
+    matchStage,
     isLoading,
     sendMatchState,
   };

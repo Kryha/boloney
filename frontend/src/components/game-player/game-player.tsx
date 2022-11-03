@@ -12,8 +12,8 @@ import {
 } from "./styles";
 import { handProportion } from "../../design/hand";
 import { Player } from "../../types";
-import { PlayerGameState } from "./game-player-info";
 import { avatars } from "../../assets";
+import { PlayerGameState } from "./game-player-info";
 
 interface GamePlayerProps {
   totalPlayers: number;

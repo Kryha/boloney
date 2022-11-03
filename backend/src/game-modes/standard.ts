@@ -1,4 +1,4 @@
-import { getAvailableAvatar, handleStage } from "../services";
+import { getAvailableAvatar, handleInactiveMatch, handleStage, updateEmptyTicks } from "../services";
 import { text } from "../text";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams } from "../types";
 import { handleError } from "../utils";
@@ -80,15 +80,10 @@ export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, 
 
   const loopParams: MatchLoopParams = { ctx, logger, nk, dispatcher, tick, state, messages };
 
-  //TODO: create proper empty tick handler
-  // If we have no presences in the match according to the match state, increment the empty ticks count or reset once a player has joined
-  if (!state.players) {
-    state.emptyTicks++;
-  } else {
-    state.emptyTicks = 0;
-  }
-  // If the match has been empty for more than 500 ticks, end the match by returning null
-  if (state.emptyTicks > 500) return null;
+  // End match if players are inactive
+  updateEmptyTicks(state, messages);
+  const isMatchInactive = handleInactiveMatch(state, dispatcher);
+  if (isMatchInactive) return null;
 
   handleStage[state.matchStage](loopParams);
 

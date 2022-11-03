@@ -76,12 +76,8 @@ interface PlayersContainerProps {
 
 export const GamePlayersContainer = styled.div<PlayersContainerProps>`
   ${({ totalPlayers }) => {
-    return totalPlayers != 1
+    return totalPlayers === 1
       ? `
-      position: absolute;
-      bottom: 0.325em;
-    `
-      : `
       display: flex;
       height: 100%;
       align-items: center;
@@ -92,6 +88,10 @@ export const GamePlayersContainer = styled.div<PlayersContainerProps>`
         bottom: ${margins.small2};
         left: 0.425em;
       }
+    `
+      : `
+      position: absolute;
+      bottom: 0.325em;
       `;
   }}
 `;
