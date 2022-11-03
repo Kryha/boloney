@@ -42,7 +42,7 @@ export const isPowerUp = (value: unknown): value is PowerUp => {
     assertedVal.image !== undefined &&
     isString(assertedVal.id) &&
     isString(assertedVal.name) &&
-    isString(assertedVal.name)
+    isString(assertedVal.image)
   );
 };
 
