@@ -27,7 +27,6 @@ export const FieldContainer = styled.section`
 `;
 
 export const CheckboxContainer = styled.section`
-  height: 1000px;
   overflow: auto;
   ${CheckboxWrapper}:nth-of-type(1) {
     ${DescriptionContainer} {

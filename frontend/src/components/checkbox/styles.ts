@@ -39,7 +39,7 @@ export const CheckContainer = styled.div`
 `;
 
 export const CheckWrapper = styled.div`
-  padding: ${margins.small6} ${margins.small6} ${margins.large0} ${margins.small6};
+  padding: ${margins.small5} ${margins.small5} ${margins.large0} ${margins.small5};
   user-select: none;
   cursor: pointer;
 `;
@@ -51,9 +51,9 @@ interface DescriptionContainerProps {
 export const DescriptionContainer = styled.div<DescriptionContainerProps>`
   flex: 11;
 
-  padding: ${margins.small2};
+  padding: ${margins.small2} 0px ${margins.small2} ${margins.small2};
   ${GeneralContentWrapper} {
-    margin-left: ${margins.small4};
+    margin-left: ${margins.small3};
     margin-top: ${margins.small0};
   }
   ${Heading6} {
@@ -69,7 +69,7 @@ interface CheckboxContainerProps {
 
 export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   display: flex;
-  width: 62.5vw;
+  width: 100%;
   cursor: pointer;
   border-top: ${({ isTop }) => (isTop ? `1px solid ${color.mediumGrey}` : "0px")};
   background: ${({ isChecked }) => (isChecked ? color.white : "transparent")};
@@ -82,9 +82,10 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   }
   ${PowerUpWrapper} {
     margin-top: ${margins.small5};
+    margin-bottom: ${margins.small3};
   }
   ${Row} {
-    gap: ${margins.small1};
+    gap: ${margins.small0};
   }
 `;
 
