@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, RightArrowIcon } from "../../assets/icons";
+import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, LeftArrowIcon, RightArrowIcon } from "../../assets/icons";
 import { color, fontSize, fontWeight, margins } from "../../design";
 import { zIndex } from "../../design/z-index";
 import { SecondaryButtonBase } from "../atoms";
@@ -114,12 +114,14 @@ export const PrimaryButtonWrapper = styled.div<ButtonProps>`
   }
 `;
 
-export const SecondaryArrow = styled(RightArrowIcon)`
-  width: 15px;
-  height: 7.5px;
-`;
+export const SecondaryArrow = styled(RightArrowIcon)``;
+
+export const LeftArrow = styled(LeftArrowIcon)``;
 
 export const SecondaryButtonContainer = styled.div<ButtonProps>`
+  display: flex;
+  align-items: center;
+  padding: 10px;
   ${SecondaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};

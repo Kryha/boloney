@@ -23,4 +23,5 @@ export const general = {
   imReady: "i'm ready!",
   loading: "loading...",
   close: "close",
+  goBack: "go back",
 };

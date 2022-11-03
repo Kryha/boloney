@@ -1,11 +1,22 @@
 import { FC, useState } from "react";
 
-import { LargePowerUpImage, PowerUpCard, PowerUpImage, PowerUpInfo, PowerUpListOverviewWrapper } from "./styles";
+import {
+  LargePowerUpImage,
+  PowerUpButtonContainer,
+  PowerUpCard,
+  PowerUpDescriptionContainer,
+  PowerUpDetailInfo,
+  PowerUpDetailSection,
+  PowerUpImage,
+  PowerUpInfo,
+  PowerUpListOverviewWrapper,
+} from "./styles";
 import { PowerUp } from "../../types";
 import { PowerUpDataProps, POWER_UP_DATA, text } from "../../assets";
 import { GeneralText, Heading1, Heading2 } from "../atoms";
 import { color } from "../../design";
 import { useStore } from "../../store";
+import { GoBackButton } from "../buttons";
 
 interface PowerUpListOverviewProps {
   powerUps: PowerUp[];
@@ -13,19 +24,27 @@ interface PowerUpListOverviewProps {
 
 export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUps }) => {
   const setIsContainerVisible = useStore((state) => state.setIsContainerVisible);
-  const [showOverview, setShowOverview] = useState(true);
+  const setModalComponent = useStore((state) => state.setModalComponent);
+  const setIsOverviewVisible = useStore((state) => state.setIsOverviewVisible);
+  const isOverviewVisible = useStore((state) => state.isOverviewVisible);
   const [power, setPowerUp] = useState<PowerUpDataProps | undefined>(undefined);
 
   const openDetail = (powerUp: PowerUpDataProps) => {
     setIsContainerVisible(true);
-    setShowOverview(false);
+    setIsOverviewVisible(false);
     setPowerUp(powerUp);
+  };
+
+  const openOverview = () => {
+    setIsContainerVisible(false);
+    setIsOverviewVisible(true);
+    setModalComponent(<PowerUpListOverview powerUps={powerUps} />);
   };
 
   return (
     <>
-      {showOverview ? (
-        <PowerUpListOverviewWrapper showOverview={showOverview}>
+      {isOverviewVisible ? (
+        <PowerUpListOverviewWrapper showOverview={isOverviewVisible}>
           {powerUps.map((powerUp) => {
             const dataPowerUp = POWER_UP_DATA.find((a) => a.id === powerUp.id);
             if (!dataPowerUp) return <></>;
@@ -44,11 +63,19 @@ export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUps }) 
       ) : (
         <>
           {power && (
-            <>
+            <PowerUpDetailSection>
               <Heading1 customColor={color.mediumGrey}>{power.name}</Heading1>
-              <GeneralText>{power.longDescription}</GeneralText>
-              <LargePowerUpImage></LargePowerUpImage>
-            </>
+              <PowerUpDetailInfo>
+                <PowerUpDescriptionContainer>
+                  <GeneralText>{power.longDescription}</GeneralText>
+                  <PowerUpButtonContainer>
+                    {/* TODO: add button primary */}
+                    <GoBackButton text={text.general.goBack} onClick={openOverview} />
+                  </PowerUpButtonContainer>
+                </PowerUpDescriptionContainer>
+                <LargePowerUpImage src={power.cardImage} alt={power.name} />
+              </PowerUpDetailInfo>
+            </PowerUpDetailSection>
           )}
         </>
       )}

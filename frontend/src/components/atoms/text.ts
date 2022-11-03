@@ -12,7 +12,7 @@ export const Heading1 = styled.h1<TextProps>`
   font-size: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
   line-height: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
   letter-spacing: -0.02em;
-  color: ${color.black};
+  color: ${({ customColor }): string => customColor || color.black};
   :first-letter {
     text-transform: capitalize;
   }
@@ -127,4 +127,5 @@ interface ColorSpanProps {
 
 export const ColorSpan = styled.span<ColorSpanProps>`
   color: ${({ customColor }) => color[customColor]};
+  font-weight: ${fontWeight.regular};
 `;

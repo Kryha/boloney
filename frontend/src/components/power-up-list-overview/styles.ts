@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { color } from "../../design";
-import { Heading2 } from "../atoms";
+import { color, margins } from "../../design";
+import { GeneralText, Heading2 } from "../atoms";
 
 interface Props {
   showOverview: boolean;
@@ -48,4 +48,36 @@ export const PowerUpInfo = styled.section`
   }
 `;
 
-export const LargePowerUpImage = styled.img``;
+export const LargePowerUpImage = styled.img`
+  width: 44vw;
+  height: auto;
+`;
+
+export const PowerUpDetailSection = styled.section`
+  padding: ${margins.large1} ${margins.large1} ${margins.large1} ${margins.large0};
+`;
+
+export const PowerUpDetailInfo = styled.section`
+  width: 87vw;
+  height: 57vh;
+  display: flex;
+  align-items: flex-start;
+  ${GeneralText} {
+    width: 43vw;
+    margin-top: ${margins.small6};
+    max-height: 45vh;
+    overflow: scroll;
+}
+  }
+`;
+
+export const PowerUpDescriptionContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const PowerUpButtonContainer = styled.section`
+  position: absolute;
+  bottom: ${margins.small5};
+  left: ${margins.large0};
+`;

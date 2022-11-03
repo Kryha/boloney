@@ -19,9 +19,12 @@ interface GameLayoutProps {
 export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, powerUps, currentPlayer }) => {
   const setIsModalVisible = useStore((state) => state.setIsModalVisible);
   const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
+  const setIsOverviewVisible = useStore((state) => state.setIsOverviewVisible);
+
   const handleClose = () => {
     setIsOverlayVisible(false);
     setIsModalVisible(false);
+    setIsOverviewVisible(true);
   };
 
   return (
