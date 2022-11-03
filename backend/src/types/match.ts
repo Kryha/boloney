@@ -138,8 +138,9 @@ export type MatchStage =
   | "getPowerUpStage" // Get powerups
   | "rollDiceStage" // Roll the dice
   | "playerTurnLoopStage" // Players turn loop
-  | "roundSummaryStage" // Round summery
-  | "endOfMatchStage"; // Match summery
+  | "roundSummaryStage" // Round summary
+  | "endOfMatchStage" // Match summary
+  | "terminateMatchStage"; // Garbage Collection
 
 export const isMatchStage = (value: unknown): value is MatchStage => {
   const assertedVal = value as MatchStage;

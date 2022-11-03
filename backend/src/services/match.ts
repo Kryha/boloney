@@ -1,6 +1,6 @@
 import { text } from "../text";
-import { AvatarId, MatchLoopParams, MatchStage, MatchState, Player } from "../types";
-import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES, randomInt } from "../utils";
+import { AvatarId, MatchLoopParams, MatchOpCode, MatchStage, MatchState, Player } from "../types";
+import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES, MAX_INACTIVE_TICKS, randomInt } from "../utils";
 //This gets called when enough players are in a pool
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   try {
@@ -25,7 +25,7 @@ export const getMessageSender = (state: MatchState, message: nkruntime.MatchMess
 // TODO: improve function after adding other functionality
 // "endOfMatchStage" has itself as next stage
 export const getNextStage = (state: MatchState): MatchStage => {
-  if (state.matchStage === "endOfMatchStage") return state.matchStage;
+  if (state.matchStage === "endOfMatchStage") return "terminateMatchStage";
   const currentStageIndex = MATCH_STAGES.indexOf(state.matchStage);
   const nextStage = MATCH_STAGES[currentStageIndex + 1];
   if (!nextStage) return "endOfMatchStage";
@@ -72,4 +72,22 @@ const handleMessages = (loopParams: MatchLoopParams, callback: MessageCallback) 
 export const handleMatchStage = (loopParams: MatchLoopParams, messageCb: MessageCallback, transitionCb?: StageTransitionCallback) => {
   handleMessages(loopParams, messageCb);
   attemptStageTransition(loopParams, transitionCb);
+};
+
+// If we have no presences nor messages, increment empty ticks
+export const updateEmptyTicks = (state: MatchState, messages: nkruntime.MatchMessage[]): void => {
+  if (!state.players || !messages.length) {
+    state.emptyTicks++;
+  } else {
+    state.emptyTicks = 0;
+  }
+};
+
+// TODO: Add paylod to the message for correctly rendering the end of match stage when match inactive
+export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.MatchDispatcher): boolean => {
+  if (state.emptyTicks > MAX_INACTIVE_TICKS) {
+    dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "endOfMatchStage" }));
+    return true;
+  }
+  return false;
 };

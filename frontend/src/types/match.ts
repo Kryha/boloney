@@ -109,7 +109,7 @@ export const matchFormSettingsSchema = z.object({
 
 export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
 
-export type RoundStage =
+export type MatchStage =
   | "lobbyStage"
   | "getPowerUpStage"
   | "rollDiceStage"
