@@ -9,13 +9,6 @@ export const fakePlayers: Player[] = [
     isConnected: true,
     isReady: false,
   },
-  {
-    userId: "11111111",
-    username: "señor.garfio",
-    avatarId: 1,
-    isConnected: false,
-    isReady: false,
-  },
 ];
 
 export const fakeActivePlayer: Player = {

@@ -5,7 +5,7 @@ import { MenuDropdown } from "./menu";
 import { RulesDropdown } from "./rules";
 import { VerticalDivider } from "../atoms";
 import { MatchStats } from "./match-state/match-stats";
-import { useOnClickOutside, useOnClickOutside } from "usehooks-ts";
+import { useOnClickOutside } from "usehooks-ts";
 
 interface Props {
   isInMatch?: boolean;
