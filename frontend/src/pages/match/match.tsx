@@ -3,7 +3,7 @@ import { ReactNode, useEffect } from "react";
 
 import { text } from "../../assets";
 import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
-import { fakeDiceRolls, useMatch } from "../../service";
+import { fakeDiceRolls, useMatch, fakeActivePlayer } from "../../service";
 import { fakePowerUps } from "../../service/fake-power-ups";
 import { useStore } from "../../store";
 import { isStageTransition, MatchOpCode, MatchStage } from "../../types";
@@ -77,7 +77,7 @@ export const Match = () => {
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
   return (
-    <GameLayout players={Object.values(players)} dice={faceValues} powerUps={powerUps}>
+    <GameLayout players={Object.values(players)} dice={faceValues} powerUps={powerUps} currentPlayer={fakeActivePlayer}>
       <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
     </GameLayout>
   );

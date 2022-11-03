@@ -44,11 +44,12 @@ export const fakePlayers: Player[] = [
     isConnected: false,
     isReady: false,
   },
-  {
-    userId: "666666",
-    username: "yoda",
-    avatarId: 7,
-    isConnected: true,
-    isReady: false,
-  },
 ];
+
+export const fakeActivePlayer: Player = {
+  userId: "666666",
+  username: "yoda",
+  avatarId: 7,
+  isConnected: true,
+  isReady: false,
+};

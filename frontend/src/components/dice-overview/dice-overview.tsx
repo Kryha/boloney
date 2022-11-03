@@ -19,12 +19,12 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
   return (
     <DieOverviewWrapper>
       <DieOverviewContainer height={height}>
+        <GeneralText>{text.param.xAmount(dice.length)}</GeneralText>
         <YourDiceContainer>
           {dice.map((die, index) => (
             <DieComponent key={index} value={die.rolledValue} />
           ))}
         </YourDiceContainer>
-        <GeneralText>{text.param.yourDice(dice.length)}</GeneralText>
       </DieOverviewContainer>
     </DieOverviewWrapper>
   );
