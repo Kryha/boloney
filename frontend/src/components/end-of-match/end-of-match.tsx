@@ -14,7 +14,7 @@ export const EndOfMatch: FC<Props> = ({ matchStageReady }) => {
   const navigate = useNavigate();
   const handleNewMatch = (): void => {
     matchStageReady();
-    navigate(`${routes.home}`);
+    navigate(routes.home);
   };
   return (
     <BottomButtonWrapper>

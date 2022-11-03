@@ -47,8 +47,6 @@ export const Match = () => {
 
       if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
         if (!isStageTransition(payload)) return;
-        console.log("OP_Code: ", matchData.op_code);
-        console.log(JSON.stringify(payload, null, 4));
 
         setMatchStage(payload.matchStage as MatchStage);
 
@@ -76,6 +74,7 @@ export const Match = () => {
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
+  // TODO: Remove fakeActivePlayer
   return (
     <GameLayout players={Object.values(players)} dice={faceValues} powerUps={powerUps} currentPlayer={fakeActivePlayer}>
       <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
