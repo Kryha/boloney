@@ -35,14 +35,8 @@ export const BaseInput = styled.input`
   }
   box-sizing: border-box;
   padding: 23px ${margins.large0};
-  :hover {
-    border: 1px solid ${color.black} !important;
-  }
-  :active {
-    border: 1px solid ${color.black} !important;
-  }
+  border: none;
   :focus {
-    border: 1px solid ${color.black} !important;
     outline-width: 0px !important;
     box-shadow: none;
     outline: none;
@@ -50,9 +44,6 @@ export const BaseInput = styled.input`
   :disabled {
     &::placeholder {
       color: ${color.darkGrey};
-    }
-    :hover {
-      border: 1px solid ${color.mediumGrey} !important;
     }
   }
   -webkit-appearance: none;
@@ -74,21 +65,9 @@ export const BaseSelect = styled.select`
     -webkit-appearance: none;
   }
   box-sizing: border-box;
-  border-radius: 0px;
-  -webkit-border-radius: 0px;
-  border: 1px solid ${color.mediumGrey};
-  border-right: 1px solid transparent;
-  border-left: 1px solid transparent;
   cursor: pointer;
   padding: 23px ${margins.large0};
-  :hover {
-    background-color: ${color.white};
-  }
-  :active {
-    border: 1px solid ${color.black} !important;
-  }
   :focus {
-    border: 1px solid ${color.black} !important;
     outline-color: -webkit-focus-ring-color;
     outline-style: auto;
     outline-width: 0px !important;

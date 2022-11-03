@@ -2,7 +2,7 @@ import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
-import { BaseOption, BaseSelect, Input } from "../../components";
+import { BaseOption, BaseSelect, InputLegend } from "../../components";
 import { MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
@@ -15,7 +15,12 @@ interface Props {
 export const PowerUpsAmountField: FC<Props> = ({ register }) => {
   return (
     <PlayersDiceContainer>
-      <Input label={text.newGame.initialPowerUpAmount}>
+      <InputLegend
+        label={text.newGame.initialPowerUpAmount}
+        isRow
+        tooltipInfo={text.general.toolTipInfo}
+        tooltipTitle={text.general.toolTipTitle}
+      >
         <BaseSelect {...register("initialPowerUpAmount")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
@@ -23,8 +28,14 @@ export const PowerUpsAmountField: FC<Props> = ({ register }) => {
             </BaseOption>
           ))}
         </BaseSelect>
-      </Input>
-      <Input label={text.newGame.maxPowerUpAmount}>
+      </InputLegend>
+      <InputLegend
+        label={text.newGame.maxPowerUpAmount}
+        isRow
+        childNode={2}
+        tooltipInfo={text.general.toolTipInfo}
+        tooltipTitle={text.general.toolTipTitle}
+      >
         <BaseSelect {...register("maxPowerUpAmount")}>
           {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
             <BaseOption key={n} value={n}>
@@ -32,7 +43,7 @@ export const PowerUpsAmountField: FC<Props> = ({ register }) => {
             </BaseOption>
           ))}
         </BaseSelect>
-      </Input>
+      </InputLegend>
     </PlayersDiceContainer>
   );
 };

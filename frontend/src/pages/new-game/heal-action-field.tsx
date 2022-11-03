@@ -2,11 +2,11 @@ import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
-import { BaseOption, BaseSelect, Input } from "../../components";
+import { BaseOption, BaseSelect, InputLegend } from "../../components";
 import { MAX_HEAL_POWER_UP_AMOUNT, MAX_STAGE_NUMBER_DIVISOR, MIN_HEAL_POWER_UP_AMOUNT, MIN_STAGE_NUMBER_DIVISOR } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
-import { InputFieldContainer } from "./styles";
+import { PlayersDiceContainer } from "./styles";
 
 interface Props {
   register: UseFormRegister<MatchSettings>;
@@ -14,8 +14,8 @@ interface Props {
 
 export const HealActionField: FC<Props> = ({ register }) => {
   return (
-    <InputFieldContainer>
-      <Input label={text.newGame.healAction}>
+    <PlayersDiceContainer>
+      <InputLegend label={text.newGame.healAction} isRow tooltipInfo={text.general.toolTipInfo} tooltipTitle={text.general.toolTipTitle}>
         <BaseSelect {...register("healPowerUpAmount")}>
           {range(MAX_HEAL_POWER_UP_AMOUNT, MIN_HEAL_POWER_UP_AMOUNT).map((n) => (
             <BaseOption key={n} value={n}>
@@ -23,8 +23,14 @@ export const HealActionField: FC<Props> = ({ register }) => {
             </BaseOption>
           ))}
         </BaseSelect>
-      </Input>
-      <Input label={text.newGame.stageNumberDivisor}>
+      </InputLegend>
+      <InputLegend
+        label={text.newGame.stageNumberDivisor}
+        isRow
+        childNode={2}
+        tooltipInfo={text.general.toolTipInfo}
+        tooltipTitle={text.general.toolTipTitle}
+      >
         <BaseSelect {...register("stageNumberDivisor")}>
           {range(MAX_STAGE_NUMBER_DIVISOR, MIN_STAGE_NUMBER_DIVISOR).map((n) => (
             <BaseOption key={n} value={n}>
@@ -32,7 +38,7 @@ export const HealActionField: FC<Props> = ({ register }) => {
             </BaseOption>
           ))}
         </BaseSelect>
-      </Input>
-    </InputFieldContainer>
+      </InputLegend>
+    </PlayersDiceContainer>
   );
 };
