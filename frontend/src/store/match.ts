@@ -1,19 +1,19 @@
 import { StateCreator } from "zustand";
-import { Die, Player, PowerUp, RoundStage } from "../types";
+import { Die, Player, PowerUp, MatchStage } from "../types";
 
 export interface MatchSlice {
   ticket?: string;
   matchId?: string;
   powerUps?: PowerUp[];
   faceValues?: Die[];
-  roundStage: RoundStage;
+  matchStage: MatchStage;
   players: Record<string, Player>;
 
   setTicket: (ticket: string) => void;
   setMatchId: (match_id: string) => void;
   setFaceValues: (faceValues: Die[]) => void;
   setPowerUps: (powerUps: PowerUp[]) => void;
-  setRoundStage: (roundStage: RoundStage) => void;
+  setMatchStage: (matchStage: MatchStage) => void;
   setPlayers: (players: Record<string, Player>) => void;
 }
 
@@ -22,13 +22,13 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   matchId: undefined,
   powerUps: undefined,
   faceValues: undefined,
-  roundStage: "getPowerUpStage",
+  matchStage: "getPowerUpStage",
   players: {},
 
   setTicket: (ticket) => set(() => ({ ticket })),
   setMatchId: (matchId) => set(() => ({ matchId })),
   setPowerUps: (powerUps) => set(() => ({ powerUps })),
   setFaceValues: (faceValues) => set(() => ({ faceValues })),
-  setRoundStage: (roundStage) => set(() => ({ roundStage })),
+  setMatchStage: (matchStage) => set(() => ({ matchStage })),
   setPlayers: (players) => set(() => ({ players })),
 });
