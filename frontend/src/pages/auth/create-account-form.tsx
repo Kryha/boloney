@@ -6,13 +6,13 @@ import { text } from "../../assets/text";
 import {
   Heading1,
   Heading4,
-  Input,
   Paragraph,
   BaseInput,
   FormContainer,
   Link,
   PrimaryButton,
   GeneralContentWrapper,
+  InputLegend,
 } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
@@ -62,10 +62,10 @@ export const CreateAccountForm: FC = () => {
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
           <AuthContainer>
-            <Input label={text.authForm.username} isError={!!errors.username} errorMessage={showUsernameError()} isRow>
+            <InputLegend label={text.authForm.username} isError={!!errors.username} errorMessage={showUsernameError()} isRow>
               <BaseInput type="text" {...register("username", { required: true, minLength: MINIMUM_USERNAME_LENGTH })} />
-            </Input>
-            <Input
+            </InputLegend>
+            <InputLegend
               label={text.authForm.password}
               isError={!!errors.password}
               errorMessage={text.authForm.errorMessages.passwordMinimum}
@@ -73,7 +73,7 @@ export const CreateAccountForm: FC = () => {
               childNode={2}
             >
               <BaseInput type="password" {...register("password", { required: true, minLength: MINIMUM_PASSWORD_LENGTH })} />
-            </Input>
+            </InputLegend>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
             <Paragraph>{text.authForm.iAlreadyHaveAnAccount}</Paragraph>

@@ -4,9 +4,8 @@ import { TopNavigationSection } from "./styles";
 import { MenuDropdown } from "./menu";
 import { RulesDropdown } from "./rules";
 import { VerticalDivider } from "../atoms";
-import { OverlayWrapper } from "../overlay-wrapper";
 import { MatchStats } from "./match-state/match-stats";
-import { useOnClickOutside } from "usehooks-ts";
+import { useOnClickOutside, useOnClickOutside } from "usehooks-ts";
 
 interface Props {
   isInMatch?: boolean;

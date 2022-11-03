@@ -27,3 +27,4 @@ export * from "./player-turns";
 export * from "./get-power-ups";
 export * from "./end-of-match";
 export * from "./end-of-round";
+export * from "./tooltip";
