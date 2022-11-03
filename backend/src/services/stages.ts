@@ -74,11 +74,13 @@ export const handleStage: StageHandlers = {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),
-
+  // TODO: Add broadcast to inform the client when player has left the match
   endOfMatchStage: (loopParams) =>
     handleMatchStage(loopParams, (message, sender, { state }) => {
       if (message.opCode == MatchOpCode.PLAYER_READY) {
         state.playersReady.push(sender.userId);
       }
     }),
+  // TODO: Add garbage collection logic to end the match
+  terminateMatchStage: (loopParams) => null,
 };

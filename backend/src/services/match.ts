@@ -25,7 +25,7 @@ export const getMessageSender = (state: MatchState, message: nkruntime.MatchMess
 // TODO: improve function after adding other functionality
 // "endOfMatchStage" has itself as next stage
 export const getNextStage = (state: MatchState): MatchStage => {
-  if (state.matchStage === "endOfMatchStage") return state.matchStage;
+  if (state.matchStage === "endOfMatchStage") return "terminateMatchStage";
   const currentStageIndex = MATCH_STAGES.indexOf(state.matchStage);
   const nextStage = MATCH_STAGES[currentStageIndex + 1];
   if (!nextStage) return "endOfMatchStage";
