@@ -12,7 +12,7 @@ export const CloseButton = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px 26px 0px 30px;
+  padding: 16px 26px 20px 30px;
   gap: 8px;
   background: ${color.lightGrey};
   z-index: 6;
@@ -41,13 +41,13 @@ export const ChildrenWrapper = styled.div<ChildrenWrapperProps>`
   box-shadow: ${({ hasContainer }) => (hasContainer ? "0px 2px 19px rgba(0, 0, 0, 0.28)" : "none")};
   border-radius: 10px;
   background: ${({ hasContainer }) => (hasContainer ? `${color.white}` : "transparent")};
-  width: 94.4vw;
+  width: clamp(920px, 87.5vw + 80px, 1760px);
   height: 85.6vh;
   position: fixed;
   z-index: 5;
-  top: 50%;
+  top: 61px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 `;
 
 interface ModalProps {

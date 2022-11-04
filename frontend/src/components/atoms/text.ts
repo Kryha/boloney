@@ -54,7 +54,7 @@ export const Heading4 = styled.h4<TextProps>`
 export const Heading5 = styled.h5<TextProps>`
   font-family: "itc-clearface-regular";
   font-weight: ${fontWeight.regular};
-  font-size: clamp(1rem, 0.42vw + 0.75rem, 1.25rem);
+  font-size: clamp(13.12px, 0.72vw + 6.24px, 20px);
   line-height: clamp(1.13rem, 0.63vw + 0.75rem, 1.5rem);
   color: ${({ customColor }): string => customColor || color.black};
   :first-letter {

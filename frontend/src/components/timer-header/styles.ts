@@ -5,6 +5,7 @@ import { Row, VerticalDivider } from "../atoms";
 export const TimerRow = styled(Row)`
   gap: ${margins.small4};
   padding-top: ${margins.medium0};
+  margin-bottom: ${margins.small4};
 `;
 
 export const Divider = styled(VerticalDivider)`
