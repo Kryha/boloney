@@ -130,7 +130,6 @@ export const NameContainer = styled.section`
 `;
 
 export const NameWrapper = styled.section`
-  height: 37vh;
   position: relative;
   ${ChatSection} {
     display: block;
