@@ -6,7 +6,7 @@ import { LineContainer, TopNavigation, LobbyPlayer } from "../../components";
 import { routes } from "../../navigation";
 import { useMatchMaker } from "../../service";
 import { useStore } from "../../store";
-import { isPlayerRecord, MatchOpCode } from "../../types";
+import { isPlayerOrderObject, isPlayerRecord, MatchOpCode } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 import { LobbyWrapper } from "./styles";
 
@@ -17,6 +17,7 @@ export const Lobby: FC = () => {
   const session = useStore((state) => state.sessionState);
   const players = useStore((state) => state.players);
   const setPlayers = useStore((state) => state.setPlayers);
+  const setPlayerOrder = useStore((state) => state.setPlayerOrder);
 
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);
@@ -45,12 +46,18 @@ export const Lobby: FC = () => {
           setPlayers(players);
           break;
         }
+        case MatchOpCode.PLAYER_ORDER_SHUFFLE: {
+          const playerOrder = parseMatchData(matchData.data);
+          if (!isPlayerOrderObject(playerOrder)) return;
+          setPlayerOrder(playerOrder.playerOrder);
+          break;
+        }
         case MatchOpCode.STAGE_TRANSITION: {
           navigate(routes.match);
         }
       }
     };
-  }, [joinMatch, navigate, session?.username, setPlayers, socket]);
+  }, [joinMatch, navigate, session?.username, setPlayerOrder, setPlayers, socket]);
 
   if (!matchId) return <Navigate to={routes.home} />;
 

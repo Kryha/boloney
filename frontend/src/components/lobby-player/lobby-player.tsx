@@ -12,7 +12,7 @@ interface LobbyPlayerProps {
 
 export const LobbyPlayer: FC<LobbyPlayerProps> = ({ player }) => {
   //This is needs to be here for the quick match option
-  if (!avatars[player.avatarId]) return <>Loading</>;
+  if (!player.avatarId) return <>Loading</>;
   return (
     <LobbyPlayerWrapper isWaiting={!player.isReady}>
       <Hand key={player.username} avatarName={avatars[player.avatarId].name} name={player.username} />
