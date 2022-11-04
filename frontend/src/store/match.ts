@@ -17,6 +17,7 @@ export interface MatchSlice {
   setMatchStage: (matchStage: MatchStage) => void;
   setPlayers: (players: Record<string, Player>) => void;
   setPlayerOrder: (playerOrder: string[]) => void;
+  setInitialState: () => void;
 }
 
 export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
@@ -35,4 +36,15 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setMatchStage: (matchStage) => set(() => ({ matchStage })),
   setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
+  setInitialState: () => {
+    set(() => ({
+      ticket: undefined,
+      matchId: undefined,
+      powerUps: undefined,
+      faceValues: undefined,
+      matchStage: "getPowerUpStage",
+      players: {},
+      playerOrder: [],
+    }));
+  },
 });
