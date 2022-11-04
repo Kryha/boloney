@@ -23,6 +23,6 @@ export const general = {
   imReady: "i'm ready!",
   loading: "loading...",
   // TODO: delete
-  toolTipInfo: "This is the description",
-  toolTipTitle: "This is the title",
+  toolTipInfo: "this is the description",
+  toolTipTitle: "this is the title",
 };
