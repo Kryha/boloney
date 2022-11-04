@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { text } from "../assets";
 import { useStore } from "../store";
-import { MatchOpCode, NkResponse } from "../types";
+import { MatchOpCode, NkResponse, Player } from "../types";
 import { parseError } from "../util";
 
 export const useMatch = () => {
@@ -29,9 +29,14 @@ export const useMatch = () => {
     [matchId, socket]
   );
 
+  const getOrderedPlayers = useCallback(
+    (players: Record<string, Player>, playerOrder: string[]): Player[] => playerOrder.map((playerId) => players[playerId]),
+    []
+  );
   return {
     matchStage,
     isLoading,
     sendMatchState,
+    getOrderedPlayers,
   };
 };

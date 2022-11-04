@@ -10,10 +10,11 @@ import { isStageTransition, MatchOpCode, MatchStage } from "../../types";
 import { parseMatchData } from "../../util";
 
 export const Match = () => {
-  const { matchStage, sendMatchState, isLoading } = useMatch();
+  const { matchStage, sendMatchState, getOrderedPlayers, isLoading } = useMatch();
   const powerUps = useStore((state) => state.powerUps);
   const faceValues = useStore((state) => state.faceValues);
   const players = useStore((state) => state.players);
+  const playersOrder = useStore((state) => state.playerOrder);
   const socket = useStore((state) => state.socket);
   const setPowerUps = useStore((state) => state.setPowerUps);
   const setFaceValues = useStore((state) => state.setFaceValues);
@@ -76,7 +77,7 @@ export const Match = () => {
 
   // TODO: Remove fakeActivePlayer
   return (
-    <GameLayout players={Object.values(players)} dice={faceValues} powerUps={powerUps} currentPlayer={fakeActivePlayer}>
+    <GameLayout players={getOrderedPlayers(players, playersOrder)} dice={faceValues} powerUps={powerUps} currentPlayer={fakeActivePlayer}>
       <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
     </GameLayout>
   );
