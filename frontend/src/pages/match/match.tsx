@@ -76,7 +76,7 @@ export const Match = () => {
 
   // TODO: Remove fakeActivePlayer
   return (
-    <GameLayout players={fakePlayers} dice={faceValues} powerUps={powerUps} currentPlayer={fakeActivePlayer}>
+    <GameLayout players={fakePlayers} dice={faceValues} powerUps={fakePowerUps} currentPlayer={fakeActivePlayer}>
       <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
     </GameLayout>
   );

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
+import { fadeIn } from "../atoms";
 import { GeneralText } from "../atoms/text";
 import { Lightning } from "../icons/styles";
 
@@ -33,6 +34,7 @@ export const PowerUpOverviewContainer = styled.div<ViewportProps>`
       stroke: ${color.black};
     }
   }
+  animation: ${fadeIn} 2s;
 `;
 
 export const YourPowerUpContainer = styled.div`
