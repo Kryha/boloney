@@ -25,7 +25,7 @@ export const PowerUpOverviewContainer = styled.div<ViewportProps>`
   width: 31.25vw;
   height: 7.198vh;
   background: transparent;
-  margin-top: ${margins.small2};
+  margin-top: ${margins.small5};
   ${GeneralText} {
     color: ${color.black};
   }
