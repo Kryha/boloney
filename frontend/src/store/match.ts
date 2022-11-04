@@ -2,7 +2,6 @@ import { StateCreator } from "zustand";
 import { Die, Player, PowerUp, MatchStage } from "../types";
 
 export interface MatchSlice {
-  ticket?: string;
   matchId?: string;
   powerUps?: PowerUp[];
   faceValues?: Die[];
@@ -10,7 +9,6 @@ export interface MatchSlice {
   players: Record<string, Player>;
   playerOrder: string[];
 
-  setTicket: (ticket: string) => void;
   setMatchId: (match_id: string) => void;
   setFaceValues: (faceValues: Die[]) => void;
   setPowerUps: (powerUps: PowerUp[]) => void;
@@ -21,7 +19,6 @@ export interface MatchSlice {
 }
 
 export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
-  ticket: undefined,
   matchId: undefined,
   powerUps: undefined,
   faceValues: undefined,
@@ -29,7 +26,6 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   players: {},
   playerOrder: [],
 
-  setTicket: (ticket) => set(() => ({ ticket })),
   setMatchId: (matchId) => set(() => ({ matchId })),
   setPowerUps: (powerUps) => set(() => ({ powerUps })),
   setFaceValues: (faceValues) => set(() => ({ faceValues })),
@@ -38,7 +34,6 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
   setInitialState: () => {
     set(() => ({
-      ticket: undefined,
       matchId: undefined,
       powerUps: undefined,
       faceValues: undefined,
