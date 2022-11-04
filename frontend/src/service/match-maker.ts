@@ -12,6 +12,7 @@ export const useMatchMaker = () => {
   const setTicket = useStore((state) => state.setTicket);
   const setMatchId = useStore((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
+  const setInitialState = useStore((state) => state.setInitialState);
 
   const joinMatch = useCallback(
     async (matchId: string, metadata: MatchJoinMetadata): Promise<NkResponse> => {
@@ -19,6 +20,7 @@ export const useMatchMaker = () => {
         if (!socket) throw new Error(text.error.noSocketConnected);
 
         setIsLoading(true);
+        setInitialState();
         setMatchId(matchId);
 
         await socket.joinMatch(matchId, undefined, metadata);
@@ -29,13 +31,14 @@ export const useMatchMaker = () => {
         setIsLoading(false);
       }
     },
-    [socket, setMatchId]
+    [socket, setMatchId, setInitialState]
   );
 
   const joinPool = useCallback(async (): Promise<NkResponse> => {
     try {
       if (!socket) throw new Error(text.error.noSocketConnected);
       setIsLoading(true);
+
       //This is where the player get the ticket
       const matchmakerTicket = await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
       // TODO: where is this ticket being used???
