@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
-import { fadeIn } from "../atoms";
+import { fadeIn, slideUp } from "../atoms";
 import { GeneralText } from "../atoms/text";
 import { Lightning } from "../icons/styles";
 
@@ -42,6 +42,13 @@ export const YourPowerUpContainer = styled.div`
   flex-direction: row;
   gap: ${margins.small2};
   margin-left: ${margins.small5};
+  cursor: pointer;
+  :hover {
+    animation: ${slideUp};
+    animation-duration: 0.7s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+  }
 `;
 
 export const PowerUpOverview = styled.div`

@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import { CloseIcon } from "../../assets";
 import { color } from "../../design";
-import { Overlay } from "../atoms";
-import { OverlayWrapperSection } from "../overlay-wrapper/styles";
 import { TopNavigationSection } from "../top-navigation/styles";
 
 export const Close = styled(CloseIcon)``;
@@ -15,7 +13,7 @@ export const CloseButton = styled.div`
   padding: 16px 26px 20px 30px;
   gap: 8px;
   background: ${color.lightGrey};
-  z-index: 6;
+  z-index: 11;
   cursor: pointer;
 `;
 
@@ -25,8 +23,6 @@ export const CloseWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  position: relative;
-  z-index: 5;
 `;
 
 interface ChildrenWrapperProps {
