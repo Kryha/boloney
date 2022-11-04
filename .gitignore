@@ -60,3 +60,4 @@ yarn-error.log*
 install-state.gz
 
 frontend/src/pages/mockGame/mock-game.tsx
+.vscode
