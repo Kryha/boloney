@@ -10,7 +10,6 @@ interface Props {
 export const PowerUpListOverviewWrapper = styled.div<Props>`
   display: flex;
   gap: 16px;
-  width: 96vw;
   flex-wrap: wrap;
   display: ${({ showOverview }) => !showOverview && "none"};
 `;
@@ -39,7 +38,7 @@ export const PowerUpImage = styled.img`
 
 export const PowerUpInfo = styled.section`
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 20px;
   ${Heading2} {
     width: clamp(141px, 14.48vw + 2px, 280px);

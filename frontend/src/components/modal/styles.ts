@@ -25,6 +25,8 @@ export const CloseWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative;
+  z-index: 5;
 `;
 
 interface ChildrenWrapperProps {
@@ -45,7 +47,7 @@ export const ChildrenWrapper = styled.div<ChildrenWrapperProps>`
   height: 85.6vh;
   position: fixed;
   z-index: 5;
-  top: 61px;
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
 `;
