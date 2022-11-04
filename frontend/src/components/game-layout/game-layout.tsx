@@ -11,15 +11,15 @@ interface GameLayoutProps {
   dice?: Die[];
   children?: ReactNode;
   powerUps?: PowerUp[];
-  currentPlayer: Player;
+  localPlayer: Player;
 }
 
-export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, powerUps, currentPlayer }) => {
+export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, powerUps, localPlayer }) => {
   return (
     <>
       <TopNavigation isInMatch />
       <GamePlayersOverview players={players} />
-      <HUD dice={dice} powerUp={powerUps} currentPlayer={currentPlayer} />
+      <HUD dice={dice} powerUp={powerUps} localPlayer={localPlayer} />
       <MainContentContainer>
         <ContentContainer>{children}</ContentContainer>
       </MainContentContainer>

@@ -1,4 +1,3 @@
-import { type } from "os";
 import { z } from "zod";
 
 import { MAX_POWERUPS_PER_PLAYER } from "../constants";
@@ -16,9 +15,6 @@ export const avatarSchema = z.object({
 });
 
 export type Avatar = z.infer<typeof avatarSchema>;
-
-export const availableAvatarsSchema = z.array(avatarSchema);
-export type AvailableAvatars = z.infer<typeof availableAvatarsSchema>;
 
 export enum MatchOpCode {
   STAGE_TRANSITION = 1,

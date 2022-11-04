@@ -46,7 +46,7 @@ export const fakePlayers: Player[] = [
   },
 ];
 
-export const fakeActivePlayer: Player = {
+export const fakeLocalPlayer: Player = {
   userId: "666666",
   username: "yoda",
   avatarId: 7,
