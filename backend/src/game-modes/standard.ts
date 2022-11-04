@@ -87,6 +87,7 @@ export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, 
 
   handleStage[state.matchStage](loopParams);
 
+  if (state.matchStage === "terminateMatchStage") return null;
   return { state };
 };
 

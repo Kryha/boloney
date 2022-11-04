@@ -87,5 +87,5 @@ export const handleStage: StageHandlers = {
       }
     }),
   // TODO: Add garbage collection logic to end the match
-  terminateMatchStage: (loopParams) => null,
+  terminateMatchStage: (loopParams) => loopParams.logger.info("Terminating Match: ", loopParams.ctx.matchId),
 };
