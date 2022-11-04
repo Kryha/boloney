@@ -7,26 +7,26 @@ export const BaseLayoutWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  height: 100vh;
+  height: 100%;
   ${TopNavigationSection} {
     position: relative;
   }
 `;
 
 export const LeftSection = styled.section`
-  border-right: 1px solid ${color.mediumGrey};
   width: 12.5vw;
   height: 100vh;
 `;
 
 export const MainSection = styled.section`
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   width: 62.5vw;
-  overflow: auto;
+  border-right: 1px solid ${color.mediumGrey};
+  border-left: 1px solid ${color.mediumGrey};
 `;
 
 export const RightSection = styled.section`
-  border-left: 1px solid ${color.mediumGrey};
   width: 25vw;
   height: 100vh;
 `;

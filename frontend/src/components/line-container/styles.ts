@@ -126,11 +126,10 @@ export const LineWrap = styled.section`
 export const NameContainer = styled.section`
   width: 70vw;
   height: 100%;
-  margin-left: clamp(20px, -1.67vw + 36px, 4px);
+  margin-left: 0.875em;
 `;
 
 export const NameWrapper = styled.section`
-  height: 37vh;
   position: relative;
   ${ChatSection} {
     display: block;
