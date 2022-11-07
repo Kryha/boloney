@@ -12,9 +12,7 @@ import {
   PlayerTurns,
   Heading2,
   RollDice,
-  TopNavigation,
-  LineContainer,
-  LobbyPlayer,
+  Lobby,
 } from "../../components";
 import { routes } from "../../navigation";
 import { fakeDiceRolls, useMatch, fakeLocalPlayer, useMatchMaker } from "../../service";
@@ -22,7 +20,6 @@ import { fakePowerUps } from "../../service/fake-power-ups";
 import { useStore } from "../../store";
 import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
-import { LobbyWrapper } from "../lobby/styles";
 
 export const Match = () => {
   const { joinMatch } = useMatchMaker();
@@ -123,17 +120,7 @@ export const Match = () => {
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
-  if (matchStage === "lobbyStage")
-    return (
-      <LobbyWrapper>
-        <TopNavigation />
-        <LineContainer arePlayersReady onClick={broadcastPlayerReady}>
-          {Object.values(players).map((player) => (
-            <LobbyPlayer key={player.username} player={player} />
-          ))}
-        </LineContainer>
-      </LobbyWrapper>
-    );
+  if (matchStage === "lobbyStage") return <Lobby />;
 
   // TODO: Remove fakeActivePlayer
   return (
