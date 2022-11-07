@@ -36,9 +36,9 @@ export const useMatch = () => {
     []
   );
 
-  const broadcastPlayerReady = () => {
+  const broadcastPlayerReady = useCallback(() => {
     if (matchId) socket?.sendMatchState(matchId, MatchOpCode.PLAYER_READY, "");
-  };
+  }, [socket, matchId]);
 
   const handleStageTransition = (stage: MatchStage) => {
     switch (stage) {
