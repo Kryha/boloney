@@ -33,10 +33,16 @@ export const useMatch = () => {
     (players: Record<string, Player>, playerOrder: string[]): Player[] => playerOrder.map((playerId) => players[playerId]),
     []
   );
+
+  const broadcastPlayerReady = () => {
+    if (matchId) socket?.sendMatchState(matchId, MatchOpCode.PLAYER_READY, "");
+  };
+
   return {
     matchStage,
     isLoading,
     sendMatchState,
     getOrderedPlayers,
+    broadcastPlayerReady,
   };
 };

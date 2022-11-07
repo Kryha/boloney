@@ -22,7 +22,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   matchId: undefined,
   powerUps: undefined,
   faceValues: undefined,
-  matchStage: "getPowerUpStage",
+  matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
 
@@ -37,7 +37,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
       matchId: undefined,
       powerUps: undefined,
       faceValues: undefined,
-      matchStage: "getPowerUpStage",
+      matchStage: "lobbyStage",
       players: {},
       playerOrder: [],
     }));
