@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { text } from "../assets";
+import { Match } from "../pages";
 import { useStore } from "../store";
 import { MatchOpCode, MatchStage, NkResponse, Player } from "../types";
 import { parseError } from "../util";
@@ -36,9 +37,7 @@ export const useMatch = () => {
     []
   );
 
-  const broadcastPlayerReady = useCallback(() => {
-    if (matchId) socket?.sendMatchState(matchId, MatchOpCode.PLAYER_READY, "");
-  }, [socket, matchId]);
+  const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
   const handleStageTransition = (stage: MatchStage) => {
     switch (stage) {
