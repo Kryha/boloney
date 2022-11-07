@@ -1,15 +1,17 @@
 import { useCallback, useState } from "react";
 import { text } from "../assets";
 import { useStore } from "../store";
-import { MatchOpCode, NkResponse, Player } from "../types";
+import { MatchOpCode, MatchStage, NkResponse, Player } from "../types";
 import { parseError } from "../util";
+import { fakeDiceRolls } from "./fake-dice-rolls";
+import { fakePowerUps } from "./fake-power-ups";
 
 export const useMatch = () => {
   const socket = useStore((state) => state.socket);
-
   const matchStage = useStore((state) => state.matchStage);
-
   const matchId = useStore((state) => state.matchId);
+  const setPowerUps = useStore((state) => state.setPowerUps);
+  const setFaceValues = useStore((state) => state.setFaceValues);
   const [isLoading, setIsLoading] = useState(false);
 
   const sendMatchState = useCallback(
@@ -38,11 +40,32 @@ export const useMatch = () => {
     if (matchId) socket?.sendMatchState(matchId, MatchOpCode.PLAYER_READY, "");
   };
 
+  const handleStageTransition = (stage: MatchStage) => {
+    switch (stage) {
+      case "getPowerUpStage":
+        // TODO: remove fake data
+        setPowerUps(fakePowerUps);
+        break;
+      case "rollDiceStage":
+        // TODO: remove fake data
+        setFaceValues(fakeDiceRolls);
+        break;
+      case "playerTurnLoopStage":
+        // TODO: add other stages
+        break;
+      case "roundSummaryStage":
+        break;
+      case "endOfMatchStage":
+        break;
+    }
+  };
+
   return {
     matchStage,
     isLoading,
     sendMatchState,
     getOrderedPlayers,
     broadcastPlayerReady,
+    handleStageTransition,
   };
 };

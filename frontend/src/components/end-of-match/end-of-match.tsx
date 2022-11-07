@@ -4,18 +4,18 @@ import { text } from "../../assets";
 import { routes } from "../../navigation";
 import { BottomButtonWrapper, Heading1 } from "../atoms";
 import { PrimaryButton } from "../buttons";
-
-interface Props {
-  matchStageReady: () => void;
-}
+import { useMatch } from "../../service";
 
 // TODO: finish component
-export const EndOfMatch: FC<Props> = ({ matchStageReady }) => {
+export const EndOfMatch: FC = () => {
   const navigate = useNavigate();
+  const { broadcastPlayerReady } = useMatch();
+
   const handleNewMatch = (): void => {
-    matchStageReady();
+    broadcastPlayerReady();
     navigate(routes.home);
   };
+
   return (
     <BottomButtonWrapper>
       <Heading1>{text.match.endOfMatch}</Heading1>
