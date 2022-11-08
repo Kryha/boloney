@@ -41,6 +41,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setMatchStage: (matchStage) => set(() => ({ matchStage })),
   setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
+  setLocalPlayerId: (localPlayerId: string) => set(() => ({ localPlayerId })),
   setInitialState: () => {
     set(() => ({ ...initialMatchState }));
   },

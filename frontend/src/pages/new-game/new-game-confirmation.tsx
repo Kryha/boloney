@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { CopyIcon, text } from "../../assets";
 import { Heading1, Heading4, Heading6, NewGameHands, Link, PrimaryButton } from "../../components";
 import { routes } from "../../navigation";
+import { useStore } from "../../store";
 import { CopyLink, GoToLobbyButton, NewGameConfirmationContainer } from "./styles";
 
 interface Props {
   url: string;
-  matchId: string;
 }
 
-export const NewGameConfirmation: FC<Props> = ({ url, matchId }) => {
+export const NewGameConfirmation: FC<Props> = ({ url }) => {
   const navigate = useNavigate();
+  const { matchId } = useStore();
 
   return (
     <>
