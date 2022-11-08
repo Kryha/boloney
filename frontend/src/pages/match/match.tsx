@@ -37,7 +37,7 @@ export const Match = () => {
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);
 
-  const getStageComponent = (stage: string): ReactNode => {
+  const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {
       case "getPowerUpStage":
         return <GetPowerUps />;
