@@ -1,14 +1,17 @@
 import { StateCreator } from "zustand";
 import { Die, Player, PowerUp, MatchStage } from "../types";
 
-export interface MatchSlice {
+interface MatchSliceState {
   matchId?: string;
   powerUps?: PowerUp[];
   faceValues?: Die[];
   matchStage: MatchStage;
   players: Record<string, Player>;
   playerOrder: string[];
+  localPlayerId: string;
+}
 
+interface MatchSliceFunctions {
   setMatchId: (match_id: string) => void;
   setFaceValues: (faceValues: Die[]) => void;
   setPowerUps: (powerUps: PowerUp[]) => void;
@@ -17,14 +20,20 @@ export interface MatchSlice {
   setPlayerOrder: (playerOrder: string[]) => void;
   setInitialState: () => void;
 }
+export interface MatchSlice extends MatchSliceState, MatchSliceFunctions {}
 
-export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+const initialMatchState: MatchSliceState = {
   matchId: undefined,
   powerUps: undefined,
   faceValues: undefined,
   matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
+  localPlayerId: "",
+};
+
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+  ...initialMatchState,
 
   setMatchId: (matchId) => set(() => ({ matchId })),
   setPowerUps: (powerUps) => set(() => ({ powerUps })),
@@ -33,13 +42,6 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
   setInitialState: () => {
-    set(() => ({
-      matchId: undefined,
-      powerUps: undefined,
-      faceValues: undefined,
-      matchStage: "lobbyStage",
-      players: {},
-      playerOrder: [],
-    }));
+    set(() => ({ ...initialMatchState }));
   },
 });
