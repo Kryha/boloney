@@ -23,7 +23,7 @@ interface MatchSliceFunctions {
   setMatchUrl: (matchUrl: string) => void;
   setLocalPlayerId: (localPlayerId: string) => void;
 }
-export interface MatchSlice extends MatchSliceState, MatchSliceFunctions {}
+export type MatchSlice = MatchSliceState & MatchSliceFunctions;
 
 const initialMatchState: MatchSliceState = {
   matchId: undefined,
