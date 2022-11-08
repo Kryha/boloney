@@ -55,6 +55,7 @@ export const MATCH_STAGES: readonly MatchStage[] = [
   "playerTurnLoopStage",
   "roundSummaryStage",
   "endOfMatchStage",
+  "terminateMatchStage",
 ];
 
 export const MAX_INACTIVE_TICKS = 500;

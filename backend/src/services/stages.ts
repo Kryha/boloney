@@ -1,4 +1,5 @@
 import { MatchLoopParams, MatchOpCode, MatchStage } from "../types";
+import { shuffleArray } from "../utils";
 import { handleMatchStage } from "./match";
 
 export type StageHandler = (loopParams: MatchLoopParams) => void;
@@ -18,7 +19,11 @@ export const handleStage: StageHandlers = {
           dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(state.players));
         }
       },
-      ({ dispatcher }, nextStage) => {
+      ({ state, dispatcher }, nextStage) => {
+        //TODO: Check if we need a extra stage logic callback
+        state.playerOrder = shuffleArray(state.playerOrder);
+
+        dispatcher.broadcastMessage(MatchOpCode.PLAYER_ORDER_SHUFFLE, JSON.stringify({ playerOrder: state.playerOrder }));
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),
@@ -82,5 +87,5 @@ export const handleStage: StageHandlers = {
       }
     }),
   // TODO: Add garbage collection logic to end the match
-  terminateMatchStage: (loopParams) => null,
+  terminateMatchStage: (loopParams) => loopParams.logger.info("Terminating Match: ", loopParams.ctx.matchId),
 };

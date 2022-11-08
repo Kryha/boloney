@@ -154,10 +154,11 @@ export enum MatchOpCode {
   FACE_VALUES = 4,
   LEAVE_MATCH = 5,
   PLAYER_JOINED = 6,
+  PLAYER_ORDER_SHUFFLE = 7,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_JOINED;
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_ORDER_SHUFFLE;
 };
 
 export interface MatchLoopParams {
