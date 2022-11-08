@@ -7,13 +7,9 @@ import { routes } from "../../navigation";
 import { useStore } from "../../store";
 import { CopyLink, GoToLobbyButton, NewGameConfirmationContainer } from "./styles";
 
-interface Props {
-  url: string;
-}
-
-export const NewGameConfirmation: FC<Props> = ({ url }) => {
+export const NewGameConfirmation: FC = () => {
   const navigate = useNavigate();
-  const { matchId } = useStore();
+  const { matchId, matchUrl } = useStore();
 
   return (
     <>
@@ -22,8 +18,8 @@ export const NewGameConfirmation: FC<Props> = ({ url }) => {
         <Heading4>{text.general.yourGameHasBeenCreated}</Heading4>
         <Heading6>{text.general.onlyPlayersWithThisCode}</Heading6>
         <CopyLink>
-          <Link text={url} onClick={() => navigator.clipboard.writeText(url)} />
-          <CopyIcon />
+          <Link text={matchUrl} />
+          <CopyIcon onClick={() => navigator.clipboard.writeText(matchUrl)} />
         </CopyLink>
       </NewGameConfirmationContainer>
       <GoToLobbyButton>

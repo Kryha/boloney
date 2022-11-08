@@ -7,12 +7,11 @@ import { NewGameCreation } from "./new-game-creation";
 
 export const NewGame: FC = () => {
   // TODO: move URL to global store
-  const [url, setUrl] = useState<string>();
-  const { matchId } = useStore();
+  const { matchId, matchUrl } = useStore();
   return (
     <BaseLayout
       leftSection={<Logo />}
-      mainSection={url && matchId ? <NewGameConfirmation url={url} /> : <NewGameCreation setUrl={setUrl} />}
+      mainSection={matchUrl && matchId ? <NewGameConfirmation /> : <NewGameCreation />}
       rightSection={<TopNavigation />}
     />
   );
