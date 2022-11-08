@@ -26,7 +26,7 @@ export const NewGameConfirmation: FC<Props> = ({ url, matchId }) => {
         </CopyLink>
       </NewGameConfirmationContainer>
       <GoToLobbyButton>
-        <PrimaryButton text={text.general.goToLobby} onClick={() => navigate(`${routes.lobby}/${matchId}`)} />
+        <PrimaryButton text={text.general.goToLobby} onClick={() => navigate(`${routes.match}/${matchId}`)} />
       </GoToLobbyButton>
       <NewGameHands />
     </>

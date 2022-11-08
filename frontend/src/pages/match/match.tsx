@@ -1,79 +1,105 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { ReactNode, useEffect } from "react";
+import { Navigate, useParams } from "react-router-dom";
 
 import { text } from "../../assets";
-import { EndOfMatch, EndOfRound, GameLayout, GeneralContentWrapper, GetPowerUps, PlayerTurns, Heading2, RollDice } from "../../components";
-import { fakeDiceRolls, useMatch, fakeLocalPlayer } from "../../service";
-import { fakePowerUps } from "../../service/fake-power-ups";
+import {
+  EndOfMatch,
+  EndOfRound,
+  GameLayout,
+  GeneralContentWrapper,
+  GetPowerUps,
+  PlayerTurns,
+  Heading2,
+  RollDice,
+  Lobby,
+} from "../../components";
+import { routes } from "../../navigation";
+import { useMatch, fakeLocalPlayer, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
-import { isStageTransition, MatchOpCode, MatchStage } from "../../types";
-import { parseMatchData } from "../../util";
+import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage } from "../../types";
+import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
-  const { matchStage, sendMatchState, getOrderedPlayers, isLoading } = useMatch();
+  const { joinMatch } = useMatchMaker();
+  const { matchStage, isLoading, getOrderedPlayers, handleStageTransition } = useMatch();
   const powerUps = useStore((state) => state.powerUps);
   const faceValues = useStore((state) => state.faceValues);
   const players = useStore((state) => state.players);
   const playersOrder = useStore((state) => state.playerOrder);
   const socket = useStore((state) => state.socket);
-  const setPowerUps = useStore((state) => state.setPowerUps);
-  const setFaceValues = useStore((state) => state.setFaceValues);
+  const session = useStore((state) => state.sessionState);
   const setMatchStage = useStore((state) => state.setMatchStage);
+  const setPlayers = useStore((state) => state.setPlayers);
+  const setPlayerOrder = useStore((state) => state.setPlayerOrder);
 
-  const matchStageReady = () => {
-    // TODO: add payload and handle properly
-    sendMatchState(MatchOpCode.PLAYER_READY);
-  };
+  // TODO: Check if we need to re-stablish socket conection after reloading the page
+  const { matchId: unparsedId } = useParams();
+  const matchId = parseMatchIdParam(unparsedId);
 
-  const getStageComponent = (stage: string): ReactNode => {
+  const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {
       case "getPowerUpStage":
-        return <GetPowerUps matchStageReady={matchStageReady} />;
+        return <GetPowerUps />;
       case "rollDiceStage":
-        return <RollDice matchStageReady={matchStageReady} />;
+        return <RollDice />;
       case "playerTurnLoopStage":
-        return <PlayerTurns matchStageReady={matchStageReady} />;
+        return <PlayerTurns />;
       case "roundSummaryStage":
-        return <EndOfRound matchStageReady={matchStageReady} />;
+        return <EndOfRound />;
       case "endOfMatchStage":
-        return <EndOfMatch matchStageReady={matchStageReady} />;
+        return <EndOfMatch />;
     }
   };
+
+  useEffect(() => {
+    if (matchId && session?.username) joinMatch(matchId, { username: session.username });
+  }, [joinMatch, matchId, session?.username]);
 
   useEffect(() => {
     if (!socket) return;
 
     socket.onmatchdata = (matchData: MatchData) => {
-      const payload = parseMatchData(matchData.data);
+      const matchOpcode = matchData.op_code;
 
-      if (matchData.op_code === MatchOpCode.STAGE_TRANSITION) {
-        if (!isStageTransition(payload)) return;
-
-        setMatchStage(payload.matchStage as MatchStage);
-
-        switch (payload.matchStage) {
-          case "getPowerUpStage":
-            // TODO: remove fake data
-            setPowerUps(fakePowerUps);
-            break;
-          case "rollDiceStage":
-            // TODO: remove fake data
-            setFaceValues(fakeDiceRolls);
-            break;
-          case "playerTurnLoopStage":
-            // TODO: add other stages
-            break;
-          case "roundSummaryStage":
-            break;
-          case "endOfMatchStage":
-            break;
+      // TODO: Add cases for the rest of the OP_CODES
+      switch (matchOpcode) {
+        case MatchOpCode.STAGE_TRANSITION: {
+          const data = parseMatchData(matchData.data);
+          const stage: MatchStage = data.matchStage;
+          if (!isStageTransition(data)) return;
+          setMatchStage(stage);
+          handleStageTransition(stage);
+          break;
+        }
+        case MatchOpCode.PLAYER_JOINED: {
+          const players = parseMatchData(matchData.data);
+          if (!isPlayerRecord(players)) return;
+          setPlayers(players);
+          break;
+        }
+        case MatchOpCode.PLAYER_READY: {
+          const players = parseMatchData(matchData.data);
+          if (!isPlayerRecord(players)) return;
+          setPlayers(players);
+          break;
+        }
+        case MatchOpCode.PLAYER_ORDER_SHUFFLE: {
+          const playerOrder = parseMatchData(matchData.data);
+          if (!isPlayerOrderObject(playerOrder)) return;
+          setPlayerOrder(playerOrder.playerOrder);
+          break;
         }
       }
     };
-  }, [matchStage, setFaceValues, setPowerUps, setMatchStage, socket]);
+  }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
+
+  if (!matchId) return <Navigate to={routes.home} />;
 
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
+
+  if (matchStage === "lobbyStage") return <Lobby />;
 
   // TODO: Remove fakeActivePlayer
   return (
