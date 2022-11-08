@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { text } from "../assets";
-import { Match } from "../pages";
 import { useStore } from "../store";
 import { MatchOpCode, MatchStage, NkResponse, Player } from "../types";
 import { parseError } from "../util";
