@@ -6,6 +6,7 @@ import { NewGameConfirmation } from "./new-game-confirmation";
 import { NewGameCreation } from "./new-game-creation";
 
 export const NewGame: FC = () => {
+  // TODO: move URL to global store
   const [url, setUrl] = useState<string>();
   const { matchId } = useStore();
   return (

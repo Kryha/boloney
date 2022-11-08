@@ -9,6 +9,7 @@ interface MatchSliceState {
   players: Record<string, Player>;
   playerOrder: string[];
   localPlayerId: string;
+  matchUrl: string;
 }
 
 interface MatchSliceFunctions {
@@ -19,6 +20,8 @@ interface MatchSliceFunctions {
   setPlayers: (players: Record<string, Player>) => void;
   setPlayerOrder: (playerOrder: string[]) => void;
   setInitialState: () => void;
+  setMatchUrl: (matchUrl: string) => void;
+  setLocalPlayerId: (localPlayerId: string) => void;
 }
 export interface MatchSlice extends MatchSliceState, MatchSliceFunctions {}
 
@@ -30,6 +33,7 @@ const initialMatchState: MatchSliceState = {
   players: {},
   playerOrder: [],
   localPlayerId: "",
+  matchUrl: "",
 };
 
 export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
@@ -41,7 +45,8 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setMatchStage: (matchStage) => set(() => ({ matchStage })),
   setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
-  setLocalPlayerId: (localPlayerId: string) => set(() => ({ localPlayerId })),
+  setLocalPlayerId: (localPlayerId) => set(() => ({ localPlayerId })),
+  setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
   setInitialState: () => {
     set(() => ({ ...initialMatchState }));
   },

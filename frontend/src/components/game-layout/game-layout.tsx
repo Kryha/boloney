@@ -15,10 +15,11 @@ interface GameLayoutProps {
 }
 
 export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, powerUps, localPlayer }) => {
+  const remotePlayers: Player[] = players.filter((player) => player.userId !== localPlayer.userId);
   return (
     <>
       <TopNavigation isInMatch />
-      <GamePlayersOverview players={players} />
+      <GamePlayersOverview players={remotePlayers} />
       <HUD dice={dice} powerUp={powerUps} localPlayer={localPlayer} />
       <MainContentContainer>
         <ContentContainer>{children}</ContentContainer>

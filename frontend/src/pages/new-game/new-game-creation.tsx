@@ -15,17 +15,13 @@ import { PowerUpsAmountField } from "./power-up-amount-field";
 import { parseLobbyUrl, splitMatchId } from "../../util";
 import { useStore } from "../../store";
 
-interface Props {
-  setUrl: (url: string) => void;
-}
-
 // TODO: make a form component
-export const NewGameCreation: FC<Props> = ({ setUrl }) => {
+export const NewGameCreation: FC = () => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
-  const { setMatchId } = useStore();
+  const { setMatchId, setMatchUrl } = useStore();
   const { createMatch, isLoading } = useMatchMaker();
   const [isError, setIsError] = useState(false);
 
@@ -42,7 +38,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
       const matchId = await createMatch(result.data);
       if (isString(matchId)) {
         setMatchId(splitMatchId(matchId));
-        setUrl(parseLobbyUrl(matchId));
+        setMatchUrl(parseLobbyUrl(matchId));
       } else {
         setIsError(true);
       }
