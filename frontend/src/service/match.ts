@@ -37,6 +37,10 @@ export const useMatch = () => {
     []
   );
 
+  const getLocalPlayer = useCallback((players: Record<string, Player>, localPlayerId: string) => {
+    return players[localPlayerId];
+  }, []);
+
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
   const handleStageTransition = (stage: MatchStage) => {
@@ -66,5 +70,6 @@ export const useMatch = () => {
     getOrderedPlayers,
     broadcastPlayerReady,
     handleStageTransition,
+    getLocalPlayer,
   };
 };

@@ -15,14 +15,14 @@ import {
   Lobby,
 } from "../../components";
 import { routes } from "../../navigation";
-import { useMatch, fakeLocalPlayer, useMatchMaker } from "../../service";
+import { useMatch, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
   const { joinMatch } = useMatchMaker();
-  const { matchStage, isLoading, getOrderedPlayers, handleStageTransition } = useMatch();
+  const { matchStage, isLoading, getOrderedPlayers, handleStageTransition, getLocalPlayer } = useMatch();
   const powerUps = useStore((state) => state.powerUps);
   const faceValues = useStore((state) => state.faceValues);
   const players = useStore((state) => state.players);
@@ -94,16 +94,20 @@ export const Match = () => {
     };
   }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
 
-  if (!matchId) return <Navigate to={routes.home} />;
+  if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
 
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
   if (matchStage === "lobbyStage") return <Lobby />;
 
-  // TODO: Remove fakeActivePlayer
   return (
-    <GameLayout players={getOrderedPlayers(players, playersOrder)} dice={faceValues} powerUps={powerUps} localPlayer={fakeLocalPlayer}>
+    <GameLayout
+      players={getOrderedPlayers(players, playersOrder)}
+      dice={faceValues}
+      powerUps={powerUps}
+      localPlayer={getLocalPlayer(players, session.user_id)}
+    >
       <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
     </GameLayout>
   );
