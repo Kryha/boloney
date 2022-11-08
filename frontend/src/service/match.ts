@@ -31,6 +31,7 @@ export const useMatch = () => {
     [matchId, socket]
   );
 
+  // TODO: Add error handling
   const getOrderedPlayers = useCallback(
     (players: Record<string, Player>, playerOrder: string[]): Player[] => playerOrder.map((playerId) => players[playerId]),
     []
