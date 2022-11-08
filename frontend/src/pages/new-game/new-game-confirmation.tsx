@@ -17,9 +17,9 @@ export const NewGameConfirmation: FC = () => {
         <Heading1>{text.general.gameCreated}</Heading1>
         <Heading4>{text.general.yourGameHasBeenCreated}</Heading4>
         <Heading6>{text.general.onlyPlayersWithThisCode}</Heading6>
-        <CopyLink>
+        <CopyLink onClick={() => navigator.clipboard.writeText(matchUrl)}>
           <Link text={matchUrl} />
-          <CopyIcon onClick={() => navigator.clipboard.writeText(matchUrl)} />
+          <CopyIcon />
         </CopyLink>
       </NewGameConfirmationContainer>
       <GoToLobbyButton>
