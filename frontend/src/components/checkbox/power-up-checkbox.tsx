@@ -15,27 +15,25 @@ interface Props {
   setPowerUpValue: (name: PowerUpType, value: number) => void;
   powerUpValue: PowerUpProbability[];
 }
-export const splitInteger = (num: number, parts: number) => {
-  // Complete this function
 
-  let val;
-  let retData;
-  const mod = num % parts;
+export const splitInteger = (total: number, parts: number) => {
+  let tempValue;
+  let data;
+  const mod = total % parts;
   if (mod == 0) {
-    val = num / parts;
-    retData = Array(parts).fill(val);
+    tempValue = total / parts;
+    data = Array(parts).fill(tempValue);
   } else {
-    val = (num - mod) / parts;
-    retData = Array(parts).fill(val);
+    tempValue = (total - mod) / parts;
+    data = Array(parts).fill(tempValue);
     for (let i = 0; i < mod; i++) {
-      retData[i] = retData[i] + 1;
+      data[i] = data[i] + 1;
     }
-    retData.reverse();
+    data.reverse();
   }
 
-  return retData;
+  return data;
 };
-
 export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powerUp, isError, setPowerUpValue, powerUpValue }) => {
   const removePowerUpProbability = useGameCreationFormState((state) => state.removePowerUpProbability);
   const removePowerUpValue = useGameCreationFormState((state) => state.removePowerUpValue);
