@@ -1,7 +1,7 @@
 export const general = {
   chat: "chat",
   history: "history",
-  matchSettings: " match settings",
+  matchSettings: "match settings",
   logout: "logout",
   leaveMatch: "leave match",
   defaultTime: "0:00",

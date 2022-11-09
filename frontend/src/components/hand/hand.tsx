@@ -11,7 +11,7 @@ interface HandProps {
 
 export const Hand: FC<HandProps> = ({ avatarName, name, isInLobby = false }) => {
   const hand = handProportion(avatarName);
-  console.log(isInLobby);
+
   return (
     <HandWrapper>
       <Wrapper>
