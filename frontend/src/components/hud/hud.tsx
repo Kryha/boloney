@@ -7,22 +7,22 @@ import { DiceOverview } from "../dice-overview";
 import { PlayerAvatar } from "../game-player/styles";
 import { PlayerMenu } from "../player-menu";
 import { PowerUpOverview } from "../power-up-overview";
-import { CurrentPlayer, PlayerOverview } from "./styles";
+import { LocalPlayer, PlayerOverview } from "./styles";
 
 interface HUDProps {
   dice?: Die[];
   powerUp?: PowerUp[];
-  currentPlayer: Player;
+  localPlayer: Player;
 }
 
-export const HUD: FC<HUDProps> = ({ dice, powerUp, currentPlayer }) => {
-  const { avatar } = handProportion(avatars[currentPlayer.avatarId].name);
+export const HUD: FC<HUDProps> = ({ dice, powerUp, localPlayer }) => {
+  const { avatar } = handProportion(avatars[localPlayer.avatarId].name);
   return (
     <>
       <PlayerOverview>
-        <CurrentPlayer>
+        <LocalPlayer>
           <PlayerAvatar height="10vh" src={avatar} />
-        </CurrentPlayer>
+        </LocalPlayer>
         <DiceOverview dice={dice} />
         <PowerUpOverview powerUps={powerUp} />
       </PlayerOverview>

@@ -9,7 +9,7 @@ export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context,
       logger.info(`Matched user '${userId}' named '${username}'`);
     });
 
-    const matchId = nk.matchCreate("standard", DEFAULT_MATCH_SETTINGS);
+    const matchId = nk.matchCreate("standard", { ...DEFAULT_MATCH_SETTINGS, players: matches.length });
     return matchId;
   } catch (error) {
     throw handleError(error, logger);

@@ -47,8 +47,8 @@ export const RPC_CREATE_MATCH = "create_match";
 export const RPC_FIND_MATCH = "find_match";
 
 export const DEFAULT_POOL_QUERY = "*";
-export const DEFAULT_POOL_MIN_PLAYERS = 2;
-export const DEFAULT_POOL_MAX_PLAYERS = 2;
+export const DEFAULT_POOL_MIN_PLAYERS = 3;
+export const DEFAULT_POOL_MAX_PLAYERS = 3;
 
 export const PRIVATE_KEY_LENGTH = 58;
 export const VIEW_KEY_LENGTH = 56;

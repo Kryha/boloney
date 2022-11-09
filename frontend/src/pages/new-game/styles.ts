@@ -79,6 +79,7 @@ export const CopyLink = styled.div`
   flex-direction: row;
   gap: ${margins.small4};
   align-items: flex-end;
+  cursor: pointer;
 `;
 
 export const InfoBox = styled.div`

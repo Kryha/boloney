@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta27
+apiVersion: skaffold/v3
 kind: Config
 metadata:
   name: liars-dice
@@ -20,8 +20,9 @@ build:
     - image: eu.gcr.io/web3-335312/aleo/liars-dice/backend
       docker:
         dockerfile: Dockerfile.backend
-deploy:
+manifests:
   kustomize:
     paths:
       - ./deployment/staging/workloads
-    defaultNamespace: liars-dice-staging
+deploy:
+  kubectl: {}

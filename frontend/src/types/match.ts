@@ -16,9 +16,6 @@ export const avatarSchema = z.object({
 
 export type Avatar = z.infer<typeof avatarSchema>;
 
-export const availableAvatarsSchema = z.array(avatarSchema);
-export type AvailableAvatars = z.infer<typeof availableAvatarsSchema>;
-
 export enum MatchOpCode {
   STAGE_TRANSITION = 1,
   PLAYER_READY = 2,
@@ -26,6 +23,7 @@ export enum MatchOpCode {
   FACE_VALUES = 4,
   LEAVE_MATCH = 5,
   PLAYER_JOINED = 6,
+  PLAYER_ORDER_SHUFFLE = 7,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
@@ -65,6 +63,20 @@ export const stageTransitionSchema = z.object({
   matchStage: z.string(),
 });
 export type StageTration = z.infer<typeof stageTransitionSchema>;
+
+export const playerOrderSchema = z.object({
+  playerOrder: z.array(z.string()),
+});
+
+export type PlayerOrder = z.infer<typeof playerOrderSchema>;
+
+export const isPlayerOrderObject = (payload: unknown): payload is PlayerOrder => {
+  if (!payload) return false;
+  if (typeof payload !== "object") return false;
+
+  const parsed = playerOrderSchema.safeParse(payload);
+  return parsed.success;
+};
 
 export const isStageTransition = (payload: unknown): payload is StageTration => {
   if (!payload) return false;

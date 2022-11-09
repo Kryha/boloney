@@ -1,34 +1,53 @@
 import { StateCreator } from "zustand";
 import { Die, Player, PowerUp, MatchStage } from "../types";
 
-export interface MatchSlice {
-  ticket?: string;
+interface MatchSliceState {
   matchId?: string;
   powerUps?: PowerUp[];
   faceValues?: Die[];
   matchStage: MatchStage;
   players: Record<string, Player>;
+  playerOrder: string[];
+  localPlayerId: string;
+  matchUrl: string;
+}
 
-  setTicket: (ticket: string) => void;
+interface MatchSliceFunctions {
   setMatchId: (match_id: string) => void;
   setFaceValues: (faceValues: Die[]) => void;
   setPowerUps: (powerUps: PowerUp[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
   setPlayers: (players: Record<string, Player>) => void;
+  setPlayerOrder: (playerOrder: string[]) => void;
+  setInitialState: () => void;
+  setMatchUrl: (matchUrl: string) => void;
+  setLocalPlayerId: (localPlayerId: string) => void;
 }
+export type MatchSlice = MatchSliceState & MatchSliceFunctions;
 
-export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
-  ticket: undefined,
+const initialMatchState: MatchSliceState = {
   matchId: undefined,
   powerUps: undefined,
   faceValues: undefined,
-  matchStage: "getPowerUpStage",
+  matchStage: "lobbyStage",
   players: {},
+  playerOrder: [],
+  localPlayerId: "",
+  matchUrl: "",
+};
 
-  setTicket: (ticket) => set(() => ({ ticket })),
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+  ...initialMatchState,
+
   setMatchId: (matchId) => set(() => ({ matchId })),
   setPowerUps: (powerUps) => set(() => ({ powerUps })),
   setFaceValues: (faceValues) => set(() => ({ faceValues })),
   setMatchStage: (matchStage) => set(() => ({ matchStage })),
   setPlayers: (players) => set(() => ({ players })),
+  setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
+  setLocalPlayerId: (localPlayerId) => set(() => ({ localPlayerId })),
+  setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
+  setInitialState: () => {
+    set(() => ({ ...initialMatchState }));
+  },
 });

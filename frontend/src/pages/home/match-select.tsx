@@ -17,13 +17,12 @@ export const MatchSelect: FC = () => {
   const navigate = useNavigate();
 
   // TODO: define these in a service, improve this logic, discuss the whole flow
-  // ?is it even useful? where do we use ticket?
   useEffect(() => {
     if (!socket) return;
 
     socket.onmatchmakermatched = (matched: MatchmakerMatched) => {
-      const id = splitMatchId(matched.match_id);
-      navigate(`${routes.lobby}/${id}`);
+      const matchId = splitMatchId(matched.match_id);
+      navigate(`${routes.match}/${matchId}`);
     };
   }, [navigate, socket]);
 

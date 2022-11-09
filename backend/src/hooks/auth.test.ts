@@ -30,7 +30,7 @@ describe("After authentication hook", () => {
     mockAccountKeys = createMock<AccountKeys>();
 
     mockLoggerInfo = On(mockLogger).get(
-      method(function (mock) {
+      method(function(mock) {
         return mock.info;
       })
     );
