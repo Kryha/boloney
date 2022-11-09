@@ -1,23 +1,53 @@
-import create from "zustand";
-import { Die, PowerUp, RoundStage } from "../types";
+import { StateCreator } from "zustand";
+import { Die, Player, PowerUp, MatchStage } from "../types";
 
-interface MatchState {
+interface MatchSliceState {
+  matchId?: string;
   powerUps?: PowerUp[];
   faceValues?: Die[];
-  roundStage: RoundStage;
-  // TODO: see if other players need to be tracked
-
-  setFaceValues: (faceValues: Die[]) => void;
-  setPowerUps: (powerUps: PowerUp[]) => void;
-  setRoundStage: (roundStage: RoundStage) => void;
+  matchStage: MatchStage;
+  players: Record<string, Player>;
+  playerOrder: string[];
+  localPlayerId: string;
+  matchUrl: string;
 }
 
-export const useMatchState = create<MatchState>()((set) => ({
+interface MatchSliceFunctions {
+  setMatchId: (match_id: string) => void;
+  setFaceValues: (faceValues: Die[]) => void;
+  setPowerUps: (powerUps: PowerUp[]) => void;
+  setMatchStage: (matchStage: MatchStage) => void;
+  setPlayers: (players: Record<string, Player>) => void;
+  setPlayerOrder: (playerOrder: string[]) => void;
+  setInitialState: () => void;
+  setMatchUrl: (matchUrl: string) => void;
+  setLocalPlayerId: (localPlayerId: string) => void;
+}
+export type MatchSlice = MatchSliceState & MatchSliceFunctions;
+
+const initialMatchState: MatchSliceState = {
+  matchId: undefined,
   powerUps: undefined,
   faceValues: undefined,
-  roundStage: "getPowerUpStage",
+  matchStage: "lobbyStage",
+  players: {},
+  playerOrder: [],
+  localPlayerId: "",
+  matchUrl: "",
+};
 
-  setPowerUps: (powerUps: PowerUp[]) => set(() => ({ powerUps: powerUps })),
-  setFaceValues: (faceValues: Die[]) => set(() => ({ faceValues: faceValues })),
-  setRoundStage: (roundStage: RoundStage) => set(() => ({ roundStage: roundStage })),
-}));
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+  ...initialMatchState,
+
+  setMatchId: (matchId) => set(() => ({ matchId })),
+  setPowerUps: (powerUps) => set(() => ({ powerUps })),
+  setFaceValues: (faceValues) => set(() => ({ faceValues })),
+  setMatchStage: (matchStage) => set(() => ({ matchStage })),
+  setPlayers: (players) => set(() => ({ players })),
+  setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
+  setLocalPlayerId: (localPlayerId) => set(() => ({ localPlayerId })),
+  setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
+  setInitialState: () => {
+    set(() => ({ ...initialMatchState }));
+  },
+});

@@ -2,17 +2,18 @@ import { Session } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 
 import { USE_SSL } from "../constants";
-import { useAuthState } from "../store/auth";
+import { useStore } from "../store";
 import { NkResponse } from "../types";
 import { getAuthToken, getRefreshToken, parseError, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
 
 export const useAuth = () => {
-  const client = useAuthState((state) => state.client);
-  const isAuthenticated = useAuthState((state) => state.isAuthenticated);
-  const setSocket = useAuthState((state) => state.setSocket);
-  const setSession = useAuthState((state) => state.setSession);
-  const setIsAuthenticated = useAuthState((state) => state.setIsAuthenticated);
-  const resetAuthState = useAuthState((state) => state.reset);
+  const client = useStore((state) => state.client);
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
+  const setSession = useStore((state) => state.setSession);
+  const setIsAuthenticated = useStore((state) => state.setIsAuthenticated);
+  const resetAuthState = useStore((state) => state.reset);
+  const setSocket = useStore((state) => state.setSocket);
+  const oldSocket = useStore((state) => state.socket);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(true);
@@ -20,14 +21,14 @@ export const useAuth = () => {
   // TODO: see how sockets relate to matches and maybe abstract the following function
   const joinSession = useCallback(
     async (session: Session) => {
-      const socket = client.createSocket(USE_SSL);
+      const socket = !oldSocket ? client.createSocket(USE_SSL) : oldSocket;
       const socketSession = await socket.connect(session, true);
 
       setSocket(socket);
       setSession(socketSession);
       setIsAuthenticated(true);
     },
-    [client, setIsAuthenticated, setSession, setSocket]
+    [client, setIsAuthenticated, setSession, setSocket, oldSocket]
   );
 
   useEffect(() => {

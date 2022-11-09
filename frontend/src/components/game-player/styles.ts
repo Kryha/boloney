@@ -45,7 +45,7 @@ interface AvatarProps {
 }
 
 export const PlayerAvatarContainer = styled.div`
-  width: 12.5vw;
+  width: 12vw;
   padding-top: ${margins.small2};
   align-items: center;
   justify-content: center;
@@ -55,6 +55,7 @@ export const PlayerAvatarContainer = styled.div`
 export const PlayerAvatar = styled.img<AvatarProps>`
   height: ${({ height }): string => height || `${avatarHeight[5]}`};
   object-fit: contain;
+  width: 100%;
 `;
 
 export const PlayerName = styled(Heading5)`
@@ -68,7 +69,11 @@ export const GameStateContainer = styled(PlayerNameContainer)`
   align-items: flex-start;
 `;
 
-export const PlayerInfoContainer = styled.section``;
+export const PlayerInfoContainer = styled.section`
+  gap: ${margins.small1};
+  display: flex;
+  flex-direction: column;
+`;
 
 interface PlayersContainerProps {
   totalPlayers: number;
@@ -76,12 +81,8 @@ interface PlayersContainerProps {
 
 export const GamePlayersContainer = styled.div<PlayersContainerProps>`
   ${({ totalPlayers }) => {
-    return totalPlayers != 1
+    return totalPlayers === 1
       ? `
-      position: absolute;
-      bottom: 0.325em;
-    `
-      : `
       display: flex;
       height: 100%;
       align-items: center;
@@ -92,6 +93,10 @@ export const GamePlayersContainer = styled.div<PlayersContainerProps>`
         bottom: ${margins.small2};
         left: 0.425em;
       }
+    `
+      : `
+      position: absolute;
+      bottom: 0.325em;
       `;
   }}
 `;

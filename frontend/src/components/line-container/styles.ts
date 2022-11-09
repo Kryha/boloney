@@ -11,6 +11,8 @@ import { LobbyPlayerWrapper } from "../lobby-player/styles";
 export const LineWrapper = styled.section`
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
   ${ChatSection} {
     position: absolute;
     right: 0;
@@ -126,12 +128,13 @@ export const LineWrap = styled.section`
 export const NameContainer = styled.section`
   width: 70vw;
   height: 100%;
-  margin-left: clamp(20px, -1.67vw + 36px, 4px);
+  margin-left: 0.875em;
 `;
 
 export const NameWrapper = styled.section`
-  height: 37vh;
   position: relative;
+  height: 100%;
+
   ${ChatSection} {
     display: block;
     height: 100%;
@@ -140,6 +143,6 @@ export const NameWrapper = styled.section`
 `;
 
 export const WaitingWrapper = styled.section`
-  height: 100%;
+  height: 42.5vh;
   width: 100vw;
 `;

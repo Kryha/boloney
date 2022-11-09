@@ -36,7 +36,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       buttonIcon={<Ellipsis />}
     >
       <MenuContainer>
-        <DropdownButton text={text.general.settings} icon={<SettingsIcon />} />
+        <DropdownButton text={text.general.matchSettings} icon={<SettingsIcon />} />
         {isAuthenticated && (
           <>
             <HorizontalDivider />
@@ -44,7 +44,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
           </>
         )}
         <HorizontalDivider />
-        <DropdownButton text={text.general.exit} icon={<ExitIcon />} />
+        <DropdownButton text={text.general.leaveMatch} icon={<ExitIcon />} />
       </MenuContainer>
     </Dropdown>
   );

@@ -11,9 +11,10 @@ export const PlayerOverview = styled.section`
   padding: 0px;
   position: absolute;
   bottom: 0;
+  left: 0;
 `;
 
-export const CurrentPlayer = styled.div`
+export const LocalPlayer = styled.div`
   width: 12.5vw;
   display: flex;
   align-items: center;

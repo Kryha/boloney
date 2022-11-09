@@ -12,8 +12,6 @@ interface DieProps {
 }
 
 export const findDieFace = (value?: number) => {
-  if (!value) return <DiceHiddenIcon />;
-
   switch (value) {
     case 1:
       return <DiceOneIcon />;

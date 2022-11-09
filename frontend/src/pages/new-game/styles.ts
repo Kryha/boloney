@@ -24,7 +24,6 @@ export const FieldContainer = styled.section`
 `;
 
 export const CheckboxContainer = styled.section`
-  height: 1000px;
   overflow: auto;
   ${CheckboxWrapper}:nth-of-type(1) {
     ${DescriptionContainer} {
@@ -80,6 +79,7 @@ export const CopyLink = styled.div`
   flex-direction: row;
   gap: ${margins.small4};
   align-items: flex-end;
+  cursor: pointer;
 `;
 
 export const InfoBox = styled.div`
