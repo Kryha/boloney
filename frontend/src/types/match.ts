@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { MAX_POWERUPS_PER_PLAYER } from "../constants";
-import { powerUpTypeSchema, powerUpProbabilitySchema } from "./power-up";
+import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
 
 export const avatarNameSchema = z.enum(["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
 export type AvatarName = z.infer<typeof avatarNameSchema>;
@@ -96,7 +96,7 @@ export const matchSettingsSchema = z.object({
   dicePerPlayer: z.number(),
   initialPowerUpAmount: z.number(),
   maxPowerUpAmount: z.number().max(MAX_POWERUPS_PER_PLAYER),
-  availablePowerUps: z.array(powerUpTypeSchema),
+  availablePowerUps: z.array(powerUpIdSchema),
   healPowerUpAmount: z.number(),
   stageNumberDivisor: z.number(),
   drawRoundOffset: z.number(),
@@ -112,7 +112,7 @@ export const matchFormSettingsSchema = z.object({
     .string()
     .max(MAX_POWERUPS_PER_PLAYER)
     .transform((val) => Number(val)),
-  availablePowerUps: z.array(powerUpTypeSchema),
+  availablePowerUps: z.array(powerUpIdSchema),
   healPowerUpAmount: z.string().transform((val) => Number(val)),
   stageNumberDivisor: z.string().transform((val) => Number(val)),
   drawRoundOffset: z.string().transform((val) => Number(val)),

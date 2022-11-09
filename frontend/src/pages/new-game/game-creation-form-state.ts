@@ -1,55 +1,67 @@
 import create from "zustand";
+import { produce } from "immer";
 
-import { PowerUpType, PowerUpProbability } from "../../types";
+import { PowerUpId, PowerUpProbability } from "../../types";
 
 export interface NewGameState {
-  availablePowerUps: PowerUpType[];
-  powerUpProbability: PowerUpProbability[];
-  totalProbability: number;
-  isPowerUpError: boolean;
+  availablePowerUps: Set<PowerUpId>;
+  powerUpProbability: Map<PowerUpId, PowerUpProbability>;
+  isProbabilityManuallyUpdated: boolean;
 
-  togglePowerUp: (powerUp: PowerUpType) => void;
+  togglePowerUp: (powerUp: PowerUpId) => void;
   setPowerUpProbability: (probability: PowerUpProbability) => void;
-  removePowerUpProbability: (name: PowerUpType) => void;
+
+  getTotalProbability: () => number;
+  getIsError: () => boolean;
 }
 
-export const useGameCreationFormState = create<NewGameState>((set) => ({
-  availablePowerUps: [],
-  powerUpProbability: [],
-  isPowerUpError: false,
-  totalProbability: 0,
+export const useGameCreationFormState = create<NewGameState>((set, get) => ({
+  availablePowerUps: new Set<PowerUpId>(),
+  powerUpProbability: new Map<PowerUpId, PowerUpProbability>(),
+  isProbabilityManuallyUpdated: false,
 
-  togglePowerUp: (powerUp) =>
-    set(({ availablePowerUps }) => {
-      const powerUpsSet = new Set(availablePowerUps);
-      const itemFound = powerUpsSet.delete(powerUp);
-      if (!itemFound) powerUpsSet.add(powerUp);
+  getTotalProbability: () => Array.from(get().powerUpProbability.values()).reduce((total, p) => total + p.probability, 0),
+  getIsError: () => get().getTotalProbability() !== 100 || Array.from(get().powerUpProbability.values()).some((p) => p.probability <= 0),
 
-      return { availablePowerUps: Array.from(powerUpsSet) };
-    }),
-  setPowerUpProbability: ({ id: id, probability: prob }) => {
-    set(({ powerUpProbability }) => {
-      const probabilitySet = new Set(powerUpProbability);
+  togglePowerUp: (id) =>
+    set(
+      produce((state: NewGameState) => {
+        const splitProbabilities = () => {
+          if (!state.isProbabilityManuallyUpdated) {
+            const total = 100;
 
-      probabilitySet.delete({ id: id, probability: prob });
+            const probability = Math.floor(total / state.availablePowerUps.size);
+            let rest = total - probability * state.availablePowerUps.size;
 
-      probabilitySet.add({ id: id, probability: prob });
+            state.availablePowerUps.forEach((powerUp) => {
+              state.powerUpProbability.set(powerUp, { id: powerUp, probability: probability + rest });
+              rest = 0;
+            });
+          } else {
+            state.powerUpProbability.set(id, { id, probability: 0 });
+          }
+        };
 
-      const probabilities = Array.from(probabilitySet);
-      const totalProbability = probabilities.reduce((a, b) => a + b.probability, 0);
+        const itemFound = state.availablePowerUps.delete(id);
+        if (itemFound) {
+          state.powerUpProbability.delete(id);
+          splitProbabilities();
+        } else {
+          state.availablePowerUps.add(id);
+          splitProbabilities();
+        }
+      })
+    ),
 
-      const powerUpError = totalProbability > 100;
-
-      return { powerUpProbability: probabilities, totalProbability: totalProbability, isPowerUpError: powerUpError };
-    });
-  },
-  removePowerUpProbability: (name: PowerUpType) => {
-    set(({ powerUpProbability }) => {
-      const powerUpProbabilities = powerUpProbability.filter((probability) => probability.id !== name);
-
-      const totalProbability = powerUpProbabilities.reduce((a, b) => a + b.probability, 0);
-
-      return { powerUpProbability: powerUpProbabilities, totalProbability: totalProbability };
-    });
-  },
+  setPowerUpProbability: ({ id, probability }) =>
+    set(
+      produce((state: NewGameState) => {
+        if (probability === 0) {
+          state.powerUpProbability.delete(id);
+        } else {
+          state.powerUpProbability.set(id, { id, probability });
+          state.isProbabilityManuallyUpdated = true;
+        }
+      })
+    ),
 }));

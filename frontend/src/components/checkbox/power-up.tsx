@@ -7,6 +7,7 @@ import { PowerUpComponent } from "../power-up";
 
 import { Description, DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
 import { PowerUpDataProps } from "../../assets";
+import { PowerUp } from "../../types";
 
 interface PowerUpsInfo {
   isUsingSwitchIcon?: boolean;
@@ -19,7 +20,7 @@ interface PowerUpsInfo {
 
 export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError, probability, setProbability }) => {
   const setPowerUpProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
-  const powerUpData = { id: powerUp.id, image: powerUp.iconImage, name: powerUp.name };
+  const powerUpData: PowerUp = { id: powerUp.id, image: powerUp.iconImage, name: powerUp.name };
 
   const newProbability = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     setPowerUpProbability({ id: powerUp.id, probability: Number(e.target.value) });

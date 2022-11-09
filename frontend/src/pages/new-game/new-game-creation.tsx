@@ -20,7 +20,7 @@ export const NewGameCreation: FC = () => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
+  const isPowerUpError = useGameCreationFormState((state) => state.getIsError());
   const { setMatchId, setMatchUrl } = useStore();
   const { createMatch, isLoading } = useMatchMaker();
   const [isError, setIsError] = useState(false);
@@ -28,8 +28,8 @@ export const NewGameCreation: FC = () => {
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     const result = matchFormSettingsSchema.safeParse({
       ...data,
-      availablePowerUps,
-      powerUpProbability,
+      availablePowerUps: Array.from(availablePowerUps.values()),
+      powerUpProbability: Array.from(powerUpProbability.values()),
     });
 
     if (!result.success) {

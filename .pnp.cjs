@@ -6650,6 +6650,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:7.30.1"],\
             ["eslint-plugin-react-hooks", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:4.6.0"],\
             ["identity-obj-proxy", "npm:3.0.0"],\
+            ["immer", "npm:9.0.16"],\
             ["jest", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["react", "npm:18.2.0"],\
@@ -9819,6 +9820,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/ignore-npm-5.2.0-fc4b58a4f3-6b1f926792.zip/node_modules/ignore/",\
           "packageDependencies": [\
             ["ignore", "npm:5.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["immer", [\
+        ["npm:9.0.16", {\
+          "packageLocation": "./.yarn/cache/immer-npm-9.0.16-426ac657bc-e9a5ca65c9.zip/node_modules/immer/",\
+          "packageDependencies": [\
+            ["immer", "npm:9.0.16"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14442,7 +14452,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["zustand", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:4.1.1"],\
             ["@types/immer", null],\
             ["@types/react", "npm:18.0.17"],\
-            ["immer", null],\
+            ["immer", "npm:9.0.16"],\
             ["react", "npm:18.2.0"],\
             ["use-sync-external-store", "virtual:5ed4a8c596e1aa2ea77788e00822a11e47808aa72b4a83d68675a4f291678d1f2a78dfa8110620a172253f46a68bce08502053286f98769120b0fb8e294e73af#npm:1.2.0"]\
           ],\
