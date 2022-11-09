@@ -5,8 +5,7 @@ import { text } from "../../assets";
 import { useStore } from "../../store";
 import { GeneralText } from "../atoms/text";
 import { Modal } from "../modal";
-import { Close, CloseButton, CloseWrapper } from "../modal/styles";
-import { OverlayWrapperSection } from "./styles";
+import { Close, CloseButton, CloseWrapper, OverlayWrapperSection } from "./styles";
 
 export const OverlayWrapper: FC = () => {
   const ref = useRef(null);
@@ -41,9 +40,7 @@ export const OverlayWrapper: FC = () => {
           </CloseButton>
         </CloseWrapper>
       )}
-      <Modal hasCloseButton={isButtonVisible} hasContainer={isContainerVisible}>
-        {modalComponent}
-      </Modal>
+      <Modal hasContainer={isContainerVisible}>{modalComponent}</Modal>
     </OverlayWrapperSection>
   );
 };
