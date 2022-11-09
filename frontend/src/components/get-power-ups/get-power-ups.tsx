@@ -7,6 +7,7 @@ import { PrimaryButton } from "../buttons";
 import { TimerHeader } from "../timer-header";
 import { color } from "../../design";
 import { Player } from "../../types";
+import { DECISION_MAKING_TIME_IN_SECONDS } from "../../constants";
 
 interface GetPowerUpsProps {
   localPlayer?: Player;
@@ -18,7 +19,7 @@ export const GetPowerUps: FC<GetPowerUpsProps> = ({ localPlayer }) => {
 
   return (
     <BottomButtonWrapper>
-      <TimerHeader timeInSeconds={100} isCountDownStarted={false} title={text.powerUps.settingItUp} />
+      <TimerHeader timeInSeconds={DECISION_MAKING_TIME_IN_SECONDS} isCountDownStarted={false} title={text.powerUps.settingItUp} />
       <Heading2>{text.powerUps.yourPowerUps}</Heading2>
       <Heading2 customColor={color.darkGrey}>{text.param.powerUpsHiddenMoves(localPlayer.username)}</Heading2>
       <PrimaryButton text={text.match.goForIt} onClick={() => broadcastPlayerReady()} />
