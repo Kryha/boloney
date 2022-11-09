@@ -15,15 +15,14 @@ import {
   Lobby,
 } from "../../components";
 import { routes } from "../../navigation";
-import { fakeDiceRolls, fakeLocalPlayer, fakePlayers, useMatch, useMatchMaker } from "../../service";
-import { fakePowerUps } from "../../service/fake-power-ups";
+import { useMatch, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
-import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage } from "../../types";
+import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage, Player } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
   const { joinMatch } = useMatchMaker();
-  const { matchStage, isLoading } = useMatch();
+  const { matchStage, isLoading, getOrderedPlayers, handleStageTransition, getLocalPlayer } = useMatch();
   const powerUps = useStore((state) => state.powerUps);
   const faceValues = useStore((state) => state.faceValues);
   const players = useStore((state) => state.players);
@@ -33,12 +32,11 @@ export const Match = () => {
   const setMatchStage = useStore((state) => state.setMatchStage);
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
-  const localPlayer = session?.user_id;
-  // // TODO: Check if we need to re-stablish socket conection after reloading the page
-  // const { matchId: unparsedId } = useParams();
-  // const matchId = parseMatchIdParam(unparsedId);
+  // TODO: Check if we need to re-stablish socket conection after reloading the page
+  const { matchId: unparsedId } = useParams();
+  const matchId = parseMatchIdParam(unparsedId);
 
-  const getStageComponent = (stage: MatchStage): ReactNode => {
+  const getStageComponent = (stage: MatchStage, localPlayer: Player): ReactNode => {
     switch (stage) {
       case "getPowerUpStage":
         return <GetPowerUps localPlayer={localPlayer} />;
@@ -53,58 +51,60 @@ export const Match = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (matchId && session?.username) joinMatch(matchId, { username: session.username });
-  // }, [joinMatch, matchId, session?.username]);
+  useEffect(() => {
+    if (matchId && session?.username) joinMatch(matchId, { username: session.username });
+  }, [joinMatch, matchId, session?.username]);
 
-  // useEffect(() => {
-  //   if (!socket) return;
+  useEffect(() => {
+    if (!socket) return;
 
-  //   socket.onmatchdata = (matchData: MatchData) => {
-  //     const matchOpcode = matchData.op_code;
+    socket.onmatchdata = (matchData: MatchData) => {
+      const matchOpcode = matchData.op_code;
 
-  //     // TODO: Add cases for the rest of the OP_CODES
-  //     switch (matchOpcode) {
-  //       case MatchOpCode.STAGE_TRANSITION: {
-  //         const data = parseMatchData(matchData.data);
-  //         const stage: MatchStage = data.matchStage;
-  //         if (!isStageTransition(data)) return;
-  //         setMatchStage(stage);
-  //         handleStageTransition(stage);
-  //         break;
-  //       }
-  //       case MatchOpCode.PLAYER_JOINED: {
-  //         const players = parseMatchData(matchData.data);
-  //         if (!isPlayerRecord(players)) return;
-  //         setPlayers(players);
-  //         break;
-  //       }
-  //       case MatchOpCode.PLAYER_READY: {
-  //         const players = parseMatchData(matchData.data);
-  //         if (!isPlayerRecord(players)) return;
-  //         setPlayers(players);
-  //         break;
-  //       }
-  //       case MatchOpCode.PLAYER_ORDER_SHUFFLE: {
-  //         const playerOrder = parseMatchData(matchData.data);
-  //         if (!isPlayerOrderObject(playerOrder)) return;
-  //         setPlayerOrder(playerOrder.playerOrder);
-  //         break;
-  //       }
-  //     }
-  //   };
-  // }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
+      // TODO: Add cases for the rest of the OP_CODES
+      switch (matchOpcode) {
+        case MatchOpCode.STAGE_TRANSITION: {
+          const data = parseMatchData(matchData.data);
+          const stage: MatchStage = data.matchStage;
+          if (!isStageTransition(data)) return;
+          setMatchStage(stage);
+          handleStageTransition(stage);
+          break;
+        }
+        case MatchOpCode.PLAYER_JOINED: {
+          const players = parseMatchData(matchData.data);
+          if (!isPlayerRecord(players)) return;
+          setPlayers(players);
+          break;
+        }
+        case MatchOpCode.PLAYER_READY: {
+          const players = parseMatchData(matchData.data);
+          if (!isPlayerRecord(players)) return;
+          setPlayers(players);
+          break;
+        }
+        case MatchOpCode.PLAYER_ORDER_SHUFFLE: {
+          const playerOrder = parseMatchData(matchData.data);
+          if (!isPlayerOrderObject(playerOrder)) return;
+          setPlayerOrder(playerOrder.playerOrder);
+          break;
+        }
+      }
+    };
+  }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
 
-  // if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
+  if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
 
-  // // TODO: add loading animation
-  // if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
+  // TODO: add loading animation
+  if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
-  // if (matchStage === "lobbyStage") return <Lobby />;
+  if (matchStage === "lobbyStage") return <Lobby />;
+
+  const localPlayer = getLocalPlayer(players, session.user_id);
 
   return (
-    <GameLayout players={fakePlayers} dice={fakeDiceRolls} powerUps={fakePowerUps} localPlayer={fakePlayers[0]}>
-      <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
+    <GameLayout players={getOrderedPlayers(players, playersOrder)} dice={faceValues} powerUps={powerUps} localPlayer={localPlayer}>
+      <GeneralContentWrapper>{getStageComponent(matchStage, localPlayer)}</GeneralContentWrapper>
     </GameLayout>
   );
 };
