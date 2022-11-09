@@ -32,6 +32,7 @@ export const Match = () => {
   const setMatchStage = useStore((state) => state.setMatchStage);
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
+
   // TODO: Check if we need to re-stablish socket conection after reloading the page
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);

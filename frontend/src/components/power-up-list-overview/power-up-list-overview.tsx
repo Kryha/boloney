@@ -13,7 +13,7 @@ interface PowerUpListOverviewProps {
 }
 
 export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUps, isPowerUpInUse }) => {
-  const dataPowerUp = POWER_UP_DATA.filter((powerUp1) => powerUps.some((powerUp2) => powerUp1.id === powerUp2.id));
+  const dataPowerUp = POWER_UP_DATA.filter((localPowerUp) => powerUps.some((powerUp) => localPowerUp.id === powerUp.id));
 
   if (!dataPowerUp) return <></>;
 
