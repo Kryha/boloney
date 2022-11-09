@@ -33,7 +33,7 @@ export const Match = () => {
   const setMatchStage = useStore((state) => state.setMatchStage);
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
-
+  const localPlayer = session?.user_id;
   // // TODO: Check if we need to re-stablish socket conection after reloading the page
   // const { matchId: unparsedId } = useParams();
   // const matchId = parseMatchIdParam(unparsedId);
@@ -41,7 +41,7 @@ export const Match = () => {
   const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {
       case "getPowerUpStage":
-        return <GetPowerUps />;
+        return <GetPowerUps localPlayer={localPlayer} />;
       case "rollDiceStage":
         return <RollDice />;
       case "playerTurnLoopStage":
