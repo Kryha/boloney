@@ -29,3 +29,5 @@ export * from "./end-of-match";
 export * from "./end-of-round";
 export * from "./tooltip";
 export * from "./lobby";
+export * from "./power-up-list-overview";
+export * from "./modal";
