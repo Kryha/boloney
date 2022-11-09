@@ -51,12 +51,12 @@ export const fadeIn = keyframes`
 `;
 
 export const slideUp = keyframes`
-0% {
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
-}
-100% {
-  -webkit-transform: translateY(-5px);
-  transform: translateY(-5px);
-}
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
 `;
