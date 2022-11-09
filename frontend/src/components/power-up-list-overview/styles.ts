@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import { color, margins } from "../../design";
 import { GeneralText, Heading2 } from "../atoms";
+import { PrimaryButtonWrapper } from "../buttons/styles";
 
 interface Props {
   showOverview: boolean;
@@ -28,6 +29,11 @@ export const PowerUpCard = styled.div`
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  ${PrimaryButtonWrapper} {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
 `;
 
 export const PowerUpImage = styled.img`
@@ -36,10 +42,14 @@ export const PowerUpImage = styled.img`
   height: auto;
 `;
 
-export const PowerUpInfo = styled.section`
+interface PropsP {
+  isHovered: boolean;
+}
+export const PowerUpInfo = styled.section<PropsP>`
   position: absolute;
-  bottom: 20px;
   left: 20px;
+  bottom: ${({ isHovered }) => (isHovered ? "70px" : "20px")};
+  width: 100%;
   ${Heading2} {
     width: clamp(141px, 14.48vw + 2px, 280px);
     overflow: hidden;

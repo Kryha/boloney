@@ -16,7 +16,7 @@ import { PowerUpDataProps, POWER_UP_DATA, text } from "../../assets";
 import { GeneralText, Heading1, Heading2 } from "../atoms";
 import { color } from "../../design";
 import { useStore } from "../../store";
-import { GoBackButton } from "../buttons";
+import { GoBackButton, Link, PrimaryButton } from "../buttons";
 
 interface PowerUpListOverviewProps {
   powerUps: PowerUp[];
@@ -28,6 +28,8 @@ export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUps }) 
   const setIsOverviewVisible = useStore((state) => state.setIsOverviewVisible);
   const isOverviewVisible = useStore((state) => state.isOverviewVisible);
   const [power, setPowerUp] = useState<PowerUpDataProps | undefined>(undefined);
+  const [hover, setHover] = useState(false);
+  const [id, setId] = useState("");
 
   const openDetail = (powerUp: PowerUpDataProps) => {
     setIsContainerVisible(true);
@@ -50,12 +52,30 @@ export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUps }) 
             if (!dataPowerUp) return <></>;
 
             return (
-              <PowerUpCard key={dataPowerUp.id} onClick={() => openDetail(dataPowerUp)}>
+              <PowerUpCard
+                key={dataPowerUp.id}
+                onClick={() => openDetail(dataPowerUp)}
+                onMouseOver={() => {
+                  setHover(true);
+                  setId(dataPowerUp.id);
+                }}
+                onMouseOut={() => {
+                  setHover(false);
+                  setId(dataPowerUp.id);
+                }}
+              >
                 <PowerUpImage src={dataPowerUp.cardImage} />
-                <PowerUpInfo>
+                <PowerUpInfo isHovered={hover && id === dataPowerUp.id}>
                   <Heading2 customColor={color.mediumGrey}>{dataPowerUp.name}</Heading2>
-                  <GeneralText>{text.param.zeroAmount(dataPowerUp.id)}</GeneralText>
+                  {hover && id === dataPowerUp.id ? (
+                    <>
+                      <Link text={text.powerUps.seeDetails} />
+                    </>
+                  ) : (
+                    <GeneralText>{text.param.zeroAmount(dataPowerUp.id)}</GeneralText>
+                  )}
                 </PowerUpInfo>
+                {hover && id === dataPowerUp.id && <PrimaryButton text={text.powerUps.boostIt} />}
               </PowerUpCard>
             );
           })}
