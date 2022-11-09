@@ -9,6 +9,7 @@ import { color } from "../../design";
 import { Player } from "../../types";
 import { DECISION_MAKING_TIME_IN_SECONDS } from "../../constants";
 
+// TODO: get local player from stor and not variable
 interface GetPowerUpsProps {
   localPlayer?: Player;
 }
