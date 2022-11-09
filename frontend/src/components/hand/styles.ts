@@ -46,7 +46,7 @@ interface HandContainerProps {
 
 export const HandContainer = styled.div<HandContainerProps>`
   width: ${({ width }): string => width || "clamp(240px, 25vw + 0px, 480px"};
-  height: ${({ height, isInLobby }): string => (isInLobby ? "24vh" : height || "clamp(383.76px, 39.98vw + -0.01px, 767.53px)")};
+  height: ${({ height, isInLobby }): string => (isInLobby ? "100%" : height || "clamp(383.76px, 39.98vw + -0.01px, 767.53px)")};
   box-sizing: border-box;
   overflow: hidden;
   transform: translateY(0px);
@@ -69,4 +69,10 @@ export const HandContainer = styled.div<HandContainerProps>`
     position: absolute;
     pointer-events: none;
   }
+`;
+
+export const Wrapper = styled.div`
+  position: absolute;
+  bottom: 20px;
+  height: clamp(120px, 13.15vw + 27.58px, 280px);
 `;

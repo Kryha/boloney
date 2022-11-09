@@ -4,8 +4,8 @@ import { color } from "../../design";
 
 export const PowerUpWrapper = styled.div`
   box-sizing: border-box;
-  width: clamp(29.99px, 3.26vw + -1.27px, 61.25px);
-  height: clamp(45.28px, 4.91vw + -1.89px, 92.45px);
+  width: clamp(30px, 1.56vw + 15px, 45px);
+  height: clamp(40px, 2.08vw + 20px, 60px);
   background: ${color.white};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 4px;

@@ -12,7 +12,7 @@ export const Heading1 = styled.h1<TextProps>`
   font-size: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
   line-height: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
   letter-spacing: -0.02em;
-  color: ${color.black};
+  color: ${({ customColor }): string => customColor || color.black};
   :first-letter {
     text-transform: capitalize;
   }
@@ -54,7 +54,7 @@ export const Heading4 = styled.h4<TextProps>`
 export const Heading5 = styled.h5<TextProps>`
   font-family: "itc-clearface-regular";
   font-weight: ${fontWeight.regular};
-  font-size: clamp(1rem, 0.42vw + 0.75rem, 1.25rem);
+  font-size: clamp(13.12px, 0.72vw + 6.24px, 20px);
   line-height: clamp(1.13rem, 0.63vw + 0.75rem, 1.5rem);
   color: ${({ customColor }): string => customColor || color.black};
   :first-letter {
@@ -127,4 +127,5 @@ interface ColorSpanProps {
 
 export const ColorSpan = styled.span<ColorSpanProps>`
   color: ${({ customColor }) => color[customColor]};
+  font-weight: ${fontWeight.regular};
 `;

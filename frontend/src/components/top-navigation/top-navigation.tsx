@@ -3,7 +3,6 @@ import { FC, useRef, useState } from "react";
 import { TopNavigationSection } from "./styles";
 import { MenuDropdown } from "./menu";
 import { RulesDropdown } from "./rules";
-import { useStore } from "../../store";
 import { VerticalDivider } from "../atoms";
 import { MatchStats } from "./match-state/match-stats";
 import { useOnClickOutside } from "usehooks-ts";
@@ -15,8 +14,6 @@ interface Props {
 export type ActiveDropdown = "rules" | "menu" | undefined;
 
 export const TopNavigation: FC<Props> = ({ isInMatch }) => {
-  const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
-
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
   const ref = useRef(null);
@@ -24,10 +21,8 @@ export const TopNavigation: FC<Props> = ({ isInMatch }) => {
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
     if (activeDropdown === dropdown) {
       setActiveDropdown(undefined);
-      setIsOverlayVisible(false);
     } else {
       setActiveDropdown(dropdown);
-      setIsOverlayVisible(!!dropdown);
       setIsComponentVisible(true);
     }
   };

@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { useMatch } from "../../service";
 import { text } from "../../assets";
 import { BottomButtonWrapper, Heading1 } from "../atoms";

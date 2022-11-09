@@ -43,3 +43,20 @@ export const tooltipAnimation = keyframes`
     opacity: 1;
   }
 `;
+
+// General
+export const fadeIn = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+
+export const slideUp = keyframes`
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+`;

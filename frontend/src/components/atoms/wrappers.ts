@@ -30,9 +30,11 @@ export const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: ${color.black};
-  opacity: 0.4;
-  z-index: ${zIndex.background};
+  opacity: 0.8;
+  filter: blur(4px);
+  background: ${color.lightGrey};
+  mix-blend-mode: normal;
+  z-index: ${zIndex.inFront};
 `;
 
 export const GeneralContentWrapper = styled.div`

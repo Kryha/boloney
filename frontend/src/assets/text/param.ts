@@ -12,4 +12,6 @@ export const param = {
   healAmount: (amount: number) => (amount === 1 ? `x${amount} power-up` : `x${amount} power-ups`),
   xAmount: (amount: number) => `x${amount}`,
   powerUpAmount: (amount: number) => `+${amount}`,
+  powerUpsHiddenMoves: (username: string) => `welcome ${username}, let's find out which hidden moves you will have...`,
+  zeroAmount: (amount: string | number) => `0${amount}`,
 };

@@ -12,7 +12,7 @@ export const TopNavigationSection = styled.section`
   width: 100%;
   justify-content: flex-end;
   position: absolute;
-  z-index: ${zIndex.inFront};
+  z-index: ${zIndex.normal};
 `;
 
 export const Timer = styled(TimerIcon)`
@@ -49,8 +49,12 @@ interface ButtonContainerProps {
 }
 
 export const ButtonContainer = styled.div<ButtonContainerProps>`
-  background: ${color.lightGrey};
-  border: 1px solid ${({ isActive }) => (isActive ? color.black : color.lightGrey)};
+  ${({ isActive }) =>
+    isActive
+      ? `  background: ${color.white};
+          box-shadow: 0px 0px 28px rgb(0 0 0 / 10%);
+        `
+      : `background: ${color.lightGrey};`};
 
   z-index: ${({ isActive }) => (isActive ? zIndex.onTop : zIndex.behind)};
 `;
@@ -77,12 +81,14 @@ export const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  background: ${color.lightGrey};
+  background: ${color.white};
+  box-shadow: 0px 0px 28px rgb(0 0 0 / 10%);
 `;
 
 export const RulesContainer = styled.div`
   position: absolute;
-  background: ${color.lightGrey};
+  background: ${color.white};
+  box-shadow: 0px 0px 28px rgb(0 0 0 / 10%);
   width: 25vw;
   right: 0;
   padding: 20px;

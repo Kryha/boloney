@@ -69,7 +69,11 @@ export const GameStateContainer = styled(PlayerNameContainer)`
   align-items: flex-start;
 `;
 
-export const PlayerInfoContainer = styled.section``;
+export const PlayerInfoContainer = styled.section`
+  gap: ${margins.small1};
+  display: flex;
+  flex-direction: column;
+`;
 
 interface PlayersContainerProps {
   totalPlayers: number;

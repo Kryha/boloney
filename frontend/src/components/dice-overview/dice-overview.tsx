@@ -14,7 +14,7 @@ interface DiceOverviewProps {
 export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
   const { height } = useViewport();
 
-  if (!dice || !dice.length) return <></>;
+  if (!dice || !dice.length) return <DieOverviewContainer height={height} />;
 
   return (
     <DieOverviewWrapper>
