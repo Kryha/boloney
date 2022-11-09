@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { CloseIcon } from "../../assets";
-import { color } from "../../design";
+import { color, margins } from "../../design";
 
 export const OverlayWrapperSection = styled.section`
   display: flex;
@@ -15,8 +15,8 @@ export const CloseButton = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px 26px 20px 30px;
-  gap: 8px;
+  padding: ${margins.small4} 26px ${margins.small5} ${margins.medium0};
+  gap: ${margins.small1};
   background: ${color.lightGrey};
   z-index: 11;
   cursor: pointer;

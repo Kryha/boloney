@@ -18,7 +18,7 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
   const setIsModalVisible = useStore((state) => state.setIsModalVisible);
   const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
   const setIsModalButtonVisible = useStore((state) => state.setIsModalButtonVisible);
-  const setModalComponent = useStore((state) => state.setModalComponent);
+  const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const { width } = useViewport();
 
   const initialPowerUpsShown = width > MEDIUM_VIEWPORT_WIDTH ? POWER_UP_DEFAULT_VIEW : POWER_UP_DEFAULT_VIEW_SMALL;
@@ -27,7 +27,7 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
     setIsModalVisible(true);
     setIsOverlayVisible(true);
     setIsModalButtonVisible(true);
-    setModalComponent(<PowerUpListOverview powerUps={powerUps} />);
+    setModalComponentChildren(<PowerUpListOverview powerUps={powerUps} />);
   };
 
   return (

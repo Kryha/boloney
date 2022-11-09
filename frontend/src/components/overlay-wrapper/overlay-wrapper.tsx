@@ -13,8 +13,8 @@ export const OverlayWrapper: FC = () => {
   const setIsModalVisible = useStore((state) => state.setIsModalVisible);
   const setIsContainerVisible = useStore((state) => state.setIsContainerVisible);
   const setIsModalButtonVisible = useStore((state) => state.setIsModalButtonVisible);
-  const setModalComponent = useStore((state) => state.setModalComponent);
-  const modalComponent = useStore((state) => state.modalComponent);
+  const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
+  const modalComponentChildren = useStore((state) => state.modalComponentChildren);
   const isContainerVisible = useStore((state) => state.isContainerVisible);
   const isModalButtonVisible = useStore((state) => state.isModalButtonVisible);
 
@@ -27,7 +27,7 @@ export const OverlayWrapper: FC = () => {
     setIsModalVisible(false);
     setIsModalButtonVisible(false);
     setIsContainerVisible(false);
-    setModalComponent(undefined);
+    setModalComponentChildren(undefined);
   };
 
   return (
@@ -40,7 +40,7 @@ export const OverlayWrapper: FC = () => {
           </CloseButton>
         </CloseWrapper>
       )}
-      <Modal hasContainer={isContainerVisible}>{modalComponent}</Modal>
+      <Modal hasContainer={isContainerVisible}>{modalComponentChildren}</Modal>
     </OverlayWrapperSection>
   );
 };
