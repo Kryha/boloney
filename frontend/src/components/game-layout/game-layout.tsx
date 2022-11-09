@@ -6,7 +6,6 @@ import { HUD } from "../hud";
 import { ContentContainer, MainContentContainer } from "./styles";
 import { TopNavigation } from "../top-navigation";
 import { OverlayWrapper } from "../overlay-wrapper";
-import { useStore } from "../../store";
 
 interface GameLayoutProps {
   players: Player[];
@@ -18,7 +17,6 @@ interface GameLayoutProps {
 
 export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, powerUps, localPlayer }) => {
   const remotePlayers: Player[] = players.filter((player) => player.userId !== localPlayer.userId);
-
   return (
     <>
       <TopNavigation isInMatch />

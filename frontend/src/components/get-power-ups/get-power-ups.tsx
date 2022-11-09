@@ -19,8 +19,7 @@ export const GetPowerUps: FC<GetPowerUpsProps> = ({ localPlayer }) => {
 
   return (
     <BottomButtonWrapper>
-      <TimerHeader timeInSeconds={DECISION_MAKING_TIME_IN_SECONDS} isCountDownStarted={false} title={text.powerUps.settingItUp} />
-      <Heading2>{text.powerUps.yourPowerUps}</Heading2>
+      <TimerHeader timeInSeconds={DECISION_MAKING_TIME_IN_SECONDS} isCountDownStarted={true} title={text.powerUps.settingItUp} />
       <Heading2 customColor={color.darkGrey}>{text.param.powerUpsHiddenMoves(localPlayer.username)}</Heading2>
       <PrimaryButton text={text.match.goForIt} onClick={() => broadcastPlayerReady()} />
     </BottomButtonWrapper>

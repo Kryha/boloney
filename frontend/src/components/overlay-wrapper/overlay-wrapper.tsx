@@ -13,13 +13,12 @@ export const OverlayWrapper: FC = () => {
   const setIsModalVisible = useStore((state) => state.setIsModalVisible);
   const setIsContainerVisible = useStore((state) => state.setIsContainerVisible);
   const setIsModalButtonVisible = useStore((state) => state.setIsModalButtonVisible);
+  const setModalComponent = useStore((state) => state.setModalComponent);
   const modalComponent = useStore((state) => state.modalComponent);
   const isContainerVisible = useStore((state) => state.isContainerVisible);
   const isModalButtonVisible = useStore((state) => state.isModalButtonVisible);
 
   useOnClickOutside(ref, () => {
-    setIsOverlayVisible(false);
-    setIsModalVisible(false);
     handleClose();
   });
 
@@ -28,6 +27,7 @@ export const OverlayWrapper: FC = () => {
     setIsModalVisible(false);
     setIsModalButtonVisible(false);
     setIsContainerVisible(false);
+    setModalComponent(undefined);
   };
 
   return (

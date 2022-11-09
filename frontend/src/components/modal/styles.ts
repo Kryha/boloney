@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { color } from "../../design";
+import { color, margins } from "../../design";
 import { TopNavigationSection } from "../top-navigation/styles";
 
 interface ChildrenWrapperProps {
@@ -11,7 +11,7 @@ export const ChildrenWrapper = styled.div<ChildrenWrapperProps>`
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 16px;
+  gap: ${margins.small4};
 
   box-shadow: ${({ hasContainer }) => (hasContainer ? "0px 2px 19px rgba(0, 0, 0, 0.28)" : "none")};
   border-radius: 10px;
