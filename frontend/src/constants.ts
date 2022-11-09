@@ -60,4 +60,5 @@ export const ADDRESS_PREFIX = "aleo1";
 export const POWER_UP_DEFAULT_VIEW = 6;
 export const POWER_UP_DEFAULT_VIEW_SMALL = 5;
 export const GAME_PLAYER_HEIGHT = 89;
+// TODO: change the time
 export const DECISION_MAKING_TIME_IN_SECONDS = 100;
