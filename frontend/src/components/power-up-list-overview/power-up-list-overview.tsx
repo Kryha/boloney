@@ -1,12 +1,11 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
-import { PowerUpCard, PowerUpImage, PowerUpInfo, PowerUpListOverviewWrapper } from "./styles";
+import { PowerUpCard, PowerUpImage, PowerUpInfoContainer, PowerUpInfoWrapper, PowerUpListOverviewWrapper } from "./styles";
 import { PowerUp } from "../../types";
 import { POWER_UP_DATA, text } from "../../assets";
 import { GeneralText, Heading2 } from "../atoms";
 import { color } from "../../design";
-import { useStore } from "../../store";
-import { GoBackButton, Link, PrimaryButton } from "../buttons";
+import { Link, PrimaryButton } from "../buttons";
 
 interface PowerUpListOverviewProps {
   powerUps: PowerUp[];
@@ -14,40 +13,24 @@ interface PowerUpListOverviewProps {
 }
 
 export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUps, isPowerUpInUse }) => {
-  const isOverviewVisible = useStore((state) => state.isOverviewVisible);
-  const [hover, setHover] = useState(false);
-  const [id, setId] = useState("");
+  const dataPowerUp = POWER_UP_DATA.filter((powerUp1) => powerUps.some((powerUp2) => powerUp1.id === powerUp2.id));
+
+  if (!dataPowerUp) return <></>;
 
   return (
-    <PowerUpListOverviewWrapper showOverview={isOverviewVisible}>
-      {powerUps.map((powerUp) => {
-        const dataPowerUp = POWER_UP_DATA.find((a) => a.id === powerUp.id);
-        if (!dataPowerUp) return <></>;
-
+    <PowerUpListOverviewWrapper>
+      {dataPowerUp.map((powerUp) => {
         return (
-          <PowerUpCard
-            key={dataPowerUp.id}
-            onMouseOver={() => {
-              setHover(true);
-              setId(dataPowerUp.id);
-            }}
-            onMouseOut={() => {
-              setHover(false);
-              setId(dataPowerUp.id);
-            }}
-          >
-            <PowerUpImage src={dataPowerUp.cardImage} />
-            <PowerUpInfo isHovered={hover && id === dataPowerUp.id}>
-              <Heading2 customColor={color.mediumGrey}>{dataPowerUp.name}</Heading2>
-              {hover && id === dataPowerUp.id ? (
-                <>
-                  <Link text={text.powerUps.seeDetails} />
-                </>
-              ) : (
-                <GeneralText>{text.param.zeroAmount(dataPowerUp.id)}</GeneralText>
-              )}
-            </PowerUpInfo>
-            {hover && id === dataPowerUp.id && isPowerUpInUse && <PrimaryButton text={text.powerUps.boostIt} />}
+          <PowerUpCard key={powerUp.id}>
+            <PowerUpImage src={powerUp.cardImage} />
+            <PowerUpInfoWrapper>
+              <PowerUpInfoContainer>
+                <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>
+                <Link text={text.powerUps.seeDetails} />
+                <GeneralText>{text.param.zeroAmount(powerUp.id)}</GeneralText>
+              </PowerUpInfoContainer>
+              {isPowerUpInUse && <PrimaryButton text={text.powerUps.boostIt} />}
+            </PowerUpInfoWrapper>
           </PowerUpCard>
         );
       })}

@@ -7,7 +7,6 @@ export interface UISlice {
   modalComponent: ReactNode | undefined;
   isContainerVisible: boolean;
   isModalButtonVisible: boolean;
-  isOverviewVisible: boolean;
 
   setIsOverlayVisible: (isVisible: boolean) => void;
   setIsModalVisible: (isVisible: boolean) => void;
@@ -15,7 +14,6 @@ export interface UISlice {
   setModalComponent: (component: ReactNode) => void;
   setIsContainerVisible: (isVisible: boolean) => void;
   setIsModalButtonVisible: (isVisible: boolean) => void;
-  setIsOverviewVisible: (isVisible: boolean) => void;
 }
 
 export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
@@ -24,7 +22,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   modalComponent: undefined,
   isContainerVisible: false,
   isModalButtonVisible: false,
-  isOverviewVisible: true,
 
   setIsOverlayVisible: (isVisible: boolean) => set(() => ({ isOverlayVisible: isVisible })),
   toggleOverlay: () => set(({ isOverlayVisible }) => ({ isOverlayVisible: !isOverlayVisible })),
@@ -32,5 +29,4 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   setModalComponent: (component: ReactNode) => set(() => ({ modalComponent: component })),
   setIsContainerVisible: (isVisible: boolean) => set(() => ({ isContainerVisible: isVisible })),
   setIsModalButtonVisible: (isVisible: boolean) => set(() => ({ isModalButtonVisible: isVisible })),
-  setIsOverviewVisible: (isVisible: boolean) => set(() => ({ isOverviewVisible: isVisible })),
 });

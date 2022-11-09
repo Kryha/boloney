@@ -17,7 +17,7 @@ interface PowerUpListProps {
 export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
   const setIsModalVisible = useStore((state) => state.setIsModalVisible);
   const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
-  const setIsButtonVisible = useStore((state) => state.setIsButtonVisible);
+  const setIsModalButtonVisible = useStore((state) => state.setIsModalButtonVisible);
   const setModalComponent = useStore((state) => state.setModalComponent);
   const { width } = useViewport();
 
@@ -26,7 +26,7 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
   const toggleShowModal = () => {
     setIsModalVisible(true);
     setIsOverlayVisible(true);
-    setIsButtonVisible(true);
+    setIsModalButtonVisible(true);
     setModalComponent(<PowerUpListOverview powerUps={powerUps} />);
   };
 
