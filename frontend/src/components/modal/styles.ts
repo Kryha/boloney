@@ -1,29 +1,6 @@
 import styled from "@emotion/styled";
-import { CloseIcon } from "../../assets";
 import { color } from "../../design";
 import { TopNavigationSection } from "../top-navigation/styles";
-
-export const Close = styled(CloseIcon)``;
-
-export const CloseButton = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 26px 20px 30px;
-  gap: 8px;
-  background: ${color.lightGrey};
-  z-index: 11;
-  cursor: pointer;
-`;
-
-export const CloseWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
 
 interface ChildrenWrapperProps {
   hasContainer: boolean;

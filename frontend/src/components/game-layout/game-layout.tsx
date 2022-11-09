@@ -17,16 +17,6 @@ interface GameLayoutProps {
 }
 
 export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, powerUps, localPlayer }) => {
-  const setIsModalVisible = useStore((state) => state.setIsModalVisible);
-  const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
-  const setIsOverviewVisible = useStore((state) => state.setIsOverviewVisible);
-
-  const handleClose = () => {
-    setIsOverlayVisible(false);
-    setIsModalVisible(false);
-    setIsOverviewVisible(true);
-  };
-
   const remotePlayers: Player[] = players.filter((player) => player.userId !== localPlayer.userId);
 
   return (
@@ -37,7 +27,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, power
       <MainContentContainer>
         <ContentContainer>{children}</ContentContainer>
       </MainContentContainer>
-      <OverlayWrapper handleClickOutside={() => handleClose()} />
+      <OverlayWrapper />
     </>
   );
 };

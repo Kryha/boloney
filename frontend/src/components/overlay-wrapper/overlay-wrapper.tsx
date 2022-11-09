@@ -1,4 +1,4 @@
-import { FC, ReactNode, useRef } from "react";
+import { FC, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { text } from "../../assets";
 
@@ -8,13 +8,7 @@ import { Modal } from "../modal";
 import { Close, CloseButton, CloseWrapper } from "../modal/styles";
 import { OverlayWrapperSection } from "./styles";
 
-interface OverlayWrapperProps {
-  handleClickOutside: () => void;
-  hasContainer?: boolean;
-  hasCloseButton?: boolean;
-}
-
-export const OverlayWrapper: FC<OverlayWrapperProps> = ({ handleClickOutside }) => {
+export const OverlayWrapper: FC = () => {
   const ref = useRef(null);
   const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
   const setIsModalVisible = useStore((state) => state.setIsModalVisible);
@@ -27,7 +21,7 @@ export const OverlayWrapper: FC<OverlayWrapperProps> = ({ handleClickOutside }) 
   useOnClickOutside(ref, () => {
     setIsOverlayVisible(false);
     setIsModalVisible(false);
-    handleClickOutside();
+    handleClose();
   });
 
   const handleClose = () => {
