@@ -5,8 +5,6 @@ import { GamePlayersOverview } from "../game-players-overview";
 import { HUD } from "../hud";
 import { ContentContainer, MainContentContainer } from "./styles";
 import { TopNavigation } from "../top-navigation";
-import { OverlayWrapper } from "../overlay-wrapper";
-import { useStore } from "../../store";
 
 interface GameLayoutProps {
   players: Player[];
