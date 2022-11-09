@@ -37,7 +37,7 @@ export const ModalWrapper = styled.section<ModalProps>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: ${({ isModalVisible }) => !isModalVisible && "none"};
+  display: ${({ isModalVisible }) => (isModalVisible ? "block" : "none")};
 
   ${TopNavigationSection} {
     z-index: 1;

@@ -33,7 +33,7 @@ export const Match = () => {
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
 
-  // TODO: Check if we need to re-stablish socket conection after reloading the page
+  // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);
 
@@ -100,7 +100,7 @@ export const Match = () => {
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
   if (matchStage === "lobbyStage") return <Lobby />;
-
+  // TODO fetching the localPlayer from the global store
   const localPlayer = getLocalPlayer(players, session.user_id);
 
   return (
