@@ -5,5 +5,4 @@ export const routes = {
   home: "/home",
   newGame: "/new-game",
   match: "/match",
-  throwDice: "/throw-dice",
 };

@@ -29,7 +29,7 @@ const initialMatchState: MatchSliceState = {
   matchId: undefined,
   powerUps: undefined,
   faceValues: undefined,
-  matchStage: "lobbyStage",
+  matchStage: "rollDiceStage",
   players: {},
   playerOrder: [],
   localPlayerId: "",
