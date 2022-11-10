@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { text } from "../../assets";
 import { MEDIUM_VIEWPORT_WIDTH, POWER_UP_DEFAULT_VIEW, POWER_UP_DEFAULT_VIEW_SMALL } from "../../constants";
 import { useViewport } from "../../hooks";
@@ -15,18 +15,14 @@ interface PowerUpListProps {
 }
 
 export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
-  const setIsModalVisible = useStore((state) => state.setIsModalVisible);
-  const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
-  const setIsModalButtonVisible = useStore((state) => state.setIsModalButtonVisible);
+  const toggleModalWithoutContainer = useStore((state) => state.toggleModalWithoutContainer);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const { width } = useViewport();
 
   const initialPowerUpsShown = width > MEDIUM_VIEWPORT_WIDTH ? POWER_UP_DEFAULT_VIEW : POWER_UP_DEFAULT_VIEW_SMALL;
 
   const toggleShowModal = () => {
-    setIsModalVisible(true);
-    setIsOverlayVisible(true);
-    setIsModalButtonVisible(true);
+    toggleModalWithoutContainer();
     setModalComponentChildren(<PowerUpListOverview powerUps={powerUps} />);
   };
 

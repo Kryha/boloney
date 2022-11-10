@@ -9,11 +9,7 @@ import { Close, CloseButton, CloseWrapper, OverlayWrapperSection } from "./style
 
 export const OverlayWrapper: FC = () => {
   const ref = useRef(null);
-  const setIsOverlayVisible = useStore((state) => state.setIsOverlayVisible);
-  const setIsModalVisible = useStore((state) => state.setIsModalVisible);
-  const setIsContainerVisible = useStore((state) => state.setIsContainerVisible);
-  const setIsModalButtonVisible = useStore((state) => state.setIsModalButtonVisible);
-  const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
+  const closeModal = useStore((state) => state.closeModal);
   const modalComponentChildren = useStore((state) => state.modalComponentChildren);
   const isContainerVisible = useStore((state) => state.isContainerVisible);
   const isModalButtonVisible = useStore((state) => state.isModalButtonVisible);
@@ -23,11 +19,7 @@ export const OverlayWrapper: FC = () => {
   });
 
   const handleClose = () => {
-    setIsOverlayVisible(false);
-    setIsModalVisible(false);
-    setIsModalButtonVisible(false);
-    setIsContainerVisible(false);
-    setModalComponentChildren(undefined);
+    closeModal();
   };
 
   return (

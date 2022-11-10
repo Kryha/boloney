@@ -8,12 +8,11 @@ export interface UISlice {
   isContainerVisible: boolean;
   isModalButtonVisible: boolean;
 
-  setIsOverlayVisible: (isVisible: boolean) => void;
-  setIsModalVisible: (isVisible: boolean) => void;
   toggleOverlay: () => void;
   setModalComponentChildren: (component: ReactNode) => void;
-  setIsContainerVisible: (isVisible: boolean) => void;
-  setIsModalButtonVisible: (isVisible: boolean) => void;
+  closeModal: () => void;
+  toggleModalWithoutContainer: () => void;
+  toggleModalWithContainer: () => void;
 }
 
 export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
@@ -23,10 +22,27 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   isContainerVisible: false,
   isModalButtonVisible: false,
 
-  setIsOverlayVisible: (isVisible: boolean) => set(() => ({ isOverlayVisible: isVisible })),
   toggleOverlay: () => set(({ isOverlayVisible }) => ({ isOverlayVisible: !isOverlayVisible })),
-  setIsModalVisible: (isVisible: boolean) => set(() => ({ isModalVisible: isVisible })),
   setModalComponentChildren: (component: ReactNode) => set(() => ({ modalComponentChildren: component })),
-  setIsContainerVisible: (isVisible: boolean) => set(() => ({ isContainerVisible: isVisible })),
-  setIsModalButtonVisible: (isVisible: boolean) => set(() => ({ isModalButtonVisible: isVisible })),
+  closeModal: () =>
+    set(() => ({
+      isModalButtonVisible: false,
+      isModalVisible: false,
+      isOverlayVisible: false,
+      isContainerVisible: false,
+      modalComponentChildren: undefined,
+    })),
+  toggleModalWithoutContainer: () =>
+    set(({ isOverlayVisible, isModalVisible, isModalButtonVisible }) => ({
+      isModalButtonVisible: !isModalButtonVisible,
+      isModalVisible: !isModalVisible,
+      isOverlayVisible: !isOverlayVisible,
+    })),
+  toggleModalWithContainer: () =>
+    set(({ isOverlayVisible, isModalVisible, isModalButtonVisible, isContainerVisible }) => ({
+      isModalButtonVisible: !isModalButtonVisible,
+      isModalVisible: !isModalVisible,
+      isOverlayVisible: !isOverlayVisible,
+      isContainerVisible: !isContainerVisible,
+    })),
 });
