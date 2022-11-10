@@ -8,5 +8,9 @@ export const error = {
   goBack: "go back",
   goHome: "go home",
   noSocketConnected: "no socket connected",
+  noSessionAvailable: "no session available",
+  noUsernameFound: "no username found",
   noPayloadReturned: "no payload returned",
+  receivedUnexpectedPayload: "received unexpected payload",
+  noMatchIdFound: "no match id found",
 };

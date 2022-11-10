@@ -1,34 +1,40 @@
 import { FC } from "react";
 
 import { avatarHeight } from "../atoms";
-import { Player } from "../../interfaces/player";
-import { GamePlayersWrapper, PlayerColor, PlayerNameContainer, PlayerAvatar, PlayerName as Name } from "./styles";
+import {
+  GamePlayersWrapper,
+  PlayerNameContainer,
+  PlayerAvatar,
+  PlayerName as Name,
+  PlayerAvatarContainer,
+  PlayerInfoContainer,
+  GamePlayersContainer,
+} from "./styles";
 import { handProportion } from "../../design/hand";
+import { Player } from "../../types";
+import { avatars } from "../../assets";
+import { PlayerGameState } from "./game-player-info";
 
 interface GamePlayerProps {
   totalPlayers: number;
   player: Player;
 }
-interface PlayerNameProps {
-  name: string;
-  color: string;
-}
-
-export const PlayerName: FC<PlayerNameProps> = ({ name, color }) => {
-  return (
-    <PlayerNameContainer>
-      <PlayerColor customColor={color} />
-      <Name>{name}</Name>
-    </PlayerNameContainer>
-  );
-};
 
 export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
-  const { avatar } = handProportion(player.avatarName);
+  const { avatar } = handProportion(avatars[player.avatarId].name);
   return (
-    <GamePlayersWrapper>
-      <PlayerAvatar src={avatar} alt={player.name} height={avatarHeight[totalPlayers - 1]} />
-      <PlayerName name={player.name} color={player.color} />
+    <GamePlayersWrapper totalPlayers={totalPlayers}>
+      <GamePlayersContainer totalPlayers={totalPlayers}>
+        <PlayerAvatarContainer>
+          <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
+        </PlayerAvatarContainer>
+        <PlayerInfoContainer>
+          <PlayerNameContainer>
+            <Name>{player.username}</Name>
+          </PlayerNameContainer>
+          <PlayerGameState player={player} />
+        </PlayerInfoContainer>
+      </GamePlayersContainer>
     </GamePlayersWrapper>
   );
 };

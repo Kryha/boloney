@@ -3,43 +3,45 @@ import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
-import { MatchSettings } from "../../interfaces";
-import { useMatchMaker } from "../../service/match-maker";
-import { FakeCreditsField } from "./fake-credits-field";
+import { useMatchMaker } from "../../service";
+import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
 import { useGameCreationFormState } from "./game-creation-form-state";
+import { HealActionField } from "./heal-action-field";
 import { PlayersField } from "./players-field";
-import { PowerupsAmountField } from "./powerups-amount-field";
-import { PowerupsField } from "./powerups-field";
+import { DrawRoundOffsetField } from "./draw-round-offset-field";
+import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewGameContainer } from "./styles";
-
-interface Props {
-  setUrl: (url: string) => void;
-}
+import { PowerUpsAmountField } from "./power-up-amount-field";
+import { parseLobbyUrl, splitMatchId } from "../../util";
+import { useStore } from "../../store";
 
 // TODO: make a form component
-export const NewGameCreation: FC<Props> = ({ setUrl }) => {
+export const NewGameCreation: FC = () => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
-  const availablePowerups = useGameCreationFormState((state) => state.availablePowerups);
-  const isUsingFakeCredits = useGameCreationFormState((state) => state.isUsingFakeCredits);
-  const { createMatch, joinMatch, isLoading } = useMatchMaker();
+  const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
+  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
+  const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
+  const { setMatchId, setMatchUrl } = useStore();
+  const { createMatch, isLoading } = useMatchMaker();
   const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
-    data.players = Number(data.players);
-    data.dicePerPlayer = Number(data.dicePerPlayer);
-    data.powerupsPerPlayer = Number(data.powerupsPerPlayer);
-    data.availablePowerups = availablePowerups;
-    data.isUsingFakeCredits = isUsingFakeCredits;
+    const result = matchFormSettingsSchema.safeParse({
+      ...data,
+      availablePowerUps,
+      powerUpProbability,
+    });
 
-    const res = await createMatch(data);
-    if (typeof res === "string") {
-      const matchId = res;
-      await joinMatch(matchId);
-      // TODO: retrieve url from backend
-      setUrl(`tmp/url/${matchId}`);
-    } else {
-      console.log(res);
+    if (!result.success) {
       setIsError(true);
+    } else {
+      const matchId = await createMatch(result.data);
+      if (isString(matchId)) {
+        setMatchId(splitMatchId(matchId));
+        setMatchUrl(parseLobbyUrl(matchId));
+      } else {
+        setIsError(true);
+      }
     }
   });
 
@@ -53,11 +55,13 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
         <FormContainer>
           <PlayersField register={register} />
 
-          <PowerupsAmountField register={register} />
+          <PowerUpsAmountField register={register} />
 
-          <PowerupsField />
+          <DrawRoundOffsetField register={register} />
 
-          <FakeCreditsField />
+          <PowerUpsField />
+
+          <HealActionField register={register} />
 
           <BottomContainer>
             <Paragraph>{text.newGame.bottomDesc}</Paragraph>
@@ -65,7 +69,7 @@ export const NewGameCreation: FC<Props> = ({ setUrl }) => {
           {isLoading && <Heading6>{text.newGame.loading}</Heading6>}
           {isError && <Heading6>{text.newGame.error}</Heading6>}
           <ButtonContainer>
-            <PrimaryButton type="submit" text={text.newGame.continue} />
+            <PrimaryButton type="submit" text={text.newGame.continue} disabled={isPowerUpError} />
           </ButtonContainer>
         </FormContainer>
       </form>

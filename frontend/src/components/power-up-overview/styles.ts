@@ -2,16 +2,16 @@ import styled from "@emotion/styled";
 
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
+import { fadeIn, slideUp } from "../atoms";
 import { GeneralText } from "../atoms/text";
+import { Lightning } from "../icons/styles";
 
 export const PowerUpOverviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
-  position: absolute;
-  bottom: 0;
-  left: 43.75vw;
+  margin-left: ${margins.large0};
 `;
 
 interface ViewportProps {
@@ -20,23 +20,40 @@ interface ViewportProps {
 
 export const PowerUpOverviewContainer = styled.div<ViewportProps>`
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
   gap: ${({ height }) => height > SMALL_VIEWPORT_HEIGHT && margins.small2};
   width: 31.25vw;
   height: 7.198vh;
   background: transparent;
-  border-left: 1px solid ${color.darkGrey};
-  border-top: 1px solid ${color.darkGrey};
+  margin-top: ${margins.small5};
   ${GeneralText} {
-    margin-left: ${margins.small5};
+    color: ${color.black};
   }
+  ${Lightning} {
+    path {
+      stroke: ${color.black};
+    }
+  }
+  animation: ${fadeIn} 2s;
 `;
 
 export const YourPowerUpContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: ${margins.small2};
-  margin-top: -45px;
   margin-left: ${margins.small5};
+  cursor: pointer;
+  :hover {
+    animation: ${slideUp};
+    animation-duration: 0.7s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+  }
+`;
+
+export const PowerUpOverview = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 `;

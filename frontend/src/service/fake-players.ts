@@ -1,54 +1,55 @@
 // TODO: delete this file
-import { Player } from "../interfaces/player";
+import { Player } from "../types";
 
-export const Players: Player[] = [
+export const fakePlayers: Player[] = [
   {
-    id: "1",
-    name: "umpalumpa",
-    color: "#FFC300",
-    avatarName: "toy",
-    connected: true,
+    userId: "000000000",
+    username: "umpalumpa",
+    avatarId: 1,
+    isConnected: true,
+    isReady: false,
   },
   {
-    id: "2",
-    name: "señor.garfio",
-    color: "#FF8059",
-    avatarName: "hook",
-    connected: false,
+    userId: "11111111",
+    username: "señor.garfio",
+    avatarId: 2,
+    isConnected: false,
+    isReady: false,
   },
   {
-    id: "3",
-    name: "shake.it",
-    color: "#FFA7E9",
-    avatarName: "plastic",
-    connected: true,
+    userId: "2222222",
+    username: "shake.it",
+    avatarId: 3,
+    isConnected: true,
+    isReady: false,
   },
   {
-    id: "4",
-    name: "something.great",
-    color: "#989EFF",
-    avatarName: "scooper",
-    connected: false,
+    userId: "33333",
+    username: "something.great",
+    avatarId: 4,
+    isConnected: false,
+    isReady: false,
   },
   {
-    id: "5",
-    name: "god",
-    color: "#92C9FF",
-    avatarName: "hand",
-    connected: true,
+    userId: "44444",
+    username: "god",
+    avatarId: 5,
+    isConnected: true,
+    isReady: false,
   },
   {
-    id: "6",
-    name: "lekker",
-    color: "#91C342",
-    avatarName: "lobster",
-    connected: false,
+    userId: "55555",
+    username: "lekker",
+    avatarId: 6,
+    isConnected: false,
+    isReady: false,
   },
-  {
-    id: "7",
-    name: "yoda",
-    color: "#91C342",
-    avatarName: "skeleton",
-    connected: true,
-  }
 ];
+
+export const fakeLocalPlayer: Player = {
+  userId: "666666",
+  username: "yoda",
+  avatarId: 7,
+  isConnected: true,
+  isReady: false,
+};

@@ -32,3 +32,31 @@ export const ellipsis = keyframes`
     width: 2.25em;
   }
 `;
+
+// Tooltip
+export const tooltipAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+// General
+export const fadeIn = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+
+export const slideUp = keyframes`
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+`;

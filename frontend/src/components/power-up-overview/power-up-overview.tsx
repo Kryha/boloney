@@ -1,21 +1,25 @@
 import { FC } from "react";
 
-import { PowerUpOverviewWrapper, PowerUpOverviewContainer, YourPowerUpContainer } from "./styles";
-import { PowerUp } from "../power-up";
-import { GeneralText } from "../atoms/text";
-import { text } from "../../assets/text";
+import { PowerUpOverviewWrapper, PowerUpOverviewContainer } from "./styles";
 import { useViewport } from "../../hooks/use-viewport";
+import { PowerUp } from "../../types";
+import { PowerUpIcon } from "../icons";
+import { PowerUpList } from "./power-up-list";
 
-// TODO: update component when the power-up type is created
-export const PowerUpOverview: FC = () => {
+interface PowerUpOverviewProps {
+  powerUps?: PowerUp[];
+}
+
+export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUps }) => {
   const { height } = useViewport();
+
+  if (!powerUps || !powerUps.length) return <></>;
+
   return (
     <PowerUpOverviewWrapper>
       <PowerUpOverviewContainer height={height}>
-        <YourPowerUpContainer>
-          <PowerUp />
-        </YourPowerUpContainer>
-        <GeneralText>{text.param.yourPowerUp(1)}</GeneralText>
+        <PowerUpIcon powerUpAmount={powerUps.length} />
+        <PowerUpList powerUps={powerUps} />
       </PowerUpOverviewContainer>
     </PowerUpOverviewWrapper>
   );

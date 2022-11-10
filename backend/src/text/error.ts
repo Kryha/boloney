@@ -3,4 +3,9 @@ export const error = {
   noUsernamePasswordProvided: "No username/password provided",
   noIdInContext: "No user ID in context",
   noPayload: "No payload provided",
+  invalidPayload: "Invalid payload",
+  invalidState: "Invalid state",
+  invalidMetadata: "Invalid metadata",
+  notFound: "Not found",
+  internal: "Internal error",
 };

@@ -1,8 +1,9 @@
-import create from "zustand";
+import { StateCreator } from "zustand";
 import { Session, Client, Socket } from "@heroiclabs/nakama-js";
+
 import { API_PORT, API_URL, SERVER_KEY, USE_SSL } from "../constants";
 
-export interface AuthState {
+export interface AuthSlice {
   client: Client;
   socket?: Socket;
   sessionState?: Session;
@@ -13,7 +14,7 @@ export interface AuthState {
   reset: () => void;
 }
 
-export const useAuthState = create<AuthState>()((set) => ({
+export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set) => ({
   client: new Client(SERVER_KEY, API_URL, API_PORT, USE_SSL),
   isAuthenticated: false,
 
@@ -22,4 +23,4 @@ export const useAuthState = create<AuthState>()((set) => ({
   setIsAuthenticated: (isAuthenticated: boolean) => set(() => ({ isAuthenticated: isAuthenticated })),
 
   reset: () => set(() => ({ socket: undefined, sessionState: undefined, isAuthenticated: false })),
-}));
+});

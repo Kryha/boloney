@@ -1,5 +1,4 @@
-import { isBasicError, isNkError } from "../interfaces/error";
-import { AccountKeys } from "../interfaces/models";
+import { AccountKeys, isBasicError, isNkError, isString } from "../types";
 
 export const ERROR_EXTERNAL_CALL: nkruntime.Error = {
   message: "The contract call failed",
@@ -11,41 +10,26 @@ export const ERROR_WRITING_TO_COLLECTION: nkruntime.Error = {
   code: nkruntime.Codes.UNKNOWN,
 };
 
-export const logError = (error: unknown, logger: nkruntime.Logger, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
-  let message: string;
-  let errorCode = code;
+export const parseError = (error: unknown, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
+  if (isString(error)) return { code, message: error };
 
-  if (typeof error === "string") {
-    message = error;
-  } else if (isNkError(error)) {
-    message = error.message;
-    errorCode = error.code;
-  } else if (isBasicError(error)) {
-    message = error.message;
-  } else {
-    message = "An error occurred.";
-  }
+  if (isNkError(error)) return error;
 
-  logger.error(message);
+  if (isBasicError(error)) return { message: error.message, code };
 
-  return { message, code: errorCode };
+  return { message: "An error occurred.", code };
+};
+
+export const handleError = (error: unknown, logger: nkruntime.Logger, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
+  const parsed = parseError(error, code);
+  logger.error(parsed.message);
+  return parsed;
 };
 
 export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntime.Logger): AccountKeys => {
-  switch (Math.floor(res.code / 100)) {
-    case 4: {
-      throw logError(res.body, logger, res.code);
-    }
-    case 5: {
-      throw logError(res.body, logger, res.code);
-    }
-    case 2: {
-      return JSON.parse(res.body);
-    }
-    default: {
-      throw logError(res.body, logger, res.code);
-    }
-  }
+  const resKind = Math.floor(res.code / 100);
+  if (resKind === 2) return JSON.parse(res.body);
+  throw handleError(res.body, logger, res.code);
 };
 
 type RpcHandler = (cb: nkruntime.RpcFunction) => nkruntime.RpcFunction;
@@ -55,7 +39,7 @@ export const rpcHandler: RpcHandler = (cb) => (ctx, logger, nk, payload) => {
     const res = cb(ctx, logger, nk, payload);
     return res;
   } catch (error) {
-    throw logError(error, logger);
+    throw handleError(error, logger);
   }
 };
 
@@ -68,7 +52,7 @@ export const beforeHookHandler: BeforeAuthHookHandler = (cb) => (ctx, logger, nk
     const res = cb(ctx, logger, nk, data);
     return res;
   } catch (error) {
-    throw logError(error, logger);
+    throw handleError(error, logger);
   }
 };
 
@@ -81,6 +65,6 @@ export const afterHookHandler: AfterAuthHookHandler = (cb) => (ctx, logger, nk, 
     const res = cb(ctx, logger, nk, data, request);
     return res;
   } catch (error) {
-    throw logError(error, logger);
+    throw handleError(error, logger);
   }
 };

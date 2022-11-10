@@ -1,30 +1,30 @@
 import { FC } from "react";
 
 import { DieOverviewWrapper, DieOverviewContainer, YourDiceContainer } from "./styles";
-import { Die } from "../die";
+import { Die as DieComponent } from "../die";
 import { GeneralText } from "../atoms/text";
 import { text } from "../../assets/text";
-import { Die as Dice } from "../../interfaces/game";
-import { useViewport } from "../../hooks/use-viewport";
+import { useViewport } from "../../hooks";
+import { Die } from "../../types";
 
 interface DiceOverviewProps {
-  dice?: Dice[];
+  dice?: Die[];
 }
 
 export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
   const { height } = useViewport();
 
-  if (!dice) return <></>;
+  if (!dice || !dice.length) return <DieOverviewContainer height={height} />;
 
   return (
     <DieOverviewWrapper>
       <DieOverviewContainer height={height}>
+        <GeneralText>{text.param.xAmount(dice.length)}</GeneralText>
         <YourDiceContainer>
           {dice.map((die, index) => (
-            <Die key={index} value={die.rolledValue} />
+            <DieComponent key={index} value={die.rolledValue} />
           ))}
         </YourDiceContainer>
-        <GeneralText>{text.param.yourDice(dice.length)}</GeneralText>
       </DieOverviewContainer>
     </DieOverviewWrapper>
   );

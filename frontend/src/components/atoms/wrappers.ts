@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, fontWeight, margins, zIndex } from "../../design";
-import { LinkContainer } from "../buttons/styles";
+import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 import { FormHeadingText, GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, IntroText, Paragraph } from "./text";
 
 interface TextProps {
@@ -30,9 +30,11 @@ export const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: ${color.black};
-  opacity: 0.4;
-  z-index: ${zIndex.background};
+  opacity: 0.8;
+  filter: blur(4px);
+  background: ${color.lightGrey};
+  mix-blend-mode: normal;
+  z-index: ${zIndex.inFront};
 `;
 
 export const GeneralContentWrapper = styled.div`
@@ -93,7 +95,7 @@ export const ListSection = styled.section<TextProps>`
     text-transform: capitalize;
   }
   counter-reset: css-counter 0;
-  ${Heading6}{
+  ${Heading6} {
     counter-increment: css-counter 1;
   }
   ${Heading6}:after {
@@ -104,5 +106,18 @@ export const ListSection = styled.section<TextProps>`
   }
   ${LinkContainer} {
     margin-top: ${margins.small3};
+  }
+`;
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const BottomButtonWrapper = styled.section`
+  ${PrimaryButtonWrapper} {
+    position: absolute;
+    bottom: 0;
+    left: 1px;
   }
 `;

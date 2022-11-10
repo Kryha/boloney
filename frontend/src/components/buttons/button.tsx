@@ -7,6 +7,7 @@ import {
   Exit,
   Info,
   InitialButtonView,
+  LeftArrow,
   LinkContainer,
   LinkText,
   PrimaryButtonContainer,
@@ -78,4 +79,11 @@ export const Link: FC<ButtonProps> = ({ disabled, onClick, text }) => (
   <LinkContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <LinkText>{text}</LinkText>
   </LinkContainer>
+);
+
+export const GoBackButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
+  <SecondaryButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
+    <LeftArrow />
+    <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
+  </SecondaryButtonContainer>
 );

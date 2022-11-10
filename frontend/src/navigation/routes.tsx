@@ -5,7 +5,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
-import { Landing, NewGame, Home, Lobby, ThrowDice, Game } from "../pages";
+import { Landing, NewGame, Home, Match, ThrowDice, Game } from "../pages";
 import { useAuth } from "../service";
 
 const AppRoutes: FC = () => {

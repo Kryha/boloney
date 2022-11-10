@@ -42,10 +42,11 @@ export const LineContainer: FC<LineContainerProps> = ({ children, arePlayersRead
         <HorizontalContainer height={height} width={width}>
           <HorizontalLine />
           <WaitForOthersContainer arePlayersReady={arePlayersReady}>
+            {/* TODO: button should be hidden when logged user is ready */}
             {arePlayersReady ? (
-              <PrimaryButton text={text.general.startGame} onClick={onClick && onClick} />
+              <PrimaryButton text={text.general.imReady} onClick={onClick && onClick} />
             ) : (
-              <WaitingText>{text.general.waitingForTheOthersToJoin}</WaitingText>
+              <WaitingText>{text.general.waitingForTheOthersToBeReady}</WaitingText>
             )}
           </WaitForOthersContainer>
         </HorizontalContainer>
