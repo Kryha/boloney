@@ -1,12 +1,12 @@
 import { z } from "zod";
 
-export const powerUpTypeSchema = z.enum(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+export const powerUpIdSchema = z.enum(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
 
-export type PowerUpType = z.infer<typeof powerUpTypeSchema>;
+export type PowerUpId = z.infer<typeof powerUpIdSchema>;
 
 // TODO: add description field in the future
 export const powerUpSchema = z.object({
-  id: z.string(),
+  id: powerUpIdSchema,
   name: z.string(),
   image: z.string(),
 });
@@ -14,7 +14,7 @@ export const powerUpSchema = z.object({
 export type PowerUp = z.infer<typeof powerUpSchema>;
 
 export const powerUpProbabilitySchema = z.object({
-  id: z.string(),
+  id: powerUpIdSchema,
   probability: z.number().min(0).max(100),
 });
 

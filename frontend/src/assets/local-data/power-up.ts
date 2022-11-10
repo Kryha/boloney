@@ -9,10 +9,10 @@ import {
   SabotageIcon,
   SatelliteIcon,
 } from "../images";
-import { PowerUpType } from "../../types";
+import { PowerUpId } from "../../types";
 
 export interface PowerUpDataProps {
-  id: PowerUpType;
+  id: PowerUpId;
   name: string;
   shortDescription: string;
   longDescription: string;
