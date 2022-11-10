@@ -16,7 +16,8 @@ export const general = {
   waitingForTheOthersToBeReady: "waiting for the others to be ready...",
   appName: "Boloney",
   gameCreated: "game created!",
-  yourGameHasBeenCreated: "your match has been successfully created! Now you can share it with your friends using the link below. Have fun!",
+  yourGameHasBeenCreated:
+    "your match has been successfully created! Now you can share it with your friends using the link below. Have fun!",
   onlyPlayersWithThisCode: "only players with this code are able to join the match.",
   goToLobby: "go to lobby",
   ready: "ready",
@@ -27,4 +28,5 @@ export const general = {
   // TODO: delete
   toolTipInfo: "this is the description",
   toolTipTitle: "this is the title",
+  yourDice: "your dice",
 };
