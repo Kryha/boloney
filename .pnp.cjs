@@ -5978,6 +5978,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/cannon", [\
+        ["npm:0.1.8", {\
+          "packageLocation": "./.yarn/cache/@types-cannon-npm-0.1.8-68e24bfb98-84e975c745.zip/node_modules/@types/cannon/",\
+          "packageDependencies": [\
+            ["@types/cannon", "npm:0.1.8"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/crypto-js", [\
         ["npm:4.1.1", {\
           "packageLocation": "./.yarn/cache/@types-crypto-js-npm-4.1.1-1c4ce3312a-ea3d6a67b6.zip/node_modules/@types/crypto-js/",\
@@ -6225,6 +6234,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/three", [\
+        ["npm:0.146.0", {\
+          "packageLocation": "./.yarn/cache/@types-three-npm-0.146.0-f0a84b24c3-f8ea5ba032.zip/node_modules/@types/three/",\
+          "packageDependencies": [\
+            ["@types/three", "npm:0.146.0"],\
+            ["@types/webxr", "npm:0.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/tough-cookie", [\
         ["npm:4.0.2", {\
           "packageLocation": "./.yarn/cache/@types-tough-cookie-npm-4.0.2-9e61f877e6-e055556ffd.zip/node_modules/@types/tough-cookie/",\
@@ -6277,6 +6296,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.7.5"],\
             ["@types/source-list-map", "npm:0.1.2"],\
             ["source-map", "npm:0.7.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/webxr", [\
+        ["npm:0.5.0", {\
+          "packageLocation": "./.yarn/cache/@types-webxr-npm-0.5.0-aaa17ad1c6-891af0e96a.zip/node_modules/@types/webxr/",\
+          "packageDependencies": [\
+            ["@types/webxr", "npm:0.5.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6706,11 +6734,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/dom", "npm:8.17.1"],\
             ["@testing-library/react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:13.3.0"],\
             ["@testing-library/user-event", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:14.4.3"],\
+            ["@types/cannon", "npm:0.1.8"],\
             ["@types/customize-cra", "npm:1.0.3"],\
             ["@types/jest", "npm:28.1.7"],\
             ["@types/node", "npm:18.7.5"],\
             ["@types/react", "npm:18.0.17"],\
             ["@types/react-dom", "npm:18.0.6"],\
+            ["@types/three", "npm:0.146.0"],\
             ["@typescript-eslint/eslint-plugin", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:5.33.0"],\
             ["@typescript-eslint/parser", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:5.33.0"],\
             ["@vitejs/plugin-react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:2.0.0"],\
@@ -6725,6 +6755,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["identity-obj-proxy", "npm:3.0.0"],\
             ["jest", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
+            ["lodash", "npm:4.17.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:18.2.0"],\
             ["react-error-boundary", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:3.1.4"],\
