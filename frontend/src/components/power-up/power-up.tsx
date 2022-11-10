@@ -5,11 +5,12 @@ import { PowerUp } from "../../types";
 
 interface PowerUpComponentProps {
   powerUp: PowerUp;
+  showPowerUps?: () => void;
 }
 
-export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp }) => {
+export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp, showPowerUps }) => {
   return (
-    <PowerUpWrapper>
+    <PowerUpWrapper onClick={() => showPowerUps && showPowerUps()}>
       <PowerUpCardImage src={powerUp.image} alt={powerUp.name} />
     </PowerUpWrapper>
   );

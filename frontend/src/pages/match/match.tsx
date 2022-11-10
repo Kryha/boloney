@@ -17,7 +17,7 @@ import {
 import { routes } from "../../navigation";
 import { useMatch, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
-import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage } from "../../types";
+import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage, Player } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
@@ -33,14 +33,14 @@ export const Match = () => {
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
 
-  // TODO: Check if we need to re-stablish socket conection after reloading the page
+  // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);
 
-  const getStageComponent = (stage: MatchStage): ReactNode => {
+  const getStageComponent = (stage: MatchStage, localPlayer: Player): ReactNode => {
     switch (stage) {
       case "getPowerUpStage":
-        return <GetPowerUps />;
+        return <GetPowerUps localPlayer={localPlayer} />;
       case "rollDiceStage":
         return <RollDice />;
       case "playerTurnLoopStage":
@@ -94,21 +94,19 @@ export const Match = () => {
     };
   }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
 
+  // TODO: add error page
   if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
 
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
   if (matchStage === "lobbyStage") return <Lobby />;
+  // TODO fetching the localPlayer from the global store
+  const localPlayer = getLocalPlayer(players, session.user_id);
 
   return (
-    <GameLayout
-      players={getOrderedPlayers(players, playersOrder)}
-      dice={faceValues}
-      powerUps={powerUps}
-      localPlayer={getLocalPlayer(players, session.user_id)}
-    >
-      <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
+    <GameLayout players={getOrderedPlayers(players, playersOrder)} dice={faceValues} powerUps={powerUps} localPlayer={localPlayer}>
+      <GeneralContentWrapper>{getStageComponent(matchStage, localPlayer)}</GeneralContentWrapper>
     </GameLayout>
   );
 };
