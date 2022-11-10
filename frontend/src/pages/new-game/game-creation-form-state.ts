@@ -15,6 +15,7 @@ export interface NewGameState {
   getIsError: () => boolean;
 }
 
+// TODO: refactor behaviour of removing/adding to set to just updating the probability, maybe also use just one single structure
 export const useGameCreationFormState = create<NewGameState>((set, get) => ({
   availablePowerUps: new Set<PowerUpId>(),
   powerUpProbability: new Map<PowerUpId, PowerUpProbability>(),
