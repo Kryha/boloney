@@ -17,13 +17,12 @@ import {
 import { routes } from "../../navigation";
 import { useMatch, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
-import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage, Player } from "../../types";
+import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage, powerUpIdArraySchema, Player } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
   const { joinMatch } = useMatchMaker();
   const { matchStage, isLoading, getOrderedPlayers, handleStageTransition, getLocalPlayer } = useMatch();
-  const powerUps = useStore((state) => state.powerUps);
   const faceValues = useStore((state) => state.faceValues);
   const players = useStore((state) => state.players);
   const playersOrder = useStore((state) => state.playerOrder);
@@ -32,6 +31,7 @@ export const Match = () => {
   const setMatchStage = useStore((state) => state.setMatchStage);
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
+  const setPlayerPowerUps = useStore((state) => state.setPlayerPowerUps);
 
   // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
@@ -61,11 +61,11 @@ export const Match = () => {
 
     socket.onmatchdata = (matchData: MatchData) => {
       const matchOpcode = matchData.op_code;
+      const data = parseMatchData(matchData.data);
 
       // TODO: Add cases for the rest of the OP_CODES
       switch (matchOpcode) {
         case MatchOpCode.STAGE_TRANSITION: {
-          const data = parseMatchData(matchData.data);
           const stage: MatchStage = data.matchStage;
           if (!isStageTransition(data)) return;
           setMatchStage(stage);
@@ -73,26 +73,29 @@ export const Match = () => {
           break;
         }
         case MatchOpCode.PLAYER_JOINED: {
-          const players = parseMatchData(matchData.data);
-          if (!isPlayerRecord(players)) return;
-          setPlayers(players);
+          if (!isPlayerRecord(data)) return;
+          setPlayers(data);
           break;
         }
         case MatchOpCode.PLAYER_READY: {
-          const players = parseMatchData(matchData.data);
-          if (!isPlayerRecord(players)) return;
-          setPlayers(players);
+          if (!isPlayerRecord(data)) return;
+          setPlayers(data);
           break;
         }
         case MatchOpCode.PLAYER_ORDER_SHUFFLE: {
-          const playerOrder = parseMatchData(matchData.data);
-          if (!isPlayerOrderObject(playerOrder)) return;
-          setPlayerOrder(playerOrder.playerOrder);
+          if (!isPlayerOrderObject(data)) return;
+          setPlayerOrder(data.playerOrder);
+          break;
+        }
+        case MatchOpCode.PLAYER_GET_POWERUPS: {
+          if (!powerUpIdArraySchema.safeParse(data).success) return;
+          if (!session?.user_id) return;
+          setPlayerPowerUps(session.user_id, data);
           break;
         }
       }
     };
-  }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
+  }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition, session?.user_id, setPlayerPowerUps]);
 
   // TODO: add error page
   if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
@@ -104,8 +107,16 @@ export const Match = () => {
   // TODO fetching the localPlayer from the global store
   const localPlayer = getLocalPlayer(players, session.user_id);
 
+  //TODO: Redirect to error page
+  if (!players[session.user_id]) return <></>;
+
   return (
-    <GameLayout players={getOrderedPlayers(players, playersOrder)} dice={faceValues} powerUps={powerUps} localPlayer={localPlayer}>
+    <GameLayout
+      players={getOrderedPlayers(players, playersOrder)}
+      dice={faceValues}
+      powerUpIds={players[session.user_id].powerUpIds}
+      localPlayer={localPlayer}
+    >
       <GeneralContentWrapper>{getStageComponent(matchStage, localPlayer)}</GeneralContentWrapper>
     </GameLayout>
   );

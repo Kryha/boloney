@@ -32,7 +32,7 @@ export const PowerUpsField: FC = () => {
           <InfoButton text={text.newGame.chance} />
         </InfoBox>
         <CheckboxContainer>
-          {POWER_UP_DATA.map((powerUp, index) => (
+          {Object.values(POWER_UP_DATA).map((powerUp, index) => (
             <PowerUpCheckbox
               key={index}
               isTop

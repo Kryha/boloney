@@ -4,13 +4,12 @@ import { useStore } from "../store";
 import { MatchOpCode, MatchStage, NkResponse, Player } from "../types";
 import { parseError } from "../util";
 import { fakeDiceRolls } from "./fake-dice-rolls";
-import { fakePowerUps } from "./fake-power-ups";
 
 export const useMatch = () => {
   const socket = useStore((state) => state.socket);
   const matchStage = useStore((state) => state.matchStage);
   const matchId = useStore((state) => state.matchId);
-  const setPowerUps = useStore((state) => state.setPowerUps);
+
   const setFaceValues = useStore((state) => state.setFaceValues);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,7 +46,6 @@ export const useMatch = () => {
     switch (stage) {
       case "getPowerUpStage":
         // TODO: remove fake data
-        setPowerUps(fakePowerUps);
         break;
       case "rollDiceStage":
         // TODO: remove fake data

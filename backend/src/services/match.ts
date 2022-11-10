@@ -44,7 +44,7 @@ export const getAvailableAvatar = (state: MatchState): AvatarId | undefined => {
 };
 
 type MessageCallback = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => void;
-
+type StageLogicCallback = (loopParams: MatchLoopParams) => Promise<void>;
 type StageTransitionCallback = (loopParams: MatchLoopParams, nextStage: MatchStage) => void;
 
 export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: StageTransitionCallback): void => {
@@ -69,9 +69,14 @@ const handleMessages = (loopParams: MatchLoopParams, callback: MessageCallback) 
   });
 };
 
-export const handleMatchStage = (loopParams: MatchLoopParams, messageCb: MessageCallback, transitionCb?: StageTransitionCallback) => {
+export const handleMatchStage = (
+  loopParams: MatchLoopParams,
+  messageCb: MessageCallback,
+  stageLogicCb: StageLogicCallback,
+  transitionCb?: StageTransitionCallback
+) => {
   handleMessages(loopParams, messageCb);
-  attemptStageTransition(loopParams, transitionCb);
+  stageLogicCb(loopParams).then(() => attemptStageTransition(loopParams, transitionCb));
 };
 
 // If we have no presences nor messages, increment empty ticks

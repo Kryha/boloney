@@ -4,14 +4,7 @@ export const powerUpIdSchema = z.enum(["1", "2", "3", "4", "5", "6", "7", "8", "
 
 export type PowerUpId = z.infer<typeof powerUpIdSchema>;
 
-// TODO: add description field in the future
-export const powerUpSchema = z.object({
-  id: powerUpIdSchema,
-  name: z.string(),
-  image: z.string(),
-});
-
-export type PowerUp = z.infer<typeof powerUpSchema>;
+export const powerUpIdArraySchema = z.array(powerUpIdSchema);
 
 export const powerUpProbabilitySchema = z.object({
   id: powerUpIdSchema,
@@ -19,3 +12,13 @@ export const powerUpProbabilitySchema = z.object({
 });
 
 export type PowerUpProbability = z.infer<typeof powerUpProbabilitySchema>;
+
+export const powerUpSchema = z.object({
+  id: powerUpIdSchema,
+  name: z.string(),
+  shortDescription: z.string(),
+  longDescription: z.string(),
+  icon: z.string(),
+  cardImage: z.string(),
+});
+export type PowerUp = z.infer<typeof powerUpSchema>;

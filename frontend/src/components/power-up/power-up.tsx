@@ -11,7 +11,7 @@ interface PowerUpComponentProps {
 export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp, showPowerUps }) => {
   return (
     <PowerUpWrapper onClick={() => showPowerUps && showPowerUps()}>
-      <PowerUpCardImage src={powerUp.image} alt={powerUp.name} />
+      <PowerUpCardImage src={powerUp.icon} alt={powerUp.name} />
     </PowerUpWrapper>
   );
 };

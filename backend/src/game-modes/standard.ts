@@ -58,10 +58,11 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
       userId: presence.userId,
       username: presence.username,
       avatarId,
+      powerUpsList: [],
       isConnected: true,
       isReady: false,
+      hasInitialPowerUps: false,
     };
-    //TODO: Shuffle player order
     state.playerOrder.push(presence.userId);
   }
 

@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 
-import { Die, Player, PowerUp } from "../../types";
+import { Die, Player, PowerUpId } from "../../types";
 import { GamePlayersOverview } from "../game-players-overview";
 import { HUD } from "../hud";
 import { ContentContainer, MainContentContainer } from "./styles";
@@ -11,17 +11,17 @@ interface GameLayoutProps {
   players: Player[];
   dice?: Die[];
   children?: ReactNode;
-  powerUps?: PowerUp[];
+  powerUpIds?: PowerUpId[];
   localPlayer: Player;
 }
 
-export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, powerUps, localPlayer }) => {
+export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, powerUpIds, localPlayer }) => {
   const remotePlayers: Player[] = players.filter((player) => player.userId !== localPlayer.userId);
   return (
     <>
       <TopNavigation isInMatch />
       <GamePlayersOverview players={remotePlayers} />
-      <HUD dice={dice} powerUp={powerUps} localPlayer={localPlayer} />
+      <HUD dice={dice} powerUpIds={powerUpIds} localPlayer={localPlayer} />
       <MainContentContainer>
         <ContentContainer>{children}</ContentContainer>
       </MainContentContainer>

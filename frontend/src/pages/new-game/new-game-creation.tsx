@@ -18,7 +18,7 @@ import { useStore } from "../../store";
 // TODO: make a form component
 export const NewGameCreation: FC = () => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
-  const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
+  const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUpIds);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const isPowerUpError = useGameCreationFormState((state) => state.getIsError());
   const { setMatchId, setMatchUrl } = useStore();

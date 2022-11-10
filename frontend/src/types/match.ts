@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { MAX_POWERUPS_PER_PLAYER } from "../constants";
-import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
+import { powerUpIdArraySchema, powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
 
 export const avatarNameSchema = z.enum(["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
 export type AvatarName = z.infer<typeof avatarNameSchema>;
@@ -24,12 +24,14 @@ export enum MatchOpCode {
   LEAVE_MATCH = 5,
   PLAYER_JOINED = 6,
   PLAYER_ORDER_SHUFFLE = 7,
+  PLAYER_GET_POWERUPS = 8,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
 export const playerSchema = z.object({
   userId: z.string(),
   username: z.string(),
+  powerUpIds: z.optional(powerUpIdArraySchema),
   avatarId: z.number(),
   isConnected: z.boolean(),
   isReady: z.boolean(),

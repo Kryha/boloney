@@ -2,11 +2,11 @@ import { FC } from "react";
 
 import { PowerUpInfo } from "./power-up";
 import { CheckboxContainer, CheckContainer, CheckWrapper, Close } from "./styles";
-import { PowerUpDataProps } from "../../assets";
+import { PowerUp } from "../../types";
 
 interface Props {
   isTop?: boolean;
-  powerUp: PowerUpDataProps;
+  powerUp: PowerUp;
   probability: number;
   isChecked: boolean;
   isError: boolean;

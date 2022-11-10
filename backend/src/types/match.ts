@@ -1,5 +1,5 @@
 import { MATCH_STAGES } from "../utils";
-import { isPowerUpProbabilityArray, isPowerUpTypeArray, PowerUpProbability, PowerUpType } from "./power-up";
+import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
 export interface MatchJoinMetadata {
@@ -23,8 +23,10 @@ export interface Player {
   userId: string;
   username: string;
   avatarId: AvatarId;
+  powerUpsList: PowerUpId[];
   isConnected: boolean;
   isReady: boolean;
+  hasInitialPowerUps: boolean;
 }
 
 export const isPlayer = (value: unknown): value is Player => {
@@ -34,13 +36,17 @@ export const isPlayer = (value: unknown): value is Player => {
     assertedVal.userId !== undefined &&
     assertedVal.username !== undefined &&
     assertedVal.avatarId !== undefined &&
+    assertedVal.powerUpsList !== undefined &&
     assertedVal.isConnected !== undefined &&
     assertedVal.isReady !== undefined &&
+    assertedVal.hasInitialPowerUps !== undefined &&
     isString(assertedVal.userId) &&
     isString(assertedVal.username) &&
-    isAvatarId(assertedVal) &&
+    isAvatarId(assertedVal.avatarId) &&
+    isStringArray(assertedVal.powerUpsList) &&
     isBoolean(assertedVal.isConnected) &&
-    isBoolean(assertedVal.isReady)
+    isBoolean(assertedVal.isReady) &&
+    isBoolean(assertedVal.hasInitialPowerUps)
   );
 };
 
@@ -73,7 +79,6 @@ export interface MatchSettings {
   dicePerPlayer: number;
   initialPowerUpAmount: number;
   maxPowerUpAmount: number;
-  availablePowerUps: PowerUpType[];
   healPowerUpAmount: number;
   stageNumberDivisor: number;
   drawRoundOffset: number;
@@ -88,7 +93,6 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     assertedVal.dicePerPlayer !== undefined &&
     assertedVal.initialPowerUpAmount !== undefined &&
     assertedVal.maxPowerUpAmount !== undefined &&
-    assertedVal.availablePowerUps !== undefined &&
     assertedVal.healPowerUpAmount !== undefined &&
     assertedVal.stageNumberDivisor !== undefined &&
     assertedVal.drawRoundOffset !== undefined &&
@@ -97,7 +101,6 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     isNumber(assertedVal.dicePerPlayer) &&
     isNumber(assertedVal.initialPowerUpAmount) &&
     isNumber(assertedVal.maxPowerUpAmount) &&
-    isPowerUpTypeArray(assertedVal.availablePowerUps) &&
     isNumber(assertedVal.healPowerUpAmount) &&
     isNumber(assertedVal.stageNumberDivisor) &&
     isNumber(assertedVal.drawRoundOffset) &&
@@ -155,10 +158,11 @@ export enum MatchOpCode {
   LEAVE_MATCH = 5,
   PLAYER_JOINED = 6,
   PLAYER_ORDER_SHUFFLE = 7,
+  PLAYER_GET_POWERUPS = 8,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_ORDER_SHUFFLE;
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_GET_POWERUPS;
 };
 
 export interface MatchLoopParams {

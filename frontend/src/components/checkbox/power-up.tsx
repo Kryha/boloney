@@ -5,12 +5,11 @@ import { CheckboxInput } from "../inputs";
 import { PowerUpComponent } from "../power-up";
 
 import { Description, DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
-import { PowerUpDataProps } from "../../assets";
 import { PowerUp } from "../../types";
 
 interface PowerUpsInfo {
   isUsingSwitchIcon?: boolean;
-  powerUp: PowerUpDataProps;
+  powerUp: PowerUp;
   isChecked: boolean;
   isError: boolean;
   probability: number;
@@ -18,8 +17,6 @@ interface PowerUpsInfo {
 }
 
 export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError, probability, setProbability }) => {
-  const powerUpData: PowerUp = { id: powerUp.id, image: powerUp.iconImage, name: powerUp.name };
-
   const updateProbability = (formValue: string) => {
     const parsed = Number(formValue);
 
@@ -36,7 +33,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
 
   return (
     <>
-      <PowerUpComponent powerUp={powerUpData} />
+      <PowerUpComponent powerUp={powerUp} />
       <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
         <GeneralContentWrapper>
           <Row>

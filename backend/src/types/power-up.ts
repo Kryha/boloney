@@ -1,9 +1,9 @@
 import { isNumber, isString } from "./primitive";
 
-export type PowerUpType = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+export type PowerUpId = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 
-export const isPowerUpType = (value: unknown): value is PowerUpType => {
-  const assertedVal = value as PowerUpType;
+export const isPowerUpId = (value: unknown): value is PowerUpId => {
+  const assertedVal = value as PowerUpId;
 
   return (
     assertedVal === "1" ||
@@ -18,32 +18,12 @@ export const isPowerUpType = (value: unknown): value is PowerUpType => {
   );
 };
 
-export const isPowerUpTypeArray = (types: unknown): types is PowerUpType[] => {
+export const isPowerUpTypeArray = (types: unknown): types is PowerUpId[] => {
   if (!types) return false;
   if (!(types instanceof Array)) return false;
 
-  const areValid = types.reduce((valid, pt) => valid && isPowerUpType(pt), true);
+  const areValid = types.reduce((valid, pt) => valid && isPowerUpId(pt), true);
   return areValid;
-};
-
-// TODO: add description field in the future
-export interface PowerUp {
-  id: string;
-  name: string;
-  image: string;
-}
-
-export const isPowerUp = (value: unknown): value is PowerUp => {
-  const assertedVal = value as PowerUp;
-
-  return (
-    assertedVal.id !== undefined &&
-    assertedVal.name !== undefined &&
-    assertedVal.image !== undefined &&
-    isString(assertedVal.id) &&
-    isString(assertedVal.name) &&
-    isString(assertedVal.image)
-  );
 };
 
 export interface PowerUpProbability {

@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { PowerUpCard, PowerUpImage, PowerUpInfoContainer, PowerUpInfoWrapper, PowerUpListOverviewWrapper } from "./styles";
-import { PowerUp } from "../../types";
+import { PowerUpId } from "../../types";
 import { text } from "../../assets";
 import { GeneralText, Heading2 } from "../atoms";
 import { color } from "../../design";
@@ -9,12 +9,12 @@ import { Link, PrimaryButton } from "../buttons";
 import { getPowerUpData } from "../../util";
 
 interface PowerUpListOverviewProps {
-  powerUps: PowerUp[];
+  powerUpIds: PowerUpId[];
   isPowerUpInUse?: boolean;
 }
 
-export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUps, isPowerUpInUse }) => {
-  const dataPowerUp = getPowerUpData(powerUps);
+export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUpIds, isPowerUpInUse }) => {
+  const dataPowerUp = getPowerUpData(powerUpIds);
 
   if (!dataPowerUp) return <></>;
 

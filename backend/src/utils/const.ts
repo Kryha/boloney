@@ -4,12 +4,11 @@ export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
 
 export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
-  players: 2,
+  players: 3,
   dicePerPlayer: 5,
   initialPowerUpAmount: 3,
   stageNumberDivisor: 5,
   drawRoundOffset: 0,
-  availablePowerUps: ["1", "2", "3", "4"],
   healPowerUpAmount: 1,
   maxPowerUpAmount: 3,
   powerUpProbability: [
@@ -19,15 +18,35 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
     },
     {
       id: "2",
-      probability: 25,
+      probability: 0,
     },
     {
       id: "3",
-      probability: 25,
+      probability: 0,
     },
     {
       id: "4",
       probability: 25,
+    },
+    {
+      id: "5",
+      probability: 0,
+    },
+    {
+      id: "6",
+      probability: 25,
+    },
+    {
+      id: "7",
+      probability: 0,
+    },
+    {
+      id: "8",
+      probability: 25,
+    },
+    {
+      id: "9",
+      probability: 0,
     },
   ],
 };
