@@ -94,6 +94,7 @@ export const Match = () => {
     };
   }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
 
+  // TODO: add error page
   if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
 
   // TODO: add loading animation
