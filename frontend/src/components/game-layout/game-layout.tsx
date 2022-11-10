@@ -5,6 +5,7 @@ import { GamePlayersOverview } from "../game-players-overview";
 import { HUD } from "../hud";
 import { ContentContainer, MainContentContainer } from "./styles";
 import { TopNavigation } from "../top-navigation";
+import { OverlayWrapper } from "../overlay-wrapper";
 
 interface GameLayoutProps {
   players: Player[];
@@ -24,6 +25,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ players, dice, children, power
       <MainContentContainer>
         <ContentContainer>{children}</ContentContainer>
       </MainContentContainer>
+      <OverlayWrapper />
     </>
   );
 };

@@ -35,5 +35,5 @@ export const YourDiceContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: ${margins.small2};
+  grid-column-gap: ${margins.small0};
 `;

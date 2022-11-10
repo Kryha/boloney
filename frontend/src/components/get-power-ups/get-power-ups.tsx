@@ -2,15 +2,26 @@ import { FC } from "react";
 
 import { useMatch } from "../../service";
 import { text } from "../../assets";
-import { BottomButtonWrapper, Heading1 } from "../atoms";
+import { BottomButtonWrapper, Heading2 } from "../atoms";
 import { PrimaryButton } from "../buttons";
+import { TimerHeader } from "../timer-header";
+import { color } from "../../design";
+import { Player } from "../../types";
+import { DECISION_MAKING_TIME_IN_SECONDS } from "../../constants";
 
-// TODO: finish component
-export const GetPowerUps: FC = () => {
+// TODO: get local player from stor and not variable
+interface GetPowerUpsProps {
+  localPlayer?: Player;
+}
+export const GetPowerUps: FC<GetPowerUpsProps> = ({ localPlayer }) => {
   const { broadcastPlayerReady } = useMatch();
+
+  if (!localPlayer) return <></>;
+
   return (
     <BottomButtonWrapper>
-      <Heading1>{text.match.getPowerUps}</Heading1>
+      <TimerHeader timeInSeconds={DECISION_MAKING_TIME_IN_SECONDS} isCountDownStarted={false} title={text.powerUps.settingItUp} />
+      <Heading2 customColor={color.darkGrey}>{text.param.powerUpsHiddenMoves(localPlayer.username)}</Heading2>
       <PrimaryButton text={text.match.goForIt} onClick={() => broadcastPlayerReady()} />
     </BottomButtonWrapper>
   );

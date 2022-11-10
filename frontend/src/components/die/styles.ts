@@ -12,8 +12,8 @@ interface FaceProps {
 
 export const DieWrapper = styled.div<FaceProps>`
   > svg {
-    width: ${({ size }): string => size || "clamp(25px, 2.6vw + 0px, 50px)"};
-    height: ${({ size }): string => size || "clamp(25px, 2.6vw + 0px, 50px)"};
+    width: ${({ size }): string => size || "clamp(20px, 2.08vw + 0px, 40px)"};
+    height: ${({ size }): string => size || "clamp(20px, 2.08vw + 0px, 40px)"};
     ${({ isSixDie, faceColor, pipColor }): string => {
     return isSixDie
       ? `
