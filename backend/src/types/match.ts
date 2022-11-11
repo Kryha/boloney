@@ -24,9 +24,12 @@ export interface Player {
   username: string;
   avatarId: AvatarId;
   powerUpsList: PowerUpId[];
+  diceValue: number[];
+  diceAmount: number;
   isConnected: boolean;
   isReady: boolean;
   hasInitialPowerUps: boolean;
+  hasRolledDice: boolean;
 }
 
 export const isPlayer = (value: unknown): value is Player => {

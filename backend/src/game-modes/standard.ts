@@ -59,9 +59,12 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
       username: presence.username,
       avatarId,
       powerUpsList: [],
+      diceValue: [],
+      diceAmount: state.settings.dicePerPlayer,
       isConnected: true,
       isReady: false,
       hasInitialPowerUps: false,
+      hasRolledDice: false,
     };
     state.playerOrder.push(presence.userId);
   }

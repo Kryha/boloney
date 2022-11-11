@@ -1,4 +1,4 @@
-import { getPowerUp } from "../toolkit-api/power-ups";
+import { getPowerUp, rollDice } from "../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage } from "../types";
 import { getRange, shuffleArray } from "../utils";
 import { handleMatchStage } from "./match";
@@ -72,15 +72,31 @@ export const handleStage: StageHandlers = {
   rollDiceStage: (loopParams) =>
     handleMatchStage(
       loopParams,
-      (message, sender, { state }) => {
+      async (message, sender, { state, dispatcher }) => {
+        // TODO: make a function with a switch for checking opCodes and pass a callback
         if (message.opCode === MatchOpCode.PLAYER_READY) {
           state.playersReady.push(sender.userId);
         }
+        if (message.opCode === MatchOpCode.ROLL_DICE) {
+          const { userId } = message.sender;
+          const player = state.players[userId];
+          if (player.hasRolledDice) return;
+
+          state.players[userId].hasRolledDice = true;
+          const diceValue = await rollDice(player.diceAmount);
+          state.players[userId].diceValue = diceValue;
+
+          dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify({ diceValue }), [message.sender]);
+        }
       },
-      async ({ logger }) => {
-        logger.debug("roll dice logic");
+      async () => {
+        // TODO: maybe add rolling here in the future in order to optimise the calculation
+        // not needed
       },
-      ({ dispatcher }, nextStage) => {
+      ({ dispatcher, state }, nextStage) => {
+        Object.values(state.players).forEach((player) => {
+          state.players[player.userId].hasRolledDice = false;
+        });
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),

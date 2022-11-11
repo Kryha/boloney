@@ -28,6 +28,7 @@ export enum MatchOpCode {
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
+// TODO: update with dice data
 export const playerSchema = z.object({
   userId: z.string(),
   username: z.string(),
