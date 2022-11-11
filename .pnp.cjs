@@ -6605,6 +6605,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.7.6"],\
             ["@typescript-eslint/eslint-plugin", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:5.33.0"],\
             ["@typescript-eslint/parser", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:5.33.0"],\
+            ["core-js", "npm:3.26.0"],\
             ["crypto-js", "npm:4.1.1"],\
             ["eslint", "npm:8.21.0"],\
             ["eslint-config-prettier", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:8.5.0"],\
@@ -7775,6 +7776,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["convert-source-map", "npm:1.8.0"],\
             ["safe-buffer", "npm:5.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["core-js", [\
+        ["npm:3.26.0", {\
+          "packageLocation": "./.yarn/unplugged/core-js-npm-3.26.0-bb48de0ef9/node_modules/core-js/",\
+          "packageDependencies": [\
+            ["core-js", "npm:3.26.0"]\
           ],\
           "linkType": "HARD"\
         }]\
