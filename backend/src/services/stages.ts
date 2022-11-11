@@ -35,7 +35,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
           state.playersReady.push(sender.userId);
         }
       },
@@ -73,7 +73,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
           state.playersReady.push(sender.userId);
         }
       },
@@ -89,7 +89,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
           state.playersReady.push(sender.userId);
         }
       },
@@ -105,7 +105,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
           state.playersReady.push(sender.userId);
         }
       },
@@ -121,7 +121,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
           state.playersReady.push(sender.userId);
         }
       },
