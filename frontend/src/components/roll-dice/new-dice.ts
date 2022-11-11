@@ -39,7 +39,7 @@ export const init = () => {
   scene.add(camera);
 
   const renderer = new THREE.WebGLRenderer({ canvas: canvas });
-  renderer.setSize(sizes.width, sizes.height);
+  renderer.setSize(sizes.width * 0.75, sizes.height * 0.75);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
 

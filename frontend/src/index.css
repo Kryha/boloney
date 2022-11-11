@@ -4,13 +4,22 @@
   line-height: 24px;
   font-weight: 400;
 }
-
-#dice-box {
+.webgl {
   position: fixed;
   pointer-events: none;
   z-index: 100;
   width: 75vw;
   height: 100%;
+  left: 12.5vw;
+  bottom: 11vh;
+}
+#dice-box {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  width: 75vw !important;
+  height: 100%;
+  left: 12.5vw;
 }
 
 #canvas {
