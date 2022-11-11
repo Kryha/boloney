@@ -5,6 +5,16 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@3d-dice/dice-box-threejs@npm:^0.0.12":
+  version: 0.0.12
+  resolution: "@3d-dice/dice-box-threejs@npm:0.0.12"
+  dependencies:
+    cannon-es: ^0.20.0
+    three: ^0.143.0
+  checksum: 35615ef551cc811fa629b1a668176d45a5b0eebceae79a5e747263e1bee94b34b75228422d2997704b7bdfd73c56003dad1448553de35ff0992b4fcc08328df6
+  languageName: node
+  linkType: hard
+
 "@3d-dice/dice-box@npm:^1.0.5":
   version: 1.0.5
   resolution: "@3d-dice/dice-box@npm:1.0.5"
@@ -3172,7 +3182,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cannon@npm:^0.1.8":
+"@types/cannon@npm:^0.1.2, @types/cannon@npm:^0.1.8":
   version: 0.1.8
   resolution: "@types/cannon@npm:0.1.8"
   checksum: 84e975c7450b1d69783a99a0d3e75c2765a38601e9aacaafa419a315c2d2f8b540ee540fb0fce8cda2b032a8e2a7c50408d493825cddb5207957b8f5f2a37ee8
@@ -3291,6 +3301,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.188":
+  version: 4.14.188
+  resolution: "@types/lodash@npm:4.14.188"
+  checksum: 89c32f0a18e0da6ae914b430e76b3d0451c4c85b9c838b440c0c9a8d4966c8e2a76dbb30964c7126402856b2997ec56a8c36d8d6461ec14387689ec37594f09f
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*, @types/node@npm:^18.7.5":
   version: 18.7.5
   resolution: "@types/node@npm:18.7.5"
@@ -3399,6 +3416,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/three@npm:^0.89.11":
+  version: 0.89.12
+  resolution: "@types/three@npm:0.89.12"
+  dependencies:
+    "@types/webvr-api": "*"
+  checksum: 57423b5a28f17bf1a9b41b96207d09337923697abf2e133937f7610e8db16af6ecb6fc421b11f31ba059d6126771d1c265bb98e0112e4b5ed27801bd52820cb2
+  languageName: node
+  linkType: hard
+
 "@types/tough-cookie@npm:*":
   version: 4.0.2
   resolution: "@types/tough-cookie@npm:4.0.2"
@@ -3446,6 +3472,13 @@ __metadata:
     anymatch: ^3.0.0
     source-map: ^0.6.0
   checksum: e594a1357cbbc2f7c6ca47785c5a11adb5591a774a69afaeab07cd6f6bff6c6aea2030bd37b32bdd19d0ec2336a346db754e8d8d236ba8effeab542716fb32b7
+  languageName: node
+  linkType: hard
+
+"@types/webvr-api@npm:*":
+  version: 0.0.36
+  resolution: "@types/webvr-api@npm:0.0.36"
+  checksum: 5ed04f674caa4d137e263513099211b9c54c535436af8089c67bdff2f7bc3214524cce57a00be8fa02192d80df8fdf9975536b3299a87865eb480502e89170fb
   languageName: node
   linkType: hard
 
@@ -3662,6 +3695,7 @@ __metadata:
   resolution: "@zk-liars-dice/frontend@workspace:frontend"
   dependencies:
     "@3d-dice/dice-box": ^1.0.5
+    "@3d-dice/dice-box-threejs": ^0.0.12
     "@emotion/babel-plugin": ^11.10.2
     "@emotion/react": ^11.9.3
     "@emotion/styled": ^11.9.3
@@ -3672,6 +3706,7 @@ __metadata:
     "@types/cannon": ^0.1.8
     "@types/customize-cra": ^1.0.3
     "@types/jest": ^28.1.7
+    "@types/lodash": ^4.14.188
     "@types/node": ^18.7.5
     "@types/react": ^18.0.15
     "@types/react-dom": ^18.0.6
@@ -3697,6 +3732,9 @@ __metadata:
     react-hook-form: ^7.34.2
     react-router-dom: ^6.3.0
     three: ^0.146.0
+    three-gltf-loader: ^1.111.0
+    three-orbit-controls: ^82.1.0
+    threejs-dice: ^1.1.0
     ts-jest: ^28.0.8
     ts-node: ^10.9.1
     typescript: ^4.7.4
@@ -4355,6 +4393,13 @@ __metadata:
   version: 1.0.30001374
   resolution: "caniuse-lite@npm:1.0.30001374"
   checksum: a75656e971d7ef2af4d2f3529a4620ae1a45d09460601fbc34b26f6867f31bbca006f71d8840291c471a2f01fc1994044f319a5660241ffaf35a2d84535af442
+  languageName: node
+  linkType: hard
+
+"cannon-es@npm:^0.20.0":
+  version: 0.20.0
+  resolution: "cannon-es@npm:0.20.0"
+  checksum: a11c2a51d8f4bf314fdbe671dd03e025513e3ab98621d3260c06f2c2a11922c67bc670f98e866a21919d966ba9b19aade5b7c3f9cf507a2ed7499c85eb8934bb
   languageName: node
   linkType: hard
 
@@ -9356,10 +9401,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"three-gltf-loader@npm:^1.111.0":
+  version: 1.111.0
+  resolution: "three-gltf-loader@npm:1.111.0"
+  peerDependencies:
+    three: ">=0.111.0"
+  checksum: 4839aaecd1708526b207ef1b68c29be92efb444e8f98aaf25d38ee42eec127b4d16c1800f02e4ae09516305648079bf2f7a52d0d4f7945455aced822b57328c3
+  languageName: node
+  linkType: hard
+
+"three-orbit-controls@npm:^82.1.0":
+  version: 82.1.0
+  resolution: "three-orbit-controls@npm:82.1.0"
+  checksum: 40a3a1f97fc1ca0336d5412b4b47b119f8a25cdc9b9b6570ea7e6e2118c0555873aa27781866d16b741a25195cc284c26f488aff482e27206cf08407ffbf97a8
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.143.0":
+  version: 0.143.0
+  resolution: "three@npm:0.143.0"
+  checksum: 6fe8793a04a931c8fb86bad566ac4310a6243c9e9139678b5084e0773457a63fe254109479c4d4a2b484812d0932940eabf9baa21749c8c8d8dceb2815ca747b
+  languageName: node
+  linkType: hard
+
 "three@npm:^0.146.0":
   version: 0.146.0
   resolution: "three@npm:0.146.0"
   checksum: c6eb2005d97c599de7f4eccf73c4b1e8731c353ca3e7b9bf9d3bc2b52a8e288c59c06c148fd93df16df323b28938947227a37e07cc6fbe04aa8f8725e49caa8a
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.90.0":
+  version: 0.90.0
+  resolution: "three@npm:0.90.0"
+  checksum: 40dde5b226acdb6badb216bac6a3b95579cfdd9acd3c13e0cb6e096fd11426271e12f05dcf5b4dc37d7f07aa3a67eba0b916f63058cf532ec720ad25c1100e6e
+  languageName: node
+  linkType: hard
+
+"threejs-dice@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "threejs-dice@npm:1.1.0"
+  dependencies:
+    "@types/cannon": ^0.1.2
+    "@types/three": ^0.89.11
+    cannon: ^0.6.2
+    three: ^0.90.0
+  checksum: 82eee6f95e8df706d6f7ce6a7814d29bc670d06f7c8db0c548e0c609a9966ae198a4756e288f5c553610ff816885ebf8a9b605f3c88804a830e2c38f69d25853
   languageName: node
   linkType: hard
 

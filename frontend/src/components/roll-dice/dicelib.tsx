@@ -1,10 +1,9 @@
-import { FlatShading, Vector3, Geometry, Face3, Color, Vector2, Sphere } from "three";
-import { Shape } from "cannon";
-import { Vec3, ConvexPolyhedron } from "cannon";
+import { Vector3, BoxGeometry, Color, Vector2, Sphere, BufferGeometry } from "three";
+import { Shape, Vec3, ConvexPolyhedron } from "cannon";
 
 const randomOrgApiKey = "f6e74d7b-070e-4f85-865d-d859fc0d078b";
 
-let _randomStorage = [];
+const _randomStorage: number[] | undefined = [];
 let _useTrueRandom = true;
 
 export function useTrueRandom(value: boolean) {
@@ -12,41 +11,13 @@ export function useTrueRandom(value: boolean) {
 }
 
 export function initRng(callback?: () => any) {
-  if (!_randomStorage.length && _useTrueRandom) {
-    let body = {
-      jsonrpc: "2.0",
-      method: "generateDecimalFractions",
-      params: {
-        apiKey: randomOrgApiKey,
-        n: 512,
-        decimalPlaces: 2,
-        id: 1,
-      },
-    };
-    this.http
-      .post("https://api.random.org/json-rpc/1/invoke", body, {
-        headers: {
-          "Content-Type": "application/json-rpc",
-        },
-      })
-      .subscribe((response: Response) => {
-        if (response.ok) {
-          response
-            .json()
-            .then((x) => (_randomStorage = x.random.data))
-            .catch(() => useTrueRandom(false));
-        } else {
-          useTrueRandom(false);
-        }
-      });
-    if (callback) callback();
-  }
+  console.log("init");
 }
 
 export function removeCssClass(el: HTMLElement, className: string) {
   const c = el.getAttribute("class");
   if (c) {
-    let index = c.search("\\b" + className + "\\b");
+    const index = c.search("\\b" + className + "\\b");
     if (index !== -1) {
       const c2 = c.substr(0, index) + c.substr(index + className.length).replace(/\s+/g, " ");
       if (c !== c2) {
@@ -58,15 +29,16 @@ export function removeCssClass(el: HTMLElement, className: string) {
 
 export function addCssClass(el: HTMLElement, className: string) {
   const c = el.getAttribute("class");
-  let value: string;
+  let value = "";
   if (!c || !c.trim()) {
     value = className;
   } else {
-    let index = c.search("\\b" + className + "\\b");
+    const index = c.search("\\b" + className + "\\b");
     if (index === -1) {
       value = c.trim() + " " + className;
     }
   }
+
   if (value) {
     el.setAttribute("class", value);
   }
@@ -79,11 +51,11 @@ export function bind(
   bubble?: boolean | AddEventListenerOptions
 ) {
   if (eventName.constructor === Array) {
-    (<string[]>eventName).forEach((x) => {
+    eventName.forEach((x) => {
       sel.addEventListener(x, func, bubble ? bubble : false);
     });
   } else {
-    sel.addEventListener(<string>eventName, func, bubble ? bubble : false);
+    sel.addEventListener(String(eventName), func, bubble ? bubble : false);
   }
 }
 
@@ -94,32 +66,36 @@ export function unbind(
   bubble?: boolean | AddEventListenerOptions
 ) {
   if (eventName.constructor === Array) {
-    (<string[]>eventName).forEach((x) => {
+    eventName.forEach((x) => {
       sel.removeEventListener(x, func, bubble ? bubble : false);
     });
   } else {
-    sel.removeEventListener(<string>eventName, func, bubble ? bubble : false);
+    sel.removeEventListener(String(eventName), func, bubble ? bubble : false);
   }
 }
 
 export function rng(): number {
-  if (_randomStorage.length === 1) {
-    initRng();
+  if (_randomStorage) {
+    if (_randomStorage.length === 1) {
+      initRng();
+    }
+    return _randomStorage.length ? _randomStorage.pop() || 1 : Math.random();
   }
-  return _randomStorage.length ? _randomStorage.pop() : Math.random();
+  return 1;
 }
 
-function copy(obj) {
+function copy(obj: { constructor: new () => any }) {
   if (!obj) return obj;
   return copyto(obj, new obj.constructor());
 }
 
-export function copyto(obj, res) {
+export function copyto(obj: any, res: any) {
   if (obj == null || typeof obj !== "object") return obj;
   if (obj instanceof Array) {
     for (let i = obj.length - 1; i >= 0; --i) res[i] = copy(obj[i]);
   } else {
-    for (let i in obj) {
+    for (const i in obj) {
+      // eslint-disable-next-line no-prototype-builtins
       if (obj.hasOwnProperty(i)) res[i] = copy(obj[i]);
     }
   }
@@ -130,43 +106,20 @@ function createShape(vertices: Vector3[], faces: number[][], radius: number) {
   const cv = vertices.map((v) => new Vec3(v.x * radius, v.y * radius, v.z * radius));
   const cf = faces.map((x, i) => faces[i].slice(0, faces[i].length));
   // BUG: @types/cannon incorrectly declares 2nd param as number[]
-  return new ConvexPolyhedron(cv, <any>cf);
+  return new ConvexPolyhedron(cv, cf);
 }
 
-export interface GeometryWithCannnonShape extends THREE.Geometry {
+export interface GeometryWithCannonShape extends BufferGeometry {
   cannonShape?: Shape;
 }
 
-function createGeometry(vertices: Vector3[], faces: number[][], radius: number, tab: number, af: number): GeometryWithCannnonShape {
-  let geom = new Geometry();
+function createGeometry(vertices: Vector3[], faces: number[][], radius: number, tab: number, af: number): GeometryWithCannonShape {
+  const geom = new BufferGeometry();
 
-  for (let i = 0; i < vertices.length; ++i) {
-    let vertex = vertices[i].multiplyScalar(radius);
-    /*vertex.index = */ geom.vertices.push(vertex) /* - 1 */;
-  }
-  for (let i = 0; i < faces.length; ++i) {
-    const ii = faces[i];
-    const fl = ii.length - 1;
-    let aa = (Math.PI * 2) / fl;
-    for (let j = 0; j < fl - 2; ++j) {
-      geom.faces.push(
-        new Face3(
-          ii[0],
-          ii[j + 1],
-          ii[j + 2],
-          [geom.vertices[ii[0]], geom.vertices[ii[j + 1]], geom.vertices[ii[j + 2]]],
-          new Color(0),
-          ii[fl] + 1
-        )
-      );
-      geom.faceVertexUvs[0].push([
-        new Vector2((Math.cos(af) + 1 + tab) / 2 / (1 + tab), (Math.sin(af) + 1 + tab) / 2 / (1 + tab)),
-        new Vector2((Math.cos(aa * (j + 1) + af) + 1 + tab) / 2 / (1 + tab), (Math.sin(aa * (j + 1) + af) + 1 + tab) / 2 / (1 + tab)),
-        new Vector2((Math.cos(aa * (j + 2) + af) + 1 + tab) / 2 / (1 + tab), (Math.sin(aa * (j + 2) + af) + 1 + tab) / 2 / (1 + tab)),
-      ]);
-    }
-  }
-  geom.computeFaceNormals();
+  const points = vertices.map((vertex) => new Vector3(vertex.x, vertex.y, vertex.z));
+
+  geom.setFromPoints(points);
+  geom.computeVertexNormals();
   geom.boundingSphere = new Sphere(new Vector3(), radius);
   return geom;
 }
@@ -181,13 +134,13 @@ function chamferGeometry(vectors: Vector3[], faces: number[][], chamfer: number)
     const centerPoint = new Vector3();
     const face: number[] = new Array(fl);
     for (let j = 0; j < fl; ++j) {
-      let vv = vectors[ii[j]].clone();
+      const vv = vectors[ii[j]].clone();
       centerPoint.add(vv);
       cornerFaces[ii[j]].push((face[j] = chamferVectors.push(vv) - 1));
     }
     centerPoint.divideScalar(fl);
     for (let j = 0; j < fl; ++j) {
-      let vv = chamferVectors[face[j]];
+      const vv = chamferVectors[face[j]];
       vv.subVectors(vv, centerPoint).multiplyScalar(chamfer).addVectors(vv, centerPoint);
     }
     face.push(ii[fl]);
@@ -195,10 +148,10 @@ function chamferGeometry(vectors: Vector3[], faces: number[][], chamfer: number)
   }
   for (let i = 0; i < faces.length - 1; ++i) {
     for (let j = i + 1; j < faces.length; ++j) {
-      let pairs = [],
-        lastm = -1;
+      const pairs = [];
+      let lastm = -1;
       for (let m = 0; m < faces[i].length - 1; ++m) {
-        let n = faces[j].indexOf(faces[i][m]);
+        const n = faces[j].indexOf(faces[i][m]);
         if (n >= 0 && n < faces[j].length - 1) {
           if (lastm >= 0 && m != lastm + 1) pairs.unshift([i, m], [j, n]);
           else pairs.push([i, m], [j, n]);

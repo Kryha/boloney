@@ -63,6 +63,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@3d-dice/dice-box-threejs", [\
+        ["npm:0.0.12", {\
+          "packageLocation": "./.yarn/cache/@3d-dice-dice-box-threejs-npm-0.0.12-d202741ae2-35615ef551.zip/node_modules/@3d-dice/dice-box-threejs/",\
+          "packageDependencies": [\
+            ["@3d-dice/dice-box-threejs", "npm:0.0.12"],\
+            ["cannon-es", "npm:0.20.0"],\
+            ["three", "npm:0.143.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@ampproject/remapping", [\
         ["npm:2.2.0", {\
           "packageLocation": "./.yarn/cache/@ampproject-remapping-npm-2.2.0-114878fa50-d74d170d06.zip/node_modules/@ampproject/remapping/",\
@@ -6114,6 +6125,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/lodash", [\
+        ["npm:4.14.188", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.188-a8d4045e40-89c32f0a18.zip/node_modules/@types/lodash/",\
+          "packageDependencies": [\
+            ["@types/lodash", "npm:4.14.188"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/node", [\
         ["npm:18.7.5", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-18.7.5-2c6edcf62e-f74426f2c9.zip/node_modules/@types/node/",\
@@ -6242,6 +6262,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/webxr", "npm:0.5.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.89.12", {\
+          "packageLocation": "./.yarn/cache/@types-three-npm-0.89.12-d00dc90d77-57423b5a28.zip/node_modules/@types/three/",\
+          "packageDependencies": [\
+            ["@types/three", "npm:0.89.12"],\
+            ["@types/webvr-api", "npm:0.0.36"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/tough-cookie", [\
@@ -6296,6 +6324,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.7.5"],\
             ["@types/source-list-map", "npm:0.1.2"],\
             ["source-map", "npm:0.7.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/webvr-api", [\
+        ["npm:0.0.36", {\
+          "packageLocation": "./.yarn/cache/@types-webvr-api-npm-0.0.36-9f84fb0502-5ed04f674c.zip/node_modules/@types/webvr-api/",\
+          "packageDependencies": [\
+            ["@types/webvr-api", "npm:0.0.36"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6727,6 +6764,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@zk-liars-dice/frontend", "workspace:frontend"],\
             ["@3d-dice/dice-box", "npm:1.0.5"],\
+            ["@3d-dice/dice-box-threejs", "npm:0.0.12"],\
             ["@emotion/babel-plugin", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.2"],\
             ["@emotion/react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.0"],\
             ["@emotion/styled", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.0"],\
@@ -6737,6 +6775,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/cannon", "npm:0.1.8"],\
             ["@types/customize-cra", "npm:1.0.3"],\
             ["@types/jest", "npm:28.1.7"],\
+            ["@types/lodash", "npm:4.14.188"],\
             ["@types/node", "npm:18.7.5"],\
             ["@types/react", "npm:18.0.17"],\
             ["@types/react-dom", "npm:18.0.6"],\
@@ -6762,6 +6801,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-hook-form", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:7.34.2"],\
             ["react-router-dom", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:6.3.0"],\
             ["three", "npm:0.146.0"],\
+            ["three-gltf-loader", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:1.111.0"],\
+            ["three-orbit-controls", "npm:82.1.0"],\
+            ["threejs-dice", "npm:1.1.0"],\
             ["ts-jest", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:28.0.8"],\
             ["ts-node", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:10.9.1"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"],\
@@ -7660,6 +7702,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/cannon-npm-0.6.2-a8b4c43778-67f318ab15.zip/node_modules/cannon/",\
           "packageDependencies": [\
             ["cannon", "npm:0.6.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["cannon-es", [\
+        ["npm:0.20.0", {\
+          "packageLocation": "./.yarn/cache/cannon-es-npm-0.20.0-03ece3ba33-a11c2a51d8.zip/node_modules/cannon-es/",\
+          "packageDependencies": [\
+            ["cannon-es", "npm:0.20.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -13540,10 +13591,68 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["three", [\
+        ["npm:0.143.0", {\
+          "packageLocation": "./.yarn/cache/three-npm-0.143.0-de492f95f0-6fe8793a04.zip/node_modules/three/",\
+          "packageDependencies": [\
+            ["three", "npm:0.143.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.146.0", {\
           "packageLocation": "./.yarn/cache/three-npm-0.146.0-ca7bfa8857-c6eb2005d9.zip/node_modules/three/",\
           "packageDependencies": [\
             ["three", "npm:0.146.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.90.0", {\
+          "packageLocation": "./.yarn/cache/three-npm-0.90.0-2bc01278f7-40dde5b226.zip/node_modules/three/",\
+          "packageDependencies": [\
+            ["three", "npm:0.90.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["three-gltf-loader", [\
+        ["npm:1.111.0", {\
+          "packageLocation": "./.yarn/cache/three-gltf-loader-npm-1.111.0-464530239e-4839aaecd1.zip/node_modules/three-gltf-loader/",\
+          "packageDependencies": [\
+            ["three-gltf-loader", "npm:1.111.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:1.111.0", {\
+          "packageLocation": "./.yarn/__virtual__/three-gltf-loader-virtual-8380ba06ed/0/cache/three-gltf-loader-npm-1.111.0-464530239e-4839aaecd1.zip/node_modules/three-gltf-loader/",\
+          "packageDependencies": [\
+            ["three-gltf-loader", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:1.111.0"],\
+            ["@types/three", "npm:0.146.0"],\
+            ["three", "npm:0.146.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/three",\
+            "three"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["three-orbit-controls", [\
+        ["npm:82.1.0", {\
+          "packageLocation": "./.yarn/cache/three-orbit-controls-npm-82.1.0-e09db4b674-40a3a1f97f.zip/node_modules/three-orbit-controls/",\
+          "packageDependencies": [\
+            ["three-orbit-controls", "npm:82.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["threejs-dice", [\
+        ["npm:1.1.0", {\
+          "packageLocation": "./.yarn/cache/threejs-dice-npm-1.1.0-3319490a36-82eee6f95e.zip/node_modules/threejs-dice/",\
+          "packageDependencies": [\
+            ["threejs-dice", "npm:1.1.0"],\
+            ["@types/cannon", "npm:0.1.8"],\
+            ["@types/three", "npm:0.89.12"],\
+            ["cannon", "npm:0.6.2"],\
+            ["three", "npm:0.90.0"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -5,9 +5,12 @@ interface RollDiceContainerProps {
 }
 
 export const RollDiceContainer = styled.section<RollDiceContainerProps>`
-  width: 60vw;
-  height: ${({ height }) => (height < 900 ? "49vh" : "59vh")};
-  background: black;
+  // width: 60vw;
+  // height: ${({ height }) => (height < 900 ? "49vh" : "59vh")};
+  // position: relative;
+  // canvas {
+  //   position: absolute;
+  // }
 `;
 
 export const CenterField = styled.div`

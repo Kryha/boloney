@@ -30,7 +30,7 @@ export const YourDice: FC<YourDiceProps> = ({ diceValues }) => {
         ))}
       </DiceValueContainer>
       <AttributesContainer>
-        <PrimaryButton onClick={() => navigate(routes.game)} text="continue" />
+        <PrimaryButton onClick={() => navigate(routes.home)} text="continue" />
       </AttributesContainer>
     </DiceContainer>
   );
