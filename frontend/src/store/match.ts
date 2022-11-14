@@ -9,11 +9,15 @@ interface MatchSliceState {
   matchStage: MatchStage;
   players: Record<string, Player>;
   playerOrder: string[];
-  localPlayerId: string;
   matchUrl: string;
 
   // flags
   hasRolledDice: boolean;
+}
+
+interface MatchSliceGetters {
+  getOrderedPlayers: () => Player[];
+  getPlayer: (id?: string) => Player | undefined;
 }
 
 interface MatchSliceFunctions {
@@ -25,9 +29,9 @@ interface MatchSliceFunctions {
   setPlayerOrder: (playerOrder: string[]) => void;
   setInitialState: () => void;
   setMatchUrl: (matchUrl: string) => void;
-  setLocalPlayerId: (localPlayerId: string) => void;
 }
-export type MatchSlice = MatchSliceState & MatchSliceFunctions;
+
+export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceFunctions;
 
 const initialFlags = {
   hasRolledDice: false,
@@ -39,13 +43,15 @@ const initialMatchState: MatchSliceState = {
   matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
-  localPlayerId: "",
   matchUrl: "",
   ...initialFlags,
 };
 
-export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set, get) => ({
   ...initialMatchState,
+
+  getOrderedPlayers: () => get().playerOrder.map((playerId) => get().players[playerId]),
+  getPlayer: (id) => (id ? get().players[id] : undefined),
 
   setMatchId: (matchId) => set(() => ({ matchId })),
   setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
@@ -58,7 +64,6 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
       })
     ),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
-  setLocalPlayerId: (localPlayerId) => set(() => ({ localPlayerId })),
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
   setInitialState: () => set(() => ({ ...initialMatchState })),
 });

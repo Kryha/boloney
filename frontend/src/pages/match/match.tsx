@@ -32,10 +32,9 @@ import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
   const { joinMatch } = useMatchMaker();
-  const { matchStage, isLoading, getOrderedPlayers, getLocalPlayer } = useMatch();
+  const { matchStage, isLoading } = useMatch();
   const diceValue = useStore((state) => state.diceValue);
   const players = useStore((state) => state.players);
-  const playersOrder = useStore((state) => state.playerOrder);
   const socket = useStore((state) => state.socket);
   const session = useStore((state) => state.sessionState);
   const setMatchStage = useStore((state) => state.setMatchStage);
@@ -43,6 +42,9 @@ export const Match = () => {
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
   const setPlayerPowerUps = useStore((state) => state.setPlayerPowerUps);
   const setDiceValue = useStore((state) => state.setDiceValue);
+
+  const orderedPlayers = useStore((state) => state.getOrderedPlayers());
+  const localPlayer = useStore((state) => state.getPlayer(session?.user_id));
 
   // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
@@ -123,19 +125,12 @@ export const Match = () => {
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
   if (matchStage === "lobbyStage") return <Lobby />;
-  // TODO fetching the localPlayer from the global store
-  const localPlayer = getLocalPlayer(players, session.user_id);
 
   //TODO: Redirect to error page
-  if (!players[session.user_id]) return <></>;
+  if (!localPlayer) return <></>;
 
   return (
-    <GameLayout
-      players={getOrderedPlayers(players, playersOrder)}
-      dice={diceValue}
-      powerUpIds={players[session.user_id].powerUpIds}
-      localPlayer={localPlayer}
-    >
+    <GameLayout players={orderedPlayers} dice={diceValue} powerUpIds={players[session.user_id].powerUpIds} localPlayer={localPlayer}>
       <GeneralContentWrapper>{getStageComponent(matchStage, localPlayer)}</GeneralContentWrapper>
     </GameLayout>
   );

@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 import { text } from "../assets";
 import { useStore } from "../store";
-import { MatchOpCode, NkResponse, Player } from "../types";
+import { MatchOpCode, NkResponse } from "../types";
 import { parseError } from "../util";
 
 export const useMatch = () => {
@@ -29,24 +29,12 @@ export const useMatch = () => {
     [matchId, socket]
   );
 
-  // TODO: Implement as getter in state
-  const getOrderedPlayers = useCallback(
-    (players: Record<string, Player>, playerOrder: string[]): Player[] => playerOrder.map((playerId) => players[playerId]),
-    []
-  );
-
-  const getLocalPlayer = useCallback((players: Record<string, Player>, localPlayerId: string) => {
-    return players[localPlayerId];
-  }, []);
-
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
   return {
     matchStage,
     isLoading,
     sendMatchState,
-    getOrderedPlayers,
     broadcastPlayerReady,
-    getLocalPlayer,
   };
 };
