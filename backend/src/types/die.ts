@@ -9,3 +9,7 @@ export const isDie = (value: unknown): value is Die => {
 
   return assertedVal.rolledValue !== undefined && isNumber(assertedVal.rolledValue);
 };
+
+export interface RollDicePayload {
+  diceValue: Die[];
+}

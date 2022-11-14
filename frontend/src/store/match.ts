@@ -4,7 +4,7 @@ import { Die, Player, MatchStage, PowerUpId } from "../types";
 
 interface MatchSliceState {
   matchId?: string;
-  faceValues?: Die[];
+  diceValue?: Die[];
   matchStage: MatchStage;
   players: Record<string, Player>;
   playerOrder: string[];
@@ -14,7 +14,7 @@ interface MatchSliceState {
 
 interface MatchSliceFunctions {
   setMatchId: (match_id: string) => void;
-  setFaceValues: (faceValues: Die[]) => void;
+  setDiceValue: (diceValue: Die[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
   setPlayers: (players: Record<string, Player>) => void;
   setPlayerPowerUps: (playerId: string, powerUpIds: PowerUpId[]) => void;
@@ -27,7 +27,7 @@ export type MatchSlice = MatchSliceState & MatchSliceFunctions;
 
 const initialMatchState: MatchSliceState = {
   matchId: undefined,
-  faceValues: undefined,
+  diceValue: undefined,
   matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
@@ -39,7 +39,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   ...initialMatchState,
 
   setMatchId: (matchId) => set(() => ({ matchId })),
-  setFaceValues: (faceValues) => set(() => ({ faceValues })),
+  setDiceValue: (diceValue) => set(() => ({ diceValue })),
   setMatchStage: (matchStage) => set(() => ({ matchStage })),
   setPlayers: (players) => set(() => ({ players })),
   setPlayerPowerUps: (playerId, powerUpIds) =>

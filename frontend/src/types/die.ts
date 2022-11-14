@@ -5,3 +5,9 @@ export const dieSchema = z.object({
 });
 
 export type Die = z.infer<typeof dieSchema>;
+
+export const rollDicePayloadSchema = z.object({
+  diceValue: z.array(dieSchema),
+});
+
+export type RollDicePayload = z.infer<typeof rollDicePayloadSchema>;

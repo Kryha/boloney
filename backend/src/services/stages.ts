@@ -1,5 +1,5 @@
 import { getPowerUp, rollDice } from "../toolkit-api";
-import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage } from "../types";
+import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
 import { getRange, shuffleArray } from "../utils";
 import { handleMatchStage } from "./match";
 
@@ -86,7 +86,9 @@ export const handleStage: StageHandlers = {
           const diceValue = await rollDice(player.diceAmount);
           state.players[userId].diceValue = diceValue;
 
-          dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify({ diceValue }), [message.sender]);
+          const payload: RollDicePayload = { diceValue };
+
+          dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [message.sender]);
         }
       },
       async () => {

@@ -1,12 +1,11 @@
 export const match = {
-  //Top menu items
   currentlyAtStage: "stage",
   inXAmountOfRounds: "in",
   nextDrawRound: "draw in ",
   // TODO: delete these placeholders
   getPowerUps: "get power ups",
   goForIt: "go for it",
-  throwDice: "throw dice",
+  rollDice: "roll dice",
   playerTurns: "player turns",
   endOfRound: "end of round",
   endOfMatch: "end of match",

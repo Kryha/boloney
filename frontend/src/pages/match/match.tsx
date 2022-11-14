@@ -17,13 +17,24 @@ import {
 import { routes } from "../../navigation";
 import { useMatch, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
-import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage, powerUpIdArraySchema, Player } from "../../types";
+import {
+  isPlayerOrderObject,
+  isPlayerRecord,
+  isStageTransition,
+  MatchOpCode,
+  MatchStage,
+  powerUpIdArraySchema,
+  Player,
+  matchOpCodeSchema,
+  rollDicePayloadSchema,
+} from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
   const { joinMatch } = useMatchMaker();
-  const { matchStage, isLoading, getOrderedPlayers, handleStageTransition, getLocalPlayer } = useMatch();
-  const faceValues = useStore((state) => state.faceValues);
+  const { matchStage, isLoading, getOrderedPlayers, getLocalPlayer } = useMatch();
+  const diceValue = useStore((state) => state.diceValue);
+  console.log("🚀 ~ file: match.tsx ~ line 37 ~ Match ~ diceValue", diceValue);
   const players = useStore((state) => state.players);
   const playersOrder = useStore((state) => state.playerOrder);
   const socket = useStore((state) => state.socket);
@@ -32,6 +43,7 @@ export const Match = () => {
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
   const setPlayerPowerUps = useStore((state) => state.setPlayerPowerUps);
+  const setDiceValue = useStore((state) => state.setDiceValue);
 
   // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
@@ -60,7 +72,10 @@ export const Match = () => {
     if (!socket) return;
 
     socket.onmatchdata = (matchData: MatchData) => {
-      const matchOpcode = matchData.op_code;
+      const parsedCode = matchOpCodeSchema.safeParse(matchData.op_code);
+      if (!parsedCode.success) return;
+
+      const matchOpcode = parsedCode.data;
       const data = parseMatchData(matchData.data);
 
       // TODO: Add cases for the rest of the OP_CODES
@@ -69,7 +84,6 @@ export const Match = () => {
           const stage: MatchStage = data.matchStage;
           if (!isStageTransition(data)) return;
           setMatchStage(stage);
-          handleStageTransition(stage);
           break;
         }
         case MatchOpCode.PLAYER_JOINED: {
@@ -93,9 +107,15 @@ export const Match = () => {
           setPlayerPowerUps(session.user_id, data);
           break;
         }
+        case MatchOpCode.ROLL_DICE: {
+          const parsed = rollDicePayloadSchema.safeParse(data);
+          if (!parsed.success) return;
+          setDiceValue(parsed.data.diceValue);
+          break;
+        }
       }
     };
-  }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition, session?.user_id, setPlayerPowerUps]);
+  }, [socket, setMatchStage, setPlayerOrder, setPlayers, session, setPlayerPowerUps, setDiceValue]);
 
   // TODO: add error page
   if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
@@ -113,7 +133,7 @@ export const Match = () => {
   return (
     <GameLayout
       players={getOrderedPlayers(players, playersOrder)}
-      dice={faceValues}
+      dice={diceValue}
       powerUpIds={players[session.user_id].powerUpIds}
       localPlayer={localPlayer}
     >

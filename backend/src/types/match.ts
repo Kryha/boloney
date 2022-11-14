@@ -1,4 +1,5 @@
 import { MATCH_STAGES } from "../utils";
+import { Die } from "./die";
 import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
@@ -24,7 +25,7 @@ export interface Player {
   username: string;
   avatarId: AvatarId;
   powerUpsList: PowerUpId[];
-  diceValue: number[];
+  diceValue: Die[];
   diceAmount: number;
   isConnected: boolean;
   isReady: boolean;
