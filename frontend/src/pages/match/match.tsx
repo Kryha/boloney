@@ -34,7 +34,6 @@ export const Match = () => {
   const { joinMatch } = useMatchMaker();
   const { matchStage, isLoading } = useMatch();
   const diceValue = useStore((state) => state.diceValue);
-  const players = useStore((state) => state.players);
   const socket = useStore((state) => state.socket);
   const session = useStore((state) => state.sessionState);
   const setMatchStage = useStore((state) => state.setMatchStage);
@@ -118,19 +117,16 @@ export const Match = () => {
     };
   }, [socket, setMatchStage, setPlayerOrder, setPlayers, session, setPlayerPowerUps, setDiceValue]);
 
-  // TODO: add error page
-  if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
-
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
   if (matchStage === "lobbyStage") return <Lobby />;
 
-  //TODO: Redirect to error page
-  if (!localPlayer) return <></>;
+  // TODO: Redirect to error page
+  if (!matchId || !localPlayer) return <Navigate to={routes.home} />;
 
   return (
-    <GameLayout players={orderedPlayers} dice={diceValue} powerUpIds={players[session.user_id].powerUpIds} localPlayer={localPlayer}>
+    <GameLayout players={orderedPlayers} dice={diceValue} powerUpIds={localPlayer.powerUpIds} localPlayer={localPlayer}>
       <GeneralContentWrapper>{getStageComponent(matchStage, localPlayer)}</GeneralContentWrapper>
     </GameLayout>
   );
