@@ -2846,6 +2846,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@planarally/dice@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@planarally/dice@npm:0.5.0"
+  peerDependencies:
+    ammo.js: "*"
+  checksum: 4e309f970c823aaf636b54f06cc29e2ec9fb4afa62696c87f862331c4218543db359f53b530d6105731c3953b6876f563d6288fa698dfc81223e92290c76147f
+  languageName: node
+  linkType: hard
+
 "@pmndrs/cannon-worker-api@npm:^2.1.0":
   version: 2.3.0
   resolution: "@pmndrs/cannon-worker-api@npm:2.3.0"
@@ -4024,6 +4033,7 @@ __metadata:
     "@emotion/react": ^11.9.3
     "@emotion/styled": ^11.9.3
     "@heroiclabs/nakama-js": ^2.4.1
+    "@planarally/dice": ^0.5.0
     "@react-spring/three": 9.4.5
     "@react-three/cannon": 6.3.0
     "@react-three/drei": 9.6.2

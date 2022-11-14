@@ -11,7 +11,8 @@ import { ThrowDice } from "./throw-dice";
 import { useViewport } from "../../hooks";
 import { RollDiceContainer } from "./styles";
 import { init } from "./new-dice";
-import { GoButton } from "./dicelib";
+// import { GoButton } from "./dicelib";
+import { DiceApp } from "../main/main";
 
 interface RollDiceProps {
   localPlayer: Player;
@@ -25,9 +26,10 @@ export const RollDice: FC<RollDiceProps> = ({ localPlayer }) => {
     <BottomButtonWrapper>
       <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={text.powerUps.settingItUp} />
       <Heading2 customColor={color.darkGrey}>{text.param.findOutYourPips(localPlayer.username)}</Heading2>
-      <RollDiceContainer height={height} id="ThreeJS"></RollDiceContainer>
+      {/* <RollDiceContainer height={height} id="ThreeJS"></RollDiceContainer> */}
       {/* <ThrowDice /> */}
-      <PrimaryButton text={text.match.goForIt} onClick={() => GoButton()} />
+      <DiceApp />
+      <PrimaryButton text={text.match.goForIt} />
     </BottomButtonWrapper>
   );
 };

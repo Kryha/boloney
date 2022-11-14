@@ -5405,6 +5405,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@planarally/dice", [\
+        ["npm:0.5.0", {\
+          "packageLocation": "./.yarn/cache/@planarally-dice-npm-0.5.0-a85e2e73f8-4e309f970c.zip/node_modules/@planarally/dice/",\
+          "packageDependencies": [\
+            ["@planarally/dice", "npm:0.5.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:0.5.0", {\
+          "packageLocation": "./.yarn/__virtual__/@planarally-dice-virtual-f89db02590/0/cache/@planarally-dice-npm-0.5.0-a85e2e73f8-4e309f970c.zip/node_modules/@planarally/dice/",\
+          "packageDependencies": [\
+            ["@planarally/dice", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:0.5.0"],\
+            ["@types/ammo.js", null],\
+            ["ammo.js", null]\
+          ],\
+          "packagePeers": [\
+            "@types/ammo.js",\
+            "ammo.js"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@pmndrs/cannon-worker-api", [\
         ["npm:2.3.0", {\
           "packageLocation": "./.yarn/cache/@pmndrs-cannon-worker-api-npm-2.3.0-d7d86c32b5-edd3e497c6.zip/node_modules/@pmndrs/cannon-worker-api/",\
@@ -7290,6 +7312,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.0"],\
             ["@emotion/styled", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:11.10.0"],\
             ["@heroiclabs/nakama-js", "npm:2.4.1"],\
+            ["@planarally/dice", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:0.5.0"],\
             ["@react-spring/three", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:9.4.5"],\
             ["@react-three/cannon", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:6.3.0"],\
             ["@react-three/drei", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:9.6.2"],\

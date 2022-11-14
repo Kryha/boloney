@@ -15,6 +15,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@heroiclabs/nakama-js": "^2.4.1",
+    "@planarally/dice": "^0.5.0",
     "@react-spring/three": "9.4.5",
     "@react-three/cannon": "6.3.0",
     "@react-three/drei": "9.6.2",
