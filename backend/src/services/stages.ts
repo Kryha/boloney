@@ -89,12 +89,16 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
+        // TODO:
+        // * Only listen for action messages coming from activePlayer
         if (message.opCode == MatchOpCode.PLAYER_READY) {
           state.playersReady.push(sender.userId);
         }
       },
       async ({ logger }) => {
         logger.debug("Turn loop logic");
+        // TODO:
+        // * set active player according to playerOrder
       },
       ({ dispatcher }, nextStage) => {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
