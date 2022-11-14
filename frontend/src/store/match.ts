@@ -1,5 +1,6 @@
 import { StateCreator } from "zustand";
 import { produce } from "immer";
+
 import { Die, Player, MatchStage, PowerUpId } from "../types";
 
 interface MatchSliceState {
@@ -10,6 +11,9 @@ interface MatchSliceState {
   playerOrder: string[];
   localPlayerId: string;
   matchUrl: string;
+
+  // flags
+  hasRolledDice: boolean;
 }
 
 interface MatchSliceFunctions {
@@ -25,6 +29,10 @@ interface MatchSliceFunctions {
 }
 export type MatchSlice = MatchSliceState & MatchSliceFunctions;
 
+const initialFlags = {
+  hasRolledDice: false,
+};
+
 const initialMatchState: MatchSliceState = {
   matchId: undefined,
   diceValue: undefined,
@@ -33,14 +41,15 @@ const initialMatchState: MatchSliceState = {
   playerOrder: [],
   localPlayerId: "",
   matchUrl: "",
+  ...initialFlags,
 };
 
 export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
   ...initialMatchState,
 
   setMatchId: (matchId) => set(() => ({ matchId })),
-  setDiceValue: (diceValue) => set(() => ({ diceValue })),
-  setMatchStage: (matchStage) => set(() => ({ matchStage })),
+  setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
+  setMatchStage: (matchStage) => set(() => ({ matchStage, ...initialFlags })),
   setPlayers: (players) => set(() => ({ players })),
   setPlayerPowerUps: (playerId, powerUpIds) =>
     set(
@@ -51,7 +60,5 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
   setLocalPlayerId: (localPlayerId) => set(() => ({ localPlayerId })),
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
-  setInitialState: () => {
-    set(() => ({ ...initialMatchState }));
-  },
+  setInitialState: () => set(() => ({ ...initialMatchState })),
 });

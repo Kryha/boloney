@@ -34,7 +34,6 @@ export const Match = () => {
   const { joinMatch } = useMatchMaker();
   const { matchStage, isLoading, getOrderedPlayers, getLocalPlayer } = useMatch();
   const diceValue = useStore((state) => state.diceValue);
-  console.log("🚀 ~ file: match.tsx ~ line 37 ~ Match ~ diceValue", diceValue);
   const players = useStore((state) => state.players);
   const playersOrder = useStore((state) => state.playerOrder);
   const socket = useStore((state) => state.socket);
