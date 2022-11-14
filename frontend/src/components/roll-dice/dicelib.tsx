@@ -1,223 +1,455 @@
-import { Vector3, BoxGeometry, Color, Vector2, Sphere, BufferGeometry } from "three";
-import { Shape, Vec3, ConvexPolyhedron } from "cannon";
+import * as CANNON from "cannon";
+import { Camera, Object3D, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 
-const randomOrgApiKey = "f6e74d7b-070e-4f85-865d-d859fc0d078b";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import * as THREE from "three";
 
-const _randomStorage: number[] | undefined = [];
-let _useTrueRandom = true;
+// const OrbitControls = require("three-orbit-controls")(THREE);
 
-export function useTrueRandom(value: boolean) {
-  _useTrueRandom = value;
-}
+// //Constructor
+function Dice(this: any, physicalWorld: any, sceneWorld: any, position: any) {
+  const r = 0.15; //size
+  const initPosition = { ...position };
 
-export function initRng(callback?: () => any) {
-  console.log("init");
-}
+  let isInitial = true;
 
-export function removeCssClass(el: HTMLElement, className: string) {
-  const c = el.getAttribute("class");
-  if (c) {
-    const index = c.search("\\b" + className + "\\b");
-    if (index !== -1) {
-      const c2 = c.substr(0, index) + c.substr(index + className.length).replace(/\s+/g, " ");
-      if (c !== c2) {
-        el.setAttribute("class", c2);
-      }
-    }
-  }
-}
+  //physical
+  const phy = new CANNON.Body({ mass: 0.01 });
+  phy.addShape(new CANNON.Box(new CANNON.Vec3(r, r, r)));
+  phy.position = initPosition;
+  phy.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 1), Math.PI / 4);
+  phy.angularVelocity.set(0, 0, 0);
+  phy.angularDamping = 0.01;
+  physicalWorld.add(phy);
+  let view;
+  //scene
+  if (diceModel) view = diceModel.clone();
+  view.castShadow = true;
+  view.receiveShadow = true;
+  sceneWorld.add(view);
 
-export function addCssClass(el: HTMLElement, className: string) {
-  const c = el.getAttribute("class");
-  let value = "";
-  if (!c || !c.trim()) {
-    value = className;
-  } else {
-    const index = c.search("\\b" + className + "\\b");
-    if (index === -1) {
-      value = c.trim() + " " + className;
-    }
-  }
+  let time = 0;
 
-  if (value) {
-    el.setAttribute("class", value);
-  }
-}
+  const floating = () => {
+    const swing = 0.01;
+    const omega = 2 * Math.PI; //[rad/s]
+    this.phy.type = CANNON.Body.KINEMATIC;
+    this.phy.position = new CANNON.Vec3(initPosition.x, initPosition.y + swing * Math.sin(omega * time), initPosition.z);
+    this.phy.angularVelocity.set(0, omega + 2 * Math.PI * Math.random(), 0);
+    time += 1 / 60;
+  };
 
-export function bind(
-  sel: EventTarget,
-  eventName: string | string[],
-  func: EventListenerOrEventListenerObject,
-  bubble?: boolean | AddEventListenerOptions
-) {
-  if (eventName.constructor === Array) {
-    eventName.forEach((x) => {
-      sel.addEventListener(x, func, bubble ? bubble : false);
+  const throwing = () => {
+    const t = 1.15; //[s]  flight time
+    const vy = -initPosition.y / t + 0.5 * g * t;
+    const vz = -initPosition.z / t;
+    const angVmax = 7;
+    this.phy.type = CANNON.Body.DYNAMIC;
+    this.phy.velocity = new CANNON.Vec3(0, vy, vz);
+    const angularV = new CANNON.Vec3(angVmax * Math.random(), angVmax * Math.random(), angVmax * Math.random());
+    this.phy.angularVelocity = angularV;
+    isInitial = false;
+  };
+
+  const getValue = () => {
+    let value = NaN;
+    const i = new THREE.Vector4(1, 0, 0, 0);
+    const j = new THREE.Vector4(0, 1, 0, 0);
+    const k = new THREE.Vector4(0, 0, 1, 0);
+    const p = [];
+    p[0] = i.applyMatrix4(this.view.matrixWorld).y;
+    p[1] = j.applyMatrix4(this.view.matrixWorld).y;
+    p[2] = k.applyMatrix4(this.view.matrixWorld).y;
+    const p_abs: number[] = [];
+    p.forEach((p_) => {
+      p_abs.push(Math.abs(p_));
     });
-  } else {
-    sel.addEventListener(String(eventName), func, bubble ? bubble : false);
-  }
+    switch (p_abs.indexOf(Math.max(...p_abs))) {
+      case 0:
+        value = p[0] > 0 ? 1 : 6;
+        break;
+      case 1:
+        value = p[1] > 0 ? 4 : 3;
+        break;
+      case 2:
+        value = p[2] > 0 ? 2 : 5;
+        break;
+      default:
+    }
+    return value;
+  };
+
+  const remove = () => {
+    physicalWorld.remove(this.phy);
+    sceneWorld.remove(this.view);
+  };
+
+  //Execute every frame
+  const run = () => {
+    if (isInitial) this.floating();
+    this.view.position.copy(this.phy.position);
+    this.view.quaternion.copy(this.phy.quaternion);
+  };
 }
 
-export function unbind(
-  sel: EventTarget,
-  eventName: string | string[],
-  func: EventListenerOrEventListenerObject,
-  bubble?: boolean | AddEventListenerOptions
-) {
-  if (eventName.constructor === Array) {
-    eventName.forEach((x) => {
-      sel.removeEventListener(x, func, bubble ? bubble : false);
+let world: CANNON.World | null = null;
+let scene: Scene | Object3D<Event> | null = null;
+let camera: Camera | PerspectiveCamera | null = null;
+const renderer: WebGLRenderer | null = null;
+let dice_using = Dice;
+
+const dice: any = [Dice, Dice, Dice];
+
+let phyPlane = null;
+const diceModel: any = null;
+const loader = new GLTFLoader();
+
+const g = 9.8; //[m/s^2] gravitational acceleration
+
+// class Dice6 {
+//   physicalWorld: any;
+//   sceneWorld: any;
+//   position: any;
+//   r: number = 0.15;
+//   initPosition: any;
+//   isInitial: boolean = true;
+//   constructor(physicalWorld: any, sceneWorld: any, position: any) {
+//     this.physicalWorld = physicalWorld;
+//     this.sceneWorld = sceneWorld;
+//     this.initPosition = {...position};
+//     this.phy = new CANNON.Body({ mass: 0.01 });
+//   }
+
+//   //physical
+//   // phy = new CANNON.Body({ mass: 0.01 });
+//   phy.addShape(new CANNON.Box(new CANNON.Vec3(this.r, this.r, this.r)));
+//   phy.position = this.initPosition;
+//   phy.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 1), Math.PI / 4);
+//   phy.angularVelocity.set(0, 0, 0);
+//   phy.angularDamping = 0.01;
+//   physicalWorld.add(this.phy);
+
+//   //scene
+//   if (diceModel) this.view = diceModel.clone();
+//   this.view.castShadow = true;
+//   this.view.receiveShadow = true;
+//   sceneWorld.add(this.view);
+
+//   let time = 0;
+
+//   this.floating = () => {
+//     const swing = 0.01;
+//     const omega = 2 * Math.PI; //[rad/s]
+//     this.phy.type = CANNON.Body.KINEMATIC;
+//     this.phy.position = new CANNON.Vec3(initPosition.x, initPosition.y + swing * Math.sin(omega * time), initPosition.z);
+//     this.phy.angularVelocity.set(0, omega + 2 * Math.PI * Math.random(), 0);
+//     time += 1 / 60;
+//   };
+
+//   this.throwing = () => {
+//     const t = 1.15; //[s]  flight time
+//     const vy = -initPosition.y / t + 0.5 * g * t;
+//     const vz = -initPosition.z / t;
+//     const angVmax = 7;
+//     this.phy.type = CANNON.Body.DYNAMIC;
+//     this.phy.velocity = new CANNON.Vec3(0, vy, vz);
+//     const angularV = new CANNON.Vec3(angVmax * Math.random(), angVmax * Math.random(), angVmax * Math.random());
+//     this.phy.angularVelocity = angularV;
+//     isInitial = false;
+//   };
+
+//   this.getValue = () => {
+//     let value = NaN;
+//     const i = new THREE.Vector4(1, 0, 0, 0);
+//     const j = new THREE.Vector4(0, 1, 0, 0);
+//     const k = new THREE.Vector4(0, 0, 1, 0);
+//     const p = [];
+//     p[0] = i.applyMatrix4(this.view.matrixWorld).y;
+//     p[1] = j.applyMatrix4(this.view.matrixWorld).y;
+//     p[2] = k.applyMatrix4(this.view.matrixWorld).y;
+//     const p_abs: number[] = [];
+//     p.forEach((p_) => {
+//       p_abs.push(Math.abs(p_));
+//     });
+//     switch (p_abs.indexOf(Math.max(...p_abs))) {
+//       case 0:
+//         value = p[0] > 0 ? 1 : 6;
+//         break;
+//       case 1:
+//         value = p[1] > 0 ? 4 : 3;
+//         break;
+//       case 2:
+//         value = p[2] > 0 ? 2 : 5;
+//         break;
+//       default:
+//     }
+//     return value;
+//   };
+
+//   this.remove = () => {
+//     physicalWorld.remove(this.phy);
+//     sceneWorld.remove(this.view);
+//   };
+
+//   //Execute every frame
+//   this.run = () => {
+//     if (isInitial) this.floating();
+//     this.view.position.copy(this.phy.position);
+//     this.view.quaternion.copy(this.phy.quaternion);
+//   };
+// }
+
+// function getNormal(face: any, vertices_: any) {
+//   const ab = new THREE.Vector3();
+//   const ac = new THREE.Vector3();
+//   ab.subVectors(vertices_[face.b], vertices_[face.a]);
+//   ac.subVectors(vertices_[face.c], vertices_[face.a]);
+//   const n = new THREE.Vector3();
+//   n.crossVectors(ab, ac);
+//   n.normalize();
+//   return n;
+// }
+
+// function setWorld() {
+//   //Create world (physical)
+//   world = new CANNON.World();
+
+//   world.gravity.set(0, -g, 0);
+//   world.broadphase = new CANNON.NaiveBroadphase();
+//   world.solver.iterations = 10;
+
+//   //Plane
+//   phyPlane = new CANNON.Body({ mass: 0 });
+//   phyPlane.addShape(new CANNON.Plane());
+//   phyPlane.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+
+//   //add to world (physical)
+//   world.addBody(phyPlane);
+// }
+
+// const display = document.getElementById("dice-box");
+
+// function setView() {
+//   const width = window.innerWidth;
+//   const height = window.innerHeight * 0.8;
+
+//   //Renderer
+//   renderer = new THREE.WebGLRenderer({
+//     canvas: display as HTMLCanvasElement | undefined,
+//     antialias: true,
+//   });
+//   renderer.setPixelRatio(window.devicePixelRatio);
+//   renderer.setSize(width, height);
+//   renderer.shadowMap.enabled = true;
+
+//   //Scene
+//   scene = new THREE.Scene();
+
+//   //Lighting
+//   const light_amb = new THREE.AmbientLight(0xffffff, 0.3);
+//   const light_spt = new THREE.SpotLight(0xffffff, 1.3, 20, Math.PI / 8, 0.5, 0.5); //Color Intensity Distance Angle Exponent Decay
+//   light_spt.castShadow = true;
+//   light_spt.position.set(2, 4, 5);
+//   light_spt.shadow.mapSize.height = 2048;
+//   light_spt.shadow.mapSize.width = 2048;
+//   //const light_spt_helper = new THREE.SpotLightHelper(light_spt);
+//   //scene.add(lightHelper);
+//   const light_pnt1 = new THREE.PointLight(0xffffff, 1.6, 10, 0.8);
+//   light_pnt1.position.set(0, 2.5, 5);
+//   const light_pnt2 = new THREE.PointLight(0xffffff, 0.6, 10, 0.4);
+//   light_pnt2.position.set(0, 7, 0);
+//   scene.add(light_spt);
+//   scene.add(light_amb);
+//   scene.add(light_pnt1);
+//   scene.add(light_pnt2);
+
+//   //Floor
+//   const floor = new THREE.Mesh(new THREE.PlaneGeometry(8, 10), new THREE.MeshStandardMaterial({ color: 0x00ff00, roughness: 0.8 }));
+//   floor.receiveShadow = true;
+//   floor.position.set(0, 0, 0);
+//   floor.quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 2);
+//   scene.add(floor);
+
+//   //Camera
+//   camera = new THREE.PerspectiveCamera(30, width / height);
+//   // camera.near = 0.5;
+//   // camera.far = 20;
+//   camera.position.set(0, 4, 5.7);
+//   camera.lookAt(new THREE.Vector3(0, 0, 0));
+//   // camera.updateProjectionMatrix();
+//   scene.add(camera);
+
+//   //OrbitControls
+//   // const controls = new OrbitControls(camera, display);
+// }
+
+function getNormal(face: any, vertices_: any) {
+  const ab = new THREE.Vector3();
+  const ac = new THREE.Vector3();
+  ab.subVectors(vertices_[face.b], vertices_[face.a]);
+  ac.subVectors(vertices_[face.c], vertices_[face.a]);
+  const n = new THREE.Vector3();
+  n.crossVectors(ab, ac);
+  n.normalize();
+  return n;
+}
+
+function setWorld() {
+  //Create world (physical)
+  world = new CANNON.World();
+
+  world.gravity.set(0, -g, 0);
+  world.broadphase = new CANNON.NaiveBroadphase();
+  world.solver.iterations = 10;
+
+  //Plane
+  phyPlane = new CANNON.Body({ mass: 0 });
+  phyPlane.addShape(new CANNON.Plane());
+  phyPlane.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+
+  //add to world (physical)
+  world.addBody(phyPlane);
+}
+
+const canvasElement = document.querySelector(".webgl");
+const canvas = canvasElement as HTMLCanvasElement | undefined;
+
+function setView() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  //Renderer
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+  renderer.setSize(width * 0.75, height * 0.75);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+
+  //Scene
+  scene = new THREE.Scene();
+
+  //Lighting
+  const light_amb = new THREE.AmbientLight(0xffffff, 0.3);
+  const light_spt = new THREE.SpotLight(0xffffff, 1.3, 20, Math.PI / 8, 0.5, 0.5); //Color Intensity Distance Angle Exponent Decay
+  // light_spt.castShadow = true;
+  light_spt.position.set(2, 4, 5);
+  light_spt.shadow.mapSize.height = 2048;
+  light_spt.shadow.mapSize.width = 2048;
+  //const light_spt_helper = new THREE.SpotLightHelper(light_spt);
+  //scene.add(lightHelper);
+  const light_pnt1 = new THREE.PointLight(0xffffff, 1.6, 10, 0.8);
+  light_pnt1.position.set(0, 2.5, 5);
+  const light_pnt2 = new THREE.PointLight(0xffffff, 0.6, 10, 0.4);
+  light_pnt2.position.set(0, 7, 0);
+  scene.add(light_spt);
+  scene.add(light_amb);
+  scene.add(light_pnt1);
+  scene.add(light_pnt2);
+
+  //Floor
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(8, 10), new THREE.MeshStandardMaterial({ color: 0x00ff00, roughness: 0.8 }));
+  floor.receiveShadow = true;
+  floor.position.set(0, 0, 0);
+  floor.quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 2);
+  scene.add(floor);
+
+  //Camera
+  camera = new THREE.PerspectiveCamera(30, width / height);
+  // camera.near = 0.5;
+  // camera.far = 20;
+  camera.position.set(0, 4, 5.7);
+  camera.lookAt(new THREE.Vector3(0, 0, 0));
+  // camera.updateProjectionMatrix();
+  scene.add(camera);
+
+  //OrbitControls
+  // const controls = new OrbitControls(camera, display);
+}
+
+setWorld();
+setView();
+
+function animate() {
+  if (dice)
+    dice.forEach((d: any) => {
+      d.run();
     });
-  } else {
-    sel.removeEventListener(String(eventName), func, bubble ? bubble : false);
+  //dice.run();
+  if (world) world.step(1 / 60);
+  if (renderer && scene && camera) renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+
+loader.load(
+  "/src/components/assets/dice.glb",
+  function (glb) {
+    console.log(glb);
+    const diceModel = glb.scene;
+    diceModel.scale.set(0.07, 0.07, 0.07);
+    diceGenerate(10);
+    animate();
+  },
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  function (error) {
+    console.log("an error occurred", error);
   }
-}
+);
 
-export function rng(): number {
-  if (_randomStorage) {
-    if (_randomStorage.length === 1) {
-      initRng();
-    }
-    return _randomStorage.length ? _randomStorage.pop() || 1 : Math.random();
-  }
-  return 1;
-}
+export const GoButton = () => {
+  if (dice)
+    dice.forEach((d: any) => {
+      d.throwing();
+    });
+  //dice.throwing();
+  setTimeout(() => {
+    totalling();
+  }, 4000);
+};
 
-function copy(obj: { constructor: new () => any }) {
-  if (!obj) return obj;
-  return copyto(obj, new obj.constructor());
-}
-
-export function copyto(obj: any, res: any) {
-  if (obj == null || typeof obj !== "object") return obj;
-  if (obj instanceof Array) {
-    for (let i = obj.length - 1; i >= 0; --i) res[i] = copy(obj[i]);
-  } else {
-    for (const i in obj) {
-      // eslint-disable-next-line no-prototype-builtins
-      if (obj.hasOwnProperty(i)) res[i] = copy(obj[i]);
-    }
-  }
-  return res;
-}
-
-function createShape(vertices: Vector3[], faces: number[][], radius: number) {
-  const cv = vertices.map((v) => new Vec3(v.x * radius, v.y * radius, v.z * radius));
-  const cf = faces.map((x, i) => faces[i].slice(0, faces[i].length));
-  // BUG: @types/cannon incorrectly declares 2nd param as number[]
-  return new ConvexPolyhedron(cv, cf);
-}
-
-export interface GeometryWithCannonShape extends BufferGeometry {
-  cannonShape?: Shape;
-}
-
-function createGeometry(vertices: Vector3[], faces: number[][], radius: number, tab: number, af: number): GeometryWithCannonShape {
-  const geom = new BufferGeometry();
-
-  const points = vertices.map((vertex) => new Vector3(vertex.x, vertex.y, vertex.z));
-
-  geom.setFromPoints(points);
-  geom.computeVertexNormals();
-  geom.boundingSphere = new Sphere(new Vector3(), radius);
-  return geom;
-}
-
-function chamferGeometry(vectors: Vector3[], faces: number[][], chamfer: number) {
-  const chamferVectors: Vector3[] = [];
-  const chamferFaces: number[][] = [];
-  const cornerFaces: number[][] = vectors.map((x) => []);
-  for (let i = 0; i < faces.length; ++i) {
-    const ii = faces[i];
-    const fl = ii.length - 1;
-    const centerPoint = new Vector3();
-    const face: number[] = new Array(fl);
-    for (let j = 0; j < fl; ++j) {
-      const vv = vectors[ii[j]].clone();
-      centerPoint.add(vv);
-      cornerFaces[ii[j]].push((face[j] = chamferVectors.push(vv) - 1));
-    }
-    centerPoint.divideScalar(fl);
-    for (let j = 0; j < fl; ++j) {
-      const vv = chamferVectors[face[j]];
-      vv.subVectors(vv, centerPoint).multiplyScalar(chamfer).addVectors(vv, centerPoint);
-    }
-    face.push(ii[fl]);
-    chamferFaces.push(face);
-  }
-  for (let i = 0; i < faces.length - 1; ++i) {
-    for (let j = i + 1; j < faces.length; ++j) {
-      const pairs = [];
-      let lastm = -1;
-      for (let m = 0; m < faces[i].length - 1; ++m) {
-        const n = faces[j].indexOf(faces[i][m]);
-        if (n >= 0 && n < faces[j].length - 1) {
-          if (lastm >= 0 && m != lastm + 1) pairs.unshift([i, m], [j, n]);
-          else pairs.push([i, m], [j, n]);
-          lastm = m;
-        }
+function totalling() {
+  let total = 0;
+  if (dice)
+    dice.forEach((d: any) => {
+      const value = d.getValue();
+      if (isNaN(value)) {
+        return NaN;
       }
-      if (pairs.length != 4) continue;
-      chamferFaces.push([
-        chamferFaces[pairs[0][0]][pairs[0][1]],
-        chamferFaces[pairs[1][0]][pairs[1][1]],
-        chamferFaces[pairs[3][0]][pairs[3][1]],
-        chamferFaces[pairs[2][0]][pairs[2][1]],
-        -1,
-      ]);
+      total += value;
+    });
+  console.log("total = ", total);
+}
+
+export const SelectButton = () => {
+  diceRemove();
+  dice_using = Dice;
+  diceGenerate(10);
+};
+
+function diceRemove() {
+  dice.forEach((d: any) => {
+    d.remove();
+  });
+  dice.length = 0;
+}
+
+function diceGenerate(q: 10) {
+  //read quantity of dice
+  const step_position = 0.5;
+  const q_x_lim = 8; //limit of quantity of row direction
+  const init_position_x = (-step_position * (q <= q_x_lim ? q - 1 : q_x_lim - 1)) / 2;
+  const init_position_z = 3.2;
+  for (let i = 0; i < Math.ceil(q / q_x_lim); i++) {
+    for (let j = 0; j < q_x_lim; j++) {
+      if (i * q_x_lim + j >= q) break;
+      if (dice)
+        dice.push(
+          dice_using(world, scene, {
+            x: init_position_x + step_position * j,
+            y: 1.5,
+            z: init_position_z - step_position * i,
+          })
+        );
     }
   }
-  for (let i = 0; i < cornerFaces.length; ++i) {
-    const cf = cornerFaces[i];
-    const face = [cf[0]];
-    let count = cf.length - 1;
-
-    while (count) {
-      for (let m = faces.length; m < chamferFaces.length; ++m) {
-        let index = chamferFaces[m].indexOf(face[face.length - 1]);
-        if (index >= 0 && index < 4) {
-          if (--index == -1) {
-            index = 3;
-          }
-          const nextVertex = chamferFaces[m][index];
-          if (cf.indexOf(nextVertex) >= 0) {
-            face.push(nextVertex);
-            break;
-          }
-        }
-      }
-      --count;
-    }
-    face.push(-1);
-    chamferFaces.push(face);
-  }
-  return { vectors: chamferVectors, faces: chamferFaces };
-}
-
-export function createDiceGeometry(vertices: number[][], faces: number[][], radius: number, tab: number, af: number, chamfer: number) {
-  const vectors = new Array(vertices.length);
-  for (let i = 0; i < vertices.length; ++i) {
-    vectors[i] = new Vector3().fromArray(vertices[i]).normalize();
-  }
-  const cg = chamferGeometry(vectors, faces, chamfer);
-  const geom = createGeometry(cg.vectors, cg.faces, radius, tab, af);
-  //const geom = createGeometry(vectors, faces, radius, tab, af); // Without chamfer
-  geom.cannonShape = createShape(vectors, faces, radius);
-  return geom;
-}
-
-export function calculateTextureSize(approx: number) {
-  return Math.pow(2, Math.floor(Math.log(approx) / Math.log(2)));
-}
-
-export function randomizeVector(vector: Vector2): Vector2 {
-  const randomAngle = (rng() * Math.PI) / 5 - Math.PI / 5 / 2;
-  const vec = new Vector2(
-    vector.x * Math.cos(randomAngle) - vector.y * Math.sin(randomAngle),
-    vector.x * Math.sin(randomAngle) + vector.y * Math.cos(randomAngle)
-  );
-  if (vec.x == 0) vec.x = 0.01;
-  if (vec.y == 0) vec.y = 0.01;
-  return vec;
 }
