@@ -39,7 +39,7 @@ export const handleStage: StageHandlers = {
           attemptPlayerReady(state, sender.userId);
         }
       },
-      async ({ state, logger, dispatcher }) => {
+      async ({ state, dispatcher }) => {
         const playersList = Object.values(state.players);
         const initialPowerUpAmount = state.settings.initialPowerUpAmount;
         const range = getRange(initialPowerUpAmount);
@@ -61,8 +61,6 @@ export const handleStage: StageHandlers = {
             ]);
           })
         );
-
-        logger.debug("Get powerUp logic");
       },
       ({ dispatcher }, nextStage) => {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
