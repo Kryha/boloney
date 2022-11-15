@@ -1,6 +1,7 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { ReactNode, useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
+
 import { text } from "../../assets";
 import {
   EndOfMatch,
@@ -13,7 +14,6 @@ import {
   RollDice,
   Lobby,
 } from "../../components";
-import { DiceApp } from "../../components/main/main";
 import { routes } from "../../navigation";
 import { fakeDiceRolls, fakePlayers, useMatch, useMatchMaker } from "../../service";
 import { fakePowerUps } from "../../service/fake-power-ups";
@@ -94,7 +94,7 @@ export const Match = () => {
       }
     };
   }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
-  // const results = await diceThrower.throwDice([{ die: Dice.D20 }, { die: Dice.D6, position: new Vector3(2, 2, 2) }]);
+
   // // TODO: add error page
   // if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
 
@@ -105,5 +105,9 @@ export const Match = () => {
   // // TODO fetching the localPlayer from the global store
   // const localPlayer = getLocalPlayer(players, session.user_id);
 
-  return <DiceApp />;
+  return (
+    <GameLayout players={fakePlayers} dice={fakeDiceRolls} powerUps={fakePowerUps} localPlayer={fakePlayers[0]}>
+      <GeneralContentWrapper>{getStageComponent(matchStage, fakePlayers[0])}</GeneralContentWrapper>
+    </GameLayout>
+  );
 };

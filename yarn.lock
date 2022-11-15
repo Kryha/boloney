@@ -3465,7 +3465,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cannon@npm:^0.1.2, @types/cannon@npm:^0.1.8":
+"@types/cannon@npm:^0.1.2, @types/cannon@npm:^0.1.4":
   version: 0.1.8
   resolution: "@types/cannon@npm:0.1.8"
   checksum: 84e975c7450b1d69783a99a0d3e75c2765a38601e9aacaafa419a315c2d2f8b540ee540fb0fce8cda2b032a8e2a7c50408d493825cddb5207957b8f5f2a37ee8
@@ -3584,7 +3584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.14.188":
+"@types/lodash@npm:^4.14.104":
   version: 4.14.188
   resolution: "@types/lodash@npm:4.14.188"
   checksum: 89c32f0a18e0da6ae914b430e76b3d0451c4c85b9c838b440c0c9a8d4966c8e2a76dbb30964c7126402856b2997ec56a8c36d8d6461ec14387689ec37594f09f
@@ -3715,16 +3715,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:0.141.0":
-  version: 0.141.0
-  resolution: "@types/three@npm:0.141.0"
-  dependencies:
-    "@types/webxr": "*"
-  checksum: b4d1fd19eec01a15374a9e0a181207f0b2a27df881f3cfc63ce167b36b214c6926d80ac0eeb80c365832f69e7180db514a859808150ece1c1503a4eb58d4ac1e
-  languageName: node
-  linkType: hard
-
-"@types/three@npm:^0.89.11":
+"@types/three@npm:^0.89.10, @types/three@npm:^0.89.11":
   version: 0.89.12
   resolution: "@types/three@npm:0.89.12"
   dependencies:
@@ -3787,13 +3778,6 @@ __metadata:
   version: 0.0.36
   resolution: "@types/webvr-api@npm:0.0.36"
   checksum: 5ed04f674caa4d137e263513099211b9c54c535436af8089c67bdff2f7bc3214524cce57a00be8fa02192d80df8fdf9975536b3299a87865eb480502e89170fb
-  languageName: node
-  linkType: hard
-
-"@types/webxr@npm:*":
-  version: 0.5.0
-  resolution: "@types/webxr@npm:0.5.0"
-  checksum: 891af0e96a229f45584d89daa3101232862da2ded14076aa631b2e12deb4e4b91fa35ff8d8d5ab4613aa8adce0870bd32cd61f070c1bc70d37303c515e1ae6ac
   languageName: node
   linkType: hard
 
@@ -4041,14 +4025,14 @@ __metadata:
     "@testing-library/dom": ^8.17.1
     "@testing-library/react": ^13.3.0
     "@testing-library/user-event": ^14.4.3
-    "@types/cannon": ^0.1.8
+    "@types/cannon": ^0.1.4
     "@types/customize-cra": ^1.0.3
     "@types/jest": ^28.1.7
-    "@types/lodash": ^4.14.188
+    "@types/lodash": ^4.14.104
     "@types/node": ^18.7.5
     "@types/react": ^18.0.15
     "@types/react-dom": ^18.0.6
-    "@types/three": 0.141.0
+    "@types/three": ^0.89.10
     "@typescript-eslint/eslint-plugin": ^5.33.0
     "@typescript-eslint/parser": ^5.33.0
     "@vitejs/plugin-react": ^2.0.0
@@ -4064,13 +4048,13 @@ __metadata:
     identity-obj-proxy: ^3.0.0
     jest: ^28.1.3
     jest-environment-jsdom: ^28.1.3
-    lodash: ^4.17.21
+    lodash: ^4.17.5
     react: ^18.2.0
     react-dom: ^18.2.0
     react-error-boundary: ^3.1.4
     react-hook-form: ^7.34.2
     react-router-dom: ^6.3.0
-    three: 0.142.0
+    three: ^0.117.0
     three-gltf-loader: ^1.111.0
     three-orbit-controls: ^82.1.0
     three-stdlib: 2.10.1
@@ -8212,7 +8196,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.17.21":
+"lodash@npm:4.17.21, lodash@npm:^4.17.21, lodash@npm:^4.17.5":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -10055,10 +10039,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:0.142.0":
-  version: 0.142.0
-  resolution: "three@npm:0.142.0"
-  checksum: b920987cab222bea5fd657a498f8203546c6b613cee01d2e1a355c7e044204bbff6ef051641b026743a6d3d5261a988c84285039a94e4c94a959f1b3789ac682
+"three@npm:^0.117.0":
+  version: 0.117.1
+  resolution: "three@npm:0.117.1"
+  checksum: 1ac1022599777f61f056f769aebe434e9de4f4516a420c1b2ce3d704b1e3f0e3daea56ee110d163937d567ddd364c8a05fa43a9e8eb88788b79e6ea961576ee9
   languageName: node
   linkType: hard
 
