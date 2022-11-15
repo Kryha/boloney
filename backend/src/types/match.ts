@@ -138,7 +138,6 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     isPowerUpProbabilityArray(assertedVal.powerUpProbability)
   );
 };
-
 export interface MatchState {
   settings: MatchSettings;
   players: Record<string, Player>;

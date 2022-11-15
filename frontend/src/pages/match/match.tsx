@@ -1,6 +1,6 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { ReactNode, useEffect } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { z } from "zod";
 
 import { text } from "../../assets";
@@ -14,8 +14,8 @@ import {
   Heading2,
   RollDice,
   Lobby,
+  ErrorView,
 } from "../../components";
-import { routes } from "../../navigation";
 import { useMatch, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import {
@@ -123,8 +123,7 @@ export const Match = () => {
 
   if (matchStage === "lobbyStage") return <Lobby />;
 
-  // TODO: Redirect to error page
-  if (!matchId || !localPlayer) return <Navigate to={routes.home} />;
+  if (!matchId || !localPlayer) return <ErrorView />;
 
   return (
     <GameLayout>

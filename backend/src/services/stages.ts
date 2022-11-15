@@ -62,7 +62,7 @@ export const handleStage: StageHandlers = {
           })
         );
 
-        logger.debug("----->> Get powerUp logic");
+        logger.debug("Get powerUp logic");
       },
       ({ dispatcher }, nextStage) => {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));

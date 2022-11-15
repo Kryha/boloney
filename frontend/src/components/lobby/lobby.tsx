@@ -1,20 +1,26 @@
 import { FC } from "react";
-import { useMatch } from "../../service";
-import { useStore } from "../../store";
+
 import { LobbyWrapper } from "./styles";
 import { LineContainer } from "../line-container";
 import { LobbyPlayer } from "../lobby-player";
 import { TopNavigation } from "../top-navigation";
+import { useMatch } from "../../service";
+import { useStore } from "../../store";
+import { ErrorView } from "../error-view";
 
-// TODO: correclty discriminate between local and remote users when merging with Mauro's PR
 export const Lobby: FC = () => {
   const { broadcastPlayerReady } = useMatch();
+
+  const session = useStore((state) => state.sessionState);
   const players = useStore((state) => state.players);
+  const localPlayer = useStore((state) => state.getPlayer(session?.user_id));
+
+  if (!localPlayer) return <ErrorView />;
 
   return (
     <LobbyWrapper>
       <TopNavigation />
-      <LineContainer arePlayersReady onClick={broadcastPlayerReady}>
+      <LineContainer isPlayerReady={localPlayer.isReady} onClick={broadcastPlayerReady}>
         {Object.values(players).map((player) => (
           <LobbyPlayer key={player.username} player={player} />
         ))}
