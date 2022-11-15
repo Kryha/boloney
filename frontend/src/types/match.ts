@@ -41,6 +41,7 @@ export const playerPublicSchema = z.object({
   username: z.string(),
   avatarId: z.number(),
   diceAmount: z.number(),
+  powerUpsAmount: z.number(),
   isConnected: z.boolean(),
   isReady: z.boolean(),
   hasInitialPowerUps: z.boolean(),

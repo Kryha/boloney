@@ -26,8 +26,7 @@ export const PlayerGameState: FC<PlayerGameStateProps> = ({ player }) => {
   return (
     <GameStateContainer>
       <DiceIcon diceAmount={player.diceAmount} />
-      {/* TODO: add diceAmount field to PublicPlayer */}
-      <PowerUpIcon powerUpAmount={1} />
+      <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
     </GameStateContainer>
   );
 };

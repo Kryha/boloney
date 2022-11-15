@@ -6,10 +6,11 @@ import { LineContainer } from "../line-container";
 import { LobbyPlayer } from "../lobby-player";
 import { TopNavigation } from "../top-navigation";
 
+// TODO: correclty discriminate between local and remote users when merging with Mauro's PR
 export const Lobby: FC = () => {
   const { broadcastPlayerReady } = useMatch();
   const players = useStore((state) => state.players);
-  console.log("🚀 ~ file: lobby.tsx ~ line 12 ~ players", players);
+
   return (
     <LobbyWrapper>
       <TopNavigation />

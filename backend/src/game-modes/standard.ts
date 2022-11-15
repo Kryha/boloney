@@ -61,6 +61,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
       powerUpIds: [],
       diceValue: [],
       diceAmount: state.settings.dicePerPlayer,
+      powerUpsAmount: state.settings.initialPowerUpAmount,
       isConnected: true,
       isReady: false,
       hasInitialPowerUps: false,

@@ -46,6 +46,7 @@ export interface PlayerPublic {
   username: string;
   avatarId: AvatarId;
   diceAmount: number;
+  powerUpsAmount: number;
   isConnected: boolean;
   isReady: boolean;
   hasInitialPowerUps: boolean;
@@ -59,15 +60,21 @@ export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
     assertedVal.userId !== undefined &&
     assertedVal.username !== undefined &&
     assertedVal.avatarId !== undefined &&
+    assertedVal.diceAmount !== undefined &&
+    assertedVal.powerUpsAmount !== undefined &&
     assertedVal.isConnected !== undefined &&
     assertedVal.isReady !== undefined &&
     assertedVal.hasInitialPowerUps !== undefined &&
+    assertedVal.hasRolledDice !== undefined &&
     isString(assertedVal.userId) &&
     isString(assertedVal.username) &&
     isAvatarId(assertedVal.avatarId) &&
+    isNumber(assertedVal.diceAmount) &&
+    isNumber(assertedVal.powerUpsAmount) &&
     isBoolean(assertedVal.isConnected) &&
     isBoolean(assertedVal.isReady) &&
-    isBoolean(assertedVal.hasInitialPowerUps)
+    isBoolean(assertedVal.hasInitialPowerUps) &&
+    isBoolean(assertedVal.hasRolledDice)
   );
 };
 
