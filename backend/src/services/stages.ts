@@ -1,7 +1,7 @@
 import { getPowerUp, rollDice } from "../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
-import { getRange, shuffleArray } from "../utils";
-import { handleMatchStage } from "./match";
+import { getRange, hidePlayersData, shuffleArray } from "../utils";
+import { attemptPlayerReady, handleMatchStage } from "./match";
 
 export type StageHandler = (loopParams: MatchLoopParams) => void;
 
@@ -15,9 +15,9 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state, dispatcher }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          state.playersReady.push(sender.userId);
-          state.players[sender.userId].isReady = true;
-          dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(state.players));
+          attemptPlayerReady(state, sender.userId);
+          const payload = hidePlayersData(state.players);
+          dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(payload));
         }
       },
       async ({ logger }) => {
@@ -36,7 +36,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          state.playersReady.push(sender.userId);
+          attemptPlayerReady(state, sender.userId);
         }
       },
       async ({ state, logger, dispatcher }) => {
@@ -51,12 +51,12 @@ export const handleStage: StageHandlers = {
             await Promise.all(
               range.map(async () => {
                 const powerUpId = await getPowerUp(state.settings.powerUpProbability);
-                if (isPowerUpId(powerUpId)) player.powerUpsList.push(powerUpId);
+                if (isPowerUpId(powerUpId)) player.powerUpIds.push(powerUpId);
               })
             );
 
             player.hasInitialPowerUps = true;
-            dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(player.powerUpsList), [
+            dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(player.powerUpIds), [
               state.presences[player.userId],
             ]);
           })
@@ -75,7 +75,7 @@ export const handleStage: StageHandlers = {
       async (message, sender, { state, dispatcher }) => {
         // TODO: make a function with a switch for checking opCodes and pass a callback
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          state.playersReady.push(sender.userId);
+          attemptPlayerReady(state, sender.userId);
         }
         if (message.opCode === MatchOpCode.ROLL_DICE) {
           const { userId } = message.sender;
@@ -108,7 +108,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          state.playersReady.push(sender.userId);
+          attemptPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {
@@ -124,7 +124,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          state.playersReady.push(sender.userId);
+          attemptPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {
@@ -140,7 +140,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          state.playersReady.push(sender.userId);
+          attemptPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {

@@ -1,6 +1,7 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { ReactNode, useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import { z } from "zod";
 
 import { text } from "../../assets";
 import {
@@ -18,41 +19,38 @@ import { routes } from "../../navigation";
 import { useMatch, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import {
-  isPlayerOrderObject,
-  isPlayerRecord,
-  isStageTransition,
   MatchOpCode,
   MatchStage,
-  powerUpIdArraySchema,
-  Player,
   matchOpCodeSchema,
   rollDicePayloadSchema,
+  powerUpIdSchema,
+  stageTransitionSchema,
+  playerOrderSchema,
+  playerPublicSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
   const { joinMatch } = useMatchMaker();
-  const { matchStage, isLoading } = useMatch();
-  const diceValue = useStore((state) => state.diceValue);
+  const { isLoading } = useMatch();
+  const matchStage = useStore((state) => state.matchStage);
   const socket = useStore((state) => state.socket);
   const session = useStore((state) => state.sessionState);
   const setMatchStage = useStore((state) => state.setMatchStage);
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
-  const setPlayerPowerUps = useStore((state) => state.setPlayerPowerUps);
+  const setPowerUpIds = useStore((state) => state.setPowerUpIds);
   const setDiceValue = useStore((state) => state.setDiceValue);
-
-  const orderedPlayers = useStore((state) => state.getOrderedPlayers());
   const localPlayer = useStore((state) => state.getPlayer(session?.user_id));
 
   // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);
 
-  const getStageComponent = (stage: MatchStage, localPlayer: Player): ReactNode => {
+  const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {
       case "getPowerUpStage":
-        return <GetPowerUps localPlayer={localPlayer} />;
+        return <GetPowerUps />;
       case "rollDiceStage":
         return <RollDice />;
       case "playerTurnLoopStage":
@@ -81,30 +79,33 @@ export const Match = () => {
       // TODO: Add cases for the rest of the OP_CODES
       switch (matchOpcode) {
         case MatchOpCode.STAGE_TRANSITION: {
-          const stage: MatchStage = data.matchStage;
-          if (!isStageTransition(data)) return;
-          setMatchStage(stage);
+          const parsed = stageTransitionSchema.safeParse(data);
+          if (!parsed.success) return;
+          setMatchStage(parsed.data.matchStage);
           break;
         }
         case MatchOpCode.PLAYER_JOINED: {
-          if (!isPlayerRecord(data)) return;
-          setPlayers(data);
+          const parsed = z.record(playerPublicSchema).safeParse(data);
+          if (!parsed.success) return;
+          setPlayers(parsed.data);
           break;
         }
         case MatchOpCode.PLAYER_READY: {
-          if (!isPlayerRecord(data)) return;
-          setPlayers(data);
+          const parsed = z.record(playerPublicSchema).safeParse(data);
+          if (!parsed.success) return;
+          setPlayers(parsed.data);
           break;
         }
         case MatchOpCode.PLAYER_ORDER_SHUFFLE: {
-          if (!isPlayerOrderObject(data)) return;
-          setPlayerOrder(data.playerOrder);
+          const parsed = playerOrderSchema.safeParse(data);
+          if (!parsed.success) return;
+          setPlayerOrder(parsed.data.playerOrder);
           break;
         }
         case MatchOpCode.PLAYER_GET_POWERUPS: {
-          if (!powerUpIdArraySchema.safeParse(data).success) return;
-          if (!session?.user_id) return;
-          setPlayerPowerUps(session.user_id, data);
+          const parsed = z.array(powerUpIdSchema).safeParse(data);
+          if (!parsed.success) return;
+          setPowerUpIds(parsed.data);
           break;
         }
         case MatchOpCode.ROLL_DICE: {
@@ -115,7 +116,7 @@ export const Match = () => {
         }
       }
     };
-  }, [socket, setMatchStage, setPlayerOrder, setPlayers, session, setPlayerPowerUps, setDiceValue]);
+  }, [socket, setMatchStage, setPlayerOrder, setPlayers, session, setDiceValue, setPowerUpIds]);
 
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
@@ -126,8 +127,8 @@ export const Match = () => {
   if (!matchId || !localPlayer) return <Navigate to={routes.home} />;
 
   return (
-    <GameLayout players={orderedPlayers} dice={diceValue} powerUpIds={localPlayer.powerUpIds} localPlayer={localPlayer}>
-      <GeneralContentWrapper>{getStageComponent(matchStage, localPlayer)}</GeneralContentWrapper>
+    <GameLayout>
+      <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
     </GameLayout>
   );
 };

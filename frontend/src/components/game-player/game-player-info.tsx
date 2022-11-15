@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { Player } from "../../types";
+
+import { PlayerPublic } from "../../types";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import { PlayerNameContainer, PlayerColor, GameStateContainer, PlayerName as Name } from "./styles";
 
@@ -18,14 +19,14 @@ export const PlayerName: FC<PlayerNameProps> = ({ name, color }) => {
 };
 
 interface PlayerGameStateProps {
-  player: Player;
+  player: PlayerPublic;
 }
 
 export const PlayerGameState: FC<PlayerGameStateProps> = ({ player }) => {
-  // TODO: add to player object dice + power ups
   return (
     <GameStateContainer>
-      <DiceIcon diceAmount={4} />
+      <DiceIcon diceAmount={player.diceAmount} />
+      {/* TODO: add diceAmount field to PublicPlayer */}
       <PowerUpIcon powerUpAmount={1} />
     </GameStateContainer>
   );

@@ -1,5 +1,5 @@
 import { MATCH_STAGES } from "../utils";
-import { Die } from "./die";
+import { Die, isDieArray } from "./die";
 import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
@@ -20,12 +20,31 @@ export const isAvatarId = (value: unknown): value is AvatarId => {
   return value >= 1 || value <= 7;
 };
 
-export interface Player {
+export interface PlayerPrivate {
+  diceValue: Die[];
+  powerUpIds: PowerUpId[];
+}
+
+export const isPlayerPrivate = (value: unknown): value is PlayerPrivate => {
+  const assertedVal = value as PlayerPrivate;
+
+  return (
+    assertedVal.diceValue !== undefined &&
+    assertedVal.powerUpIds !== undefined &&
+    isDieArray(assertedVal.diceValue) &&
+    isStringArray(assertedVal.powerUpIds)
+  );
+};
+
+export const isPlayerPrivateArray = (values: unknown): values is PlayerPrivate[] => {
+  if (!values || !(values instanceof Array)) return false;
+  return values.every((val) => isPlayerPrivate(val));
+};
+
+export interface PlayerPublic {
   userId: string;
   username: string;
   avatarId: AvatarId;
-  powerUpsList: PowerUpId[];
-  diceValue: Die[];
   diceAmount: number;
   isConnected: boolean;
   isReady: boolean;
@@ -33,33 +52,34 @@ export interface Player {
   hasRolledDice: boolean;
 }
 
-export const isPlayer = (value: unknown): value is Player => {
-  const assertedVal = value as Player;
+export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
+  const assertedVal = value as PlayerPublic;
 
   return (
     assertedVal.userId !== undefined &&
     assertedVal.username !== undefined &&
     assertedVal.avatarId !== undefined &&
-    assertedVal.powerUpsList !== undefined &&
     assertedVal.isConnected !== undefined &&
     assertedVal.isReady !== undefined &&
     assertedVal.hasInitialPowerUps !== undefined &&
     isString(assertedVal.userId) &&
     isString(assertedVal.username) &&
     isAvatarId(assertedVal.avatarId) &&
-    isStringArray(assertedVal.powerUpsList) &&
     isBoolean(assertedVal.isConnected) &&
     isBoolean(assertedVal.isReady) &&
     isBoolean(assertedVal.hasInitialPowerUps)
   );
 };
 
-export const isPlayerArray = (value: unknown): value is Player[] => {
-  if (!value) return false;
-  if (!(value instanceof Array)) return false;
+export const isPlayerPublicArray = (values: unknown): values is PlayerPublic[] => {
+  if (!values || !(values instanceof Array)) return false;
+  return values.every((val) => isPlayerPublic(val));
+};
 
-  const areValid = value.reduce((valid, pt) => valid && isPlayer(pt), true);
-  return areValid;
+export type Player = PlayerPrivate & PlayerPublic;
+
+export const isPlayerArray = (value: unknown): value is Player[] => {
+  return isPlayerPrivateArray(value) && isPlayerPublicArray(value);
 };
 
 export const isPresence = (value: unknown): value is nkruntime.Presence => {

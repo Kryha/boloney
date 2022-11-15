@@ -1,6 +1,13 @@
 import { text } from "../text";
 import { AvatarId, MatchLoopParams, MatchOpCode, MatchStage, MatchState, Player } from "../types";
 import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES, MAX_INACTIVE_TICKS, randomInt } from "../utils";
+
+export const attemptPlayerReady = (state: MatchState, userId: string) => {
+  if (state.playersReady.includes(userId)) return;
+  state.playersReady.push(userId);
+  state.players[userId].isReady = true;
+};
+
 //This gets called when enough players are in a pool
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   try {

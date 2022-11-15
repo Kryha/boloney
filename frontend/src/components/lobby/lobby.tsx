@@ -9,6 +9,7 @@ import { TopNavigation } from "../top-navigation";
 export const Lobby: FC = () => {
   const { broadcastPlayerReady } = useMatch();
   const players = useStore((state) => state.players);
+  console.log("🚀 ~ file: lobby.tsx ~ line 12 ~ players", players);
   return (
     <LobbyWrapper>
       <TopNavigation />

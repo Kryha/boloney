@@ -1,34 +1,35 @@
 import { StateCreator } from "zustand";
-import { produce } from "immer";
 
-import { Die, Player, MatchStage, PowerUpId } from "../types";
+import { Die, MatchStage, PowerUpId, PlayerPublic } from "../types";
 
 interface MatchSliceState {
   matchId?: string;
   diceValue?: Die[];
   matchStage: MatchStage;
-  players: Record<string, Player>;
+  players: Record<string, PlayerPublic>;
   playerOrder: string[];
   matchUrl: string;
+  powerUpIds: PowerUpId[];
 
   // flags
   hasRolledDice: boolean;
 }
 
 interface MatchSliceGetters {
-  getOrderedPlayers: () => Player[];
-  getPlayer: (id?: string) => Player | undefined;
+  getOrderedPlayers: () => PlayerPublic[];
+  getPlayer: (id?: string) => PlayerPublic | undefined;
+  getRemotePlayers: (localPlayerId?: string) => PlayerPublic[];
 }
 
 interface MatchSliceFunctions {
   setMatchId: (match_id: string) => void;
   setDiceValue: (diceValue: Die[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
-  setPlayers: (players: Record<string, Player>) => void;
-  setPlayerPowerUps: (playerId: string, powerUpIds: PowerUpId[]) => void;
+  setPlayers: (players: Record<string, PlayerPublic>) => void;
   setPlayerOrder: (playerOrder: string[]) => void;
   setInitialState: () => void;
   setMatchUrl: (matchUrl: string) => void;
+  setPowerUpIds: (ids: PowerUpId[]) => void;
 }
 
 export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceFunctions;
@@ -44,6 +45,7 @@ const initialMatchState: MatchSliceState = {
   players: {},
   playerOrder: [],
   matchUrl: "",
+  powerUpIds: [],
   ...initialFlags,
 };
 
@@ -52,18 +54,17 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
 
   getOrderedPlayers: () => get().playerOrder.map((playerId) => get().players[playerId]),
   getPlayer: (id) => (id ? get().players[id] : undefined),
+  getRemotePlayers: (id) =>
+    get()
+      .getOrderedPlayers()
+      .filter((player) => player.userId !== id),
 
   setMatchId: (matchId) => set(() => ({ matchId })),
   setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
   setMatchStage: (matchStage) => set(() => ({ matchStage, ...initialFlags })),
   setPlayers: (players) => set(() => ({ players })),
-  setPlayerPowerUps: (playerId, powerUpIds) =>
-    set(
-      produce((state) => {
-        state.players[playerId].powerUpIds = powerUpIds;
-      })
-    ),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
   setInitialState: () => set(() => ({ ...initialMatchState })),
+  setPowerUpIds: (powerUpIds) => set(() => ({ powerUpIds })),
 });

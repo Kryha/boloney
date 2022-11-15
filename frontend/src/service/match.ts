@@ -7,9 +7,9 @@ import { parseError } from "../util";
 
 export const useMatch = () => {
   const socket = useStore((state) => state.socket);
-  const matchStage = useStore((state) => state.matchStage);
   const matchId = useStore((state) => state.matchId);
 
+  // TODO: each call should have it's own isLoading flag
   const [isLoading, setIsLoading] = useState(false);
 
   const sendMatchState = useCallback(
@@ -32,7 +32,6 @@ export const useMatch = () => {
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
   return {
-    matchStage,
     isLoading,
     sendMatchState,
     broadcastPlayerReady,

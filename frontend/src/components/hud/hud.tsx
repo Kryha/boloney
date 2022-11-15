@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { avatars } from "../../assets/local-data/avatar";
-import { handProportion } from "../../design/hand";
 
-import { Die, Player, PowerUpId } from "../../types";
+import { avatars } from "../../assets/local-data/avatar";
+import { handProportion } from "../../design";
+import { Die, PlayerPublic, PowerUpId } from "../../types";
 import { DiceOverview } from "../dice-overview";
 import { PlayerAvatar } from "../game-player/styles";
 import { PlayerMenu } from "../player-menu";
@@ -12,11 +12,11 @@ import { LocalPlayer, PlayerOverview } from "./styles";
 interface HUDProps {
   dice?: Die[];
   powerUpIds?: PowerUpId[];
-  localPlayer: Player;
+  player: PlayerPublic;
 }
 
-export const HUD: FC<HUDProps> = ({ dice, powerUpIds, localPlayer }) => {
-  const { avatar } = handProportion(avatars[localPlayer.avatarId].name);
+export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
+  const { avatar } = handProportion(avatars[player.avatarId].name);
   return (
     <>
       <PlayerOverview>
