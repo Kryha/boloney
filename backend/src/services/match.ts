@@ -52,6 +52,7 @@ export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: S
   const nextStage = getNextStage(state);
 
   // TODO: consider also players that are not playing anymore in this check
+
   if (state.playersReady.length < state.settings.players) return;
   state.matchStage = nextStage;
   state.playersReady = [];

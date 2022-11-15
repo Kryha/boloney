@@ -103,13 +103,12 @@ export const Match = () => {
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
-  if (matchStage === "lobbyStage") return <Lobby />;
   // TODO fetching the localPlayer from the global store
   const localPlayer = getLocalPlayer(players, session.user_id);
-
   //TODO: Redirect to error page
   if (!players[session.user_id]) return <></>;
 
+  if (matchStage === "lobbyStage") return <Lobby localPlayer={localPlayer} />;
   return (
     <GameLayout
       players={getOrderedPlayers(players, playersOrder)}

@@ -14,7 +14,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state, dispatcher }) => {
-        if (message.opCode === MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
           state.playersReady.push(sender.userId);
           state.players[sender.userId].isReady = true;
           dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(state.players));
@@ -35,7 +35,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
           state.playersReady.push(sender.userId);
         }
       },
@@ -62,7 +62,7 @@ export const handleStage: StageHandlers = {
           })
         );
 
-        logger.debug("----->> Get powerUp logic");
+        logger.debug("Get powerUp logic");
       },
       ({ dispatcher }, nextStage) => {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
@@ -73,7 +73,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
           state.playersReady.push(sender.userId);
         }
       },
@@ -89,7 +89,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
           state.playersReady.push(sender.userId);
         }
       },
@@ -105,7 +105,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
           state.playersReady.push(sender.userId);
         }
       },
@@ -121,7 +121,7 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode == MatchOpCode.PLAYER_READY) {
+        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
           state.playersReady.push(sender.userId);
         }
       },
