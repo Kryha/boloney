@@ -1,19 +1,20 @@
 import { FC } from "react";
+
 import { LobbyWrapper } from "./styles";
 import { LineContainer } from "../line-container";
 import { LobbyPlayer } from "../lobby-player";
 import { TopNavigation } from "../top-navigation";
 import { useMatch } from "../../service";
 import { useStore } from "../../store";
-import { Player } from "../../types";
+import { ErrorView } from "../error-view";
 
-interface LobbyProps {
-  localPlayer: Player;
-}
-
-export const Lobby: FC<LobbyProps> = ({ localPlayer }) => {
+export const Lobby: FC = () => {
   const { broadcastPlayerReady } = useMatch();
+
   const players = useStore((state) => state.players);
+  const localPlayer = useStore((state) => state.getLocalPlayer());
+
+  if (!localPlayer) return <ErrorView />;
 
   return (
     <LobbyWrapper>

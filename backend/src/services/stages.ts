@@ -1,7 +1,7 @@
-import { getPowerUp } from "../toolkit-api/power-ups";
-import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage } from "../types";
-import { getRange, shuffleArray } from "../utils";
-import { handleMatchStage } from "./match";
+import { getPowerUp, rollDice } from "../toolkit-api";
+import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
+import { getRange, hidePlayersData, shuffleArray } from "../utils";
+import { attemptSetPlayerReady, handleMatchStage } from "./match";
 
 export type StageHandler = (loopParams: MatchLoopParams) => void;
 
@@ -14,10 +14,10 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state, dispatcher }) => {
-        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
-          state.playersReady.push(sender.userId);
-          state.players[sender.userId].isReady = true;
-          dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(state.players));
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
+          attemptSetPlayerReady(state, sender.userId);
+          const payload = hidePlayersData(state.players);
+          dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(payload));
         }
       },
       async ({ logger }) => {
@@ -35,11 +35,11 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
-          state.playersReady.push(sender.userId);
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
+          attemptSetPlayerReady(state, sender.userId);
         }
       },
-      async ({ state, logger, dispatcher }) => {
+      async ({ state, dispatcher }) => {
         const playersList = Object.values(state.players);
         const initialPowerUpAmount = state.settings.initialPowerUpAmount;
         const range = getRange(initialPowerUpAmount);
@@ -51,18 +51,16 @@ export const handleStage: StageHandlers = {
             await Promise.all(
               range.map(async () => {
                 const powerUpId = await getPowerUp(state.settings.powerUpProbability);
-                if (isPowerUpId(powerUpId)) player.powerUpsList.push(powerUpId);
+                if (isPowerUpId(powerUpId)) player.powerUpIds.push(powerUpId);
               })
             );
 
             player.hasInitialPowerUps = true;
-            dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(player.powerUpsList), [
+            dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(player.powerUpIds), [
               state.presences[player.userId],
             ]);
           })
         );
-
-        logger.debug("Get powerUp logic");
       },
       ({ dispatcher }, nextStage) => {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
@@ -72,15 +70,37 @@ export const handleStage: StageHandlers = {
   rollDiceStage: (loopParams) =>
     handleMatchStage(
       loopParams,
-      (message, sender, { state }) => {
-        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
-          state.playersReady.push(sender.userId);
+      async (message, sender, { state, dispatcher }) => {
+        // TODO: make a function with a switch for checking opCodes and pass a callback
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
+          attemptSetPlayerReady(state, sender.userId);
+        }
+        if (message.opCode === MatchOpCode.ROLL_DICE) {
+          const { userId } = message.sender;
+          const player = state.players[userId];
+          if (player.hasRolledDice) return;
+
+          state.players[userId].hasRolledDice = true; // this has to be here in order to prevent user spamming
+          try {
+            const diceValue = await rollDice(player.diceAmount);
+            state.players[userId].diceValue = diceValue;
+
+            const payload: RollDicePayload = { diceValue };
+            dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [message.sender]);
+          } catch (error) {
+            state.players[userId].hasRolledDice = false;
+            throw error;
+          }
         }
       },
-      async ({ logger }) => {
-        logger.debug("roll dice logic");
+      async () => {
+        // TODO: maybe add rolling here in the future in order to optimise the calculation
+        // not needed
       },
-      ({ dispatcher }, nextStage) => {
+      ({ dispatcher, state }, nextStage) => {
+        Object.values(state.players).forEach((player) => {
+          state.players[player.userId].hasRolledDice = false;
+        });
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),
@@ -89,8 +109,8 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
-          state.playersReady.push(sender.userId);
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
+          attemptSetPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {
@@ -105,8 +125,8 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
-          state.playersReady.push(sender.userId);
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
+          attemptSetPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {
@@ -121,8 +141,8 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state }) => {
-        if (message.opCode === MatchOpCode.PLAYER_READY && !state.playersReady.includes(sender.userId)) {
-          state.playersReady.push(sender.userId);
+        if (message.opCode === MatchOpCode.PLAYER_READY) {
+          attemptSetPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {

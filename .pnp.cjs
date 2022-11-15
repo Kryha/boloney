@@ -5400,7 +5400,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/typescript", null],\
             ["resolve", "patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"],\
             ["rollup", "npm:2.79.0"],\
-            ["tslib", "npm:2.4.0"],\
+            ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=f456af"]\
           ],\
           "packagePeers": [\
@@ -6616,7 +6616,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-auto-mock", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:3.6.2"],\
             ["ts-jest", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:29.0.0"],\
             ["ts-node", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:10.9.1"],\
-            ["tslib", "npm:2.4.0"],\
+            ["tslib", "npm:2.4.1"],\
             ["ttypescript", "virtual:ebf0d78f5ff0d1157b4a29ea188e88f001cb8ec4e9cb2f1024b5109ef14345efa1da4f3d6414454ff3d4b1892d03996f205d70000811bc4788f97f2c7ca97b2b#npm:1.5.13"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=f456af"]\
           ],\
@@ -13711,10 +13711,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:2.4.0", {\
-          "packageLocation": "./.yarn/cache/tslib-npm-2.4.0-9cb6dc5030-8c4aa6a3c5.zip/node_modules/tslib/",\
+        ["npm:2.4.1", {\
+          "packageLocation": "./.yarn/cache/tslib-npm-2.4.1-36f0ed04db-19480d6e03.zip/node_modules/tslib/",\
           "packageDependencies": [\
-            ["tslib", "npm:2.4.0"]\
+            ["tslib", "npm:2.4.1"]\
           ],\
           "linkType": "HARD"\
         }]\

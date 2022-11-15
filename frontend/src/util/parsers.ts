@@ -1,1 +1,1 @@
-export const parseMatchData = (data: Uint8Array) => JSON.parse(String.fromCharCode(...data));
+export const parseMatchData = (data: Uint8Array): unknown => JSON.parse(String.fromCharCode(...data));

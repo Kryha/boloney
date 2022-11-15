@@ -4,8 +4,6 @@ export const powerUpIdSchema = z.enum(["1", "2", "3", "4", "5", "6", "7", "8", "
 
 export type PowerUpId = z.infer<typeof powerUpIdSchema>;
 
-export const powerUpIdArraySchema = z.array(powerUpIdSchema);
-
 export const powerUpProbabilitySchema = z.object({
   id: powerUpIdSchema,
   probability: z.number().min(0).max(100),
