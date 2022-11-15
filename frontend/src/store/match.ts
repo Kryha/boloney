@@ -21,7 +21,7 @@ interface MatchSliceGetters {
   getRemotePlayers: (localPlayerId?: string) => PlayerPublic[];
 }
 
-interface MatchSliceFunctions {
+interface MatchSliceSetters {
   setMatchId: (match_id: string) => void;
   setDiceValue: (diceValue: Die[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
@@ -32,7 +32,7 @@ interface MatchSliceFunctions {
   setPowerUpIds: (ids: PowerUpId[]) => void;
 }
 
-export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceFunctions;
+export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceSetters;
 
 const initialFlags = {
   hasRolledDice: false,
