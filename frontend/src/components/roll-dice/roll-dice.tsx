@@ -9,8 +9,6 @@ import { color } from "../../design";
 import Scene from "../dice-roller-master/Scene";
 import { DiceRolls } from "./dice-rolls";
 import { useViewport } from "../../hooks";
-import { IndexDice } from "../dice-roller-master/index-dice";
-import { values } from "lodash";
 
 interface RollDiceProps {
   localPlayer: Player;
