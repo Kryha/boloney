@@ -1,7 +1,7 @@
 import { getPowerUp, rollDice } from "../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
 import { getRange, hidePlayersData, shuffleArray } from "../utils";
-import { attemptPlayerReady, handleMatchStage } from "./match";
+import { attemptSetPlayerReady, handleMatchStage } from "./match";
 
 export type StageHandler = (loopParams: MatchLoopParams) => void;
 
@@ -15,7 +15,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state, dispatcher }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          attemptPlayerReady(state, sender.userId);
+          attemptSetPlayerReady(state, sender.userId);
           const payload = hidePlayersData(state.players);
           dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(payload));
         }
@@ -36,7 +36,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          attemptPlayerReady(state, sender.userId);
+          attemptSetPlayerReady(state, sender.userId);
         }
       },
       async ({ state, dispatcher }) => {
@@ -73,7 +73,7 @@ export const handleStage: StageHandlers = {
       async (message, sender, { state, dispatcher }) => {
         // TODO: make a function with a switch for checking opCodes and pass a callback
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          attemptPlayerReady(state, sender.userId);
+          attemptSetPlayerReady(state, sender.userId);
         }
         if (message.opCode === MatchOpCode.ROLL_DICE) {
           const { userId } = message.sender;
@@ -106,7 +106,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          attemptPlayerReady(state, sender.userId);
+          attemptSetPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {
@@ -122,7 +122,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          attemptPlayerReady(state, sender.userId);
+          attemptSetPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {
@@ -138,7 +138,7 @@ export const handleStage: StageHandlers = {
       loopParams,
       (message, sender, { state }) => {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
-          attemptPlayerReady(state, sender.userId);
+          attemptSetPlayerReady(state, sender.userId);
         }
       },
       async ({ logger }) => {
