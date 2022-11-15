@@ -80,13 +80,17 @@ export const handleStage: StageHandlers = {
           const player = state.players[userId];
           if (player.hasRolledDice) return;
 
-          state.players[userId].hasRolledDice = true;
-          const diceValue = await rollDice(player.diceAmount);
-          state.players[userId].diceValue = diceValue;
+          state.players[userId].hasRolledDice = true; // this has to be here in order to prevent user spamming
+          try {
+            const diceValue = await rollDice(player.diceAmount);
+            state.players[userId].diceValue = diceValue;
 
-          const payload: RollDicePayload = { diceValue };
-
-          dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [message.sender]);
+            const payload: RollDicePayload = { diceValue };
+            dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [message.sender]);
+          } catch (error) {
+            state.players[userId].hasRolledDice = false;
+            throw error;
+          }
         }
       },
       async () => {
