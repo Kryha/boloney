@@ -33,6 +33,7 @@ import { parseMatchData, parseMatchIdParam } from "../../util";
 export const Match = () => {
   const { joinMatch } = useMatchMaker();
   const { isLoading } = useMatch();
+
   const matchStage = useStore((state) => state.matchStage);
   const socket = useStore((state) => state.socket);
   const session = useStore((state) => state.sessionState);
@@ -41,7 +42,6 @@ export const Match = () => {
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
   const setPowerUpIds = useStore((state) => state.setPowerUpIds);
   const setDiceValue = useStore((state) => state.setDiceValue);
-  const localPlayer = useStore((state) => state.getPlayer(session?.user_id));
 
   // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
@@ -123,7 +123,7 @@ export const Match = () => {
 
   if (matchStage === "lobbyStage") return <Lobby />;
 
-  if (!matchId || !localPlayer) return <ErrorView />;
+  if (!matchId) return <ErrorView />;
 
   return (
     <GameLayout>

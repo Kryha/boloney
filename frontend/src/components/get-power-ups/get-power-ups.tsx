@@ -13,8 +13,7 @@ import { ErrorView } from "../error-view";
 export const GetPowerUps: FC = () => {
   const { broadcastPlayerReady } = useMatch();
 
-  const session = useStore((state) => state.sessionState);
-  const localPlayer = useStore((state) => state.getPlayer(session?.user_id));
+  const localPlayer = useStore((state) => state.getLocalPlayer());
 
   if (!localPlayer) return <ErrorView />;
 

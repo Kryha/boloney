@@ -13,10 +13,9 @@ interface GameLayoutProps {
 }
 
 export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
-  const session = useStore((state) => state.sessionState);
   const dice = useStore((state) => state.diceValue);
-  const remotePlayers = useStore((state) => state.getRemotePlayers(session?.user_id));
-  const localPlayer = useStore((state) => state.getPlayer(session?.user_id));
+  const remotePlayers = useStore((state) => state.getRemotePlayers());
+  const localPlayer = useStore((state) => state.getLocalPlayer());
   const powerUpIds = useStore((state) => state.powerUpIds);
 
   if (!localPlayer) return <ErrorView />;

@@ -11,9 +11,8 @@ import { ErrorView } from "../error-view";
 export const Lobby: FC = () => {
   const { broadcastPlayerReady } = useMatch();
 
-  const session = useStore((state) => state.sessionState);
   const players = useStore((state) => state.players);
-  const localPlayer = useStore((state) => state.getPlayer(session?.user_id));
+  const localPlayer = useStore((state) => state.getLocalPlayer());
 
   if (!localPlayer) return <ErrorView />;
 

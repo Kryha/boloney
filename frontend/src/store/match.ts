@@ -1,8 +1,10 @@
+import { Session } from "@heroiclabs/nakama-js";
 import { StateCreator } from "zustand";
 
 import { Die, MatchStage, PowerUpId, PlayerPublic } from "../types";
 
 interface MatchSliceState {
+  sessionState?: Session;
   matchId?: string;
   diceValue?: Die[];
   matchStage: MatchStage;
@@ -18,10 +20,12 @@ interface MatchSliceState {
 interface MatchSliceGetters {
   getOrderedPlayers: () => PlayerPublic[];
   getPlayer: (id?: string) => PlayerPublic | undefined;
-  getRemotePlayers: (localPlayerId?: string) => PlayerPublic[];
+  getLocalPlayer: () => PlayerPublic | undefined;
+  getRemotePlayers: () => PlayerPublic[];
 }
 
 interface MatchSliceSetters {
+  setSession: (session: Session) => void;
   setMatchId: (match_id: string) => void;
   setDiceValue: (diceValue: Die[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
@@ -53,12 +57,23 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   ...initialMatchState,
 
   getOrderedPlayers: () => get().playerOrder.map((playerId) => get().players[playerId]),
-  getPlayer: (id) => (id ? get().players[id] : undefined),
-  getRemotePlayers: (id) =>
-    get()
-      .getOrderedPlayers()
-      .filter((player) => player.userId !== id),
 
+  getPlayer: (id) => (id ? get().players[id] : undefined),
+
+  getLocalPlayer: () => {
+    const session = get().sessionState;
+    if (!session || !session.user_id) return;
+    return get().players[session.user_id];
+  },
+
+  getRemotePlayers: () => {
+    const orderedPlayers = get().getOrderedPlayers();
+    const session = get().sessionState;
+    if (!session || !session.user_id) return orderedPlayers;
+    return orderedPlayers.filter((player) => player.userId !== session.user_id);
+  },
+
+  setSession: (session: Session) => set(() => ({ sessionState: session })),
   setMatchId: (matchId) => set(() => ({ matchId })),
   setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
   setMatchStage: (matchStage) => set(() => ({ matchStage, ...initialFlags })),
