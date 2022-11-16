@@ -1,18 +1,17 @@
 import { FC } from "react";
 import { avatars, text } from "../../assets";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
-import { Die, Player } from "../../types";
 import { TimerHeader } from "../timer-header";
 import { color } from "../../design";
 import { RollingDice } from "../dice-animation/rolling-dice";
+import { useStore } from "../../store";
+import { ErrorView } from "..";
 
-interface RollDiceProps {
-  localPlayer: Player;
-  dice?: Die[];
-}
+export const RollDice: FC = () => {
+  const localPlayer = useStore((state) => state.getLocalPlayer());
+  const dice = useStore((state) => state.diceValue);
 
-export const RollDice: FC<RollDiceProps> = ({ localPlayer, dice }) => {
-  if (!localPlayer || !dice || !dice.length) return <></>;
+  if (!localPlayer || !dice || !dice.length) return <ErrorView />;
 
   const diceColor = avatars[localPlayer.avatarId].color;
 

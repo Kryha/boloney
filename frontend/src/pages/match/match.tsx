@@ -52,7 +52,7 @@ export const Match = () => {
       case "getPowerUpStage":
         return <GetPowerUps />;
       case "rollDiceStage":
-        return <RollDice localPlayer={localPlayer} dice={faceValues} />;
+        return <RollDice />;
       case "playerTurnLoopStage":
         return <PlayerTurns />;
       case "roundSummaryStage":
