@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Die } from "../../types";
 import { BaseDBSchema } from "./util";
 
 export enum DieType {
@@ -18,21 +19,16 @@ export const DiceRollSchema = BaseDBSchema.extend({
   amount: z.preprocess((n) => (typeof n === "string" ? +n : n), z.number().int().positive()),
   result: z.array(z.object({ type: DieTypeSchema, roll: z.number().positive() })),
   campaignId: z.number().int().positive().optional().nullable(),
+  color: z.string(),
 });
 export type DiceRoll = z.infer<typeof DiceRollSchema>;
 
-function getRandomInt(min: number, max: number) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
-
-export const newRoll = (type: DieType, amount: number): DiceRoll => {
+export const newRoll = (type: DieType, dice: Die[], color: string): DiceRoll => {
   const result: DiceRoll["result"] = [];
-  for (let index = 0; index < amount; index++) {
-    const sides = +type.toString().replace("d", "");
-    const roll = sides === 100 ? getRandomInt(0, sides) : getRandomInt(1, sides + 1);
-    result.push({ type, roll: 6 });
+  const amount = dice.length;
+  for (let index = 0; index < dice.length; index++) {
+    const roll = dice[index].rolledValue;
+    result.push({ type, roll: roll });
   }
-  return { type, amount, result };
+  return { type, amount, result, color };
 };

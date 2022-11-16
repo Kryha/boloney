@@ -623,32 +623,9 @@ export class DiceD6 extends DiceObject {
     ];
     this.scaleFactor = 0.5;
     this.values = 6;
-    this.faceTexts = [
-      " ",
-      "",
-      "   \n ⬤ \n   ",
-      "⬤  \n     \n   ⬤",
-      "⬤  \n ⬤ \n  ⬤",
-      "⬤ ⬤\n   \n⬤ ⬤",
-      "⬤ ⬤\n ⬤ \n⬤ ⬤",
-      "⬤ ⬤\n⬤ ⬤\n⬤ ⬤",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-    ];
+    this.faceTexts = [" ", "", "1", "2", "3", "4", "5", "6", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 
-    this.textMargin = 5;
+    this.textMargin = 2;
     this.mass = 300;
     this.inertia = 13;
 

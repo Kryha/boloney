@@ -52,23 +52,6 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
   light.shadow.mapSize.height = 1024;
   scene.add(light);
 
-  // FLOOR
-  // const floorMaterial = new THREE.MeshPhongMaterial({
-  //     color: window.getComputedStyle(container).getPropertyValue('background-color'),
-  //     side: THREE.DoubleSide,
-  // });
-  // const floorGeometry = new THREE.PlaneGeometry(70, 70, 10, 10);
-  // const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-  // floor.receiveShadow = true;
-  // floor.rotation.x = Math.PI / 2;
-  // scene.add(floor);
-  // SKYBOX/FOG
-  // const skyBoxGeometry = new THREE.BoxGeometry(10000, 10000, 10000);
-  // const skyBoxMaterial = new THREE.MeshPhongMaterial({ color: 0x9999ff, side: THREE.BackSide });
-  // const skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
-  // scene.add(skyBox);
-  // scene.fog = new THREE.FogExp2(0x9999ff, 0.00025);
-
   ////////////
   // CUSTOM //
   ////////////
@@ -110,7 +93,7 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
         die = new DiceD6({
           size,
           fontColor: "white",
-          backColor: "#3356F2",
+          backColor: roll.color,
         });
         scene.add(die.getObject());
         dice.push(die);
@@ -182,7 +165,7 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
   for (let i = 0; i < dice.length; i++) {
     const die = dice[i];
     const yRand = Math.random() * 20;
-    // die.resetBody(); // As the die is going to be reused between throws, it is necessary to reset the body
+    die.resetBody(); // As the die is going to be reused between throws, it is necessary to reset the body
     die.getObject().position.x = -15 - (i % 3) * 10;
     die.getObject().position.y = 2 + Math.floor(i / 3) * 10;
     die.getObject().position.z = -15 + (i % 3) * 10;

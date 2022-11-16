@@ -43,7 +43,7 @@ export const Match = () => {
       case "getPowerUpStage":
         return <GetPowerUps localPlayer={localPlayer} />;
       case "rollDiceStage":
-        return <RollDice localPlayer={localPlayer} />;
+        return <RollDice localPlayer={localPlayer} dice={fakeDiceRolls} />;
       case "playerTurnLoopStage":
         return <PlayerTurns />;
       case "roundSummaryStage":

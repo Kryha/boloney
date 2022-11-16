@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, FC } from "react";
 import { DiceRoll, DieType, newRoll } from ".";
 import { text } from "../../assets";
 import { color } from "../../design";
@@ -8,8 +8,13 @@ import { Die } from "../die";
 import { DiceValueContainer, AttributesContainer } from "../roll-dice/styles";
 import { rollDice } from "./diceRoll";
 import { RollerThing1 } from "./styles";
+import { Die as Dice } from "../../types";
 
-export const Stuff = () => {
+interface RollingDiceProps {
+  dice: Dice[];
+  dieColor: string;
+}
+export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const [thrown, setThrown] = useState(0);
   const [stable, setStable] = useState(true);
@@ -41,7 +46,7 @@ export const Stuff = () => {
 
   const onRoll = () => {
     setStable(false);
-    const diceRoll = newRoll(DieType.D6, 4);
+    const diceRoll = newRoll(DieType.D6, dice, dieColor);
     setThrown((v) => v + 1);
     setRoll(diceRoll);
   };
@@ -52,7 +57,7 @@ export const Stuff = () => {
         <>
           <DiceValueContainer>
             {fakeDiceRolls.map((dice, index) => (
-              <Die key={index} value={dice.rolledValue} faceColor={color.darkBlue} pipColor={color.pureWhite} size={"5em"} />
+              <Die key={index} value={dice.rolledValue} faceColor={dieColor} pipColor={color.pureWhite} size={"5em"} />
             ))}
           </DiceValueContainer>
           <AttributesContainer>
