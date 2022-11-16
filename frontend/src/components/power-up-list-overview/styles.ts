@@ -4,10 +4,18 @@ import { color, margins } from "../../design";
 import { GeneralText, Heading2 } from "../atoms";
 import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 
-export const PowerUpListOverviewWrapper = styled.div`
+interface WrapperProps {
+  powerUpsAmount: number;
+}
+
+export const PowerUpListOverviewWrapper = styled.div<WrapperProps>`
+  width: 100%;
+  height: 100%;
   display: flex;
   gap: ${margins.small4};
   flex-wrap: wrap;
+  justify-content: ${({ powerUpsAmount }) => (powerUpsAmount <= 5 ? "center" : "flex-start")};
+  align-items: center;
 `;
 export const PowerUpInfoWrapper = styled.section``;
 
