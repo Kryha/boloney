@@ -9,9 +9,6 @@ class DiceManagerClass {
   world!: CANNON.World;
   public throwRunning = false;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
-
   setWorld(world: CANNON.World) {
     this.world = world;
 
