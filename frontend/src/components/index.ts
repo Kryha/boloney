@@ -31,3 +31,4 @@ export * from "./tooltip";
 export * from "./lobby";
 export * from "./power-up-list-overview";
 export * from "./modal";
+export * from "./spinner";
