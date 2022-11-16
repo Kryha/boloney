@@ -9,15 +9,9 @@ export enum DieType {
   D20 = "d20",
   D100 = "d100",
 }
-export const anyDateSchema = z.preprocess(
-  (d) => (typeof d === "object" ? d : ["number", "string"].includes(typeof d) ? new Date(d as number | string) : undefined),
-  z.date().optional().nullable()
-);
 
 export const baseDBSchema = z.object({
   id: z.number().int().positive().optional().nullable(),
-  createdAt: anyDateSchema,
-  updatedAt: anyDateSchema,
 });
 
 export const dieTypeSchema = z.nativeEnum(DieType);
