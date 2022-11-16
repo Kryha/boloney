@@ -131,13 +131,6 @@ export abstract class DiceObject {
 
   customTextTextureFunction?: (...any: any[]) => THREE.Texture;
 
-  /**
-   * @constructor
-   * @param {object} options
-   * @param {Number} [options.size = 100]
-   * @param {Number} [options.fontColor = '#000000']
-   * @param {Number} [options.backColor = '#ffffff']
-   */
   constructor(options: DiceOptions) {
     options = this.setDefaults(options, {
       size: 100,
@@ -154,7 +147,6 @@ export abstract class DiceObject {
       color: 0xf0f0f0,
       shininess: 1,
       flatShading: true,
-      //shading: THREE.FlatShading,
     };
     this.labelColor = options.fontColor;
     this.diceColor = options.backColor;

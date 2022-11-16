@@ -10,7 +10,6 @@ export class OrbitControls {
   enabled: boolean;
   target: Vector3;
 
-  // deprecated
   center: Vector3;
 
   minDistance: number;
