@@ -7,25 +7,25 @@ import { TopNavigation } from "../top-navigation";
 import { OverlayWrapper } from "../overlay-wrapper";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
-import { localPlayer } from "../roll-dice";
+import { dice, localPlayer } from "../roll-dice";
 
 interface GameLayoutProps {
   children?: ReactNode;
 }
 
 export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
-  const dice = useStore((state) => state.diceValue);
-  const remotePlayers = useStore((state) => state.getRemotePlayers());
-  // const localPlayer = useStore((state) => state.getLocalPlayer());
-  const powerUpIds = useStore((state) => state.powerUpIds);
+  // const dice = useStore((state) => state.diceValue);
+  // const remotePlayers = useStore((state) => state.getRemotePlayers());
+  // // const localPlayer = useStore((state) => state.getLocalPlayer());
+  // const powerUpIds = useStore((state) => state.powerUpIds);
 
-  if (!localPlayer || !remotePlayers) return <ErrorView />;
+  // if (!localPlayer || !remotePlayers) return <ErrorView />;
 
   return (
     <>
       <TopNavigation isInMatch />
       <GamePlayersOverview players={[localPlayer]} />
-      <HUD dice={dice} powerUpIds={powerUpIds} player={localPlayer} />
+      <HUD dice={dice} player={localPlayer} />
       <MainContentContainer>
         <ContentContainer>{children}</ContentContainer>
       </MainContentContainer>

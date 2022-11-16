@@ -13,8 +13,7 @@ export const SausageContainer = styled.div`
   path {
     fill: none;
     stroke-linecap: round;
-    /* 	stroke-dashoffset: 12;
-     stroke-dasharray: 34 88; */
   }
 `;
+
 export const LineWrap = styled(SausageIcon)``;

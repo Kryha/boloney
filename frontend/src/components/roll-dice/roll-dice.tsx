@@ -41,9 +41,10 @@ export const RollDice: FC = () => {
 
   return (
     <BottomButtonWrapper>
-      <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={text.powerUps.settingItUp} />
+      {/* <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={text.powerUps.settingItUp} />
       <Heading2 customColor={color.darkGrey}>{text.param.findOutYourPips(localPlayer.username)}</Heading2>
-      <RollingDice dice={dice} dieColor={diceColor} />
+      <RollingDice dice={dice} dieColor={diceColor} /> */}
+      <SausageSpinner />
     </BottomButtonWrapper>
   );
 };

@@ -129,7 +129,9 @@ export const Match = () => {
 
   return (
     <GameLayout>
-      <GeneralContentWrapper>{getStageComponent("rollDiceStage")}</GeneralContentWrapper>
+      <GeneralContentWrapper>
+        <RollDice />
+      </GeneralContentWrapper>
     </GameLayout>
   );
 };
