@@ -25,6 +25,10 @@ export enum MatchOpCode {
   PLAYER_JOINED = 6,
   PLAYER_ORDER_SHUFFLE = 7,
   PLAYER_GET_POWERUPS = 8,
+  PLAYER_PLACE_BID = 9,
+  PLAYER_CALL_EXACT = 10,
+  PLAYER_CALL_BOLONEY = 11,
+  PLAYER_ACTIVE = 12,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
@@ -35,8 +39,12 @@ export const playerSchema = z.object({
   avatarId: z.number(),
   isConnected: z.boolean(),
   isReady: z.boolean(),
+  isActive: z.boolean(),
 });
 export type Player = z.infer<typeof playerSchema>;
+
+// TODO upgrade predicate with more nuance conditions
+export const isPlayerId = (playerId: string) => playerId.length !== 0;
 
 export const isPlayerArray = (players: unknown): players is Player[] => {
   if (!players) return false;

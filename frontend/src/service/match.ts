@@ -42,6 +42,11 @@ export const useMatch = () => {
 
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
+  // TODO: Add Action payload
+  const broadcastPlaceBid = (bid: string) => sendMatchState(MatchOpCode.PLAYER_PLACE_BID, bid);
+  const broadcastCallExact = () => sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
+  const broadcastCallBoloney = () => sendMatchState(MatchOpCode.PLAYER_CALL_BOLONEY);
+
   const handleStageTransition = (stage: MatchStage) => {
     switch (stage) {
       case "getPowerUpStage":
@@ -69,5 +74,8 @@ export const useMatch = () => {
     broadcastPlayerReady,
     handleStageTransition,
     getLocalPlayer,
+    broadcastPlaceBid,
+    broadcastCallExact,
+    broadcastCallBoloney,
   };
 };

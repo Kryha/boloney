@@ -17,7 +17,6 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger,
     players: {},
     presences: {},
     emptyTicks: 0,
-    activePlayer: "",
   };
 
   return {
@@ -63,6 +62,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
       isConnected: true,
       isReady: false,
       hasInitialPowerUps: false,
+      isActive: false,
     };
     state.playerOrder.push(presence.userId);
   }

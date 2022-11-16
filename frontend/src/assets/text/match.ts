@@ -11,4 +11,7 @@ export const match = {
   endOfRound: "end of round",
   endOfMatch: "end of match",
   newMatch: "new match/create match",
+  placeBid: "place bid",
+  callExact: "call exact",
+  callBoloney: "call boloney",
 };

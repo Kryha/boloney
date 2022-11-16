@@ -1,7 +1,7 @@
 import { getPowerUp } from "../toolkit-api/power-ups";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage } from "../types";
-import { getNextPlayerId, getOtherPresences, getRange, shuffleArray } from "../utils";
-import { handleMatchStage } from "./match";
+import { getRange, shuffleArray } from "../utils";
+import { handleMatchStage, setAllPlayersReady, getNextPlayerId, getOtherPresences, setActivePlayer } from "./match";
 
 export type StageHandler = (loopParams: MatchLoopParams) => void;
 
@@ -25,7 +25,7 @@ export const handleStage: StageHandlers = {
       },
       ({ state, dispatcher }, nextStage) => {
         state.playerOrder = shuffleArray(state.playerOrder);
-        state.activePlayer = state.playerOrder[0];
+        setActivePlayer(state.playerOrder[0], state.players);
         dispatcher.broadcastMessage(MatchOpCode.PLAYER_ORDER_SHUFFLE, JSON.stringify({ playerOrder: state.playerOrder }));
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
@@ -89,32 +89,51 @@ export const handleStage: StageHandlers = {
     handleMatchStage(
       loopParams,
       (message, sender, { state, dispatcher }) => {
-        if (sender.userId === state.activePlayer) {
+        if (state.players[sender.userId].isActive) {
           const otherPresences = getOtherPresences(sender.userId, state.presences);
+
           switch (message.opCode) {
             case MatchOpCode.PLAYER_PLACE_BID:
               console.log(sender.username, " placed BID");
-              state.activePlayer = getNextPlayerId(sender.userId, state.playerOrder);
+
               // TODO: Add "PlaceBid" logic
               // TODO: Add "lastBid" property to the MatchState
+
+              // Set next active player
+              setActivePlayer(getNextPlayerId(sender.userId, state.playerOrder), state.players);
               // Broadcast PlaceBid action to everyone else
-              dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify({ lastBid: message.data }), otherPresences);
+              dispatcher.broadcastMessage(
+                MatchOpCode.PLAYER_PLACE_BID,
+                JSON.stringify({ player: sender.userId, lastBid: message.data }),
+                otherPresences
+              );
               break;
             case MatchOpCode.PLAYER_CALL_BOLONEY:
               console.log(sender.username, " Called Boloney: ");
-              state.activePlayer = sender.userId;
+
+              setActivePlayer(sender.userId, state.players);
+
               // TODO: Add "CallBoloney" logic
+
               // Broadcast action to everyone else
-              dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify({ target: message.data }), otherPresences);
-              // TODO: Transition stage to Round Summary after rendering outcome in the client
+              dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify({ player: sender.userId }), otherPresences);
+
+              // TODO: Transition stage to Round Summary only after rendering outcome in the client
+              setAllPlayersReady(state);
+
               break;
             case MatchOpCode.PLAYER_CALL_EXACT:
               console.log(sender.username, " Called Exact: ");
-              state.activePlayer = sender.userId;
+
               // TODO: Add "CallExact" logic
+
               // Broadcast action to everyone else
-              dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify({ target: message.data }), otherPresences);
-              // TODO: Transition stage to Round Summary after rendering outcome in the client
+              dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify({ player: sender.userId }), otherPresences);
+
+              setActivePlayer(sender.userId, state.players);
+
+              // TODO: Transition stage to Round Summary only after rendering outcome in the client
+              setAllPlayersReady(state); // We set all the players in order to trigger the stage transition
               break;
             default:
               console.log("Unknown OP_CODE recieved: ", message.opCode);
@@ -126,8 +145,9 @@ export const handleStage: StageHandlers = {
         //   state.playersReady.push(sender.userId);
         // }
       },
-      async ({ logger }) => {
-        logger.debug("Turn loop logic");
+      async ({ dispatcher, state }) => {
+        // TODO: Check if we need to limit the broadcasting of this mesage as only one per turn.
+        dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ players: state.players }));
       },
       /*
        * In the turn loop players won't indicate that they are ready.

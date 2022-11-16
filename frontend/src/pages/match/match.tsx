@@ -93,6 +93,11 @@ export const Match = () => {
           setPlayerPowerUps(session.user_id, data);
           break;
         }
+        case MatchOpCode.PLAYER_ACTIVE: {
+          if (!isPlayerRecord(data)) return;
+          setPlayers(data);
+          break;
+        }
       }
     };
   }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition, session?.user_id, setPlayerPowerUps]);

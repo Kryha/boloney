@@ -27,6 +27,7 @@ export interface Player {
   isConnected: boolean;
   isReady: boolean;
   hasInitialPowerUps: boolean;
+  isActive: boolean;
 }
 
 export const isPlayer = (value: unknown): value is Player => {
@@ -116,7 +117,6 @@ export interface MatchState {
   playerOrder: string[];
   matchStage: MatchStage;
   emptyTicks: number;
-  activePlayer: string;
 }
 
 export const isMatchState = (value: unknown): value is MatchState => {
@@ -163,6 +163,7 @@ export enum MatchOpCode {
   PLAYER_PLACE_BID = 9,
   PLAYER_CALL_EXACT = 10,
   PLAYER_CALL_BOLONEY = 11,
+  PLAYER_ACTIVE = 12,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {

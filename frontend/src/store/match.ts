@@ -10,6 +10,7 @@ interface MatchSliceState {
   playerOrder: string[];
   localPlayerId: string;
   matchUrl: string;
+  activePlayerId: string;
 }
 
 interface MatchSliceFunctions {
@@ -33,6 +34,7 @@ const initialMatchState: MatchSliceState = {
   playerOrder: [],
   localPlayerId: "",
   matchUrl: "",
+  activePlayerId: "",
 };
 
 export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
