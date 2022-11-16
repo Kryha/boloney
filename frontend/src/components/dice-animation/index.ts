@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { Die } from "../../types";
-import { DiceRollSchema, DieType } from "./types";
+import { diceRollSchema, DieType } from "./types";
 
-export type DiceRoll = z.infer<typeof DiceRollSchema>;
+export type DiceRoll = z.infer<typeof diceRollSchema>;
 
 export const newRoll = (type: DieType, dice: Die[], color: string): DiceRoll => {
   const result: DiceRoll["result"] = [];
