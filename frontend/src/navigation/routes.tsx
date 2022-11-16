@@ -15,11 +15,11 @@ const AppRoutes: FC = () => {
     <Routes>
       <Route path={routes.root} element={<Landing />} />
 
-      {isAuthenticated ? (
+      {!isAuthenticated ? (
         <>
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.newGame} element={<NewGame />} />
-          <Route path={`${routes.match}/:matchId`} element={<Match />} />
+          <Route path={`${routes.match}`} element={<Match />} />
         </>
       ) : (
         <>
