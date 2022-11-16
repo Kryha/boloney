@@ -7,6 +7,7 @@ import { GeneralText, Heading2 } from "../atoms";
 import { color } from "../../design";
 import { Link, PrimaryButton } from "../buttons";
 import { getPowerUpData } from "../../util";
+import { ErrorView } from "../error-view";
 
 interface PowerUpListOverviewProps {
   powerUpIds: PowerUpId[];
@@ -16,13 +17,13 @@ interface PowerUpListOverviewProps {
 export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUpIds, isPowerUpInUse }) => {
   const dataPowerUp = getPowerUpData(powerUpIds);
 
-  if (!dataPowerUp) return <></>;
+  if (!dataPowerUp) return <ErrorView />;
 
   return (
-    <PowerUpListOverviewWrapper>
-      {dataPowerUp.map((powerUp) => {
+    <PowerUpListOverviewWrapper powerUpsAmount={powerUpIds.length}>
+      {dataPowerUp.map((powerUp, i) => {
         return (
-          <PowerUpCard key={powerUp.id}>
+          <PowerUpCard key={i}>
             <PowerUpImage src={powerUp.cardImage} />
             <PowerUpInfoWrapper>
               <PowerUpInfoContainer>
