@@ -1,53 +1,85 @@
+import { Session } from "@heroiclabs/nakama-js";
 import { StateCreator } from "zustand";
-import { Die, Player, PowerUp, MatchStage } from "../types";
+
+import { Die, MatchStage, PowerUpId, PlayerPublic } from "../types";
 
 interface MatchSliceState {
+  sessionState?: Session;
   matchId?: string;
-  powerUps?: PowerUp[];
-  faceValues?: Die[];
+  diceValue?: Die[];
   matchStage: MatchStage;
-  players: Record<string, Player>;
+  players: Record<string, PlayerPublic>;
   playerOrder: string[];
-  localPlayerId: string;
   matchUrl: string;
+  powerUpIds: PowerUpId[];
+
+  // flags
+  hasRolledDice: boolean;
 }
 
-interface MatchSliceFunctions {
+interface MatchSliceGetters {
+  getOrderedPlayers: () => PlayerPublic[];
+  getPlayer: (id?: string) => PlayerPublic | undefined;
+  getLocalPlayer: () => PlayerPublic | undefined;
+  getRemotePlayers: () => PlayerPublic[];
+}
+
+interface MatchSliceSetters {
+  setSession: (session: Session) => void;
   setMatchId: (match_id: string) => void;
-  setFaceValues: (faceValues: Die[]) => void;
-  setPowerUps: (powerUps: PowerUp[]) => void;
+  setDiceValue: (diceValue: Die[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
-  setPlayers: (players: Record<string, Player>) => void;
+  setPlayers: (players: Record<string, PlayerPublic>) => void;
   setPlayerOrder: (playerOrder: string[]) => void;
   setInitialState: () => void;
   setMatchUrl: (matchUrl: string) => void;
-  setLocalPlayerId: (localPlayerId: string) => void;
+  setPowerUpIds: (ids: PowerUpId[]) => void;
 }
-export type MatchSlice = MatchSliceState & MatchSliceFunctions;
+
+export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceSetters;
+
+const initialFlags = {
+  hasRolledDice: false,
+};
 
 const initialMatchState: MatchSliceState = {
   matchId: undefined,
-  powerUps: undefined,
-  faceValues: undefined,
+  diceValue: undefined,
   matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
-  localPlayerId: "",
   matchUrl: "",
+  powerUpIds: [],
+  ...initialFlags,
 };
 
-export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set, get) => ({
   ...initialMatchState,
 
+  getOrderedPlayers: () => get().playerOrder.map((playerId) => get().players[playerId]),
+
+  getPlayer: (id) => (id ? get().players[id] : undefined),
+
+  getLocalPlayer: () => {
+    const session = get().sessionState;
+    if (!session || !session.user_id) return;
+    return get().players[session.user_id];
+  },
+
+  getRemotePlayers: () => {
+    const orderedPlayers = get().getOrderedPlayers();
+    const session = get().sessionState;
+    if (!session || !session.user_id) return orderedPlayers;
+    return orderedPlayers.filter((player) => player.userId !== session.user_id);
+  },
+
+  setSession: (session: Session) => set(() => ({ sessionState: session })),
   setMatchId: (matchId) => set(() => ({ matchId })),
-  setPowerUps: (powerUps) => set(() => ({ powerUps })),
-  setFaceValues: (faceValues) => set(() => ({ faceValues })),
-  setMatchStage: (matchStage) => set(() => ({ matchStage })),
+  setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
+  setMatchStage: (matchStage) => set(() => ({ matchStage, ...initialFlags })),
   setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
-  setLocalPlayerId: (localPlayerId) => set(() => ({ localPlayerId })),
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
-  setInitialState: () => {
-    set(() => ({ ...initialMatchState }));
-  },
+  setInitialState: () => set(() => ({ ...initialMatchState })),
+  setPowerUpIds: (powerUpIds) => set(() => ({ powerUpIds })),
 });

@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 import { MAX_POWERUPS_PER_PLAYER } from "../constants";
-import { powerUpTypeSchema, powerUpProbabilitySchema } from "./power-up";
+import { dieSchema } from "./die";
+import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
 
 export const avatarNameSchema = z.enum(["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
 export type AvatarName = z.infer<typeof avatarNameSchema>;
@@ -24,44 +25,50 @@ export enum MatchOpCode {
   LEAVE_MATCH = 5,
   PLAYER_JOINED = 6,
   PLAYER_ORDER_SHUFFLE = 7,
+  PLAYER_GET_POWERUPS = 8,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
-export const playerSchema = z.object({
+export const playerPrivateSchema = z.object({
+  diceValue: z.array(dieSchema),
+  powerUpIds: z.optional(z.array(powerUpIdSchema)),
+});
+
+export type PlayerPrivate = z.infer<typeof playerPrivateSchema>;
+
+export const playerPublicSchema = z.object({
   userId: z.string(),
   username: z.string(),
   avatarId: z.number(),
+  diceAmount: z.number(),
+  powerUpsAmount: z.number(),
   isConnected: z.boolean(),
   isReady: z.boolean(),
+  hasInitialPowerUps: z.boolean(),
+  hasRolledDice: z.boolean(),
 });
+
+export type PlayerPublic = z.infer<typeof playerPublicSchema>;
+
+export const playerSchema = playerPublicSchema.merge(playerPrivateSchema);
+
 export type Player = z.infer<typeof playerSchema>;
 
-export const isPlayerArray = (players: unknown): players is Player[] => {
-  if (!players) return false;
-  if (!(players instanceof Array)) return false;
+export const matchStageSchema = z.enum([
+  "lobbyStage",
+  "getPowerUpStage",
+  "rollDiceStage",
+  "playerTurnLoopStage",
+  "roundSummaryStage",
+  "endOfMatchStage",
+]);
 
-  const areValid = players.reduce((valid, player) => {
-    const parsed = playerSchema.safeParse(player);
-    return valid && parsed.success;
-  }, true);
+export type MatchStage = z.infer<typeof matchStageSchema>;
 
-  return areValid;
-};
-
-export const isPlayerRecord = (players: unknown): players is Record<string, Player> => {
-  if (!players) return false;
-  if (typeof players !== "object") return false;
-
-  const areValid = Object.values(players).reduce((valid, player) => {
-    const parsed = playerSchema.safeParse(player);
-    return valid && parsed.success;
-  }, true);
-
-  return areValid;
-};
 export const stageTransitionSchema = z.object({
-  matchStage: z.string(),
+  matchStage: matchStageSchema,
 });
+
 export type StageTration = z.infer<typeof stageTransitionSchema>;
 
 export const playerOrderSchema = z.object({
@@ -70,21 +77,6 @@ export const playerOrderSchema = z.object({
 
 export type PlayerOrder = z.infer<typeof playerOrderSchema>;
 
-export const isPlayerOrderObject = (payload: unknown): payload is PlayerOrder => {
-  if (!payload) return false;
-  if (typeof payload !== "object") return false;
-
-  const parsed = playerOrderSchema.safeParse(payload);
-  return parsed.success;
-};
-
-export const isStageTransition = (payload: unknown): payload is StageTration => {
-  if (!payload) return false;
-  if (typeof payload !== "object") return false;
-
-  const parsed = stageTransitionSchema.safeParse(payload);
-  return parsed.success;
-};
 export const matchJoinMetadataSchema = z.object({
   username: z.string(),
 });
@@ -96,7 +88,7 @@ export const matchSettingsSchema = z.object({
   dicePerPlayer: z.number(),
   initialPowerUpAmount: z.number(),
   maxPowerUpAmount: z.number().max(MAX_POWERUPS_PER_PLAYER),
-  availablePowerUps: z.array(powerUpTypeSchema),
+  availablePowerUps: z.array(powerUpIdSchema),
   healPowerUpAmount: z.number(),
   stageNumberDivisor: z.number(),
   drawRoundOffset: z.number(),
@@ -112,7 +104,7 @@ export const matchFormSettingsSchema = z.object({
     .string()
     .max(MAX_POWERUPS_PER_PLAYER)
     .transform((val) => Number(val)),
-  availablePowerUps: z.array(powerUpTypeSchema),
+  availablePowerUps: z.array(powerUpIdSchema),
   healPowerUpAmount: z.string().transform((val) => Number(val)),
   stageNumberDivisor: z.string().transform((val) => Number(val)),
   drawRoundOffset: z.string().transform((val) => Number(val)),
@@ -120,11 +112,3 @@ export const matchFormSettingsSchema = z.object({
 });
 
 export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
-
-export type MatchStage =
-  | "lobbyStage"
-  | "getPowerUpStage"
-  | "rollDiceStage"
-  | "playerTurnLoopStage"
-  | "roundSummaryStage"
-  | "endOfMatchStage";

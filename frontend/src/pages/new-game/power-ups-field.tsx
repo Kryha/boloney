@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { POWER_UP_DATA, text } from "../../assets";
 import { GeneralText, Heading6, InfoButton, Input } from "../../components";
 import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
@@ -16,9 +17,11 @@ import {
 
 export const PowerUpsField: FC = () => {
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
+  const probabilities = useGameCreationFormState((state) => state.powerUpProbability);
   const togglePowerUp = useGameCreationFormState((state) => state.togglePowerUp);
-  const totalProbability = useGameCreationFormState((state) => state.totalProbability);
-  const isPowerUpError = useGameCreationFormState((state) => state.isPowerUpError);
+  const setProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
+  const totalProbability = useGameCreationFormState((state) => state.getTotalProbability());
+  const isPowerUpError = useGameCreationFormState((state) => state.getIsError());
 
   return (
     <FieldContainer>
@@ -29,14 +32,16 @@ export const PowerUpsField: FC = () => {
           <InfoButton text={text.newGame.chance} />
         </InfoBox>
         <CheckboxContainer>
-          {POWER_UP_DATA.map((powerUp, index) => (
+          {Object.values(POWER_UP_DATA).map((powerUp, index) => (
             <PowerUpCheckbox
               key={index}
               isTop
-              isChecked={availablePowerUps.includes(powerUp.id)}
+              isChecked={availablePowerUps.has(powerUp.id)}
               toggleCheck={() => togglePowerUp(powerUp.id)}
               powerUp={powerUp}
-              isError={isPowerUpError && availablePowerUps.includes(powerUp.id)}
+              isError={isPowerUpError && availablePowerUps.has(powerUp.id)}
+              probability={probabilities.get(powerUp.id)?.probability || 0}
+              setProbability={(probability: number) => setProbability({ id: powerUp.id, probability })}
             />
           ))}
         </CheckboxContainer>

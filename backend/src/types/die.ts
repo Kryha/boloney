@@ -9,3 +9,12 @@ export const isDie = (value: unknown): value is Die => {
 
   return assertedVal.rolledValue !== undefined && isNumber(assertedVal.rolledValue);
 };
+
+export const isDieArray = (values: unknown): values is Die[] => {
+  if (!values || !(values instanceof Array)) return false;
+  return values.every((value) => isDie(value));
+};
+
+export interface RollDicePayload {
+  diceValue: Die[];
+}

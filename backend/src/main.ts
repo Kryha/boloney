@@ -1,3 +1,5 @@
+import "core-js/stable";
+
 import { beforeAuthenticateCustom, afterAuthenticateCustom } from "./hooks/auth";
 import { matchInit, matchJoin, matchJoinAttempt, matchLeave, matchLoop, matchSignal, matchTerminate } from "./game-modes/standard";
 import { rollDice, createMatch, findMatch } from "./rpc";

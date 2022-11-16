@@ -2,10 +2,10 @@ import { FC } from "react";
 
 import { GamePlayersOverviewWrapper } from "./styles";
 import { GamePlayer } from "../game-player";
-import { Player } from "../../types";
+import { PlayerPublic } from "../../types";
 
 interface GamePlayerOverviewProps {
-  players: Player[];
+  players: PlayerPublic[];
 }
 
 export const GamePlayersOverview: FC<GamePlayerOverviewProps> = ({ players }) => {

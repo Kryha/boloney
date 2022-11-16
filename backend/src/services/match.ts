@@ -1,6 +1,13 @@
 import { text } from "../text";
 import { AvatarId, MatchLoopParams, MatchOpCode, MatchStage, MatchState, Player } from "../types";
 import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES, MAX_INACTIVE_TICKS, randomInt } from "../utils";
+
+export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
+  if (state.playersReady.includes(userId)) return;
+  state.playersReady.push(userId);
+  state.players[userId].isReady = true;
+};
+
 //This gets called when enough players are in a pool
 export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
   try {
@@ -44,7 +51,7 @@ export const getAvailableAvatar = (state: MatchState): AvatarId | undefined => {
 };
 
 type MessageCallback = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => void;
-
+type StageLogicCallback = (loopParams: MatchLoopParams) => Promise<void>;
 type StageTransitionCallback = (loopParams: MatchLoopParams, nextStage: MatchStage) => void;
 
 export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: StageTransitionCallback): void => {
@@ -52,6 +59,7 @@ export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: S
   const nextStage = getNextStage(state);
 
   // TODO: consider also players that are not playing anymore in this check
+
   if (state.playersReady.length < state.settings.players) return;
   state.matchStage = nextStage;
   state.playersReady = [];
@@ -69,9 +77,14 @@ const handleMessages = (loopParams: MatchLoopParams, callback: MessageCallback) 
   });
 };
 
-export const handleMatchStage = (loopParams: MatchLoopParams, messageCb: MessageCallback, transitionCb?: StageTransitionCallback) => {
+export const handleMatchStage = (
+  loopParams: MatchLoopParams,
+  messageCb: MessageCallback,
+  stageLogicCb: StageLogicCallback,
+  transitionCb?: StageTransitionCallback
+) => {
   handleMessages(loopParams, messageCb);
-  attemptStageTransition(loopParams, transitionCb);
+  stageLogicCb(loopParams).then(() => attemptStageTransition(loopParams, transitionCb));
 };
 
 // If we have no presences nor messages, increment empty ticks

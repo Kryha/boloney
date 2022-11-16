@@ -3,7 +3,8 @@ import { text } from "../../assets";
 import { MEDIUM_VIEWPORT_WIDTH, POWER_UP_DEFAULT_VIEW, POWER_UP_DEFAULT_VIEW_SMALL } from "../../constants";
 import { useViewport } from "../../hooks";
 import { useStore } from "../../store";
-import { PowerUp } from "../../types";
+import { PowerUpId } from "../../types";
+import { getPowerUp } from "../../util";
 import { GeneralText } from "../atoms/text";
 import { PowerUpComponent } from "../power-up";
 import { PowerUpListOverview } from "../power-up-list-overview";
@@ -11,10 +12,10 @@ import { PowerUpWrapper } from "../power-up/styles";
 import { PowerUpOverview, YourPowerUpContainer } from "./styles";
 
 interface PowerUpListProps {
-  powerUps: PowerUp[];
+  powerUpIds: PowerUpId[];
 }
 
-export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
+export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
   const toggleModalWithoutContainer = useStore((state) => state.toggleModalWithoutContainer);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const { width } = useViewport();
@@ -23,18 +24,18 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUps }) => {
 
   const toggleShowModal = () => {
     toggleModalWithoutContainer();
-    setModalComponentChildren(<PowerUpListOverview powerUps={powerUps} />);
+    setModalComponentChildren(<PowerUpListOverview powerUpIds={powerUpIds} />);
   };
-
   return (
     <YourPowerUpContainer>
-      {powerUps.slice(0, initialPowerUpsShown).map((powerUp) => (
-        <PowerUpComponent key={powerUp.id} powerUp={powerUp} showPowerUps={toggleShowModal} />
+      {powerUpIds.slice(0, initialPowerUpsShown).map((powerUpId, i) => (
+        //! Don't use powerUpId as key since we allow for duplicate power-ups
+        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={toggleShowModal} />
       ))}
-      {powerUps.length > initialPowerUpsShown && (
+      {powerUpIds.length > initialPowerUpsShown && (
         <PowerUpWrapper onClick={() => toggleShowModal()}>
           <PowerUpOverview>
-            <GeneralText>{text.param.powerUpAmount(powerUps.length - initialPowerUpsShown)}</GeneralText>
+            <GeneralText>{text.param.powerUpAmount(powerUpIds.length - initialPowerUpsShown)}</GeneralText>
           </PowerUpOverview>
         </PowerUpWrapper>
       )}

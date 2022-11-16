@@ -6,17 +6,16 @@ import { BottomButtonWrapper, Heading2 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { TimerHeader } from "../timer-header";
 import { color } from "../../design";
-import { Player } from "../../types";
 import { DECISION_MAKING_TIME_IN_SECONDS } from "../../constants";
+import { useStore } from "../../store";
+import { ErrorView } from "../error-view";
 
-// TODO: get local player from stor and not variable
-interface GetPowerUpsProps {
-  localPlayer?: Player;
-}
-export const GetPowerUps: FC<GetPowerUpsProps> = ({ localPlayer }) => {
+export const GetPowerUps: FC = () => {
   const { broadcastPlayerReady } = useMatch();
 
-  if (!localPlayer) return <></>;
+  const localPlayer = useStore((state) => state.getLocalPlayer());
+
+  if (!localPlayer) return <ErrorView />;
 
   return (
     <BottomButtonWrapper>

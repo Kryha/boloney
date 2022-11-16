@@ -2,24 +2,35 @@ import { useRef, useState, useEffect, FC } from "react";
 import { DiceRoll, newRoll } from ".";
 import { text } from "../../assets";
 import { color } from "../../design";
-
 import { PrimaryButton } from "../buttons";
 import { Die } from "../die";
 import { DiceValueContainer, AttributesContainer } from "../roll-dice/styles";
 import { rollDice } from "./roll-dice";
 import { RollerContainer } from "./styles";
-import { Die as Dice } from "../../types";
+import { Die as Dice, MatchOpCode } from "../../types";
 import { DieType } from "./types";
+import { useMatch } from "../../service/match";
+import { useStore } from "../../store";
 
 interface RollingDiceProps {
   dice: Dice[];
   dieColor: string;
 }
 export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
+  const { broadcastPlayerReady, sendMatchState } = useMatch();
   const mountRef = useRef<HTMLDivElement | null>(null);
   const [thrown, setThrown] = useState(0);
   const [stable, setStable] = useState(true);
   const [roll, setRoll] = useState<DiceRoll | undefined>();
+  const hasRolledDice = useStore((state) => state.hasRolledDice);
+
+  const handleRoll = () => {
+    if (hasRolledDice) {
+      broadcastPlayerReady();
+    } else {
+      sendMatchState(MatchOpCode.ROLL_DICE);
+    }
+  };
 
   useEffect(() => {
     let element: HTMLCanvasElement | null = null;
@@ -49,6 +60,7 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
     const diceRoll = newRoll(DieType.D6, dice, dieColor);
     setThrown((v) => v + 1);
     setRoll(diceRoll);
+    handleRoll();
   };
 
   return (

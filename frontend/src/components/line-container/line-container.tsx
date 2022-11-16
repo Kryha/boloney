@@ -20,11 +20,11 @@ import {
 
 interface LineContainerProps {
   children: ReactNode;
-  arePlayersReady?: boolean;
+  isPlayerReady?: boolean;
   onClick?: () => void;
 }
 
-export const LineContainer: FC<LineContainerProps> = ({ children, arePlayersReady, onClick }) => {
+export const LineContainer: FC<LineContainerProps> = ({ children, isPlayerReady, onClick }) => {
   const { width, height } = useViewport();
 
   return (
@@ -41,12 +41,12 @@ export const LineContainer: FC<LineContainerProps> = ({ children, arePlayersRead
       <WaitingWrapper>
         <HorizontalContainer height={height} width={width}>
           <HorizontalLine />
-          <WaitForOthersContainer arePlayersReady={arePlayersReady}>
+          <WaitForOthersContainer isPlayerReady={isPlayerReady}>
             {/* TODO: button should be hidden when logged user is ready */}
-            {arePlayersReady ? (
-              <PrimaryButton text={text.general.imReady} onClick={onClick && onClick} />
-            ) : (
+            {isPlayerReady ? (
               <WaitingText>{text.general.waitingForTheOthersToBeReady}</WaitingText>
+            ) : (
+              <PrimaryButton text={text.general.imReady} onClick={onClick && onClick} />
             )}
           </WaitForOthersContainer>
         </HorizontalContainer>

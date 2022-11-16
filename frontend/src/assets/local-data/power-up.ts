@@ -9,89 +9,80 @@ import {
   SabotageIcon,
   SatelliteIcon,
 } from "../images";
-import { PowerUpType } from "../../types";
-
-export interface PowerUpDataProps {
-  id: PowerUpType;
-  name: string;
-  shortDescription: string;
-  longDescription: string;
-  iconImage: string;
-  cardImage: string;
-}
+import { PowerUp, PowerUpId } from "../../types";
 
 // TODO: Update info
-export const POWER_UP_DATA: PowerUpDataProps[] = [
-  {
+export const POWER_UP_DATA: Record<PowerUpId, PowerUp> = {
+  "1": {
     id: "1",
     name: "interrogate",
     shortDescription: "ask an opponent if they have x of y die faces.",
     longDescription: "ask an opponent if they have x of y die faces.",
-    iconImage: InterrogateIcon,
+    icon: InterrogateIcon,
     cardImage: InterrogateIcon,
   },
-  {
+  "2": {
     id: "2",
     name: "satellite image",
     shortDescription: "ask target opponent what the sum of their dice are.",
     longDescription: "ask target opponent what the sum of their dice are.",
-    iconImage: SatelliteIcon,
+    icon: SatelliteIcon,
     cardImage: SatelliteIcon,
   },
-  {
+  "3": {
     id: "3",
     name: "reinforce",
     shortDescription: "roll 3 extra dice to use this turn only.",
     longDescription: "roll 3 extra dice to use this turn only.",
-    iconImage: ReinforceIcon,
+    icon: ReinforceIcon,
     cardImage: ReinforceIcon,
   },
-  {
+  "4": {
     id: "4",
     name: "reconnaissance",
     shortDescription: "draw 2 extra cards.",
     longDescription: "draw 2 extra cards.",
-    iconImage: ReconnaissanceIcon,
+    icon: ReconnaissanceIcon,
     cardImage: ReconnaissanceIcon,
   },
-  {
+  "5": {
     id: "5",
     name: "sabotage",
     shortDescription: "an opponent reveals their hand of cards to you, they can't play cards for the rest of the round.",
     longDescription: "an opponent reveals their hand of cards to you, they can't play cards for the rest of the round.",
-    iconImage: SabotageIcon,
+    icon: SabotageIcon,
     cardImage: SabotageIcon,
   },
-  {
+  "6": {
     id: "6",
     name: "regroup",
     shortDescription: "you may re-roll any number of your dice.",
     longDescription: "you may re-roll any number of your dice.",
-    iconImage: RegroupIcon,
+    icon: RegroupIcon,
     cardImage: RegroupIcon,
   },
-  {
+  "7": {
     id: "7",
     name: "coupDetat",
     shortDescription: "target player discards all their cards, then the player taking the action draws that many cards.",
     longDescription: "target player discards all their cards, then the player taking the action draws that many cards.",
-    iconImage: CoupDEtatIcon,
+    icon: CoupDEtatIcon,
     cardImage: CoupDEtatIcon,
   },
-  {
+  "8": {
     id: "8",
     name: "diversion",
     shortDescription: "shuffle players order then skip your turn.",
     longDescription: "shuffle players order then skip your turn.",
-    iconImage: DiversionIcon,
+    icon: DiversionIcon,
     cardImage: DiversionIcon,
   },
-  {
+  "9": {
     id: "9",
     name: "defection",
     shortDescription: "target opponent reveals their hand to you, you choose one of their cards to gain to your hand.",
     longDescription: "target opponent reveals their hand to you, you choose one of their cards to gain to your hand.",
-    iconImage: DefectionIcon,
+    icon: DefectionIcon,
     cardImage: DefectionIcon,
   },
-];
+};
