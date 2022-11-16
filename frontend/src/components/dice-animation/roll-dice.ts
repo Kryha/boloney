@@ -2,7 +2,7 @@ import * as CANNON from "cannon";
 import { MutableRefObject } from "react";
 import * as THREE from "three";
 import { DiceRoll } from "./index";
-import { OrbitControls } from "./controls";
+import { OrbitControls } from "three-orbitcontrols-ts";
 import { DiceD10, DiceD100, DiceD100D10, DiceD12, DiceD20, DiceD4, DiceD6, DiceD8, DiceManager, DiceObject } from "./dice";
 
 export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {

@@ -6681,6 +6681,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-hook-form", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:7.34.2"],\
             ["react-router-dom", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:6.3.0"],\
             ["three", "npm:0.117.1"],\
+            ["three-orbitcontrols-ts", "npm:0.1.2"],\
             ["ts-jest", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:28.0.8"],\
             ["ts-node", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:10.9.1"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"],\
@@ -13463,6 +13464,23 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/three-npm-0.117.1-446dc14567-1ac1022599.zip/node_modules/three/",\
           "packageDependencies": [\
             ["three", "npm:0.117.1"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.83.0", {\
+          "packageLocation": "./.yarn/cache/three-npm-0.83.0-3dde811941-fc677653a1.zip/node_modules/three/",\
+          "packageDependencies": [\
+            ["three", "npm:0.83.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["three-orbitcontrols-ts", [\
+        ["npm:0.1.2", {\
+          "packageLocation": "./.yarn/cache/three-orbitcontrols-ts-npm-0.1.2-8d69d5b677-0ca1cd597d.zip/node_modules/three-orbitcontrols-ts/",\
+          "packageDependencies": [\
+            ["three-orbitcontrols-ts", "npm:0.1.2"],\
+            ["three", "npm:0.83.0"]\
           ],\
           "linkType": "HARD"\
         }]\

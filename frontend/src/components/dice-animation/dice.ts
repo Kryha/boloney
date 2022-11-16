@@ -2,6 +2,13 @@ import * as CANNON from "cannon";
 import * as THREE from "three";
 import { BufferGeometry } from "three";
 
+const oneDie = "src/assets/images/one-die.png";
+const twoDie = "src/assets/images/two-die.png";
+const threeDie = "src/assets/images/three-die.png";
+const fourDie = "src/assets/images/four-die.png";
+const fiveDie = "src/assets/images/five-die.png";
+const sixDie = "src/assets/images/six-die.png";
+
 class DiceManagerClass {
   diceBodyMaterial?: CANNON.Material;
   floorBodyMaterial?: CANNON.Material;
@@ -431,11 +438,23 @@ export abstract class DiceObject {
   getMaterials() {
     const materials = [];
     for (let i = 0; i < (this.faceTexts?.length ?? 0); ++i) {
-      const texture = this.customTextTextureFunction
-        ? this.customTextTextureFunction(this.faceTexts?.[i] ?? "", this.labelColor, this.diceColor)
-        : this.createTextTexture(this.faceTexts[i].toString(), this.labelColor, this.diceColor);
-
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture })));
+      // TODO: make smart component
+      const texture0 = new THREE.TextureLoader().load(oneDie);
+      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture0 })));
+      const texture01 = new THREE.TextureLoader().load(oneDie);
+      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture01 })));
+      const texture1 = new THREE.TextureLoader().load(oneDie);
+      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture1 })));
+      const texture2 = new THREE.TextureLoader().load(twoDie);
+      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture2 })));
+      const texture3 = new THREE.TextureLoader().load(threeDie);
+      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture3 })));
+      const texture4 = new THREE.TextureLoader().load(fourDie);
+      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture4 })));
+      const texture5 = new THREE.TextureLoader().load(fiveDie);
+      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture5 })));
+      const texture6 = new THREE.TextureLoader().load(sixDie);
+      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture6 })));
     }
     return materials;
   }
