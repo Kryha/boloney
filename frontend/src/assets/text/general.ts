@@ -29,4 +29,6 @@ export const general = {
   toolTipInfo: "this is the description",
   toolTipTitle: "this is the title",
   yourDice: "your dice",
+  continue: "continue",
+  rollIt: "roll it",
 };

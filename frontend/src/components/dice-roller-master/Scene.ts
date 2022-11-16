@@ -12,10 +12,16 @@ interface Vectors {
   velocity: { x: number; y: number; z: number };
   angularVelocity: { x: number; y: number; z: number };
 }
+interface AllVectors {
+  position: CANNON.Vec3;
+  velocity: CANNON.Vec3;
+  angularVelocity: CANNON.Vec3;
+  quaternion: CANNON.Quaternion;
+}
 export interface DiceValue {
   body: CANNON.Body;
   value: number;
-  vectors: Vectors;
+  vectors: AllVectors;
   stableCount: number;
   dice: {
     values: number;
@@ -31,14 +37,9 @@ interface Dice {
 interface Models {
   [type: string]: THREE.Object3D;
 }
-
-const translatedVerticies = icosahedronTemplate.vertices.map(({ x, y, z }) => new CANNON.Vec3(x * 2, y * 2, z * 2));
-const icosahedron = { vertices: translatedVerticies, faces: icosahedronTemplate.faces };
-
-const randNum = (multiplier: number, allowNegative = true): number => {
-  const baseValue = allowNegative ? (Math.random() - 0.5) * 2 : Math.random();
-  return baseValue * multiplier;
-};
+const startPosition = new CANNON.Vec3(5, 0, 2);
+const endPosition = new CANNON.Vec3(-5, 0, 2);
+const tweenTime = 3; // seconds
 
 export default class {
   scene: THREE.Scene;
@@ -59,6 +60,16 @@ export default class {
 
   numOfUsedModels: number;
 
+  throwRunning: boolean;
+
+  simulationRunning: boolean;
+  isFinished: boolean;
+  values: number;
+  localUp: CANNON.Vec3;
+  inverseBodyOrientation: CANNON.Quaternion;
+  limit: number;
+  startTime: number;
+  offset: CANNON.Vec3;
   constructor() {
     this.scene = new THREE.Scene();
     this.world = new CANNON.World();
@@ -78,7 +89,7 @@ export default class {
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(window.devicePixelRatio > 1 ? 1.5 : 1);
-    this.renderer.setSize(window.innerWidth * 0.75, window.innerHeight * 0.75);
+    this.renderer.setSize(window.innerWidth * 0.7, window.innerHeight * 0.7);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.outputEncoding = THREE.sRGBEncoding;
@@ -103,11 +114,21 @@ export default class {
     this.addPhysicsPlaneBody(0, [-20, 0, 0], [0, 0.7071, 0, 0.7071]);
 
     this.addSpotLight("#ffffff", [60, 60, 60]);
+    this.throwRunning = false;
+    this.simulationRunning = false;
+    this.values = 0;
+    this.isFinished = false;
+    this.localUp = new CANNON.Vec3();
+    this.inverseBodyOrientation = new CANNON.Quaternion();
+    this.limit = Math.sin(Math.PI / 4);
+    this.startTime = this.world.time;
+
+    this.offset = new CANNON.Vec3();
   }
 
   resize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = window.innerWidth * 0.7;
+    const height = window.innerHeight * 0.7;
     const aspect = width / height;
     const zoomValue = width > 600 ? 1 : 0.6;
     this.renderer.setSize(width, height);
@@ -149,12 +170,83 @@ export default class {
     const [px, py, pz] = pos || [0, 0, 0];
     const [qx, qy, qz, qw] = qt || [0, 0, 0, 0];
     const body = new CANNON.Body({
-      mass,
+      mass: 0,
       shape: new CANNON.Plane(),
-      position: pos && new CANNON.Vec3(px, py, pz),
-      quaternion: qt && new CANNON.Quaternion(qx, qy, qz, qw),
+      type: CANNON.Body.KINEMATIC,
+      position: startPosition,
     });
+    body.addShape(new CANNON.Box(new CANNON.Vec3(1, 1, 1)));
     this.world.addBody(body);
+  }
+
+  getUpsideValue(renderBody: THREE.Object3D) {
+    let p: any = [];
+    const p_abs = [];
+    for (let i = 0; i < 5; i++) {
+      p.push(renderBody.applyMatrix4(renderBody.matrixWorld));
+      p_abs.push(Math.abs(p[i]));
+    }
+    const idx = p_abs.indexOf(Math.max(...p_abs)); //index of max abs
+    p = p[idx];
+    //console.log(idx, p);
+
+    let value;
+    switch (idx) {
+      case 0:
+        value = p > 0 ? 5 : 0;
+        break;
+      case 1:
+        value = p > 0 ? 9 : 8;
+        break;
+      case 2:
+        value = p > 0 ? 1 : 2;
+        break;
+      case 3:
+        value = p > 0 ? 7 : 6;
+        break;
+      case 4:
+        value = p > 0 ? 3 : 4;
+        break;
+      default:
+        value = NaN;
+        break;
+    }
+    return value * 1;
+  }
+
+  shiftUpperValue(toValue: number, id: number) {
+    const geometr = new THREE.BufferGeometry();
+    // const geometry = this.objectsList[id].renderBody.bo.clone();
+
+    const fromValue = this.getUpsideValue(id);
+
+    // for (let i = 0, l = geometry.faces.length; i < l; ++i) {
+    //   let materialIndex = geometry.faces[i].materialIndex;
+    //   if (materialIndex === 0) continue;
+
+    //   materialIndex += toValue - fromValue - 1;
+    //   while (materialIndex > this.values) materialIndex -= this.values;
+    //   while (materialIndex < 1) materialIndex += this.values;
+
+    //   geometry.faces[i].materialIndex = materialIndex + 1;
+    // }
+
+    // this.objectsList[id].geometry = geometry;
+  }
+  getCurrentVectors(id: number) {
+    return {
+      position: this.objectsList[id].physicsBody.position.clone(),
+      quaternion: this.objectsList[id].physicsBody.quaternion.clone(),
+      velocity: this.objectsList[id].physicsBody.velocity.clone(),
+      angularVelocity: this.objectsList[id].physicsBody.angularVelocity.clone(),
+    };
+  }
+
+  setVectors(vectors: AllVectors, id: number) {
+    this.objectsList[id].physicsBody.position = vectors.position;
+    this.objectsList[id].physicsBody.quaternion = vectors.quaternion;
+    this.objectsList[id].physicsBody.velocity = vectors.velocity;
+    this.objectsList[id].physicsBody.angularVelocity = vectors.angularVelocity;
   }
 
   addSpotLight(color: number | string, position: number[]) {
@@ -164,18 +256,24 @@ export default class {
     this.scene.add(lights);
   }
 
+  clearScene() {
+    // this.objectsList.forEach((dice) => {
+    //   dice.renderBody.traverse((child) => {
+    //     if (child instanceof THREE.Mesh) {
+    //       child.geometry.dispose();
+    //       child.material.dispose();
+    //     }
+    //   });
+    //   this.scene.remove(dice.renderBody);
+    //   this.world.remove(dice.physicsBody);
+    // });
+    // this.objectsList = [];
+    // this.isFinished = true;
+  }
   clear() {
-    this.objectsList.forEach((dice) => {
-      dice.renderBody.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.geometry.dispose();
-          child.material.dispose();
-        }
-      });
-      this.scene.remove(dice.renderBody);
-      this.world.remove(dice.physicsBody);
-    });
-    this.objectsList = [];
+    setInterval(() => {
+      this.clearScene();
+    }, 3000);
   }
 
   roll(amount: number, model: THREE.Object3D, vectors: Vectors[]) {
@@ -185,31 +283,96 @@ export default class {
       const diceModel = model.clone();
       // set the position of enter f the die
       const diceBody = new CANNON.Body({
-        mass: 1,
-        position: new CANNON.Vec3(0, -35, 40),
-        velocity: new CANNON.Vec3(0, 20, 7),
-        angularVelocity: new CANNON.Vec3(5, 6, 7),
+        mass: 0,
+        position: startPosition,
         shape: diceShape,
+        // fixedRotation: true,
       });
-      console.log(diceBody);
       this.world.addBody(diceBody);
       this.scene.add(diceModel);
+
       this.objectsList.push({ physicsBody: diceBody, renderBody: diceModel });
     }
+  }
+  isMoreFinished(physicsBody: CANNON.Body) {
+    const threshold = 1;
+
+    const angularVelocity = physicsBody.angularVelocity;
+    const velocity = physicsBody.velocity;
+
+    return (
+      Math.abs(angularVelocity.x) < threshold &&
+      Math.abs(angularVelocity.y) < threshold &&
+      Math.abs(angularVelocity.z) < threshold &&
+      Math.abs(velocity.x) < threshold &&
+      Math.abs(velocity.y) < threshold &&
+      Math.abs(velocity.z) < threshold
+    );
   }
 
   render(): void {
     requestAnimationFrame(() => this.render());
-    this.world.step(this.fixedTimeStep);
+    this.world.step(this.fixedTimeStep, this.fixedTimeStep, 3);
     this.renderer.render(this.scene, this.camera);
     this.objectsList.forEach(({ physicsBody, renderBody }) => {
       const { x, y, z } = physicsBody.position;
       const qt = physicsBody.quaternion;
       renderBody.quaternion.set(qt.x, qt.y, qt.z, qt.w);
       renderBody.position.set(x, y, z);
-      renderBody.rotateX(0);
-      renderBody.rotateY(1.4);
-      renderBody.rotateZ(0);
+      // const matrix = new THREE.Matrix4();
+      // matrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+      // renderBody.applyMatrix4(matrix);
+      this.localUp.set(0, 1, 0);
+      physicsBody.quaternion.inverse(this.inverseBodyOrientation);
+      this.inverseBodyOrientation.vmult(this.localUp, this.localUp);
+      // Check which side is up
+      if (this.localUp.x > this.limit) {
+        // Positive x is up
+        console.log("1");
+      } else if (this.localUp.x < -this.limit) {
+        // Negative x is up
+        console.log("2");
+      } else if (this.localUp.y > this.limit) {
+        // Positive y is up
+        console.log("3");
+      } else if (this.localUp.y < -this.limit) {
+        // Negative y is up
+        console.log("6");
+      } else if (this.localUp.z > this.limit) {
+        // Positive z is up
+        console.log("5");
+      } else if (this.localUp.z < -this.limit) {
+        // Negative z is up
+        console.log("4");
+      } else {
+        // The box is not resting flat on the ground plane
+      }
+      const direction = new CANNON.Vec3();
+      endPosition.vsub(startPosition, direction);
+      const totalLength = direction.distanceTo(endPosition);
+      direction.normalize();
+      const speed = totalLength / tweenTime;
+      direction.scale(speed, physicsBody.velocity);
+      const progress = (this.world.time - this.startTime) / tweenTime;
+      if (progress < 1) {
+        // Calculate current position
+        direction.scale(progress * totalLength, this.offset);
+        startPosition.vadd(this.offset, physicsBody.position);
+      } else {
+        // We passed the end position! Stop.
+        physicsBody.velocity.set(0, 0, 0);
+        physicsBody.position.copy(endPosition);
+      }
+      // console.log(value, "i");
     });
+
+    // const allEqual = this.objectsList => this.objectsList..every( v => this.isMoreFinished(v) )
+    const a = this.objectsList.map((a) => this.isMoreFinished(a.physicsBody));
+    const result = a.every(Boolean);
+
+    if (a.length && result) {
+      // this.isFinished = true;
+      // this.clear();
+    }
   }
 }

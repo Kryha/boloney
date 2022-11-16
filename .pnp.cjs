@@ -6164,11 +6164,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/three", [\
-        ["npm:0.89.12", {\
-          "packageLocation": "./.yarn/cache/@types-three-npm-0.89.12-d00dc90d77-57423b5a28.zip/node_modules/@types/three/",\
+        ["npm:0.135.0", {\
+          "packageLocation": "./.yarn/cache/@types-three-npm-0.135.0-e508f724aa-85977e55cc.zip/node_modules/@types/three/",\
           "packageDependencies": [\
-            ["@types/three", "npm:0.89.12"],\
-            ["@types/webvr-api", "npm:0.0.36"]\
+            ["@types/three", "npm:0.135.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6225,15 +6224,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.7.5"],\
             ["@types/source-list-map", "npm:0.1.2"],\
             ["source-map", "npm:0.7.4"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@types/webvr-api", [\
-        ["npm:0.0.36", {\
-          "packageLocation": "./.yarn/cache/@types-webvr-api-npm-0.0.36-9f84fb0502-5ed04f674c.zip/node_modules/@types/webvr-api/",\
-          "packageDependencies": [\
-            ["@types/webvr-api", "npm:0.0.36"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6668,7 +6658,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.7.5"],\
             ["@types/react", "npm:18.0.17"],\
             ["@types/react-dom", "npm:18.0.6"],\
-            ["@types/three", "npm:0.89.12"],\
+            ["@types/three", "npm:0.135.0"],\
             ["@typescript-eslint/eslint-plugin", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:5.33.0"],\
             ["@typescript-eslint/parser", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:5.33.0"],\
             ["@vitejs/plugin-react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:2.0.0"],\

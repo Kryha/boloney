@@ -15,7 +15,7 @@ export const DiceRolls = (value: number) => {
         angularVelocity: { x: -3.2, y: 30, z: 4.56 },
         straight: { x: 0, y: 1.4, z: 0 },
       };
-    case 2:
+    case 5:
       return {
         position: { x: 0, y: -50, z: 50 },
         velocity: { x: 0, y: 2, z: 0 },
@@ -36,7 +36,7 @@ export const DiceRolls = (value: number) => {
         angularVelocity: { x: 30, y: 30, z: 20 },
         straight: { x: 0, y: 1.4, z: 0 },
       };
-    case 5:
+    case 2:
       return {
         position: { x: 15, y: -35, z: 40 },
         velocity: { x: 0, y: 25, z: 0 },
