@@ -4,7 +4,7 @@ import { BottomButtonWrapper, Heading2 } from "../atoms";
 import { Die, Player } from "../../types";
 import { TimerHeader } from "../timer-header";
 import { color } from "../../design";
-import { RollingDice } from "../dice/rolling-dice";
+import { RollingDice } from "../dice-animation/rolling-dice";
 
 interface RollDiceProps {
   localPlayer: Player;

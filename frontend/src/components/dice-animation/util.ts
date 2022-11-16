@@ -21,13 +21,6 @@ export const BaseDBSchema = z.object({
   createdAt: AnyDate,
   updatedAt: AnyDate,
 });
-type BaseDB = z.infer<typeof BaseDBSchema>;
-
-export const serializeDates = (obj: BaseDB) => ({
-  ...obj,
-  createdAt: obj.createdAt!.getTime(),
-  updatedAt: obj.updatedAt!.getTime(),
-});
 
 export const lexicographic = (a: string, b: string) => a.localeCompare(b, "en-gb", { numeric: true });
 

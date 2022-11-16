@@ -6,7 +6,7 @@ import { fakeDiceRolls } from "../../service";
 import { PrimaryButton } from "../buttons";
 import { Die } from "../die";
 import { DiceValueContainer, AttributesContainer } from "../roll-dice/styles";
-import { rollDice } from "./diceRoll";
+import { rollDice } from "./roll-dice";
 import { RollerThing1 } from "./styles";
 import { Die as Dice } from "../../types";
 
