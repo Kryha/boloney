@@ -9,9 +9,8 @@ class DiceManagerClass {
   world!: CANNON.World;
   public throwRunning = false;
 
-  constructor() {
-    //
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  constructor() {}
 
   setWorld(world: CANNON.World) {
     this.world = world;
@@ -35,13 +34,6 @@ class DiceManagerClass {
     world.addContactMaterial(new CANNON.ContactMaterial(this.diceBodyMaterial, this.diceBodyMaterial, { friction: 0, restitution: 0.5 }));
   }
 
-  /**
-   *
-   * @param {array} diceValues
-   * @param {DiceObject} [diceValues.dice]
-   * @param {number} [diceValues.value]
-   *
-   */
   prepareValues(diceValues: { dice: DiceObject; value: number; vectors?: Vectors; stableCount?: number }[]) {
     if (this.throwRunning) throw new Error("Cannot start another throw. Please wait, till the current throw is finished.");
 

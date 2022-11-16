@@ -15,8 +15,7 @@ import {
   Lobby,
 } from "../../components";
 import { routes } from "../../navigation";
-import { fakeDiceRolls, fakePlayers, useMatch, useMatchMaker } from "../../service";
-import { fakePowerUps } from "../../service/fake-power-ups";
+import { useMatch, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import { isPlayerOrderObject, isPlayerRecord, isStageTransition, MatchOpCode, MatchStage, Player } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
@@ -43,7 +42,7 @@ export const Match = () => {
       case "getPowerUpStage":
         return <GetPowerUps localPlayer={localPlayer} />;
       case "rollDiceStage":
-        return <RollDice localPlayer={localPlayer} dice={fakeDiceRolls} />;
+        return <RollDice localPlayer={localPlayer} dice={faceValues} />;
       case "playerTurnLoopStage":
         return <PlayerTurns />;
       case "roundSummaryStage":
@@ -95,19 +94,19 @@ export const Match = () => {
     };
   }, [socket, setMatchStage, setPlayerOrder, setPlayers, handleStageTransition]);
 
-  // // TODO: add error page
-  // if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
+  // TODO: add error page
+  if (!matchId || !session?.user_id) return <Navigate to={routes.home} />;
 
-  // // TODO: add loading animation
-  // if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
+  // TODO: add loading animation
+  if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
 
-  // if (matchStage === "lobbyStage") return <Lobby />;
-  // // TODO fetching the localPlayer from the global store
-  // const localPlayer = getLocalPlayer(players, session.user_id);
+  if (matchStage === "lobbyStage") return <Lobby />;
+  // TODO fetching the localPlayer from the global store
+  const localPlayer = getLocalPlayer(players, session.user_id);
 
   return (
-    <GameLayout players={fakePlayers} dice={fakeDiceRolls} powerUps={fakePowerUps} localPlayer={fakePlayers[0]}>
-      <GeneralContentWrapper>{getStageComponent(matchStage, fakePlayers[0])}</GeneralContentWrapper>
+    <GameLayout players={getOrderedPlayers(players, playersOrder)} dice={faceValues} powerUps={powerUps} localPlayer={localPlayer}>
+      <GeneralContentWrapper>{getStageComponent(matchStage, localPlayer)}</GeneralContentWrapper>
     </GameLayout>
   );
 };

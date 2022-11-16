@@ -8,11 +8,11 @@ import { RollingDice } from "../dice-animation/rolling-dice";
 
 interface RollDiceProps {
   localPlayer: Player;
-  dice: Die[];
+  dice?: Die[];
 }
 
 export const RollDice: FC<RollDiceProps> = ({ localPlayer, dice }) => {
-  if (!localPlayer) return <></>;
+  if (!localPlayer || !dice || !dice.length) return <></>;
 
   const diceColor = avatars[localPlayer.avatarId].color;
 

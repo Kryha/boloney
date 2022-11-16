@@ -1,14 +1,15 @@
 import { useRef, useState, useEffect, FC } from "react";
-import { DiceRoll, DieType, newRoll } from ".";
+import { DiceRoll, newRoll } from ".";
 import { text } from "../../assets";
 import { color } from "../../design";
-import { fakeDiceRolls } from "../../service";
+
 import { PrimaryButton } from "../buttons";
 import { Die } from "../die";
 import { DiceValueContainer, AttributesContainer } from "../roll-dice/styles";
 import { rollDice } from "./roll-dice";
-import { RollerThing1 } from "./styles";
+import { RollerContainer } from "./styles";
 import { Die as Dice } from "../../types";
+import { DieType } from "./types";
 
 interface RollingDiceProps {
   dice: Dice[];
@@ -30,7 +31,6 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
       try {
         if (element && mountRefs) mountRefs.removeChild(element);
       } catch (error) {
-        //
         console.log("ref not found or mount");
       }
     };
@@ -50,14 +50,14 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
     setThrown((v) => v + 1);
     setRoll(diceRoll);
   };
-  console.log("●  \n   \n  ●");
+
   return (
     <>
       {thrown && stable ? (
         <>
           <DiceValueContainer>
-            {fakeDiceRolls.map((dice, index) => (
-              <Die key={index} value={dice.rolledValue} faceColor={dieColor} pipColor={color.pureWhite} size={"5em"} />
+            {dice.map((dice, index) => (
+              <Die key={index} value={dice.rolledValue} faceColor={dieColor} pipColor={color.pureWhite} size="5em" />
             ))}
           </DiceValueContainer>
           <AttributesContainer>
@@ -65,9 +65,9 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
           </AttributesContainer>
         </>
       ) : (
-        <RollerThing1 ref={mountRef}>
-          <PrimaryButton text="roll" onClick={() => onRoll()} />
-        </RollerThing1>
+        <RollerContainer ref={mountRef}>
+          <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
+        </RollerContainer>
       )}
     </>
   );
