@@ -1,18 +1,41 @@
 import { FC } from "react";
 import { avatars, text } from "../../assets";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
-import { Die, Player } from "../../types";
+
 import { TimerHeader } from "../timer-header";
 import { color } from "../../design";
 import { RollingDice } from "../dice-animation/rolling-dice";
+import { useStore } from "../../store";
+import { ErrorView } from "../error-view";
+import { SausageSpinner } from "../spinner";
 
-interface RollDiceProps {
-  localPlayer: Player;
-  dice?: Die[];
-}
+export const localPlayer = {
+  hasRolledDice: false,
+  userId: "1",
+  username: "history",
+  avatarId: 7,
+  diceAmount: 1,
+  powerUpsAmount: 1,
+  isConnected: true,
+  isReady: false,
+  hasInitialPowerUps: true,
+};
 
-export const RollDice: FC<RollDiceProps> = ({ localPlayer, dice }) => {
-  if (!localPlayer || !dice || !dice.length) return <></>;
+export const dice = [
+  { rolledValue: 6 },
+  { rolledValue: 5 },
+  { rolledValue: 4 },
+  { rolledValue: 3 },
+  { rolledValue: 2 },
+  { rolledValue: 1 },
+];
+export const RollDice: FC = () => {
+  // const localPlayer = useStore((state) => state.getLocalPlayer());
+  // const dice = useStore((state) => state.diceValue);
+  console.log("he");
+
+  console.log("he");
+  if (!localPlayer || !dice || !dice.length) return <ErrorView />;
 
   const diceColor = avatars[localPlayer.avatarId].color;
 

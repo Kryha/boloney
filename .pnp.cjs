@@ -6671,6 +6671,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-import", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:2.26.0"],\
             ["eslint-plugin-react", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:7.30.1"],\
             ["eslint-plugin-react-hooks", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:4.6.0"],\
+            ["gsap", "npm:3.11.3"],\
             ["identity-obj-proxy", "npm:3.0.0"],\
             ["immer", "npm:9.0.16"],\
             ["jest", "virtual:94610b13de3cfdaf7532f88528bb315d7a3e9bd575698097f01b2d0fece1191e9949222672869bb366cf9643430b6ce45e202f4f88d5385c7ae5633b2d36d790#npm:28.1.3"],\
@@ -9660,6 +9661,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/grapheme-splitter-npm-1.0.4-648f2bf509-0c22ec54de.zip/node_modules/grapheme-splitter/",\
           "packageDependencies": [\
             ["grapheme-splitter", "npm:1.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["gsap", [\
+        ["npm:3.11.3", {\
+          "packageLocation": "./.yarn/cache/gsap-npm-3.11.3-b5ab925114-b97d33ca1f.zip/node_modules/gsap/",\
+          "packageDependencies": [\
+            ["gsap", "npm:3.11.3"]\
           ],\
           "linkType": "HARD"\
         }]\

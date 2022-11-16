@@ -11,6 +11,7 @@ import { Die as Dice, MatchOpCode } from "../../types";
 import { DieType } from "./types";
 import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
+import { useTimeout } from "usehooks-ts";
 
 interface RollingDiceProps {
   dice: Dice[];
@@ -23,7 +24,7 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   const [stable, setStable] = useState(true);
   const [roll, setRoll] = useState<DiceRoll | undefined>();
   const hasRolledDice = useStore((state) => state.hasRolledDice);
-
+  const [hide, setHide] = useState(false);
   const handleRoll = () => {
     if (hasRolledDice) {
       broadcastPlayerReady();
@@ -62,25 +63,16 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
     setRoll(diceRoll);
     handleRoll();
   };
+  const hifd = () => {
+    setHide(true);
+  };
 
+  useTimeout(hifd, 7000);
   return (
     <>
-      {thrown && stable ? (
-        <>
-          <DiceValueContainer>
-            {dice.map((dice, index) => (
-              <Die key={index} value={dice.rolledValue} faceColor={dieColor} pipColor={color.pureWhite} size="5em" />
-            ))}
-          </DiceValueContainer>
-          <AttributesContainer>
-            <PrimaryButton text={text.general.continue} />
-          </AttributesContainer>
-        </>
-      ) : (
-        <RollerContainer ref={mountRef}>
-          <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
-        </RollerContainer>
-      )}
+      <RollerContainer ref={mountRef}>
+        <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
+      </RollerContainer>
     </>
   );
 };

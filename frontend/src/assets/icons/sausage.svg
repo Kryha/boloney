@@ -1,0 +1,21 @@
+<svg id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+
+	<defs>
+		<path id="sausage"/>
+		<pattern id="graph"
+            width="30" height="30"
+           patternUnits="userSpaceOnUse">
+  <line x1="0" x2="30" y1="0" y2="0" stroke="#7CC6FE" stroke-width="1" opacity="0.3"/>
+  <line x1="10" x2="10" y1="0" y2="30" stroke="#7CC6FE" stroke-width="1" opacity="0.3"/>
+
+  </pattern>
+	</defs>
+<rect fill="url(#graph)" width="100%" height="100%"/>
+
+
+			<use class="shape" xlink:href="#sausage" stroke="#8D351A" stroke-width="70"/>
+			<use x="-6" id="middle" class="shape" xlink:href="#sausage" stroke="#BA4C2B" stroke-width="56"/>
+		<use x="-20" id="shine" class="shape" xlink:href="#sausage" stroke="#FFF" stroke-width="6" opacity="0.85"/>
+
+
+</svg>

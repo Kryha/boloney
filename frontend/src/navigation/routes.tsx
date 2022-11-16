@@ -19,7 +19,7 @@ const AppRoutes: FC = () => {
         <>
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.newGame} element={<NewGame />} />
-          <Route path={`${routes.match}`} element={<Match />} />
+          <Route path={routes.match} element={<Match />} />
         </>
       ) : (
         <>

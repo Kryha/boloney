@@ -9,11 +9,12 @@ import { color } from "../../design";
 import { DECISION_MAKING_TIME_IN_SECONDS } from "../../constants";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
+import { localPlayer } from "../roll-dice";
 
 export const GetPowerUps: FC = () => {
   const { broadcastPlayerReady } = useMatch();
 
-  const localPlayer = useStore((state) => state.getLocalPlayer());
+  // const localPlayer = useStore((state) => state.getLocalPlayer());
 
   if (!localPlayer) return <ErrorView />;
 
