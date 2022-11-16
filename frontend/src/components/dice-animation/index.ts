@@ -13,3 +13,5 @@ export const newRoll = (type: DieType, dice: Die[], color: string): DiceRoll => 
   }
   return { type, amount, result, color };
 };
+
+export * from "./rolling-dice";
