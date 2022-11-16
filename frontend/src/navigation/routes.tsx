@@ -15,7 +15,6 @@ const AppRoutes: FC = () => {
     <Routes>
       <Route path={routes.root} element={<Landing />} />
 
-      {/* if you try to abstract these cases in external components, the compiler will complain for some reason */}
       {isAuthenticated ? (
         <>
           <Route path={routes.home} element={<Home />} />
