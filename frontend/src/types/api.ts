@@ -1,3 +1,3 @@
 import { NkError } from "./error";
 
-export type NkResponse<T = undefined> = NkError | T;
+export type NkResponse<T = void> = NkError | T;

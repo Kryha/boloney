@@ -9,7 +9,9 @@ import { CopyLink, GoToLobbyButton, NewGameConfirmationContainer } from "./style
 
 export const NewGameConfirmation: FC = () => {
   const navigate = useNavigate();
-  const { matchId, matchUrl } = useStore();
+
+  const matchId = useStore((state) => state.matchId);
+  const matchUrl = useStore((state) => state.matchUrl);
 
   return (
     <>

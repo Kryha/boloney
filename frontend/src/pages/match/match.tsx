@@ -16,7 +16,7 @@ import {
   Lobby,
   ErrorView,
 } from "../../components";
-import { useMatch, useMatchMaker } from "../../service";
+import { useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import {
   MatchOpCode,
@@ -31,8 +31,7 @@ import {
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
-  const { joinMatch } = useMatchMaker();
-  const { isLoading } = useMatch();
+  const { joinMatch, isLoading } = useMatchMaker();
 
   const matchStage = useStore((state) => state.matchStage);
   const socket = useStore((state) => state.socket);

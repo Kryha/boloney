@@ -18,10 +18,10 @@ interface MatchSliceState {
 }
 
 interface MatchSliceGetters {
-  getOrderedPlayers: () => PlayerPublic[] | undefined;
+  getOrderedPlayers: () => PlayerPublic[];
   getPlayer: (id?: string) => PlayerPublic | undefined;
   getLocalPlayer: () => PlayerPublic | undefined;
-  getRemotePlayers: () => PlayerPublic[] | undefined;
+  getRemotePlayers: () => PlayerPublic[];
 }
 
 interface MatchSliceSetters {
@@ -60,7 +60,11 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
     const session = get().sessionState;
     const players = get().players;
     const order = [...get().playerOrder];
-    if (!session || !session.user_id) return;
+
+    const playersValues = Object.values(players);
+
+    if (!session || !session.user_id) return playersValues;
+    if (order.length !== playersValues.length) return playersValues;
 
     const localPlayerIndex = order.indexOf(session.user_id);
 
@@ -84,7 +88,6 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   getRemotePlayers: () => {
     const orderedPlayers = get().getOrderedPlayers();
     const session = get().sessionState;
-    if (!orderedPlayers) return;
     if (!session || !session.user_id) return orderedPlayers;
     return orderedPlayers.filter((player) => player.userId !== session.user_id);
   },
@@ -93,18 +96,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setMatchId: (matchId) => set(() => ({ matchId })),
   setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
   setMatchStage: (matchStage) => set(() => ({ matchStage, ...initialFlags })),
-  setPlayers: (players) => {
-    const indexNewPlayer = Object.keys(players).find(k => get().players[k] === undefined);
-    if (indexNewPlayer !== undefined)
-      set(() => ({ players }));
-    else {
-      const indexIsReady = Object.keys(players).find(k => get().players[k].isReady !== players[k].isReady);
-      const oldOrderedPlayers = Object.assign({}, get().players);
-      if (indexIsReady !== undefined)
-        oldOrderedPlayers[indexIsReady].isReady = players[indexIsReady].isReady;
-      set(() => ({ players: oldOrderedPlayers }));
-    }
-  },
+  setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
   setInitialState: () => set(() => ({ ...initialMatchState })),
