@@ -63,8 +63,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
 
     const playersValues = Object.values(players);
 
-    if (!session || !session.user_id) return playersValues;
-    if (order.length !== playersValues.length) return playersValues;
+    if (!session || !session.user_id || order.length !== playersValues.length) return playersValues;
 
     const localPlayerIndex = order.indexOf(session.user_id);
 
