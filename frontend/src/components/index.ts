@@ -33,3 +33,4 @@ export * from "./power-up-list-overview";
 export * from "./modal";
 export * from "./dice-animation";
 export * from "./roll-dice";
+export * from "./spinner";
