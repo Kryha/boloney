@@ -9,12 +9,9 @@ RUN yarn set version 2 --only-if-needed
 COPY .yarnrc.yml ./.yarnrc.yml
 COPY yarn.lock ./yarn.lock
 COPY .yarn/ ./.yarn/
-COPY .pnp.cjs/ ./.pnp.cjs
-COPY .pnp.loader.mjs ./.pnp.loader.mjs
 
 COPY package.json ./package.json
 
-COPY backend/nakama ./backend/nakama
 COPY backend/src ./backend/src
 COPY backend/local.yml ./backend/local.yml
 COPY backend/package.json ./backend/package.json

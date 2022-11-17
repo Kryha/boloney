@@ -1,29 +1,25 @@
 import { FC } from "react";
-
-import { text } from "../../assets";
-import { BottomButtonWrapper, Heading1 } from "../atoms";
-import { PrimaryButton } from "../buttons";
-import { useMatch } from "../../service";
-import { MatchOpCode } from "../../types";
+import { avatars, text } from "../../assets";
+import { BottomButtonWrapper, Heading2 } from "../atoms";
+import { TimerHeader } from "../timer-header";
+import { color } from "../../design";
+import { RollingDice } from "../dice-animation";
 import { useStore } from "../../store";
+import { ErrorView } from "../error-view";
 
-// TODO: finish component
 export const RollDice: FC = () => {
-  const { broadcastPlayerReady, sendMatchState } = useMatch();
-  const hasRolledDice = useStore((state) => state.hasRolledDice);
+  const localPlayer = useStore((state) => state.getLocalPlayer());
+  const dice = useStore((state) => state.diceValue);
 
-  const handleRoll = () => {
-    if (hasRolledDice) {
-      broadcastPlayerReady();
-    } else {
-      sendMatchState(MatchOpCode.ROLL_DICE);
-    }
-  };
+  if (!localPlayer || !dice || !dice.length) return <ErrorView />;
+
+  const diceColor = avatars[localPlayer.avatarId].color;
 
   return (
     <BottomButtonWrapper>
-      <Heading1>{text.match.rollDice}</Heading1>
-      <PrimaryButton text={hasRolledDice ? text.match.goForIt : text.match.rollDice} onClick={() => handleRoll()} />
+      <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={text.powerUps.settingItUp} />
+      <Heading2 customColor={color.darkGrey}>{text.param.findOutYourPips(localPlayer.username)}</Heading2>
+      <RollingDice dice={dice} dieColor={diceColor} />
     </BottomButtonWrapper>
   );
 };

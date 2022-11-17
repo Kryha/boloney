@@ -5,3 +5,4 @@ export * from "./input";
 export * from "./wrappers";
 export * from "./lines";
 export * from "./animations";
+export * from "./sausage-animate";
