@@ -1,10 +1,7 @@
 import { useRef, useState, useEffect, FC } from "react";
-import { DiceRoll, newRoll } from ".";
+import { DiceRoll, newRoll } from "./index";
 import { text } from "../../assets";
-import { color } from "../../design";
 import { PrimaryButton } from "../buttons";
-import { Die } from "../die";
-import { DiceValueContainer, AttributesContainer } from "../roll-dice/styles";
 import { rollDice } from "./roll-dice";
 import { RollerContainer } from "./styles";
 import { Die as Dice, MatchOpCode } from "../../types";
@@ -20,10 +17,11 @@ interface RollingDiceProps {
 export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   const { broadcastPlayerReady, sendMatchState } = useMatch();
   const mountRef = useRef<HTMLDivElement | null>(null);
-  const [thrown, setThrown] = useState(0);
-  const [stable, setStable] = useState(true);
   const [roll, setRoll] = useState<DiceRoll | undefined>();
+  const [throwAmount, setThrowAmount] = useState<number>(0);
   const hasRolledDice = useStore((state) => state.hasRolledDice);
+  const setIsDiceStable = useStore((state) => state.setIsDiceStable);
+  const setIsDiceThrown = useStore((state) => state.setIsDiceThrown);
   const [hide, setHide] = useState(false);
   const handleRoll = () => {
     if (hasRolledDice) {
@@ -49,17 +47,18 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   }, [mountRef, roll]);
 
   useEffect(() => {
-    const stableListener = () => setStable(true);
+    const stableListener = () => setIsDiceStable(true);
     window.addEventListener("diceStable", stableListener);
     return () => {
       window.removeEventListener("diceStable", stableListener);
     };
-  }, [setStable]);
+  }, [setIsDiceStable]);
 
   const onRoll = () => {
-    setStable(false);
+    setIsDiceStable(false);
     const diceRoll = newRoll(DieType.D6, dice, dieColor);
-    setThrown((v) => v + 1);
+    setThrowAmount((v) => v + 1);
+    setIsDiceThrown(throwAmount);
     setRoll(diceRoll);
     handleRoll();
   };
@@ -69,10 +68,8 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
 
   useTimeout(hifd, 7000);
   return (
-    <>
-      <RollerContainer ref={mountRef}>
-        <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
-      </RollerContainer>
-    </>
+    <RollerContainer ref={mountRef}>
+      <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
+    </RollerContainer>
   );
 };

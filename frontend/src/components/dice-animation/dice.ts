@@ -3,24 +3,21 @@ import * as THREE from "three";
 import { BufferGeometry } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
+const zeroDie = "src/assets/images/zero-die.png";
+const zeroOneDie = "src/assets/images/zero-one-die.png";
 const oneDie = "src/assets/images/one-die.png";
 const twoDie = "src/assets/images/two-die.png";
 const threeDie = "src/assets/images/three-die.png";
 const fourDie = "src/assets/images/four-die.png";
 const fiveDie = "src/assets/images/five-die.png";
 const sixDie = "src/assets/images/six-die.png";
-interface Models {
-  [type: string]: THREE.Object3D;
-}
+
 class DiceManagerClass {
   diceBodyMaterial?: CANNON.Material;
   floorBodyMaterial?: CANNON.Material;
   barrierBodyMaterial?: CANNON.Material;
   world!: CANNON.World;
   public throwRunning = false;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
 
   setWorld(world: CANNON.World) {
     this.world = world;
@@ -112,6 +109,9 @@ interface Vectors {
 
 type Faces = number[][];
 
+interface Models {
+  [type: string]: THREE.Object3D;
+}
 export abstract class DiceObject {
   object!: THREE.Mesh & { body?: CANNON.Body; diceObject?: DiceObject };
   size: number;
@@ -447,11 +447,11 @@ export abstract class DiceObject {
 
   getMaterials() {
     const materials = [];
-
     for (let i = 0; i < (this.faceTexts?.length ?? 0); ++i) {
-      const texture0 = new THREE.TextureLoader().load(oneDie);
+      // TODO: make smart component
+      const texture0 = new THREE.TextureLoader().load(zeroDie);
       materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture0 })));
-      const texture01 = new THREE.TextureLoader().load(oneDie);
+      const texture01 = new THREE.TextureLoader().load(zeroOneDie);
       materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture01 })));
       const texture1 = new THREE.TextureLoader().load(oneDie);
       materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture1 })));

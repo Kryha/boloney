@@ -9,23 +9,17 @@ export enum DieType {
   D20 = "d20",
   D100 = "d100",
 }
-export const AnyDate = z.preprocess(
-  (d) => (typeof d === "object" ? d : ["number", "string"].includes(typeof d) ? new Date(d as number | string) : undefined),
-  z.date().optional().nullable()
-);
 
-export const BaseDBSchema = z.object({
+export const baseDBSchema = z.object({
   id: z.number().int().positive().optional().nullable(),
-  createdAt: AnyDate,
-  updatedAt: AnyDate,
 });
 
-export const DieTypeSchema = z.nativeEnum(DieType);
+export const dieTypeSchema = z.nativeEnum(DieType);
 
-export const DiceRollSchema = BaseDBSchema.extend({
-  type: DieTypeSchema,
-  amount: z.preprocess((n) => (typeof n === "string" ? +n : n), z.number().int().positive()),
-  result: z.array(z.object({ type: DieTypeSchema, roll: z.number().positive() })),
+export const diceRollSchema = baseDBSchema.extend({
+  type: dieTypeSchema,
+  amount: z.preprocess((n) => (typeof n === "string" ? Number(n) : n), z.number().int().positive()),
+  result: z.array(z.object({ type: dieTypeSchema, roll: z.number().positive() })),
   campaignId: z.number().int().positive().optional().nullable(),
   color: z.string(),
 });

@@ -53,7 +53,6 @@ export const Match = () => {
       case "getPowerUpStage":
         return <GetPowerUps />;
       case "rollDiceStage":
-        console.log("why");
         return <RollDice />;
       case "playerTurnLoopStage":
         return <PlayerTurns />;

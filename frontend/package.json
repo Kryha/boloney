@@ -22,6 +22,7 @@
     "react-hook-form": "^7.34.2",
     "react-router-dom": "^6.3.0",
     "three": "^0.117.1",
+    "three-orbitcontrols-ts": "^0.1.2",
     "usehooks-ts": "^2.7.1",
     "vite-plugin-svgr": "^2.2.1",
     "zod": "^3.19.1",

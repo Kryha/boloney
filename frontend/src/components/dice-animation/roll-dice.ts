@@ -1,8 +1,8 @@
 import * as CANNON from "cannon";
 import { MutableRefObject } from "react";
 import * as THREE from "three";
-import { DiceRoll } from ".";
-import { OrbitControls } from "./controls";
+import { DiceRoll } from "./index";
+import { OrbitControls } from "three-orbitcontrols-ts";
 import { DiceD10, DiceD100, DiceD100D10, DiceD12, DiceD20, DiceD4, DiceD6, DiceD8, DiceManager, DiceObject } from "./dice";
 
 export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
@@ -197,7 +197,6 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
 
   function update() {
     controls.update();
-    // stats.update();
   }
 
   function render() {
@@ -207,7 +206,6 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
   requestAnimationFrame(animate);
 
   const checkDone = () => {
-    // @ts-ignore
     if (world.bodies.map((b) => b.velocity.norm() < 0.1).every(Boolean)) {
       window.dispatchEvent(new Event("diceStable"));
     } else {

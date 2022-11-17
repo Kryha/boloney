@@ -4,7 +4,7 @@ import { BottomButtonWrapper, Heading2 } from "../atoms";
 
 import { TimerHeader } from "../timer-header";
 import { color } from "../../design";
-import { RollingDice } from "../dice-animation/rolling-dice";
+import { RollingDice } from "../dice-animation";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { SausageSpinner } from "../spinner";

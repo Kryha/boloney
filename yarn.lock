@@ -3651,6 +3651,7 @@ __metadata:
     react-hook-form: ^7.34.2
     react-router-dom: ^6.3.0
     three: ^0.117.1
+    three-orbitcontrols-ts: ^0.1.2
     ts-jest: ^28.0.8
     ts-node: ^10.9.1
     typescript: ^4.7.4
@@ -9324,10 +9325,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"three-orbitcontrols-ts@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "three-orbitcontrols-ts@npm:0.1.2"
+  dependencies:
+    three: ^0.83.0
+  checksum: 0ca1cd597d87c07275b67611139debeac64710cdabe06e2489c64fe5af1a04ddf9908aceeb2c8bc84c6ed4a768fdd47ff022f806d31f4b90832dbfbc4a9485aa
+  languageName: node
+  linkType: hard
+
 "three@npm:^0.117.1":
   version: 0.117.1
   resolution: "three@npm:0.117.1"
   checksum: 1ac1022599777f61f056f769aebe434e9de4f4516a420c1b2ce3d704b1e3f0e3daea56ee110d163937d567ddd364c8a05fa43a9e8eb88788b79e6ea961576ee9
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.83.0":
+  version: 0.83.0
+  resolution: "three@npm:0.83.0"
+  checksum: fc677653a1fa9cf35b07148394060ab47901846f02ffdf1438a472c97195fc2c7eed644e489693648909b2de81a1419af82383f360962bf1864012e40d2a185a
   languageName: node
   linkType: hard
 
