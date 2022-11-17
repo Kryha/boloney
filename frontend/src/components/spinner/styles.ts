@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { SausageIcon } from "../../assets";
 
 export const SausageContainer = styled.div`
   width: 100px;
@@ -15,5 +14,3 @@ export const SausageContainer = styled.div`
     stroke-linecap: round;
   }
 `;
-
-export const LineWrap = styled(SausageIcon)``;
