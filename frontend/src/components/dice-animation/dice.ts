@@ -2,6 +2,8 @@ import * as CANNON from "cannon";
 import * as THREE from "three";
 import { BufferGeometry } from "three";
 
+const zeroDie = "src/assets/images/zero-die.png";
+const zeroOneDie = "src/assets/images/zero-one-die.png";
 const oneDie = "src/assets/images/one-die.png";
 const twoDie = "src/assets/images/two-die.png";
 const threeDie = "src/assets/images/three-die.png";
@@ -439,9 +441,9 @@ export abstract class DiceObject {
     const materials = [];
     for (let i = 0; i < (this.faceTexts?.length ?? 0); ++i) {
       // TODO: make smart component
-      const texture0 = new THREE.TextureLoader().load(oneDie);
+      const texture0 = new THREE.TextureLoader().load(zeroDie);
       materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture0 })));
-      const texture01 = new THREE.TextureLoader().load(oneDie);
+      const texture01 = new THREE.TextureLoader().load(zeroOneDie);
       materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture01 })));
       const texture1 = new THREE.TextureLoader().load(oneDie);
       materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture1 })));
