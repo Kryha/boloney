@@ -122,5 +122,10 @@ export const getOtherPresences = (currentPlayerId: string, presences: Record<str
 };
 
 export const setActivePlayer = (activePlayerId: string, players: Record<string, Player>): void => {
+  resetActivePlayer(players);
   players[activePlayerId].isActive = true;
+};
+
+export const resetActivePlayer = (players: Record<string, Player>): void => {
+  Object.entries(players).forEach((player) => (player[1].isActive = false));
 };
