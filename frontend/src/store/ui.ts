@@ -7,12 +7,16 @@ export interface UISlice {
   modalComponentChildren: ReactNode | undefined;
   isContainerVisible: boolean;
   isModalButtonVisible: boolean;
+  isDiceThrown: number;
+  isDiceStable: boolean;
 
   toggleOverlay: () => void;
   setModalComponentChildren: (component: ReactNode) => void;
   closeModal: () => void;
   toggleModalWithoutContainer: () => void;
   toggleModalWithContainer: () => void;
+  setIsDiceThrown: (isDiceThrown: number) => void;
+  setIsDiceStable: (isDiceStable: boolean) => void;
 }
 
 export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
@@ -21,6 +25,8 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   modalComponentChildren: undefined,
   isContainerVisible: false,
   isModalButtonVisible: false,
+  isDiceThrown: 0,
+  isDiceStable: true,
 
   toggleOverlay: () => set(({ isOverlayVisible }) => ({ isOverlayVisible: !isOverlayVisible })),
   setModalComponentChildren: (component: ReactNode) => set(() => ({ modalComponentChildren: component })),
@@ -45,4 +51,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
       isOverlayVisible: !isOverlayVisible,
       isContainerVisible: !isContainerVisible,
     })),
+  setIsDiceThrown: (isDiceThrown) => set(() => ({ isDiceThrown })),
+  setIsDiceStable: (isDiceStable) => set(() => ({ isDiceStable })),
 });

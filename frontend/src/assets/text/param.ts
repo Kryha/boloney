@@ -15,4 +15,5 @@ export const param = {
   powerUpsHiddenMoves: (username: string) => `welcome ${username}, let's find out which hidden moves you will have...`,
   zeroAmount: (amount: string | number) => `0${amount}`,
   timeInMinsAndSeconds: (minutes: string | number, seconds: string | number) => `-${minutes}.${seconds}`,
+  findOutYourPips: (username: string) => `welcome ${username}, let's find out your pips for this first round...`,
 };
