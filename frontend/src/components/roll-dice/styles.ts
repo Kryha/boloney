@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { SausageIcon } from "../../assets";
 import { margins } from "../../design";
 
 export const AttributesContainer = styled.div`
@@ -17,16 +16,4 @@ export const DiceValueContainer = styled.div`
   grid-template-rows: repeat(2, 1fr);
   gap: ${margins.large0};
   width: 140px;
-`;
-
-export const SausageLoader = styled(SausageIcon)`
-  width: 100%;
-  height: 100%;
-  visibility: hidden;
-  overflow: visible;
-
-  path {
-    fill: none;
-    stroke-linecap: round;
-  }
 `;
