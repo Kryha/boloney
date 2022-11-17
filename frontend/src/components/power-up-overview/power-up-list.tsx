@@ -28,8 +28,9 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
   };
   return (
     <YourPowerUpContainer>
-      {powerUpIds.slice(0, initialPowerUpsShown).map((powerUpId) => (
-        <PowerUpComponent key={powerUpId} powerUp={getPowerUp(powerUpId)} showPowerUps={toggleShowModal} />
+      {powerUpIds.slice(0, initialPowerUpsShown).map((powerUpId, i) => (
+        //! Don't use powerUpId as key since we allow for duplicate power-ups
+        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={toggleShowModal} />
       ))}
       {powerUpIds.length > initialPowerUpsShown && (
         <PowerUpWrapper onClick={() => toggleShowModal()}>

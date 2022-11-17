@@ -1,16 +1,15 @@
 import { useCallback, useState } from "react";
+
 import { text } from "../assets";
 import { useStore } from "../store";
-import { MatchOpCode, MatchStage, NkResponse, Player } from "../types";
+import { MatchOpCode, NkResponse } from "../types";
 import { parseError } from "../util";
-import { fakeDiceRolls } from "./fake-dice-rolls";
 
 export const useMatch = () => {
   const socket = useStore((state) => state.socket);
-  const matchStage = useStore((state) => state.matchStage);
   const matchId = useStore((state) => state.matchId);
 
-  const setFaceValues = useStore((state) => state.setFaceValues);
+  // TODO: each call should have it's own isLoading flag
   const [isLoading, setIsLoading] = useState(false);
 
   const sendMatchState = useCallback(
@@ -30,16 +29,6 @@ export const useMatch = () => {
     [matchId, socket]
   );
 
-  // TODO: Add error handling
-  const getOrderedPlayers = useCallback(
-    (players: Record<string, Player>, playerOrder: string[]): Player[] => playerOrder.map((playerId) => players[playerId]),
-    []
-  );
-
-  const getLocalPlayer = useCallback((players: Record<string, Player>, localPlayerId: string) => {
-    return players[localPlayerId];
-  }, []);
-
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
   // TODO: Add Action payload
@@ -47,33 +36,10 @@ export const useMatch = () => {
   const broadcastCallExact = () => sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
   const broadcastCallBoloney = () => sendMatchState(MatchOpCode.PLAYER_CALL_BOLONEY);
 
-  const handleStageTransition = (stage: MatchStage) => {
-    switch (stage) {
-      case "getPowerUpStage":
-        // TODO: remove fake data
-        break;
-      case "rollDiceStage":
-        // TODO: remove fake data
-        setFaceValues(fakeDiceRolls);
-        break;
-      case "playerTurnLoopStage":
-        // TODO: add other stages
-        break;
-      case "roundSummaryStage":
-        break;
-      case "endOfMatchStage":
-        break;
-    }
-  };
-
   return {
-    matchStage,
     isLoading,
     sendMatchState,
-    getOrderedPlayers,
     broadcastPlayerReady,
-    handleStageTransition,
-    getLocalPlayer,
     broadcastPlaceBid,
     broadcastCallExact,
     broadcastCallBoloney,

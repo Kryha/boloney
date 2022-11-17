@@ -1,59 +1,100 @@
+import { Session } from "@heroiclabs/nakama-js";
 import { StateCreator } from "zustand";
-import { produce } from "immer";
-import { Die, Player, MatchStage, PowerUpId } from "../types";
+
+import { Die, MatchStage, PowerUpId, PlayerPublic } from "../types";
 
 interface MatchSliceState {
+  sessionState?: Session;
   matchId?: string;
-  faceValues?: Die[];
+  diceValue?: Die[];
   matchStage: MatchStage;
-  players: Record<string, Player>;
+  players: Record<string, PlayerPublic>;
   playerOrder: string[];
-  localPlayerId: string;
   matchUrl: string;
-  activePlayerId: string;
+  powerUpIds: PowerUpId[];
+  // flags
+  hasRolledDice: boolean;
 }
 
-interface MatchSliceFunctions {
+interface MatchSliceGetters {
+  getOrderedPlayers: () => PlayerPublic[] | undefined;
+  getPlayer: (id?: string) => PlayerPublic | undefined;
+  getLocalPlayer: () => PlayerPublic | undefined;
+  getRemotePlayers: () => PlayerPublic[] | undefined;
+}
+
+interface MatchSliceSetters {
+  setSession: (session: Session) => void;
   setMatchId: (match_id: string) => void;
-  setFaceValues: (faceValues: Die[]) => void;
+  setDiceValue: (diceValue: Die[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
-  setPlayers: (players: Record<string, Player>) => void;
-  setPlayerPowerUps: (playerId: string, powerUpIds: PowerUpId[]) => void;
+  setPlayers: (players: Record<string, PlayerPublic>) => void;
   setPlayerOrder: (playerOrder: string[]) => void;
   setInitialState: () => void;
   setMatchUrl: (matchUrl: string) => void;
-  setLocalPlayerId: (localPlayerId: string) => void;
+  setPowerUpIds: (ids: PowerUpId[]) => void;
 }
-export type MatchSlice = MatchSliceState & MatchSliceFunctions;
+
+export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceSetters;
+
+const initialFlags = {
+  hasRolledDice: false,
+};
 
 const initialMatchState: MatchSliceState = {
   matchId: undefined,
-  faceValues: undefined,
+  diceValue: undefined,
   matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
-  localPlayerId: "",
   matchUrl: "",
-  activePlayerId: "",
+  powerUpIds: [],
+  ...initialFlags,
 };
 
-export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set, get) => ({
   ...initialMatchState,
 
-  setMatchId: (matchId) => set(() => ({ matchId })),
-  setFaceValues: (faceValues) => set(() => ({ faceValues })),
-  setMatchStage: (matchStage) => set(() => ({ matchStage })),
-  setPlayers: (players) => set(() => ({ players })),
-  setPlayerPowerUps: (playerId, powerUpIds) =>
-    set(
-      produce((state) => {
-        state.players[playerId].powerUpIds = powerUpIds;
-      })
-    ),
-  setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
-  setLocalPlayerId: (localPlayerId) => set(() => ({ localPlayerId })),
-  setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
-  setInitialState: () => {
-    set(() => ({ ...initialMatchState }));
+  getOrderedPlayers: () => {
+    const session = get().sessionState;
+    const players = get().players;
+    const order = [...get().playerOrder];
+    if (!session || !session.user_id) return;
+
+    const localPlayerIndex = order.indexOf(session.user_id);
+
+    if (localPlayerIndex !== 0) {
+      const topPart = order.splice(localPlayerIndex, get().playerOrder.length - 1);
+      const bottomPart = order.splice(0, localPlayerIndex);
+      const newPlayerArray = topPart.concat(bottomPart);
+      return newPlayerArray.map((playerId) => players[playerId]);
+    }
+    return get().playerOrder.map((playerId) => players[playerId]);
   },
+
+  getPlayer: (id) => (id ? get().players[id] : undefined),
+
+  getLocalPlayer: () => {
+    const session = get().sessionState;
+    if (!session || !session.user_id) return;
+    return get().players[session.user_id];
+  },
+
+  getRemotePlayers: () => {
+    const orderedPlayers = get().getOrderedPlayers();
+    const session = get().sessionState;
+    if (!orderedPlayers) return;
+    if (!session || !session.user_id) return orderedPlayers;
+    return orderedPlayers.filter((player) => player.userId !== session.user_id);
+  },
+
+  setSession: (session: Session) => set(() => ({ sessionState: session })),
+  setMatchId: (matchId) => set(() => ({ matchId })),
+  setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
+  setMatchStage: (matchStage) => set(() => ({ matchStage, ...initialFlags })),
+  setPlayers: (players) => set(() => ({ players })),
+  setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
+  setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
+  setInitialState: () => set(() => ({ ...initialMatchState })),
+  setPowerUpIds: (powerUpIds) => set(() => ({ powerUpIds })),
 });

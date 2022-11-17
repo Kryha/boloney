@@ -1,7 +1,7 @@
 import { getAvailableAvatar, handleInactiveMatch, handleStage, updateEmptyTicks } from "../services";
 import { text } from "../text";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams } from "../types";
-import { handleError } from "../utils";
+import { handleError, hidePlayersData } from "../utils";
 
 export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger, _nk, params) => {
   logger.info("----------------- MATCH INITIALIZED -----------------");
@@ -58,11 +58,15 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
       userId: presence.userId,
       username: presence.username,
       avatarId,
-      powerUpsList: [],
+      powerUpIds: [],
+      diceValue: [],
+      diceAmount: state.settings.dicePerPlayer,
+      powerUpsAmount: state.settings.initialPowerUpAmount,
       isConnected: true,
       isReady: false,
       hasInitialPowerUps: false,
       isActive: false,
+      hasRolledDice: false,
     };
     state.playerOrder.push(presence.userId);
   }
@@ -73,7 +77,8 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
 // !don't do any operations related to state update in this function!
 export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger, _nk, dispatcher, _tick, state, _presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
-  dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(state.players));
+  const payload = hidePlayersData(state.players);
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload));
   return { state };
 };
 

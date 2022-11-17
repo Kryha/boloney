@@ -1,17 +1,18 @@
 import { FC } from "react";
 import { avatars } from "../../assets";
 
-import { Player } from "../../types";
+import { PlayerPublic } from "../../types";
 import { Hand } from "../hand";
 import { LobbyPlayerStatus } from "../lobby-player-status";
 import { LobbyPlayerWrapper } from "./styles";
 
 interface LobbyPlayerProps {
-  player: Player;
+  player: PlayerPublic;
 }
 
 export const LobbyPlayer: FC<LobbyPlayerProps> = ({ player }) => {
   //This is needs to be here for the quick match option
+  // TODO: add a proper loader
   if (!player.avatarId) return <>Loading</>;
   return (
     <LobbyPlayerWrapper isWaiting={!player.isReady}>

@@ -11,13 +11,13 @@ import {
   GamePlayersContainer,
 } from "./styles";
 import { handProportion } from "../../design/hand";
-import { Player } from "../../types";
+import { PlayerPublic } from "../../types";
 import { avatars } from "../../assets";
 import { PlayerGameState } from "./game-player-info";
 
 interface GamePlayerProps {
   totalPlayers: number;
-  player: Player;
+  player: PlayerPublic;
 }
 
 export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {

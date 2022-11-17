@@ -85,11 +85,11 @@ export const HorizontalLineContainerTwo = styled.div<ViewProps>`
 export const HorizontalLineInitial = styled(HorizontalDivider)``;
 
 interface WaitingProps {
-  arePlayersReady?: boolean;
+  isPlayerReady?: boolean;
 }
 
 export const WaitForOthersContainer = styled.div<WaitingProps>`
-  background: ${({ arePlayersReady }) => (arePlayersReady ? "none" : color.lightGrey)};
+  background: ${({ isPlayerReady }) => (isPlayerReady ? "none" : color.lightGrey)};
   position: absolute;
   padding: ${margins.small2} ${margins.small2} ${margins.small2} 1.5em;
   margin-left: auto;

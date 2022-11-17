@@ -6,9 +6,6 @@
         "cacheBetweenTests": false
       }
     ],
-    "paths": {
-      "jest-ts-auto-mock": ["../../index"]
-    },
     "moduleResolution": "node",
     "esModuleInterop": true,
     "noUnusedLocals": true,
@@ -17,6 +14,7 @@
     "module": "ESNext",
     "strict": true
   },
-  "include": ["src", "nakama"],
+  "files": ["./node_modules/nakama-runtime/index.d.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "build"]
 }
