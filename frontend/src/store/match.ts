@@ -77,7 +77,18 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setMatchId: (matchId) => set(() => ({ matchId })),
   setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
   setMatchStage: (matchStage) => set(() => ({ matchStage, ...initialFlags })),
-  setPlayers: (players) => set(() => ({ players })),
+  setPlayers: (players) => {
+    const indexNewPlayer = Object.keys(players).find(k => get().players[k] === undefined);
+    if (indexNewPlayer !== undefined)
+      set(() => ({ players }));
+    else {
+      const indexIsReady = Object.keys(players).find(k => get().players[k].isReady !== players[k].isReady);
+      const oldOrderedPlayers = Object.assign({}, get().players);
+      if (indexIsReady !== undefined)
+        oldOrderedPlayers[indexIsReady].isReady = players[indexIsReady].isReady;
+      set(() => ({ players: oldOrderedPlayers }));
+    }
+  },
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
   setInitialState: () => set(() => ({ ...initialMatchState })),
