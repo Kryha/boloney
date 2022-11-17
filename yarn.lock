@@ -3133,6 +3133,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cannon@npm:0.1.8":
+  version: 0.1.8
+  resolution: "@types/cannon@npm:0.1.8"
+  checksum: 84e975c7450b1d69783a99a0d3e75c2765a38601e9aacaafa419a315c2d2f8b540ee540fb0fce8cda2b032a8e2a7c50408d493825cddb5207957b8f5f2a37ee8
+  languageName: node
+  linkType: hard
+
 "@types/crypto-js@npm:^4.1.1":
   version: 4.1.1
   resolution: "@types/crypto-js@npm:4.1.1"
@@ -3341,6 +3348,13 @@ __metadata:
   version: 1.0.8
   resolution: "@types/tapable@npm:1.0.8"
   checksum: b4b754dd0822c407b8f29ef6b766490721c276880f9e976d92ee2b3ef915f11a05a2442ae36c8978bcd872ad6bc833b0a2c4d267f2d611590668a366bad50652
+  languageName: node
+  linkType: hard
+
+"@types/three@npm:^0.135.0":
+  version: 0.135.0
+  resolution: "@types/three@npm:0.135.0"
+  checksum: 85977e55cc3d7a14be88816a50bcec4eb0f141876d3cdc6dd7870f72122605af87462d7583e950cd0ee6ab21949b8c1b8304a88174d536648deb8ef97968fa1b
   languageName: node
   linkType: hard
 
@@ -3608,14 +3622,17 @@ __metadata:
     "@testing-library/dom": ^8.17.1
     "@testing-library/react": ^13.3.0
     "@testing-library/user-event": ^14.4.3
+    "@types/cannon": 0.1.8
     "@types/customize-cra": ^1.0.3
     "@types/jest": ^28.1.7
     "@types/node": ^18.7.5
     "@types/react": ^18.0.15
     "@types/react-dom": ^18.0.6
+    "@types/three": ^0.135.0
     "@typescript-eslint/eslint-plugin": ^5.33.0
     "@typescript-eslint/parser": ^5.33.0
     "@vitejs/plugin-react": ^2.0.0
+    cannon: 0.6.2
     customize-cra: ^1.0.0
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
@@ -3633,6 +3650,8 @@ __metadata:
     react-error-boundary: ^3.1.4
     react-hook-form: ^7.34.2
     react-router-dom: ^6.3.0
+    three: ^0.117.1
+    three-orbitcontrols-ts: ^0.1.2
     ts-jest: ^28.0.8
     ts-node: ^10.9.1
     typescript: ^4.7.4
@@ -4291,6 +4310,13 @@ __metadata:
   version: 1.0.30001374
   resolution: "caniuse-lite@npm:1.0.30001374"
   checksum: a75656e971d7ef2af4d2f3529a4620ae1a45d09460601fbc34b26f6867f31bbca006f71d8840291c471a2f01fc1994044f319a5660241ffaf35a2d84535af442
+  languageName: node
+  linkType: hard
+
+"cannon@npm:0.6.2":
+  version: 0.6.2
+  resolution: "cannon@npm:0.6.2"
+  checksum: 67f318ab1585b1609b67155ef9d25efccaefcd02f84feabb4d7e9334303eb8c100a2bd7f4ac0f558545a42186e6e567f849cdef6ed302d9bf7a2ddaa292aa938
   languageName: node
   linkType: hard
 
@@ -9296,6 +9322,29 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: b6937a38c80c7f84d9c11dd75e49d5c44f71d95e810a3250bd1f1797fc7117c57698204adf676b71497acc205d769d65c16ae8fa10afad832ae1322630aef10a
+  languageName: node
+  linkType: hard
+
+"three-orbitcontrols-ts@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "three-orbitcontrols-ts@npm:0.1.2"
+  dependencies:
+    three: ^0.83.0
+  checksum: 0ca1cd597d87c07275b67611139debeac64710cdabe06e2489c64fe5af1a04ddf9908aceeb2c8bc84c6ed4a768fdd47ff022f806d31f4b90832dbfbc4a9485aa
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.117.1":
+  version: 0.117.1
+  resolution: "three@npm:0.117.1"
+  checksum: 1ac1022599777f61f056f769aebe434e9de4f4516a420c1b2ce3d704b1e3f0e3daea56ee110d163937d567ddd364c8a05fa43a9e8eb88788b79e6ea961576ee9
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.83.0":
+  version: 0.83.0
+  resolution: "three@npm:0.83.0"
+  checksum: fc677653a1fa9cf35b07148394060ab47901846f02ffdf1438a472c97195fc2c7eed644e489693648909b2de81a1419af82383f360962bf1864012e40d2a185a
   languageName: node
   linkType: hard
 
