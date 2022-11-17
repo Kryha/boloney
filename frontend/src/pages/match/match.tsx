@@ -27,6 +27,7 @@ import {
   stageTransitionSchema,
   playerOrderSchema,
   playerPublicSchema,
+  playerJoinedPayloadSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -84,9 +85,10 @@ export const Match = () => {
           break;
         }
         case MatchOpCode.PLAYER_JOINED: {
-          const parsed = z.record(playerPublicSchema).safeParse(data);
+          const parsed = playerJoinedPayloadSchema.safeParse(data);
           if (!parsed.success) return;
-          setPlayers(parsed.data);
+          setPlayers(parsed.data.players);
+          setPlayerOrder(parsed.data.playerOrder);
           break;
         }
         case MatchOpCode.PLAYER_READY: {
