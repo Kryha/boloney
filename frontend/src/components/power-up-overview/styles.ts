@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
-import { fadeIn, slideUp } from "../atoms";
+import { fadeIn, fadeInScale, slideUp } from "../atoms";
 import { GeneralText } from "../atoms/text";
 import { Lightning } from "../icons/styles";
+import { PowerUpWrapper } from "../power-up/styles";
 
 export const PowerUpOverviewWrapper = styled.div`
   display: flex;
@@ -48,6 +49,50 @@ export const YourPowerUpContainer = styled.div`
     animation-duration: 0.7s;
     animation-delay: 0s;
     animation-fill-mode: forwards;
+  }
+  ${PowerUpWrapper} {
+    -webkit-animation: ${fadeInScale} 1.2s ease-in;
+    -webkit-animation-fill-mode: forwards;
+  }
+  ${PowerUpWrapper}:nth-of-type(1) {
+    animation-delay: 0s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(2) {
+    animation-delay: 0.1s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(3) {
+    animation-delay: 0.2s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(4) {
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(5) {
+    animation-delay: 0.4s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(6) {
+    animation-delay: 0.5s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(7) {
+    animation-delay: 0.6s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(8) {
+    animation-delay: 0.7s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(9) {
+    animation-delay: 0.8s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(10) {
+    animation-delay: 0.9s;
+    opacity: 0;
   }
 `;
 
