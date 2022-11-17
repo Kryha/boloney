@@ -1,11 +1,15 @@
 import styled from "@emotion/styled";
 import { margins } from "../../design";
 
-export const MainContentContainer = styled.div`
+interface ContentProps {
+  isStageWithHUD: boolean;
+}
+
+export const MainContentContainer = styled.div<ContentProps>`
   left: 12.5vw;
   position: absolute;
   width: 87.5vw;
-  height: 89vh;
+  height: ${({ isStageWithHUD }) => (isStageWithHUD ? "89vh" : "100vh")};
 `;
 
 export const ContentContainer = styled.div`
