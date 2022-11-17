@@ -50,6 +50,24 @@ export const fadeIn = keyframes`
   100% { opacity: 1; }
 `;
 
+export const fadeInScale = keyframes`
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+     opacity: 1;
+  }
+`;
+
+export const fadeOutScale = keyframes`
+  100% {
+    -webkit-transform: scale(0.4);
+    opacity: 0;
+  }
+`;
+
 export const slideUp = keyframes`
   0% {
     -webkit-transform: translateY(0);
