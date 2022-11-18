@@ -10,14 +10,13 @@ import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
 
 interface RollingDiceProps {
-  dice: Dice[];
+  dice?: Dice[];
   dieColor: string;
 }
 export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   const { broadcastPlayerReady, sendMatchState } = useMatch();
   const mountRef = useRef<HTMLDivElement | null>(null);
   const [roll, setRoll] = useState<DiceRoll | undefined>();
-  const [throwAmount, setThrowAmount] = useState<number>(0);
   const hasRolledDice = useStore((state) => state.hasRolledDice);
   const setIsDiceStable = useStore((state) => state.setIsDiceStable);
   const setIsDiceThrown = useStore((state) => state.setIsDiceThrown);
@@ -55,9 +54,8 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
 
   const onRoll = () => {
     setIsDiceStable(false);
-    const diceRoll = newRoll(DieType.D6, dice, dieColor);
-    setThrowAmount((v) => v + 1);
-    setIsDiceThrown(throwAmount);
+    const diceRoll = newRoll(DieType.D6, dice || [], dieColor);
+    setIsDiceThrown(true);
     setRoll(diceRoll);
     handleRoll();
   };
