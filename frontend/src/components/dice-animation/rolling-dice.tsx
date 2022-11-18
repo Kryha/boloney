@@ -39,7 +39,7 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
       try {
         if (element && mountRefs) mountRefs.removeChild(element);
       } catch (error) {
-        console.log("ref not found or mount");
+        console.warn("ref not found or mount");
       }
     };
   }, [mountRef, roll]);
