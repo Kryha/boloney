@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { GeneralText } from "../atoms/text";
 import { margins } from "../../design";
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
+import { DieWrapper } from "../die/styles";
+import { fadeInPop } from "../atoms";
 
 export const DieOverviewWrapper = styled.div`
   display: flex;
@@ -36,4 +38,50 @@ export const YourDiceContainer = styled.div`
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: ${margins.small0};
+  ${DieWrapper} {
+    -webkit-animation-name: ${fadeInPop};
+    -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-fill-mode: forwards;
+  }
+  ${DieWrapper}:nth-of-type(1) {
+    animation-delay: 0s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(2) {
+    animation-delay: 0.1s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(3) {
+    animation-delay: 0.2s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(4) {
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(5) {
+    animation-delay: 0.4s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(6) {
+    animation-delay: 0.5s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(7) {
+    animation-delay: 0.6s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(8) {
+    animation-delay: 0.7s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(9) {
+    animation-delay: 0.8s;
+    opacity: 0;
+  }
+  ${DieWrapper}:nth-of-type(10) {
+    animation-delay: 0.9s;
+    opacity: 0;
+  }
 `;
