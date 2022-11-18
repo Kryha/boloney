@@ -16,7 +16,7 @@ import {
   Lobby,
   ErrorView,
 } from "../../components";
-import { useMatch, useMatchMaker } from "../../service";
+import { useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import {
   MatchOpCode,
@@ -27,12 +27,12 @@ import {
   stageTransitionSchema,
   playerOrderSchema,
   playerPublicSchema,
+  playerJoinedPayloadSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
-  const { joinMatch } = useMatchMaker();
-  const { isLoading } = useMatch();
+  const { joinMatch, isLoading } = useMatchMaker();
 
   const matchStage = useStore((state) => state.matchStage);
   const socket = useStore((state) => state.socket);
@@ -85,9 +85,10 @@ export const Match = () => {
           break;
         }
         case MatchOpCode.PLAYER_JOINED: {
-          const parsed = z.record(playerPublicSchema).safeParse(data);
+          const parsed = playerJoinedPayloadSchema.safeParse(data);
           if (!parsed.success) return;
-          setPlayers(parsed.data);
+          setPlayers(parsed.data.players);
+          setPlayerOrder(parsed.data.playerOrder);
           break;
         }
         case MatchOpCode.PLAYER_READY: {

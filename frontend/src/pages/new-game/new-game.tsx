@@ -6,7 +6,9 @@ import { NewGameConfirmation } from "./new-game-confirmation";
 import { NewGameCreation } from "./new-game-creation";
 
 export const NewGame: FC = () => {
-  const { matchId, matchUrl } = useStore();
+  const matchId = useStore((state) => state.matchId);
+  const matchUrl = useStore((state) => state.matchUrl);
+
   return (
     <BaseLayout
       leftSection={<Logo />}

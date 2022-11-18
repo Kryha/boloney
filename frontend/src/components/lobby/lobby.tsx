@@ -11,7 +11,7 @@ import { ErrorView } from "../error-view";
 export const Lobby: FC = () => {
   const { broadcastPlayerReady } = useMatch();
 
-  const players = useStore((state) => state.players);
+  const players = useStore((state) => state.getOrderedPlayers());
   const localPlayer = useStore((state) => state.getLocalPlayer());
 
   if (!localPlayer) return <ErrorView />;
@@ -20,7 +20,7 @@ export const Lobby: FC = () => {
     <LobbyWrapper>
       <TopNavigation />
       <LineContainer isPlayerReady={localPlayer.isReady} onClick={broadcastPlayerReady}>
-        {Object.values(players).map((player) => (
+        {players.map((player) => (
           <LobbyPlayer key={player.username} player={player} />
         ))}
       </LineContainer>

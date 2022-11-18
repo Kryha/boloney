@@ -18,7 +18,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
   const localPlayer = useStore((state) => state.getLocalPlayer());
   const powerUpIds = useStore((state) => state.powerUpIds);
 
-  if (!localPlayer || !remotePlayers) return <ErrorView />;
+  if (!localPlayer) return <ErrorView />;
 
   return (
     <>
