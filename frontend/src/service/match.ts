@@ -4,6 +4,7 @@ import { text } from "../assets";
 import { useStore } from "../store";
 import { MatchOpCode, NkResponse } from "../types";
 import { parseError } from "../util";
+import { fakeMatchSettings } from "./fake-match-settings";
 
 export const useMatch = () => {
   const socket = useStore((state) => state.socket);
