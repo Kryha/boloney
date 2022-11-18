@@ -5,3 +5,4 @@ export * from "./error";
 export * from "./primitive";
 export * from "./power-up";
 export * from "./die";
+export * from "./api";

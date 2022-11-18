@@ -14,9 +14,10 @@ export const useMatch = () => {
 
   const sendMatchState = useCallback(
     async (opCode: MatchOpCode, payload?: string): Promise<NkResponse> => {
-      if (!socket) throw new Error(text.error.noSocketConnected);
-      if (!matchId) throw new Error(text.error.noMatchIdFound);
       try {
+        if (!socket) throw new Error(text.error.noSocketConnected);
+        if (!matchId) throw new Error(text.error.noMatchIdFound);
+
         setIsLoading(true);
         socket.sendMatchState(matchId, opCode, payload || "");
       } catch (error) {

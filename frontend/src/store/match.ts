@@ -18,10 +18,10 @@ interface MatchSliceState {
 }
 
 interface MatchSliceGetters {
-  getOrderedPlayers: () => PlayerPublic[] | undefined;
+  getOrderedPlayers: () => PlayerPublic[];
   getPlayer: (id?: string) => PlayerPublic | undefined;
   getLocalPlayer: () => PlayerPublic | undefined;
-  getRemotePlayers: () => PlayerPublic[] | undefined;
+  getRemotePlayers: () => PlayerPublic[];
 }
 
 interface MatchSliceSetters {
@@ -62,7 +62,10 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
     const session = get().sessionState;
     const players = get().players;
     const order = [...get().playerOrder];
-    if (!session || !session.user_id) return;
+
+    const playersValues = Object.values(players);
+
+    if (!session || !session.user_id || order.length !== playersValues.length) return playersValues;
 
     const localPlayerIndex = order.indexOf(session.user_id);
 
@@ -86,7 +89,6 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   getRemotePlayers: () => {
     const orderedPlayers = get().getOrderedPlayers();
     const session = get().sessionState;
-    if (!orderedPlayers) return;
     if (!session || !session.user_id) return orderedPlayers;
     return orderedPlayers.filter((player) => player.userId !== session.user_id);
   },

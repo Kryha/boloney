@@ -11,7 +11,7 @@ export const RollDice: FC = () => {
   const localPlayer = useStore((state) => state.getLocalPlayer());
   const dice = useStore((state) => state.diceValue);
 
-  if (!localPlayer || !dice || !dice.length) return <ErrorView />;
+  if (!localPlayer) return <ErrorView />;
 
   const diceColor = avatars[localPlayer.avatarId].color;
 

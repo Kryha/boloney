@@ -1,6 +1,6 @@
 import { getAvailableAvatar, handleInactiveMatch, handleStage, updateEmptyTicks } from "../services";
 import { text } from "../text";
-import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams } from "../types";
+import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayload } from "../types";
 import { handleError, hidePlayersData } from "../utils";
 
 export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger, _nk, params) => {
@@ -77,8 +77,11 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
 // !don't do any operations related to state update in this function!
 export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger, _nk, dispatcher, _tick, state, _presences) => {
   logger.info("----------------- MATCH JOINED -----------------");
-  const payload = hidePlayersData(state.players);
+
+  const players = hidePlayersData(state.players);
+  const payload: PlayerJoinedPayload = { players, playerOrder: state.playerOrder };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload));
+
   return { state };
 };
 
