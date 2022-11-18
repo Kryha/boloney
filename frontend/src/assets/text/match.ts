@@ -10,4 +10,5 @@ export const match = {
   endOfRound: "end of round",
   endOfMatch: "end of match",
   newMatch: "new match/create match",
+  matchSettings: "match settings",
 };

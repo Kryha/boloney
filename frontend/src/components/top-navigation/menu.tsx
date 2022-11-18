@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service";
+import { useStore } from "../../store";
 import { HorizontalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
+import { MatchSettingsOverview } from "../match-settings-overview";
 import { Dropdown } from "./dropdown";
 import { MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
@@ -19,12 +21,19 @@ interface MenuDropdownProps {
 
 export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown }) => {
   const { isAuthenticated, logout } = useAuth();
+  const toggleModalWithContainer = useStore((state) => state.toggleModalWithContainer);
+  const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     setActiveDropdown(undefined);
     navigate(routes.root);
+  };
+
+  const openMatchSettings = () => {
+    toggleModalWithContainer();
+    setModalComponentChildren(<MatchSettingsOverview />);
   };
 
   return (
@@ -36,7 +45,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       buttonIcon={<Ellipsis />}
     >
       <MenuContainer>
-        <DropdownButton text={text.general.matchSettings} icon={<SettingsIcon />} />
+        <DropdownButton text={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => openMatchSettings()} />
         {isAuthenticated && (
           <>
             <HorizontalDivider />
