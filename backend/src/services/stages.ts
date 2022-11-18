@@ -1,4 +1,12 @@
-import { handleMatchStage, setAllPlayersReady, getNextPlayerId, getOtherPresences, setActivePlayer, attemptSetPlayerReady } from "./match";
+import {
+  handleMatchStage,
+  setAllPlayersReady,
+  getNextPlayerId,
+  getOtherPresences,
+  setActivePlayer,
+  attemptSetPlayerReady,
+  getActivePlayerId,
+} from "./match";
 import { getPowerUp, rollDice } from "../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
 import { getRange, hidePlayersData, shuffleArray } from "../utils";
@@ -168,7 +176,8 @@ export const handleStage: StageHandlers = {
       },
       async ({ dispatcher, state }) => {
         // TODO: Check if we need to limit the broadcasting of this mesage as only one per turn.
-        dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ players: state.players }));
+        const activePlayerId = getActivePlayerId(state.players);
+        dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId }));
       },
       /*
        * In the turn loop players won't indicate that they are ready.

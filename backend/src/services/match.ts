@@ -129,3 +129,9 @@ export const setActivePlayer = (activePlayerId: string, players: Record<string, 
 export const resetActivePlayer = (players: Record<string, Player>): void => {
   Object.entries(players).forEach((player) => (player[1].isActive = false));
 };
+
+// TODO improve implementation so we don't send a empty string
+export const getActivePlayerId = (players: Record<string, Player>): string => {
+  const activePlayer = Object.entries(players).find((player) => player[1].isActive);
+  return activePlayer ? activePlayer[1].userId : "";
+};
