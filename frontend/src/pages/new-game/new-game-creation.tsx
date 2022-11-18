@@ -21,7 +21,8 @@ export const NewGameCreation: FC = () => {
   const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
   const isPowerUpError = useGameCreationFormState((state) => state.getIsError());
-  const { setMatchId, setMatchUrl } = useStore();
+  const setMatchId = useStore((state) => state.setMatchId);
+  const setMatchUrl = useStore((state) => state.setMatchUrl);
   const { createMatch, isLoading } = useMatchMaker();
   const [isError, setIsError] = useState(false);
 

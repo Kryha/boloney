@@ -20,7 +20,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
 
-  if (!localPlayer || !remotePlayers) return <ErrorView />;
+  if (!localPlayer) return <ErrorView />;
 
   return (
     <>
