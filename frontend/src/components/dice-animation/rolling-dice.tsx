@@ -57,8 +57,7 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   const onRoll = () => {
     setIsDiceStable(false);
     const diceRoll = newRoll(DieType.D6, dice, dieColor);
-    setThrowAmount((v) => v + 1);
-    setIsDiceThrown(throwAmount);
+    setIsDiceThrown(true);
     setRoll(diceRoll);
     handleRoll();
   };

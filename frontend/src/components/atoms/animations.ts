@@ -50,14 +50,23 @@ export const fadeIn = keyframes`
   100% { opacity: 1; }
 `;
 
-export const fadeInScale = keyframes`
+export const floatBubble = keyframes`
   0% {
-    transform: scale(0.4);
-    opacity: 0;
+      top:500px;
   }
   100% {
-    transform: scale(1);
-     opacity: 1;
+      top: 0px;
+  }
+`;
+
+export const fadeInScale = keyframes`
+  0% {
+    opacity: 0;
+    transform: translate(0, 20px) rotate(0deg) scale(0.4);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
   }
 `;
 

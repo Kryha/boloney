@@ -30,6 +30,8 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   }
 `;
 
+const bezier = "cubic-bezier(.79,-0.06,.34,1.11)";
+
 export const YourDiceContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -39,7 +41,9 @@ export const YourDiceContainer = styled.div`
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: ${margins.small0};
   ${DieWrapper} {
-    -webkit-animation: ${fadeInScale} 1.2s ease-in;
+    -webkit-animation-name: ${fadeInScale};
+    -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);
+    -webkit-animation-duration: 0.3s;
     -webkit-animation-fill-mode: forwards;
   }
   ${DieWrapper}:nth-of-type(1) {
@@ -47,7 +51,7 @@ export const YourDiceContainer = styled.div`
     opacity: 0;
   }
   ${DieWrapper}:nth-of-type(2) {
-    animation-delay: 0.1s;
+    animation-delay: 0.03s;
     opacity: 0;
   }
   ${DieWrapper}:nth-of-type(3) {

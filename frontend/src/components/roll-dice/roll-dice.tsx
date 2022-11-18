@@ -7,11 +7,31 @@ import { RollingDice } from "../dice-animation";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 
-export const RollDice: FC = () => {
-  const localPlayer = useStore((state) => state.getLocalPlayer());
-  const dice = useStore((state) => state.diceValue);
+export const localPlayer = {
+  hasRolledDice: false,
+  userId: "1",
+  username: "history",
+  avatarId: 7,
+  diceAmount: 1,
+  powerUpsAmount: 1,
+  isConnected: true,
+  isReady: false,
+  hasInitialPowerUps: true,
+};
 
-  if (!localPlayer || !dice || !dice.length) return <ErrorView />;
+export const dice = [
+  { rolledValue: 6 },
+  { rolledValue: 5 },
+  { rolledValue: 4 },
+  { rolledValue: 3 },
+  { rolledValue: 2 },
+  { rolledValue: 1 },
+];
+export const RollDice: FC = () => {
+  // const localPlayer = useStore((state) => state.getLocalPlayer());
+  // const dice = useStore((state) => state.diceValue);
+
+  // if (!localPlayer || !dice || !dice.length) return <ErrorView />;
 
   const diceColor = avatars[localPlayer.avatarId].color;
 

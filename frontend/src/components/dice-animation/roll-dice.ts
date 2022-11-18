@@ -36,13 +36,11 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
   const ambient = new THREE.AmbientLight("#ffffff", 0.3);
   scene.add(ambient);
 
-  const directionalLight = new THREE.DirectionalLight("#ffffff", 0.5);
-  directionalLight.position.x = -1000;
-  directionalLight.position.y = 1000;
-  directionalLight.position.z = 1000;
+  const directionalLight = new THREE.DirectionalLight(0xffffff);
+  directionalLight.position.set(-10, 10, 10);
   scene.add(directionalLight);
 
-  const light = new THREE.SpotLight(0xefdfd5, 1.3);
+  const light = new THREE.SpotLight(0xefdfd5, 1);
   light.position.y = 100;
   light.target.position.set(0, 0, 0);
   light.castShadow = true;
