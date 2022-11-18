@@ -1,7 +1,6 @@
 import * as CANNON from "cannon";
 import * as THREE from "three";
 import { BufferGeometry } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const zeroDie = "src/assets/images/zero-die.png";
 const zeroOneDie = "src/assets/images/zero-one-die.png";
@@ -109,9 +108,6 @@ interface Vectors {
 
 type Faces = number[][];
 
-interface Models {
-  [type: string]: THREE.Object3D;
-}
 export abstract class DiceObject {
   object!: THREE.Mesh & { body?: CANNON.Body; diceObject?: DiceObject };
   size: number;
@@ -140,8 +136,6 @@ export abstract class DiceObject {
   simulationRunning = false;
 
   customTextTextureFunction?: (...any: any[]) => THREE.Texture;
-  modelLoader: GLTFLoader;
-  customModels: Models;
 
   constructor(options: DiceOptions) {
     options = this.setDefaults(options, {
@@ -156,14 +150,12 @@ export abstract class DiceObject {
 
     this.materialOptions = {
       specular: 0x172022,
-      color: 0x9a9a9a,
-      shininess: 10,
+      color: 0xf0f0f0,
+      shininess: 1,
       flatShading: true,
     };
     this.labelColor = options.fontColor;
     this.diceColor = options.backColor;
-    this.modelLoader = new GLTFLoader();
-    this.customModels = {};
   }
 
   setDefaults(options: DiceOptions, defaults: DiceOptions) {
@@ -466,7 +458,6 @@ export abstract class DiceObject {
       const texture6 = new THREE.TextureLoader().load(sixDie);
       materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture6 })));
     }
-
     return materials;
   }
 
@@ -476,7 +467,6 @@ export abstract class DiceObject {
 
   create() {
     if (!DiceManager.world) throw new Error("You must call DiceManager.setWorld(world) first.");
-
     this.object = new THREE.Mesh(this.getGeometry(), this.getMaterials());
 
     this.object.receiveShadow = true;

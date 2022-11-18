@@ -4,7 +4,7 @@ import { GeneralText } from "../atoms/text";
 import { margins } from "../../design";
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { DieWrapper } from "../die/styles";
-import { fadeInScale, fadeOutScale } from "../atoms";
+import { fadeInPop } from "../atoms";
 
 export const DieOverviewWrapper = styled.div`
   display: flex;
@@ -30,8 +30,6 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   }
 `;
 
-const bezier = "cubic-bezier(.79,-0.06,.34,1.11)";
-
 export const YourDiceContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -41,7 +39,7 @@ export const YourDiceContainer = styled.div`
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: ${margins.small0};
   ${DieWrapper} {
-    -webkit-animation-name: ${fadeInScale};
+    -webkit-animation-name: ${fadeInPop};
     -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);
     -webkit-animation-duration: 0.3s;
     -webkit-animation-fill-mode: forwards;
@@ -51,7 +49,7 @@ export const YourDiceContainer = styled.div`
     opacity: 0;
   }
   ${DieWrapper}:nth-of-type(2) {
-    animation-delay: 0.03s;
+    animation-delay: 0.1s;
     opacity: 0;
   }
   ${DieWrapper}:nth-of-type(3) {

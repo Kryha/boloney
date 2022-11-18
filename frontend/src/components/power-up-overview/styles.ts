@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
-import { fadeIn, fadeInScale, slideUp } from "../atoms";
+import { fadeIn, fadeInPop, slideUp } from "../atoms";
 import { GeneralText } from "../atoms/text";
 import { Lightning } from "../icons/styles";
 import { PowerUpWrapper } from "../power-up/styles";
@@ -51,7 +51,7 @@ export const YourPowerUpContainer = styled.div`
     animation-fill-mode: forwards;
   }
   ${PowerUpWrapper} {
-    -webkit-animation-name: ${fadeInScale};
+    -webkit-animation-name: ${fadeInPop};
     -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 0.6, 1.91);
     -webkit-animation-duration: 0.3s;
     -webkit-animation-fill-mode: forwards;

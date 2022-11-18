@@ -8,7 +8,6 @@ import { Die as Dice, MatchOpCode } from "../../types";
 import { DieType } from "./types";
 import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
-import { useTimeout } from "usehooks-ts";
 
 interface RollingDiceProps {
   dice: Dice[];
@@ -18,11 +17,10 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   const { broadcastPlayerReady, sendMatchState } = useMatch();
   const mountRef = useRef<HTMLDivElement | null>(null);
   const [roll, setRoll] = useState<DiceRoll | undefined>();
-  const [throwAmount, setThrowAmount] = useState<number>(0);
   const hasRolledDice = useStore((state) => state.hasRolledDice);
   const setIsDiceStable = useStore((state) => state.setIsDiceStable);
   const setIsDiceThrown = useStore((state) => state.setIsDiceThrown);
-  const [hide, setHide] = useState(false);
+
   const handleRoll = () => {
     if (hasRolledDice) {
       broadcastPlayerReady();
@@ -61,11 +59,7 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
     setRoll(diceRoll);
     handleRoll();
   };
-  const hifd = () => {
-    setHide(true);
-  };
 
-  useTimeout(hifd, 7000);
   return (
     <RollerContainer ref={mountRef}>
       <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
