@@ -12,7 +12,7 @@ export const NewGameHands = () => {
       <Hand avatarName="scooper" />
       <Hand avatarName="hand" />
       <Hand avatarName="skeleton" />
-      <Hand avatarName="toy" />
+      <Hand avatarName="sausage" />
       <Hand avatarName="lobster" />
     </NewGameHandsWrapper>
   );

@@ -11,8 +11,8 @@ import {
   ScooperHandPaint,
   SkeletonHand,
   SkeletonHandPaint,
-  ToyHand,
-  ToyHandPaint,
+  SausageHand,
+  SausageHandPaint,
 } from "../assets";
 
 interface HandProps {
@@ -37,15 +37,15 @@ export const handProportion = (avatarName: string): HandProps => {
         avatar: Hand,
         paint: HandPaint,
       };
-    case "toy":
+    case "sausage":
       return {
         width: "clamp(90px, 11.46vw + -20px, 200px)",
         height: "clamp(40px, 5.21vw + -10px, 90px)",
         shadowSmallWidth: 5,
         shadowLargeWidth: 7,
         speed: 3.5,
-        avatar: ToyHand,
-        paint: ToyHandPaint,
+        avatar: SausageHand,
+        paint: SausageHandPaint,
       };
     case "hook":
       return {
