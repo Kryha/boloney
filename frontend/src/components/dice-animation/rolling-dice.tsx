@@ -10,7 +10,7 @@ import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
 
 interface RollingDiceProps {
-  dice: Dice[];
+  dice?: Dice[];
   dieColor: string;
 }
 export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
@@ -54,7 +54,7 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
 
   const onRoll = () => {
     setIsDiceStable(false);
-    const diceRoll = newRoll(DieType.D6, dice, dieColor);
+    const diceRoll = newRoll(DieType.D6, dice || [], dieColor);
     setIsDiceThrown(true);
     setRoll(diceRoll);
     handleRoll();
