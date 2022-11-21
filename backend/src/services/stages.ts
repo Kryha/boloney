@@ -83,9 +83,11 @@ export const handleStage: StageHandlers = {
         if (message.opCode === MatchOpCode.ROLL_DICE) {
           const { userId } = message.sender;
           const player = state.players[userId];
+
           if (player.hasRolledDice) return;
 
           state.players[userId].hasRolledDice = true; // this has to be here in order to prevent user spamming
+
           try {
             const diceValue = await rollDice(player.diceAmount);
             state.players[userId].diceValue = diceValue;
@@ -100,7 +102,7 @@ export const handleStage: StageHandlers = {
       },
       async () => {
         // TODO: maybe add rolling here in the future in order to optimise the calculation
-        // not needed
+        // Not needed for now
       },
       ({ dispatcher, state }, nextStage) => {
         // TODO: Refactor as a helper like "resetPlayerRolled"
@@ -135,7 +137,6 @@ export const handleStage: StageHandlers = {
               );
 
               dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
-
               break;
             case MatchOpCode.PLAYER_CALL_BOLONEY:
               logger.info(sender.username, " Called Boloney: ");
@@ -149,7 +150,6 @@ export const handleStage: StageHandlers = {
 
               // TODO: Transition stage to Round Summary only after rendering outcome in the client
               setAllPlayersReady(state);
-
               break;
             case MatchOpCode.PLAYER_CALL_EXACT:
               logger.info(sender.username, " Called Exact");
