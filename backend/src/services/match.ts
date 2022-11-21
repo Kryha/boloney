@@ -106,7 +106,7 @@ export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.Mat
 };
 
 export const setAllPlayersReady = (state: MatchState) => {
-  state.playersReady = Object.entries(state.players).map((playerRecord) => playerRecord[1].userId);
+  state.playersReady = Object.keys(state.players).map((playerId) => state.players[playerId].userId);
 };
 
 // TODO: Improve using module arithmetics
@@ -130,7 +130,7 @@ export const setActivePlayer = (activePlayerId: string, players: Record<string, 
 };
 
 export const resetActivePlayer = (players: Record<string, Player>): void => {
-  Object.entries(players).forEach((player) => (player[1].isActive = false));
+  Object.keys(players).forEach((playerId) => (players[playerId].isActive = false));
 };
 
 // TODO improve implementation so we don't send a empty string

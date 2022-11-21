@@ -105,7 +105,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
     set(
       produce((state: MatchSlice) => {
         // Reset previous active player
-        Object.entries(state.players).forEach((player) => (player[1].isActive = false));
+        Object.keys(state.players).forEach((playerId) => (state.players[playerId].isActive = false));
         state.players[playerId].isActive = true;
       })
     );
