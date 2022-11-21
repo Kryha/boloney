@@ -1,4 +1,5 @@
-import { handleMatchStage, getOtherPresences, setActivePlayer, attemptSetPlayerReady, handleActivePlayerMessages } from "./match";
+import { handleMatchStage } from "./match";
+import { getOtherPresences, setActivePlayer, attemptSetPlayerReady, handleActivePlayerMessages } from "./player";
 import { getPowerUp, rollDice } from "../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
 import { getRange, hidePlayersData, shuffleArray } from "../utils";
