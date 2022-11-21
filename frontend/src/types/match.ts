@@ -120,3 +120,7 @@ export const matchFormSettingsSchema = z.object({
 });
 
 export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
+
+export const playerActivePayloadSchema = z.object({
+  activePlayerId: z.string(),
+});

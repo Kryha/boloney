@@ -27,8 +27,8 @@ import {
   stageTransitionSchema,
   playerOrderSchema,
   playerPublicSchema,
-  isString,
   playerJoinedPayloadSchema,
+  playerActivePayloadSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -118,11 +118,9 @@ export const Match = () => {
           break;
         }
         case MatchOpCode.PLAYER_ACTIVE: {
-          // TODO: check if data has the ID string
-          console.log(data);
-          if (!isString(data)) return;
-          // Add setActivePlayer
-          setActivePlayer(data);
+          const parsed = playerActivePayloadSchema.safeParse(data);
+          if (!parsed.success) return;
+          setActivePlayer(parsed.data.activePlayerId);
           break;
         }
       }
