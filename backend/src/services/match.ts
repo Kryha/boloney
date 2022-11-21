@@ -109,11 +109,11 @@ export const setAllPlayersReady = (state: MatchState) => {
   state.playersReady = Object.entries(state.players).map((playerRecord) => playerRecord[1].userId);
 };
 
-export const getNextPlayerId = (currentPlayerId: string, playerOrder: string[]): string => {
-  const currentPlayerIndex = playerOrder.indexOf(currentPlayerId);
-  const isLast = playerOrder.length - 1 === currentPlayerIndex;
+export const getNextPlayerId = (currentPlayerId: string, playerIdsMatchOrder: string[]): string => {
+  const currentPlayerIndex = playerIdsMatchOrder.indexOf(currentPlayerId);
+  const isLast = playerIdsMatchOrder.length - 1 === currentPlayerIndex;
   const nextPlayerIndex = isLast ? 0 : currentPlayerIndex + 1;
-  return playerOrder[nextPlayerIndex];
+  return playerIdsMatchOrder[nextPlayerIndex];
 };
 
 export const getOtherPresences = (currentPlayerId: string, presences: Record<string, nkruntime.Presence>): nkruntime.Presence[] => {
