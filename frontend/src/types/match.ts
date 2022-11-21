@@ -59,9 +59,6 @@ export const playerSchema = playerPublicSchema.merge(playerPrivateSchema);
 
 export type Player = z.infer<typeof playerSchema>;
 
-// TODO upgrade predicate with more nuance conditions
-export const isPlayerId = (playerId: string) => playerId.length !== 0;
-
 export const matchStageSchema = z.enum([
   "lobbyStage",
   "getPowerUpStage",
@@ -121,6 +118,10 @@ export const matchFormSettingsSchema = z.object({
 
 export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
 
+export const playerIdSchema = z.string().length(36);
+
+export type PlayerId = z.infer<typeof playerIdSchema>;
+
 export const playerActivePayloadSchema = z.object({
-  activePlayerId: z.string(),
+  activePlayerId: playerIdSchema,
 });
