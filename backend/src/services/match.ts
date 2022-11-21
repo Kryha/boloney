@@ -132,8 +132,8 @@ export const resetActivePlayer = (players: Record<string, Player>): void => {
 };
 
 export const getActivePlayerId = (players: Record<string, Player>): string | undefined => {
-  const activePlayer = Object.entries(players).find((player) => player[1].isActive);
-  return activePlayer ? activePlayer[1].userId : undefined;
+  const activePlayer = Object.values(players).find((player) => player.isActive);
+  return activePlayer ? activePlayer.userId : undefined;
 };
 
 export const handleActivePlayerMessages = (
