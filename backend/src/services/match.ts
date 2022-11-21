@@ -131,10 +131,9 @@ export const resetActivePlayer = (players: Record<string, Player>): void => {
   Object.keys(players).forEach((playerId) => (players[playerId].isActive = false));
 };
 
-// TODO improve implementation so we don't send a empty string
-export const getActivePlayerId = (players: Record<string, Player>): string => {
+export const getActivePlayerId = (players: Record<string, Player>): string | undefined => {
   const activePlayer = Object.entries(players).find((player) => player[1].isActive);
-  return activePlayer ? activePlayer[1].userId : "";
+  return activePlayer ? activePlayer[1].userId : undefined;
 };
 
 export const handleActivePlayerMessages = (
