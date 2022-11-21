@@ -6,7 +6,7 @@ interface PlayerOverviewProps {
 }
 
 export const PlayerOverview = styled.section<PlayerOverviewProps>`
-  background-color: ${({ isActive }): string => (isActive ? color.lightGrey : "transparent")};
+  background-color: ${({ isActive }): string => (isActive ? color.white : "transparent")};
   border-top: 1px solid ${color.darkGrey};
   width: 75vw;
   height: 11vh;
