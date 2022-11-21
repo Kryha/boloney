@@ -1,4 +1,4 @@
-import { handleMatchStage, setAllPlayersReady, getNextPlayerId, getOtherPresences, setActivePlayer, attemptSetPlayerReady } from "./match";
+import { handleMatchStage, getOtherPresences, setActivePlayer, attemptSetPlayerReady, handleActivePlayerMessages } from "./match";
 import { getPowerUp, rollDice } from "../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
 import { getRange, hidePlayersData, shuffleArray } from "../utils";
@@ -70,7 +70,7 @@ export const handleStage: StageHandlers = {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),
-
+  // TODO: Fix logic so that player doesn't need to roll twice for advancing the stage
   rollDiceStage: (loopParams) =>
     handleMatchStage(
       loopParams,
@@ -119,55 +119,7 @@ export const handleStage: StageHandlers = {
       (message, sender, { state, dispatcher, logger }) => {
         if (state.players[sender.userId].isActive) {
           const otherPresences = getOtherPresences(sender.userId, state.presences);
-          let nextActivePlayerId = "";
-          switch (message.opCode) {
-            case MatchOpCode.PLAYER_PLACE_BID:
-              logger.info(sender.username, " placed BID");
-
-              // TODO: Add "PlaceBid" logic
-              // TODO: Add "lastBid" property to the MatchState
-              nextActivePlayerId = setActivePlayer(getNextPlayerId(sender.userId, state.playerOrder), state.players);
-              // Set next active player
-
-              // Broadcast PlaceBid action to everyone else
-              dispatcher.broadcastMessage(
-                MatchOpCode.PLAYER_PLACE_BID,
-                JSON.stringify({ player: sender.userId, lastBid: message.data }),
-                otherPresences
-              );
-
-              dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
-              break;
-            case MatchOpCode.PLAYER_CALL_BOLONEY:
-              logger.info(sender.username, " Called Boloney: ");
-
-              setActivePlayer(sender.userId, state.players);
-
-              // TODO: Add "CallBoloney" logic
-
-              // Broadcast action to everyone else
-              dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify({ player: sender.userId }), otherPresences);
-
-              // TODO: Transition stage to Round Summary only after rendering outcome in the client
-              setAllPlayersReady(state);
-              break;
-            case MatchOpCode.PLAYER_CALL_EXACT:
-              logger.info(sender.username, " Called Exact");
-
-              // TODO: Add "CallExact" logic
-
-              // Broadcast action to everyone else
-              dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify({ player: sender.userId }), otherPresences);
-
-              setActivePlayer(sender.userId, state.players);
-
-              // TODO: Transition stage to Round Summary only after rendering outcome in the client
-              setAllPlayersReady(state); // We set all the players in order to trigger the stage transition
-              break;
-            default:
-              logger.info("Unknown OP_CODE recieved: ", message.opCode);
-              break;
-          }
+          handleActivePlayerMessages(message, sender, state, dispatcher, logger, otherPresences);
         }
 
         // TODO: Listen to other OP_CODES from Idle Players?

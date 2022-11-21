@@ -138,3 +138,63 @@ export const getActivePlayerId = (players: Record<string, Player>): string => {
   const activePlayer = Object.entries(players).find((player) => player[1].isActive);
   return activePlayer ? activePlayer[1].userId : "";
 };
+
+export const handleActivePlayerMessages = (
+  message: nkruntime.MatchMessage,
+  sender: Player,
+  state: MatchState,
+  dispatcher: nkruntime.MatchDispatcher,
+  logger: nkruntime.Logger,
+  otherPresences: nkruntime.Presence[]
+) => {
+  let nextActivePlayerId = "";
+
+  switch (message.opCode) {
+    case MatchOpCode.PLAYER_PLACE_BID:
+      logger.info(sender.username, " placed BID");
+
+      // TODO: Add "PlaceBid" logic
+      // TODO: Add "lastBid" property to the MatchState
+      nextActivePlayerId = setActivePlayer(getNextPlayerId(sender.userId, state.playerOrder), state.players);
+      // Set next active player
+
+      // Broadcast PlaceBid action to everyone else
+      dispatcher.broadcastMessage(
+        MatchOpCode.PLAYER_PLACE_BID,
+        JSON.stringify({ player: sender.userId, lastBid: message.data }),
+        otherPresences
+      );
+
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
+      break;
+    case MatchOpCode.PLAYER_CALL_BOLONEY:
+      logger.info(sender.username, " Called Boloney: ");
+
+      setActivePlayer(sender.userId, state.players);
+
+      // TODO: Add "CallBoloney" logic
+
+      // Broadcast action to everyone else
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify({ player: sender.userId }), otherPresences);
+
+      // TODO: Transition stage to Round Summary only after rendering outcome in the client
+      setAllPlayersReady(state);
+      break;
+    case MatchOpCode.PLAYER_CALL_EXACT:
+      logger.info(sender.username, " Called Exact");
+
+      // TODO: Add "CallExact" logic
+
+      // Broadcast action to everyone else
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify({ player: sender.userId }), otherPresences);
+
+      setActivePlayer(sender.userId, state.players);
+
+      // TODO: Transition stage to Round Summary only after rendering outcome in the client
+      setAllPlayersReady(state); // We set all the players in order to trigger the stage transition
+      break;
+    default:
+      logger.info("Unknown OP_CODE recieved: ", message.opCode);
+      break;
+  }
+};
