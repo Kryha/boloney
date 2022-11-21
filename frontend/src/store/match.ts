@@ -35,7 +35,6 @@ interface MatchSliceSetters {
   setMatchUrl: (matchUrl: string) => void;
   setPowerUpIds: (ids: PowerUpId[]) => void;
   setActivePlayer: (playerId: string) => void;
-  resetActivePlayer: () => void;
 }
 
 export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceSetters;
@@ -102,16 +101,11 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
   setInitialState: () => set(() => ({ ...initialMatchState })),
   setPowerUpIds: (powerUpIds) => set(() => ({ powerUpIds })),
-  resetActivePlayer: () =>
-    set(
-      produce((state: MatchSlice) => {
-        Object.entries(state.players).forEach((player) => (player[1].isActive = false));
-      })
-    ),
   setActivePlayer: (playerId: string) => {
     set(
       produce((state: MatchSlice) => {
-        state.resetActivePlayer();
+        // Reset previous active player
+        Object.entries(state.players).forEach((player) => (player[1].isActive = false));
         state.players[playerId].isActive = true;
       })
     );
