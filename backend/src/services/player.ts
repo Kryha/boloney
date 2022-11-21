@@ -36,6 +36,8 @@ export const getActivePlayerId = (players: Record<string, Player>): string | und
   const activePlayer = Object.values(players).find((player) => player.isActive);
   return activePlayer ? activePlayer.userId : undefined;
 };
+
+// TODO: Refactor using the same pattern as "handleMatchStage"
 export const handleActivePlayerMessages = (
   message: nkruntime.MatchMessage,
   sender: Player,
