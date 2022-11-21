@@ -14,6 +14,7 @@ export const PlayerTurns: FC = () => {
 
   if (!localPlayer) return <ErrorView />;
 
+  // TODO: Update with proper styles
   return (
     <>
       <Heading1>{text.match.playerTurns}</Heading1>
