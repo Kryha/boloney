@@ -121,9 +121,10 @@ export const getOtherPresences = (currentPlayerId: string, presences: Record<str
     .map((presenceRecord) => presenceRecord[1]);
 };
 
-export const setActivePlayer = (activePlayerId: string, players: Record<string, Player>): void => {
+export const setActivePlayer = (activePlayerId: string, players: Record<string, Player>): string => {
   resetActivePlayer(players);
   players[activePlayerId].isActive = true;
+  return activePlayerId;
 };
 
 export const resetActivePlayer = (players: Record<string, Player>): void => {

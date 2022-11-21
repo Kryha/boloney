@@ -79,6 +79,7 @@ export const handleStage: StageHandlers = {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
           attemptSetPlayerReady(state, sender.userId);
         }
+
         if (message.opCode === MatchOpCode.ROLL_DICE) {
           const { userId } = message.sender;
           const player = state.players[userId];
@@ -102,6 +103,7 @@ export const handleStage: StageHandlers = {
         // not needed
       },
       ({ dispatcher, state }, nextStage) => {
+        // TODO: Refactor as a helper like "resetPlayerRolled"
         Object.values(state.players).forEach((player) => {
           state.players[player.userId].hasRolledDice = false;
         });
@@ -115,22 +117,25 @@ export const handleStage: StageHandlers = {
       (message, sender, { state, dispatcher, logger }) => {
         if (state.players[sender.userId].isActive) {
           const otherPresences = getOtherPresences(sender.userId, state.presences);
-
+          let nextActivePlayerId = "";
           switch (message.opCode) {
             case MatchOpCode.PLAYER_PLACE_BID:
               logger.info(sender.username, " placed BID");
 
               // TODO: Add "PlaceBid" logic
               // TODO: Add "lastBid" property to the MatchState
-
+              nextActivePlayerId = setActivePlayer(getNextPlayerId(sender.userId, state.playerOrder), state.players);
               // Set next active player
-              setActivePlayer(getNextPlayerId(sender.userId, state.playerOrder), state.players);
+
               // Broadcast PlaceBid action to everyone else
               dispatcher.broadcastMessage(
                 MatchOpCode.PLAYER_PLACE_BID,
                 JSON.stringify({ player: sender.userId, lastBid: message.data }),
                 otherPresences
               );
+
+              dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
+
               break;
             case MatchOpCode.PLAYER_CALL_BOLONEY:
               logger.info(sender.username, " Called Boloney: ");
@@ -147,7 +152,7 @@ export const handleStage: StageHandlers = {
 
               break;
             case MatchOpCode.PLAYER_CALL_EXACT:
-              logger.info(sender.username, " Called Exact: ");
+              logger.info(sender.username, " Called Exact");
 
               // TODO: Add "CallExact" logic
 
@@ -165,7 +170,7 @@ export const handleStage: StageHandlers = {
           }
         }
 
-        // TODO: Listen to other OP_CODES from Idle Players
+        // TODO: Listen to other OP_CODES from Idle Players?
         if (message.opCode === MatchOpCode.PLAYER_READY) {
           attemptSetPlayerReady(state, sender.userId);
         }
@@ -177,7 +182,6 @@ export const handleStage: StageHandlers = {
        * In the turn loop players won't indicate that they are ready.
        * We'll move to the next stage only when the conditions are met.
        * Next stage transition will be trigger by a "round ending" action (exact, boloney)
-       * TODO: Update how we signal the end of Player Turn Loop
        */
       ({ dispatcher }, nextStage) => {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));

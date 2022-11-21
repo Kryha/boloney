@@ -15,9 +15,13 @@ export const PlayerTurns: FC = () => {
   return (
     <>
       <Heading1>{text.match.playerTurns}</Heading1>
-      <PrimaryButton disabled={!localPlayer?.isActive} text={text.match.placeBid} onClick={() => broadcastPlaceBid("myBid")} />
-      <PrimaryButton disabled={!localPlayer?.isActive} text={text.match.callExact} onClick={() => broadcastCallExact()} />
-      <PrimaryButton disabled={!localPlayer?.isActive} text={text.match.callBoloney} onClick={() => broadcastCallBoloney()} />
+      {localPlayer?.isActive && (
+        <>
+          <PrimaryButton text={text.match.placeBid} onClick={() => broadcastPlaceBid("myBid")} />
+          <PrimaryButton text={text.match.callExact} onClick={() => broadcastCallExact()} />
+          <PrimaryButton text={text.match.callBoloney} onClick={() => broadcastCallBoloney()} />
+        </>
+      )}
     </>
   );
 };
