@@ -28,6 +28,7 @@ import {
   playerOrderSchema,
   playerPublicSchema,
   playerJoinedPayloadSchema,
+  playerActivePayloadSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -42,6 +43,7 @@ export const Match = () => {
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
   const setPowerUpIds = useStore((state) => state.setPowerUpIds);
   const setDiceValue = useStore((state) => state.setDiceValue);
+  const setActivePlayer = useStore((state) => state.setActivePlayer);
 
   // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
@@ -115,9 +117,15 @@ export const Match = () => {
           setDiceValue(parsed.data.diceValue);
           break;
         }
+        case MatchOpCode.PLAYER_ACTIVE: {
+          const parsed = playerActivePayloadSchema.safeParse(data);
+          if (!parsed.success) return;
+          setActivePlayer(parsed.data.activePlayerId);
+          break;
+        }
       }
     };
-  }, [socket, setMatchStage, setPlayerOrder, setPlayers, session, setDiceValue, setPowerUpIds]);
+  }, [socket, setMatchStage, setPlayerOrder, setPlayers, session, setDiceValue, setPowerUpIds, setActivePlayer]);
 
   // TODO: add loading animation
   if (isLoading) return <Heading2>{text.general.loading}</Heading2>;

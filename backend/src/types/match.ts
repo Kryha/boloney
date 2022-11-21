@@ -50,6 +50,7 @@ export interface PlayerPublic {
   isConnected: boolean;
   isReady: boolean;
   hasInitialPowerUps: boolean;
+  isActive: boolean;
   hasRolledDice: boolean;
 }
 
@@ -189,6 +190,10 @@ export enum MatchOpCode {
   PLAYER_JOINED = 6,
   PLAYER_ORDER_SHUFFLE = 7,
   PLAYER_GET_POWERUPS = 8,
+  PLAYER_PLACE_BID = 9,
+  PLAYER_CALL_EXACT = 10,
+  PLAYER_CALL_BOLONEY = 11,
+  PLAYER_ACTIVE = 12,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {

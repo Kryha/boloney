@@ -19,7 +19,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const { avatar } = handProportion(avatars[player.avatarId].name);
   return (
     <>
-      <PlayerOverview>
+      <PlayerOverview isActive={player.isActive}>
         <LocalPlayer>
           <PlayerAvatar height="10vh" src={avatar} />
         </LocalPlayer>

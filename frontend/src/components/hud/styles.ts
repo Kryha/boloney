@@ -1,7 +1,12 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
 
-export const PlayerOverview = styled.section`
+interface PlayerOverviewProps {
+  isActive: boolean;
+}
+
+export const PlayerOverview = styled.section<PlayerOverviewProps>`
+  background-color: ${({ isActive }): string => (isActive ? color.white : "transparent")};
   border-top: 1px solid ${color.darkGrey};
   width: 75vw;
   height: 11vh;

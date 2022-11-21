@@ -60,6 +60,7 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
     handleRoll();
   };
 
+  // TODO: Add "ready" button after getting dice;
   return (
     <RollerContainer ref={mountRef}>
       <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />

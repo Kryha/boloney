@@ -26,6 +26,10 @@ export enum MatchOpCode {
   PLAYER_JOINED = 6,
   PLAYER_ORDER_SHUFFLE = 7,
   PLAYER_GET_POWERUPS = 8,
+  PLAYER_PLACE_BID = 9,
+  PLAYER_CALL_EXACT = 10,
+  PLAYER_CALL_BOLONEY = 11,
+  PLAYER_ACTIVE = 12,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
@@ -44,6 +48,7 @@ export const playerPublicSchema = z.object({
   powerUpsAmount: z.number(),
   isConnected: z.boolean(),
   isReady: z.boolean(),
+  isActive: z.boolean(),
   hasInitialPowerUps: z.boolean(),
   hasRolledDice: z.boolean(),
 });
@@ -112,3 +117,11 @@ export const matchFormSettingsSchema = z.object({
 });
 
 export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
+
+export const playerIdSchema = z.string().length(36);
+
+export type PlayerId = z.infer<typeof playerIdSchema>;
+
+export const playerActivePayloadSchema = z.object({
+  activePlayerId: playerIdSchema,
+});
