@@ -4,13 +4,15 @@ import { Heading1 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { useMatch } from "../../service";
 import { useStore } from "../../store";
-// import { useStore } from "../../store";
+import { ErrorView } from "../error-view";
 
 // TODO: Add styles according to design
 // TODO: Add payload to the broadcasted message
 export const PlayerTurns: FC = () => {
   const { broadcastPlaceBid, broadcastCallExact, broadcastCallBoloney } = useMatch();
   const localPlayer = useStore((state) => state.getLocalPlayer());
+
+  if (!localPlayer) return <ErrorView />;
 
   return (
     <>
