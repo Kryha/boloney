@@ -18,7 +18,7 @@ export const PlayerTurns: FC = () => {
   return (
     <>
       <Heading1>{text.match.playerTurns}</Heading1>
-      {localPlayer?.isActive && (
+      {localPlayer.isActive && (
         <>
           <PrimaryButton text={text.match.placeBid} onClick={() => broadcastPlaceBid("myBid")} />
           <PrimaryButton text={text.match.callExact} onClick={() => broadcastCallExact()} />
