@@ -109,11 +109,9 @@ export const setAllPlayersReady = (state: MatchState) => {
   state.playersReady = Object.keys(state.players).map((playerId) => state.players[playerId].userId);
 };
 
-// TODO: Improve using module arithmetics
 export const getNextPlayerId = (currentPlayerId: string, playerIdsMatchOrder: string[]): string => {
   const currentPlayerIndex = playerIdsMatchOrder.indexOf(currentPlayerId);
-  const isLast = playerIdsMatchOrder.length - 1 === currentPlayerIndex;
-  const nextPlayerIndex = isLast ? 0 : currentPlayerIndex + 1;
+  const nextPlayerIndex = (currentPlayerIndex + 1) % playerIdsMatchOrder.length;
   return playerIdsMatchOrder[nextPlayerIndex];
 };
 
