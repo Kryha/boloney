@@ -16,4 +16,6 @@ export const param = {
   zeroAmount: (amount: string | number) => `0${amount}`,
   timeInMinsAndSeconds: (minutes: string | number, seconds: string | number) => `-${minutes}.${seconds}`,
   findOutYourPips: (username: string) => `welcome ${username}, let's find out your pips for this first round...`,
+  percentageAmount: (amount: string | number) => `${amount}%`,
+  xRounds: (amount: string | number) => `x${amount === 1 ? `${amount} round` : `${amount} rounds`}`,
 };

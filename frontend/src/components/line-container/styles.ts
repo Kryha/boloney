@@ -4,6 +4,7 @@ import { HorizontalDivider } from "../../components";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../types";
+import { PrimaryButtonWrapper } from "../buttons/styles";
 import { ChatSection } from "../chat/styles";
 import { HandWrapper } from "../hand/styles";
 import { LobbyPlayerWrapper } from "../lobby-player/styles";
@@ -89,7 +90,12 @@ interface WaitingProps {
 }
 
 export const WaitForOthersContainer = styled.div<WaitingProps>`
-  background: ${({ isPlayerReady }) => (isPlayerReady ? "none" : color.lightGrey)};
+  background: ${({ isPlayerReady }) =>
+    isPlayerReady
+      ? color.lightGrey
+      : `${PrimaryButtonWrapper}{
+            display: none;
+  }`};
   position: absolute;
   padding: ${margins.small2} ${margins.small2} ${margins.small2} 1.5em;
   margin-left: auto;
