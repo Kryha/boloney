@@ -16,15 +16,17 @@ import {
 } from "../../components";
 import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, NkCode } from "../../types";
+import { AuthFields, isNkError, NkCode } from "../../types";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
+import { useStore } from "../../store";
 
 // TODO: make a form component
 export const CreateAccountForm: FC = () => {
   const { authenticateUser } = useAuth();
   const navigate = useNavigate();
+  const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const { width, height } = useViewport();
   const {
     register,
@@ -48,9 +50,11 @@ export const CreateAccountForm: FC = () => {
 
   const onSubmit = async (username: string, password: string) => {
     if (!isValid) return;
-    const res = await authenticateUser(username, password, true);
-    if (!res) return navigate(routes.home); // reponse is successful
-    setError("username", { type: res.code.toString() }); // response is an error
+    setSpinnerVisibility(true);
+    const res = await authenticateUser(username, password);
+    setSpinnerVisibility(false);
+    if (!isNkError(res)) return navigate(routes.home);
+    setError("password", { type: res.message }); // response is an error
   };
 
   return (

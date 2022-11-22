@@ -1,0 +1,15 @@
+<svg id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <path id="sausage-loader" />
+    <pattern id="graph" width="30" height="30" patternUnits="userSpaceOnUse">
+      <line x1="0" x2="30" y1="0" y2="0" stroke="#DDDDD9" strokeWidth="1" opacity="0.3" />
+      <line x1="10" x2="10" y1="0" y2="30" stroke="#DDDDD9" strokeWidth="1" opacity="0.3" />
+    </pattern>
+  </defs>
+  <rect fill="url(#graph)" width="100%" height="100%" />
+
+  <use className="shape" xlinkHref="#sausage-loader" stroke="#C39F8F" strokeWidth="70" />
+  <use x="-6" id="middle" className="shape" xlinkHref="#sausage-loader" stroke="#DEB9A9" strokeWidth="56" />
+  <use x="-20" id="shine" className="shape" xlinkHref="#sausage-loader" stroke="#FFFFFF" strokeWidth="15"
+    opacity="0.85" />
+</svg>

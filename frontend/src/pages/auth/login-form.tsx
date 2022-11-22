@@ -15,15 +15,17 @@ import {
   InputLegend,
 } from "../../components";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, NkCode } from "../../types";
+import { AuthFields, isNkError, NkCode, nkErrorSchema } from "../../types";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
+import { useStore } from "../../store";
 
 // TODO: make a form component
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuth();
   const navigate = useNavigate();
+  const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const { width, height } = useViewport();
   const {
     register,
@@ -44,10 +46,12 @@ export const LoginForm: FC = () => {
   };
 
   const onSubmit = async (username: string, password: string) => {
+    setSpinnerVisibility(true);
     if (!isValid) return;
     const res = await authenticateUser(username, password);
-    if (!res) return navigate(routes.home); // response is successful
-    setError("password", { type: res.code.toString() }); // response is an error
+    setSpinnerVisibility(false);
+    if (!isNkError(res)) return navigate(routes.home);
+    setError("password", { type: res.message }); // response is an error
   };
 
   return (

@@ -9,6 +9,7 @@ export interface UISlice {
   isModalButtonVisible: boolean;
   isDiceThrown: boolean;
   isDiceStable: boolean;
+  isLoadingSpinnerVisible: boolean;
 
   toggleOverlay: () => void;
   setModalComponentChildren: (component: ReactNode) => void;
@@ -17,6 +18,7 @@ export interface UISlice {
   toggleModalWithContainer: () => void;
   setIsDiceThrown: (isDiceThrown: boolean) => void;
   setIsDiceStable: (isDiceStable: boolean) => void;
+  setSpinnerVisibility: (isVisible: boolean) => void;
 }
 
 export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
@@ -27,6 +29,7 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   isModalButtonVisible: false,
   isDiceThrown: false,
   isDiceStable: true,
+  isLoadingSpinnerVisible: false,
 
   toggleOverlay: () => set(({ isOverlayVisible }) => ({ isOverlayVisible: !isOverlayVisible })),
   setModalComponentChildren: (component: ReactNode) => set(() => ({ modalComponentChildren: component })),
@@ -53,4 +56,9 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
     })),
   setIsDiceThrown: (isDiceThrown) => set(() => ({ isDiceThrown })),
   setIsDiceStable: (isDiceStable) => set(() => ({ isDiceStable })),
+  setSpinnerVisibility: (isVisible: boolean) =>
+    set(() => ({
+      isLoadingSpinnerVisible: isVisible,
+      isOverlayVisible: isVisible,
+    })),
 });
