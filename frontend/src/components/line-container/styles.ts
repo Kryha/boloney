@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { BoloneyIcon } from "../../assets";
+import { BoloneyLogoIcon } from "../../assets";
 import { HorizontalDivider } from "../../components";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
@@ -121,10 +121,9 @@ export const WaitingText = styled.h3`
   }
 `;
 
-export const AppName = styled(BoloneyIcon)`
-  height: 31.5vh;
+export const AppName = styled(BoloneyLogoIcon)`
   width: 100%;
-  margin-top: 1vh;
+  margin-top: 40px;
 `;
 
 export const LineWrap = styled.section`
@@ -132,7 +131,7 @@ export const LineWrap = styled.section`
 `;
 
 export const NameContainer = styled.section`
-  width: 70vw;
+  width: clamp(680px, 75vw + -40px, 1400px);
   height: 100%;
   margin-left: 0.875em;
 `;
