@@ -11,4 +11,11 @@ export const match = {
   endOfMatch: "end of match",
   newMatch: "new match/create match",
   matchSettings: "match settings",
+  players: "players",
+  dicePP: "dice pp",
+  powerUpPP: "power-up pp",
+  extraPowerUp: "extra power-up",
+  healAction: "heal action",
+  powerUpTypeOnTheTable: "power-up type on the table",
+  imReady: "im ready",
 };

@@ -1,14 +1,11 @@
 import { FC } from "react";
 
-import { GeneralContentWrapper, Heading6, Row } from "../atoms";
 import { CheckboxInput } from "../inputs";
-import { PowerUpComponent } from "../power-up";
-
-import { Description, DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
+import { PercentageInput, PercentageInputContainer } from "./styles";
 import { PowerUp } from "../../types";
+import { PowerUpDescription } from "../power-up-description";
 
 interface PowerUpsInfo {
-  isUsingSwitchIcon?: boolean;
   powerUp: PowerUp;
   isChecked: boolean;
   isError: boolean;
@@ -16,7 +13,7 @@ interface PowerUpsInfo {
   setProbability: (probability: number) => void;
 }
 
-export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError, probability, setProbability }) => {
+export const PowerUpInfo: FC<PowerUpsInfo> = ({ powerUp, isChecked, isError, probability, setProbability }) => {
   const updateProbability = (formValue: string) => {
     const parsed = Number(formValue);
 
@@ -33,16 +30,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
 
   return (
     <>
-      <PowerUpComponent powerUp={powerUp} />
-      <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
-        <GeneralContentWrapper>
-          <Row>
-            <Lightning />
-            <Heading6>{powerUp.name}</Heading6>
-          </Row>
-          <Description>{powerUp.shortDescription}</Description>
-        </GeneralContentWrapper>
-      </DescriptionContainer>
+      <PowerUpDescription powerUp={powerUp} hasLightningIcon />
       <CheckboxInput isError={isError}>
         <PercentageInputContainer onClick={(e) => e.stopPropagation()} isError={isError}>
           <PercentageInput

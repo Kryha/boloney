@@ -16,10 +16,15 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
   const { height } = useViewport();
   const isDiceThrown = useStore((state) => state.isDiceThrown);
   const isDiceStable = useStore((state) => state.isDiceStable);
+  const hasRolledDice = useStore((state) => state.hasRolledDice);
 
   if (!dice || !dice.length) return <DieOverviewContainer height={height} />;
 
-  const showDice = isDiceStable && isDiceThrown;
+  const showDice = isDiceThrown && hasRolledDice;
+  console.log(showDice);
+  console.log(isDiceStable, "stable");
+  console.log(isDiceThrown, "isDiceThrown");
+  console.log(hasRolledDice, "hasrolleddice");
   return (
     <>
       {showDice && (

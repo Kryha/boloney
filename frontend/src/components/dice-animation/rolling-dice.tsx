@@ -8,6 +8,7 @@ import { Die as Dice, MatchOpCode } from "../../types";
 import { DieType } from "./types";
 import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
+import { useTimeout } from "usehooks-ts";
 
 interface RollingDiceProps {
   dice?: Dice[];
@@ -20,14 +21,7 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   const hasRolledDice = useStore((state) => state.hasRolledDice);
   const setIsDiceStable = useStore((state) => state.setIsDiceStable);
   const setIsDiceThrown = useStore((state) => state.setIsDiceThrown);
-
-  const handleRoll = () => {
-    if (hasRolledDice) {
-      broadcastPlayerReady();
-    } else {
-      sendMatchState(MatchOpCode.ROLL_DICE);
-    }
-  };
+  const isDiceThrown = useStore((state) => state.isDiceThrown);
 
   useEffect(() => {
     let element: HTMLCanvasElement | null = null;
@@ -45,24 +39,37 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
   }, [mountRef, roll]);
 
   useEffect(() => {
-    const stableListener = () => setIsDiceStable(true);
+    const stableListener = () => setIsDiceThrown(true);
     window.addEventListener("diceStable", stableListener);
     return () => {
       window.removeEventListener("diceStable", stableListener);
     };
-  }, [setIsDiceStable]);
+  }, [setIsDiceThrown]);
 
   const onRoll = () => {
-    setIsDiceStable(false);
+    setIsDiceThrown(false);
     const diceRoll = newRoll(DieType.D6, dice || [], dieColor);
-    setIsDiceThrown(true);
     setRoll(diceRoll);
-    handleRoll();
+    setIsDiceThrown(true);
   };
 
+  const onReady = () => {
+    sendMatchState(MatchOpCode.ROLL_DICE);
+  };
+
+  if (isDiceThrown) {
+    console.log("yo, im her");
+    setTimeout(function () {
+      broadcastPlayerReady();
+    }, 3000);
+  }
   return (
     <RollerContainer ref={mountRef}>
-      <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
+      {!hasRolledDice ? (
+        <PrimaryButton text={text.match.imReady} onClick={() => onReady()} />
+      ) : (
+        <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
+      )}
     </RollerContainer>
   );
 };

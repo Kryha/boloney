@@ -17,9 +17,10 @@ interface MenuDropdownProps {
   setHover?: (hover: boolean) => void;
   isActive: boolean;
   setActiveDropdown: (dropdown: ActiveDropdown) => void;
+  isInMatch?: boolean;
 }
 
-export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown }) => {
+export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown, isInMatch }) => {
   const { isAuthenticated, logout } = useAuth();
   const toggleModalWithContainer = useStore((state) => state.toggleModalWithContainer);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
@@ -45,15 +46,19 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       buttonIcon={<Ellipsis />}
     >
       <MenuContainer>
-        <DropdownButton text={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => openMatchSettings()} />
+        {isInMatch && <DropdownButton text={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => openMatchSettings()} />}
         {isAuthenticated && (
           <>
             <HorizontalDivider />
             <DropdownButton onClick={() => handleLogout()} text={text.general.logout} icon={<LogoutIcon />} />
           </>
         )}
-        <HorizontalDivider />
-        <DropdownButton text={text.general.leaveMatch} icon={<ExitIcon />} />
+        {isInMatch && (
+          <>
+            <HorizontalDivider />
+            <DropdownButton text={text.general.leaveMatch} icon={<ExitIcon />} />
+          </>
+        )}
       </MenuContainer>
     </Dropdown>
   );

@@ -13,7 +13,6 @@ export const OverlayWrapper: FC = () => {
   const modalComponentChildren = useStore((state) => state.modalComponentChildren);
   const isContainerVisible = useStore((state) => state.isContainerVisible);
   const isModalButtonVisible = useStore((state) => state.isModalButtonVisible);
-
   useOnClickOutside(ref, () => {
     handleClose();
   });

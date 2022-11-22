@@ -1,7 +1,9 @@
 import { FC } from "react";
-import { GeneralText, GeneralContentWrapper } from "../atoms";
+import { color } from "../../design";
+import { GeneralText, GeneralContentWrapper, Paragraph } from "../atoms";
+import { DescriptionContainer } from "../power-up-description/styles";
 
-import { CheckboxContainer, CheckContainer, Close, Description, DescriptionContainer, ToggleSwitchOff, ToggleSwitchOn } from "./styles";
+import { CheckboxContainer, CheckContainer, Close, ToggleSwitchOff, ToggleSwitchOn } from "./styles";
 
 interface Props {
   title: string;
@@ -27,10 +29,10 @@ export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck
   return (
     <CheckboxContainer isTop={isTop} onClick={() => toggleCheck()} addHover={isUsingSwitchIcon}>
       <CheckContainer>{check()}</CheckContainer>
-      <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
+      <DescriptionContainer>
         <GeneralContentWrapper>
           <GeneralText>{title}</GeneralText>
-          {description && <Description>{description}</Description>}
+          {description && <Paragraph customColor={color.darkGrey}>{description}</Paragraph>}
         </GeneralContentWrapper>
       </DescriptionContainer>
     </CheckboxContainer>

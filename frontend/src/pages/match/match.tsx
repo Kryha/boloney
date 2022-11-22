@@ -125,7 +125,7 @@ export const Match = () => {
   if (matchStage === "lobbyStage") return <Lobby />;
 
   if (!matchId) return <ErrorView />;
-
+  console.log(matchStage);
   return (
     <GameLayout>
       <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>

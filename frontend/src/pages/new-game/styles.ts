@@ -3,8 +3,9 @@ import { LightningIcon } from "../../assets";
 
 import { BaseInput, GeneralText, Heading4, Heading6 } from "../../components";
 import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper } from "../../components/buttons/styles";
-import { DescriptionContainer, CheckboxContainer as CheckboxWrapper } from "../../components/checkbox/styles";
+import { CheckboxContainer as CheckboxWrapper } from "../../components/checkbox/styles";
 import { InputContainer } from "../../components/inputs/styles";
+import { DescriptionContainer } from "../../components/power-up-description/styles";
 import { color, fontWeight, margins, zIndex } from "../../design";
 
 export const NewGameContainer = styled.section``;

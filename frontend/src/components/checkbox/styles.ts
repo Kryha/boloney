@@ -1,25 +1,16 @@
 import styled from "@emotion/styled";
 
-import { CloseIcon, LightningIcon, ToggleSwitchOffIcon, ToggleSwitchOnIcon } from "../../assets";
+import { CloseIcon, ToggleSwitchOffIcon, ToggleSwitchOnIcon } from "../../assets";
 import { color, fontWeight, margins } from "../../design";
-import { GeneralText, Paragraph, GeneralContentWrapper, Heading6, Row, BaseInput } from "../atoms";
+import { GeneralText, Row, BaseInput } from "../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
 
 export const Title = styled(GeneralText)`
   text-transform: uppercase;
 `;
 
-export const Description = styled(Paragraph)`
-  color: ${color.darkGrey};
-`;
-
 export const Close = styled(CloseIcon)`
   width: 20px;
-`;
-
-export const Lightning = styled(LightningIcon)`
-  width: 20px;
-  margin-top: 3px;
 `;
 
 export const ToggleSwitchOn = styled(ToggleSwitchOnIcon)`
@@ -42,23 +33,6 @@ export const CheckWrapper = styled.div`
   padding: ${margins.small5} ${margins.small5} ${margins.large0} ${margins.small5};
   user-select: none;
   cursor: pointer;
-`;
-
-interface DescriptionContainerProps {
-  removeLeftBorder?: boolean;
-}
-
-export const DescriptionContainer = styled.div<DescriptionContainerProps>`
-  flex: 11;
-
-  padding: ${margins.small2} 0px ${margins.small2} ${margins.small2};
-  ${GeneralContentWrapper} {
-    margin-left: ${margins.small3};
-    margin-top: ${margins.small0};
-  }
-  ${Heading6} {
-    text-transform: uppercase;
-  }
 `;
 
 interface CheckboxContainerProps {

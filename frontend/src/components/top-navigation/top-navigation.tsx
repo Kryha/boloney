@@ -36,7 +36,11 @@ export const TopNavigation: FC<Props> = ({ isInMatch }) => {
       {isInMatch && <MatchStats />}
       <RulesDropdown isActive={activeDropdown === "rules" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
       <VerticalDivider />
-      <MenuDropdown isActive={activeDropdown === "menu" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
+      <MenuDropdown
+        isInMatch={isInMatch}
+        isActive={activeDropdown === "menu" && isComponentVisible}
+        setActiveDropdown={handleDropdownClick}
+      />
     </TopNavigationSection>
   );
 };
