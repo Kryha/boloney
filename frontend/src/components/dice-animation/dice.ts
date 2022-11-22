@@ -2,14 +2,14 @@ import * as CANNON from "cannon";
 import * as THREE from "three";
 import { BufferGeometry } from "three";
 
-const zeroDie = "/src/assets/images/zero-die.png";
-const zeroOneDie = "/src/assets/images/zero-one-die.png";
-const oneDie = "/src/assets/images/one-die.png";
-const twoDie = "/src/assets/images/two-die.png";
-const threeDie = "/src/assets/images/three-die.png";
-const fourDie = "/src/assets/images/four-die.png";
-const fiveDie = "/src/assets/images/five-die.png";
-const sixDie = "/src/assets/images/six-die.png";
+const zeroDie = "src/assets/images/zero-die.png";
+const zeroOneDie = "src/assets/images/zero-one-die.png";
+const oneDie = "src/assets/images/one-die.png";
+const twoDie = "src/assets/images/two-die.png";
+const threeDie = "src/assets/images/three-die.png";
+const fourDie = "src/assets/images/four-die.png";
+const fiveDie = "src/assets/images/five-die.png";
+const sixDie = "src/assets/images/six-die.png";
 
 class DiceManagerClass {
   diceBodyMaterial?: CANNON.Material;
