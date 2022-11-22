@@ -3,7 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { routes } from "./route-names";
-import { MainContainer, ErrorFallback, ErrorView, GameLayout, GeneralContentWrapper, EndOfMatch } from "../components";
+import { MainContainer, ErrorFallback, ErrorView } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
 import { Landing, NewGame, Home, Match } from "../pages";
 import { useAuth } from "../service";
@@ -20,17 +20,6 @@ const AppRoutes: FC = () => {
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.newGame} element={<NewGame />} />
           <Route path={`${routes.match}/:matchId`} element={<Match />} />
-          {/* TODO: delete following route */}
-          <Route
-            path="/test"
-            element={
-              <GameLayout>
-                <GeneralContentWrapper>
-                  <EndOfMatch />
-                </GeneralContentWrapper>
-              </GameLayout>
-            }
-          />
         </>
       ) : (
         <>

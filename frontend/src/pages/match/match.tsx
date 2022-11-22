@@ -128,7 +128,7 @@ export const Match = () => {
 
   return (
     <GameLayout>
-      <GeneralContentWrapper>{getStageComponent(matchStage)}</GeneralContentWrapper>
+      <GeneralContentWrapper withoutSideMargins={matchStage === "endOfMatchStage"}>{getStageComponent(matchStage)}</GeneralContentWrapper>
     </GameLayout>
   );
 };

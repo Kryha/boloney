@@ -8,6 +8,7 @@ import { OverlayWrapper } from "../overlay-wrapper";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
+import { PlayerMenu } from "../player-menu";
 
 interface GameLayoutProps {
   children?: ReactNode;
@@ -19,16 +20,17 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
 
-  // TODO: uncomment
-  // if (!localPlayer) return <ErrorView />;
+  if (!localPlayer) return <ErrorView />;
 
   return (
     <>
       <TopNavigation isInMatch={matchStage !== "endOfMatchStage"} />
 
       <GamePlayersOverview />
-      {/* TODO: uncomment */}
-      {/* {isStageWithHUD(matchStage) && <HUD dice={dice} powerUpIds={powerUpIds} player={localPlayer} />} */}
+
+      {isStageWithHUD(matchStage) && <HUD dice={dice} powerUpIds={powerUpIds} player={localPlayer} />}
+
+      <PlayerMenu />
 
       <MainContentContainer isStageWithHUD={isStageWithHUD(matchStage)}>
         <ContentContainer>{children}</ContentContainer>

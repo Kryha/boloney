@@ -10,3 +10,8 @@ export const countNumber = (n: number): string => {
       return n + "th";
   }
 };
+
+export const prefixDigit = (n: number): string => {
+  if (n >= 10) return String(n);
+  return "0" + n;
+};

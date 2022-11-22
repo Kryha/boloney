@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
+
 import { LightningIcon } from "../../assets";
 import { color, margins } from "../../design";
-import { GeneralText, Row } from "../atoms";
+import { Row } from "../atoms";
+import { DieWrapper } from "../die/styles";
 
 export const Lightning = styled(LightningIcon)`
   width: 11px;
@@ -21,7 +23,7 @@ export const PowerUpIconWrapper = styled(Row)`
 export const DiceIconWrapper = styled(Row)`
   gap: ${margins.small0};
   align-items: center;
-  ${GeneralText} {
-    margin-top: -${margins.small0};
+  ${DieWrapper} {
+    margin-top: ${margins.small1};
   }
 `;

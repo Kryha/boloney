@@ -4,7 +4,6 @@ import { avatars } from "../../assets/local-data/avatar";
 import { handProportion } from "../../design";
 import { Die, PlayerPublic, PowerUpId } from "../../types";
 import { DiceOverview } from "../dice-overview";
-import { PlayerMenu } from "../player-menu";
 import { PowerUpOverview } from "../power-up-overview";
 import { LocalPlayer, PlayerAvatar, PlayerOverview } from "./styles";
 
@@ -18,15 +17,12 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const { avatar } = handProportion(avatars[player.avatarId].name);
 
   return (
-    <>
-      <PlayerOverview>
-        <LocalPlayer>
-          <PlayerAvatar height="10vh" src={avatar} />
-        </LocalPlayer>
-        <DiceOverview dice={dice} />
-        <PowerUpOverview powerUpIds={powerUpIds} />
-      </PlayerOverview>
-      <PlayerMenu />
-    </>
+    <PlayerOverview>
+      <LocalPlayer>
+        <PlayerAvatar height="10vh" src={avatar} />
+      </LocalPlayer>
+      <DiceOverview dice={dice} />
+      <PowerUpOverview powerUpIds={powerUpIds} />
+    </PlayerOverview>
   );
 };
