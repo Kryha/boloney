@@ -26,6 +26,10 @@ import { ReactComponent as DiceSixIcon } from "./dice-six.svg";
 import { ReactComponent as LightningIcon } from "./lightning.svg";
 import { ReactComponent as BoloneyIcon } from "./boloney.svg";
 import { ReactComponent as DiceHiddenIcon } from "./dice-hidden.svg";
+import { ReactComponent as TextBoloneyLogoIcon } from "./text-boloney.svg";
+import { ReactComponent as RaisedHandIcon } from "./raised-hand.svg";
+import { ReactComponent as RoundIcon } from "./round.svg";
+import { ReactComponent as BoloneyLogoIcon } from "./boloney-logo.svg";
 
 export {
   PlusIcon,
@@ -56,4 +60,8 @@ export {
   LightningIcon,
   BoloneyIcon,
   DiceHiddenIcon,
+  TextBoloneyLogoIcon,
+  RaisedHandIcon,
+  RoundIcon,
+  BoloneyLogoIcon,
 };

@@ -7,13 +7,13 @@ export const NewGameHands = () => {
 
   return (
     <NewGameHandsWrapper width={width} height={height}>
-      <Hand avatarName="plastic" />
-      <Hand avatarName="hook" />
-      <Hand avatarName="scooper" />
-      <Hand avatarName="hand" />
-      <Hand avatarName="skeleton" />
-      <Hand avatarName="toy" />
-      <Hand avatarName="lobster" />
+      <Hand avatarName="plastic" isInLobby />
+      <Hand avatarName="hook" isInLobby />
+      <Hand avatarName="scooper" isInLobby />
+      <Hand avatarName="hand" isInLobby />
+      <Hand avatarName="skeleton" isInLobby />
+      <Hand avatarName="sausage" isInLobby />
+      <Hand avatarName="lobster" isInLobby />
     </NewGameHandsWrapper>
   );
 };
