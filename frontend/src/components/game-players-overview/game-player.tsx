@@ -18,22 +18,27 @@ import { PlayerGameState } from "./game-player-info";
 interface GamePlayerProps {
   totalPlayers: number;
   player: PlayerPublic;
+  isWinner?: boolean;
 }
 
-export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
+export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player, isWinner }) => {
   const { avatar } = handProportion(avatars[player.avatarId].name);
+
   return (
     <GamePlayersWrapper totalPlayers={totalPlayers}>
       <GamePlayersContainer totalPlayers={totalPlayers}>
         <PlayerAvatarContainer>
           <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
         </PlayerAvatarContainer>
-        <PlayerInfoContainer>
-          <PlayerNameContainer>
-            <Name>{player.username}</Name>
-          </PlayerNameContainer>
-          <PlayerGameState player={player} />
-        </PlayerInfoContainer>
+
+        {isWinner || (
+          <PlayerInfoContainer>
+            <PlayerNameContainer>
+              <Name>{player.username}</Name>
+            </PlayerNameContainer>
+            <PlayerGameState player={player} />
+          </PlayerInfoContainer>
+        )}
       </GamePlayersContainer>
     </GamePlayersWrapper>
   );
