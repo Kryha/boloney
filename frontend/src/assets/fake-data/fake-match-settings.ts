@@ -1,6 +1,6 @@
 // TODO: delete file
 
-import { MatchSettings } from "../types";
+import { MatchSettings } from "../../types";
 
 export const fakeMatchSettings: MatchSettings = {
   players: 7,

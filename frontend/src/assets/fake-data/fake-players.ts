@@ -1,10 +1,9 @@
 // TODO: delete this file
-import { Player } from "../types";
+import { Player, PlayerPublic } from "../../types";
 import { fakeDiceRolls } from "./fake-dice";
 
-export const fakePlayers: Player[] = [
+export const fakePlayers: PlayerPublic[] = [
   {
-    powerUpIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
     userId: "1",
     username: "umpalumpa",
     avatarId: 1,
@@ -12,12 +11,11 @@ export const fakePlayers: Player[] = [
     powerUpsAmount: 9,
     isConnected: false,
     isReady: false,
+    isActive: false,
     hasInitialPowerUps: true,
     hasRolledDice: true,
-    diceValue: fakeDiceRolls,
   },
   {
-    powerUpIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
     userId: "2",
     username: "señor.garfio",
     avatarId: 2,
@@ -27,10 +25,9 @@ export const fakePlayers: Player[] = [
     isReady: false,
     hasInitialPowerUps: true,
     hasRolledDice: true,
-    diceValue: fakeDiceRolls,
+    isActive: false,
   },
   {
-    powerUpIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
     userId: "3",
     username: "shake.it",
     avatarId: 3,
@@ -40,10 +37,9 @@ export const fakePlayers: Player[] = [
     isReady: false,
     hasInitialPowerUps: true,
     hasRolledDice: true,
-    diceValue: fakeDiceRolls,
+    isActive: false,
   },
   {
-    powerUpIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
     userId: "4",
     username: "something.great",
     avatarId: 4,
@@ -53,10 +49,10 @@ export const fakePlayers: Player[] = [
     isReady: false,
     hasInitialPowerUps: true,
     hasRolledDice: true,
-    diceValue: fakeDiceRolls,
+
+    isActive: false,
   },
   {
-    powerUpIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
     userId: "5",
     username: "god",
     avatarId: 5,
@@ -66,10 +62,9 @@ export const fakePlayers: Player[] = [
     isReady: false,
     hasInitialPowerUps: true,
     hasRolledDice: true,
-    diceValue: fakeDiceRolls,
+    isActive: false,
   },
   {
-    powerUpIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
     userId: "6",
     username: "lekker",
     avatarId: 6,
@@ -79,7 +74,7 @@ export const fakePlayers: Player[] = [
     isReady: false,
     hasInitialPowerUps: true,
     hasRolledDice: true,
-    diceValue: fakeDiceRolls,
+    isActive: false,
   },
 ];
 
@@ -95,4 +90,5 @@ export const fakeLocalPlayer: Player = {
   hasInitialPowerUps: true,
   hasRolledDice: true,
   diceValue: fakeDiceRolls,
+  isActive: false,
 };
