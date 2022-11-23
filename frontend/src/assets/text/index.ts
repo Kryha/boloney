@@ -7,6 +7,7 @@ import { newGame } from "./new-game";
 import { match } from "./match";
 import { home } from "./home";
 import { powerUps } from "./power-ups";
+import { endOfMatch } from "./end-of-match";
 
 export const text = {
   param,
@@ -18,4 +19,5 @@ export const text = {
   match,
   home,
   powerUps,
+  endOfMatch,
 };

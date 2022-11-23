@@ -37,15 +37,18 @@ export const Overlay = styled.div`
   z-index: ${zIndex.inFront};
 `;
 
-export const GeneralContentWrapper = styled.div`
-  margin-left: ${margins.large0};
-  margin-top: ${margins.large0};
+interface GeneralContentWrapperProps {
+  withoutSideMargins?: boolean;
+}
+
+export const GeneralContentWrapper = styled.div<GeneralContentWrapperProps>`
+  margin-left: ${({ withoutSideMargins }) => (withoutSideMargins ? 0 : margins.large0)};
+  margin-top: ${margins.large3};
   ${Heading1} {
     margin-bottom: 0.3em;
   }
   ${Heading2} {
     margin-bottom: ${margins.small0};
-    width: clamp(650px, 57.29vw + 100px, 1200px);
   }
   ${Heading3} {
     margin-bottom: ${margins.small1};
