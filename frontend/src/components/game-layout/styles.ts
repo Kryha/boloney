@@ -6,6 +6,7 @@ export const MainContentContainer = styled.div`
   position: absolute;
   width: 87.5vw;
   height: 89vh;
+  overflow-y: scroll;
 `;
 
 export const ContentContainer = styled.div`

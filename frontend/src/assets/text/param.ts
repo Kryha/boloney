@@ -18,4 +18,5 @@ export const param = {
   findOutYourPips: (username: string) => `welcome ${username}, let's find out your pips for this first round...`,
   percentageAmount: (amount: string | number) => `${amount}%`,
   xRounds: (amount: string | number) => `x${amount === 1 ? `${amount} round` : `${amount} rounds`}`,
+  playerIsMakingAMove: (username: string) => `${username} is making its move, wait for it...`,
 };

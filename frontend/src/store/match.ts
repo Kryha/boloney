@@ -22,6 +22,7 @@ interface MatchSliceGetters {
   getPlayer: (id?: string) => PlayerPublic | undefined;
   getLocalPlayer: () => PlayerPublic | undefined;
   getRemotePlayers: () => PlayerPublic[];
+  getActivePlayer: () => PlayerPublic | undefined;
 }
 
 interface MatchSliceSetters {
@@ -90,6 +91,13 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
     const session = get().sessionState;
     if (!session || !session.user_id) return orderedPlayers;
     return orderedPlayers.filter((player) => player.userId !== session.user_id);
+  },
+
+  getActivePlayer: () => {
+    const players = get().players;
+    const playersValues = Object.values(players);
+    const activePlayer = playersValues.find((player) => player.isActive);
+    return activePlayer;
   },
 
   setSession: (session: Session) => set(() => ({ sessionState: session })),
