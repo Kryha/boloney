@@ -45,7 +45,7 @@ export const EndOfMatch: FC = () => {
       </TitleSection>
 
       {leaderboard.map((player, i) => (
-        <PlayerLeaderboard key={i} player={player} place={i + 1} />
+        <PlayerLeaderboard key={player.userId} player={player} place={i + 1} />
       ))}
 
       <PrimaryButton text={text.match.newMatch} onClick={() => handleNewMatch()} />
