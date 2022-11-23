@@ -1,9 +1,10 @@
 import { FC } from "react";
 
-import { avatars } from "../../assets";
+import { avatars, DiceCrown } from "../../assets";
 import { PlayerPublic } from "../../types";
 import { Hand } from "../hand";
-import { GameWinnerWrapper } from "./styles";
+import { DiceIconWrapper } from "../icons/styles";
+import { DiceCrownImg, GameWinnerWrapper } from "./styles";
 
 interface Props {
   player: PlayerPublic;
@@ -12,7 +13,9 @@ interface Props {
 export const GameWinner: FC<Props> = ({ player }) => {
   return (
     <GameWinnerWrapper>
-      {/* TODO: add crown */}
+      <DiceIconWrapper>
+        <DiceCrownImg src={DiceCrown} />
+      </DiceIconWrapper>
       <Hand avatarName={avatars[player.avatarId].name} isInLobby />
     </GameWinnerWrapper>
   );

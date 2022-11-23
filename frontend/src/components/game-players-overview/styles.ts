@@ -5,6 +5,17 @@ import { color, margins } from "../../design";
 import { avatarHeight, Heading5 } from "../atoms";
 import { HandWrapper } from "../hand/styles";
 
+export const DiceCrownWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DiceCrownImg = styled.img`
+  width: 100%;
+  object-fit: cover;
+`;
+
 export const GameWinnerWrapper = styled.div`
   padding: 0px;
   width: 12.5vw;
@@ -14,6 +25,7 @@ export const GameWinnerWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: ${margins.large1};
 `;
 
 interface GamePlayersProps {

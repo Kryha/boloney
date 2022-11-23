@@ -31,7 +31,19 @@ export const LeaderboardWrapper = styled.div<WrapperProps>`
   border-bottom: 1px solid ${color.mediumGrey};
 `;
 
-export const WinnerBadge = styled.div``;
+export const WinnerBadge = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${margins.small1};
+  padding-right: ${margins.small1};
+  padding-left: ${margins.small1};
+  padding-top: ${margins.small0};
+  padding-bottom: ${margins.small0};
+  background-color: ${color.white};
+  width: 6.5625em;
+  position: absolute;
+`;
 
 export const DataWrapper = styled.div`
   width: 100%;

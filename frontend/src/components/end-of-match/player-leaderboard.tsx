@@ -1,9 +1,10 @@
 import { FC } from "react";
 
-import { avatars } from "../../assets";
+import { avatars, Crown } from "../../assets";
 import { handProportion } from "../../design";
 import { PlayerPublic } from "../../types";
 import { prefixDigit } from "../../util";
+import { GeneralText } from "../atoms";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import {
   DataWrapper,
@@ -31,8 +32,12 @@ export const PlayerLeaderboard: FC<Props> = ({ player, place }) => {
 
   return (
     <LeaderboardWrapper place={place}>
-      {/* TODO: implement badge */}
-      {place === 1 && <WinnerBadge></WinnerBadge>}
+      {place === 1 && (
+        <WinnerBadge>
+          <Crown />
+          <GeneralText>Winner</GeneralText>
+        </WinnerBadge>
+      )}
 
       <DataWrapper>
         <LeaderboardStanding>{prefixDigit(place)}</LeaderboardStanding>
