@@ -30,6 +30,7 @@ export const ActivePlayerTurns: FC = () => {
         </PowerUpButtonContainer>
         <GeneralText>{text.match.or}</GeneralText>
         <ActionButtonContainer>
+          {/* TODO for adding the actual logic for the bid value */}
           <PrimaryButtonWithHelper
             text={text.match.bid}
             onClick={() => broadcastPlaceBid("myBid")}
