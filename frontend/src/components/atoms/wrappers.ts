@@ -49,7 +49,6 @@ export const GeneralContentWrapper = styled.div<GeneralContentWrapperProps>`
   }
   ${Heading2} {
     margin-bottom: ${margins.small0};
-    width: clamp(650px, 57.29vw + 100px, 1200px);
   }
   ${Heading3} {
     margin-bottom: ${margins.small1};

@@ -4,6 +4,7 @@ import { GAME_PLAYER_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
 import { avatarHeight, Heading5 } from "../atoms";
 import { HandWrapper } from "../hand/styles";
+import { PowerUpIconWrapper } from "../icons/styles";
 
 export const DiceCrownWrapper = styled.div`
   display: flex;
@@ -116,6 +117,9 @@ export const PlayerName = styled(Heading5)`
 
 export const GameStateContainer = styled(PlayerNameContainer)`
   align-items: flex-start;
+  ${PowerUpIconWrapper} {
+    margin-top: 5px;
+  }
 `;
 
 export const PlayerInfoContainer = styled.section`

@@ -7,7 +7,7 @@ interface ContentProps {
 }
 
 export const MainContentContainer = styled.div<ContentProps>`
-  overflow: scroll;
+  overflow-y: scroll;
   border-right: 1px solid ${color.mediumGrey};
   left: 12.5vw;
   position: absolute;
