@@ -51,7 +51,7 @@ export const CreateAccountForm: FC = () => {
   const onSubmit = async (username: string, password: string) => {
     if (!isValid) return;
     setSpinnerVisibility(true);
-    const res = await authenticateUser(username, password);
+    const res = await authenticateUser(username, password, true);
     setSpinnerVisibility(false);
     if (!isNkError(res)) return navigate(routes.home);
     setError("password", { type: res.message }); // response is an error
