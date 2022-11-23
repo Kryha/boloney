@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
+
 import { color, margins } from "../../design";
+import { avatarHeight } from "../atoms";
 
 interface PlayerOverviewProps {
   isActive: boolean;
@@ -25,4 +27,14 @@ export const LocalPlayer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: ${margins.small2};
+`;
+
+interface AvatarProps {
+  height: string;
+}
+
+export const PlayerAvatar = styled.img<AvatarProps>`
+  height: ${({ height }): string => height || `${avatarHeight[5]}`};
+  object-fit: contain;
+  width: 100%;
 `;

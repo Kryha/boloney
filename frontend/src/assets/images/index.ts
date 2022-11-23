@@ -5,6 +5,7 @@ import SausageHand from "./sausage-hand.png";
 import PlasticHand from "./plastic-hand.png";
 import ScooperHand from "./poop-scooper-hand.png";
 import SkeletonHand from "./skeleton-hand.png";
+import DiceCrown from "./dice-crown.png";
 import SkeletonHandPaint from "./skeleton-hand-paint.svg";
 import HandPaint from "./hand-paint.svg";
 import HookHandPaint from "./hook-hand-paint.svg";
@@ -48,4 +49,5 @@ export {
   SabotageIcon,
   SatelliteIcon,
   PercentageIcon,
+  DiceCrown,
 };

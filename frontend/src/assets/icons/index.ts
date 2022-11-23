@@ -31,6 +31,7 @@ import { ReactComponent as TextBoloneyLogoIcon } from "./text-boloney.svg";
 import { ReactComponent as RaisedHandIcon } from "./raised-hand.svg";
 import { ReactComponent as RoundIcon } from "./round.svg";
 import { ReactComponent as BoloneyLogoIcon } from "./boloney-logo.svg";
+import { ReactComponent as Crown } from "./crown.svg";
 
 export {
   PlusIcon,
@@ -66,4 +67,5 @@ export {
   RaisedHandIcon,
   RoundIcon,
   BoloneyLogoIcon,
+  Crown,
 };

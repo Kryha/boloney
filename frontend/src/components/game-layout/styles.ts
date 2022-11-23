@@ -1,11 +1,18 @@
 import styled from "@emotion/styled";
-import { margins } from "../../design";
 
-export const MainContentContainer = styled.div`
+import { color, margins } from "../../design";
+
+interface ContentProps {
+  isStageWithHUD: boolean;
+}
+
+export const MainContentContainer = styled.div<ContentProps>`
+  overflow-y: scroll;
+  border-right: 1px solid ${color.mediumGrey};
   left: 12.5vw;
   position: absolute;
-  width: 87.5vw;
-  height: 89vh;
+  width: 62.5vw;
+  height: ${({ isStageWithHUD }) => (isStageWithHUD ? "89vh" : "100vh")};
 `;
 
 export const ContentContainer = styled.div`

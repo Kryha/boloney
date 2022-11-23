@@ -73,7 +73,6 @@ export const HandContainer = styled.div<HandContainerProps>`
 `;
 
 export const Wrapper = styled.div`
-  position: absolute;
   bottom: 20px;
   height: clamp(120px, 13.15vw + 27.58px, 280px);
 `;
