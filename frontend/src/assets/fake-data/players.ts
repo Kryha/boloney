@@ -2,7 +2,7 @@ import { PlayerPublic } from "../../types";
 
 export const fakePlayers: PlayerPublic[] = [
   {
-    userId: "000000000",
+    userId: "000000000000000000000000000000000000",
     username: "umpalumpa",
     diceAmount: 5,
     powerUpsAmount: 3,
@@ -14,7 +14,7 @@ export const fakePlayers: PlayerPublic[] = [
     isActive: true,
   },
   {
-    userId: "11111111",
+    userId: "000000000000000000000000000000000001",
     username: "señor.garfio",
     diceAmount: 5,
     powerUpsAmount: 3,
@@ -26,7 +26,7 @@ export const fakePlayers: PlayerPublic[] = [
     isActive: false,
   },
   {
-    userId: "2222222",
+    userId: "000000000000000000000000000000000002",
     username: "shake.it",
     diceAmount: 5,
     powerUpsAmount: 3,
@@ -38,7 +38,7 @@ export const fakePlayers: PlayerPublic[] = [
     isActive: false,
   },
   {
-    userId: "33333",
+    userId: "000000000000000000000000000000000003",
     username: "something.great",
     diceAmount: 5,
     powerUpsAmount: 3,
@@ -50,7 +50,7 @@ export const fakePlayers: PlayerPublic[] = [
     isActive: false,
   },
   {
-    userId: "44444",
+    userId: "000000000000000000000000000000000004",
     username: "god",
     diceAmount: 5,
     powerUpsAmount: 3,
@@ -62,7 +62,7 @@ export const fakePlayers: PlayerPublic[] = [
     isActive: false,
   },
   {
-    userId: "55555",
+    userId: "000000000000000000000000000000000005",
     username: "lekker",
     diceAmount: 5,
     powerUpsAmount: 3,
