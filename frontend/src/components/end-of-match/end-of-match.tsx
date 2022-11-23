@@ -32,7 +32,7 @@ export const EndOfMatch: FC = () => {
   };
 
   const subheadingText = () => {
-    // TODO: switch based on type of player
+    // TODO: switch based on type of player and last move made
     return text.endOfMatch.callingBoldMove("Boloney");
   };
 
