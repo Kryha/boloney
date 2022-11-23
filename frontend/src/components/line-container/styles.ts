@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { BoloneyIcon } from "../../assets";
+import { BoloneyLogoIcon } from "../../assets";
 import { HorizontalDivider } from "../../components";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../types";
+import { PrimaryButtonWrapper } from "../buttons/styles";
 import { ChatSection } from "../chat/styles";
 import { HandWrapper } from "../hand/styles";
 import { LobbyPlayerWrapper } from "../lobby-player/styles";
@@ -89,7 +90,12 @@ interface WaitingProps {
 }
 
 export const WaitForOthersContainer = styled.div<WaitingProps>`
-  background: ${({ isPlayerReady }) => (isPlayerReady ? "none" : color.lightGrey)};
+  background: ${({ isPlayerReady }) =>
+    isPlayerReady
+      ? color.lightGrey
+      : `${PrimaryButtonWrapper}{
+            display: none;
+  }`};
   position: absolute;
   padding: ${margins.small2} ${margins.small2} ${margins.small2} 1.5em;
   margin-left: auto;
@@ -115,10 +121,9 @@ export const WaitingText = styled.h3`
   }
 `;
 
-export const AppName = styled(BoloneyIcon)`
-  height: 31.5vh;
+export const AppName = styled(BoloneyLogoIcon)`
   width: 100%;
-  margin-top: 1vh;
+  margin-top: 40px;
 `;
 
 export const LineWrap = styled.section`
@@ -126,7 +131,7 @@ export const LineWrap = styled.section`
 `;
 
 export const NameContainer = styled.section`
-  width: 70vw;
+  width: clamp(680px, 75vw + -40px, 1400px);
   height: 100%;
   margin-left: 0.875em;
 `;

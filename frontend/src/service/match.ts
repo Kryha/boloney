@@ -32,9 +32,17 @@ export const useMatch = () => {
 
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
+  // TODO: Add Action payload
+  const broadcastPlaceBid = (bid: string) => sendMatchState(MatchOpCode.PLAYER_PLACE_BID, bid);
+  const broadcastCallExact = () => sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
+  const broadcastCallBoloney = () => sendMatchState(MatchOpCode.PLAYER_CALL_BOLONEY);
+
   return {
     isLoading,
     sendMatchState,
     broadcastPlayerReady,
+    broadcastPlaceBid,
+    broadcastCallExact,
+    broadcastCallBoloney,
   };
 };

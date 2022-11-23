@@ -1,17 +1,30 @@
 import { FC } from "react";
 import { text } from "../../assets";
-import { BottomButtonWrapper, Heading1 } from "../atoms";
+import { Heading1 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { useMatch } from "../../service";
+import { useStore } from "../../store";
+import { ErrorView } from "../error-view";
 
-// TODO: finish component
+// TODO: Add styles according to design
+// TODO: Add payload to the broadcasted message
 export const PlayerTurns: FC = () => {
-  const { broadcastPlayerReady } = useMatch();
+  const { broadcastPlaceBid, broadcastCallExact, broadcastCallBoloney } = useMatch();
+  const localPlayer = useStore((state) => state.getLocalPlayer());
 
+  if (!localPlayer) return <ErrorView />;
+
+  // TODO: Update with proper styles
   return (
-    <BottomButtonWrapper>
+    <>
       <Heading1>{text.match.playerTurns}</Heading1>
-      <PrimaryButton text={text.match.goForIt} onClick={() => broadcastPlayerReady()} />
-    </BottomButtonWrapper>
+      {localPlayer.isActive && (
+        <>
+          <PrimaryButton text={text.match.placeBid} onClick={() => broadcastPlaceBid("myBid")} />
+          <PrimaryButton text={text.match.callExact} onClick={() => broadcastCallExact()} />
+          <PrimaryButton text={text.match.callBoloney} onClick={() => broadcastCallBoloney()} />
+        </>
+      )}
+    </>
   );
 };

@@ -65,7 +65,7 @@ export const TextLabel = styled(GeneralText)`
     padding-right: 3px;
     padding-top: 7px;
     color: ${color.black};
-    right: ${margins.small6};
+    right: clamp(27.2px, 1.17vw + 16px, 38.4px);
   }
 `;
 
@@ -118,7 +118,7 @@ export const FieldSet = styled.fieldset<InputContainerProps>`
     isRow &&
     childNode === 1 &&
     `
-    border-right: 1px solid ${isError ? "transparent" : color.mediumGrey};
+    border-right: 1px solid ${isError ? `${color.red}` : color.mediumGrey};
     border-left: ${isError ? `1px solid ${color.red}` : "none"};
 `};
   ${({ isRow, childNode, isError }) =>

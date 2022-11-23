@@ -8,12 +8,14 @@ import { DiceIconWrapper } from "./styles";
 interface DiceUpProps {
   diceAmount: number;
   diceValue?: number;
+  faceColor?: string;
+  pipColor?: string;
 }
 
-export const DiceIcon: FC<DiceUpProps> = ({ diceAmount, diceValue }) => {
+export const DiceIcon: FC<DiceUpProps> = ({ diceAmount, diceValue, faceColor, pipColor }) => {
   return (
     <DiceIconWrapper>
-      <Die value={diceValue} size={margins.small4} />
+      <Die value={diceValue} size={margins.small4} faceColor={faceColor} pipColor={pipColor} />
       <GeneralText customColor={color.darkGrey}>{text.param.xAmount(diceAmount)}</GeneralText>
     </DiceIconWrapper>
   );

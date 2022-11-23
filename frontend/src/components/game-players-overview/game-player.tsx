@@ -25,7 +25,7 @@ export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player, isWinner
   const { avatar } = handProportion(avatars[player.avatarId].name);
 
   return (
-    <GamePlayersWrapper totalPlayers={totalPlayers}>
+    <GamePlayersWrapper totalPlayers={totalPlayers} isActive={player.isActive}>
       <GamePlayersContainer totalPlayers={totalPlayers}>
         <PlayerAvatarContainer>
           <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />

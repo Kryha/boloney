@@ -4,7 +4,7 @@ import { MAX_POWERUPS_PER_PLAYER } from "../constants";
 import { dieSchema } from "./die";
 import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
 
-export const avatarNameSchema = z.enum(["toy", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
+export const avatarNameSchema = z.enum(["sausage", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
 export type AvatarName = z.infer<typeof avatarNameSchema>;
 
 export const avatarColorSchema = z.enum(["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#5573F6"]);
@@ -26,6 +26,10 @@ export enum MatchOpCode {
   PLAYER_JOINED = 6,
   PLAYER_ORDER_SHUFFLE = 7,
   PLAYER_GET_POWERUPS = 8,
+  PLAYER_PLACE_BID = 9,
+  PLAYER_CALL_EXACT = 10,
+  PLAYER_CALL_BOLONEY = 11,
+  PLAYER_ACTIVE = 12,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
@@ -44,6 +48,7 @@ export const playerPublicSchema = z.object({
   powerUpsAmount: z.number(),
   isConnected: z.boolean(),
   isReady: z.boolean(),
+  isActive: z.boolean(),
   hasInitialPowerUps: z.boolean(),
   hasRolledDice: z.boolean(),
 });
@@ -112,3 +117,11 @@ export const matchFormSettingsSchema = z.object({
 });
 
 export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
+
+export const playerIdSchema = z.string().length(36);
+
+export type PlayerId = z.infer<typeof playerIdSchema>;
+
+export const playerActivePayloadSchema = z.object({
+  activePlayerId: playerIdSchema,
+});

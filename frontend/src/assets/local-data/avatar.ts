@@ -7,5 +7,5 @@ export const avatars: Record<string, Avatar> = {
   "4": { color: "#FF8059", name: "plastic" },
   "5": { color: "#FFA7E9", name: "scooper" },
   "6": { color: "#FFC300", name: "skeleton" },
-  "7": { color: "#5573F6", name: "toy" },
+  "7": { color: "#5573F6", name: "sausage" },
 };

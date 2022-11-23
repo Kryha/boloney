@@ -1,7 +1,8 @@
+import { handleMatchStage } from "./match";
+import { getOtherPresences, setActivePlayer, attemptSetPlayerReady, handleActivePlayerMessages } from "./player";
 import { getPowerUp, rollDice } from "../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
 import { getRange, hidePlayersData, shuffleArray } from "../utils";
-import { attemptSetPlayerReady, handleMatchStage } from "./match";
 
 export type StageHandler = (loopParams: MatchLoopParams) => void;
 
@@ -25,8 +26,12 @@ export const handleStage: StageHandlers = {
       },
       ({ state, dispatcher }, nextStage) => {
         state.playerOrder = shuffleArray(state.playerOrder);
+        const activePlayerId = state.playerOrder[0];
+        setActivePlayer(activePlayerId, state.players);
 
+        // TODO: We may need to combine this into one message
         dispatcher.broadcastMessage(MatchOpCode.PLAYER_ORDER_SHUFFLE, JSON.stringify({ playerOrder: state.playerOrder }));
+        dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId }));
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),
@@ -66,7 +71,7 @@ export const handleStage: StageHandlers = {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),
-
+  // TODO: Fix logic so that player doesn't need to roll twice for advancing the stage
   rollDiceStage: (loopParams) =>
     handleMatchStage(
       loopParams,
@@ -75,12 +80,15 @@ export const handleStage: StageHandlers = {
         if (message.opCode === MatchOpCode.PLAYER_READY) {
           attemptSetPlayerReady(state, sender.userId);
         }
+
         if (message.opCode === MatchOpCode.ROLL_DICE) {
           const { userId } = message.sender;
           const player = state.players[userId];
+
           if (player.hasRolledDice) return;
 
           state.players[userId].hasRolledDice = true; // this has to be here in order to prevent user spamming
+
           try {
             const diceValue = await rollDice(player.diceAmount);
             state.players[userId].diceValue = diceValue;
@@ -95,9 +103,10 @@ export const handleStage: StageHandlers = {
       },
       async () => {
         // TODO: maybe add rolling here in the future in order to optimise the calculation
-        // not needed
+        // Not needed for now
       },
       ({ dispatcher, state }, nextStage) => {
+        // TODO: Refactor as a helper like "resetPlayerRolled"
         Object.values(state.players).forEach((player) => {
           state.players[player.userId].hasRolledDice = false;
         });
@@ -108,14 +117,25 @@ export const handleStage: StageHandlers = {
   playerTurnLoopStage: (loopParams) =>
     handleMatchStage(
       loopParams,
-      (message, sender, { state }) => {
+      (message, sender, { state, dispatcher, logger }) => {
+        if (state.players[sender.userId].isActive) {
+          const otherPresences = getOtherPresences(sender.userId, state.presences);
+          handleActivePlayerMessages(message, sender, state, dispatcher, logger, otherPresences);
+        }
+
+        // TODO: Listen to other OP_CODES from Idle Players?
         if (message.opCode === MatchOpCode.PLAYER_READY) {
           attemptSetPlayerReady(state, sender.userId);
         }
       },
-      async ({ logger }) => {
-        logger.debug("Turn loop logic");
+      async () => {
+        // Unused for now
       },
+      /*
+       * In the turn loop players won't indicate that they are ready.
+       * We'll move to the next stage only when the conditions are met.
+       * Next stage transition will be trigger by a "round ending" action (exact, boloney)
+       */
       ({ dispatcher }, nextStage) => {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
