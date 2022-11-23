@@ -34,3 +34,4 @@ export * from "./dice-animation";
 export * from "./roll-dice";
 export * from "./spinner";
 export * from "./overlay-spinner";
+export * from "./button-with-helper";

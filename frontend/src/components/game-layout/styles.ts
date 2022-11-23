@@ -13,6 +13,7 @@ export const MainContentContainer = styled.div<ContentProps>`
   position: absolute;
   width: 62.5vw;
   height: ${({ isStageWithHUD }) => (isStageWithHUD ? "89vh" : "100vh")};
+  overflow-y: scroll;
 `;
 
 export const ContentContainer = styled.div`
