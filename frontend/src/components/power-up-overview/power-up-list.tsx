@@ -16,24 +16,24 @@ interface PowerUpListProps {
 }
 
 export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
-  const toggleModalWithoutContainer = useStore((state) => state.toggleModalWithoutContainer);
+  const setModalWithoutContainer = useStore((state) => state.setModalWithoutContainer);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const { width } = useViewport();
 
   const initialPowerUpsShown = width > MEDIUM_VIEWPORT_WIDTH ? POWER_UP_DEFAULT_VIEW : POWER_UP_DEFAULT_VIEW_SMALL;
 
-  const toggleShowModal = () => {
-    toggleModalWithoutContainer();
+  const showModal = () => {
+    setModalWithoutContainer(true);
     setModalComponentChildren(<PowerUpListOverview powerUpIds={powerUpIds} />);
   };
   return (
     <YourPowerUpContainer>
       {powerUpIds.slice(0, initialPowerUpsShown).map((powerUpId, i) => (
         //! Don't use powerUpId as key since we allow for duplicate power-ups
-        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={toggleShowModal} />
+        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={showModal} />
       ))}
       {powerUpIds.length > initialPowerUpsShown && (
-        <PowerUpWrapper onClick={() => toggleShowModal()}>
+        <PowerUpWrapper onClick={() => showModal()}>
           <PowerUpOverview>
             <GeneralText>{text.param.powerUpAmount(powerUpIds.length - initialPowerUpsShown)}</GeneralText>
           </PowerUpOverview>

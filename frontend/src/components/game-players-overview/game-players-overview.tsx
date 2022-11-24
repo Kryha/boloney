@@ -16,7 +16,7 @@ export const GamePlayersOverview: FC = () => {
   const winner = leaderboard.at(0);
 
   if (!winner) return <ErrorView />;
-
+  // TODO: check if player is the winner to fix style
   return (
     <GamePlayersOverviewWrapper isWinner>
       {matchStage === "endOfMatchStage" ? (

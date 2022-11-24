@@ -1,11 +1,9 @@
 import { FC, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import { text } from "../../assets";
 
 import { useStore } from "../../store";
-import { GeneralText } from "../atoms/text";
 import { Modal } from "../modal";
-import { Close, CloseButton, CloseWrapper, OverlayWrapperSection } from "./styles";
+import { OverlayWrapperSection } from "./styles";
 
 export const OverlayWrapper: FC = () => {
   const ref = useRef(null);
@@ -17,22 +15,15 @@ export const OverlayWrapper: FC = () => {
   useOnClickOutside(ref, () => {
     handleClose();
   });
-
   const handleClose = () => {
     closeModal();
   };
 
   return (
     <OverlayWrapperSection ref={ref}>
-      {isModalButtonVisible && (
-        <CloseWrapper>
-          <CloseButton onClick={() => handleClose()}>
-            <GeneralText>{text.general.close}</GeneralText>
-            <Close />
-          </CloseButton>
-        </CloseWrapper>
-      )}
-      <Modal hasContainer={isContainerVisible}>{modalComponentChildren}</Modal>
+      <Modal hasContainer={isContainerVisible} isModalButtonVisible={isModalButtonVisible}>
+        {modalComponentChildren}
+      </Modal>
     </OverlayWrapperSection>
   );
 };

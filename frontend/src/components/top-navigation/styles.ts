@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { LightningIcon, TimerIcon } from "../../assets/icons";
 import { color, margins, zIndex } from "../../design";
-import { GeneralText, Heading6, Paragraph } from "../atoms";
+import { GeneralText, Heading6, HorizontalDivider, Paragraph } from "../atoms";
 import { Link } from "../buttons";
 import { DieWrapper } from "../die/styles";
 
@@ -75,14 +75,28 @@ export const ChildrenContainer = styled(DropdownWrapper)<DropdownProps>`
   z-index: ${zIndex.onTop};
   background: ${color.lightGrey};
 `;
+interface MenuProps {
+  isInMatch?: boolean;
+}
 
-export const MenuContainer = styled.div`
+export const MenuContainer = styled.div<MenuProps>`
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   background: ${color.white};
   box-shadow: 0px 0px 28px rgb(0 0 0 / 10%);
+  ${({ isInMatch }) =>
+    isInMatch
+      ? ""
+      : `
+        ${HorizontalDivider} {
+          display: none;
+        }
+        ${MatchStatsContainer} {
+          display: none;
+        }
+  `};
 `;
 
 export const RulesContainer = styled.div`

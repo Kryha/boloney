@@ -4,7 +4,6 @@ import { GamePlayersOverview } from "../game-players-overview";
 import { HUD } from "../hud";
 import { ContentContainer, MainContentContainer } from "./styles";
 import { TopNavigation } from "../top-navigation";
-import { OverlayWrapper } from "../overlay-wrapper";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
@@ -24,7 +23,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
 
   return (
     <>
-      <TopNavigation isInMatch={matchStage !== "endOfMatchStage"} />
+      <TopNavigation isInMatch={matchStage !== "endOfMatchStage"} isStatsVisible />
 
       <GamePlayersOverview />
 
@@ -35,7 +34,6 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
       <MainContentContainer isStageWithHUD={isStageWithHUD(matchStage)}>
         <ContentContainer>{children}</ContentContainer>
       </MainContentContainer>
-      <OverlayWrapper />
     </>
   );
 };

@@ -9,11 +9,12 @@ import { useOnClickOutside } from "usehooks-ts";
 
 interface Props {
   isInMatch?: boolean;
+  isStatsVisible?: boolean;
 }
 
 export type ActiveDropdown = "rules" | "menu" | undefined;
 
-export const TopNavigation: FC<Props> = ({ isInMatch }) => {
+export const TopNavigation: FC<Props> = ({ isInMatch, isStatsVisible }) => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
   const ref = useRef(null);
@@ -33,10 +34,14 @@ export const TopNavigation: FC<Props> = ({ isInMatch }) => {
 
   return (
     <TopNavigationSection ref={ref}>
-      {isInMatch && <MatchStats />}
+      {isStatsVisible && <MatchStats />}
       <RulesDropdown isActive={activeDropdown === "rules" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
       <VerticalDivider />
-      <MenuDropdown isActive={activeDropdown === "menu" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
+      <MenuDropdown
+        isActive={activeDropdown === "menu" && isComponentVisible}
+        setActiveDropdown={handleDropdownClick}
+        isInMatch={isInMatch}
+      />
     </TopNavigationSection>
   );
 };

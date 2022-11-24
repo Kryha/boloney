@@ -35,3 +35,6 @@ export * from "./roll-dice";
 export * from "./spinner";
 export * from "./overlay-spinner";
 export * from "./button-with-helper";
+export * from "./match-settings-overview";
+export * from "./match-info";
+export * from "./power-up-description";

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
 import { TopNavigationSection } from "../top-navigation/styles";
+import { CloseIcon } from "../../assets";
 
 interface ChildrenWrapperProps {
   hasContainer: boolean;
@@ -42,4 +43,27 @@ export const ModalWrapper = styled.section<ModalProps>`
   ${TopNavigationSection} {
     z-index: 1;
   }
+`;
+
+export const Close = styled(CloseIcon)`
+  margin-top: 3px;
+`;
+
+export const CloseButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: ${margins.small4} 26px ${margins.small5} ${margins.medium0};
+  gap: ${margins.small1};
+  background: ${color.lightGrey};
+  cursor: pointer;
+`;
+
+export const CloseWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;

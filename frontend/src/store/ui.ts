@@ -14,8 +14,8 @@ export interface UISlice {
   toggleOverlay: () => void;
   setModalComponentChildren: (component: ReactNode) => void;
   closeModal: () => void;
-  toggleModalWithoutContainer: () => void;
-  toggleModalWithContainer: () => void;
+  setModalWithoutContainer: (isVisible: boolean) => void;
+  setModalWithContainer: (isVisible: boolean) => void;
   setIsDiceThrown: (isDiceThrown: boolean) => void;
   setIsDiceStable: (isDiceStable: boolean) => void;
   setSpinnerVisibility: (isVisible: boolean) => void;
@@ -41,18 +41,18 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
       isContainerVisible: false,
       modalComponentChildren: undefined,
     })),
-  toggleModalWithoutContainer: () =>
-    set(({ isOverlayVisible, isModalVisible, isModalButtonVisible }) => ({
-      isModalButtonVisible: !isModalButtonVisible,
-      isModalVisible: !isModalVisible,
-      isOverlayVisible: !isOverlayVisible,
+  setModalWithoutContainer: (isVisible) =>
+    set(() => ({
+      isModalButtonVisible: isVisible,
+      isModalVisible: isVisible,
+      isOverlayVisible: isVisible,
     })),
-  toggleModalWithContainer: () =>
-    set(({ isOverlayVisible, isModalVisible, isModalButtonVisible, isContainerVisible }) => ({
-      isModalButtonVisible: !isModalButtonVisible,
-      isModalVisible: !isModalVisible,
-      isOverlayVisible: !isOverlayVisible,
-      isContainerVisible: !isContainerVisible,
+  setModalWithContainer: (isVisible) =>
+    set(() => ({
+      isModalButtonVisible: isVisible,
+      isModalVisible: isVisible,
+      isOverlayVisible: isVisible,
+      isContainerVisible: isVisible,
     })),
   setIsDiceThrown: (isDiceThrown) => set(() => ({ isDiceThrown })),
   setIsDiceStable: (isDiceStable) => set(() => ({ isDiceStable })),

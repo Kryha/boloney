@@ -13,12 +13,13 @@ export const Lobby: FC = () => {
 
   const players = useStore((state) => state.getOrderedPlayers());
   const localPlayer = useStore((state) => state.getLocalPlayer());
+  const matchStage = useStore((state) => state.matchStage);
 
   if (!localPlayer) return <ErrorView />;
 
   return (
     <LobbyWrapper>
-      <TopNavigation />
+      <TopNavigation isInMatch={matchStage !== "endOfMatchStage"} />
       <LineContainer isPlayerReady={localPlayer.isReady} onClick={broadcastPlayerReady}>
         {players.map((player) => (
           <LobbyPlayer key={player.username} player={player} />

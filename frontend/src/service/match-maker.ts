@@ -1,7 +1,13 @@
 import { useCallback, useState } from "react";
 
 import { text } from "../assets/text";
-import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH } from "../constants";
+import {
+  DEFAULT_MATCH_SETTINGS,
+  DEFAULT_POOL_MAX_PLAYERS,
+  DEFAULT_POOL_MIN_PLAYERS,
+  DEFAULT_POOL_QUERY,
+  RPC_CREATE_MATCH,
+} from "../constants";
 import { useStore } from "../store";
 import { MatchJoinMetadata, MatchSettings, NkResponse } from "../types";
 import { parseError } from "../util";
@@ -11,6 +17,7 @@ export const useMatchMaker = () => {
   const setMatchId = useStore((state) => state.setMatchId);
   const [isLoading, setIsLoading] = useState(false);
   const setInitialState = useStore((state) => state.setInitialState);
+  const setMatchSettings = useStore((state) => state.setMatchSettings);
 
   const joinMatch = useCallback(
     async (matchId: string, metadata: MatchJoinMetadata): Promise<NkResponse> => {
@@ -18,9 +25,10 @@ export const useMatchMaker = () => {
         if (!socket) throw new Error(text.error.noSocketConnected);
 
         setIsLoading(true);
+        // TODO: set match settings
+        setMatchSettings(DEFAULT_MATCH_SETTINGS);
         setInitialState();
         setMatchId(matchId);
-
         await socket.joinMatch(matchId, undefined, metadata);
       } catch (error) {
         const parsedErr = await parseError(error);
@@ -29,7 +37,7 @@ export const useMatchMaker = () => {
         setIsLoading(false);
       }
     },
-    [socket, setMatchId, setInitialState]
+    [socket, setMatchSettings, setInitialState, setMatchId]
   );
 
   const joinPool = useCallback(async (): Promise<NkResponse> => {

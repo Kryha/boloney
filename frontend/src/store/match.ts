@@ -2,7 +2,7 @@ import { Session } from "@heroiclabs/nakama-js";
 import { produce } from "immer";
 import { StateCreator } from "zustand";
 
-import { Die, MatchStage, PowerUpId, PlayerPublic } from "../types";
+import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings } from "../types";
 
 interface MatchSliceState {
   sessionState?: Session;
@@ -13,6 +13,7 @@ interface MatchSliceState {
   playerOrder: string[];
   matchUrl: string;
   powerUpIds: PowerUpId[];
+  matchSettings?: MatchSettings;
   // flags
   hasRolledDice: boolean;
 }
@@ -36,6 +37,7 @@ interface MatchSliceSetters {
   setMatchUrl: (matchUrl: string) => void;
   setPowerUpIds: (ids: PowerUpId[]) => void;
   setActivePlayer: (playerId: string) => void;
+  setMatchSettings: (matchSettings: MatchSettings) => void;
 }
 
 export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceSetters;
@@ -52,6 +54,7 @@ const initialMatchState: MatchSliceState = {
   playerOrder: [],
   matchUrl: "",
   powerUpIds: [],
+  matchSettings: undefined,
   ...initialFlags,
 };
 
@@ -107,7 +110,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
-  setInitialState: () => set(() => ({ ...initialMatchState })),
+  setInitialState: () => set(({ matchSettings }) => ({ ...initialMatchState, matchSettings: matchSettings })),
   setPowerUpIds: (powerUpIds) => set(() => ({ powerUpIds })),
   setActivePlayer: (playerId: string) => {
     set(
@@ -118,4 +121,5 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
       })
     );
   },
+  setMatchSettings: (matchSettings: MatchSettings) => set(() => ({ matchSettings })),
 });

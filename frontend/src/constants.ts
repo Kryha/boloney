@@ -1,3 +1,5 @@
+import { MatchSettings } from "./types";
+
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "backend.localhost";
 export const API_URL = import.meta.env.VITE_API_URL || "api.localhost";
 export const API_PORT = import.meta.env.VITE_API_PORT || "80";
@@ -62,3 +64,53 @@ export const POWER_UP_DEFAULT_VIEW_SMALL = 5;
 export const GAME_PLAYER_HEIGHT = 89;
 // TODO: change the time
 export const DECISION_MAKING_TIME_IN_SECONDS = 100;
+
+export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
+  // TODO: change players to 7 before releasing to production
+  players: 3,
+  dicePerPlayer: 5,
+  initialPowerUpAmount: 3,
+  stageNumberDivisor: 5,
+  drawRoundOffset: 0,
+  healPowerUpAmount: 1,
+  maxPowerUpAmount: 3,
+  powerUpProbability: [
+    {
+      id: "1",
+      probability: 25,
+    },
+    {
+      id: "2",
+      probability: 0,
+    },
+    {
+      id: "3",
+      probability: 0,
+    },
+    {
+      id: "4",
+      probability: 25,
+    },
+    {
+      id: "5",
+      probability: 0,
+    },
+    {
+      id: "6",
+      probability: 25,
+    },
+    {
+      id: "7",
+      probability: 0,
+    },
+    {
+      id: "8",
+      probability: 25,
+    },
+    {
+      id: "9",
+      probability: 0,
+    },
+  ],
+  availablePowerUps: ["1", "4", "6", "8"],
+};
