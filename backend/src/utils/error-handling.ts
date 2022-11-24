@@ -1,4 +1,21 @@
-import { AccountKeys, isBasicError, isNkError, isString } from "../types";
+import { AccountKeys, CustomError, isBasicError, isCustomError, isNkError, isString } from "../types";
+import { StatusCodes } from "./status-codes";
+
+export const mapHttpCodeToNakama = (httpCode: StatusCodes): nkruntime.Codes => {
+  const httpToNakama: Record<number, nkruntime.Codes> = {
+    [StatusCodes.BAD_REQUEST]: nkruntime.Codes.NOT_FOUND,
+    [StatusCodes.NOT_FOUND]: nkruntime.Codes.NOT_FOUND,
+    [StatusCodes.UNAUTHORIZED]: nkruntime.Codes.PERMISSION_DENIED,
+    [StatusCodes.FORBIDDEN]: nkruntime.Codes.PERMISSION_DENIED,
+    [StatusCodes.CONFLICT]: nkruntime.Codes.FAILED_PRECONDITION,
+    [StatusCodes.GONE]: nkruntime.Codes.NOT_FOUND,
+    [StatusCodes.PRECONDITION_FAILED]: nkruntime.Codes.FAILED_PRECONDITION,
+    [StatusCodes.REQUESTED_RANGE_NOT_SATISFIABLE]: nkruntime.Codes.OUT_OF_RANGE,
+    [StatusCodes.INTERNAL_SERVER_ERROR]: nkruntime.Codes.INTERNAL,
+    [StatusCodes.NOT_IMPLEMENTED]: nkruntime.Codes.UNIMPLEMENTED,
+  };
+  return httpToNakama[httpCode] ? httpToNakama[httpCode] : nkruntime.Codes.UNKNOWN;
+};
 
 export const ERROR_EXTERNAL_CALL: nkruntime.Error = {
   message: "The contract call failed",
@@ -10,14 +27,18 @@ export const ERROR_WRITING_TO_COLLECTION: nkruntime.Error = {
   code: nkruntime.Codes.UNKNOWN,
 };
 
-export const parseError = (error: unknown, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
-  if (isString(error)) return { code, message: error };
+export const parseError = (error: unknown, code = nkruntime.Codes.INTERNAL): CustomError => {
+  const name = "Error";
 
-  if (isNkError(error)) return error;
+  if (isString(error)) return { code, message: error, name };
 
-  if (isBasicError(error)) return { message: error.message, code };
+  if (isCustomError(error)) return error;
 
-  return { message: "An error occurred.", code };
+  if (isNkError(error)) return { ...error, name };
+
+  if (isBasicError(error)) return { message: error.message, code, name };
+
+  return { message: "An error occurred.", code, name };
 };
 
 export const handleError = (error: unknown, logger: nkruntime.Logger, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
@@ -29,7 +50,8 @@ export const handleError = (error: unknown, logger: nkruntime.Logger, code = nkr
 export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntime.Logger): AccountKeys => {
   const resKind = Math.floor(res.code / 100);
   if (resKind === 2) return JSON.parse(res.body);
-  throw handleError(res.body, logger, res.code);
+  const nakamaCode = mapHttpCodeToNakama(res.code);
+  throw handleError(res.body, logger, nakamaCode);
 };
 
 type RpcHandler = (cb: nkruntime.RpcFunction) => nkruntime.RpcFunction;

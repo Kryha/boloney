@@ -1,112 +1,179 @@
-import { BasicError } from "../types";
+import { BasicError, CustomError } from "../types";
 import { createMock } from "ts-auto-mock";
 import * as errorHandling from "./error-handling";
+import { StatusCodes } from "./status-codes";
 
-const ERROR_NOT_FOUND = 404;
-const SUCCESS_STATUS_CODE = 201;
+describe("mapHttpCodeToNakama function", () => {
+  it("Should map BAD_REQUEST & NOT_FOUND Http status codes to Nakama NOT_FOUND", () => {
+    expect(errorHandling.mapHttpCodeToNakama(StatusCodes.BAD_REQUEST)).toEqual(nkruntime.Codes.NOT_FOUND);
+    expect(errorHandling.mapHttpCodeToNakama(StatusCodes.NOT_FOUND)).toEqual(nkruntime.Codes.NOT_FOUND);
+  });
 
-// TODO: Add test cases that assert the errors thrown.
+  it("Should map SWItCHING_PROTOCOLS  Http status code to Nakama UNKNOWN", () => {
+    expect(errorHandling.mapHttpCodeToNakama(StatusCodes.SWITCHING_PROTOCOLS)).toEqual(nkruntime.Codes.UNKNOWN);
+  });
+
+  it("Should map UNAUTHORIZED AND FORBIDDEN Http status codes to Nakama PERMISSION_DENIED", () => {
+    expect(errorHandling.mapHttpCodeToNakama(StatusCodes.UNAUTHORIZED)).toEqual(nkruntime.Codes.PERMISSION_DENIED);
+    expect(errorHandling.mapHttpCodeToNakama(StatusCodes.FORBIDDEN)).toEqual(nkruntime.Codes.PERMISSION_DENIED);
+  });
+});
+
 describe("parseError function", () => {
   const code = nkruntime.Codes.INTERNAL;
+  const name = "Error";
 
-  it("Should assert that error isString", () => {
+  it("Should parse string error to Nakama Error", () => {
     const message = "string error";
-    expect(errorHandling.parseError(message, code)).toEqual({ message, code });
+    expect(errorHandling.parseError(message, code)).toEqual({ message, code, name });
   });
-  it("Should assert that error isNkError", () => {
+
+  it("Should parse Nakama Error to Nakama Error", () => {
     const error = {
       message: "error",
       code: code,
-    } as nkruntime.Error;
+      name: name,
+    } as CustomError;
     expect(errorHandling.parseError(error, code)).toEqual(error);
   });
-  it("Should assert that error isBasicError", () => {
+
+  it("Should parse Custom Error to Custom Error", () => {
+    const error = {
+      message: "error",
+      code: code,
+      name: name,
+    } as CustomError;
+    expect(errorHandling.parseError(error, code)).toEqual(error);
+  });
+
+  it("Should parse BasicError and Nakama Runtime Code to Nakama Error", () => {
     const message = "error";
     const error = {
       message: message,
     } as BasicError;
-    expect(errorHandling.parseError(error, code)).toEqual({ message, code });
+    expect(errorHandling.parseError(error, code)).toEqual({ message, code, name });
   });
-  it("Should assert that error is nkruntime.Error", () => {
+
+  it("Should parse any type of error and Nakama Code to Nakama Error", () => {
     const message = "An error occurred.";
-    expect(errorHandling.parseError(ERROR_NOT_FOUND, code)).toEqual({ message, code });
+    expect(errorHandling.parseError(StatusCodes.NOT_FOUND, code)).toEqual({ message, code, name });
   });
 });
 
-describe("", () => {
+describe("Functions that require mocked input data", () => {
   let mockLogger: nkruntime.Logger;
   let mockNk: nkruntime.Nakama;
   let mockCtx: nkruntime.Context;
   let mockSession: nkruntime.Session;
+  let authCustom: nkruntime.AuthenticateCustomRequest;
+  let message: string;
+  let customError: CustomError;
+  const payload = { name: "payload" };
 
   beforeEach(() => {
     mockLogger = createMock<nkruntime.Logger>();
     mockNk = createMock<nkruntime.Nakama>();
     mockCtx = createMock<nkruntime.Context>({ userId: "mock-user" });
     mockSession = createMock<nkruntime.Session>();
+    authCustom = {
+      account: {
+        id: "4321431",
+        vars: { ["key"]: "variable" },
+      },
+      create: true,
+      username: "player",
+    };
+    message = "error";
+    customError = {
+      message: message,
+      code: nkruntime.Codes.INTERNAL,
+      name: "Error",
+    } as CustomError;
   });
 
   describe("handleError function", () => {
-    it("Should assert that return value is nkruntime.Error", () => {
-      const error = {
-        message: "error",
+    it("Should return value nkruntime.Error", () => {
+      const returnedError = {
+        message: message,
         code: nkruntime.Codes.INTERNAL,
-      } as nkruntime.Error;
-      jest.spyOn(errorHandling, "parseError").mockReturnValueOnce(error);
-      expect(errorHandling.handleError(error, mockLogger, error.code)).toEqual(error);
+        name: "Error",
+      };
+      expect(errorHandling.handleError(message, mockLogger, nkruntime.Codes.INTERNAL)).toEqual(returnedError);
     });
   });
 
   describe("handleHttpResonse function", () => {
-    it("Should assert that httpResponse was successful", () => {
+    it("Should return the httpResponse input", () => {
       const result = { message: "Ok" };
       const httpResponse = {
-        code: SUCCESS_STATUS_CODE,
+        code: StatusCodes.OK,
         headers: ["headers"],
         body: JSON.stringify(result),
       } as nkruntime.HttpResponse;
       expect(errorHandling.handleHttpResponse(httpResponse, mockLogger)).toEqual(result);
     });
+
+    it("Should throw an Error for 404 HTTPResponse input", () => {
+      const httpResponse = {
+        code: StatusCodes.NOT_FOUND,
+        headers: ["headers"],
+        body: "error",
+      } as nkruntime.HttpResponse;
+      expect(() => errorHandling.handleHttpResponse(httpResponse, mockLogger)).toThrow(customError);
+    });
   });
 
   describe("rpcHandler function", () => {
-    it("Should assert that returned value matches the payload", () => {
-      const payload = { name: "payload" };
+    it("Should return the payload parameter", () => {
       const mockCallBack = jest.fn((_ctx, _logger, _nk, payload) => JSON.stringify(payload)).mockReturnValueOnce(JSON.stringify(payload));
       const callback = errorHandling.rpcHandler(mockCallBack);
       expect(callback(mockCtx, mockLogger, mockNk, JSON.stringify(payload))).toEqual(JSON.stringify(payload));
     });
-  });
 
-  describe("beforeHookHandler function", () => {
-    it("Should assert that the returned value matches AuthenticateCustomRequest received", () => {
-      const res = {
-        account: {
-          id: "4321431",
-          vars: { ["key"]: "variable" },
-        },
-        create: true,
-        username: "player",
-      } as nkruntime.AuthenticateCustomRequest;
-      const mockCallBack = jest.fn((_ctx, _logger, _nk, data) => data).mockReturnValueOnce(res);
-      const callback = errorHandling.beforeHookHandler(mockCallBack);
-      expect(callback(mockCtx, mockLogger, mockNk, res)).toEqual(res);
+    it("Should throw an Error for incorrect input", () => {
+      const mockCallBack = jest
+        .fn((_ctx, _logger, _nk, payload) => JSON.stringify(payload))
+        .mockImplementation(() => {
+          throw new TypeError("error");
+        });
+      const callback = errorHandling.rpcHandler(mockCallBack);
+      expect(() => callback(mockLogger as unknown as nkruntime.Context, mockLogger, mockNk, JSON.stringify(payload))).toThrow(customError);
     });
   });
 
   describe("beforeHookHandler function", () => {
-    it("Should assert that the returned value matches AuthenticateCustomRequest received", () => {
-      const res = {
-        account: {
-          id: "4321431",
-          vars: { ["key"]: "variable" },
-        },
-        create: true,
-        username: "player",
-      } as nkruntime.AuthenticateCustomRequest;
-      const mockCallBack = jest.fn((_ctx, _logger, _nk, _data, request) => request).mockReturnValueOnce(res);
+    it("Should return the AuthenticateCustomRequest parameter", () => {
+      const mockCallBack = jest.fn((_ctx, _logger, _nk, data) => data).mockReturnValueOnce(authCustom);
+      const callback = errorHandling.beforeHookHandler(mockCallBack);
+      expect(callback(mockCtx, mockLogger, mockNk, authCustom)).toEqual(authCustom);
+    });
+
+    it("Should throw an Error", () => {
+      const mockCallBack = jest
+        .fn((_ctx, _logger, _nk, data) => data)
+        .mockImplementation(() => {
+          throw new Error("error");
+        });
+      const callback = errorHandling.beforeHookHandler(mockCallBack);
+      expect(() => callback(mockCtx, mockLogger, mockNk, authCustom)).toThrow(customError);
+    });
+  });
+
+  describe("afterHookHandler function", () => {
+    it("Should return the AuthenticateCustomRequest parameter", () => {
+      const mockCallBack = jest.fn((_ctx, _logger, _nk, _data, request) => request).mockReturnValueOnce(authCustom);
       const callback = errorHandling.afterHookHandler(mockCallBack);
-      expect(callback(mockCtx, mockLogger, mockNk, mockSession, res)).toEqual(res);
+      expect(callback(mockCtx, mockLogger, mockNk, mockSession, authCustom)).toEqual(authCustom);
+    });
+
+    it("Should throw an Error", () => {
+      const mockCallBack = jest
+        .fn((_ctx, _logger, _nk, data) => data)
+        .mockImplementation(() => {
+          throw new Error("error");
+        });
+      const callback = errorHandling.afterHookHandler(mockCallBack);
+      expect(() => callback(mockCtx, mockLogger, mockNk, mockSession, authCustom)).toThrow(customError);
     });
   });
 });
