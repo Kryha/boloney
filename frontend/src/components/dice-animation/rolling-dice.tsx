@@ -1,33 +1,24 @@
 import { useRef, useState, useEffect, FC } from "react";
+
 import { DiceRoll, newRoll } from "./index";
-import { text } from "../../assets";
-import { PrimaryButton } from "../buttons";
 import { rollDice } from "./roll-dice";
 import { RollerContainer } from "./styles";
-import { Die as Dice, MatchOpCode } from "../../types";
+import { Die } from "../../types";
 import { DieType } from "./types";
-import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
 
 interface RollingDiceProps {
-  dice?: Dice[];
+  dice: Die[];
   dieColor: string;
+  dieType?: DieType;
 }
-export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
-  const { broadcastPlayerReady, sendMatchState } = useMatch();
+
+export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor, dieType = DieType.D6 }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const [roll, setRoll] = useState<DiceRoll | undefined>();
-  const hasRolledDice = useStore((state) => state.hasRolledDice);
+
   const setIsDiceStable = useStore((state) => state.setIsDiceStable);
   const setIsDiceThrown = useStore((state) => state.setIsDiceThrown);
-
-  const handleRoll = () => {
-    if (hasRolledDice) {
-      broadcastPlayerReady();
-    } else {
-      sendMatchState(MatchOpCode.ROLL_DICE);
-    }
-  };
 
   useEffect(() => {
     let element: HTMLCanvasElement | null = null;
@@ -52,18 +43,12 @@ export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor }) => {
     };
   }, [setIsDiceStable]);
 
-  const onRoll = () => {
+  useEffect(() => {
     setIsDiceStable(false);
-    const diceRoll = newRoll(DieType.D6, dice || [], dieColor);
+    const diceRoll = newRoll(dieType, dice, dieColor);
     setIsDiceThrown(true);
     setRoll(diceRoll);
-    handleRoll();
-  };
+  }, [dice, dieColor, dieType, setIsDiceStable, setIsDiceThrown]);
 
-  // TODO: Add "ready" button after getting dice;
-  return (
-    <RollerContainer ref={mountRef}>
-      <PrimaryButton text={text.general.rollIt} onClick={() => onRoll()} />
-    </RollerContainer>
-  );
+  return <RollerContainer ref={mountRef} />;
 };
