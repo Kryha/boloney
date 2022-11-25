@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 interface MainProps {
   height: number;
+  isOverlayVisible: boolean;
 }
 
 export const MainPageContainer = styled.div``;
@@ -12,5 +13,9 @@ export const MainWrap = styled.div<MainProps>`
   flex-direction: row;
   overflow: scroll;
   position: relative;
-  ${({ height }): string => `height: ${height}px;`};
+
+  //TODO: add better default value when height is nog provided
+  height: ${({ height }): string => (height ? `${height}px;` : "none")};
+
+  filter: ${({ isOverlayVisible }): string => (isOverlayVisible ? "blur(4px);" : "none;")};
 `;

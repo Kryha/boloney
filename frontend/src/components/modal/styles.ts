@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { color, margins } from "../../design";
+import { color, margins, zIndex } from "../../design";
+import { SausageSection } from "../spinner/styles";
 import { TopNavigationSection } from "../top-navigation/styles";
 import { CloseIcon } from "../../assets";
 
@@ -20,7 +21,7 @@ export const ChildrenWrapper = styled.div<ChildrenWrapperProps>`
   width: clamp(920px, 87.5vw + 80px, 1760px);
   height: 85.6vh;
   position: fixed;
-  z-index: 5;
+  z-index: ${zIndex.overlay};
   top: 60px;
   left: 50%;
   transform: translateX(-50%);
@@ -34,14 +35,21 @@ export const ModalWrapper = styled.section<ModalProps>`
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 5;
+  z-index: ${zIndex.onTop};
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: ${({ isModalVisible }) => (isModalVisible ? "block" : "none")};
 
   ${TopNavigationSection} {
-    z-index: 1;
+    z-index: ${zIndex.background};
+  }
+  ${SausageSection} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 

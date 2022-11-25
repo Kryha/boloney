@@ -15,7 +15,7 @@ import {
   InputLegend,
 } from "../../components";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, isNkError, NkCode, nkErrorSchema } from "../../types";
+import { AuthFields, isNkError, NkCode } from "../../types";
 import { routes } from "../../navigation";
 import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";

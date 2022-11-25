@@ -3,7 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { routes } from "./route-names";
-import { MainContainer, ErrorFallback, ErrorView } from "../components";
+import { MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
 import { Landing, NewGame, Home, Match } from "../pages";
 import { useAuth } from "../service";
@@ -39,8 +39,7 @@ export const RoutesWrapper: FC = () => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
-      {/* TODO: create loading component */}
-      <MainContainer>{isRefreshing ? <>Authenticating...</> : <AppRoutes />}</MainContainer>
+      <MainContainer>{isRefreshing ? <Loading /> : <AppRoutes />}</MainContainer>
     </ErrorBoundary>
   );
 };

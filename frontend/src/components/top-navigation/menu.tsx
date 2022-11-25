@@ -34,7 +34,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
 
   const handleSettings = () => {
     setModalWithContainer(true);
-    setModalComponentChildren(<MatchSettingsOverview />);
+    setModalComponentChildren("match-settings-overview");
   };
 
   return (

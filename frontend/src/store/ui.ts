@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
 import { StateCreator } from "zustand";
+import { OverlayComponent } from "../types";
 
 export interface UISlice {
   isOverlayVisible: boolean;
   isModalVisible: boolean;
-  modalComponentChildren: ReactNode | undefined;
+  modalComponentChildren?: OverlayComponent;
   isContainerVisible: boolean;
   isModalButtonVisible: boolean;
   isDiceThrown: boolean;
@@ -12,7 +12,7 @@ export interface UISlice {
   isLoadingSpinnerVisible: boolean;
 
   toggleOverlay: () => void;
-  setModalComponentChildren: (component: ReactNode) => void;
+  setModalComponentChildren: (component: OverlayComponent) => void;
   closeModal: () => void;
   setModalWithoutContainer: (isVisible: boolean) => void;
   setModalWithContainer: (isVisible: boolean) => void;
@@ -32,7 +32,7 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   isLoadingSpinnerVisible: false,
 
   toggleOverlay: () => set(({ isOverlayVisible }) => ({ isOverlayVisible: !isOverlayVisible })),
-  setModalComponentChildren: (component: ReactNode) => set(() => ({ modalComponentChildren: component })),
+  setModalComponentChildren: (component: OverlayComponent) => set(() => ({ modalComponentChildren: component })),
   closeModal: () =>
     set(() => ({
       isModalButtonVisible: false,
@@ -58,7 +58,8 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   setIsDiceStable: (isDiceStable) => set(() => ({ isDiceStable })),
   setSpinnerVisibility: (isVisible: boolean) =>
     set(() => ({
-      isLoadingSpinnerVisible: isVisible,
+      modalComponentChildren: isVisible ? "sausage-spinner" : undefined,
+      isModalVisible: isVisible,
       isOverlayVisible: isVisible,
     })),
 });

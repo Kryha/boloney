@@ -3,7 +3,6 @@ import { ReactNode, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { z } from "zod";
 
-import { text } from "../../assets";
 import {
   EndOfMatch,
   EndOfRound,
@@ -11,10 +10,10 @@ import {
   GeneralContentWrapper,
   GetPowerUps,
   PlayerTurns,
-  Heading2,
   RollDice,
   Lobby,
   ErrorView,
+  Loading,
 } from "../../components";
 import { useMatchMaker } from "../../service";
 import { useStore } from "../../store";
@@ -127,8 +126,7 @@ export const Match = () => {
     };
   }, [socket, setMatchStage, setPlayerOrder, setPlayers, session, setDiceValue, setPowerUpIds, setActivePlayer]);
 
-  // TODO: add loading animation
-  if (isLoading) return <Heading2>{text.general.loading}</Heading2>;
+  if (isLoading) return <Loading />;
 
   if (matchStage === "lobbyStage") return <Lobby />;
 

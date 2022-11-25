@@ -2,8 +2,10 @@ import { FC, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 import { useStore } from "../../store";
+import { OverlayContent } from "./overlay-content";
 import { Modal } from "../modal";
 import { OverlayWrapperSection } from "./styles";
+import { Overlay } from "../atoms";
 
 export const OverlayWrapper: FC = () => {
   const ref = useRef(null);
@@ -20,10 +22,12 @@ export const OverlayWrapper: FC = () => {
   };
 
   return (
-    <OverlayWrapperSection ref={ref}>
-      <Modal hasContainer={isContainerVisible} isModalButtonVisible={isModalButtonVisible}>
-        {modalComponentChildren}
-      </Modal>
-    </OverlayWrapperSection>
+    <Overlay>
+      <OverlayWrapperSection ref={ref}>
+        <Modal hasContainer={isContainerVisible} isModalButtonVisible={isModalButtonVisible}>
+          <OverlayContent name={modalComponentChildren} />
+        </Modal>
+      </OverlayWrapperSection>
+    </Overlay>
   );
 };

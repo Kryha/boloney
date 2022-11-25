@@ -31,7 +31,6 @@ export const Overlay = styled.div`
   width: 100%;
   height: 100%;
   opacity: 0.8;
-  filter: blur(4px);
   background: ${color.lightGrey};
   mix-blend-mode: normal;
   z-index: ${zIndex.inFront};

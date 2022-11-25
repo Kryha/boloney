@@ -16,8 +16,8 @@ export const Waiting = styled.div`
     overflow: hidden;
     display: inline-block;
     vertical-align: bottom;
-    -webkit-animation: ${ellipsis} steps(4,end) 900ms infinite;
-    animation: ${ellipsis} steps(4,end) 900ms infinite;
+    -webkit-animation: ${ellipsis} steps(4, end) 900ms infinite;
+    animation: ${ellipsis} steps(4, end) 900ms infinite;
     content: "...";
     width: 0px;
   }

@@ -1,12 +1,12 @@
 import { gsap } from "gsap";
-import { SausageContainer } from "./styles";
+import { LoadingTextContainer, SausageContainer, SausageSection } from "./styles";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
-import { Heading3, sausageAnimate } from "../atoms";
+import { sausageAnimate } from "../atoms";
 import { SausageLoader, text } from "../../assets";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
-export const SausageSpinner = () => {
+export const SausageSpinner: FC = () => {
   useEffect(() => {
     gsap.set("svg", {
       visibility: "visible",
@@ -29,9 +29,11 @@ export const SausageSpinner = () => {
   }, []);
 
   return (
-    <SausageContainer>
-      <SausageLoader />
-      <Heading3>{text.general.loading}</Heading3>
-    </SausageContainer>
+    <SausageSection>
+      <SausageContainer>
+        <SausageLoader />
+        <LoadingTextContainer>{text.general.loading}</LoadingTextContainer>
+      </SausageContainer>
+    </SausageSection>
   );
 };

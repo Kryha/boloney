@@ -6,3 +6,4 @@ export * from "./match";
 export * from "./primitive";
 export * from "./power-up";
 export * from "./die";
+export * from "./ui";

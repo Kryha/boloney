@@ -7,7 +7,7 @@ import { PowerUpId } from "../../types";
 import { getPowerUp } from "../../util";
 import { GeneralText } from "../atoms/text";
 import { PowerUpComponent } from "../power-up";
-import { PowerUpListOverview } from "../power-up-list-overview";
+
 import { PowerUpWrapper } from "../power-up/styles";
 import { PowerUpOverview, YourPowerUpContainer } from "./styles";
 
@@ -18,22 +18,23 @@ interface PowerUpListProps {
 export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
   const setModalWithoutContainer = useStore((state) => state.setModalWithoutContainer);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
+
   const { width } = useViewport();
 
   const initialPowerUpsShown = width > MEDIUM_VIEWPORT_WIDTH ? POWER_UP_DEFAULT_VIEW : POWER_UP_DEFAULT_VIEW_SMALL;
 
-  const showModal = () => {
+  const toggleShowModal = () => {
     setModalWithoutContainer(true);
-    setModalComponentChildren(<PowerUpListOverview powerUpIds={powerUpIds} />);
+    setModalComponentChildren("power-up-list");
   };
   return (
     <YourPowerUpContainer>
       {powerUpIds.slice(0, initialPowerUpsShown).map((powerUpId, i) => (
         //! Don't use powerUpId as key since we allow for duplicate power-ups
-        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={showModal} />
+        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={toggleShowModal} />
       ))}
       {powerUpIds.length > initialPowerUpsShown && (
-        <PowerUpWrapper onClick={() => showModal()}>
+        <PowerUpWrapper onClick={() => toggleShowModal()}>
           <PowerUpOverview>
             <GeneralText>{text.param.powerUpAmount(powerUpIds.length - initialPowerUpsShown)}</GeneralText>
           </PowerUpOverview>
