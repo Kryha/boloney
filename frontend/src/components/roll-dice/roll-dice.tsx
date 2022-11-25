@@ -8,14 +8,14 @@ import { RollingDice } from "../dice-animation";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { PrimaryButton } from "../buttons";
-import { useMatch } from "../../service";
+import { useLocalPlayer, useMatch } from "../../service";
 import { MatchOpCode } from "../../types";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
 
   const hasRolledDice = useStore((state) => state.hasRolledDice);
-  const localPlayer = useStore((state) => state.getLocalPlayer());
+  const localPlayer = useLocalPlayer();
   const dice = useStore((state) => state.diceValue);
 
   const handleRoll = () => {

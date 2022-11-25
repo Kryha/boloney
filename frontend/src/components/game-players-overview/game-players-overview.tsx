@@ -6,9 +6,10 @@ import { useStore } from "../../store";
 import { GamePlayer } from "./game-player";
 import { GameWinner } from "./game-winner";
 import { ErrorView } from "../error-view";
+import { useRemotePlayers } from "../../service";
 
 export const GamePlayersOverview: FC = () => {
-  const players = useStore((state) => state.getRemotePlayers());
+  const players = useRemotePlayers();
   const matchStage = useStore((state) => state.matchStage);
   // TODO: get leaderboard from store
   const leaderboard = fakePlayers;

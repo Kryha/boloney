@@ -18,14 +18,6 @@ interface MatchSliceState {
   hasRolledDice: boolean;
 }
 
-interface MatchSliceGetters {
-  getOrderedPlayers: () => PlayerPublic[];
-  getPlayer: (id?: string) => PlayerPublic | undefined;
-  getLocalPlayer: () => PlayerPublic | undefined;
-  getRemotePlayers: () => PlayerPublic[];
-  getActivePlayer: () => PlayerPublic | undefined;
-}
-
 interface MatchSliceSetters {
   setSession: (session: Session) => void;
   setMatchId: (match_id: string) => void;
@@ -40,7 +32,7 @@ interface MatchSliceSetters {
   setMatchSettings: (matchSettings: MatchSettings) => void;
 }
 
-export type MatchSlice = MatchSliceState & MatchSliceGetters & MatchSliceSetters;
+export type MatchSlice = MatchSliceState & MatchSliceSetters;
 
 const initialFlags = {
   hasRolledDice: false,
@@ -58,50 +50,8 @@ const initialMatchState: MatchSliceState = {
   ...initialFlags,
 };
 
-export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set, get) => ({
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
   ...initialMatchState,
-
-  getOrderedPlayers: () => {
-    const session = get().sessionState;
-    const players = get().players;
-    const order = [...get().playerOrder];
-
-    const playersValues = Object.values(players);
-
-    if (!session || !session.user_id || order.length !== playersValues.length) return playersValues;
-
-    const localPlayerIndex = order.indexOf(session.user_id);
-
-    if (localPlayerIndex !== 0) {
-      const topPart = order.splice(localPlayerIndex, get().playerOrder.length - 1);
-      const bottomPart = order.splice(0, localPlayerIndex);
-      const newPlayerArray = topPart.concat(bottomPart);
-      return newPlayerArray.map((playerId) => players[playerId]);
-    }
-    return get().playerOrder.map((playerId) => players[playerId]);
-  },
-
-  getPlayer: (id) => (id ? get().players[id] : undefined),
-
-  getLocalPlayer: () => {
-    const session = get().sessionState;
-    if (!session || !session.user_id) return;
-    return get().players[session.user_id];
-  },
-
-  getRemotePlayers: () => {
-    const orderedPlayers = get().getOrderedPlayers();
-    const session = get().sessionState;
-    if (!session || !session.user_id) return orderedPlayers;
-    return orderedPlayers.filter((player) => player.userId !== session.user_id);
-  },
-
-  getActivePlayer: () => {
-    const players = get().players;
-    const playersValues = Object.values(players);
-    const activePlayer = playersValues.find((player) => player.isActive);
-    return activePlayer;
-  },
 
   setSession: (session: Session) => set(() => ({ sessionState: session })),
   setMatchId: (matchId) => set(() => ({ matchId })),

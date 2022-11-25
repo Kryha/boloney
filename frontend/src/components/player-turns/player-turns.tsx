@@ -1,12 +1,13 @@
 import { FC } from "react";
-import { useStore } from "../../store";
+
+import { useLocalPlayer } from "../../service";
 import { ErrorView } from "../error-view";
 import { ActivePlayerTurns } from "./active-player-turn";
 import { PassivePlayerTurns } from "./passive-player-turn";
 
 // TODO: Add payload to the broadcasted message
 export const PlayerTurns: FC = () => {
-  const localPlayer = useStore((state) => state.getLocalPlayer());
+  const localPlayer = useLocalPlayer();
 
   if (!localPlayer) return <ErrorView />;
 

@@ -1,9 +1,66 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { text } from "../assets";
 import { useStore } from "../store";
-import { MatchOpCode, NkResponse } from "../types";
+import { MatchOpCode, NkResponse, PlayerPublic } from "../types";
 import { parseError } from "../util";
+
+export const useOrderedPlayers = (): PlayerPublic[] => {
+  const session = useStore((state) => state.sessionState);
+  const players = useStore((state) => state.players);
+  const order = useStore((state) => state.playerOrder);
+
+  return useMemo(() => {
+    const playersValues = Object.values(players);
+
+    if (!session || !session.user_id || order.length !== playersValues.length) return playersValues;
+
+    const localPlayerIndex = order.indexOf(session.user_id);
+
+    if (localPlayerIndex !== 0) {
+      const topPart = order.splice(localPlayerIndex, order.length - 1);
+      const bottomPart = order.splice(0, localPlayerIndex);
+      const newPlayerArray = topPart.concat(bottomPart);
+      return newPlayerArray.map((playerId) => players[playerId]);
+    }
+    return order.map((playerId) => players[playerId]);
+  }, [order, players, session]);
+};
+
+export const usePlayer = (id: string): PlayerPublic | undefined => {
+  const players = useStore((state) => state.players);
+
+  return useMemo(() => players[id], [id, players]);
+};
+
+export const useLocalPlayer = (): PlayerPublic | undefined => {
+  const players = useStore((state) => state.players);
+  const session = useStore((state) => state.sessionState);
+
+  return useMemo(() => {
+    if (!session || !session.user_id) return;
+    return players[session.user_id];
+  }, [players, session]);
+};
+
+export const useRemotePlayers = (): PlayerPublic[] => {
+  const orderedPlayers = useOrderedPlayers();
+  const session = useStore((state) => state.sessionState);
+
+  return useMemo(() => {
+    if (!session || !session.user_id) return orderedPlayers;
+    return orderedPlayers.filter((player) => player.userId !== session.user_id);
+  }, [orderedPlayers, session]);
+};
+
+export const useActivePlayer = (): PlayerPublic | undefined => {
+  const players = useStore((state) => state.players);
+
+  return useMemo(() => {
+    const playersValues = Object.values(players);
+    return playersValues.find((player) => player.isActive);
+  }, [players]);
+};
 
 export const useMatch = () => {
   const socket = useStore((state) => state.socket);

@@ -8,6 +8,7 @@ import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
 import { PlayerMenu } from "../player-menu";
+import { useLocalPlayer } from "../../service";
 
 interface GameLayoutProps {
   children?: ReactNode;
@@ -15,7 +16,7 @@ interface GameLayoutProps {
 
 export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
   const dice = useStore((state) => state.diceValue);
-  const localPlayer = useStore((state) => state.getLocalPlayer());
+  const localPlayer = useLocalPlayer();
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
 
