@@ -15,7 +15,7 @@ export const MainWrap = styled.div<MainProps>`
   position: relative;
 
   //TODO: add better default value when height is nog provided
-  height: ${({ height }): string => (height ? `${height}px;` : "none")};
+  height: ${({ height }): string => `${height}px`};
 
   filter: ${({ isOverlayVisible }): string => (isOverlayVisible ? "blur(4px);" : "none;")};
 `;

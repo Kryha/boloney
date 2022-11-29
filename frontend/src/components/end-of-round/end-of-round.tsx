@@ -2,17 +2,15 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { BottomButtonWrapper, Heading1 } from "../atoms";
-import { PrimaryButton } from "../buttons";
-import { useMatch } from "../../service";
+
+import { ButtonReady } from "../button-ready";
 
 // TODO: finish component
 export const EndOfRound: FC = () => {
-  const { broadcastPlayerReady } = useMatch();
-
   return (
     <BottomButtonWrapper>
       <Heading1>{text.match.endOfRound}</Heading1>
-      <PrimaryButton text={text.match.goForIt} onClick={() => broadcastPlayerReady()} />
+      <ButtonReady />
     </BottomButtonWrapper>
   );
 };

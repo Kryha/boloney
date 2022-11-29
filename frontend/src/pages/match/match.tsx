@@ -44,6 +44,7 @@ export const Match = () => {
   const setPowerUpIds = useStore((state) => state.setPowerUpIds);
   const setDiceValue = useStore((state) => state.setDiceValue);
   const setActivePlayer = useStore((state) => state.setActivePlayer);
+  const setPlayerReady = useStore((state) => state.setPlayerReady);
   const setBids = useStore((state) => state.setBids);
   const resetRound = useStore((state) => state.resetRound);
 
@@ -98,6 +99,7 @@ export const Match = () => {
           if (matchStage === "roundSummaryStage") resetRound();
 
           setMatchStage(parsed.data.matchStage);
+          setPlayerReady(false);
           break;
         }
         case MatchOpCode.PLAYER_JOINED: {
@@ -158,6 +160,7 @@ export const Match = () => {
     matchStage,
     resetRound,
     setSpinnerVisibility,
+    setPlayerReady,
   ]);
 
   // TODO: generalise overlay and return that when awaiting a ws response

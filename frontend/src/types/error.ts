@@ -25,4 +25,4 @@ export const nkErrorSchema = z.object({ code: nkCodeSchema, message: z.string() 
 
 export type NkError = z.infer<typeof nkErrorSchema>;
 
-export const isNkError = (value: unknown): value is NkError => nkCodeSchema.safeParse(value).success;
+export const isNkError = (value: unknown): value is NkError => nkErrorSchema.safeParse(value).success;

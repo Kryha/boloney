@@ -10,6 +10,7 @@ export interface UISlice {
   isDiceThrown: boolean;
   isDiceStable: boolean;
   isLoadingSpinnerVisible: boolean;
+  isPlayerReady: boolean;
 
   setModalComponentChildren: (component: OverlayComponent) => void;
   closeModal: () => void;
@@ -18,6 +19,7 @@ export interface UISlice {
   setIsDiceThrown: (isDiceThrown: boolean) => void;
   setIsDiceStable: (isDiceStable: boolean) => void;
   setSpinnerVisibility: (isVisible: boolean) => void;
+  setPlayerReady: (isReady: boolean) => void;
 }
 
 export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
@@ -29,6 +31,7 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   isDiceThrown: false,
   isDiceStable: true,
   isLoadingSpinnerVisible: false,
+  isPlayerReady: false,
 
   setModalComponentChildren: (component: OverlayComponent) => set(() => ({ modalComponentChildren: component })),
   closeModal: () =>
@@ -60,4 +63,5 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
       isModalVisible: isVisible,
       isOverlayVisible: isVisible,
     })),
+  setPlayerReady: (isReady) => set(() => ({ isPlayerReady: isReady })),
 });

@@ -10,6 +10,7 @@ import { ErrorView } from "../error-view";
 import { PrimaryButton } from "../buttons";
 import { useLocalPlayer, useMatch } from "../../service";
 import { MatchOpCode } from "../../types";
+import { ButtonReady } from "../button-ready";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -17,10 +18,6 @@ export const RollDice: FC = () => {
   const hasRolledDice = useStore((state) => state.hasRolledDice);
   const localPlayer = useLocalPlayer();
   const dice = useStore((state) => state.diceValue);
-
-  const handleRoll = () => {
-    sendMatchState(hasRolledDice ? MatchOpCode.PLAYER_READY : MatchOpCode.ROLL_DICE);
-  };
 
   if (!localPlayer) return <ErrorView />;
 
@@ -31,7 +28,7 @@ export const RollDice: FC = () => {
       <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={text.powerUps.settingItUp} />
       <Heading2 customColor={color.darkGrey}>{text.param.findOutYourPips(localPlayer.username)}</Heading2>
       {dice && <RollingDice dice={dice} dieColor={dieColor} />}
-      <PrimaryButton text={hasRolledDice ? text.general.imReady : text.general.rollIt} onClick={() => handleRoll()} />
+      {hasRolledDice ? <ButtonReady /> : <PrimaryButton text={text.general.rollIt} onClick={() => sendMatchState(MatchOpCode.ROLL_DICE)} />}
     </BottomButtonWrapper>
   );
 };
