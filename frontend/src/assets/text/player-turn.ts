@@ -1,0 +1,17 @@
+export const playerTurn = {
+  back: "back",
+  boloney: "boloney!",
+  callBoloney: "call boloney!",
+  continue: "continue",
+  letsSeeWhoIsRight: "let's see who is right...",
+  itsTequilaUnderTheBridge: "it's tequila under the bridge...",
+  youHaveWon: "you've won!",
+  youHaveLost: "you've lost!",
+  youRock: "you rock calling Boloney!",
+  youSuck: "you suck calling Boloney... you loose a dice!",
+  waitingTime: "waiting time",
+  weHaveAWinner: "we have a winner!",
+  winner: "winner!",
+  loser: "loser",
+  youCanBreath: "you can breathe, your ass is safe!",
+};

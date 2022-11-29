@@ -32,7 +32,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
 
       <PlayerMenu />
 
-      <MainContentContainer isStageWithHUD={isStageWithHUD(matchStage)}>
+      <MainContentContainer isStageWithHUD={isStageWithHUD(matchStage)} isInMatch={matchStage !== "endOfMatchStage"}>
         <ContentContainer>{children}</ContentContainer>
       </MainContentContainer>
     </>

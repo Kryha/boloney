@@ -23,6 +23,7 @@ import ReinforceIcon from "./reinforce.png";
 import SabotageIcon from "./sabotage.png";
 import SatelliteIcon from "./satellite.png";
 import PercentageIcon from "./percentage.svg";
+import BoloneyToaster from "./boloney-toaster.png";
 
 export {
   Hand,
@@ -50,4 +51,5 @@ export {
   SatelliteIcon,
   PercentageIcon,
   DiceCrown,
+  BoloneyToaster,
 };

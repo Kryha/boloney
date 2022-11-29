@@ -8,6 +8,7 @@ import { match } from "./match";
 import { home } from "./home";
 import { powerUps } from "./power-ups";
 import { endOfMatch } from "./end-of-match";
+import { playerTurn } from "./player-turn";
 
 export const text = {
   param,
@@ -20,4 +21,5 @@ export const text = {
   home,
   powerUps,
   endOfMatch,
+  playerTurn,
 };

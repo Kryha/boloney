@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { avatarHeight } from "../atoms";
+import { avatarHeight, Heading6 } from "../atoms";
 import {
   GamePlayersWrapper,
   PlayerNameContainer,
@@ -9,11 +9,14 @@ import {
   PlayerAvatarContainer,
   PlayerInfoContainer,
   GamePlayersContainer,
+  DiceContainer,
 } from "./styles";
 import { handProportion } from "../../design/hand";
 import { PlayerPublic } from "../../types";
-import { avatars } from "../../assets";
+import { avatars, text } from "../../assets";
 import { PlayerGameState } from "./game-player-info";
+import { LoserBadge, WinnerBadge } from "../badges/badges";
+import { Die } from "../die";
 
 interface GamePlayerProps {
   totalPlayers: number;
@@ -22,9 +25,13 @@ interface GamePlayerProps {
 
 export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
   const { avatar } = handProportion(avatars[player.avatarId].name);
-
+  // TODO: remove fake value
+  const isWinner = false;
+  const isLoser = false;
   return (
     <GamePlayersWrapper totalPlayers={totalPlayers} isActive={player.isActive}>
+      {isWinner && <WinnerBadge />}
+      {isLoser && <LoserBadge />}
       <GamePlayersContainer totalPlayers={totalPlayers}>
         <PlayerAvatarContainer>
           <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
@@ -37,6 +44,13 @@ export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
           <PlayerGameState player={player} />
         </PlayerInfoContainer>
       </GamePlayersContainer>
+      {/* TODO: remove fake values */}
+      {isWinner && (
+        <DiceContainer>
+          <Heading6>{text.param.xAmount(6)}</Heading6>
+          <Die value={6} />
+        </DiceContainer>
+      )}
     </GamePlayersWrapper>
   );
 };

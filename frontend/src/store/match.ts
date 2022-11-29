@@ -2,7 +2,7 @@ import { Session } from "@heroiclabs/nakama-js";
 import { produce } from "immer";
 import { StateCreator } from "zustand";
 
-import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings, Bid } from "../types";
+import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings, Bid, TurnActionStep, TurnAction } from "../types";
 
 interface MatchSliceState {
   sessionState?: Session;
@@ -15,6 +15,8 @@ interface MatchSliceState {
   matchUrl: string;
   powerUpIds: PowerUpId[];
   matchSettings?: MatchSettings;
+  turnActionStep: TurnActionStep;
+  action?: TurnAction;
   // flags
   hasRolledDice: boolean;
 }
@@ -31,6 +33,8 @@ interface MatchSliceSetters {
   setPowerUpIds: (ids: PowerUpId[]) => void;
   setActivePlayer: (playerId: string) => void;
   setMatchSettings: (matchSettings: MatchSettings) => void;
+  setTurnActionStep: (turnActionStep: TurnActionStep) => void;
+  setAction: (action: TurnAction) => void;
   setBids: (bids: Record<string, Bid>) => void;
   resetRound: () => void;
 }
@@ -51,6 +55,8 @@ const initialMatchState: MatchSliceState = {
   matchUrl: "",
   powerUpIds: [],
   matchSettings: undefined,
+  turnActionStep: "pickAction",
+  action: undefined,
   ...initialRoundState,
 };
 
@@ -78,4 +84,12 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setMatchSettings: (matchSettings) => set(() => ({ matchSettings })),
   setBids: (bids) => set(() => ({ bids })),
   resetRound: () => set(() => ({ ...initialRoundState })),
+  setTurnActionStep: (turnActionStep) =>
+    set(() => ({
+      turnActionStep: turnActionStep,
+    })),
+  setAction: (action) =>
+    set(() => ({
+      action: action,
+    })),
 });

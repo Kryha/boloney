@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 
 import { GAME_PLAYER_HEIGHT } from "../../constants";
-import { color, margins } from "../../design";
-import { avatarHeight, Heading5 } from "../atoms";
+import { color, margins, zIndex } from "../../design";
+import { avatarHeight, GeneralText, Heading5 } from "../atoms";
+import { BadgeWrapper } from "../badges/styles";
+import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
-import { PowerUpIconWrapper } from "../icons/styles";
+import { DiceIconWrapper } from "../icons/styles";
 
 export const DiceCrownWrapper = styled.div`
   display: flex;
@@ -40,8 +42,13 @@ export const GamePlayersWrapper = styled.div<GamePlayersProps>`
   width: 12.5vw;
   background: ${({ isActive, customColor }): string => (isActive ? customColor || color.white : color.lightGrey)};
   height: ${({ totalPlayers }): string => `${GAME_PLAYER_HEIGHT / totalPlayers}vh`};
-  border-bottom: 1px solid ${color.darkGrey};
   position: relative;
+  border-bottom: 1px solid ${color.darkGrey};
+  ${BadgeWrapper} {
+    min-width: clamp(69.3px, 7.33vw + -1.05px, 139.65px);
+    min-height: clamp(18.48px, 1.95vw + -0.28px, 37.24px);
+    z-index: ${zIndex.inFront};
+  }
 `;
 
 interface OverviewProps {
@@ -58,6 +65,7 @@ export const GamePlayersOverviewWrapper = styled.div<OverviewProps>`
   left: 0px;
   top: 0px;
   border-right: 1px solid ${color.darkGrey};
+
   ${GamePlayersWrapper}:first-of-type {
     border-top: none;
   }
@@ -95,11 +103,11 @@ interface AvatarProps {
 }
 
 export const PlayerAvatarContainer = styled.div`
-  width: 12vw;
-  padding-top: ${margins.small2};
+  width: 10vw;
   align-items: center;
   justify-content: center;
   display: flex;
+  margin-top: 16px;
 `;
 
 export const PlayerAvatar = styled.img<AvatarProps>`
@@ -117,15 +125,22 @@ export const PlayerName = styled(Heading5)`
 
 export const GameStateContainer = styled(PlayerNameContainer)`
   align-items: flex-start;
-  ${PowerUpIconWrapper} {
-    margin-top: 5px;
-  }
 `;
 
 export const PlayerInfoContainer = styled.section`
-  gap: ${margins.small1};
+  gap: ${margins.small0};
   display: flex;
   flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  ${DieWrapper} {
+    margin-top: 0 !important;
+  }
+  ${DiceIconWrapper} {
+    ${GeneralText} {
+      margin-top: -5px;
+    }
+  }
 `;
 
 interface PlayersContainerProps {
@@ -133,12 +148,13 @@ interface PlayersContainerProps {
 }
 
 export const GamePlayersContainer = styled.div<PlayersContainerProps>`
+  z-index: ${zIndex.background};
+  height: 14.4vh;
   ${({ totalPlayers }) => {
     return totalPlayers === 1
       ? `
       display: flex;
       height: 100%;
-      align-items: center;
       justify-content: center;
       flex-direction: column;
       ${PlayerInfoContainer} {
@@ -147,9 +163,30 @@ export const GamePlayersContainer = styled.div<PlayersContainerProps>`
         left: 0.425em;
       }
     `
-      : `
-      position: absolute;
-      bottom: 0.325em;
-      `;
+      : "";
   }}
+`;
+
+export const DiceContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 14px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 2.7vw;
+  height: 100%;
+  background: ${color.grey};
+  z-index: ${zIndex.behind};
+  justify-content: center;
+`;
+
+export const AmountDice = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 14px;
 `;

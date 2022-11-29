@@ -38,3 +38,4 @@ export * from "./loading";
 export * from "./match-settings-overview";
 export * from "./match-info";
 export * from "./power-up-description";
+export * from "./badges";
