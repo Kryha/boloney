@@ -1,4 +1,6 @@
-import { MatchOpCode, MatchState, Player } from "../types";
+import { BidPayloadBackend, isBidPayloadFrontend, MatchLoopParams, MatchOpCode, MatchState, Player } from "../types";
+import { EMPTY_DATA } from "../utils";
+import { getLatestBid, isBidHigher, isBidMaxTotal } from "./bid";
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
   if (state.playersReady.includes(userId)) return;
@@ -37,35 +39,39 @@ export const getActivePlayerId = (players: Record<string, Player>): string | und
   return activePlayer ? activePlayer.userId : undefined;
 };
 
-// TODO: Refactor using the same pattern as "handleMatchStage"
-export const handleActivePlayerMessages = (
-  message: nkruntime.MatchMessage,
-  sender: Player,
-  state: MatchState,
-  dispatcher: nkruntime.MatchDispatcher,
-  logger: nkruntime.Logger,
-  otherPresences: nkruntime.Presence[]
-) => {
-  let nextActivePlayerId = "";
+export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => {
+  const { state, dispatcher, logger, nk } = loopParams;
+
+  // TODO: move and generalise this after implementing error handling with ws calls
+  const stopLoading = () => {
+    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [message.sender]);
+  };
 
   switch (message.opCode) {
-    case MatchOpCode.PLAYER_PLACE_BID:
+    case MatchOpCode.PLAYER_PLACE_BID: {
       logger.info(sender.username, " placed BID");
+      const data = JSON.parse(nk.binaryToString(message.data));
 
-      // TODO: Add "PlaceBid" logic
-      // TODO: Add "lastBid" property to the MatchState
-      nextActivePlayerId = setActivePlayer(getNextPlayerId(sender.userId, state.playerOrder), state.players);
-      // Set next active player
+      if (!isBidPayloadFrontend(data)) return stopLoading();
 
-      // Broadcast PlaceBid action to everyone else
-      dispatcher.broadcastMessage(
-        MatchOpCode.PLAYER_PLACE_BID,
-        JSON.stringify({ player: sender.userId, lastBid: message.data }),
-        otherPresences
-      );
+      const latestBid = getLatestBid(state.bids);
 
+      if (!isBidMaxTotal(state.players, data)) return stopLoading();
+      if (latestBid && !isBidHigher(latestBid, data)) return stopLoading();
+
+      state.bids[sender.userId] = { ...data, createdAt: Date.now() };
+
+      const nextActivePlayerId = getNextPlayerId(sender.userId, state.playerOrder);
+      setActivePlayer(nextActivePlayerId, state.players);
+
+      const placeBidPayload: BidPayloadBackend = state.bids;
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
+      // TODO: implement loading for other calls as well
+      stopLoading();
+
       break;
+    }
     case MatchOpCode.PLAYER_CALL_BOLONEY:
       logger.info(sender.username, " Called Boloney: ");
 
@@ -74,7 +80,7 @@ export const handleActivePlayerMessages = (
       // TODO: Add "CallBoloney" logic
 
       // Broadcast action to everyone else
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify({ player: sender.userId }), otherPresences);
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify({ player: sender.userId }));
 
       // TODO: Transition stage to Round Summary only after rendering outcome in the client
       setAllPlayersReady(state);
@@ -85,7 +91,7 @@ export const handleActivePlayerMessages = (
       // TODO: Add "CallExact" logic
 
       // Broadcast action to everyone else
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify({ player: sender.userId }), otherPresences);
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify({ player: sender.userId }));
 
       setActivePlayer(sender.userId, state.players);
 

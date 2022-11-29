@@ -30,6 +30,7 @@ export enum MatchOpCode {
   PLAYER_CALL_EXACT = 10,
   PLAYER_CALL_BOLONEY = 11,
   PLAYER_ACTIVE = 12,
+  STOP_LOADING = 13,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 

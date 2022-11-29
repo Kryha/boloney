@@ -1,5 +1,8 @@
 import { MatchSettings, MatchStage } from "../types";
 
+export const MAX_DIE_FACE = 6;
+export const MIN_DIE_FACE = 1;
+
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
 
@@ -78,3 +81,5 @@ export const MATCH_STAGES: readonly MatchStage[] = [
 ];
 
 export const MAX_INACTIVE_TICKS = 500;
+
+export const EMPTY_DATA = JSON.stringify({});

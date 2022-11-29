@@ -1,4 +1,5 @@
 import { MATCH_STAGES } from "../utils";
+import { Bid } from "./bid";
 import { Die, isDieArray } from "./die";
 import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
@@ -143,6 +144,7 @@ export interface MatchState {
   settings: MatchSettings;
   players: Record<string, Player>;
   presences: Record<string, nkruntime.Presence>;
+  bids: Record<string, Bid>;
   playersReady: string[];
   playerOrder: string[];
   matchStage: MatchStage;
@@ -155,6 +157,7 @@ export const isMatchState = (value: unknown): value is MatchState => {
     assertedVal.settings !== undefined &&
     assertedVal.players !== undefined &&
     assertedVal.presences !== undefined &&
+    assertedVal.bids !== undefined &&
     assertedVal.playersReady !== undefined &&
     assertedVal.playerOrder !== undefined &&
     assertedVal.matchStage !== undefined &&
@@ -194,6 +197,7 @@ export enum MatchOpCode {
   PLAYER_CALL_EXACT = 10,
   PLAYER_CALL_BOLONEY = 11,
   PLAYER_ACTIVE = 12,
+  STOP_LOADING = 13,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {

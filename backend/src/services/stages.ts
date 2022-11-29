@@ -1,8 +1,9 @@
 import { handleMatchStage } from "./match";
-import { getOtherPresences, setActivePlayer, attemptSetPlayerReady, handleActivePlayerMessages } from "./player";
+import { setActivePlayer, attemptSetPlayerReady, handleActivePlayerMessages } from "./player";
 import { getPowerUp, rollDice } from "../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
 import { getRange, hidePlayersData, shuffleArray } from "../utils";
+import { resetRound } from "./round";
 
 export type StageHandler = (loopParams: MatchLoopParams) => void;
 
@@ -105,11 +106,7 @@ export const handleStage: StageHandlers = {
         // TODO: maybe add rolling here in the future in order to optimise the calculation
         // Not needed for now
       },
-      ({ dispatcher, state }, nextStage) => {
-        // TODO: Refactor as a helper like "resetPlayerRolled"
-        Object.values(state.players).forEach((player) => {
-          state.players[player.userId].hasRolledDice = false;
-        });
+      ({ dispatcher }, nextStage) => {
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),
@@ -117,10 +114,9 @@ export const handleStage: StageHandlers = {
   playerTurnLoopStage: (loopParams) =>
     handleMatchStage(
       loopParams,
-      (message, sender, { state, dispatcher, logger }) => {
+      (message, sender, { state }) => {
         if (state.players[sender.userId].isActive) {
-          const otherPresences = getOtherPresences(sender.userId, state.presences);
-          handleActivePlayerMessages(message, sender, state, dispatcher, logger, otherPresences);
+          handleActivePlayerMessages(message, sender, loopParams);
         }
 
         // TODO: Listen to other OP_CODES from Idle Players?
@@ -153,6 +149,7 @@ export const handleStage: StageHandlers = {
         logger.debug("round Summary logic");
       },
       ({ dispatcher }, nextStage) => {
+        resetRound(loopParams);
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
       }
     ),

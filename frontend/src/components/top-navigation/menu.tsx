@@ -8,7 +8,6 @@ import { useStore } from "../../store";
 import { HorizontalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
-import { MatchSettingsOverview } from "../match-settings-overview";
 import { Dropdown } from "./dropdown";
 import { MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";

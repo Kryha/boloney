@@ -15,7 +15,7 @@ import {
   ErrorView,
   Loading,
 } from "../../components";
-import { useMatchMaker } from "../../service";
+import { useLatestBid, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import {
   MatchOpCode,
@@ -28,6 +28,7 @@ import {
   playerPublicSchema,
   playerJoinedPayloadSchema,
   playerActivePayloadSchema,
+  bidPayloadBackendSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -43,10 +44,18 @@ export const Match = () => {
   const setPowerUpIds = useStore((state) => state.setPowerUpIds);
   const setDiceValue = useStore((state) => state.setDiceValue);
   const setActivePlayer = useStore((state) => state.setActivePlayer);
+  const setBids = useStore((state) => state.setBids);
+  const resetRound = useStore((state) => state.resetRound);
+
+  const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
 
   // TODO: Check if we need to re-stablish socket connection after reloading the page
   const { matchId: unparsedId } = useParams();
   const matchId = parseMatchIdParam(unparsedId);
+
+  // TODO: remove log after view gets implemented
+  const latestBid = useLatestBid();
+  console.log("LATEST BID:", latestBid);
 
   const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {
@@ -77,11 +86,17 @@ export const Match = () => {
       const matchOpcode = parsedCode.data;
       const data = parseMatchData(matchData.data);
 
-      // TODO: Add cases for the rest of the OP_CODES
       switch (matchOpcode) {
+        case MatchOpCode.STOP_LOADING: {
+          setSpinnerVisibility(false);
+          break;
+        }
         case MatchOpCode.STAGE_TRANSITION: {
           const parsed = stageTransitionSchema.safeParse(data);
           if (!parsed.success) return;
+
+          if (matchStage === "roundSummaryStage") resetRound();
+
           setMatchStage(parsed.data.matchStage);
           break;
         }
@@ -116,6 +131,12 @@ export const Match = () => {
           setDiceValue(parsed.data.diceValue);
           break;
         }
+        case MatchOpCode.PLAYER_PLACE_BID: {
+          const parsed = bidPayloadBackendSchema.safeParse(data);
+          if (!parsed.success) return;
+          setBids(parsed.data);
+          break;
+        }
         case MatchOpCode.PLAYER_ACTIVE: {
           const parsed = playerActivePayloadSchema.safeParse(data);
           if (!parsed.success) return;
@@ -124,8 +145,22 @@ export const Match = () => {
         }
       }
     };
-  }, [socket, setMatchStage, setPlayerOrder, setPlayers, session, setDiceValue, setPowerUpIds, setActivePlayer]);
+  }, [
+    socket,
+    setMatchStage,
+    setPlayerOrder,
+    setPlayers,
+    session,
+    setDiceValue,
+    setPowerUpIds,
+    setActivePlayer,
+    setBids,
+    matchStage,
+    resetRound,
+    setSpinnerVisibility,
+  ]);
 
+  // TODO: generalise overlay and return that when awaiting a ws response
   if (isLoading) return <Loading />;
 
   if (matchStage === "lobbyStage") return <Lobby />;

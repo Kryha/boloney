@@ -16,6 +16,7 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger,
     matchStage: "lobbyStage",
     players: {},
     presences: {},
+    bids: {},
     emptyTicks: 0,
   };
 

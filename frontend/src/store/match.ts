@@ -2,7 +2,7 @@ import { Session } from "@heroiclabs/nakama-js";
 import { produce } from "immer";
 import { StateCreator } from "zustand";
 
-import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings } from "../types";
+import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings, Bid } from "../types";
 
 interface MatchSliceState {
   sessionState?: Session;
@@ -10,6 +10,7 @@ interface MatchSliceState {
   diceValue?: Die[];
   matchStage: MatchStage;
   players: Record<string, PlayerPublic>;
+  bids: Record<string, Bid>;
   playerOrder: string[];
   matchUrl: string;
   powerUpIds: PowerUpId[];
@@ -30,33 +31,36 @@ interface MatchSliceSetters {
   setPowerUpIds: (ids: PowerUpId[]) => void;
   setActivePlayer: (playerId: string) => void;
   setMatchSettings: (matchSettings: MatchSettings) => void;
+  setBids: (bids: Record<string, Bid>) => void;
+  resetRound: () => void;
 }
 
 export type MatchSlice = MatchSliceState & MatchSliceSetters;
 
-const initialFlags = {
+const initialRoundState = {
   hasRolledDice: false,
+  diceValue: undefined,
+  bids: {},
 };
 
 const initialMatchState: MatchSliceState = {
   matchId: undefined,
-  diceValue: undefined,
   matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
   matchUrl: "",
   powerUpIds: [],
   matchSettings: undefined,
-  ...initialFlags,
+  ...initialRoundState,
 };
 
 export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
   ...initialMatchState,
 
-  setSession: (session: Session) => set(() => ({ sessionState: session })),
+  setSession: (session) => set(() => ({ sessionState: session })),
   setMatchId: (matchId) => set(() => ({ matchId })),
   setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
-  setMatchStage: (matchStage) => set(() => ({ matchStage, ...initialFlags })),
+  setMatchStage: (matchStage) => set(() => ({ matchStage })),
   setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
   setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
@@ -64,12 +68,14 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setPowerUpIds: (powerUpIds) => set(() => ({ powerUpIds })),
   setActivePlayer: (playerId: string) => {
     set(
-      produce((state: MatchSlice) => {
+      produce((state) => {
         // Reset previous active player
         Object.keys(state.players).forEach((playerId) => (state.players[playerId].isActive = false));
         state.players[playerId].isActive = true;
       })
     );
   },
-  setMatchSettings: (matchSettings: MatchSettings) => set(() => ({ matchSettings })),
+  setMatchSettings: (matchSettings) => set(() => ({ matchSettings })),
+  setBids: (bids) => set(() => ({ bids })),
+  resetRound: () => set(() => ({ ...initialRoundState })),
 });

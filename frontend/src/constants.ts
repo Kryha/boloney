@@ -65,6 +65,9 @@ export const GAME_PLAYER_HEIGHT = 89;
 // TODO: change the time
 export const DECISION_MAKING_TIME_IN_SECONDS = 100;
 
+export const MAX_DIE_FACE = 6;
+export const MIN_DIE_FACE = 1;
+
 export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   // TODO: change players to 7 before releasing to production
   players: 3,

@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { text } from "../../assets";
 import { color } from "../../design";
 import { useMatch } from "../../service";
@@ -9,6 +10,13 @@ import { ActionButtonContainer, ActivePlayerContainer, ActivePlayerWrapper, Powe
 
 export const ActivePlayerTurns: FC = () => {
   const { broadcastPlaceBid, broadcastCallExact, broadcastCallBoloney } = useMatch();
+
+  // TODO: implement actual view
+  const handleBid = async () => {
+    const face = Number(prompt("face"));
+    const amount = Number(prompt("amount"));
+    broadcastPlaceBid({ face, amount });
+  };
 
   return (
     <ActivePlayerWrapper>
@@ -33,7 +41,7 @@ export const ActivePlayerTurns: FC = () => {
           {/* TODO for adding the actual logic for the bid value */}
           <PrimaryButtonWithHelper
             text={text.match.bid}
-            onClick={() => broadcastPlaceBid("myBid")}
+            onClick={() => handleBid()}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
           />

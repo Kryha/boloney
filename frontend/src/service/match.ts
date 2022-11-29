@@ -2,8 +2,20 @@ import { useCallback, useMemo, useState } from "react";
 
 import { text } from "../assets";
 import { useStore } from "../store";
-import { MatchOpCode, NkResponse, PlayerPublic } from "../types";
+import { BidPayloadFrontend, BidWithUserId, MatchOpCode, NkResponse, PlayerPublic } from "../types";
 import { parseError } from "../util";
+
+export const useLatestBid = (): BidWithUserId | undefined => {
+  const bids = useStore((state) => state.bids);
+
+  return useMemo(() => {
+    const latestBid = Object.entries(bids).reduce((prevLatest: BidWithUserId | undefined, [k, bid]) => {
+      if (!prevLatest || prevLatest.createdAt < bid.createdAt) return { userId: k, ...bid };
+      return prevLatest;
+    }, undefined);
+    return latestBid;
+  }, [bids]);
+};
 
 export const useOrderedPlayers = (): PlayerPublic[] => {
   const session = useStore((state) => state.sessionState);
@@ -66,6 +78,8 @@ export const useMatch = () => {
   const socket = useStore((state) => state.socket);
   const matchId = useStore((state) => state.matchId);
 
+  const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+
   // TODO: each call should have it's own isLoading flag
   const [isLoading, setIsLoading] = useState(false);
 
@@ -89,9 +103,14 @@ export const useMatch = () => {
 
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
-  // TODO: Add Action payload
-  const broadcastPlaceBid = (bid: string) => sendMatchState(MatchOpCode.PLAYER_PLACE_BID, bid);
+  const broadcastPlaceBid = (bid: BidPayloadFrontend) => {
+    // TODO: implement loading for other calls as well
+    setSpinnerVisibility(true);
+    sendMatchState(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(bid));
+  };
+
   const broadcastCallExact = () => sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
+
   const broadcastCallBoloney = () => sendMatchState(MatchOpCode.PLAYER_CALL_BOLONEY);
 
   return {
