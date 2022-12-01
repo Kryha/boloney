@@ -122,8 +122,9 @@ export const WaitingText = styled.h3`
 `;
 
 export const AppName = styled(BoloneyLogoIcon)`
-  width: 100%;
-  margin-top: 40px;
+  width: 72.2vw;
+  height: auto;
+  margin-top: 3vh;
 `;
 
 export const LineWrap = styled.section`
