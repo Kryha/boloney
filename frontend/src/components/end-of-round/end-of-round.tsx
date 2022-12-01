@@ -1,16 +1,52 @@
 import { FC } from "react";
 
-import { text } from "../../assets";
-import { BottomButtonWrapper, Heading1 } from "../atoms";
+import { useLocalPlayer } from "../../service";
+import { useStore } from "../../store";
+import { ErrorView } from "../error-view";
+import { TurnActionHeader, IdlePlayerHeader } from "../player-turn-headers";
+import { ActivePlayerResult, IdlePlayerResults } from "../player-turn-results";
+import { EvaluateWinner, IdlePlayer } from "../player-turns";
+import { TurnActionWrapper, IdlePlayerWrapper } from "../player-turns/styles";
 
-import { ButtonReady } from "../button-ready";
-
-// TODO: finish component
 export const EndOfRound: FC = () => {
-  return (
-    <BottomButtonWrapper>
-      <Heading1>{text.match.endOfRound}</Heading1>
-      <ButtonReady />
-    </BottomButtonWrapper>
-  );
+  const localPlayer = useLocalPlayer();
+  const turnActionStep = useStore((state) => state.turnActionStep);
+
+  if (!localPlayer) return <ErrorView />;
+
+  const activePlayerView = () => {
+    switch (turnActionStep) {
+      case "results":
+        return <ActivePlayerResult />;
+      case "evaluateWinner":
+      default:
+        return <EvaluateWinner />;
+    }
+  };
+
+  const idlePlayerView = () => {
+    switch (turnActionStep) {
+      case "results":
+        return <IdlePlayerResults />;
+      case "pickAction":
+      default:
+        return <IdlePlayer />;
+    }
+  };
+
+  if (localPlayer.isActive) {
+    return (
+      <TurnActionWrapper>
+        <TurnActionHeader />
+        {activePlayerView()}
+      </TurnActionWrapper>
+    );
+  } else {
+    return (
+      <IdlePlayerWrapper>
+        <IdlePlayerHeader />
+        {idlePlayerView()}
+      </IdlePlayerWrapper>
+    );
+  }
 };

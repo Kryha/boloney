@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
-import { color, margins } from "../../design";
+import { color, margins, zIndex } from "../../design";
 import { ButtonWithHelperWrapper } from "../button-with-helper/styles";
 import { Info } from "../../components/tooltip/styles";
+import { BottomButtonWrapper, Heading6, Heading1 } from "../atoms";
+import { SecondaryButtonContainer } from "../buttons/styles";
+import { TimerRow } from "../timer-header/styles";
 
 export const ActivePlayerWrapper = styled.section``;
 
@@ -31,6 +34,48 @@ export const ActionButtonContainer = styled(PowerUpButtonContainer)`
   margin-top: ${margins.small5};
 `;
 
-export const PassivePlayerWrapper = styled.section`
-  padding-top: ${margins.medium0};
+export const IdlePlayerWrapper = styled.section`
+  padding-top: -${margins.large0};
+`;
+
+export const TurnActionWrapper = styled.section`
+  margin-top: -${margins.large0};
+  ${SecondaryButtonContainer} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: ${zIndex.inFront};
+  }
+  ${BottomButtonWrapper} {
+    ${Heading6} {
+      margin-bottom: ${margins.small4};
+    }
+  }
+  ${Heading1} {
+    margin-top: -0.2em;
+    margin-bottom: 0;
+  }
+  ${TimerRow} {
+    padding-top: ${margins.medium0};
+  }
+`;
+
+export const TextResultWrapper = styled.section``;
+
+export const ProceedWithActionWrapper = styled.section``;
+interface ActivePlayerViewWrapperProps {
+  isPickAction: boolean;
+}
+
+export const ActivePlayerViewWrapper = styled.section<ActivePlayerViewWrapperProps>`
+  ${({ isPickAction }) =>
+    isPickAction
+      ? `${ProceedWithActionWrapper} {
+        display: none;
+      }`
+      : `
+      ${ActivePlayerWrapper} {
+        display: none;
+      }
+      `};
 `;

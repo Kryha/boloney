@@ -9,7 +9,7 @@ interface PlayerTurnData {
   subHeadingTitle?: string;
 }
 
-export const passivePlayerTurnData = (steps: TurnActionStep, activePlayer: PlayerPublic): PlayerTurnData => {
+export const idlePlayerTurnData = (steps: TurnActionStep, activePlayer: PlayerPublic): PlayerTurnData => {
   if (steps === "results") {
     return {
       timerTitle: text.param.endOfRound(getNumberWithOrdinal(1)),

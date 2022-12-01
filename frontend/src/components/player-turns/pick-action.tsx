@@ -1,28 +1,18 @@
 import { FC } from "react";
-
 import { text } from "../../assets";
-import { color } from "../../design";
-import { useMatch } from "../../service";
-import { GeneralText, Heading2 } from "../atoms";
+import { useMatch } from "../../service/match";
+import { useStore } from "../../store";
+import { GeneralText } from "../atoms";
 import { PrimaryButtonWithHelper } from "../button-with-helper";
-import { TimerHeader } from "../timer-header";
-import { ActionButtonContainer, ActivePlayerContainer, ActivePlayerWrapper, PowerUpButtonContainer } from "./styles";
+import { ActivePlayerWrapper, ActivePlayerContainer, PowerUpButtonContainer, ActionButtonContainer } from "./styles";
 
-export const ActivePlayerTurns: FC = () => {
-  const { broadcastPlaceBid, broadcastCallExact, broadcastCallBoloney } = useMatch();
-
-  // TODO: implement actual view
-  const handleBid = async () => {
-    const face = Number(prompt("face"));
-    const amount = Number(prompt("amount"));
-    broadcastPlaceBid({ face, amount });
-  };
+export const PickAction: FC = () => {
+  const { broadcastCallExact } = useMatch();
+  const setTurnActionStep = useStore((state) => state.setTurnActionStep);
+  const setAction = useStore((state) => state.setAction);
 
   return (
     <ActivePlayerWrapper>
-      <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={text.match.takeAction} />
-      <Heading2>{text.match.whatsYourNextMove}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{text.match.timeToPickUpAStrategy}</Heading2>
       <ActivePlayerContainer>
         <PowerUpButtonContainer>
           <PrimaryButtonWithHelper
@@ -41,13 +31,19 @@ export const ActivePlayerTurns: FC = () => {
           {/* TODO for adding the actual logic for the bid value */}
           <PrimaryButtonWithHelper
             text={text.match.bid}
-            onClick={() => handleBid()}
+            onClick={() => {
+              setTurnActionStep("proceedWithAction");
+              setAction("bid");
+            }}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
           />
           <PrimaryButtonWithHelper
             text={text.match.boloney}
-            onClick={() => broadcastCallBoloney()}
+            onClick={() => {
+              setTurnActionStep("proceedWithAction");
+              setAction("boloney");
+            }}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
           />
