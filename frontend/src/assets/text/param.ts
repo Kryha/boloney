@@ -19,11 +19,13 @@ export const param = {
   percentageAmount: (amount: string | number) => `${amount}%`,
   xRounds: (amount: string | number) => `x${amount === 1 ? `${amount} round` : `${amount} rounds`}`,
   playerIsMakingAMove: (username: string) => `${username} is making its move, wait for it...`,
-  areYouSureYouWantToCallBoloney: (username: string) => `are you sure you want to call Boloney against ${username}?`,
   endOfRound: (round: string | number) => `end of ${round} round`,
   aPlayerIsCallingBoloneyOnYou: (username: string) => `${username} is calling boloney against you... Good luck!`,
   idlePlayerCallingBoloney: (activeUsername: string, targetUsername: string) =>
     `${activeUsername} is calling boloney against ${targetUsername}... Wait and see the result of this bold move!`,
   congratulationsBoloney: (username: string) => `congratulations ${username}, you rock calling Boloney!`,
-  youSuckAtBluffing: (username: string) => `${username} is right, you suck at bluffing... You loose a dice!`,
+  youSuckAtBluffing: (username: string) => `${username} is right, you suck at bluffing... You lose a dice!`,
+  youRockAtExact: (amount: number | string) => `you rock calling Exact! You get x${amount} new power-ups!`,
+  congratulationsExact: (username: string) => `congratulations ${username}, you rock at calling Exact!`,
+  playerIsSafe: (username: string) => `congratulations ${username}, your ass is safe!`,
 };

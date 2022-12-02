@@ -10,9 +10,10 @@ export const TurnActionHeader = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const action = useStore((state) => state.action);
   const turnActionStep = useStore((state) => state.turnActionStep);
-
+  // TODO: use actual value
+  const round = 1;
   // TODO: refractor from computed value
-  const headerData = activePlayerTurnData(action, turnActionStep);
+  const headerData = activePlayerTurnData(action, turnActionStep, round);
 
   return (
     <TurnActionHeaderWrapper isBackButtonVisible={turnActionStep === "proceedWithAction"}>

@@ -32,7 +32,7 @@ const proceedActions = {
   boloney: {
     timerTitle: text.playerTurn.boloney,
     headingTitle: text.playerTurn.callBoloney,
-    subHeadingTitle: text.param.areYouSureYouWantToCallBoloney("meired"),
+    subHeadingTitle: text.playerTurn.areYouSureYouWantToCallBoloney,
   },
   powerUp: {
     timerTitle: "",
@@ -45,37 +45,9 @@ const proceedActions = {
     subHeadingTitle: "",
   },
   exact: {
-    timerTitle: "",
-    headingTitle: "",
-    subHeadingTitle: "",
-  },
-};
-
-const actionResults = {
-  bid: {
-    timerTitle: "",
-    headingTitle: "",
-    subHeadingTitle: "",
-  },
-  boloney: {
-    timerTitle: text.param.endOfRound(getNumberWithOrdinal(1)),
-    headingTitle: "",
-    subHeadingTitle: "",
-  },
-  powerUp: {
-    timerTitle: "",
-    headingTitle: "",
-    subHeadingTitle: "",
-  },
-  healDice: {
-    timerTitle: "",
-    headingTitle: "",
-    subHeadingTitle: "",
-  },
-  exact: {
-    timerTitle: "",
-    headingTitle: "",
-    subHeadingTitle: "",
+    timerTitle: text.playerTurn.exact,
+    headingTitle: text.playerTurn.callExact,
+    subHeadingTitle: text.playerTurn.areYouSureYouWantToCallExact,
   },
 };
 
@@ -101,13 +73,13 @@ const evaluateResults = {
     subHeadingTitle: "",
   },
   exact: {
-    timerTitle: "",
-    headingTitle: "",
-    subHeadingTitle: "",
+    timerTitle: text.match.callExact,
+    headingTitle: text.playerTurn.letsSeeWhoIsRight,
+    subHeadingTitle: text.playerTurn.itsTequilaUnderTheBridge,
   },
 };
 
-export const activePlayerTurnData = (action: TurnAction | undefined, steps: TurnActionStep): PlayerTurnData => {
+export const activePlayerTurnData = (action: TurnAction | undefined, steps: TurnActionStep, round: number): PlayerTurnData => {
   switch (steps) {
     case "pickAction":
       return {
@@ -130,11 +102,6 @@ export const activePlayerTurnData = (action: TurnAction | undefined, steps: Turn
         subHeadingTitle: "",
       };
     case "results":
-      if (action) return actionResults[action];
-      return {
-        timerTitle: "",
-        headingTitle: "",
-        subHeadingTitle: "",
-      };
+      return { timerTitle: text.param.endOfRound(getNumberWithOrdinal(round)) };
   }
 };

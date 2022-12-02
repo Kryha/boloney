@@ -24,6 +24,7 @@ import SabotageIcon from "./sabotage.png";
 import SatelliteIcon from "./satellite.png";
 import PercentageIcon from "./percentage.svg";
 import BoloneyToaster from "./boloney-toaster.png";
+import ExactDartBoard from "./exact-dart-board.png";
 
 export {
   Hand,
@@ -52,4 +53,5 @@ export {
   PercentageIcon,
   DiceCrown,
   BoloneyToaster,
+  ExactDartBoard,
 };

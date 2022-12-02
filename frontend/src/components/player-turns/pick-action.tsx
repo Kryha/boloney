@@ -1,13 +1,11 @@
 import { FC } from "react";
 import { text } from "../../assets";
-import { useMatch } from "../../service/match";
 import { useStore } from "../../store";
 import { GeneralText } from "../atoms";
 import { PrimaryButtonWithHelper } from "../button-with-helper";
 import { ActivePlayerWrapper, ActivePlayerContainer, PowerUpButtonContainer, ActionButtonContainer } from "./styles";
 
 export const PickAction: FC = () => {
-  const { broadcastCallExact } = useMatch();
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const setAction = useStore((state) => state.setAction);
 
@@ -49,7 +47,10 @@ export const PickAction: FC = () => {
           />
           <PrimaryButtonWithHelper
             text={text.match.exact}
-            onClick={() => broadcastCallExact()}
+            onClick={() => {
+              setTurnActionStep("proceedWithAction");
+              setAction("exact");
+            }}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
           />

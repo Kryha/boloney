@@ -1,6 +1,6 @@
 // TODO: update file with other actions
 import { PlayerPublic, TurnAction } from "../../types";
-import { BoloneyToaster } from "../images";
+import { BoloneyToaster, ExactDartBoard } from "../images";
 import { text } from "../text";
 
 interface ResultTextData {
@@ -17,7 +17,7 @@ export interface ResultData {
   name: string;
 }
 
-export const getResultData = (action: TurnAction | undefined, activePlayer: PlayerPublic): ResultData => {
+export const getResultData = (action: TurnAction | undefined, activePlayer: PlayerPublic, dieAmount?: number): ResultData => {
   switch (action) {
     case "bid":
       return {
@@ -39,12 +39,12 @@ export const getResultData = (action: TurnAction | undefined, activePlayer: Play
       };
     case "exact":
       return {
-        activeWinner: { headingTitle: "", subHeadingTitle: "" },
-        activeLoser: { headingTitle: "", subHeadingTitle: "" },
-        targetWinner: { headingTitle: "", subHeadingTitle: "" },
-        targetLoser: { headingTitle: "", subHeadingTitle: "" },
-        img: "",
-        name: "",
+        activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.param.youRockAtExact(dieAmount || 0) },
+        activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
+        targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youCanBreath },
+        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
+        img: ExactDartBoard,
+        name: text.playerTurn.exact,
       };
     case "healDice":
       return {
