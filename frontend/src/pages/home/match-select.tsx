@@ -6,7 +6,7 @@ import { text } from "../../assets";
 import { GeneralContentWrapper, Heading1, Heading4, PrimaryButton } from "../../components";
 
 import { routes } from "../../navigation";
-import { useMatchMaker } from "../../service";
+import { clearLocalStorage, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import { splitMatchId } from "../../util";
 import { MatchSelectContainer, ButtonContainer } from "./styles";
@@ -24,6 +24,7 @@ export const MatchSelect: FC = () => {
     if (!socket) return;
 
     socket.onmatchmakermatched = (matched: MatchmakerMatched) => {
+      clearLocalStorage();
       setSpinnerVisibility(false);
       const matchId = splitMatchId(matched.match_id);
       navigate(`${routes.match}/${matchId}`);

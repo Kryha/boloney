@@ -1,6 +1,5 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { ReactNode, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { z } from "zod";
 
 import {
@@ -15,7 +14,7 @@ import {
   ErrorView,
   Loading,
 } from "../../components";
-import { useLatestBid, useMatchMaker } from "../../service";
+import { setIsMatchCreated, useLatestBid, useMatchMaker, useSyncState } from "../../service";
 import { useStore } from "../../store";
 import {
   MatchOpCode,
@@ -30,7 +29,7 @@ import {
   playerActivePayloadSchema,
   bidPayloadBackendSchema,
 } from "../../types";
-import { parseMatchData, parseMatchIdParam } from "../../util";
+import { parseMatchData } from "../../util";
 
 export const Match = () => {
   const { joinMatch, isLoading } = useMatchMaker();
@@ -50,9 +49,16 @@ export const Match = () => {
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
 
-  // TODO: Check if we need to re-stablish socket connection after reloading the page
-  const { matchId: unparsedId } = useParams();
-  const matchId = parseMatchIdParam(unparsedId);
+  const matchId = useStore((state) => state.matchId);
+
+  const syncState = useSyncState();
+
+  useEffect(() => {
+    syncState();
+  }, [syncState]);
+
+  // const loadLocalStorageToStore = useStore((state) => state.loadLocalStorageToStore);
+  // const matchState = useMatchState();
 
   // TODO: remove log after view gets implemented
   const latestBid = useLatestBid();
@@ -95,7 +101,9 @@ export const Match = () => {
         case MatchOpCode.STAGE_TRANSITION: {
           const parsed = stageTransitionSchema.safeParse(data);
           if (!parsed.success) return;
-
+          if (parsed.data.matchStage === "getPowerUpStage") {
+            setIsMatchCreated();
+          }
           if (matchStage === "roundSummaryStage") resetRound();
 
           setMatchStage(parsed.data.matchStage);
@@ -154,13 +162,13 @@ export const Match = () => {
     setPlayers,
     session,
     setDiceValue,
-    setPowerUpIds,
-    setActivePlayer,
-    setBids,
+    setSpinnerVisibility,
     matchStage,
     resetRound,
-    setSpinnerVisibility,
     setPlayerReady,
+    setPowerUpIds,
+    setBids,
+    setActivePlayer,
   ]);
 
   // TODO: generalise overlay and return that when awaiting a ws response
@@ -176,3 +184,6 @@ export const Match = () => {
     </GameLayout>
   );
 };
+function useAttemptUpdateLocalStorage() {
+  throw new Error("Function not implemented.");
+}

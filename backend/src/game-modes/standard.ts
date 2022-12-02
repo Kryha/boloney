@@ -1,4 +1,4 @@
-import { getAvailableAvatar, handleInactiveMatch, handleStage, updateEmptyTicks } from "../services";
+import { getAvailableAvatar, handleInactiveMatch, handlePlayerReconnect, handleStage, updateEmptyTicks } from "../services";
 import { text } from "../text";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayload } from "../types";
 import { handleError, hidePlayersData } from "../utils";
@@ -42,9 +42,12 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
 
   if (!isMatchJoinMetadata(metadata)) throw handleError(text.error.invalidMetadata, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
-  // accept a user that has already joined
-  const alreadyJoined = state.players[presence.userId];
-  if (alreadyJoined) return { state, accept: true };
+  // check whether the player previously left the match
+  const playerReconnecting = state.players[presence.userId];
+  if (playerReconnecting) {
+    state = handlePlayerReconnect(state, presence, logger);
+    return { state, accept: true };
+  }
 
   // Accept new players if we are still waiting and until the required amount has been fulfilled
   const players = Object.values(state.players);
@@ -68,6 +71,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
       hasInitialPowerUps: false,
       isActive: false,
       hasRolledDice: false,
+      playerStatus: "playing",
     };
     state.playerOrder.push(presence.userId);
   }
@@ -122,13 +126,7 @@ export const matchSignal: nkruntime.MatchSignalFunction<MatchState> = (_ctx, log
 
 export const matchLeave: nkruntime.MatchLeaveFunction<MatchState> = (_ctx, logger, _nk, _dispatcher, _tick, state, presences) => {
   logger.info("----------------- MATCH LEAVE -----------------");
-
-  // Remove the player from match state
-  presences.forEach(function (presence) {
-    delete state.players[presence.userId];
-    delete state.presences[presence.userId];
-  });
-
+  logger.info("Players left: ", presences);
   return {
     state,
   };

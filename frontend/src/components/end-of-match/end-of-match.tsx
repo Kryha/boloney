@@ -5,7 +5,7 @@ import { text } from "../../assets";
 import { routes } from "../../navigation";
 import { Heading2, Heading6 } from "../atoms";
 import { PrimaryButton } from "../buttons";
-import { useMatch } from "../../service";
+import { clearLocalStorage, useMatch } from "../../service";
 import { color } from "../../design";
 import { fakePlayers } from "../../assets/fake-data";
 import { PlayerLeaderboard } from "./player-leaderboard";
@@ -22,6 +22,7 @@ export const EndOfMatch: FC = () => {
   // TODO: implement functions to write correct text
 
   const handleNewMatch = (): void => {
+    clearLocalStorage();
     broadcastPlayerReady();
     navigate(routes.home);
   };

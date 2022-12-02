@@ -14,6 +14,7 @@ export const fakePlayers: PlayerPublic[] = [
     isActive: false,
     hasInitialPowerUps: true,
     hasRolledDice: true,
+    playerStatus: "playing",
   },
   {
     userId: "2",
@@ -26,6 +27,7 @@ export const fakePlayers: PlayerPublic[] = [
     hasInitialPowerUps: true,
     hasRolledDice: true,
     isActive: false,
+    playerStatus: "playing",
   },
   {
     userId: "3",
@@ -38,6 +40,7 @@ export const fakePlayers: PlayerPublic[] = [
     hasInitialPowerUps: true,
     hasRolledDice: true,
     isActive: false,
+    playerStatus: "playing",
   },
   {
     userId: "4",
@@ -49,8 +52,8 @@ export const fakePlayers: PlayerPublic[] = [
     isReady: false,
     hasInitialPowerUps: true,
     hasRolledDice: true,
-
     isActive: false,
+    playerStatus: "playing",
   },
   {
     userId: "5",
@@ -63,6 +66,7 @@ export const fakePlayers: PlayerPublic[] = [
     hasInitialPowerUps: true,
     hasRolledDice: true,
     isActive: false,
+    playerStatus: "playing",
   },
   {
     userId: "6",
@@ -75,6 +79,7 @@ export const fakePlayers: PlayerPublic[] = [
     hasInitialPowerUps: true,
     hasRolledDice: true,
     isActive: false,
+    playerStatus: "playing",
   },
 ];
 
@@ -91,4 +96,5 @@ export const fakeLocalPlayer: Player = {
   hasRolledDice: true,
   diceValue: fakeDiceRolls,
   isActive: false,
+  playerStatus: "playing",
 };

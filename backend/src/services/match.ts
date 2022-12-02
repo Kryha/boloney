@@ -98,3 +98,12 @@ export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.Mat
   }
   return false;
 };
+
+//TODO maybe add broadcast event to other players when a player reconnects
+export const handlePlayerReconnect = (state: MatchState, presence: nkruntime.Presence, logger: nkruntime.Logger): MatchState => {
+  if (state.players[presence.userId].playerStatus === "disconnected") {
+    state.players[presence.userId].playerStatus = "playing";
+    logger.info(state.players[presence.userId].userId, "reconnected");
+  }
+  return state;
+};

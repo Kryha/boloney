@@ -52,7 +52,10 @@ export const playerPublicSchema = z.object({
   isActive: z.boolean(),
   hasInitialPowerUps: z.boolean(),
   hasRolledDice: z.boolean(),
+  playerStatus: z.enum(["playing", "disconnected", "lost"]),
 });
+
+export type PlayerStatus = "playing" | "disconnected" | "lost";
 
 export type PlayerPublic = z.infer<typeof playerPublicSchema>;
 

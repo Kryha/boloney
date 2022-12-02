@@ -16,6 +16,8 @@ export const isMatchJoinMetadata = (value: unknown): value is MatchJoinMetadata 
 
 export type AvatarId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
+export type PlayerStatus = "playing" | "disconnected" | "lost";
+
 export const isAvatarId = (value: unknown): value is AvatarId => {
   if (!isNumber(value)) return false;
   return value >= 1 || value <= 7;
@@ -53,6 +55,7 @@ export interface PlayerPublic {
   hasInitialPowerUps: boolean;
   isActive: boolean;
   hasRolledDice: boolean;
+  playerStatus: PlayerStatus;
 }
 
 export const isPlayerPublic = (value: unknown): value is PlayerPublic => {

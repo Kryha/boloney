@@ -12,6 +12,7 @@ export const fakePlayers: PlayerPublic[] = [
     isConnected: true,
     isReady: false,
     isActive: true,
+    playerStatus: "playing",
   },
   {
     userId: "000000000000000000000000000000000001",
@@ -24,6 +25,7 @@ export const fakePlayers: PlayerPublic[] = [
     isConnected: false,
     isReady: false,
     isActive: false,
+    playerStatus: "playing",
   },
   {
     userId: "000000000000000000000000000000000002",
@@ -36,6 +38,7 @@ export const fakePlayers: PlayerPublic[] = [
     isConnected: true,
     isReady: false,
     isActive: false,
+    playerStatus: "playing",
   },
   {
     userId: "000000000000000000000000000000000003",
@@ -48,6 +51,7 @@ export const fakePlayers: PlayerPublic[] = [
     isConnected: false,
     isReady: false,
     isActive: false,
+    playerStatus: "playing",
   },
   {
     userId: "000000000000000000000000000000000004",
@@ -60,6 +64,7 @@ export const fakePlayers: PlayerPublic[] = [
     isConnected: true,
     isReady: false,
     isActive: false,
+    playerStatus: "playing",
   },
   {
     userId: "000000000000000000000000000000000005",
@@ -72,5 +77,6 @@ export const fakePlayers: PlayerPublic[] = [
     isConnected: false,
     isReady: false,
     isActive: false,
+    playerStatus: "playing",
   },
 ];

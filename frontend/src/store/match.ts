@@ -2,9 +2,10 @@ import { Session } from "@heroiclabs/nakama-js";
 import { produce } from "immer";
 import { StateCreator } from "zustand";
 
+import { getLocalStorage } from "../service";
 import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings, Bid, TurnActionStep, TurnAction } from "../types";
 
-interface MatchSliceState {
+export interface MatchSliceState {
   sessionState?: Session;
   matchId?: string;
   diceValue?: Die[];
@@ -33,6 +34,9 @@ interface MatchSliceSetters {
   setPowerUpIds: (ids: PowerUpId[]) => void;
   setActivePlayer: (playerId: string) => void;
   setMatchSettings: (matchSettings: MatchSettings) => void;
+  setHasRolledDice: (hasRolledDice: boolean) => void;
+  setMatchState: (matchState: MatchSliceState) => void;
+  loadLocalStorageToStore: () => void;
   setTurnActionStep: (turnActionStep: TurnActionStep) => void;
   setAction: (action: TurnAction) => void;
   setBids: (bids: Record<string, Bid>) => void;
@@ -82,6 +86,9 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
     );
   },
   setMatchSettings: (matchSettings) => set(() => ({ matchSettings })),
+  setHasRolledDice: (hasRolledDice) => set(() => ({ hasRolledDice })),
+  setMatchState: (matchState) => set(() => ({ ...matchState })),
+  loadLocalStorageToStore: () => set(() => ({ ...getLocalStorage() })),
   setBids: (bids) => set(() => ({ bids })),
   resetRound: () => set(() => ({ ...initialRoundState })),
   setTurnActionStep: (turnActionStep) =>
