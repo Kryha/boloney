@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { text } from "../assets";
 import { useStore } from "../store";
-import { MatchSliceState } from "../store/match";
 import { BidPayloadFrontend, BidWithUserId, MatchOpCode, NkResponse, PlayerPublic } from "../types";
 import { parseError } from "../util";
-import { isInMatch, setLocalStorage } from "./local-storage";
+import { clearLocalStorage, isInMatch, setLocalStorage } from "./local-storage";
 
 export const useLatestBid = (): BidWithUserId | undefined => {
   const bids = useStore((state) => state.bids);
@@ -142,38 +141,42 @@ export const useSyncState = () => {
 
   const loadLocalStorageToStore = useStore((state) => state.loadLocalStorageToStore);
 
-  return useCallback(() => {
-    if (isInMatch() && matchStage === "lobbyStage") loadLocalStorageToStore();
-    else
-      setLocalStorage({
-        sessionState,
-        matchId,
-        diceValue,
-        matchStage,
-        players,
-        bids,
-        playerOrder,
-        matchUrl,
-        powerUpIds,
-        matchSettings,
-        turnActionStep,
-        action,
-        hasRolledDice,
-      });
-  }, [
-    action,
-    bids,
-    diceValue,
-    hasRolledDice,
-    loadLocalStorageToStore,
-    matchId,
-    matchSettings,
-    matchStage,
-    matchUrl,
-    playerOrder,
-    players,
-    powerUpIds,
-    sessionState,
-    turnActionStep,
-  ]);
+  return useCallback(
+    (matchIdFromUrl: string) => {
+      if (matchId && matchIdFromUrl !== matchId) clearLocalStorage();
+      if (isInMatch() && matchStage === "lobbyStage") loadLocalStorageToStore();
+      else
+        setLocalStorage({
+          sessionState,
+          matchId,
+          diceValue,
+          matchStage,
+          players,
+          bids,
+          playerOrder,
+          matchUrl,
+          powerUpIds,
+          matchSettings,
+          turnActionStep,
+          action,
+          hasRolledDice,
+        });
+    },
+    [
+      action,
+      bids,
+      diceValue,
+      hasRolledDice,
+      loadLocalStorageToStore,
+      matchId,
+      matchSettings,
+      matchStage,
+      matchUrl,
+      playerOrder,
+      players,
+      powerUpIds,
+      sessionState,
+      turnActionStep,
+    ]
+  );
 };

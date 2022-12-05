@@ -1,5 +1,6 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { ReactNode, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { z } from "zod";
 
 import {
@@ -14,7 +15,7 @@ import {
   ErrorView,
   Loading,
 } from "../../components";
-import { setIsMatchCreated, useLatestBid, useMatchMaker, useSyncState } from "../../service";
+import { clearLocalStorage, setIsMatchCreated, useLatestBid, useMatchMaker, useSyncState } from "../../service";
 import { useStore } from "../../store";
 import {
   MatchOpCode,
@@ -29,7 +30,7 @@ import {
   playerActivePayloadSchema,
   bidPayloadBackendSchema,
 } from "../../types";
-import { parseMatchData } from "../../util";
+import { parseMatchData, parseMatchIdParam } from "../../util";
 
 export const Match = () => {
   const { joinMatch, isLoading } = useMatchMaker();
@@ -52,13 +53,15 @@ export const Match = () => {
   const matchId = useStore((state) => state.matchId);
 
   const syncState = useSyncState();
+  const { matchId: unparsedId } = useParams();
+  const matchIdFromUrl = parseMatchIdParam(unparsedId);
 
   useEffect(() => {
-    syncState();
-  }, [syncState]);
-
-  // const loadLocalStorageToStore = useStore((state) => state.loadLocalStorageToStore);
-  // const matchState = useMatchState();
+    if (matchId && matchId !== matchIdFromUrl) {
+      clearLocalStorage();
+    }
+    if (matchIdFromUrl) syncState(matchIdFromUrl);
+  }, [matchId, matchIdFromUrl, syncState]);
 
   // TODO: remove log after view gets implemented
   const latestBid = useLatestBid();
@@ -184,6 +187,3 @@ export const Match = () => {
     </GameLayout>
   );
 };
-function useAttemptUpdateLocalStorage() {
-  throw new Error("Function not implemented.");
-}
