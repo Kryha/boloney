@@ -24,16 +24,19 @@ export const FormContainer = styled.div`
   gap: ${margins.medium0};
 `;
 
-export const Overlay = styled.div`
+export const OverlayContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.8;
-  background: ${color.lightGrey};
   mix-blend-mode: normal;
   z-index: ${zIndex.inFront};
+`;
+
+export const OverlayTransparent = styled.div`
+  opacity: 0.8;
+  background: ${color.lightGrey};
 `;
 
 interface GeneralContentWrapperProps {

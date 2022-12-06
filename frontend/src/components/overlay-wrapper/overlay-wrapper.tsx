@@ -5,7 +5,7 @@ import { useStore } from "../../store";
 import { OverlayContent } from "./overlay-content";
 import { Modal } from "../modal";
 import { OverlayWrapperSection } from "./styles";
-import { Overlay } from "../atoms";
+import { OverlayTransparent, OverlayContainer } from "../atoms";
 
 export const OverlayWrapper: FC = () => {
   const ref = useRef(null);
@@ -22,12 +22,13 @@ export const OverlayWrapper: FC = () => {
   };
 
   return (
-    <Overlay>
+    <OverlayContainer>
+      <OverlayTransparent />
       <OverlayWrapperSection ref={ref}>
         <Modal hasContainer={isContainerVisible} isModalButtonVisible={isModalButtonVisible}>
           <OverlayContent name={modalComponentChildren} />
         </Modal>
       </OverlayWrapperSection>
-    </Overlay>
+    </OverlayContainer>
   );
 };
