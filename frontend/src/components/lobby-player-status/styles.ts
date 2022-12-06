@@ -35,5 +35,8 @@ export const LobbyPlayerStatusWrapper = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     width: 12vw;
+    :first-letter {
+      text-transform: lowercase;
+    }
   }
 `;

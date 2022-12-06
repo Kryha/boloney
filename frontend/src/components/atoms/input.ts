@@ -9,7 +9,7 @@ export const BaseInput = styled.input`
   font-size: ${fontSize.small2};
   line-height: 24px;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: ${color.black};
   background-color: transparent;
   width: 100%;
