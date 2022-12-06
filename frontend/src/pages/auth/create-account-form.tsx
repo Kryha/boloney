@@ -35,16 +35,30 @@ export const CreateAccountForm: FC = () => {
     formState: { errors, isValid },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
+  //TODO: refactor this and getFieldName() function to better define these fields.
   const showUsernameError = () => {
+    const ALREADY_EXISTS = "Username already exists";
+    const MIN_LENGTH = "minLength";
+    const REQUIRED = "required";
     switch (errors.username?.type) {
-      case NkCode.ALREADY_EXISTS.toString():
+      case ALREADY_EXISTS:
         return text.authForm.errorMessages.usernameAlreadyTaken;
-      case "minLength":
+      case MIN_LENGTH:
         return text.authForm.errorMessages.usernameMinimum;
-      case "required":
+      case REQUIRED:
         return text.authForm.errorMessages.usernameRequired;
       default:
         return "";
+    }
+  };
+
+  const getFieldName = (code: NkCode): "username" | "password" => {
+    const username = "username";
+    const password = "password";
+    if (code === NkCode.ALREADY_EXISTS) {
+      return username;
+    } else {
+      return password;
     }
   };
 
@@ -54,7 +68,7 @@ export const CreateAccountForm: FC = () => {
     const res = await authenticateUser(username, password, true);
     setSpinnerVisibility(false);
     if (!isNkError(res)) return navigate(routes.home);
-    setError("password", { type: res.message }); // response is an error
+    setError(getFieldName(res.code), { type: res.message }); // response is an error
   };
 
   return (
