@@ -5,6 +5,7 @@ import { color, margins } from "../../design";
 interface LayoutProps {
   isChatToggled: boolean;
   isToggled: boolean;
+  isInMatch: boolean;
 }
 
 export const HistorySection = styled.section<LayoutProps>`
@@ -14,8 +15,10 @@ export const HistorySection = styled.section<LayoutProps>`
   gap: ${margins.small1};
   height: ${({ isChatToggled }): string => (isChatToggled ? "47vh" : "81.9vh")};
   width: 25vw;
-  border: 1px solid ${color.darkGrey};
-  display: ${({ isToggled }) => (!isToggled && "none")};
+  border-top: 1px solid ${color.mediumGrey};
+  border-bottom: 1px solid ${color.mediumGrey};
+  border-left: ${({ isInMatch }) => (isInMatch ? `1px solid ${color.mediumGrey}` : "none")};
+  display: ${({ isToggled }) => !isToggled && "none"};
 `;
 
 export const Close = styled(CloseIcon)``;

@@ -46,6 +46,12 @@ export const usePlayer = (id: string): PlayerPublic | undefined => {
   return useMemo(() => players[id], [id, players]);
 };
 
+export const useIsInMatch = (): boolean => {
+  const matchStage = useStore((state) => state.matchStage);
+
+  return useMemo(() => matchStage !== "endOfMatchStage", [matchStage]);
+};
+
 export const useLocalPlayer = (): PlayerPublic | undefined => {
   const players = useStore((state) => state.players);
   const session = useStore((state) => state.sessionState);

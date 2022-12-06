@@ -19,7 +19,7 @@ export const TooltipContent = styled.div`
   max-width: 250px;
   position: absolute;
   border-radius: ${margins.small0};
-  border: solid 1px ${color.darkGrey};
+  border: solid 1px ${color.mediumGrey};
   left: 50%;
   transform: translateX(-50%);
   padding: ${margins.small2} ${margins.small2};

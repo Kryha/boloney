@@ -27,6 +27,9 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   margin-top: ${margins.small5};
   ${GeneralText} {
     margin-left: ${margins.large1};
+    :first-letter {
+      text-transform: lowercase;
+    }
   }
 `;
 

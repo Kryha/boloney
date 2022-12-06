@@ -8,7 +8,7 @@ import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
 import { PlayerMenu } from "../player-menu";
-import { useLocalPlayer } from "../../service";
+import { useIsInMatch, useLocalPlayer } from "../../service";
 
 interface GameLayoutProps {
   children?: ReactNode;
@@ -19,12 +19,13 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
   const localPlayer = useLocalPlayer();
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
+  const isInMatch = useIsInMatch();
 
   if (!localPlayer) return <ErrorView />;
 
   return (
     <>
-      <TopNavigation isInMatch={matchStage !== "endOfMatchStage"} isStatsVisible />
+      <TopNavigation isInMatch={isInMatch} />
 
       <GamePlayersOverview />
 
@@ -32,7 +33,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
 
       <PlayerMenu />
 
-      <MainContentContainer isStageWithHUD={isStageWithHUD(matchStage)} isInMatch={matchStage !== "endOfMatchStage"}>
+      <MainContentContainer isStageWithHUD={isStageWithHUD(matchStage)} isInMatch={isInMatch}>
         <ContentContainer>{children}</ContentContainer>
       </MainContentContainer>
     </>

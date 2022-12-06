@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { avatars, text } from "../../assets";
+import { text } from "../../assets";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
 import { TimerHeader } from "../timer-header";
 import { color } from "../../design";
@@ -11,6 +11,7 @@ import { PrimaryButton } from "../buttons";
 import { useLocalPlayer, useMatch } from "../../service";
 import { MatchOpCode } from "../../types";
 import { ButtonReady } from "../button-ready";
+import { getDieColor } from "../../util";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -21,7 +22,7 @@ export const RollDice: FC = () => {
 
   if (!localPlayer) return <ErrorView />;
 
-  const dieColor = avatars[localPlayer.avatarId].color;
+  const dieColor = getDieColor(localPlayer);
 
   return (
     <BottomButtonWrapper>

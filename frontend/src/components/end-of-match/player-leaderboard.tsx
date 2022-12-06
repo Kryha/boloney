@@ -1,10 +1,10 @@
 import { FC } from "react";
 
-import { avatars, Crown } from "../../assets";
-import { handProportion } from "../../design";
+import { avatars } from "../../assets";
+import { color, handProportion } from "../../design";
 import { PlayerPublic } from "../../types";
 import { prefixDigit } from "../../util";
-import { GeneralText } from "../atoms";
+import { WinnerBadge } from "../badges";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import {
   DataWrapper,
@@ -18,36 +18,32 @@ import {
   LeaderboardWrapper,
   PlayerAvatar,
   Username,
-  WinnerBadge,
 } from "./styles";
 
 // TODO: create a new player data type enriched with history data for description purposes
 interface Props {
   player: PlayerPublic;
-  place: number;
+  rank: number;
 }
 
-export const PlayerLeaderboard: FC<Props> = ({ player, place }) => {
+export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
   const { avatar } = handProportion(avatars[player.avatarId].name);
+  const avatarColor = avatars[player.avatarId].color;
+  const isWinner = rank === 1;
 
   return (
-    <LeaderboardWrapper place={place}>
-      {place === 1 && (
-        <WinnerBadge>
-          <Crown />
-          <GeneralText>Winner</GeneralText>
-        </WinnerBadge>
-      )}
+    <LeaderboardWrapper place={rank}>
+      {isWinner && <WinnerBadge />}
 
-      <DataWrapper>
-        <LeaderboardStanding>{prefixDigit(place)}</LeaderboardStanding>
+      <DataWrapper isWinner={isWinner}>
+        <LeaderboardStanding customColor={color.pureWhite}>{prefixDigit(rank)}</LeaderboardStanding>
         <LeaderboardAvatar>
           <PlayerAvatar alt={player.username} src={avatar} />
         </LeaderboardAvatar>
         <LeaderboardDetails>
           <Username>{player.username}</Username>
           <DiceAndPowerUps>
-            <DiceIcon diceAmount={player.diceAmount} />
+            <DiceIcon diceAmount={player.diceAmount} faceColor={avatarColor} />
             <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
           </DiceAndPowerUps>
           <DescriptionWrapper>

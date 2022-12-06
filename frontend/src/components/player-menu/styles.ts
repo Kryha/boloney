@@ -22,7 +22,12 @@ export const PlayerMenuContainer = styled.div`
   background: transparent;
 `;
 
-export const MenuSection = styled.section`
+interface LayoutProps {
+  isToggled?: boolean;
+  isInMatch: boolean;
+}
+
+export const MenuSection = styled.section<LayoutProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,26 +35,23 @@ export const MenuSection = styled.section`
   width: 25vw;
   height: 7.198vh;
   background: transparent;
-  border-left: 1px solid ${color.darkGrey};
-  border-right: 1px solid ${color.darkGrey};
+  border-right: 1px solid ${color.mediumGrey};
 `;
-
-interface LayoutProps {
-  isToggled: boolean;
-}
 
 export const ChatSection = styled(MenuSection)<LayoutProps>`
   height: 5.5vh;
   cursor: pointer;
   display: ${({ isToggled }) => isToggled && "none"};
+  border-left: ${({ isInMatch }) => (isInMatch ? `1px solid ${color.mediumGrey}` : "none")};
 `;
 
 export const HistorySection = styled(MenuSection)<LayoutProps>`
   height: 5.5vh;
   cursor: pointer;
   display: ${({ isToggled }) => isToggled && "none"};
-  border-top: 1px solid ${color.darkGrey};
-  border-bottom: 1px solid ${color.darkGrey};
+  border-top: 1px solid ${color.mediumGrey};
+  border-bottom: 1px solid ${color.mediumGrey};
+  border-left: ${({ isInMatch }) => (isInMatch ? `1px solid ${color.mediumGrey}` : "none")};
 `;
 
 export const Plus = styled(PlusIcon)``;

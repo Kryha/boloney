@@ -46,10 +46,10 @@ export const EndOfMatch: FC = () => {
       </TitleSection>
 
       {leaderboard.map((player, i) => (
-        <PlayerLeaderboard key={player.userId} player={player} place={i + 1} />
+        <PlayerLeaderboard key={player.userId} player={player} rank={i + 1} />
       ))}
 
-      <PrimaryButton text={text.match.newMatch} onClick={() => handleNewMatch()} />
+      <PrimaryButton text={text.match.homePage} onClick={() => handleNewMatch()} />
     </EndOfMatchWrapper>
   );
 };

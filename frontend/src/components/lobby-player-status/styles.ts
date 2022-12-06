@@ -28,6 +28,8 @@ export const LobbyPlayerStatusWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: ${margins.small1} ${margins.small1} ${margins.small1} 0.875em;
+  position: absolute;
+  bottom: 0;
   ${Heading4} {
     white-space: nowrap;
     overflow: hidden;

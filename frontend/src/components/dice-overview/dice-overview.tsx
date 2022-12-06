@@ -9,9 +9,10 @@ import { Die } from "../../types";
 
 interface DiceOverviewProps {
   dice?: Die[];
+  dieColor: string;
 }
 
-export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
+export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor }) => {
   const { height } = useViewport();
 
   if (!dice || !dice.length) return <DieOverviewContainer height={height} />;
@@ -22,7 +23,7 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice }) => {
         <GeneralText>{text.param.xAmount(dice.length)}</GeneralText>
         <YourDiceContainer>
           {dice.map((die, index) => (
-            <DieComponent key={index} value={die.rolledValue} />
+            <DieComponent key={index} value={die.rolledValue} faceColor={dieColor} />
           ))}
         </YourDiceContainer>
       </DieOverviewContainer>

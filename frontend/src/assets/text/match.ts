@@ -9,7 +9,7 @@ export const match = {
   playerTurns: "player turns",
   endOfRound: "end of round",
   endOfMatch: "end of match",
-  newMatch: "new match/create match",
+  newMatch: "new match",
   placeBid: "place bid",
   callExact: "call exact",
   callBoloney: "call boloney",
@@ -31,4 +31,5 @@ export const match = {
   healAction: "heal action",
   powerUpTypeOnTheTable: "power-up type on the table",
   imReady: "im ready",
+  homePage: "homepage",
 };

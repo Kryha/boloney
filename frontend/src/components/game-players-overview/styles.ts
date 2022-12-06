@@ -15,7 +15,7 @@ export const DiceCrownWrapper = styled.div`
 `;
 
 export const DiceCrownImg = styled.img`
-  width: 100%;
+  width: 90%;
   object-fit: cover;
 `;
 
@@ -43,7 +43,7 @@ export const GamePlayersWrapper = styled.div<GamePlayersProps>`
   background: ${({ isActive, customColor }): string => (isActive ? customColor || color.white : color.lightGrey)};
   height: ${({ totalPlayers }): string => `${GAME_PLAYER_HEIGHT / totalPlayers}vh`};
   position: relative;
-  border-bottom: 1px solid ${color.darkGrey};
+  border-bottom: 1px solid ${color.mediumGrey};
   ${BadgeWrapper} {
     min-width: clamp(69.3px, 7.33vw + -1.05px, 139.65px);
     min-height: clamp(18.48px, 1.95vw + -0.28px, 37.24px);
@@ -64,7 +64,7 @@ export const GamePlayersOverviewWrapper = styled.div<OverviewProps>`
   height: ${({ isWinner }) => (isWinner ? "100vh" : `${GAME_PLAYER_HEIGHT}vh`)};
   left: 0px;
   top: 0px;
-  border-right: 1px solid ${color.darkGrey};
+  border-right: 1px solid ${color.mediumGrey};
 
   ${GamePlayersWrapper}:first-of-type {
     border-top: none;

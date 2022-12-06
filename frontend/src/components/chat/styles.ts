@@ -4,17 +4,18 @@ import { color, margins } from "../../design";
 
 interface LayoutProps {
   isToggled: boolean;
+  isInMatch: boolean;
 }
 
-export const ChatSection = styled.section <LayoutProps>`
+export const ChatSection = styled.section<LayoutProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: ${margins.small1};
   height: 40vh;
   width: 25vw;
-  border-left: 1px solid ${color.darkGrey};
-  display: ${({ isToggled }) => (!isToggled && "none")};
+  border-left: ${({ isInMatch }) => (isInMatch ? `1px solid ${color.mediumGrey}` : "none")};
+  display: ${({ isToggled }) => !isToggled && "none"};
 `;
 
 export const Close = styled(CloseIcon)``;

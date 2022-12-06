@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, margins } from "../../design";
-import { Heading2, Heading4, Paragraph } from "../atoms";
+import { Heading2, Heading4, Heading6, Paragraph } from "../atoms";
 import { PrimaryButtonWrapper } from "../buttons/styles";
 
 export const EndOfMatchWrapper = styled.section`
@@ -17,6 +17,10 @@ export const EndOfMatchWrapper = styled.section`
 export const TitleSection = styled.section`
   margin-left: ${margins.large0};
   margin-bottom: ${margins.large0};
+  ${Heading6} {
+    text-transform: uppercase;
+    margin-bottom: ${margins.small4};
+  }
 `;
 
 interface WrapperProps {
@@ -31,34 +35,24 @@ export const LeaderboardWrapper = styled.div<WrapperProps>`
   border-bottom: 1px solid ${color.mediumGrey};
 `;
 
-export const WinnerBadge = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: ${margins.small1};
-  padding-right: ${margins.small1};
-  padding-left: ${margins.small1};
-  padding-top: ${margins.small0};
-  padding-bottom: ${margins.small0};
-  background-color: ${color.white};
-  width: 6.5625em;
-  position: absolute;
-`;
+interface DataWrapperProps {
+  isWinner?: boolean;
+}
 
-export const DataWrapper = styled.div`
+export const DataWrapper = styled.div<DataWrapperProps>`
   width: 100%;
-  margin-top: 2.375em;
+  padding-top: 2.375em;
   margin-bottom: ${margins.small5};
-
+  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  background: ${({ isWinner }) => (isWinner ? color.white : "transparent")};
 `;
 
 export const LeaderboardStanding = styled(Heading2)`
-  color: ${color.white};
-  margin-left: ${margins.small5};
-  margin-right: ${margins.small5};
+  margin-left: 0.3em;
+  margin-right: 0.3em;
 `;
 
 export const LeaderboardAvatar = styled.div`
@@ -86,7 +80,7 @@ export const DiceAndPowerUps = styled.div`
 
 export const DescriptionWrapper = styled.div`
   display: inline-flex;
-  margin-top: ${margins.small2};
+  margin-top: ${margins.small1};
 `;
 
 export const Description = styled(Paragraph)`

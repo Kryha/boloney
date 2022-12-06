@@ -28,6 +28,7 @@ export const ChildrenWrapper = styled.div<ViewProps>`
   height: 42.5vh;
   width: 100vw;
   overflow: hidden;
+  position: relative;
   ${LobbyPlayerWrapper} {
     height: 100%;
     border-top: none;
