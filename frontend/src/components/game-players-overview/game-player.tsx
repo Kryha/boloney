@@ -15,8 +15,9 @@ import { handProportion } from "../../design/hand";
 import { PlayerPublic } from "../../types";
 import { avatars, text } from "../../assets";
 import { PlayerGameState } from "./game-player-info";
-import { LoserBadge, WinnerBadge } from "../badges/badges";
 import { Die } from "../die";
+import { useLatestBid } from "../../service";
+import { PlayerBadge } from "../badges";
 
 interface GamePlayerProps {
   totalPlayers: number;
@@ -25,13 +26,12 @@ interface GamePlayerProps {
 
 export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
   const { avatar } = handProportion(avatars[player.avatarId].name);
-  // TODO: remove fake value
-  const isWinner = false;
-  const isLoser = false;
+  const latestBid = useLatestBid();
+
   return (
     <GamePlayersWrapper totalPlayers={totalPlayers} isActive={player.isActive}>
-      {isWinner && <WinnerBadge />}
-      {isLoser && <LoserBadge />}
+      <PlayerBadge player={player} />
+
       <GamePlayersContainer totalPlayers={totalPlayers}>
         <PlayerAvatarContainer>
           <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
@@ -44,11 +44,11 @@ export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
           <PlayerGameState player={player} />
         </PlayerInfoContainer>
       </GamePlayersContainer>
-      {/* TODO: remove fake values */}
-      {isWinner && (
+
+      {latestBid?.userId === player.userId && (
         <DiceContainer>
-          <Heading6>{text.param.xAmount(6)}</Heading6>
-          <Die value={6} />
+          <Heading6>{text.param.xAmount(latestBid.amount)}</Heading6>
+          <Die value={latestBid.face} />
         </DiceContainer>
       )}
     </GamePlayersWrapper>

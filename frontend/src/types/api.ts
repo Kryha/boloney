@@ -11,3 +11,9 @@ export const playerJoinedPayloadSchema = z.object({
 });
 
 export type PlayerJoinedPayload = z.infer<typeof playerJoinedPayloadSchema>;
+
+export const boloneyPayloadBackendSchema = z.object({
+  players: z.record(playerPublicSchema),
+});
+
+export type BoloneyPayloadBackend = z.infer<typeof boloneyPayloadBackendSchema>;

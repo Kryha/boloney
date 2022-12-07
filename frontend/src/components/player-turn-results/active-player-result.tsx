@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { getResultData } from "../../assets/local-data/player-result";
 import { useActivePlayer } from "../../service";
 import { useStore } from "../../store";
@@ -11,18 +12,17 @@ import { ActivePlayerTextResults, TargetPlayerTextResults } from "./text-results
 export const ActivePlayerResult: FC = () => {
   const action = useStore((state) => state.action);
   const activePlayer = useActivePlayer();
-  // TODO: get actual data and remove fake data
-  const isWinner = false;
-  const isTargetPlayer = false;
 
   if (!activePlayer) return <ErrorView />;
+
+  const isWinner = activePlayer.actionRole === "winner";
 
   const playerData = getResultData(action, activePlayer);
 
   return (
     <ActivePlayerResultWrapper>
       <BottomButtonWrapper>
-        {isTargetPlayer ? (
+        {activePlayer.isTarget ? (
           <TargetPlayerTextResults data={playerData} isWinner={isWinner} />
         ) : (
           <ActivePlayerTextResults data={playerData} isWinner={isWinner} />

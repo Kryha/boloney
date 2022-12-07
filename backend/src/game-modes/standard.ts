@@ -1,4 +1,11 @@
-import { getAvailableAvatar, handleInactiveMatch, handlePlayerReconnect, handleStage, updateEmptyTicks } from "../services";
+import {
+  getAvailableAvatar,
+  handleInactiveMatch,
+  handlePlayerReconnect,
+  handleStage,
+  updateEmptyTicks,
+  setLosersAsReady,
+} from "../services";
 import { text } from "../text";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayload } from "../types";
 import { handleError, hidePlayersData } from "../utils";
@@ -18,6 +25,7 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger,
     presences: {},
     bids: {},
     emptyTicks: 0,
+    leaderboard: [],
   };
 
   return {
@@ -71,7 +79,9 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
       hasInitialPowerUps: false,
       isActive: false,
       hasRolledDice: false,
-      playerStatus: "playing",
+      status: "playing",
+      actionRole: undefined,
+      isTarget: false,
     };
     state.playerOrder.push(presence.userId);
   }
@@ -94,6 +104,8 @@ export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, 
   logger.info("----------------- MATCH LOOP -----------------");
 
   const loopParams: MatchLoopParams = { ctx, logger, nk, dispatcher, tick, state, messages };
+
+  setLosersAsReady(state);
 
   // End match if players are inactive
   updateEmptyTicks(state, messages);

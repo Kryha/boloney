@@ -87,7 +87,6 @@ export const useMatch = () => {
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
 
-  // TODO: each call should have it's own isLoading flag
   const [isLoading, setIsLoading] = useState(false);
 
   const sendMatchState = useCallback(
@@ -111,14 +110,17 @@ export const useMatch = () => {
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
 
   const broadcastPlaceBid = (bid: BidPayloadFrontend) => {
-    // TODO: implement loading for other calls as well
     setSpinnerVisibility(true);
     sendMatchState(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(bid));
   };
 
+  // TODO: add loading indication
   const broadcastCallExact = () => sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
 
-  const broadcastCallBoloney = () => sendMatchState(MatchOpCode.PLAYER_CALL_BOLONEY);
+  const broadcastCallBoloney = () => {
+    setSpinnerVisibility(true);
+    sendMatchState(MatchOpCode.PLAYER_CALL_BOLONEY);
+  };
 
   return {
     isLoading,
@@ -130,6 +132,7 @@ export const useMatch = () => {
   };
 };
 
+// TODO: maybe split this hook in one hook for loading and another one for saving
 export const useSyncState = () => {
   const sessionState = useStore((state) => state.sessionState);
   const matchId = useStore((state) => state.matchId);

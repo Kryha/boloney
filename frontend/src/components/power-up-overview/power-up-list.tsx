@@ -27,6 +27,7 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
     setModalWithoutContainer(true);
     setModalComponentChildren("power-up-list");
   };
+
   return (
     <YourPowerUpContainer>
       {powerUpIds.slice(0, initialPowerUpsShown).map((powerUpId, i) => (

@@ -24,12 +24,20 @@ export const RollDice: FC = () => {
 
   const dieColor = getDieColor(localPlayer);
 
+  const button = () => {
+    if (localPlayer.status === "lost") return <></>;
+    if (hasRolledDice) return <ButtonReady />;
+    return <PrimaryButton text={text.general.rollIt} onClick={() => sendMatchState(MatchOpCode.ROLL_DICE)} />;
+  };
+
   return (
     <BottomButtonWrapper>
       <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={text.powerUps.settingItUp} />
       <Heading2 customColor={color.darkGrey}>{text.param.findOutYourPips(localPlayer.username)}</Heading2>
+
       {dice && <RollingDice dice={dice} dieColor={dieColor} />}
-      {hasRolledDice ? <ButtonReady /> : <PrimaryButton text={text.general.rollIt} onClick={() => sendMatchState(MatchOpCode.ROLL_DICE)} />}
+
+      {button()}
     </BottomButtonWrapper>
   );
 };

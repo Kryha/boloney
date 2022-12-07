@@ -18,6 +18,7 @@ export const GetPowerUps: FC = () => {
     <BottomButtonWrapper>
       <TimerHeader timeInSeconds={DECISION_MAKING_TIME_IN_SECONDS} isCountDownStarted={false} title={text.powerUps.settingItUp} />
       <Heading2 customColor={color.darkGrey}>{text.param.powerUpsHiddenMoves(localPlayer.username)}</Heading2>
+
       <ButtonReady />
     </BottomButtonWrapper>
   );

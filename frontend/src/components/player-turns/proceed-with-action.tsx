@@ -19,6 +19,8 @@ export const ProceedWithAction = () => {
         return <></>;
       case "powerUp":
         return <></>;
+      default:
+        return <></>;
     }
   };
 

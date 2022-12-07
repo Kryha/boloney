@@ -18,6 +18,7 @@ export const setLocalStorage = (matchState: MatchSliceState) => {
 };
 
 export const getLocalStorage = (): MatchSliceState => {
+  // TODO: properly handle type: {} is not MAtchSliceState
   const matchState = JSON.parse(localStorage.getItem("matchState") || "{}");
   return matchState;
 };

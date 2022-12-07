@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { text } from "../../assets";
+import { useLatestBid } from "../../service";
 import { useStore } from "../../store";
 import { GeneralText } from "../atoms";
 import { PrimaryButtonWithHelper } from "../button-with-helper";
@@ -8,6 +9,7 @@ import { ActivePlayerWrapper, ActivePlayerContainer, PowerUpButtonContainer, Act
 export const PickAction: FC = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const setAction = useStore((state) => state.setAction);
+  const latestBid = useLatestBid();
 
   return (
     <ActivePlayerWrapper>
@@ -37,6 +39,7 @@ export const PickAction: FC = () => {
             tooltipInfo={text.general.toolTipInfo}
           />
           <PrimaryButtonWithHelper
+            disabled={!latestBid}
             text={text.match.boloney}
             onClick={() => {
               setTurnActionStep("proceedWithAction");
@@ -46,6 +49,7 @@ export const PickAction: FC = () => {
             tooltipInfo={text.general.toolTipInfo}
           />
           <PrimaryButtonWithHelper
+            disabled={!latestBid}
             text={text.match.exact}
             onClick={() => {
               setTurnActionStep("proceedWithAction");

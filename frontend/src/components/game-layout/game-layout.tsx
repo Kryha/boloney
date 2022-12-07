@@ -17,6 +17,7 @@ interface GameLayoutProps {
 export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
   const dice = useStore((state) => state.diceValue);
   const localPlayer = useLocalPlayer();
+
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
   const isInMatch = useIsInMatch();

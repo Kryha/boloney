@@ -8,12 +8,12 @@ import { ActivePlayerResult } from "./active-player-result";
 
 export const IdlePlayerResults = () => {
   const activePlayer = useActivePlayer();
+
   if (!activePlayer) return <ErrorView />;
-  // TODO: get actual value;
-  const targetPlayer = false;
+
   return (
     <BottomButtonWrapper>
-      {targetPlayer ? (
+      {activePlayer.isTarget ? (
         <ActivePlayerResult />
       ) : (
         <>

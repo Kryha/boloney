@@ -1,5 +1,5 @@
-import { BidPayloadBackend, isBidPayloadFrontend, MatchLoopParams, MatchOpCode, MatchState, Player } from "../types";
-import { EMPTY_DATA } from "../utils";
+import { BidPayloadBackend, BoloneyPayloadBackend, isBidPayloadFrontend, MatchLoopParams, MatchOpCode, MatchState, Player } from "../types";
+import { EMPTY_DATA, hidePlayersData } from "../utils";
 import { getLatestBid, isBidHigher, isBidMaxTotal } from "./bid";
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
@@ -8,14 +8,29 @@ export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
   state.players[userId].isReady = true;
 };
 
+export const setLosersAsReady = (state: MatchState) => {
+  Object.values(state.players).forEach((player) => {
+    if (player.status === "lost") attemptSetPlayerReady(state, player.userId);
+  });
+};
+
 export const setAllPlayersReady = (state: MatchState) => {
   state.playersReady = Object.keys(state.players).map((playerId) => state.players[playerId].userId);
 };
 
-export const getNextPlayerId = (currentPlayerId: string, playerIdsMatchOrder: string[]): string => {
-  const currentPlayerIndex = playerIdsMatchOrder.indexOf(currentPlayerId);
-  const nextPlayerIndex = (currentPlayerIndex + 1) % playerIdsMatchOrder.length;
-  return playerIdsMatchOrder[nextPlayerIndex];
+export const getNextPlayerId = (currentPlayerId: string, { state }: MatchLoopParams): string => {
+  const currentPlayerIndex = state.playerOrder.indexOf(currentPlayerId);
+
+  let nextPlayerId: string;
+  let nextPlayer: Player;
+  let nextPlayerIndex: number | undefined;
+  do {
+    nextPlayerIndex = ((nextPlayerIndex || currentPlayerIndex) + 1) % state.playerOrder.length;
+    nextPlayerId = state.playerOrder[nextPlayerIndex];
+    nextPlayer = state.players[nextPlayerId];
+  } while (nextPlayer.status === "lost");
+
+  return nextPlayerId;
 };
 
 export const getOtherPresences = (currentPlayerId: string, presences: Record<string, nkruntime.Presence>): nkruntime.Presence[] => {
@@ -39,6 +54,28 @@ export const getActivePlayerId = (players: Record<string, Player>): string | und
   return activePlayer ? activePlayer.userId : undefined;
 };
 
+const getTotalDiceWithFace = (players: Record<string, Player>, face: number) =>
+  Object.values(players).reduce(
+    (total, player) =>
+      total +
+      player.diceValue.reduce((subTotal, die) => {
+        if (die.rolledValue === face) return subTotal + 1;
+        return subTotal;
+      }, 0),
+    0
+  );
+
+const handlePlayerLoss = (state: MatchState, loser: Player) => {
+  state.leaderboard.push(loser);
+
+  loser.status = "lost";
+
+  const playersInGame = Object.values(state.players).filter((player) => player.status !== "lost");
+  if (playersInGame.length === 1) {
+    state.leaderboard.push(playersInGame[0]);
+  }
+};
+
 export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => {
   const { state, dispatcher, logger, nk } = loopParams;
 
@@ -47,9 +84,10 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
     dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [message.sender]);
   };
 
+  // TODO: define handler functions in other files instead of writing logic directly in the switch
   switch (message.opCode) {
     case MatchOpCode.PLAYER_PLACE_BID: {
-      logger.info(sender.username, " placed BID");
+      logger.info(sender.username, "placed Bid");
       const data = JSON.parse(nk.binaryToString(message.data));
 
       if (!isBidPayloadFrontend(data)) return stopLoading();
@@ -61,32 +99,48 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
 
       state.bids[sender.userId] = { ...data, createdAt: Date.now() };
 
-      const nextActivePlayerId = getNextPlayerId(sender.userId, state.playerOrder);
+      const nextActivePlayerId = getNextPlayerId(sender.userId, loopParams);
       setActivePlayer(nextActivePlayerId, state.players);
 
       const placeBidPayload: BidPayloadBackend = state.bids;
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
-      // TODO: implement loading for other calls as well
       stopLoading();
 
       break;
     }
-    case MatchOpCode.PLAYER_CALL_BOLONEY:
-      logger.info(sender.username, " Called Boloney: ");
+    case MatchOpCode.PLAYER_CALL_BOLONEY: {
+      logger.info(sender.username, "called Boloney");
 
       setActivePlayer(sender.userId, state.players);
 
-      // TODO: Add "CallBoloney" logic
+      const bid = getLatestBid(state.bids);
+      if (!bid) return stopLoading();
 
-      // Broadcast action to everyone else
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify({ player: sender.userId }));
+      const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
-      // TODO: Transition stage to Round Summary only after rendering outcome in the client
+      const target = state.players[bid.userId];
+      target.isTarget = true;
+
+      const [winner, loser] = bid.amount <= totalDice ? [target, sender] : [sender, target];
+
+      // TODO: implement ZK lose dice logic
+      loser.diceAmount -= 1;
+      loser.actionRole = "loser";
+      winner.actionRole = "winner";
+
+      if (loser.diceAmount <= 0) handlePlayerLoss(state, loser);
+
       setAllPlayersReady(state);
+
+      const payload: BoloneyPayloadBackend = { players: hidePlayersData(state.players) };
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify(payload));
+      stopLoading();
+
       break;
-    case MatchOpCode.PLAYER_CALL_EXACT:
-      logger.info(sender.username, " Called Exact");
+    }
+    case MatchOpCode.PLAYER_CALL_EXACT: {
+      logger.info(sender.username, "called Exact");
 
       // TODO: Add "CallExact" logic
 
@@ -98,6 +152,7 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
       // TODO: Transition stage to Round Summary only after rendering outcome in the client
       setAllPlayersReady(state); // We set all the players in order to trigger the stage transition
       break;
+    }
     default:
       logger.info("Unknown OP_CODE recieved: ", message.opCode);
       break;

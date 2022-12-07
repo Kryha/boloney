@@ -13,6 +13,7 @@ export const IdlePlayerHeader = () => {
   if (!activePlayer) return <ErrorView />;
 
   const headerData = idlePlayerTurnData(turnActionStep, activePlayer);
+
   return (
     <>
       <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={headerData.timerTitle} />

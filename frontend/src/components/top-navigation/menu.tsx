@@ -37,6 +37,12 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
     setModalComponentChildren("match-settings-overview");
   };
 
+  const leaveMatch = () => {
+    // TODO: call game server
+    clearLocalStorage();
+    navigate(routes.home);
+  };
+
   return (
     <Dropdown
       setHover={setHover}
@@ -56,7 +62,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
         {isInMatch && (
           <>
             <HorizontalDivider />
-            <DropdownButton text={text.general.leaveMatch} icon={<ExitIcon />} />
+            <DropdownButton onClick={() => leaveMatch()} text={text.general.leaveMatch} icon={<ExitIcon />} />
           </>
         )}
       </MenuContainer>

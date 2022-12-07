@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+
 import { color, margins, zIndex } from "../../design";
 import { ButtonWithHelperWrapper } from "../button-with-helper/styles";
 import { Info } from "../../components/tooltip/styles";
@@ -63,19 +64,3 @@ export const TurnActionWrapper = styled.section`
 export const TextResultWrapper = styled.section``;
 
 export const ProceedWithActionWrapper = styled.section``;
-interface ActivePlayerViewWrapperProps {
-  isPickAction: boolean;
-}
-
-export const ActivePlayerViewWrapper = styled.section<ActivePlayerViewWrapperProps>`
-  ${({ isPickAction }) =>
-    isPickAction
-      ? `${ProceedWithActionWrapper} {
-        display: none;
-      }`
-      : `
-      ${ActivePlayerWrapper} {
-        display: none;
-      }
-      `};
-`;

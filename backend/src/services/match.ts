@@ -23,10 +23,13 @@ export const getMessageSender = (state: MatchState, message: nkruntime.MatchMess
   return messageSender;
 };
 
-// TODO: improve function after adding other functionality
 // "endOfMatchStage" has itself as next stage
 export const getNextStage = (state: MatchState): MatchStage => {
   if (state.matchStage === "endOfMatchStage") return "terminateMatchStage";
+
+  const hasMatchTerminated = Object.values(state.players).filter((player) => player.status !== "lost").length <= 1;
+  if (state.matchStage === "roundSummaryStage" && !hasMatchTerminated) return "rollDiceStage";
+
   const currentStageIndex = MATCH_STAGES.indexOf(state.matchStage);
   const nextStage = MATCH_STAGES[currentStageIndex + 1];
   if (!nextStage) return "endOfMatchStage";
@@ -101,8 +104,8 @@ export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.Mat
 
 //TODO maybe add broadcast event to other players when a player reconnects
 export const handlePlayerReconnect = (state: MatchState, presence: nkruntime.Presence, logger: nkruntime.Logger): MatchState => {
-  if (state.players[presence.userId].playerStatus === "disconnected") {
-    state.players[presence.userId].playerStatus = "playing";
+  if (state.players[presence.userId].status === "disconnected") {
+    state.players[presence.userId].status = "playing";
     logger.info(state.players[presence.userId].userId, "reconnected");
   }
   return state;

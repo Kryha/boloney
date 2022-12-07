@@ -34,11 +34,17 @@ export enum MatchOpCode {
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
+export const playerStatusSchema = z.enum(["playing", "disconnected", "lost"]);
+export type PlayerStatus = z.infer<typeof playerStatusSchema>;
+
+// we need both optional and nullable because nakama
+export const actionRoleSchema = z.enum(["winner", "loser"]).optional().nullable();
+export type ActionRole = z.infer<typeof actionRoleSchema>;
+
 export const playerPrivateSchema = z.object({
   diceValue: z.array(dieSchema),
   powerUpIds: z.optional(z.array(powerUpIdSchema)),
 });
-
 export type PlayerPrivate = z.infer<typeof playerPrivateSchema>;
 
 export const playerPublicSchema = z.object({
@@ -52,15 +58,13 @@ export const playerPublicSchema = z.object({
   isActive: z.boolean(),
   hasInitialPowerUps: z.boolean(),
   hasRolledDice: z.boolean(),
-  playerStatus: z.enum(["playing", "disconnected", "lost"]),
+  status: playerStatusSchema,
+  actionRole: actionRoleSchema,
+  isTarget: z.boolean(),
 });
-
-export type PlayerStatus = "playing" | "disconnected" | "lost";
-
 export type PlayerPublic = z.infer<typeof playerPublicSchema>;
 
 export const playerSchema = playerPublicSchema.merge(playerPrivateSchema);
-
 export type Player = z.infer<typeof playerSchema>;
 
 export const matchStageSchema = z.enum([

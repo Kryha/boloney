@@ -1,14 +1,16 @@
 import { FC } from "react";
+
 import { ErrorView } from "../error-view";
 import { PickAction } from "./pick-action";
-import { ProceedWithAction } from "./proceed-with-action";
 import { IdlePlayerWrapper, TurnActionWrapper } from "./styles";
 import { IdlePlayerHeader, TurnActionHeader } from "../player-turn-headers";
 import { useLocalPlayer } from "../../service";
-import { ActivePlayerView } from "./active-player-view";
+import { useStore } from "../../store";
+import { ProceedWithAction } from "./proceed-with-action";
 
 export const PlayerTurns: FC = () => {
   const localPlayer = useLocalPlayer();
+  const turnActionStep = useStore((state) => state.turnActionStep);
 
   if (!localPlayer) return <ErrorView />;
 
@@ -16,17 +18,14 @@ export const PlayerTurns: FC = () => {
     return (
       <TurnActionWrapper>
         <TurnActionHeader />
-        <ActivePlayerView>
-          <PickAction />
-          <ProceedWithAction />
-        </ActivePlayerView>
+        {turnActionStep === "pickAction" ? <PickAction /> : <ProceedWithAction />}
       </TurnActionWrapper>
     );
-  } else {
-    return (
-      <IdlePlayerWrapper>
-        <IdlePlayerHeader />
-      </IdlePlayerWrapper>
-    );
   }
+
+  return (
+    <IdlePlayerWrapper>
+      <IdlePlayerHeader />
+    </IdlePlayerWrapper>
+  );
 };

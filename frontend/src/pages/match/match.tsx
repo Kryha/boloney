@@ -1,6 +1,5 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { ReactNode, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { z } from "zod";
 
 import {
@@ -15,7 +14,7 @@ import {
   ErrorView,
   Loading,
 } from "../../components";
-import { clearLocalStorage, setIsMatchCreated, useLatestBid, useMatchMaker, useSyncState } from "../../service";
+import { setIsMatchCreated, useMatchMaker } from "../../service";
 import { useStore } from "../../store";
 import {
   MatchOpCode,
@@ -29,8 +28,9 @@ import {
   playerJoinedPayloadSchema,
   playerActivePayloadSchema,
   bidPayloadBackendSchema,
+  boloneyPayloadBackendSchema,
 } from "../../types";
-import { parseMatchData, parseMatchIdParam } from "../../util";
+import { parseMatchData } from "../../util";
 
 export const Match = () => {
   const { joinMatch, isLoading } = useMatchMaker();
@@ -52,20 +52,17 @@ export const Match = () => {
 
   const matchId = useStore((state) => state.matchId);
 
-  const syncState = useSyncState();
-  const { matchId: unparsedId } = useParams();
-  const matchIdFromUrl = parseMatchIdParam(unparsedId);
+  // TODO: uncomment when it will be synchronised with server, for now it's too annoying
+  // const syncState = useSyncState();
+  // const { matchId: unparsedId } = useParams();
+  // const matchIdFromUrl = parseMatchIdParam(unparsedId);
 
-  useEffect(() => {
-    if (matchId && matchId !== matchIdFromUrl) {
-      clearLocalStorage();
-    }
-    if (matchIdFromUrl) syncState(matchIdFromUrl);
-  }, [matchId, matchIdFromUrl, syncState]);
-
-  // TODO: remove log after view gets implemented
-  const latestBid = useLatestBid();
-  console.log("LATEST BID:", latestBid);
+  // useEffect(() => {
+  //   if (matchId && matchId !== matchIdFromUrl) {
+  //     clearLocalStorage();
+  //   }
+  //   if (matchIdFromUrl) syncState(matchIdFromUrl);
+  // }, [matchId, matchIdFromUrl, syncState]);
 
   const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {
@@ -104,10 +101,9 @@ export const Match = () => {
         case MatchOpCode.STAGE_TRANSITION: {
           const parsed = stageTransitionSchema.safeParse(data);
           if (!parsed.success) return;
-          if (parsed.data.matchStage === "getPowerUpStage") {
-            setIsMatchCreated();
-          }
-          if (matchStage === "roundSummaryStage") resetRound();
+
+          if (parsed.data.matchStage === "getPowerUpStage") setIsMatchCreated();
+          if (parsed.data.matchStage === "rollDiceStage") resetRound();
 
           setMatchStage(parsed.data.matchStage);
           setPlayerReady(false);
@@ -150,6 +146,12 @@ export const Match = () => {
           setBids(parsed.data);
           break;
         }
+        case MatchOpCode.PLAYER_CALL_BOLONEY: {
+          const parsed = boloneyPayloadBackendSchema.safeParse(data);
+          if (!parsed.success) return;
+          setPlayers(parsed.data.players);
+          break;
+        }
         case MatchOpCode.PLAYER_ACTIVE: {
           const parsed = playerActivePayloadSchema.safeParse(data);
           if (!parsed.success) return;
@@ -159,19 +161,17 @@ export const Match = () => {
       }
     };
   }, [
-    socket,
+    resetRound,
+    setActivePlayer,
+    setBids,
+    setDiceValue,
     setMatchStage,
     setPlayerOrder,
-    setPlayers,
-    session,
-    setDiceValue,
-    setSpinnerVisibility,
-    matchStage,
-    resetRound,
     setPlayerReady,
+    setPlayers,
     setPowerUpIds,
-    setBids,
-    setActivePlayer,
+    setSpinnerVisibility,
+    socket,
   ]);
 
   // TODO: generalise overlay and return that when awaiting a ws response

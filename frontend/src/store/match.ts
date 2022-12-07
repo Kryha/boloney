@@ -5,21 +5,23 @@ import { StateCreator } from "zustand";
 import { getLocalStorage } from "../service";
 import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings, Bid, TurnActionStep, TurnAction } from "../types";
 
-export interface MatchSliceState {
+interface RoundState {
+  hasRolledDice: boolean;
+  diceValue?: Die[];
+  bids: Record<string, Bid>;
+  action?: TurnAction;
+  turnActionStep: TurnActionStep;
+}
+
+export interface MatchSliceState extends RoundState {
   sessionState?: Session;
   matchId?: string;
-  diceValue?: Die[];
   matchStage: MatchStage;
   players: Record<string, PlayerPublic>;
-  bids: Record<string, Bid>;
   playerOrder: string[];
   matchUrl: string;
   powerUpIds: PowerUpId[];
   matchSettings?: MatchSettings;
-  turnActionStep: TurnActionStep;
-  action?: TurnAction;
-  // flags
-  hasRolledDice: boolean;
 }
 
 interface MatchSliceSetters {
@@ -45,10 +47,12 @@ interface MatchSliceSetters {
 
 export type MatchSlice = MatchSliceState & MatchSliceSetters;
 
-const initialRoundState = {
+const initialRoundState: RoundState = {
   hasRolledDice: false,
   diceValue: undefined,
   bids: {},
+  action: undefined,
+  turnActionStep: "pickAction",
 };
 
 const initialMatchState: MatchSliceState = {
@@ -59,8 +63,6 @@ const initialMatchState: MatchSliceState = {
   matchUrl: "",
   powerUpIds: [],
   matchSettings: undefined,
-  turnActionStep: "pickAction",
-  action: undefined,
   ...initialRoundState,
 };
 
@@ -78,7 +80,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setPowerUpIds: (powerUpIds) => set(() => ({ powerUpIds })),
   setActivePlayer: (playerId: string) => {
     set(
-      produce((state) => {
+      produce((state: MatchSliceState) => {
         // Reset previous active player
         Object.keys(state.players).forEach((playerId) => (state.players[playerId].isActive = false));
         state.players[playerId].isActive = true;
@@ -90,7 +92,23 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setMatchState: (matchState) => set(() => ({ ...matchState })),
   loadLocalStorageToStore: () => set(() => ({ ...getLocalStorage() })),
   setBids: (bids) => set(() => ({ bids })),
-  resetRound: () => set(() => ({ ...initialRoundState })),
+  resetRound: () =>
+    set(
+      produce((state: MatchSliceState) => {
+        state.hasRolledDice = initialRoundState.hasRolledDice;
+        state.diceValue = initialRoundState.diceValue;
+        state.bids = initialRoundState.bids;
+        state.action = initialRoundState.action;
+        state.turnActionStep = initialRoundState.turnActionStep;
+
+        Object.values(state.players).forEach((player) => {
+          const playerRef = state.players[player.userId];
+
+          playerRef.actionRole = undefined;
+          playerRef.isTarget = false;
+        });
+      })
+    ),
   setTurnActionStep: (turnActionStep) =>
     set(() => ({
       turnActionStep: turnActionStep,

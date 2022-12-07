@@ -28,3 +28,7 @@ export const isBidPayloadFrontend = (value: unknown): value is BidPayloadFronten
 
 // payload that is dispatched to the clients after bid gets processed
 export type BidPayloadBackend = Record<string, Bid>;
+
+export interface BidWithUserId extends Bid {
+  userId: string;
+}

@@ -1,11 +1,10 @@
-import { Bid, BidPayloadFrontend, Player } from "../types";
+import { Bid, BidPayloadFrontend, BidWithUserId, Player } from "../types";
 
-export const getLatestBid = (bidsRecord: Record<string, Bid>): Bid | undefined => {
-  const bids = Object.values(bidsRecord);
-  // highest date (most recent bid) will be the first element
-  bids.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
-  return bids.at(0);
-};
+export const getLatestBid = (bids: Record<string, Bid>): BidWithUserId | undefined =>
+  Object.entries(bids).reduce((prevLatest: BidWithUserId | undefined, [k, bid]) => {
+    if (!prevLatest || prevLatest.createdAt < bid.createdAt) return { userId: k, ...bid };
+    return prevLatest;
+  }, undefined);
 
 export const isBidMaxTotal = (playersRecord: Record<string, Player>, bid: BidPayloadFrontend) => {
   const players = Object.values(playersRecord);

@@ -16,11 +16,25 @@ export const isMatchJoinMetadata = (value: unknown): value is MatchJoinMetadata 
 
 export type AvatarId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
-export type PlayerStatus = "playing" | "disconnected" | "lost";
-
 export const isAvatarId = (value: unknown): value is AvatarId => {
   if (!isNumber(value)) return false;
   return value >= 1 || value <= 7;
+};
+
+export type PlayerStatus = "playing" | "disconnected" | "lost";
+
+export const isPlayerStatus = (value: unknown): value is PlayerStatus => {
+  const statuses: PlayerStatus[] = ["playing", "disconnected", "lost"];
+  const assertedVal = value as PlayerStatus;
+  return statuses.includes(assertedVal);
+};
+
+// we need both undefined and null because nakama
+export type ActionRole = "winner" | "loser" | undefined | null;
+
+export const isActionRole = (value: unknown): value is ActionRole => {
+  const roles: ActionRole[] = ["winner", "loser", undefined, null];
+  return roles.includes(value as ActionRole);
 };
 
 export interface PlayerPrivate {
@@ -55,7 +69,9 @@ export interface PlayerPublic {
   hasInitialPowerUps: boolean;
   isActive: boolean;
   hasRolledDice: boolean;
-  playerStatus: PlayerStatus;
+  status: PlayerStatus;
+  actionRole: ActionRole;
+  isTarget: boolean;
 }
 
 export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
@@ -71,6 +87,9 @@ export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
     assertedVal.isReady !== undefined &&
     assertedVal.hasInitialPowerUps !== undefined &&
     assertedVal.hasRolledDice !== undefined &&
+    assertedVal.status !== undefined &&
+    assertedVal.actionRole !== undefined &&
+    assertedVal.isTarget !== undefined &&
     isString(assertedVal.userId) &&
     isString(assertedVal.username) &&
     isAvatarId(assertedVal.avatarId) &&
@@ -79,7 +98,10 @@ export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
     isBoolean(assertedVal.isConnected) &&
     isBoolean(assertedVal.isReady) &&
     isBoolean(assertedVal.hasInitialPowerUps) &&
-    isBoolean(assertedVal.hasRolledDice)
+    isBoolean(assertedVal.hasRolledDice) &&
+    isPlayerStatus(assertedVal.status) &&
+    isActionRole(assertedVal.actionRole) &&
+    isBoolean(assertedVal.isTarget)
   );
 };
 
@@ -152,6 +174,7 @@ export interface MatchState {
   playerOrder: string[];
   matchStage: MatchStage;
   emptyTicks: number;
+  leaderboard: PlayerPublic[];
 }
 
 export const isMatchState = (value: unknown): value is MatchState => {

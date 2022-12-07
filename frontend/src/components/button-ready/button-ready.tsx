@@ -1,12 +1,16 @@
 import { FC } from "react";
 
 import { text } from "../../assets";
-import { useMatch } from "../../service";
+import { useLocalPlayer, useMatch } from "../../service";
 import { useStore } from "../../store";
 import { PrimaryButton } from "../buttons";
 
 export const ButtonReady: FC = () => {
   const { broadcastPlayerReady } = useMatch();
+
+  const localPlayer = useLocalPlayer();
+  const isLoser = localPlayer && localPlayer.status === "lost";
+
   const isPlayerReady = useStore((state) => state.isPlayerReady);
   const setPlayerReady = useStore((state) => state.setPlayerReady);
 
@@ -14,5 +18,6 @@ export const ButtonReady: FC = () => {
     setPlayerReady(true);
     broadcastPlayerReady();
   };
-  return <PrimaryButton disabled={isPlayerReady} text={text.match.goForIt} onClick={() => handleClick()} />;
+
+  return <PrimaryButton disabled={isPlayerReady || isLoser} text={text.match.goForIt} onClick={() => handleClick()} />;
 };
