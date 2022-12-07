@@ -12,11 +12,9 @@ import {
 } from "./styles";
 import { handProportion } from "../../design/hand";
 import { PlayerPublic } from "../../types";
-import { avatars, text } from "../../assets";
+import { avatars } from "../../assets";
 import { PlayerGameState, PlayerLastBid } from "./game-player-info";
-import { LoserBadge, WinnerBadge } from "../badges/badges";
 import { useLatestBid } from "../../service";
-import { Die } from "../die";
 import { PlayerBadge } from "../badges";
 
 interface GamePlayerProps {
@@ -44,7 +42,7 @@ export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
           <PlayerGameState player={player} />
         </PlayerInfoContainer>
       </GamePlayersContainer>
-      {lastBid?.userId === player.userId && <PlayerLastBid player={player} lastBid={lastBid} />}
+      {latestBid?.userId === player.userId && <PlayerLastBid player={player} lastBid={latestBid} />}
     </GamePlayersWrapper>
   );
 };
