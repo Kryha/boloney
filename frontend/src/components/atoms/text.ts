@@ -121,6 +121,18 @@ export const FormHeadingText = styled.h2<TextProps>`
   }
 `;
 
+export const UnorderedListItems = styled.li`
+  font-size: 22px;
+  line-height: 26px;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "itc-clearface-bold";
+  font-style: normal;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+`;
+
 interface ColorSpanProps {
   customColor: keyof typeof color;
 }

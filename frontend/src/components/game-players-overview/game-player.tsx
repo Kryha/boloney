@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { avatarHeight, Heading6 } from "../atoms";
+import { avatarHeight } from "../atoms";
 import {
   GamePlayersWrapper,
   PlayerNameContainer,
@@ -9,14 +9,14 @@ import {
   PlayerAvatarContainer,
   PlayerInfoContainer,
   GamePlayersContainer,
-  DiceContainer,
 } from "./styles";
 import { handProportion } from "../../design/hand";
 import { PlayerPublic } from "../../types";
 import { avatars, text } from "../../assets";
-import { PlayerGameState } from "./game-player-info";
-import { Die } from "../die";
+import { PlayerGameState, PlayerLastBid } from "./game-player-info";
+import { LoserBadge, WinnerBadge } from "../badges/badges";
 import { useLatestBid } from "../../service";
+import { Die } from "../die";
 import { PlayerBadge } from "../badges";
 
 interface GamePlayerProps {
@@ -44,13 +44,7 @@ export const GamePlayer: FC<GamePlayerProps> = ({ totalPlayers, player }) => {
           <PlayerGameState player={player} />
         </PlayerInfoContainer>
       </GamePlayersContainer>
-
-      {latestBid?.userId === player.userId && (
-        <DiceContainer>
-          <Heading6>{text.param.xAmount(latestBid.amount)}</Heading6>
-          <Die value={latestBid.face} />
-        </DiceContainer>
-      )}
+      {lastBid?.userId === player.userId && <PlayerLastBid player={player} lastBid={lastBid} />}
     </GamePlayersWrapper>
   );
 };

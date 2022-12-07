@@ -6,6 +6,14 @@ import { BidPayloadFrontend, BidWithUserId, MatchOpCode, NkResponse, PlayerPubli
 import { parseError } from "../util";
 import { clearLocalStorage, isInMatch, setLocalStorage } from "./local-storage";
 
+export const useTotalDiceInMatch = (): number => {
+  const players = useStore((state) => state.players);
+
+  return useMemo(() => {
+    return Object.values(players).reduce((total, player) => total + player.diceAmount, 0);
+  }, [players]);
+};
+
 export const useLatestBid = (): BidWithUserId | undefined => {
   const bids = useStore((state) => state.bids);
 

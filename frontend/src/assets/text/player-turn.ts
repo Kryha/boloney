@@ -19,4 +19,7 @@ export const playerTurn = {
   areYouSureYouWantToCallExact: "are you sure you want to call exact on the last bid?",
   youSuckCallingExact: "you suck at calling Exact... you lose a dice!",
   areYouSureYouWantToCallBoloney: "are you sure you want to call Boloney?",
+  placeBid: "add your bid",
+  guess: "what is your guess?",
+  itsTimeToThinkOutLoud: "time to think out loud, go forth and conquer!",
 };

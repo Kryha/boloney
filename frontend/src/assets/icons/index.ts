@@ -33,6 +33,7 @@ import { ReactComponent as RoundIcon } from "./round.svg";
 import { ReactComponent as BoloneyLogoIcon } from "./boloney-logo.svg";
 import { ReactComponent as Crown } from "./crown.svg";
 import { ReactComponent as CoolHand } from "./cool-hand.svg";
+import { ReactComponent as ArrowButton } from "./arrow-button.svg";
 
 export {
   PlusIcon,
@@ -70,4 +71,5 @@ export {
   BoloneyLogoIcon,
   Crown,
   CoolHand,
+  ArrowButton,
 };

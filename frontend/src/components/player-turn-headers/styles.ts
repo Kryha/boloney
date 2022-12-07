@@ -15,4 +15,5 @@ export const TurnActionHeaderWrapper = styled.section<TurnActionHeaderProps>`
   ${SecondaryButtonContainer} {
     display: ${({ isBackButtonVisible }) => (isBackButtonVisible ? "flex" : "none")};
   }
+  user-select: none;
 `;

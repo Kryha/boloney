@@ -1,30 +1,50 @@
 import { FC } from "react";
+
 import { text } from "../../assets";
-import { useMatch } from "../../service";
+import { useLatestBid, useLocalPlayer, useMatch } from "../../service";
 import { useStore } from "../../store";
+import { getDieColor } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
 import { PrimaryButton } from "../buttons";
+import { ErrorView } from "../error-view";
+import { usePlaceBidFormState } from "./bid-state";
+import { DiceFaces } from "./dice-faces";
+import { AmountSlider } from "./amount-slider";
+import { AmountContainer, BidContainer, BidWrapper } from "./styles";
 
 // TODO: update component styles
 export const PlaceBid: FC = () => {
-  const { broadcastPlaceBid } = useMatch();
+  const latestBid = useLatestBid();
+  const diceAmount = usePlaceBidFormState((state) => state.diceAmount);
+  const faceValue = usePlaceBidFormState((state) => state.faceValue);
+  const resetBidState = usePlaceBidFormState((state) => state.resetBidState);
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
+  const { broadcastPlaceBid } = useMatch();
+  const noBidSet = !diceAmount || !faceValue;
+  const localPlayer = useLocalPlayer();
 
-  const handleBid = () => {
-    const face = Number(prompt("face"));
-    const amount = Number(prompt("amount"));
-    broadcastPlaceBid({ face, amount });
+  const handleClick = () => {
+    if (noBidSet) return;
+
+    resetBidState();
     setTurnActionStep("pickAction");
+    broadcastPlaceBid({ face: faceValue, amount: diceAmount });
   };
 
+  if (!localPlayer) return <ErrorView />;
+
   return (
-    <BottomButtonWrapper>
-      <PrimaryButton
-        text={text.playerTurn.continue}
-        onClick={() => {
-          handleBid();
-        }}
-      />
-    </BottomButtonWrapper>
+    <BidWrapper>
+      <BidContainer>
+        <DiceFaces dieColor={getDieColor(localPlayer)} lastBid={latestBid} />
+
+        <AmountContainer>
+          <AmountSlider lastBid={latestBid} />
+        </AmountContainer>
+      </BidContainer>
+      <BottomButtonWrapper>
+        <PrimaryButton disabled={noBidSet || faceValue === 0} text={text.match.bid} onClick={() => handleClick()} />
+      </BottomButtonWrapper>
+    </BidWrapper>
   );
 };

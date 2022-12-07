@@ -2,10 +2,12 @@ import { FC } from "react";
 
 import { avatars } from "../../assets/local-data/avatar";
 import { handProportion } from "../../design";
+import { useLatestBid } from "../../service";
 import { Die, PlayerPublic, PowerUpId } from "../../types";
 import { getDieColor } from "../../util";
 import { PlayerBadge } from "../badges";
 import { DiceOverview } from "../dice-overview";
+import { PlayerLastBid } from "../game-players-overview/";
 import { PowerUpOverview } from "../power-up-overview";
 import { LocalPlayer, PlayerAvatar, PlayerOverview } from "./styles";
 
@@ -17,6 +19,7 @@ interface HUDProps {
 
 export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const { avatar } = handProportion(avatars[player.avatarId].name);
+  const lastBid = useLatestBid();
   const dieColor = getDieColor(player);
 
   return (
@@ -25,6 +28,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
 
       <LocalPlayer>
         <PlayerAvatar height="10vh" src={avatar} />
+        {lastBid?.userId === player.userId && <PlayerLastBid player={player} lastBid={lastBid} />}
       </LocalPlayer>
 
       <DiceOverview dice={dice} dieColor={dieColor} />

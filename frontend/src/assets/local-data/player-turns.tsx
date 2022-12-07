@@ -25,9 +25,9 @@ export const idlePlayerTurnData = (steps: TurnActionStep, activePlayer: PlayerPu
 
 const proceedActions = {
   bid: {
-    timerTitle: "",
-    headingTitle: "",
-    subHeadingTitle: "",
+    timerTitle: text.playerTurn.placeBid,
+    headingTitle: text.playerTurn.guess,
+    subHeadingTitle: text.playerTurn.itsTimeToThinkOutLoud,
   },
   boloney: {
     timerTitle: text.playerTurn.boloney,

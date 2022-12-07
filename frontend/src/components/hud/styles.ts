@@ -23,10 +23,12 @@ export const PlayerOverview = styled.section<PlayerOverviewProps>`
 
 export const LocalPlayer = styled.div`
   width: 12.5vw;
+  height: 100%;
+  padding: 0px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: ${margins.small2};
 `;
 
 interface AvatarProps {
@@ -36,5 +38,6 @@ interface AvatarProps {
 export const PlayerAvatar = styled.img<AvatarProps>`
   height: ${({ height }): string => height || `${avatarHeight[5]}`};
   object-fit: contain;
+  margin-top: ${margins.small2};
   width: 100%;
 `;
