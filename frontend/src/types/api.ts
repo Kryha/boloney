@@ -17,3 +17,15 @@ export const boloneyPayloadBackendSchema = z.object({
 });
 
 export type BoloneyPayloadBackend = z.infer<typeof boloneyPayloadBackendSchema>;
+
+export const exactPayloadBackendSchema = z.object({
+  players: z.record(playerPublicSchema),
+});
+
+export type ExactPayloadBackend = z.infer<typeof exactPayloadBackendSchema>;
+
+export const playerUpdatePayloadBackendSchema = z.object({
+  players: z.record(playerPublicSchema),
+});
+
+export type PlayerUpdatePayloadBackend = z.infer<typeof playerUpdatePayloadBackendSchema>;

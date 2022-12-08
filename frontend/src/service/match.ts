@@ -122,8 +122,10 @@ export const useMatch = () => {
     sendMatchState(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(bid));
   };
 
-  // TODO: add loading indication
-  const broadcastCallExact = () => sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
+  const broadcastCallExact = () => {
+    setSpinnerVisibility(true);
+    sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
+  };
 
   const broadcastCallBoloney = () => {
     setSpinnerVisibility(true);

@@ -1,7 +1,7 @@
 import { handleMatchStage } from "./match";
 import { setActivePlayer, attemptSetPlayerReady, handleActivePlayerMessages } from "./player";
 import { getPowerUp, rollDice } from "../toolkit-api";
-import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, RollDicePayload } from "../types";
+import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, PlayerUpdatePayloadBackend, RollDicePayload } from "../types";
 import { getRange, hidePlayersData, shuffleArray } from "../utils";
 import { resetRound } from "./round";
 
@@ -148,9 +148,11 @@ export const handleStage: StageHandlers = {
       async ({ logger }) => {
         logger.debug("round Summary logic");
       },
-      ({ dispatcher }, nextStage) => {
+      ({ dispatcher, state }, nextStage) => {
         resetRound(loopParams);
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
+        const payload: PlayerUpdatePayloadBackend = { players: state.players };
+        dispatcher.broadcastMessage(MatchOpCode.PLAYER_UPDATE, JSON.stringify(payload));
       }
     ),
   // TODO: Add broadcast to inform the client when player has left the match

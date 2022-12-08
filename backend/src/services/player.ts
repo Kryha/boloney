@@ -1,4 +1,13 @@
-import { BidPayloadBackend, BoloneyPayloadBackend, isBidPayloadFrontend, MatchLoopParams, MatchOpCode, MatchState, Player } from "../types";
+import {
+  BidPayloadBackend,
+  BoloneyPayloadBackend,
+  ExactPayloadBackend,
+  isBidPayloadFrontend,
+  MatchLoopParams,
+  MatchOpCode,
+  MatchState,
+  Player,
+} from "../types";
 import { EMPTY_DATA, hidePlayersData } from "../utils";
 import { getLatestBid, isBidHigher, isBidMaxTotal } from "./bid";
 
@@ -18,7 +27,7 @@ export const setAllPlayersReady = (state: MatchState) => {
   state.playersReady = Object.keys(state.players).map((playerId) => state.players[playerId].userId);
 };
 
-export const getNextPlayerId = (currentPlayerId: string, { state }: MatchLoopParams): string => {
+const getNextPlayerId = (currentPlayerId: string, state: MatchState): string => {
   const currentPlayerIndex = state.playerOrder.indexOf(currentPlayerId);
 
   let nextPlayerId: string;
@@ -99,7 +108,7 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
 
       state.bids[sender.userId] = { ...data, createdAt: Date.now() };
 
-      const nextActivePlayerId = getNextPlayerId(sender.userId, loopParams);
+      const nextActivePlayerId = getNextPlayerId(sender.userId, state);
       setActivePlayer(nextActivePlayerId, state.players);
 
       const placeBidPayload: BidPayloadBackend = state.bids;
@@ -135,6 +144,10 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
 
       const payload: BoloneyPayloadBackend = { players: hidePlayersData(state.players) };
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify(payload));
+
+      const nextPlayerId = getNextPlayerId(sender.userId, state);
+      setActivePlayer(nextPlayerId, state.players);
+
       stopLoading();
 
       break;
@@ -142,19 +155,39 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
     case MatchOpCode.PLAYER_CALL_EXACT: {
       logger.info(sender.username, "called Exact");
 
-      // TODO: Add "CallExact" logic
-
-      // Broadcast action to everyone else
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify({ player: sender.userId }));
-
       setActivePlayer(sender.userId, state.players);
 
-      // TODO: Transition stage to Round Summary only after rendering outcome in the client
-      setAllPlayersReady(state); // We set all the players in order to trigger the stage transition
+      const bid = getLatestBid(state.bids);
+      if (!bid) return stopLoading();
+
+      const totalDice = getTotalDiceWithFace(state.players, bid.face);
+
+      const target = state.players[bid.userId];
+      target.isTarget = true;
+
+      const [winner, loser] = bid.amount === totalDice ? [sender, target] : [target, sender];
+
+      // TODO: implement ZK lose dice logic
+      loser.diceAmount -= 1;
+      loser.actionRole = "loser";
+      winner.actionRole = "winner";
+
+      if (loser.diceAmount <= 0) handlePlayerLoss(state, loser);
+
+      setAllPlayersReady(state);
+
+      const payload: ExactPayloadBackend = { players: hidePlayersData(state.players) };
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify(payload));
+
+      const nextPlayerId = getNextPlayerId(sender.userId, state);
+      setActivePlayer(nextPlayerId, state.players);
+
+      stopLoading();
+
       break;
     }
     default:
-      logger.info("Unknown OP_CODE recieved: ", message.opCode);
+      logger.info("Unknown OP_CODE received: ", message.opCode);
       break;
   }
 };

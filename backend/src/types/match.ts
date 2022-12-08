@@ -224,6 +224,7 @@ export enum MatchOpCode {
   PLAYER_CALL_BOLONEY = 11,
   PLAYER_ACTIVE = 12,
   STOP_LOADING = 13,
+  PLAYER_UPDATE = 14,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {

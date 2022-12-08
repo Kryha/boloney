@@ -8,3 +8,11 @@ export interface PlayerJoinedPayload {
 export interface BoloneyPayloadBackend {
   players: Record<string, PlayerPublic>;
 }
+
+export interface ExactPayloadBackend {
+  players: Record<string, PlayerPublic>;
+}
+
+export interface PlayerUpdatePayloadBackend {
+  players: Record<string, PlayerPublic>;
+}

@@ -29,6 +29,8 @@ import {
   playerActivePayloadSchema,
   bidPayloadBackendSchema,
   boloneyPayloadBackendSchema,
+  exactPayloadBackendSchema,
+  playerUpdatePayloadBackendSchema,
 } from "../../types";
 import { parseMatchData } from "../../util";
 
@@ -152,10 +154,22 @@ export const Match = () => {
           setPlayers(parsed.data.players);
           break;
         }
+        case MatchOpCode.PLAYER_CALL_EXACT: {
+          const parsed = exactPayloadBackendSchema.safeParse(data);
+          if (!parsed.success) return;
+          setPlayers(parsed.data.players);
+          break;
+        }
         case MatchOpCode.PLAYER_ACTIVE: {
           const parsed = playerActivePayloadSchema.safeParse(data);
           if (!parsed.success) return;
           setActivePlayer(parsed.data.activePlayerId);
+          break;
+        }
+        case MatchOpCode.PLAYER_UPDATE: {
+          const parsed = playerUpdatePayloadBackendSchema.safeParse(data);
+          if (!parsed.success) return;
+          setPlayers(parsed.data.players);
           break;
         }
       }
