@@ -19,6 +19,7 @@ export const authForm = {
     usernameMinimum: `username must have at least ${MINIMUM_USERNAME_LENGTH} characters.`,
     passwordMinimum: `password must have at least ${MINIMUM_PASSWORD_LENGTH} characters.`,
     usernameAlreadyTaken: "username is already taken.",
+    usernameProfanity: "username contains profanity.",
     invalidCredentials: "invalid credentials.",
   },
 };

@@ -38,11 +38,14 @@ export const CreateAccountForm: FC = () => {
   //TODO: refactor this and getFieldName() function to better define these fields.
   const showUsernameError = () => {
     const ALREADY_EXISTS = "Username already exists";
+    const CONTAINS_PROFANITY = "Username contains profanity";
     const MIN_LENGTH = "minLength";
     const REQUIRED = "required";
     switch (errors.username?.type) {
       case ALREADY_EXISTS:
         return text.authForm.errorMessages.usernameAlreadyTaken;
+      case CONTAINS_PROFANITY:
+        return text.authForm.errorMessages.usernameProfanity;
       case MIN_LENGTH:
         return text.authForm.errorMessages.usernameMinimum;
       case REQUIRED:
@@ -53,12 +56,11 @@ export const CreateAccountForm: FC = () => {
   };
 
   const getFieldName = (code: NkCode): "username" | "password" => {
-    const username = "username";
-    const password = "password";
-    if (code === NkCode.ALREADY_EXISTS) {
-      return username;
+    const isUsernameError = code === NkCode.ALREADY_EXISTS || code === NkCode.INVALID_ARGUMENT;
+    if (isUsernameError) {
+      return "username";
     } else {
-      return password;
+      return "password";
     }
   };
 

@@ -38,6 +38,7 @@
     "typescript": "^4.8.3"
   },
   "dependencies": {
+    "bad-words": "^3.0.4",
     "core-js": "^3.26.0",
     "crypto-js": "^4.1.1"
   }

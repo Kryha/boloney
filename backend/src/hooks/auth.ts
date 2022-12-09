@@ -1,4 +1,5 @@
 import sha256 from "crypto-js/sha256";
+import { wordsFilter } from "../services";
 
 import { text } from "../text";
 import { AccountKeys, CollectionInteractionRead, CollectionInteractionWrite } from "../types";
@@ -24,6 +25,8 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, dat
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
 
   if (userExists) throw handleError(text.error.usernameAlreadyExists, logger, nkruntime.Codes.ALREADY_EXISTS);
+
+  if (wordsFilter.isProfane(username)) throw handleError(text.error.usernameContainsProfanity, logger, nkruntime.Codes.INVALID_ARGUMENT);
 
   const encryptedKey = String(sha256(password + username));
   data.account.id = encryptedKey;
