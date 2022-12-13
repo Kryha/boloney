@@ -32,6 +32,7 @@ export enum MatchOpCode {
   PLAYER_ACTIVE = 12,
   STOP_LOADING = 13,
   PLAYER_UPDATE = 14,
+  LEADERBOARD_UPDATE = 15,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
@@ -134,3 +135,6 @@ export type PlayerId = z.infer<typeof playerIdSchema>;
 export const playerActivePayloadSchema = z.object({
   activePlayerId: playerIdSchema,
 });
+
+export const actionSchema = z.enum(["Boloney", "Exact"]);
+export type Action = z.infer<typeof actionSchema>;

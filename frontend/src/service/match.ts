@@ -157,6 +157,8 @@ export const useSyncState = () => {
   const turnActionStep = useStore((state) => state.turnActionStep);
   const action = useStore((state) => state.action);
   const hasRolledDice = useStore((state) => state.hasRolledDice);
+  const leaderboard = useStore((state) => state.leaderboard);
+  const lastAction = useStore((state) => state.lastAction);
 
   const loadLocalStorageToStore = useStore((state) => state.loadLocalStorageToStore);
 
@@ -179,6 +181,8 @@ export const useSyncState = () => {
           turnActionStep,
           action,
           hasRolledDice,
+          leaderboard,
+          lastAction,
         });
     },
     [
@@ -186,6 +190,8 @@ export const useSyncState = () => {
       bids,
       diceValue,
       hasRolledDice,
+      lastAction,
+      leaderboard,
       loadLocalStorageToStore,
       matchId,
       matchSettings,

@@ -31,6 +31,7 @@ import {
   boloneyPayloadBackendSchema,
   exactPayloadBackendSchema,
   playerUpdatePayloadBackendSchema,
+  leaderboardUpdatePayloadBackendSchema,
 } from "../../types";
 import { parseMatchData } from "../../util";
 
@@ -48,6 +49,8 @@ export const Match = () => {
   const setActivePlayer = useStore((state) => state.setActivePlayer);
   const setPlayerReady = useStore((state) => state.setPlayerReady);
   const setBids = useStore((state) => state.setBids);
+  const setLastAction = useStore((state) => state.setLastAction);
+  const setLeaderboard = useStore((state) => state.setLeaderboard);
   const resetRound = useStore((state) => state.resetRound);
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
@@ -151,12 +154,14 @@ export const Match = () => {
         case MatchOpCode.PLAYER_CALL_BOLONEY: {
           const parsed = boloneyPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
+          setLastAction("Boloney");
           setPlayers(parsed.data.players);
           break;
         }
         case MatchOpCode.PLAYER_CALL_EXACT: {
           const parsed = exactPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
+          setLastAction("Exact");
           setPlayers(parsed.data.players);
           break;
         }
@@ -172,6 +177,12 @@ export const Match = () => {
           setPlayers(parsed.data.players);
           break;
         }
+        case MatchOpCode.LEADERBOARD_UPDATE: {
+          const parsed = leaderboardUpdatePayloadBackendSchema.safeParse(data);
+          if (!parsed.success) return;
+          setLeaderboard(parsed.data.leaderboard);
+          break;
+        }
       }
     };
   }, [
@@ -179,6 +190,8 @@ export const Match = () => {
     setActivePlayer,
     setBids,
     setDiceValue,
+    setLastAction,
+    setLeaderboard,
     setMatchStage,
     setPlayerOrder,
     setPlayerReady,

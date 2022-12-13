@@ -3,7 +3,7 @@ import { produce } from "immer";
 import { StateCreator } from "zustand";
 
 import { getLocalStorage } from "../service";
-import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings, Bid, TurnActionStep, TurnAction } from "../types";
+import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings, Bid, TurnActionStep, TurnAction, Action } from "../types";
 
 interface RoundState {
   hasRolledDice: boolean;
@@ -22,6 +22,8 @@ export interface MatchSliceState extends RoundState {
   matchUrl: string;
   powerUpIds: PowerUpId[];
   matchSettings?: MatchSettings;
+  leaderboard: PlayerPublic[];
+  lastAction: Action;
 }
 
 interface MatchSliceSetters {
@@ -42,6 +44,8 @@ interface MatchSliceSetters {
   setTurnActionStep: (turnActionStep: TurnActionStep) => void;
   setAction: (action: TurnAction) => void;
   setBids: (bids: Record<string, Bid>) => void;
+  setLeaderboard: (players: PlayerPublic[]) => void;
+  setLastAction: (move: Action) => void;
   resetRound: () => void;
 }
 
@@ -63,6 +67,8 @@ const initialMatchState: MatchSliceState = {
   matchUrl: "",
   powerUpIds: [],
   matchSettings: undefined,
+  leaderboard: [],
+  lastAction: "Boloney",
   ...initialRoundState,
 };
 
@@ -117,4 +123,6 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
     set(() => ({
       action: action,
     })),
+  setLeaderboard: (players) => set(() => ({ leaderboard: players })),
+  setLastAction: (action) => set(() => ({ lastAction: action })),
 });

@@ -16,3 +16,7 @@ export interface ExactPayloadBackend {
 export interface PlayerUpdatePayloadBackend {
   players: Record<string, PlayerPublic>;
 }
+
+export interface LeaderboardUpdatePayloadBackend {
+  leaderboard: PlayerPublic[];
+}

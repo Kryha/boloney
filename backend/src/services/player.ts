@@ -8,7 +8,7 @@ import {
   MatchState,
   Player,
 } from "../types";
-import { EMPTY_DATA, hidePlayersData } from "../utils";
+import { EMPTY_DATA, hidePlayerData, hidePlayersData } from "../utils";
 import { getLatestBid, isBidHigher, isBidMaxTotal } from "./bid";
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
@@ -34,7 +34,8 @@ const getNextPlayerId = (currentPlayerId: string, state: MatchState): string => 
   let nextPlayer: Player;
   let nextPlayerIndex: number | undefined;
   do {
-    nextPlayerIndex = ((nextPlayerIndex || currentPlayerIndex) + 1) % state.playerOrder.length;
+    const addend = nextPlayerIndex === undefined ? currentPlayerIndex : nextPlayerIndex;
+    nextPlayerIndex = (addend + 1) % state.playerOrder.length;
     nextPlayerId = state.playerOrder[nextPlayerIndex];
     nextPlayer = state.players[nextPlayerId];
   } while (nextPlayer.status === "lost");
@@ -75,13 +76,13 @@ const getTotalDiceWithFace = (players: Record<string, Player>, face: number) =>
   );
 
 const handlePlayerLoss = (state: MatchState, loser: Player) => {
-  state.leaderboard.push(loser);
+  state.leaderboard.unshift(hidePlayerData(loser));
 
   loser.status = "lost";
 
   const playersInGame = Object.values(state.players).filter((player) => player.status !== "lost");
   if (playersInGame.length === 1) {
-    state.leaderboard.push(playersInGame[0]);
+    state.leaderboard.unshift(hidePlayerData(playersInGame[0]));
   }
 };
 

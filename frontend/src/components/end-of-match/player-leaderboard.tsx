@@ -1,16 +1,17 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 
-import { avatars } from "../../assets";
+import { avatars, text } from "../../assets";
 import { color, handProportion } from "../../design";
+import { useLocalPlayer } from "../../service";
+import { useStore } from "../../store";
 import { PlayerPublic } from "../../types";
 import { prefixDigit } from "../../util";
+import { Bold } from "../atoms";
 import { WinnerBadge } from "../badges";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import {
   DataWrapper,
   Description,
-  DescriptionBold,
-  DescriptionWrapper,
   DiceAndPowerUps,
   LeaderboardAvatar,
   LeaderboardDetails,
@@ -20,16 +21,27 @@ import {
   Username,
 } from "./styles";
 
-// TODO: create a new player data type enriched with history data for description purposes
 interface Props {
   player: PlayerPublic;
   rank: number;
+  lostOnRound: number;
 }
 
-export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
+export const PlayerLeaderboard: FC<Props> = ({ player, rank, lostOnRound }) => {
+  const localPlayer = useLocalPlayer();
+
+  const lastAction = useStore((state) => state.lastAction);
+
   const { avatar } = handProportion(avatars[player.avatarId].name);
   const avatarColor = avatars[player.avatarId].color;
   const isWinner = rank === 1;
+  const isSecond = rank === 2;
+
+  const [normalDescription, boldDescription] = useMemo(() => {
+    if (isWinner) return text.endOfMatch.wonCalling(lastAction);
+    if (isSecond) return text.endOfMatch.lostOnRound("last");
+    return text.endOfMatch.lostOnRound(lostOnRound);
+  }, [isSecond, isWinner, lastAction, lostOnRound]);
 
   return (
     <LeaderboardWrapper place={rank}>
@@ -41,17 +53,14 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
           <PlayerAvatar alt={player.username} src={avatar} />
         </LeaderboardAvatar>
         <LeaderboardDetails>
-          <Username>{player.username}</Username>
+          <Username>{localPlayer && text.endOfMatch.username(player.username, player.userId, localPlayer.userId)}</Username>
           <DiceAndPowerUps>
             <DiceIcon diceAmount={player.diceAmount} faceColor={avatarColor} />
             <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
           </DiceAndPowerUps>
-          <DescriptionWrapper>
-            {/* TODO: write correct text */}
-            <Description>Blah blah...</Description>
-            {/* TODO: write correct text */}
-            <DescriptionBold>Blah blah...</DescriptionBold>
-          </DescriptionWrapper>
+          <Description>
+            {normalDescription} <Bold>{boldDescription}</Bold>
+          </Description>
         </LeaderboardDetails>
       </DataWrapper>
     </LeaderboardWrapper>

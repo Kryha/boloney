@@ -141,3 +141,7 @@ export const ColorSpan = styled.span<ColorSpanProps>`
   color: ${({ customColor }) => color[customColor]};
   font-weight: ${fontWeight.regular};
 `;
+
+export const Bold = styled.span`
+  font-weight: bold;
+`;

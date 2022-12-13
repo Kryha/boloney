@@ -78,16 +78,7 @@ export const DiceAndPowerUps = styled.div`
   gap: ${margins.small1};
 `;
 
-export const DescriptionWrapper = styled.div`
-  display: inline-flex;
-  margin-top: ${margins.small1};
-`;
-
 export const Description = styled(Paragraph)`
+  margin-top: ${margins.small1};
   color: ${color.darkGrey};
-`;
-
-export const DescriptionBold = styled(Paragraph)`
-  color: ${color.darkGrey};
-  font-weight: bold;
 `;

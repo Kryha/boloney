@@ -1,7 +1,15 @@
 import { handleMatchStage } from "./match";
 import { setActivePlayer, attemptSetPlayerReady, handleActivePlayerMessages } from "./player";
 import { getPowerUp, rollDice } from "../toolkit-api";
-import { isPowerUpId, MatchLoopParams, MatchOpCode, MatchStage, PlayerUpdatePayloadBackend, RollDicePayload } from "../types";
+import {
+  isPowerUpId,
+  LeaderboardUpdatePayloadBackend,
+  MatchLoopParams,
+  MatchOpCode,
+  MatchStage,
+  PlayerUpdatePayloadBackend,
+  RollDicePayload,
+} from "../types";
 import { getRange, hidePlayersData, shuffleArray } from "../utils";
 import { resetRound } from "./round";
 
@@ -150,7 +158,12 @@ export const handleStage: StageHandlers = {
       },
       ({ dispatcher, state }, nextStage) => {
         resetRound(loopParams);
+
+        const leaderboardPayload: LeaderboardUpdatePayloadBackend = { leaderboard: state.leaderboard };
+        dispatcher.broadcastMessage(MatchOpCode.LEADERBOARD_UPDATE, JSON.stringify(leaderboardPayload));
+
         dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));
+
         const payload: PlayerUpdatePayloadBackend = { players: state.players };
         dispatcher.broadcastMessage(MatchOpCode.PLAYER_UPDATE, JSON.stringify(payload));
       }
