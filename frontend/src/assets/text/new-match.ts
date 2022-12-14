@@ -1,6 +1,6 @@
-export const newGame = {
-  newGame: "new game",
-  newGameDescription: "Here you can set up all the setting for the new game you want to create. Bla bla bla...",
+export const newMatch = {
+  newMatch: "new match",
+  newMatchDescription: "Here you can set up all the setting for the new match you want to create. Bla bla bla...",
 
   players: "players",
   dicePerPlayer: "dice per player",

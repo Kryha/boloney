@@ -19,7 +19,7 @@ export const DiceCrownImg = styled.img`
   object-fit: cover;
 `;
 
-export const GameWinnerWrapper = styled.div`
+export const MatchWinnerWrapper = styled.div`
   padding: 0px;
   width: 12.5vw;
   height: 100vh;
@@ -31,13 +31,13 @@ export const GameWinnerWrapper = styled.div`
   gap: ${margins.large1};
 `;
 
-interface GamePlayersProps {
+interface MatchPlayersProps {
   isActive?: boolean;
   customColor?: string;
   totalPlayers: number;
 }
 
-export const GamePlayersWrapper = styled.div<GamePlayersProps>`
+export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
   padding: 0px;
   width: 12.5vw;
   background: ${({ isActive, customColor }): string => (isActive ? customColor || color.white : color.lightGrey)};
@@ -55,7 +55,7 @@ interface OverviewProps {
   isWinner?: boolean;
 }
 
-export const GamePlayersOverviewWrapper = styled.div<OverviewProps>`
+export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -66,10 +66,10 @@ export const GamePlayersOverviewWrapper = styled.div<OverviewProps>`
   top: 0px;
   border-right: 1px solid ${color.mediumGrey};
 
-  ${GamePlayersWrapper}:first-of-type {
+  ${MatchPlayersWrapper}:first-of-type {
     border-top: none;
   }
-  ${GamePlayersWrapper}:last-of-type {
+  ${MatchPlayersWrapper}:last-of-type {
     border-bottom: none;
   }
   ${HandWrapper} {
@@ -102,12 +102,28 @@ interface AvatarProps {
   height: string;
 }
 
-export const PlayerAvatarContainer = styled.div`
+interface PlayersAvatarProps {
+  isWinner?: boolean;
+}
+
+export const PlayerAvatarContainer = styled.div<PlayersAvatarProps>`
   width: 10vw;
   align-items: center;
   justify-content: center;
   display: flex;
-  margin-top: 16px;
+  ${({ isWinner }): string =>
+    isWinner
+      ? ""
+      : `
+      position: absolute;
+      height: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      text-align: center;
+      transition: all 3s ease-in-out;
+  `};
 `;
 
 export const PlayerAvatar = styled.img<AvatarProps>`
@@ -123,7 +139,7 @@ export const PlayerName = styled(Heading5)`
   text-overflow: ellipsis;
 `;
 
-export const GameStateContainer = styled(PlayerNameContainer)`
+export const MatchStateContainer = styled(PlayerNameContainer)`
   align-items: flex-start;
 `;
 
@@ -147,7 +163,7 @@ interface PlayersContainerProps {
   totalPlayers: number;
 }
 
-export const GamePlayersContainer = styled.div<PlayersContainerProps>`
+export const MatchPlayersContainer = styled.div<PlayersContainerProps>`
   z-index: ${zIndex.background};
   height: 14.4vh;
   ${({ totalPlayers }) => {

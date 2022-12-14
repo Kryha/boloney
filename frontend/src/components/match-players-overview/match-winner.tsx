@@ -4,19 +4,19 @@ import { avatars, DiceCrown } from "../../assets";
 import { PlayerPublic } from "../../types";
 import { Hand } from "../hand";
 import { DiceIconWrapper } from "../icons/styles";
-import { DiceCrownImg, GameWinnerWrapper } from "./styles";
+import { DiceCrownImg, MatchWinnerWrapper } from "./styles";
 
 interface Props {
   player: PlayerPublic;
 }
 
-export const GameWinner: FC<Props> = ({ player }) => {
+export const MatchWinner: FC<Props> = ({ player }) => {
   return (
-    <GameWinnerWrapper>
+    <MatchWinnerWrapper>
       <DiceIconWrapper>
         <DiceCrownImg src={DiceCrown} />
       </DiceIconWrapper>
       <Hand avatarName={avatars[player.avatarId].name} isInLobby />
-    </GameWinnerWrapper>
+    </MatchWinnerWrapper>
   );
 };

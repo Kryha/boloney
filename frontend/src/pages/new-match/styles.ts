@@ -2,12 +2,12 @@ import styled from "@emotion/styled";
 import { LightningIcon } from "../../assets";
 
 import { BaseInput, GeneralText, Heading4, Heading6 } from "../../components";
-import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper } from "../../components/buttons/styles";
+import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper, LinkText } from "../../components/buttons/styles";
 import { DescriptionContainer, CheckboxContainer as CheckboxWrapper } from "../../components/checkbox/styles";
 import { InputContainer } from "../../components/inputs/styles";
 import { color, fontWeight, margins, zIndex } from "../../design";
 
-export const NewGameContainer = styled.section``;
+export const NewMatchContainer = styled.section``;
 
 export const PlayersDiceContainer = styled.section`
   display: flex;
@@ -54,7 +54,7 @@ export const ButtonContainer = styled.section`
   width: 100%;
 `;
 
-export const NewGameConfirmationContainer = styled.section`
+export const NewMatchConfirmationContainer = styled.section`
   margin-left: ${margins.large0};
   margin-top: ${margins.large0};
   margin-bottom: ${margins.large0};
@@ -74,12 +74,52 @@ export const GoToLobbyButton = styled.div`
   }
 `;
 
-export const CopyLink = styled.div`
+interface CopyProps {
+  isCopied: boolean;
+}
+
+export const LinkCopied = styled.div<CopyProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: ${margins.small1} ${margins.small4};
+  gap: ${margins.small2};
+  background: ${color.white};
+  box-shadow: 0px 0px ${margins.small6} rgba(0, 0, 0, 0.1);
+  border-radius: 100px;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: center;
+  z-index: ${zIndex.background};
+  transition: opacity 0.15s ease-in-out, top 0.15s ease-in-out;
+`;
+
+export const CopyLink = styled.div<CopyProps>`
   display: flex;
   flex-direction: row;
   gap: ${margins.small4};
   align-items: flex-end;
   cursor: pointer;
+  position: relative;
+  width: fit-content;
+  ${({ isCopied }) =>
+    isCopied
+      ? `
+        ${LinkCopied} {
+          opacity: 1;
+          top: -40px;
+        }
+      `
+      : ""};
+
+  ${LinkText} {
+    :first-letter {
+      text-transform: lowercase;
+    }
+  }
 `;
 
 export const InfoBox = styled.div`
@@ -120,7 +160,7 @@ export const TotalContainer = styled.section`
   background-color: ${color.lightGrey};
 `;
 
-export const LightningNewGame = styled(LightningIcon)`
+export const LightningNewMatch = styled(LightningIcon)`
   margin-top: 3px;
 `;
 

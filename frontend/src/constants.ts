@@ -118,3 +118,5 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   ],
   availablePowerUps: ["1", "4", "6", "8"],
 };
+
+export const COPIED_TEXT_TIMEOUT = 2500;

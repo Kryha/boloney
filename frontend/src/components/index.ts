@@ -1,6 +1,6 @@
 export * from "./atoms";
-export * from "./game-players-overview";
-export * from "./game-layout";
+export * from "./match-players-overview";
+export * from "./match-layout";
 export * from "./die";
 export * from "./dice-overview";
 export * from "./power-up";
@@ -17,7 +17,7 @@ export * from "./lobby-player-status";
 export * from "./logo";
 export * from "./buttons";
 export * from "./checkbox";
-export * from "./new-game-hands";
+export * from "./new-match-hands";
 export * from "./leading-zero-list";
 export * from "./overlay-wrapper";
 export * from "./line-container";

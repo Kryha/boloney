@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 
-import { GamePlayersOverview } from "../game-players-overview";
+import { MatchPlayersOverview } from "../match-players-overview";
 import { HUD } from "../hud";
 import { ContentContainer, MainContentContainer } from "./styles";
 import { TopNavigation } from "../top-navigation";
@@ -10,11 +10,11 @@ import { isStageWithHUD } from "../../util";
 import { PlayerMenu } from "../player-menu";
 import { useIsInMatch, useLocalPlayer } from "../../service";
 
-interface GameLayoutProps {
+interface MatchLayoutProps {
   children?: ReactNode;
 }
 
-export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
+export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
   const dice = useStore((state) => state.diceValue);
   const localPlayer = useLocalPlayer();
 
@@ -28,7 +28,7 @@ export const GameLayout: FC<GameLayoutProps> = ({ children }) => {
     <>
       <TopNavigation isInMatch={isInMatch} />
 
-      <GamePlayersOverview />
+      <MatchPlayersOverview />
 
       {isStageWithHUD(matchStage) && <HUD dice={dice} powerUpIds={powerUpIds} player={localPlayer} />}
 

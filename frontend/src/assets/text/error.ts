@@ -13,4 +13,5 @@ export const error = {
   noPayloadReturned: "no payload returned",
   receivedUnexpectedPayload: "received unexpected payload",
   noMatchIdFound: "no match id found",
+  selectedPowerUpsMustBeEqualTo: "selected power-ups must be more than the initial power-up amount",
 };

@@ -53,7 +53,7 @@ export const MatchSelect: FC = () => {
           </ButtonContainer>
 
           <ButtonContainer>
-            <PrimaryButton text={text.home.createMatch} onClick={() => navigate(routes.newGame)} />
+            <PrimaryButton text={text.home.createMatch} onClick={() => navigate(routes.newMatch)} />
           </ButtonContainer>
         </GeneralContentWrapper>
       </MatchSelectContainer>

@@ -50,7 +50,7 @@ export const MatchSettingsOverview: FC = () => {
         />
       </MatchInfoButtons>
       <Heading6>{text.match.powerUpTypeOnTheTable}</Heading6>
-      <InfoButton text={text.newGame.chance} />
+      <InfoButton text={text.newMatch.chance} />
       {powerUpProbabilities.map((powerUp) => (
         <PowerUpContainer key={powerUp.id}>
           <PowerUpDescription powerUp={getPowerUp(powerUp.id)} />

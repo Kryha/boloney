@@ -3,7 +3,7 @@ import { produce } from "immer";
 
 import { PowerUpId, PowerUpProbability } from "../../types";
 
-export interface NewGameState {
+export interface NewMatchState {
   availablePowerUps: Set<PowerUpId>;
   powerUpProbability: Map<PowerUpId, PowerUpProbability>;
   isProbabilityManuallyUpdated: boolean;
@@ -16,7 +16,7 @@ export interface NewGameState {
 }
 
 // TODO: refactor behaviour of removing/adding to set to just updating the probability, maybe also use just one single structure
-export const useGameCreationFormState = create<NewGameState>((set, get) => ({
+export const useMatchCreationFormState = create<NewMatchState>((set, get) => ({
   availablePowerUps: new Set<PowerUpId>(),
   powerUpProbability: new Map<PowerUpId, PowerUpProbability>(),
   isProbabilityManuallyUpdated: false,
@@ -26,7 +26,7 @@ export const useGameCreationFormState = create<NewGameState>((set, get) => ({
 
   togglePowerUp: (id) =>
     set(
-      produce((state: NewGameState) => {
+      produce((state: NewMatchState) => {
         const splitProbabilities = () => {
           if (!state.isProbabilityManuallyUpdated) {
             const total = 100;
@@ -56,7 +56,7 @@ export const useGameCreationFormState = create<NewGameState>((set, get) => ({
 
   setPowerUpProbability: ({ id, probability }) =>
     set(
-      produce((state: NewGameState) => {
+      produce((state: NewMatchState) => {
         if (probability === 0) {
           state.powerUpProbability.delete(id);
         } else {

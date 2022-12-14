@@ -57,43 +57,31 @@ export const YourPowerUpContainer = styled.div`
     -webkit-animation-fill-mode: forwards;
   }
   ${PowerUpWrapper}:nth-of-type(1) {
-    animation-delay: 0s;
-    opacity: 0;
-  }
-  ${PowerUpWrapper}:nth-of-type(2) {
-    animation-delay: 0.1s;
-    opacity: 0;
-  }
-  ${PowerUpWrapper}:nth-of-type(3) {
-    animation-delay: 0.2s;
-    opacity: 0;
-  }
-  ${PowerUpWrapper}:nth-of-type(4) {
-    animation-delay: 0.3s;
-    opacity: 0;
-  }
-  ${PowerUpWrapper}:nth-of-type(5) {
-    animation-delay: 0.4s;
-    opacity: 0;
-  }
-  ${PowerUpWrapper}:nth-of-type(6) {
-    animation-delay: 0.5s;
-    opacity: 0;
-  }
-  ${PowerUpWrapper}:nth-of-type(7) {
-    animation-delay: 0.6s;
-    opacity: 0;
-  }
-  ${PowerUpWrapper}:nth-of-type(8) {
     animation-delay: 0.7s;
     opacity: 0;
   }
-  ${PowerUpWrapper}:nth-of-type(9) {
-    animation-delay: 0.8s;
+  ${PowerUpWrapper}:nth-of-type(2) {
+    animation-delay: 0.9s;
     opacity: 0;
   }
-  ${PowerUpWrapper}:nth-of-type(10) {
-    animation-delay: 0.9s;
+  ${PowerUpWrapper}:nth-of-type(3) {
+    animation-delay: 1.1s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(4) {
+    animation-delay: 1.3s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(5) {
+    animation-delay: 1.5s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(6) {
+    animation-delay: 1.7s;
+    opacity: 0;
+  }
+  ${PowerUpWrapper}:nth-of-type(7) {
+    animation-delay: 1.9s;
     opacity: 0;
   }
 `;

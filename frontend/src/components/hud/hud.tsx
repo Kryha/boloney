@@ -7,7 +7,7 @@ import { Die, PlayerPublic, PowerUpId } from "../../types";
 import { getDieColor } from "../../util";
 import { PlayerBadge } from "../badges";
 import { DiceOverview } from "../dice-overview";
-import { PlayerLastBid } from "../game-players-overview/";
+import { PlayerLastBid } from "../match-players-overview";
 import { PowerUpOverview } from "../power-up-overview";
 import { LocalPlayer, PlayerAvatar, PlayerOverview } from "./styles";
 

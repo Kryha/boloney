@@ -83,7 +83,7 @@ export const CheckboxInput: FC<InputProps> = ({ children, isError = false, error
       {isError && (
         <ErrorContainer>
           <Error />
-          <Paragraph>{errorMessage || text.newGame.invalidPercentage}</Paragraph>
+          <Paragraph>{errorMessage || text.newMatch.invalidPercentage}</Paragraph>
         </ErrorContainer>
       )}
     </InputIconContainer>

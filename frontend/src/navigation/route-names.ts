@@ -3,6 +3,6 @@ export const routes = {
   createAccount: "/create-account",
   login: "/login",
   home: "/home",
-  newGame: "/new-game",
+  newMatch: "/new-match",
   match: "/match",
 };

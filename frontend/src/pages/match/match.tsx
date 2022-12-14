@@ -5,7 +5,7 @@ import { z } from "zod";
 import {
   EndOfMatch,
   EndOfRound,
-  GameLayout,
+  MatchLayout,
   GeneralContentWrapper,
   GetPowerUps,
   PlayerTurns,
@@ -209,8 +209,8 @@ export const Match = () => {
   if (!matchId) return <ErrorView />;
 
   return (
-    <GameLayout>
+    <MatchLayout>
       <GeneralContentWrapper withoutSideMargins={matchStage === "endOfMatchStage"}>{getStageComponent(matchStage)}</GeneralContentWrapper>
-    </GameLayout>
+    </MatchLayout>
   );
 };

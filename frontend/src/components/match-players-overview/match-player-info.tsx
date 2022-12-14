@@ -5,7 +5,7 @@ import { Heading6 } from "../atoms";
 import { Die } from "../die";
 import { getDieColor } from "../../util";
 import { DiceIcon, PowerUpIcon } from "../icons";
-import { PlayerNameContainer, PlayerColor, GameStateContainer, PlayerName as Name, DiceContainer } from "./styles";
+import { PlayerNameContainer, PlayerColor, MatchStateContainer, PlayerName as Name, DiceContainer } from "./styles";
 import { text } from "../../assets";
 
 interface PlayerNameProps {
@@ -22,18 +22,18 @@ export const PlayerName: FC<PlayerNameProps> = ({ name, color }) => {
   );
 };
 
-interface PlayerGameStateProps {
+interface PlayerMatchStateProps {
   player: PlayerPublic;
 }
 
-export const PlayerGameState: FC<PlayerGameStateProps> = ({ player }) => {
+export const PlayerMatchState: FC<PlayerMatchStateProps> = ({ player }) => {
   const dieColor = getDieColor(player);
 
   return (
-    <GameStateContainer>
+    <MatchStateContainer>
       <DiceIcon diceAmount={player.diceAmount} faceColor={dieColor} />
       <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
-    </GameStateContainer>
+    </MatchStateContainer>
   );
 };
 

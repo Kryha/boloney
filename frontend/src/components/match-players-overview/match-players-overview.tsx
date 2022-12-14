@@ -1,14 +1,14 @@
 import { FC } from "react";
 
-import { GamePlayersOverviewWrapper } from "./styles";
+import { MatchPlayersOverviewWrapper } from "./styles";
 import { fakePlayers } from "../../assets/fake-data";
 import { useStore } from "../../store";
-import { GamePlayer } from "./game-player";
-import { GameWinner } from "./game-winner";
+import { MatchPlayer } from "./match-player";
+import { MatchWinner } from "./match-winner";
 import { ErrorView } from "../error-view";
 import { useRemotePlayers } from "../../service";
 
-export const GamePlayersOverview: FC = () => {
+export const MatchPlayersOverview: FC = () => {
   const players = useRemotePlayers();
   const matchStage = useStore((state) => state.matchStage);
   // TODO: get leaderboard from store
@@ -19,12 +19,12 @@ export const GamePlayersOverview: FC = () => {
   if (!winner) return <ErrorView />;
   // TODO: check if player is the winner to fix style
   return (
-    <GamePlayersOverviewWrapper isWinner>
+    <MatchPlayersOverviewWrapper isWinner>
       {matchStage === "endOfMatchStage" ? (
-        <GameWinner player={winner} />
+        <MatchWinner player={winner} />
       ) : (
-        players.map((player) => <GamePlayer key={player.userId} player={player} totalPlayers={players.length} />)
+        players.map((player) => <MatchPlayer key={player.userId} player={player} totalPlayers={players.length} />)
       )}
-    </GamePlayersOverviewWrapper>
+    </MatchPlayersOverviewWrapper>
   );
 };

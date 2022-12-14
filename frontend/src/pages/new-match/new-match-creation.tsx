@@ -5,22 +5,22 @@ import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
 import { useMatchMaker } from "../../service";
 import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
-import { useGameCreationFormState } from "./game-creation-form-state";
+import { useMatchCreationFormState } from "./match-creation-form-state";
 import { HealActionField } from "./heal-action-field";
 import { PlayersField } from "./players-field";
 import { DrawRoundOffsetField } from "./draw-round-offset-field";
 import { PowerUpsField } from "./power-ups-field";
-import { BottomContainer, ButtonContainer, NewGameContainer } from "./styles";
+import { BottomContainer, ButtonContainer, NewMatchContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
 import { parseLobbyUrl, splitMatchId } from "../../util";
 import { useStore } from "../../store";
 
 // TODO: make a form component
-export const NewGameCreation: FC = () => {
+export const NewMatchCreation: FC = () => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
-  const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
-  const powerUpProbability = useGameCreationFormState((state) => state.powerUpProbability);
-  const isPowerUpError = useGameCreationFormState((state) => state.getIsError());
+  const availablePowerUps = useMatchCreationFormState((state) => state.availablePowerUps);
+  const powerUpProbability = useMatchCreationFormState((state) => state.powerUpProbability);
+  const isPowerUpError = useMatchCreationFormState((state) => state.getIsError());
   const setMatchId = useStore((state) => state.setMatchId);
   const setMatchUrl = useStore((state) => state.setMatchUrl);
   const { createMatch, isLoading } = useMatchMaker();
@@ -47,10 +47,10 @@ export const NewGameCreation: FC = () => {
   });
 
   return (
-    <NewGameContainer>
+    <NewMatchContainer>
       <GeneralContentWrapper>
-        <Heading1>{text.newGame.newGame}</Heading1>
-        <Heading4>{text.newGame.newGameDescription}</Heading4>
+        <Heading1>{text.newMatch.newMatch}</Heading1>
+        <Heading4>{text.newMatch.newMatchDescription}</Heading4>
       </GeneralContentWrapper>
       <form onSubmit={handleFormSubmit}>
         <FormContainer>
@@ -65,15 +65,15 @@ export const NewGameCreation: FC = () => {
           <HealActionField register={register} />
 
           <BottomContainer>
-            <Paragraph>{text.newGame.bottomDesc}</Paragraph>
+            <Paragraph>{text.newMatch.bottomDesc}</Paragraph>
           </BottomContainer>
-          {isLoading && <Heading6>{text.newGame.loading}</Heading6>}
-          {isError && <Heading6>{text.newGame.error}</Heading6>}
+          {isLoading && <Heading6>{text.newMatch.loading}</Heading6>}
+          {isError && <Heading6>{text.newMatch.error}</Heading6>}
           <ButtonContainer>
-            <PrimaryButton type="submit" text={text.newGame.continue} disabled={isPowerUpError} />
+            <PrimaryButton type="submit" text={text.newMatch.continue} disabled={isPowerUpError} />
           </ButtonContainer>
         </FormContainer>
       </form>
-    </NewGameContainer>
+    </NewMatchContainer>
   );
 };

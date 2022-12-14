@@ -15,8 +15,8 @@ export const general = {
   waiting: "waiting",
   waitingForTheOthersToBeReady: "waiting for the others to be ready...",
   appName: "Boloney",
-  gameCreated: "game created!",
-  yourGameHasBeenCreated:
+  matchCreated: "match created!",
+  yourMatchHasBeenCreated:
     "your match has been successfully created! Now you can share it with your friends using the link below. Have fun!",
   onlyPlayersWithThisCode: "only players with this code are able to join the match.",
   goToLobby: "go to lobby",
@@ -31,4 +31,5 @@ export const general = {
   yourDice: "your dice",
   continue: "continue",
   rollIt: "roll it",
+  copied: "copied!",
 };

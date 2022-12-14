@@ -3,33 +3,33 @@ import { FC } from "react";
 import { POWER_UP_DATA, text } from "../../assets";
 import { GeneralText, Heading6, InfoButton, Input } from "../../components";
 import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
-import { useGameCreationFormState } from "./game-creation-form-state";
+import { useMatchCreationFormState } from "./match-creation-form-state";
 import {
   CheckboxContainer,
   FieldContainer,
   InfoBox,
   LightningContainer,
-  LightningNewGame,
+  LightningNewMatch,
   Percentage,
   PercentageContainer,
   TotalContainer,
 } from "./styles";
 
 export const PowerUpsField: FC = () => {
-  const availablePowerUps = useGameCreationFormState((state) => state.availablePowerUps);
-  const probabilities = useGameCreationFormState((state) => state.powerUpProbability);
-  const togglePowerUp = useGameCreationFormState((state) => state.togglePowerUp);
-  const setProbability = useGameCreationFormState((state) => state.setPowerUpProbability);
-  const totalProbability = useGameCreationFormState((state) => state.getTotalProbability());
-  const isPowerUpError = useGameCreationFormState((state) => state.getIsError());
+  const availablePowerUps = useMatchCreationFormState((state) => state.availablePowerUps);
+  const probabilities = useMatchCreationFormState((state) => state.powerUpProbability);
+  const togglePowerUp = useMatchCreationFormState((state) => state.togglePowerUp);
+  const setProbability = useMatchCreationFormState((state) => state.setPowerUpProbability);
+  const totalProbability = useMatchCreationFormState((state) => state.getTotalProbability());
+  const isPowerUpError = useMatchCreationFormState((state) => state.getIsError());
 
   return (
     <FieldContainer>
-      <Input label={text.newGame.whichPowerUps}>
+      <Input label={text.newMatch.whichPowerUps}>
         <InfoBox>
-          <GeneralText>{text.newGame.powerUpDesc}</GeneralText>
+          <GeneralText>{text.newMatch.powerUpDesc}</GeneralText>
           {/* TODO: add pop up info */}
-          <InfoButton text={text.newGame.chance} />
+          <InfoButton text={text.newMatch.chance} />
         </InfoBox>
         <CheckboxContainer>
           {Object.values(POWER_UP_DATA).map((powerUp, index) => (
@@ -48,12 +48,12 @@ export const PowerUpsField: FC = () => {
       </Input>
       <TotalContainer>
         <LightningContainer>
-          <LightningNewGame />
-          <Heading6>{text.newGame.total}</Heading6>
+          <LightningNewMatch />
+          <Heading6>{text.newMatch.total}</Heading6>
         </LightningContainer>
         <PercentageContainer>
           <Percentage isError={isPowerUpError}>{totalProbability}</Percentage>
-          <GeneralText>{text.newGame.outOfOneHundred}</GeneralText>
+          <GeneralText>{text.newMatch.outOfOneHundred}</GeneralText>
         </PercentageContainer>
       </TotalContainer>
     </FieldContainer>
