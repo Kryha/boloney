@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { text } from "../../assets";
-import { useLatestBid } from "../../service";
+import { MAX_DIE_FACE } from "../../constants";
+import { useLatestBid, useTotalDiceInMatch } from "../../service";
 import { useStore } from "../../store";
 import { GeneralText } from "../atoms";
 import { PrimaryButtonWithHelper } from "../button-with-helper";
@@ -10,6 +11,9 @@ export const PickAction: FC = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const setAction = useStore((state) => state.setAction);
   const latestBid = useLatestBid();
+  const totalDice = useTotalDiceInMatch();
+
+  const maxBidPlaced = latestBid && latestBid.amount === totalDice && latestBid.face === MAX_DIE_FACE;
 
   return (
     <ActivePlayerWrapper>
@@ -28,8 +32,8 @@ export const PickAction: FC = () => {
         </PowerUpButtonContainer>
         <GeneralText>{text.match.or}</GeneralText>
         <ActionButtonContainer>
-          {/* TODO for adding the actual logic for the bid value */}
           <PrimaryButtonWithHelper
+            disabled={maxBidPlaced}
             text={text.match.bid}
             onClick={() => {
               setTurnActionStep("proceedWithAction");

@@ -2,6 +2,11 @@ import styled from "@emotion/styled";
 import { color } from "../../design";
 import { UnorderedListItems } from "../atoms";
 
+export const bidDieSize = {
+  idle: "100px",
+  selected: "110px",
+};
+
 export const BidWrapper = styled.section`
   display: flex;
   flex-direction: column;
@@ -60,7 +65,7 @@ export const ControlButtonWrapper = styled.div`
 `;
 
 export interface ButtonProps {
-  rotate?: boolean;
+  downButton?: boolean;
   disabled?: boolean;
 }
 
@@ -71,7 +76,7 @@ export const ControlButton = styled.div<ButtonProps>`
   justify-content: center;
   align-items: center;
   align-content: center;
-  transform: ${({ rotate }): string => (rotate ? "rotate(-180deg)" : "rotate(0)")};
+  transform: rotate(${({ downButton }): string => (downButton ? "-180deg" : "0")});
   cursor: ${({ disabled }): string => (disabled ? "arrow" : "pointer")};
   opacity: ${({ disabled }): string => (disabled ? "0" : "1")};
 `;

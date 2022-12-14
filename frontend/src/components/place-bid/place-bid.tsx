@@ -12,7 +12,6 @@ import { DiceFaces } from "./dice-faces";
 import { AmountSlider } from "./amount-slider";
 import { AmountContainer, BidContainer, BidWrapper } from "./styles";
 
-// TODO: update component styles
 export const PlaceBid: FC = () => {
   const latestBid = useLatestBid();
   const diceAmount = usePlaceBidFormState((state) => state.diceAmount);
@@ -21,6 +20,7 @@ export const PlaceBid: FC = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const { broadcastPlaceBid } = useMatch();
   const noBidSet = !diceAmount || !faceValue;
+  const isMaxBidPlaced = latestBid?.amount === diceAmount && latestBid?.face === faceValue;
   const localPlayer = useLocalPlayer();
 
   const handleClick = () => {
@@ -43,7 +43,7 @@ export const PlaceBid: FC = () => {
         </AmountContainer>
       </BidContainer>
       <BottomButtonWrapper>
-        <PrimaryButton disabled={noBidSet || faceValue === 0} text={text.match.bid} onClick={() => handleClick()} />
+        <PrimaryButton disabled={isMaxBidPlaced || noBidSet || faceValue === 0} text={text.match.bid} onClick={() => handleClick()} />
       </BottomButtonWrapper>
     </BidWrapper>
   );

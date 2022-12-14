@@ -21,6 +21,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const { avatar } = handProportion(avatars[player.avatarId].name);
   const lastBid = useLatestBid();
   const dieColor = getDieColor(player);
+  const isPlayerLastBid = lastBid?.userId === player.userId;
 
   return (
     <PlayerOverview isActive={player.isActive}>
@@ -28,7 +29,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
 
       <LocalPlayer>
         <PlayerAvatar height="10vh" src={avatar} />
-        {lastBid?.userId === player.userId && <PlayerLastBid player={player} lastBid={lastBid} />}
+        {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
       </LocalPlayer>
 
       <DiceOverview dice={dice} dieColor={dieColor} />

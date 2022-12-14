@@ -7,7 +7,7 @@ import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
 export const avatarNameSchema = z.enum(["sausage", "hook", "plastic", "scooper", "hand", "lobster", "skeleton"]);
 export type AvatarName = z.infer<typeof avatarNameSchema>;
 
-export const avatarColorSchema = z.enum(["#FFC300", "#FF8059", "#FFA7E9", "#989EFF", "#92C9FF", "#91C342", "#5573F6"]);
+export const avatarColorSchema = z.enum(["#FFC300", "#F96939", "#F975D8", "#BD8DE9", "#92C9FF", "#91C342", "#5573F6"]);
 export type AvatarColor = z.infer<typeof avatarColorSchema>;
 
 export const avatarSchema = z.object({

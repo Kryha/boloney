@@ -1,9 +1,8 @@
 import create from "zustand";
 
 export interface PlaceBidState {
-  pipAmount: number[];
-  faceValue?: number;
   diceAmount?: number;
+  faceValue?: number;
 
   setFaceValue: (faceValue?: number) => void;
   setDiceAmount: (diceAmount: number) => void;
@@ -11,11 +10,10 @@ export interface PlaceBidState {
 }
 
 export const usePlaceBidFormState = create<PlaceBidState>((set) => ({
-  pipAmount: [1, 2, 3, 4, 5, 6],
   faceValue: undefined,
   diceAmount: undefined,
 
-  setDiceAmount: (diceAmount) => set(() => ({ diceAmount: diceAmount })),
-  setFaceValue: (faceValue) => set(() => ({ faceValue: faceValue })),
-  resetBidState: () => set(() => ({ faceValue: undefined, diceAmount: undefined })),
+  setDiceAmount: (amount) => set(() => ({ diceAmount: amount })),
+  setFaceValue: (face) => set(() => ({ faceValue: face })),
+  resetBidState: () => set(() => ({ faceValue: undefined, dieAmount: undefined })),
 }));

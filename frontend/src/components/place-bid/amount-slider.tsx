@@ -19,8 +19,8 @@ const getViewArray = (amount: number): number[] => {
 
 export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
   const setDiceAmount = usePlaceBidFormState((state) => state.setDiceAmount);
-  const diceAmount = usePlaceBidFormState((state) => state.diceAmount);
-  const faceValue = usePlaceBidFormState((state) => state.faceValue);
+  const diceAmount = usePlaceBidFormState((state) => state.amount);
+  const faceValue = usePlaceBidFormState((state) => state.face);
   const diceInMatch = useTotalDiceInMatch();
   const [viewNumbers, setViewNumbers] = useState<number[]>([]);
 
@@ -64,7 +64,7 @@ export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
         <ControlButton disabled={diceAmount === lowerBound} onClick={() => handleClick(-1)}>
           <ArrowButton />
         </ControlButton>
-        <ControlButton disabled={diceAmount === upperBound} rotate onClick={() => handleClick(1)}>
+        <ControlButton disabled={diceAmount === upperBound} downButton onClick={() => handleClick(1)}>
           <ArrowButton />
         </ControlButton>
       </ControlButtonWrapper>
