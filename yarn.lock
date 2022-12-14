@@ -3133,6 +3133,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bad-words@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@types/bad-words@npm:3.0.1"
+  checksum: c700fadd2bafef153812137220466ca3148425228915ddb6e7e80bc339fa983d2ddef098cacf00196fbd7467181ae5b9747d8fd383fc5ed17f8bf5e62e89d425
+  languageName: node
+  linkType: hard
+
 "@types/cannon@npm:0.1.8":
   version: 0.1.8
   resolution: "@types/cannon@npm:0.1.8"
@@ -3588,6 +3595,7 @@ __metadata:
     "@rollup/plugin-json": ^4.1.0
     "@rollup/plugin-node-resolve": ^14.0.1
     "@rollup/plugin-typescript": ^8.5.0
+    "@types/bad-words": ^3.0.1
     "@types/crypto-js": ^4.1.1
     "@types/jest": ^29.0.1
     "@types/node": ^18.7.6

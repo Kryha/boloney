@@ -19,8 +19,8 @@ const getViewArray = (amount: number): number[] => {
 
 export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
   const setDiceAmount = usePlaceBidFormState((state) => state.setDiceAmount);
-  const diceAmount = usePlaceBidFormState((state) => state.amount);
-  const faceValue = usePlaceBidFormState((state) => state.face);
+  const diceAmount = usePlaceBidFormState((state) => state.diceAmount);
+  const faceValue = usePlaceBidFormState((state) => state.faceValue);
   const diceInMatch = useTotalDiceInMatch();
   const [viewNumbers, setViewNumbers] = useState<number[]>([]);
 
