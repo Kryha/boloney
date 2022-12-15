@@ -1,4 +1,4 @@
-import { MAX_DIE_FACE, MIN_DIE_FACE } from "../utils";
+import { MAX_DIE_FACE, MIN_DIE_FACE } from "../constants";
 import { isNumber } from "./primitive";
 
 export interface Bid extends BidPayloadFrontend {

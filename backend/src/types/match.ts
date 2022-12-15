@@ -1,4 +1,4 @@
-import { MATCH_STAGES } from "../utils";
+import { MATCH_STAGES } from "../constants";
 import { Bid } from "./bid";
 import { Die, isDieArray } from "./die";
 import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId } from "./power-up";
@@ -226,6 +226,7 @@ export enum MatchOpCode {
   STOP_LOADING = 13,
   PLAYER_UPDATE = 14,
   LEADERBOARD_UPDATE = 15,
+  ERROR = 17, // TODO: send as a notification
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {

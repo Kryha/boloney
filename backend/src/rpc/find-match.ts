@@ -1,8 +1,8 @@
-import { text } from "../text";
-import { handleError, rpcHandler } from "../utils/error-handling";
+import { errors } from "../services";
+import { rpcHandler } from "./rpc-utils";
 
 export const findMatch = rpcHandler((ctx, logger, nk, _payload) => {
-  if (!ctx.userId) throw handleError(text.error.noIdInContext, logger);
+  if (!ctx.userId) throw errors.noIdInContext;
 
   const matches = nk.matchList(11, true);
   logger.debug(`Match List: ${JSON.stringify(matches)}`);

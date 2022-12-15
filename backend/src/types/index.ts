@@ -7,3 +7,5 @@ export * from "./power-up";
 export * from "./die";
 export * from "./api";
 export * from "./bid";
+export * from "./functions";
+export * from "./status-codes";

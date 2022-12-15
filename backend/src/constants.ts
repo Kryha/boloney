@@ -1,4 +1,4 @@
-import { MatchSettings, MatchStage } from "../types";
+import { MatchSettings, MatchStage } from "./types";
 
 export const MAX_DIE_FACE = 6;
 export const MIN_DIE_FACE = 1;

@@ -1,7 +1,6 @@
-import { BasicError, CustomError } from "../types";
+import { BasicError, CustomError, StatusCodes } from "../types";
 import { createMock } from "ts-auto-mock";
-import * as errorHandling from "./error-handling";
-import { StatusCodes } from "./status-codes";
+import * as errorHandling from "./error";
 
 describe("mapHttpCodeToNakama function", () => {
   it("Should map BAD_REQUEST & NOT_FOUND Http status codes to Nakama NOT_FOUND", () => {
@@ -62,27 +61,11 @@ describe("parseError function", () => {
 
 describe("Functions that require mocked input data", () => {
   let mockLogger: nkruntime.Logger;
-  let mockNk: nkruntime.Nakama;
-  let mockCtx: nkruntime.Context;
-  let mockSession: nkruntime.Session;
-  let authCustom: nkruntime.AuthenticateCustomRequest;
   let message: string;
   let customError: CustomError;
-  const payload = { name: "payload" };
 
   beforeEach(() => {
     mockLogger = createMock<nkruntime.Logger>();
-    mockNk = createMock<nkruntime.Nakama>();
-    mockCtx = createMock<nkruntime.Context>({ userId: "mock-user" });
-    mockSession = createMock<nkruntime.Session>();
-    authCustom = {
-      account: {
-        id: "4321431",
-        vars: { ["key"]: "variable" },
-      },
-      create: true,
-      username: "player",
-    };
     message = "error";
     customError = {
       message: message,
@@ -120,60 +103,6 @@ describe("Functions that require mocked input data", () => {
         body: "error",
       } as nkruntime.HttpResponse;
       expect(() => errorHandling.handleHttpResponse(httpResponse, mockLogger)).toThrow(customError);
-    });
-  });
-
-  describe("rpcHandler function", () => {
-    it("Should return the payload parameter", () => {
-      const mockCallBack = jest.fn((_ctx, _logger, _nk, payload) => JSON.stringify(payload)).mockReturnValueOnce(JSON.stringify(payload));
-      const callback = errorHandling.rpcHandler(mockCallBack);
-      expect(callback(mockCtx, mockLogger, mockNk, JSON.stringify(payload))).toEqual(JSON.stringify(payload));
-    });
-
-    it("Should throw an Error for incorrect input", () => {
-      const mockCallBack = jest
-        .fn((_ctx, _logger, _nk, payload) => JSON.stringify(payload))
-        .mockImplementation(() => {
-          throw new TypeError("error");
-        });
-      const callback = errorHandling.rpcHandler(mockCallBack);
-      expect(() => callback(mockLogger as unknown as nkruntime.Context, mockLogger, mockNk, JSON.stringify(payload))).toThrow(customError);
-    });
-  });
-
-  describe("beforeHookHandler function", () => {
-    it("Should return the AuthenticateCustomRequest parameter", () => {
-      const mockCallBack = jest.fn((_ctx, _logger, _nk, data) => data).mockReturnValueOnce(authCustom);
-      const callback = errorHandling.beforeHookHandler(mockCallBack);
-      expect(callback(mockCtx, mockLogger, mockNk, authCustom)).toEqual(authCustom);
-    });
-
-    it("Should throw an Error", () => {
-      const mockCallBack = jest
-        .fn((_ctx, _logger, _nk, data) => data)
-        .mockImplementation(() => {
-          throw new Error("error");
-        });
-      const callback = errorHandling.beforeHookHandler(mockCallBack);
-      expect(() => callback(mockCtx, mockLogger, mockNk, authCustom)).toThrow(customError);
-    });
-  });
-
-  describe("afterHookHandler function", () => {
-    it("Should return the AuthenticateCustomRequest parameter", () => {
-      const mockCallBack = jest.fn((_ctx, _logger, _nk, _data, request) => request).mockReturnValueOnce(authCustom);
-      const callback = errorHandling.afterHookHandler(mockCallBack);
-      expect(callback(mockCtx, mockLogger, mockNk, mockSession, authCustom)).toEqual(authCustom);
-    });
-
-    it("Should throw an Error", () => {
-      const mockCallBack = jest
-        .fn((_ctx, _logger, _nk, data) => data)
-        .mockImplementation(() => {
-          throw new Error("error");
-        });
-      const callback = errorHandling.afterHookHandler(mockCallBack);
-      expect(() => callback(mockCtx, mockLogger, mockNk, mockSession, authCustom)).toThrow(customError);
     });
   });
 });

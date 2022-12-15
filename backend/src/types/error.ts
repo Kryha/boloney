@@ -1,5 +1,16 @@
 import { isNumber, isString } from "./primitive";
 
+export type ErrorKind =
+  | "usernameAlreadyExists"
+  | "noUsernamePasswordProvided"
+  | "usernameContainsProfanity"
+  | "noIdInContext"
+  | "noPayload"
+  | "invalidPayload"
+  | "invalidMetadata"
+  | "notFound"
+  | "internal";
+
 export interface BasicError {
   message: string;
 }

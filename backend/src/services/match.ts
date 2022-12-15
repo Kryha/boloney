@@ -1,21 +1,20 @@
-import { text } from "../text";
-import { AvatarId, MatchLoopParams, MatchOpCode, MatchStage, MatchState, Player } from "../types";
-import { DEFAULT_MATCH_SETTINGS, handleError, MATCH_STAGES, MAX_INACTIVE_TICKS, randomInt } from "../utils";
-
-//This gets called when enough players are in a pool
-export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context, logger, nk, matches) => {
-  try {
-    matches.forEach((match) => {
-      const { userId, username } = match.presence;
-      logger.info(`Matched user '${userId}' named '${username}'`);
-    });
-
-    const matchId = nk.matchCreate("standard", { ...DEFAULT_MATCH_SETTINGS, players: matches.length });
-    return matchId;
-  } catch (error) {
-    throw handleError(error, logger);
-  }
-};
+import { EMPTY_DATA, MATCH_STAGES, MAX_INACTIVE_TICKS } from "../constants";
+import {
+  AvatarId,
+  LogicHandler,
+  MatchLoopParams,
+  MatchOpCode,
+  MatchStage,
+  MatchState,
+  MessageCallback,
+  MessageHandler,
+  Player,
+  StageLogicCallback,
+  StageTransitionCallback,
+  TransitionHandler,
+} from "../types";
+import { randomInt } from "../utils";
+import { errors, handleError, parseError } from "./error";
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
   const messageSender = state.players[message.sender.userId];
@@ -47,10 +46,6 @@ export const getAvailableAvatar = (state: MatchState): AvatarId | undefined => {
   return id;
 };
 
-type MessageCallback = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => void;
-type StageLogicCallback = (loopParams: MatchLoopParams) => Promise<void>;
-type StageTransitionCallback = (loopParams: MatchLoopParams, nextStage: MatchStage) => void;
-
 export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: StageTransitionCallback): void => {
   const { state } = loopParams;
   const nextStage = getNextStage(state);
@@ -65,12 +60,12 @@ export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: S
 };
 
 const handleMessages = (loopParams: MatchLoopParams, callback: MessageCallback) => {
-  const { messages, state, logger } = loopParams;
+  const { messages, state } = loopParams;
 
   messages.forEach((message) => {
     const messageSender = getMessageSender(state, message);
-    if (!messageSender) throw handleError(text.error.notFound, logger, nkruntime.Codes.NOT_FOUND);
-    callback(message, messageSender, loopParams);
+    if (!messageSender) throw errors.notFound;
+    callback(loopParams, message, messageSender);
   });
 };
 
@@ -109,4 +104,52 @@ export const handlePlayerReconnect = (state: MatchState, presence: nkruntime.Pre
     logger.info(state.players[presence.userId].userId, "reconnected");
   }
   return state;
+};
+
+export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, message: nkruntime.MatchMessage, error?: nkruntime.Error | string) => {
+  if (error) {
+    const parsedError = parseError(error);
+    logger.error("WS error:", parsedError);
+    // TODO: send as a notification
+    dispatcher.broadcastMessage(MatchOpCode.ERROR, JSON.stringify(parsedError));
+  }
+  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [message.sender]);
+};
+
+export const messageHandler: MessageHandler = (callback) => (loopParams, message, sender) => {
+  try {
+    callback(loopParams, message, sender);
+  } catch (error) {
+    const parsedError = parseError(error);
+    stopLoading(loopParams, message, parsedError);
+  }
+};
+
+export const logicHandler: LogicHandler = (callback) => async (loopParams) => {
+  try {
+    await callback(loopParams);
+  } catch (error) {
+    handleError(error, loopParams.logger);
+  }
+};
+
+export const transitionHandler: TransitionHandler = (callback) => (loopParams, nextStage) => {
+  try {
+    callback(loopParams, nextStage);
+  } catch (error) {
+    handleError(error, loopParams.logger);
+  }
+};
+
+export const resetRound = ({ state }: MatchLoopParams) => {
+  state.bids = {};
+
+  Object.values(state.players).forEach((player) => {
+    const playerRef = state.players[player.userId];
+
+    playerRef.hasRolledDice = false;
+    playerRef.diceValue = [];
+    playerRef.actionRole = undefined;
+    playerRef.isTarget = false;
+  });
 };

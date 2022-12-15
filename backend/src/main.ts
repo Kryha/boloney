@@ -1,11 +1,19 @@
 import "core-js/stable";
 
 import { beforeAuthenticateCustom, afterAuthenticateCustom } from "./hooks/auth";
-import { matchInit, matchJoin, matchJoinAttempt, matchLeave, matchLoop, matchSignal, matchTerminate } from "./game-modes/standard";
+import {
+  matchInit,
+  matchJoin,
+  matchJoinAttempt,
+  matchLeave,
+  matchLoop,
+  matchmakerMatched,
+  matchSignal,
+  matchTerminate,
+} from "./game-modes/standard";
 import { rollDice, createMatch, findMatch } from "./rpc";
-import { matchmakerMatched } from "./services";
-import { env } from "./utils";
 import { MatchState } from "./types";
+import { env } from "./constants";
 
 function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
   env.init(ctx);

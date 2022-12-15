@@ -183,6 +183,10 @@ export const Match = () => {
           setLeaderboard(parsed.data.leaderboard);
           break;
         }
+        // TODO: receive as a notification and show it to the user
+        case MatchOpCode.ERROR: {
+          console.error("MESSAGE ERROR: ", data);
+        }
       }
     };
   }, [

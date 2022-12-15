@@ -1,5 +1,55 @@
-import { AccountKeys, CustomError, isBasicError, isCustomError, isNkError, isString } from "../types";
-import { StatusCodes } from "./status-codes";
+import { AccountKeys, CustomError, ErrorKind, isBasicError, isCustomError, isNkError, isString, StatusCodes } from "../types";
+
+export const errorText: Record<ErrorKind, string> = {
+  usernameAlreadyExists: "Username already exists",
+  usernameContainsProfanity: "Username contains profanity",
+  noUsernamePasswordProvided: "No username/password provided",
+  noIdInContext: "No user ID in context",
+  noPayload: "No payload provided",
+  invalidPayload: "Invalid payload",
+  invalidMetadata: "Invalid metadata",
+  notFound: "Not found",
+  internal: "Internal error",
+};
+
+export const errors: Record<ErrorKind, nkruntime.Error> = {
+  usernameAlreadyExists: {
+    message: errorText.usernameAlreadyExists,
+    code: nkruntime.Codes.ALREADY_EXISTS,
+  },
+  noUsernamePasswordProvided: {
+    message: errorText.noUsernamePasswordProvided,
+    code: nkruntime.Codes.INVALID_ARGUMENT,
+  },
+  usernameContainsProfanity: {
+    message: errorText.usernameContainsProfanity,
+    code: nkruntime.Codes.INVALID_ARGUMENT,
+  },
+  noIdInContext: {
+    message: errorText.noIdInContext,
+    code: nkruntime.Codes.UNAUTHENTICATED,
+  },
+  noPayload: {
+    message: errorText.noPayload,
+    code: nkruntime.Codes.INVALID_ARGUMENT,
+  },
+  invalidPayload: {
+    message: errorText.invalidPayload,
+    code: nkruntime.Codes.INVALID_ARGUMENT,
+  },
+  invalidMetadata: {
+    message: errorText.invalidMetadata,
+    code: nkruntime.Codes.INVALID_ARGUMENT,
+  },
+  notFound: {
+    message: errorText.notFound,
+    code: nkruntime.Codes.NOT_FOUND,
+  },
+  internal: {
+    message: errorText.internal,
+    code: nkruntime.Codes.INTERNAL,
+  },
+};
 
 export const mapHttpCodeToNakama = (httpCode: StatusCodes): nkruntime.Codes => {
   const httpToNakama: Record<number, nkruntime.Codes> = {
@@ -38,7 +88,7 @@ export const parseError = (error: unknown, code = nkruntime.Codes.INTERNAL): Cus
 
   if (isBasicError(error)) return { message: error.message, code, name };
 
-  return { message: "An error occurred.", code, name };
+  return { message: errorText.internal, code, name };
 };
 
 export const handleError = (error: unknown, logger: nkruntime.Logger, code = nkruntime.Codes.INTERNAL): nkruntime.Error => {
@@ -52,41 +102,4 @@ export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntim
   if (resKind === 2) return JSON.parse(res.body);
   const nakamaCode = mapHttpCodeToNakama(res.code);
   throw handleError(res.body, logger, nakamaCode);
-};
-
-type RpcHandler = (cb: nkruntime.RpcFunction) => nkruntime.RpcFunction;
-
-export const rpcHandler: RpcHandler = (cb) => (ctx, logger, nk, payload) => {
-  try {
-    const res = cb(ctx, logger, nk, payload);
-    return res;
-  } catch (error) {
-    throw handleError(error, logger);
-  }
-};
-
-type BeforeAuthHookHandler = (
-  cb: nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest>
-) => nkruntime.BeforeHookFunction<nkruntime.AuthenticateCustomRequest>;
-
-export const beforeHookHandler: BeforeAuthHookHandler = (cb) => (ctx, logger, nk, data) => {
-  try {
-    const res = cb(ctx, logger, nk, data);
-    return res;
-  } catch (error) {
-    throw handleError(error, logger);
-  }
-};
-
-type AfterAuthHookHandler = (
-  cb: nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest>
-) => nkruntime.AfterHookFunction<nkruntime.Session, nkruntime.AuthenticateCustomRequest>;
-
-export const afterHookHandler: AfterAuthHookHandler = (cb) => (ctx, logger, nk, data, request) => {
-  try {
-    const res = cb(ctx, logger, nk, data, request);
-    return res;
-  } catch (error) {
-    throw handleError(error, logger);
-  }
 };

@@ -1,6 +1,8 @@
-import { text } from "../text";
+import { MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER } from "../constants";
+import { errors } from "../services";
 import { isNumber } from "../types";
-import { handleError, MAX_DICE_PER_PLAYER, MIN_DICE_PER_PLAYER, range, rpcHandler } from "../utils";
+import { range } from "../utils";
+import { rpcHandler } from "./rpc-utils";
 
 interface RollPayload {
   diceAmount: number;
@@ -17,7 +19,7 @@ const isRollPayload = (value: unknown): value is RollPayload => {
   );
 };
 
-export const rollDice = rpcHandler((_ctx, logger, _nk, payload) => {
+export const rollDice = rpcHandler((_ctx, _logger, _nk, payload) => {
   // TODO: implement wanted behaviour for this function
   // - check if user is allowed to roll
   // - check if diceAmount respects the game settings
@@ -27,7 +29,7 @@ export const rollDice = rpcHandler((_ctx, logger, _nk, payload) => {
 
   const parsed = JSON.parse(payload);
 
-  if (!isRollPayload(parsed)) throw handleError(text.error.invalidPayload, logger, nkruntime.Codes.INVALID_ARGUMENT);
+  if (!isRollPayload(parsed)) throw errors.invalidPayload;
 
   // TODO: make the call to toolkit for number generation
   const values = range(parsed.diceAmount, 1).map(() => Math.floor(Math.random() * 6) + 1);

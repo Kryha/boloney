@@ -33,6 +33,7 @@ export enum MatchOpCode {
   STOP_LOADING = 13,
   PLAYER_UPDATE = 14,
   LEADERBOARD_UPDATE = 15,
+  ERROR = 17, // TODO: receive as a notification
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 

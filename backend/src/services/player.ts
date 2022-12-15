@@ -1,15 +1,4 @@
-import {
-  BidPayloadBackend,
-  BoloneyPayloadBackend,
-  ExactPayloadBackend,
-  isBidPayloadFrontend,
-  MatchLoopParams,
-  MatchOpCode,
-  MatchState,
-  Player,
-} from "../types";
-import { EMPTY_DATA, hidePlayerData, hidePlayersData } from "../utils";
-import { getLatestBid, isBidHigher, isBidMaxTotal } from "./bid";
+import { Bid, BidPayloadFrontend, BidWithUserId, MatchState, Player, PlayerPublic } from "../types";
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
   if (state.playersReady.includes(userId)) return;
@@ -27,7 +16,7 @@ export const setAllPlayersReady = (state: MatchState) => {
   state.playersReady = Object.keys(state.players).map((playerId) => state.players[playerId].userId);
 };
 
-const getNextPlayerId = (currentPlayerId: string, state: MatchState): string => {
+export const getNextPlayerId = (currentPlayerId: string, state: MatchState): string => {
   const currentPlayerIndex = state.playerOrder.indexOf(currentPlayerId);
 
   let nextPlayerId: string;
@@ -64,7 +53,19 @@ export const getActivePlayerId = (players: Record<string, Player>): string | und
   return activePlayer ? activePlayer.userId : undefined;
 };
 
-const getTotalDiceWithFace = (players: Record<string, Player>, face: number) =>
+export const hidePlayerData = (player: Player): PlayerPublic => {
+  const copy = Object.assign({}, player); // making a hard copy of the object
+  const { diceValue: _, powerUpIds: __, ...publicData } = copy;
+  return publicData;
+};
+
+export const hidePlayersData = (players: Record<string, Player>): Record<string, PlayerPublic> => {
+  return Object.entries(players).reduce((processed, [key, player]) => {
+    return { ...processed, [key]: hidePlayerData(player) };
+  }, {} as Record<string, PlayerPublic>);
+};
+
+export const getTotalDiceWithFace = (players: Record<string, Player>, face: number) =>
   Object.values(players).reduce(
     (total, player) =>
       total +
@@ -75,7 +76,7 @@ const getTotalDiceWithFace = (players: Record<string, Player>, face: number) =>
     0
   );
 
-const handlePlayerLoss = (state: MatchState, loser: Player) => {
+export const handlePlayerLoss = (state: MatchState, loser: Player) => {
   state.leaderboard.unshift(hidePlayerData(loser));
 
   loser.status = "lost";
@@ -86,109 +87,22 @@ const handlePlayerLoss = (state: MatchState, loser: Player) => {
   }
 };
 
-export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => {
-  const { state, dispatcher, logger, nk } = loopParams;
+export const getLatestBid = (bids: Record<string, Bid>): BidWithUserId | undefined =>
+  Object.entries(bids).reduce((prevLatest: BidWithUserId | undefined, [k, bid]) => {
+    if (!prevLatest || prevLatest.createdAt < bid.createdAt) return { userId: k, ...bid };
+    return prevLatest;
+  }, undefined);
 
-  // TODO: move and generalise this after implementing error handling with ws calls
-  const stopLoading = () => {
-    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [message.sender]);
-  };
+export const isBidMaxTotal = (playersRecord: Record<string, Player>, bid: BidPayloadFrontend) => {
+  const players = Object.values(playersRecord);
+  const totalDice = players.reduce((total, player) => total + player.diceAmount, 0);
+  return totalDice >= bid.amount;
+};
 
-  // TODO: define handler functions in other files instead of writing logic directly in the switch
-  switch (message.opCode) {
-    case MatchOpCode.PLAYER_PLACE_BID: {
-      logger.info(sender.username, "placed Bid");
-      const data = JSON.parse(nk.binaryToString(message.data));
+export const isBidHigher = (previousHighest: Bid, newHighest: BidPayloadFrontend): boolean => {
+  const sameFace = previousHighest.face === newHighest.face && previousHighest.amount < newHighest.amount;
+  const sameAmount = previousHighest.amount === newHighest.amount && previousHighest.face < newHighest.face;
+  const bothHigher = previousHighest.amount < newHighest.amount && previousHighest.face < newHighest.face;
 
-      if (!isBidPayloadFrontend(data)) return stopLoading();
-
-      const latestBid = getLatestBid(state.bids);
-
-      if (!isBidMaxTotal(state.players, data)) return stopLoading();
-      if (latestBid && !isBidHigher(latestBid, data)) return stopLoading();
-
-      state.bids[sender.userId] = { ...data, createdAt: Date.now() };
-
-      const nextActivePlayerId = getNextPlayerId(sender.userId, state);
-      setActivePlayer(nextActivePlayerId, state.players);
-
-      const placeBidPayload: BidPayloadBackend = state.bids;
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
-      stopLoading();
-
-      break;
-    }
-    case MatchOpCode.PLAYER_CALL_BOLONEY: {
-      logger.info(sender.username, "called Boloney");
-
-      setActivePlayer(sender.userId, state.players);
-
-      const bid = getLatestBid(state.bids);
-      if (!bid) return stopLoading();
-
-      const totalDice = getTotalDiceWithFace(state.players, bid.face);
-
-      const target = state.players[bid.userId];
-      target.isTarget = true;
-
-      const [winner, loser] = bid.amount <= totalDice ? [target, sender] : [sender, target];
-
-      // TODO: implement ZK lose dice logic
-      loser.diceAmount -= 1;
-      loser.actionRole = "loser";
-      winner.actionRole = "winner";
-
-      if (loser.diceAmount <= 0) handlePlayerLoss(state, loser);
-
-      setAllPlayersReady(state);
-
-      const payload: BoloneyPayloadBackend = { players: hidePlayersData(state.players) };
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify(payload));
-
-      const nextPlayerId = getNextPlayerId(sender.userId, state);
-      setActivePlayer(nextPlayerId, state.players);
-
-      stopLoading();
-
-      break;
-    }
-    case MatchOpCode.PLAYER_CALL_EXACT: {
-      logger.info(sender.username, "called Exact");
-
-      setActivePlayer(sender.userId, state.players);
-
-      const bid = getLatestBid(state.bids);
-      if (!bid) return stopLoading();
-
-      const totalDice = getTotalDiceWithFace(state.players, bid.face);
-
-      const target = state.players[bid.userId];
-      target.isTarget = true;
-
-      const [winner, loser] = bid.amount === totalDice ? [sender, target] : [target, sender];
-
-      // TODO: implement ZK lose dice logic
-      loser.diceAmount -= 1;
-      loser.actionRole = "loser";
-      winner.actionRole = "winner";
-
-      if (loser.diceAmount <= 0) handlePlayerLoss(state, loser);
-
-      setAllPlayersReady(state);
-
-      const payload: ExactPayloadBackend = { players: hidePlayersData(state.players) };
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify(payload));
-
-      const nextPlayerId = getNextPlayerId(sender.userId, state);
-      setActivePlayer(nextPlayerId, state.players);
-
-      stopLoading();
-
-      break;
-    }
-    default:
-      logger.info("Unknown OP_CODE received: ", message.opCode);
-      break;
-  }
+  return sameFace || sameAmount || bothHigher;
 };

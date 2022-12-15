@@ -1,9 +1,26 @@
 import sha256 from "crypto-js/sha256";
-import { wordsFilter } from "../services";
 
-import { text } from "../text";
-import { AccountKeys, CollectionInteractionRead, CollectionInteractionWrite } from "../types";
-import { tkUrl, handleError, handleHttpResponse, beforeHookHandler, afterHookHandler } from "../utils";
+import { errors, handleError, handleHttpResponse, profanityFilter } from "../services";
+import { AccountKeys, AfterAuthHookHandler, BeforeAuthHookHandler, CollectionInteractionRead, CollectionInteractionWrite } from "../types";
+import { tkUrl } from "../utils";
+
+export const beforeHookHandler: BeforeAuthHookHandler = (cb) => (ctx, logger, nk, data) => {
+  try {
+    const res = cb(ctx, logger, nk, data);
+    return res;
+  } catch (error) {
+    throw handleError(error, logger);
+  }
+};
+
+export const afterHookHandler: AfterAuthHookHandler = (cb) => (ctx, logger, nk, data, request) => {
+  try {
+    const res = cb(ctx, logger, nk, data, request);
+    return res;
+  } catch (error) {
+    throw handleError(error, logger);
+  }
+};
 
 // TODO: fix the following scenario:
 // 1. user creates account
@@ -13,9 +30,8 @@ import { tkUrl, handleError, handleHttpResponse, beforeHookHandler, afterHookHan
 // The issue is in the fact that if the key creation fails, the user will receive an error, even though the nakama account is actually created.
 // In order to generate the keys, the user will have to counterintuitively try to login.
 
-export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, data) => {
-  if (!data.username || !data.account?.id)
-    throw handleError(text.error.noUsernamePasswordProvided, logger, nkruntime.Codes.INVALID_ARGUMENT);
+export const beforeAuthenticateCustom = beforeHookHandler((_ctx, _logger, nk, data) => {
+  if (!data.username || !data.account?.id) throw errors.noUsernamePasswordProvided;
 
   data.username = data.username.toLowerCase();
   const isRegistering = !!data.create;
@@ -24,9 +40,9 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, logger, nk, dat
 
   const userExists = isRegistering && nk.usersGetUsername([username]).length;
 
-  if (userExists) throw handleError(text.error.usernameAlreadyExists, logger, nkruntime.Codes.ALREADY_EXISTS);
+  if (userExists) throw errors.usernameAlreadyExists;
 
-  if (wordsFilter.isProfane(username)) throw handleError(text.error.usernameContainsProfanity, logger, nkruntime.Codes.INVALID_ARGUMENT);
+  if (profanityFilter.isProfane(username)) throw errors.usernameContainsProfanity;
 
   const encryptedKey = String(sha256(password + username));
   data.account.id = encryptedKey;
