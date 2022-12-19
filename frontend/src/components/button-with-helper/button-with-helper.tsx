@@ -24,7 +24,7 @@ export const PrimaryButtonWithHelper: FC<PrimaryButtonWithHelperProps> = ({
   return (
     <ButtonWithHelperWrapper id={text}>
       <PrimaryButton text={text} disabled={disabled} onClick={onClick} />
-      <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={tooltipInfoPosition} />
+      <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={tooltipInfoPosition} isButtonWithHelper />
     </ButtonWithHelperWrapper>
   );
 };

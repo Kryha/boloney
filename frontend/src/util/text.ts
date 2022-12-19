@@ -15,3 +15,5 @@ export const prefixDigit = (n: number): string => {
   if (n >= 10) return String(n);
   return "0" + n;
 };
+
+export const capitalize = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);

@@ -5,16 +5,16 @@ import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../types";
 import { PrimaryButtonWrapper } from "../buttons/styles";
-import { ChatSection } from "../chat/styles";
 import { HandWrapper } from "../hand/styles";
 import { LobbyPlayerWrapper } from "../lobby-player/styles";
+import { MenuToggleSection } from "../menu-toggle/styles";
 
 export const LineWrapper = styled.section`
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
-  ${ChatSection} {
+  ${MenuToggleSection} {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -142,7 +142,7 @@ export const NameWrapper = styled.section`
   position: relative;
   height: 100%;
 
-  ${ChatSection} {
+  ${MenuToggleSection} {
     display: block;
     height: 100%;
     border-left: 1px solid ${color.mediumGrey};

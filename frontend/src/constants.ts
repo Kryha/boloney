@@ -120,3 +120,6 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
 };
 
 export const COPIED_TEXT_TIMEOUT = 2500;
+
+export const MAX_POWER_UP_VIEW_AMOUNT = 5;
+export const MINIMUM_POWER_UP_WIDTH_VIEW = 1045;

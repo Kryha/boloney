@@ -14,6 +14,7 @@ import {
   FieldSet,
   Legend,
   LegendContainer,
+  LegendTitle,
 } from "./styles";
 
 interface InputProps {
@@ -60,7 +61,7 @@ export const InputLegend: FC<InputProps> = ({
       <FieldSet isError={isError} isRow={isRow} childNode={childNode}>
         <Legend>
           <LegendContainer>
-            {label}
+            <LegendTitle>{label}</LegendTitle>
             <Tooltip title={tooltipTitle} info={tooltipInfo} />
           </LegendContainer>
         </Legend>

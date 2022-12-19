@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { InfoIcon } from "../../assets";
-import { color, fontSize, margins, zIndex } from "../../design";
+import { color, fontWeight, margins, zIndex } from "../../design";
 import { Heading3, tooltipAnimation } from "../atoms";
 
 export const TooltipWrap = styled.section`
@@ -15,39 +15,66 @@ export const ButtonInfoWrap = styled.span`
   margin-left: ${margins.small1};
 `;
 
-export const TooltipContent = styled.div`
+export const ToolTipText = styled.p`
+  font-family: ibm-plex-mono, sans-serif;
+  font-weight: ${fontWeight.light};
+  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
+  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
+  letter-spacing: -0.01em;
+  color: ${color.black};
+  :first-letter {
+    text-transform: capitalize;
+  }
+`;
+
+export const ToolTipHeading = styled.span`
+  font-family: ibm-plex-mono, sans-serif;
+  font-weight: ${fontWeight.bold};
+  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
+  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
+  letter-spacing: -0.01em;
+  color: ${color.black};
+  margin-right: 10px;
+  :first-letter {
+    text-transform: capitalize;
+  }
+`;
+
+interface ToolTipProps {
+  isButtonWithHelper: boolean;
+}
+
+export const TooltipContent = styled.div<ToolTipProps>`
   max-width: 250px;
   position: absolute;
-  border-radius: ${margins.small0};
-  border: solid 1px ${color.mediumGrey};
-  left: 50%;
+  left: 130px;
   transform: translateX(-50%);
-  padding: ${margins.small2} ${margins.small2};
+  padding: ${margins.small4};
   color: ${color.black};
-  background: ${color.lightGrey};
-  font-size: ${fontSize.medium0};
+  background: ${color.white};
+  box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.1);
   z-index: ${zIndex.inFront};
-  min-width: 150px;
+  min-width: 200px;
   box-sizing: border-box;
   animation: ${tooltipAnimation} 0.5s;
   ${Heading3} {
     margin-bottom: ${margins.small0};
   }
   &.top {
-    top: calc(${margins.medium0} * -1);
+    top: ${({ isButtonWithHelper }): string => (isButtonWithHelper ? "calc(5.4em * -1)" : " calc(5.5em * -1)")};
   }
   &.bottom {
-    bottom: calc(${margins.small0} * -1);
+    bottom: calc(4.7em * -1);
   }
   &.left {
     left: auto;
-    right: calc(100% + ${margins.small0});
-    top: 50%;
+    right: calc(100% + 17.25em);
+    top: 0%;
     transform: translateX(0) translateY(0);
   }
   &.right {
-    left: calc(100% + ${margins.small0});
-    top: 50%;
+    left: calc(100% + 1.25em);
+    top: 0%;
     transform: translateX(0) translateY(0);
   }
 `;

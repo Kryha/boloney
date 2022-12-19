@@ -1,11 +1,11 @@
 import { FC, ReactNode } from "react";
 import { color } from "../../design";
 import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
+import { Tooltip, InfoPosition } from "../tooltip";
 import {
   ButtonContainer,
   CloseButton,
   Exit,
-  Info,
   InitialButtonView,
   LeftArrow,
   LinkContainer,
@@ -24,6 +24,9 @@ interface ButtonProps {
   text?: string;
   isOpen?: boolean;
   type?: "button" | "submit" | "reset";
+  tooltipTitle?: string;
+  tooltipInfo?: string;
+  tooltipInfoPosition?: InfoPosition;
 }
 
 interface DropdownButtonProps extends ButtonProps {
@@ -61,10 +64,10 @@ export const DropdownButton: FC<DropdownButtonProps> = ({ disabled, onClick, tex
   </ButtonContainer>
 );
 
-export const InfoButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
+export const InfoButton: FC<ButtonProps> = ({ disabled, onClick, text, tooltipInfoPosition, tooltipTitle, tooltipInfo }) => (
   <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
-    <Info />
+    <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={tooltipInfoPosition} />
   </ButtonContainer>
 );
 

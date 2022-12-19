@@ -29,7 +29,7 @@ export const PowerUpsField: FC = () => {
         <InfoBox>
           <GeneralText>{text.newMatch.powerUpDesc}</GeneralText>
           {/* TODO: add pop up info */}
-          <InfoButton text={text.newMatch.chance} />
+          <InfoButton text={text.newMatch.chance} tooltipTitle={text.general.toolTipTitle} tooltipInfo={text.general.toolTipInfo} />
         </InfoBox>
         <CheckboxContainer>
           {Object.values(POWER_UP_DATA).map((powerUp, index) => (

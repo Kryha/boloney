@@ -28,4 +28,5 @@ export const param = {
   youRockAtExact: (amount: number | string) => `you rock calling Exact! You get x${amount} new power-ups!`,
   congratulationsExact: (username: string) => `congratulations ${username}, you rock at calling Exact!`,
   playerIsSafe: (username: string) => `congratulations ${username}, your ass is safe!`,
+  textWithColon: (text?: string) => `${text}:`,
 };

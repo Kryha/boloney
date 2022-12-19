@@ -6,14 +6,15 @@ interface TooltipProps {
   title?: string;
   info?: string;
   infoPosition?: InfoPosition;
+  isButtonWithHelper?: boolean;
 }
 
-export const Tooltip: FC<TooltipProps> = ({ title, info, infoPosition }) => {
+export const Tooltip: FC<TooltipProps> = ({ title, info, infoPosition, isButtonWithHelper }) => {
   if (!title || !info) return <></>;
 
   return (
     <ButtonInfoWrap>
-      <TooltipInfo title={title} content={info} position={infoPosition}>
+      <TooltipInfo title={title} content={info} position={infoPosition} isButtonWithHelper={isButtonWithHelper}>
         <Info />
       </TooltipInfo>
     </ButtonInfoWrap>

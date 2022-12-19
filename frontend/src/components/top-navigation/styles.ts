@@ -4,6 +4,7 @@ import { LightningIcon, TimerIcon } from "../../assets/icons";
 import { color, margins, zIndex } from "../../design";
 import { GeneralText, Heading6, HorizontalDivider, Paragraph } from "../atoms";
 import { Link } from "../buttons";
+import { ButtonContainer as DropDownButtonContainer } from "../buttons/styles";
 import { DieWrapper } from "../die/styles";
 
 export const TopNavigationSection = styled.section`
@@ -57,6 +58,9 @@ export const ButtonContainer = styled.div<ButtonContainerProps>`
       : `background: ${color.lightGrey};`};
 
   z-index: ${({ isActive }) => (isActive ? zIndex.onTop : zIndex.behind)};
+  ${DropDownButtonContainer} {
+    height: 5.5vh;
+  }
 `;
 
 export const DropdownWrapper = styled.div`
@@ -157,7 +161,7 @@ export const MatchStatsContainer = styled.div`
   flex-direction: row;
   align-items: center;
   padding: ${margins.small2};
-  height: 52px;
+  height: 5.5vh;
   gap: ${margins.small1};
   ${DieWrapper} {
     margin-top: 0.125em;

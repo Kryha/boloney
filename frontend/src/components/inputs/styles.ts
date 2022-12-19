@@ -136,10 +136,17 @@ export const Legend = styled.legend`
   font-weight: ${fontWeight.bolder};
   font-size: ${fontSize.small1};
   line-height: 24px;
-  text-transform: uppercase;
   color: ${color.black};
   padding: 0px ${margins.small1};
   margin-left: ${margins.medium0};
+`;
+
+export const LegendTitle = styled.h3`
+  font-family: ibm-plex-mono;
+  font-weight: ${fontWeight.bolder};
+  font-size: ${fontSize.small1};
+  line-height: 24px;
+  text-transform: uppercase;
 `;
 
 export const LegendContainer = styled.span`

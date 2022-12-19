@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
-import { GeneralText, Heading3 } from "../atoms";
-import { TooltipContent, TooltipWrap } from "./styles";
+import { text } from "../../assets";
+import { capitalize } from "../../util";
+import { TooltipContent, ToolTipHeading, ToolTipText, TooltipWrap } from "./styles";
 
 export type InfoPosition = "top" | "bottom" | "left" | "right";
 
@@ -9,10 +10,10 @@ interface TooltipInfoProps {
   position?: InfoPosition;
   content: string;
   children: React.ReactNode;
+  isButtonWithHelper?: boolean;
 }
 
-// TODO: update look of tooltip
-export const TooltipInfo: FC<TooltipInfoProps> = ({ title, position = "top", content, children }) => {
+export const TooltipInfo: FC<TooltipInfoProps> = ({ title, position = "top", content, children, isButtonWithHelper = false }) => {
   const [active, setActive] = useState(false);
 
   const showTip = () => setActive(true);
@@ -23,9 +24,11 @@ export const TooltipInfo: FC<TooltipInfoProps> = ({ title, position = "top", con
     <TooltipWrap onMouseEnter={showTip} onMouseLeave={hideTip} onBlur={hideTip}>
       {children}
       {active && (
-        <TooltipContent className={position}>
-          <Heading3>{title}</Heading3>
-          <GeneralText>{content}</GeneralText>
+        <TooltipContent className={position} isButtonWithHelper={isButtonWithHelper}>
+          <ToolTipText>
+            <ToolTipHeading>{text.param.textWithColon(title)}</ToolTipHeading>
+            {capitalize(content)}
+          </ToolTipText>
         </TooltipContent>
       )}
     </TooltipWrap>
