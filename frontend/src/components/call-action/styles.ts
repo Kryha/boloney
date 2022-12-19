@@ -3,7 +3,7 @@ import { margins, zIndex } from "../../design";
 import { BottomButtonWrapper, Heading1, Heading6 } from "../atoms";
 import { SecondaryButtonContainer } from "../buttons/styles";
 
-export const CallExactWrapper = styled.section`
+export const CallActionWrapper = styled.section`
   margin-top: -${margins.large0};
   ${SecondaryButtonContainer} {
     position: absolute;
@@ -22,7 +22,7 @@ export const CallExactWrapper = styled.section`
   }
 `;
 
-export const ExactImage = styled.img`
+export const ActionImage = styled.img`
   object-fit: contain;
   width: clamp(687.98px, 71.77vw + -1.03px, 1376.99px);
   height: clamp(291.72px, 30.99vw + -5.75px, 589.19px);

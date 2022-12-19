@@ -45,8 +45,6 @@ export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
   position: relative;
   border-bottom: 1px solid ${color.mediumGrey};
   ${BadgeWrapper} {
-    min-width: clamp(69.3px, 7.33vw + -1.05px, 139.65px);
-    min-height: clamp(18.48px, 1.95vw + -0.28px, 37.24px);
     z-index: ${zIndex.inFront};
   }
 `;

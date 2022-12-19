@@ -13,9 +13,6 @@ export const MainWrap = styled.div<MainProps>`
   flex-direction: row;
   overflow: scroll;
   position: relative;
-
-  //TODO: add better default value when height is nog provided
   height: ${({ height }): string => `${height}px`};
-
-  filter: ${({ isOverlayVisible }): string => (isOverlayVisible ? "blur(4px);" : "none;")};
+  filter: ${({ isOverlayVisible }): string => (isOverlayVisible ? "blur(15px);" : "none;")};
 `;

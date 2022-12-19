@@ -30,7 +30,9 @@ export const MatchInfoDescription = styled(Row)`
   height: 23px;
   ${GeneralText} {
     color: ${color.black};
-    text-transform: none !important;
+    :first-letter {
+      text-transform: none;
+    }
   }
   ${Lightning} {
     path {

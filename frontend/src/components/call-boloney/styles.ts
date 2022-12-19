@@ -24,6 +24,12 @@ export const CallBoloneyWrapper = styled.section`
 
 export const BoloneyImage = styled.img`
   object-fit: contain;
-  width: clamp(687.98px, 71.77vw + -1.03px, 1376.99px);
-  height: clamp(291.72px, 30.99vw + -5.75px, 589.19px);
+  width: 100%;
+  height: 100%;
+`;
+
+export const BoloneyImageWrapper = styled.div`
+  margin-top: ${margins.large3};
+  width: 71.73611vw;
+  height: 51.25vh;
 `;

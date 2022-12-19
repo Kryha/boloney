@@ -6,31 +6,36 @@ import { PowerUpWrapper } from "../power-up/styles";
 
 export const MatchSettingsOverviewComponent = styled.section`
   padding: 3.75em;
-  max-height: 75.6vh;
   width: clamp(768px, 60.62vw + 186px, 1350px);
   overflow-y: scroll;
   ${Heading6} {
     text-transform: uppercase;
   }
   ${ButtonContainer} {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-content: center;
-    align-items: center;
     height: fit-content;
     padding-right: 0px;
   }
 `;
 
+export const ChoiceContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  height: fit-content;
+  padding-right: 0px;
+`;
+
 export const MatchSettingsFooter = styled.div`
-  background: linear-gradient(0deg, #eeeeea 50%, rgba(238, 238, 234, 0) 139.86%);
+  background: linear-gradient(0deg, ${color.greyWhite} 50%, rgba(238, 234, 233, 0) 139.86%);
   border-radius: 0px 0px 10px 10px;
   height: 10vh;
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  width: 90%;
+  width: 100%;
+  left: 0px;
 `;
 
 export const MatchInfoButtons = styled.div`
@@ -55,7 +60,7 @@ export const PowerUpContainer = styled.div`
     gap: ${margins.small0};
   }
   ${Paragraph} {
-    max-width: 30vw;
+    padding-right: 10px;
     color: ${color.black};
   }
 `;

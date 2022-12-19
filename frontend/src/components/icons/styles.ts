@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { LightningIcon } from "../../assets";
 import { color, margins } from "../../design";
-import { Row } from "../atoms";
+import { GeneralText, Row } from "../atoms";
 import { DieWrapper } from "../die/styles";
 
 export const Lightning = styled(LightningIcon)`
@@ -18,6 +18,11 @@ export const PowerUpIconWrapper = styled(Row)`
   gap: ${margins.small0};
   align-items: center;
   margin-top: -1px;
+  ${GeneralText} {
+    :first-letter {
+      text-transform: none;
+    }
+  }
 `;
 
 export const DiceIconWrapper = styled(Row)`
@@ -25,5 +30,10 @@ export const DiceIconWrapper = styled(Row)`
   align-items: center;
   ${DieWrapper} {
     margin-top: ${margins.small1};
+  }
+  ${GeneralText} {
+    :first-letter {
+      text-transform: none;
+    }
   }
 `;

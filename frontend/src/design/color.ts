@@ -12,6 +12,7 @@ export const color = {
   darkGrey: "#989898",
   white: "#EEEAE9",
   offWhite: "#EEEAE9",
+  greyWhite: "#eeeeea",
   pureWhite: "#FFFFFF",
   black: "#292929",
   red: "#FC0E0E",

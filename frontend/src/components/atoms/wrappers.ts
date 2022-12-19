@@ -35,8 +35,10 @@ export const OverlayContainer = styled.div`
 `;
 
 export const OverlayTransparent = styled.div`
-  opacity: 0.8;
+  opacity: 0.6;
   background: ${color.lightGrey};
+  height: 100vh;
+  width: 100vw;
 `;
 
 interface GeneralContentWrapperProps {

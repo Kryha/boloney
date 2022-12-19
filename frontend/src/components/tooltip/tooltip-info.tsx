@@ -26,7 +26,7 @@ export const TooltipInfo: FC<TooltipInfoProps> = ({ title, position = "top", con
       {active && (
         <TooltipContent className={position} isButtonWithHelper={isButtonWithHelper}>
           <ToolTipText>
-            <ToolTipHeading>{text.param.textWithColon(title)}</ToolTipHeading>
+            <ToolTipHeading>{text.param.appendColon(title)}</ToolTipHeading>
             {capitalize(content)}
           </ToolTipText>
         </TooltipContent>

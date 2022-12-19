@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { margins, color } from "../../design";
+import { margins, color, zIndex } from "../../design";
 
 export const BadgeWrapper = styled.div`
   display: flex;
@@ -11,6 +11,6 @@ export const BadgeWrapper = styled.div`
   padding-top: ${margins.small0};
   padding-bottom: ${margins.small0};
   background-color: ${color.pureWhite};
-  width: 6.5625em;
   position: absolute;
+  z-index: ${zIndex.inFront};
 `;

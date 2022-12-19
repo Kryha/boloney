@@ -111,7 +111,7 @@ export const RulesContainer = styled.div`
   right: 0;
   padding: 20px;
   overflow-y: scroll;
-  height: 100vh;
+  height: 94.5vh;
 `;
 
 export const RulesSection = styled.section`
