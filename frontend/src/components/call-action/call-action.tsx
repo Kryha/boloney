@@ -18,7 +18,7 @@ export const CallAction: FC<CallActionProps> = ({ isCallBoloney = false, image, 
   const broadcastAction = isCallBoloney ? broadcastCallBoloney : broadcastCallExact;
 
   const takeAction = () => {
-    setTurnActionStep("evaluateWinner");
+    setTurnActionStep("results");
     broadcastAction();
   };
 

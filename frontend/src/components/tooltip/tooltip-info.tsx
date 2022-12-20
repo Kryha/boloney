@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import { text } from "../../assets";
-import { capitalize } from "../../util";
-import { TooltipContent, ToolTipHeading, ToolTipText, TooltipWrap } from "./styles";
+import { TooltipContent, TooltipDescription, TooltipHeading, ToolTipText, TooltipWrap } from "./styles";
 
 export type InfoPosition = "top" | "bottom" | "left" | "right";
 
@@ -26,8 +25,8 @@ export const TooltipInfo: FC<TooltipInfoProps> = ({ title, position = "top", con
       {active && (
         <TooltipContent className={position} isButtonWithHelper={isButtonWithHelper}>
           <ToolTipText>
-            <ToolTipHeading>{text.param.appendColon(title)}</ToolTipHeading>
-            {capitalize(content)}
+            <TooltipHeading>{text.param.appendColon(title)}</TooltipHeading>
+            <TooltipDescription>{content}</TooltipDescription>
           </ToolTipText>
         </TooltipContent>
       )}

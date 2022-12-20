@@ -1,5 +1,4 @@
-// TODO: update file with other actions
-import { PlayerPublic, TurnAction } from "../../types";
+import { Action, PlayerPublic } from "../../types";
 import { BoloneyToaster, ExactDartBoard } from "../images";
 import { text } from "../text";
 
@@ -17,27 +16,18 @@ export interface ResultData {
   name: string;
 }
 
-export const getResultData = (action: TurnAction | undefined, activePlayer: PlayerPublic, dieAmount?: number): ResultData => {
+export const getResultData = (action: Action, winner: PlayerPublic, dieAmount?: number): ResultData => {
   switch (action) {
-    case "bid":
-      return {
-        activeWinner: { headingTitle: "", subHeadingTitle: "" },
-        activeLoser: { headingTitle: "", subHeadingTitle: "" },
-        targetWinner: { headingTitle: "", subHeadingTitle: "" },
-        targetLoser: { headingTitle: "", subHeadingTitle: "" },
-        img: "",
-        name: "",
-      };
-    case "boloney":
+    case "Boloney":
       return {
         activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youRock },
         activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuck },
         targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youCanBreath },
-        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.param.youSuckAtBluffing(activePlayer.username) },
+        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.param.youSuckAtBluffing(winner.username) },
         img: BoloneyToaster,
         name: text.playerTurn.boloney,
       };
-    case "exact":
+    case "Exact":
       return {
         activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.param.youRockAtExact(dieAmount || 0) },
         activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
@@ -45,33 +35,6 @@ export const getResultData = (action: TurnAction | undefined, activePlayer: Play
         targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
         img: ExactDartBoard,
         name: text.playerTurn.exact,
-      };
-    case "healDice":
-      return {
-        activeWinner: { headingTitle: "", subHeadingTitle: "" },
-        activeLoser: { headingTitle: "", subHeadingTitle: "" },
-        targetWinner: { headingTitle: "", subHeadingTitle: "" },
-        targetLoser: { headingTitle: "", subHeadingTitle: "" },
-        img: "",
-        name: "",
-      };
-    case "powerUp":
-      return {
-        activeWinner: { headingTitle: "", subHeadingTitle: "" },
-        activeLoser: { headingTitle: "", subHeadingTitle: "" },
-        targetWinner: { headingTitle: "", subHeadingTitle: "" },
-        targetLoser: { headingTitle: "", subHeadingTitle: "" },
-        img: "",
-        name: "",
-      };
-    default:
-      return {
-        activeWinner: { headingTitle: "", subHeadingTitle: "" },
-        activeLoser: { headingTitle: "", subHeadingTitle: "" },
-        targetWinner: { headingTitle: "", subHeadingTitle: "" },
-        targetLoser: { headingTitle: "", subHeadingTitle: "" },
-        img: "",
-        name: "",
       };
   }
 };

@@ -7,10 +7,12 @@ import { DiceIconWrapper } from "../icons/styles";
 import { DiceCrownImg, MatchWinnerWrapper } from "./styles";
 
 interface Props {
-  player: PlayerPublic;
+  player?: PlayerPublic;
 }
 
 export const MatchWinner: FC<Props> = ({ player }) => {
+  if (!player) return <></>;
+
   return (
     <MatchWinnerWrapper>
       <DiceIconWrapper>

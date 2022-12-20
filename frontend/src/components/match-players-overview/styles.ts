@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { GAME_PLAYER_HEIGHT } from "../../constants";
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, GeneralText, Heading5 } from "../atoms";
+import { avatarHeight, GeneralText, Heading5, Heading6 } from "../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
@@ -28,7 +28,9 @@ export const MatchWinnerWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: ${margins.large1};
+  ${DiceIconWrapper} {
+    justify-content: center;
+  }
 `;
 
 interface MatchPlayersProps {
@@ -195,6 +197,11 @@ export const DiceContainer = styled.div`
   background: ${color.grey};
   z-index: ${zIndex.behind};
   justify-content: center;
+  ${Heading6} {
+    :first-letter {
+      text-transform: none;
+    }
+  }
 `;
 
 export const AmountDice = styled.div`

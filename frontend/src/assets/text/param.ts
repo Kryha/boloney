@@ -1,3 +1,5 @@
+import { Action } from "../../types";
+
 export const param = {
   yourDice: (amount: number) => `your dice (x${amount})`,
   yourPowerUp: (amount: number) => `your power-up (x${amount})`,
@@ -29,4 +31,5 @@ export const param = {
   congratulationsExact: (username: string) => `congratulations ${username}, you rock at calling Exact!`,
   playerIsSafe: (username: string) => `congratulations ${username}, your ass is safe!`,
   appendColon: (text?: string) => `${text}:`,
+  congratulationsIdlePlayer: (username: string, action: Action) => `congratulations ${username}, they are awesome at calling ${action}!`,
 };

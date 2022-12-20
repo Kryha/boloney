@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { getResultData } from "../../assets/local-data/player-result";
-import { useActivePlayer } from "../../service";
+import { useLocalPlayer, useWinner } from "../../service";
 import { useStore } from "../../store";
 import { BottomButtonWrapper } from "../atoms";
 import { ButtonReady } from "../button-ready";
@@ -9,20 +9,21 @@ import { ErrorView } from "../error-view";
 import { ActivePlayerImage, ActivePlayerResultWrapper } from "./styles";
 import { ActivePlayerTextResults, TargetPlayerTextResults } from "./text-results";
 
-export const ActivePlayerResult: FC = () => {
-  const action = useStore((state) => state.action);
-  const activePlayer = useActivePlayer();
+export const ActivePlayerResults: FC = () => {
+  const lastAction = useStore((state) => state.lastAction);
+  const winner = useWinner();
+  const localPlayer = useLocalPlayer();
 
-  if (!activePlayer) return <ErrorView />;
+  if (!winner || !localPlayer) return <ErrorView />;
 
-  const isWinner = activePlayer.actionRole === "winner";
+  const isWinner = localPlayer.actionRole === "winner";
 
-  const playerData = getResultData(action, activePlayer);
+  const playerData = getResultData(lastAction, winner);
 
   return (
     <ActivePlayerResultWrapper>
       <BottomButtonWrapper>
-        {activePlayer.isTarget ? (
+        {localPlayer.isActive ? (
           <TargetPlayerTextResults data={playerData} isWinner={isWinner} />
         ) : (
           <ActivePlayerTextResults data={playerData} isWinner={isWinner} />

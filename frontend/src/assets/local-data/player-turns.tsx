@@ -9,10 +9,10 @@ interface PlayerTurnData {
   subHeadingTitle?: string;
 }
 
-export const idlePlayerTurnData = (steps: TurnActionStep, activePlayer: PlayerPublic): PlayerTurnData => {
-  if (steps === "results") {
+export const idlePlayerTurnData = (activePlayer: PlayerPublic, round: number, step?: TurnActionStep): PlayerTurnData => {
+  if (step === "results") {
     return {
-      timerTitle: text.param.endOfRound(getNumberWithOrdinal(1)),
+      timerTitle: text.param.endOfRound(getNumberWithOrdinal(round)),
     };
   } else {
     return {

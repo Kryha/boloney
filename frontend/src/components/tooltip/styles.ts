@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { InfoIcon } from "../../assets";
 import { color, fontWeight, margins, zIndex } from "../../design";
-import { Heading3, tooltipAnimation } from "../atoms";
+import { GeneralText, Heading3, tooltipAnimation } from "../atoms";
 
 export const TooltipWrap = styled.section`
   display: inline-block;
@@ -27,7 +27,9 @@ export const ToolTipText = styled.p`
   }
 `;
 
-export const ToolTipHeading = styled.span`
+export const TooltipDescription = styled(GeneralText)``;
+
+export const TooltipHeading = styled.span`
   font-family: ibm-plex-mono, sans-serif;
   font-weight: ${fontWeight.bold};
   font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
@@ -40,12 +42,12 @@ export const ToolTipHeading = styled.span`
   }
 `;
 
-interface ToolTipProps {
+interface TooltipProps {
   isButtonWithHelper: boolean;
 }
 
-export const TooltipContent = styled.div<ToolTipProps>`
-  max-width: 250px;
+export const TooltipContent = styled.div<TooltipProps>`
+  max-width: clamp(260px, 2.08vw + 240px, 280px);
   position: absolute;
   left: 130px;
   transform: translateX(-50%);
@@ -54,7 +56,7 @@ export const TooltipContent = styled.div<ToolTipProps>`
   background: ${color.white};
   box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.1);
   z-index: ${zIndex.inFront};
-  min-width: 200px;
+  min-width: clamp(220px, 3.96vw + 182px, 258px);
   box-sizing: border-box;
   animation: ${tooltipAnimation} 0.5s;
   ${Heading3} {
