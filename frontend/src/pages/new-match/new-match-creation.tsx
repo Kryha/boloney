@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
 import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
-import { useMatchMaker } from "../../service";
+import { createMatch } from "../../service";
 import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
 import { useMatchCreationFormState } from "./match-creation-form-state";
 import { HealActionField } from "./heal-action-field";
@@ -12,21 +12,23 @@ import { DrawRoundOffsetField } from "./draw-round-offset-field";
 import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewMatchContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
-import { parseLobbyUrl, splitMatchId } from "../../util";
-import { useStore } from "../../store";
+import { splitMatchId } from "../../util";
 
-// TODO: make a form component
-export const NewMatchCreation: FC = () => {
+interface Props {
+  setMatchId: (id: string) => void;
+}
+
+export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
   const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerUps = useMatchCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useMatchCreationFormState((state) => state.powerUpProbability);
   const isPowerUpError = useMatchCreationFormState((state) => state.getIsError());
-  const setMatchId = useStore((state) => state.setMatchId);
-  const setMatchUrl = useStore((state) => state.setMatchUrl);
-  const { createMatch, isLoading } = useMatchMaker();
+
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
+    setIsLoading(true);
     const result = matchFormSettingsSchema.safeParse({
       ...data,
       availablePowerUps: Array.from(availablePowerUps.values()),
@@ -39,11 +41,11 @@ export const NewMatchCreation: FC = () => {
       const matchId = await createMatch(result.data);
       if (isString(matchId)) {
         setMatchId(splitMatchId(matchId));
-        setMatchUrl(parseLobbyUrl(matchId));
       } else {
         setIsError(true);
       }
     }
+    setIsLoading(false);
   });
 
   return (

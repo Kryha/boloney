@@ -5,7 +5,7 @@ import { text } from "../../assets";
 import { routes } from "../../navigation";
 import { Heading2, Heading6 } from "../atoms";
 import { PrimaryButton } from "../buttons";
-import { clearLocalStorage, useLocalPlayer, useMatch } from "../../service";
+import { useLocalPlayer, useMatch } from "../../service";
 import { color } from "../../design";
 import { PlayerLeaderboard } from "./player-leaderboard";
 import { EndOfMatchWrapper, TitleSection } from "./styles";
@@ -27,7 +27,6 @@ export const EndOfMatch: FC = () => {
   }, [leaderboard, localPlayer?.userId]);
 
   const handleNewMatch = (): void => {
-    clearLocalStorage();
     broadcastPlayerReady();
     navigate(routes.home);
   };

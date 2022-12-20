@@ -1,18 +1,16 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { BaseLayout, Logo, TopNavigation } from "../../components";
-import { useStore } from "../../store";
 import { NewMatchConfirmation } from "./new-match-confirmation";
 import { NewMatchCreation } from "./new-match-creation";
 
 export const NewMatch: FC = () => {
-  const matchId = useStore((state) => state.matchId);
-  const matchUrl = useStore((state) => state.matchUrl);
+  const [matchId, setMatchId] = useState<string>();
 
   return (
     <BaseLayout
       leftSection={<Logo />}
-      mainSection={matchUrl && matchId ? <NewMatchConfirmation /> : <NewMatchCreation />}
+      mainSection={matchId ? <NewMatchConfirmation matchId={matchId} /> : <NewMatchCreation setMatchId={setMatchId} />}
       rightSection={<TopNavigation />}
     />
   );

@@ -14,42 +14,43 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   drawRoundOffset: 0,
   healPowerUpAmount: 1,
   maxPowerUpAmount: 3,
+  availablePowerUps: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
   powerUpProbability: [
     {
       id: "1",
-      probability: 25,
+      probability: 12,
     },
     {
       id: "2",
-      probability: 0,
+      probability: 11,
     },
     {
       id: "3",
-      probability: 0,
+      probability: 11,
     },
     {
       id: "4",
-      probability: 25,
+      probability: 11,
     },
     {
       id: "5",
-      probability: 0,
+      probability: 11,
     },
     {
       id: "6",
-      probability: 25,
+      probability: 11,
     },
     {
       id: "7",
-      probability: 0,
+      probability: 11,
     },
     {
       id: "8",
-      probability: 25,
+      probability: 11,
     },
     {
       id: "9",
-      probability: 0,
+      probability: 11,
     },
   ],
 };

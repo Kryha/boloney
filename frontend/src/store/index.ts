@@ -9,3 +9,6 @@ export const useStore = create<AuthSlice & UISlice & MatchSlice>()((...a) => ({
   ...createUISlice(...a),
   ...createMatchSlice(...a),
 }));
+
+export const useSession = () => useStore((state) => state.session);
+export const useIsAuthenticating = () => useStore((state) => state.isAuthenticating);

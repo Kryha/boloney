@@ -5,21 +5,27 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
-import { Landing, NewMatch, Home, Match } from "../pages";
-import { useAuth } from "../service";
+import { Landing, NewMatch, Home, MatchRoute } from "../pages";
+import { useRefreshAuth } from "../service";
+import { useIsAuthenticating, useSession } from "../store";
 
 const AppRoutes: FC = () => {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticating = useIsAuthenticating();
+  const session = useSession();
+
+  useRefreshAuth();
+
+  if (isAuthenticating) return <Loading />;
 
   return (
     <Routes>
       <Route path={routes.root} element={<Landing />} />
 
-      {isAuthenticated ? (
+      {session ? (
         <>
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.newMatch} element={<NewMatch />} />
-          <Route path={`${routes.match}/:matchId`} element={<Match />} />
+          <Route path={`${routes.match}/:matchId`} element={<MatchRoute />} />
         </>
       ) : (
         <>
@@ -35,11 +41,12 @@ const AppRoutes: FC = () => {
 
 export const RoutesWrapper: FC = () => {
   const navigate = useNavigate();
-  const { isRefreshing } = useAuth();
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
-      <MainContainer>{isRefreshing ? <Loading /> : <AppRoutes />}</MainContainer>
+      <MainContainer>
+        <AppRoutes />
+      </MainContainer>
     </ErrorBoundary>
   );
 };

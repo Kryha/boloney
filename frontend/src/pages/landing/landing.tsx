@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 import { routes } from "../../navigation";
-import { useAuth } from "../../service";
+import { useSession } from "../../store";
 
 // TODO: implement as per designs
 // The landing page will have:
@@ -13,7 +13,7 @@ import { useAuth } from "../../service";
 // - Copyright
 // - Privacy & terms
 export const Landing = () => {
-  const { isAuthenticated } = useAuth();
+  const session = useSession();
 
-  return <Navigate to={isAuthenticated ? routes.home : routes.login} />;
+  return <Navigate to={session ? routes.home : routes.login} />;
 };

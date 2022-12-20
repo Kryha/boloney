@@ -33,11 +33,11 @@ export enum MatchOpCode {
   STOP_LOADING = 13,
   PLAYER_UPDATE = 14,
   LEADERBOARD_UPDATE = 15,
-  ERROR = 17, // TODO: receive as a notification
+  ERROR = 16, // TODO: receive as a notification
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
-export const playerStatusSchema = z.enum(["playing", "disconnected", "lost"]);
+export const playerStatusSchema = z.enum(["playing", "lost"]);
 export type PlayerStatus = z.infer<typeof playerStatusSchema>;
 
 // we need both optional and nullable because nakama
@@ -45,7 +45,7 @@ export const actionRoleSchema = z.enum(["winner", "loser"]).optional().nullable(
 export type ActionRole = z.infer<typeof actionRoleSchema>;
 
 export const playerPrivateSchema = z.object({
-  diceValue: z.array(dieSchema),
+  diceValue: z.array(dieSchema).optional(),
   powerUpIds: z.optional(z.array(powerUpIdSchema)),
 });
 export type PlayerPrivate = z.infer<typeof playerPrivateSchema>;
@@ -65,6 +65,7 @@ export const playerPublicSchema = z.object({
   actionRole: actionRoleSchema,
   isTarget: z.boolean(),
 });
+
 export type PlayerPublic = z.infer<typeof playerPublicSchema>;
 
 export const playerSchema = playerPublicSchema.merge(playerPrivateSchema);

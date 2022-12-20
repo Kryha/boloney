@@ -1,15 +1,25 @@
 import { z } from "zod";
+import { bidPayloadBackendSchema } from "./bid";
+import { dieSchema } from "./die";
 
 import { NkError } from "./error";
-import { playerPublicSchema } from "./match";
+import { matchSettingsSchema, matchStageSchema, playerPublicSchema } from "./match";
+import { powerUpIdSchema } from "./power-up";
 
 export type NkResponse<T = void> = NkError | T;
 
-export const playerJoinedPayloadSchema = z.object({
+export const playerJoinedPayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),
   playerOrder: z.array(z.string()),
+  matchStage: matchStageSchema,
+  powerUpIds: z.array(powerUpIdSchema),
+  matchSettings: matchSettingsSchema,
+  leaderboard: z.array(playerPublicSchema),
+  hasRolledDice: z.boolean(),
+  diceValue: z.array(dieSchema),
+  bids: bidPayloadBackendSchema,
 });
-export type PlayerJoinedPayload = z.infer<typeof playerJoinedPayloadSchema>;
+export type PlayerJoinedPayloadBackend = z.infer<typeof playerJoinedPayloadBackendSchema>;
 
 export const boloneyPayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),

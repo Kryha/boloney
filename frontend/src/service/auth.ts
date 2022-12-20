@@ -1,92 +1,61 @@
-import { Session } from "@heroiclabs/nakama-js";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { USE_SSL } from "../constants";
-import { useStore } from "../store";
+import { useSession, useStore } from "../store";
 import { NkResponse } from "../types";
-import { getAuthToken, getRefreshToken, parseError, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
+import { parseError } from "../util";
+import { nakama } from "./nakama";
 
-export const useAuth = () => {
-  const client = useStore((state) => state.client);
-  const isAuthenticated = useStore((state) => state.isAuthenticated);
+export const useRefreshAuth = () => {
+  const session = useSession();
   const setSession = useStore((state) => state.setSession);
-  const setIsAuthenticated = useStore((state) => state.setIsAuthenticated);
-  const resetAuthState = useStore((state) => state.reset);
-  const setSocket = useStore((state) => state.setSocket);
-  const oldSocket = useStore((state) => state.socket);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(true);
-
-  // TODO: see how sockets relate to matches and maybe abstract the following function
-  const joinSession = useCallback(
-    async (session: Session) => {
-      const socket = !oldSocket ? client.createSocket(USE_SSL) : oldSocket;
-      const socketSession = await socket.connect(session, true);
-
-      setSocket(socket);
-      setSession(socketSession);
-      setIsAuthenticated(true);
-    },
-    [client, setIsAuthenticated, setSession, setSocket, oldSocket]
-  );
+  const setIsAuthenticating = useStore((state) => state.setIsAuthenticating);
 
   useEffect(() => {
     const refreshSession = async () => {
-      const authToken = getAuthToken();
-      const refreshToken = getRefreshToken();
-
-      if (!authToken || !refreshToken) return setIsRefreshing(false);
-
-      let session = Session.restore(authToken, refreshToken);
-
+      if (session) return;
       try {
-        if (session.isexpired(Date.now() / 1000)) {
-          session = await client.sessionRefresh(session);
-        }
-        await joinSession(session);
+        const newSession = await nakama.refreshSession();
+        setSession(newSession);
       } catch (e) {
         // manual login required
         return;
       } finally {
-        setIsRefreshing(false);
+        setIsAuthenticating(false);
       }
     };
     refreshSession();
-  }, [client, joinSession]);
+  }, [session, setIsAuthenticating, setSession]);
+};
 
-  const authenticateUser = useCallback(
-    async (username: string, password: string, newUser = false): Promise<NkResponse> => {
-      if (isAuthenticated) return;
-      try {
-        setIsLoading(true);
-        const session = await client.authenticateCustom(password, newUser, username);
+export const useAuthenticateUser = () => {
+  const session = useSession();
+  const setSession = useStore((state) => state.setSession);
+  const [isLoading, setIsLoading] = useState(false);
 
-        setAuthToken(session.token);
-        setRefreshToken(session.refresh_token);
-
-        await joinSession(session);
-      } catch (error) {
-        const parsedErr = await parseError(error);
-        return parsedErr;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [isAuthenticated, client, joinSession]
-  );
-
-  const logout = useCallback(() => {
-    removeAuthToken();
-    removeRefreshToken();
-    resetAuthState();
-  }, [resetAuthState]);
-
-  return {
-    authenticateUser,
-    logout,
-    isLoading,
-    isRefreshing,
-    isAuthenticated,
+  const authenticateUser = async (username: string, password: string, newUser = false): Promise<NkResponse> => {
+    if (session) return;
+    try {
+      setIsLoading(true);
+      const newSession = await nakama.authenticate(username, password, newUser);
+      setSession(newSession);
+    } catch (error) {
+      const parsedErr = await parseError(error);
+      return parsedErr;
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  return { authenticateUser, isLoading };
+};
+
+export const useLogout = () => {
+  const setSession = useStore((state) => state.setSession);
+
+  const logout = () => {
+    nakama.reset();
+    setSession(undefined);
+  };
+
+  return logout;
 };

@@ -5,14 +5,18 @@ import { CopyIcon, text } from "../../assets";
 import { Heading1, Heading4, Heading6, NewMatchHands, Link, PrimaryButton, GeneralText } from "../../components";
 import { COPIED_TEXT_TIMEOUT } from "../../constants";
 import { routes } from "../../navigation";
-import { useStore } from "../../store";
+import { parseMatchUrl } from "../../util";
 import { CopyLink, GoToLobbyButton, LinkCopied, NewMatchConfirmationContainer } from "./styles";
 
-export const NewMatchConfirmation: FC = () => {
+interface Props {
+  matchId: string;
+}
+
+export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
   const navigate = useNavigate();
   const [isLinkCopied, setIsLinkCopied] = useState(false);
-  const matchId = useStore((state) => state.matchId);
-  const matchUrl = useStore((state) => state.matchUrl);
+
+  const matchUrl = parseMatchUrl(matchId);
 
   const hideCopiedText = useCallback(() => {
     setIsLinkCopied(true);

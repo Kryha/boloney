@@ -1,5 +1,6 @@
 import { MatchData } from "@heroiclabs/nakama-js";
-import { ReactNode, useEffect } from "react";
+import { FC, ReactNode, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { z } from "zod";
 
 import {
@@ -14,8 +15,8 @@ import {
   ErrorView,
   Loading,
 } from "../../components";
-import { setIsMatchCreated, useMatchMaker } from "../../service";
-import { useStore } from "../../store";
+import { nakama, useJoinMatch } from "../../service";
+import { useSession, useStore } from "../../store";
 import {
   MatchOpCode,
   MatchStage,
@@ -25,7 +26,7 @@ import {
   stageTransitionSchema,
   playerOrderSchema,
   playerPublicSchema,
-  playerJoinedPayloadSchema,
+  playerJoinedPayloadBackendSchema,
   playerActivePayloadSchema,
   bidPayloadBackendSchema,
   boloneyPayloadBackendSchema,
@@ -33,14 +34,27 @@ import {
   playerUpdatePayloadBackendSchema,
   leaderboardUpdatePayloadBackendSchema,
 } from "../../types";
-import { parseMatchData } from "../../util";
+import { parseMatchData, parseMatchIdParam } from "../../util";
 
-export const Match = () => {
-  const { joinMatch, isLoading } = useMatchMaker();
+export const MatchRoute = () => {
+  const { matchId } = useParams();
+  if (!matchId) return <ErrorView />;
+
+  const parsedId = parseMatchIdParam(matchId);
+  if (!parsedId) return <ErrorView />;
+
+  return <Match matchId={parsedId} />;
+};
+
+interface MatchProps {
+  matchId: string;
+}
+
+export const Match: FC<MatchProps> = ({ matchId }) => {
+  const session = useSession();
 
   const matchStage = useStore((state) => state.matchStage);
-  const socket = useStore((state) => state.socket);
-  const session = useStore((state) => state.sessionState);
+  const isJoining = useStore((state) => state.isJoining);
   const setMatchStage = useStore((state) => state.setMatchStage);
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
@@ -52,22 +66,11 @@ export const Match = () => {
   const setLastAction = useStore((state) => state.setLastAction);
   const setLeaderboard = useStore((state) => state.setLeaderboard);
   const resetRound = useStore((state) => state.resetRound);
-
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+  const setMatchState = useStore((state) => state.setMatchState);
+  const setIsJoining = useStore((state) => state.setIsJoining);
 
-  const matchId = useStore((state) => state.matchId);
-
-  // TODO: uncomment when it will be synchronised with server, for now it's too annoying
-  // const syncState = useSyncState();
-  // const { matchId: unparsedId } = useParams();
-  // const matchIdFromUrl = parseMatchIdParam(unparsedId);
-
-  // useEffect(() => {
-  //   if (matchId && matchId !== matchIdFromUrl) {
-  //     clearLocalStorage();
-  //   }
-  //   if (matchIdFromUrl) syncState(matchIdFromUrl);
-  // }, [matchId, matchIdFromUrl, syncState]);
+  const isLoading = useJoinMatch(matchId);
 
   const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {
@@ -85,13 +88,8 @@ export const Match = () => {
   };
 
   useEffect(() => {
-    if (matchId && session?.username) joinMatch(matchId, { username: session.username });
-  }, [joinMatch, matchId, session?.username]);
-
-  useEffect(() => {
-    if (!socket) return;
-
-    socket.onmatchdata = (matchData: MatchData) => {
+    if (!session) return;
+    nakama.socket.onmatchdata = (matchData: MatchData) => {
       const parsedCode = matchOpCodeSchema.safeParse(matchData.op_code);
       if (!parsedCode.success) return;
 
@@ -107,7 +105,6 @@ export const Match = () => {
           const parsed = stageTransitionSchema.safeParse(data);
           if (!parsed.success) return;
 
-          if (parsed.data.matchStage === "getPowerUpStage") setIsMatchCreated();
           if (parsed.data.matchStage === "rollDiceStage") resetRound();
 
           setMatchStage(parsed.data.matchStage);
@@ -115,10 +112,10 @@ export const Match = () => {
           break;
         }
         case MatchOpCode.PLAYER_JOINED: {
-          const parsed = playerJoinedPayloadSchema.safeParse(data);
+          const parsed = playerJoinedPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
-          setPlayers(parsed.data.players);
-          setPlayerOrder(parsed.data.playerOrder);
+          setMatchState(parsed.data);
+          setIsJoining(false);
           break;
         }
         case MatchOpCode.PLAYER_READY: {
@@ -191,26 +188,25 @@ export const Match = () => {
     };
   }, [
     resetRound,
+    session,
     setActivePlayer,
     setBids,
     setDiceValue,
+    setIsJoining,
     setLastAction,
     setLeaderboard,
     setMatchStage,
+    setMatchState,
     setPlayerOrder,
     setPlayerReady,
     setPlayers,
     setPowerUpIds,
     setSpinnerVisibility,
-    socket,
   ]);
 
-  // TODO: generalise overlay and return that when awaiting a ws response
-  if (isLoading) return <Loading />;
+  if (isLoading || isJoining) return <Loading />;
 
   if (matchStage === "lobbyStage") return <Lobby />;
-
-  if (!matchId) return <ErrorView />;
 
   return (
     <MatchLayout>

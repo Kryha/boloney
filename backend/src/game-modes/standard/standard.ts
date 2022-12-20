@@ -4,12 +4,11 @@ import {
   getAvailableAvatar,
   handleError,
   handleInactiveMatch,
-  handlePlayerReconnect,
   hidePlayersData,
   setLosersAsReady,
   updateEmptyTicks,
 } from "../../services";
-import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayload } from "../../types";
+import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayloadBackend } from "../../types";
 import { handleStage } from "./stage-handlers";
 
 // This gets called when enough players are in a pool
@@ -71,7 +70,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
     // check whether the player previously left the match
     const playerReconnecting = state.players[presence.userId];
     if (playerReconnecting) {
-      state = handlePlayerReconnect(state, presence, logger);
+      state.presences[presence.userId] = presence;
       return { state, accept: true };
     }
 
@@ -113,9 +112,25 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
 // !don't do any operations related to state update in this function!
 export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger, _nk, dispatcher, _tick, state, _presences) => {
   try {
-    const players = hidePlayersData(state.players);
-    const payload: PlayerJoinedPayload = { players, playerOrder: state.playerOrder };
-    dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload));
+    const hiddenPlayers = hidePlayersData(state.players);
+
+    Promise.all(
+      Object.values(state.presences).map(async (presence) => {
+        const player = state.players[presence.userId];
+        const payload: PlayerJoinedPayloadBackend = {
+          players: hiddenPlayers,
+          playerOrder: state.playerOrder,
+          matchStage: state.matchStage,
+          powerUpIds: player.powerUpIds,
+          matchSettings: state.settings,
+          leaderboard: state.leaderboard,
+          hasRolledDice: player.hasRolledDice,
+          diceValue: player.diceValue,
+          bids: state.bids,
+        };
+        dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
+      })
+    );
 
     return { state };
   } catch (error) {
@@ -143,6 +158,10 @@ export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, 
   }
 };
 
+/**
+ * TODO: currently the match terminates after the creator leaves the end of match page
+ * TODO: see if there is away to keep it alive while the other players are in the match
+ */
 export const matchTerminate: nkruntime.MatchTerminateFunction<MatchState> = (
   _ctx,
   _logger,

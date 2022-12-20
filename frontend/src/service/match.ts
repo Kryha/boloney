@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { text } from "../assets";
-import { useStore } from "../store";
+import { useSession, useStore } from "../store";
 import { BidPayloadFrontend, BidWithUserId, MatchOpCode, NkResponse, PlayerPublic } from "../types";
 import { parseError } from "../util";
-import { clearLocalStorage, isInMatch, setLocalStorage } from "./local-storage";
+import { nakama } from "./nakama";
 
 export const useTotalDiceInMatch = (): number => {
   const players = useStore((state) => state.players);
@@ -27,7 +27,7 @@ export const useLatestBid = (): BidWithUserId | undefined => {
 };
 
 export const useOrderedPlayers = (): PlayerPublic[] => {
-  const session = useStore((state) => state.sessionState);
+  const session = useSession();
   const players = useStore((state) => state.players);
   const order = useStore((state) => state.playerOrder);
 
@@ -61,8 +61,8 @@ export const useIsInMatch = (): boolean => {
 };
 
 export const useLocalPlayer = (): PlayerPublic | undefined => {
+  const session = useSession();
   const players = useStore((state) => state.players);
-  const session = useStore((state) => state.sessionState);
 
   return useMemo(() => {
     if (!session || !session.user_id) return;
@@ -71,8 +71,8 @@ export const useLocalPlayer = (): PlayerPublic | undefined => {
 };
 
 export const useRemotePlayers = (): PlayerPublic[] => {
+  const session = useSession();
   const orderedPlayers = useOrderedPlayers();
-  const session = useStore((state) => state.sessionState);
 
   return useMemo(() => {
     if (!session || !session.user_id) return orderedPlayers;
@@ -90,7 +90,6 @@ export const useActivePlayer = (): PlayerPublic | undefined => {
 };
 
 export const useMatch = () => {
-  const socket = useStore((state) => state.socket);
   const matchId = useStore((state) => state.matchId);
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
@@ -100,11 +99,11 @@ export const useMatch = () => {
   const sendMatchState = useCallback(
     async (opCode: MatchOpCode, payload?: string): Promise<NkResponse> => {
       try {
-        if (!socket) throw new Error(text.error.noSocketConnected);
+        if (!nakama.socket) throw new Error(text.error.noSocketConnected);
         if (!matchId) throw new Error(text.error.noMatchIdFound);
 
         setIsLoading(true);
-        socket.sendMatchState(matchId, opCode, payload || "");
+        nakama.socket.sendMatchState(matchId, opCode, payload || "");
       } catch (error) {
         const parsedErr = await parseError(error);
         return parsedErr;
@@ -112,7 +111,7 @@ export const useMatch = () => {
         setIsLoading(false);
       }
     },
-    [matchId, socket]
+    [matchId]
   );
 
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
@@ -140,68 +139,4 @@ export const useMatch = () => {
     broadcastCallExact,
     broadcastCallBoloney,
   };
-};
-
-// TODO: maybe split this hook in one hook for loading and another one for saving
-export const useSyncState = () => {
-  const sessionState = useStore((state) => state.sessionState);
-  const matchId = useStore((state) => state.matchId);
-  const diceValue = useStore((state) => state.diceValue);
-  const matchStage = useStore((state) => state.matchStage);
-  const players = useStore((state) => state.players);
-  const bids = useStore((state) => state.bids);
-  const playerOrder = useStore((state) => state.playerOrder);
-  const matchUrl = useStore((state) => state.matchUrl);
-  const powerUpIds = useStore((state) => state.powerUpIds);
-  const matchSettings = useStore((state) => state.matchSettings);
-  const turnActionStep = useStore((state) => state.turnActionStep);
-  const action = useStore((state) => state.action);
-  const hasRolledDice = useStore((state) => state.hasRolledDice);
-  const leaderboard = useStore((state) => state.leaderboard);
-  const lastAction = useStore((state) => state.lastAction);
-
-  const loadLocalStorageToStore = useStore((state) => state.loadLocalStorageToStore);
-
-  return useCallback(
-    (matchIdFromUrl: string) => {
-      if (matchId && matchIdFromUrl !== matchId) clearLocalStorage();
-      if (isInMatch() && matchStage === "lobbyStage") loadLocalStorageToStore();
-      else
-        setLocalStorage({
-          sessionState,
-          matchId,
-          diceValue,
-          matchStage,
-          players,
-          bids,
-          playerOrder,
-          matchUrl,
-          powerUpIds,
-          matchSettings,
-          turnActionStep,
-          action,
-          hasRolledDice,
-          leaderboard,
-          lastAction,
-        });
-    },
-    [
-      action,
-      bids,
-      diceValue,
-      hasRolledDice,
-      lastAction,
-      leaderboard,
-      loadLocalStorageToStore,
-      matchId,
-      matchSettings,
-      matchStage,
-      matchUrl,
-      playerOrder,
-      players,
-      powerUpIds,
-      sessionState,
-      turnActionStep,
-    ]
-  );
 };

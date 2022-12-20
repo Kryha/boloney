@@ -1,87 +1,57 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { text } from "../assets/text";
-import {
-  DEFAULT_MATCH_SETTINGS,
-  DEFAULT_POOL_MAX_PLAYERS,
-  DEFAULT_POOL_MIN_PLAYERS,
-  DEFAULT_POOL_QUERY,
-  RPC_CREATE_MATCH,
-} from "../constants";
-import { useStore } from "../store";
-import { MatchJoinMetadata, MatchSettings, NkResponse } from "../types";
+import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH } from "../constants";
+import { useSession, useStore } from "../store";
+import { MatchSettings, NkResponse } from "../types";
 import { parseError } from "../util";
+import { nakama } from "./nakama";
 
-export const useMatchMaker = () => {
-  const socket = useStore((state) => state.socket);
+export const useJoinMatch = (matchId: string) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const session = useSession();
   const setMatchId = useStore((state) => state.setMatchId);
-  const [isLoading, setIsLoading] = useState(false);
-  const setInitialState = useStore((state) => state.setInitialState);
-  const setMatchSettings = useStore((state) => state.setMatchSettings);
+  const setIsJoining = useStore((state) => state.setIsJoining);
 
-  const joinMatch = useCallback(
-    async (matchId: string, metadata: MatchJoinMetadata): Promise<NkResponse> => {
+  useEffect(() => {
+    const join = async () => {
+      if (!session || !session.username) return;
       try {
-        if (!socket) throw new Error(text.error.noSocketConnected);
-
-        setIsLoading(true);
-        // TODO: set match settings
-        setMatchSettings(DEFAULT_MATCH_SETTINGS);
-        setInitialState();
-        setMatchId(matchId);
-        await socket.joinMatch(matchId, undefined, metadata);
+        setIsJoining(true);
+        const match = await nakama.socket.joinMatch(matchId, undefined, { username: session.username });
+        setMatchId(match.match_id);
       } catch (error) {
-        const parsedErr = await parseError(error);
-        return parsedErr;
+        setIsJoining(false);
+        console.info(error);
       } finally {
         setIsLoading(false);
       }
-    },
-    [socket, setMatchSettings, setInitialState, setMatchId]
-  );
+    };
+    join();
+  }, [matchId, session, setIsJoining, setMatchId]);
 
-  const joinPool = useCallback(async (): Promise<NkResponse> => {
-    try {
-      if (!socket) throw new Error(text.error.noSocketConnected);
-      setIsLoading(true);
+  return isLoading;
+};
 
-      // This is where the player get the ticket to join the match maker pool
-      await socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
-    } catch (error) {
-      const parsedErr = await parseError(error);
-      return parsedErr;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [socket]);
+export const createMatch = async (settings: MatchSettings): Promise<NkResponse<string>> => {
+  try {
+    const rpcRes = await nakama.socket.rpc(RPC_CREATE_MATCH, JSON.stringify(settings));
+    if (!rpcRes.payload) throw new Error(text.error.noPayloadReturned);
 
-  const createMatch = useCallback(
-    async (settings: MatchSettings): Promise<NkResponse<string>> => {
-      setIsLoading(true);
-      try {
-        if (!socket) throw new Error(text.error.noSocketConnected);
+    const parsed = JSON.parse(rpcRes.payload);
+    if (!parsed.match_id) throw new Error(text.error.receivedUnexpectedPayload);
 
-        const rpcRes = await socket.rpc(RPC_CREATE_MATCH, JSON.stringify(settings));
-        if (!rpcRes.payload) throw new Error(text.error.noPayloadReturned);
+    return parsed.match_id;
+  } catch (error) {
+    const parsedErr = await parseError(error);
+    return parsedErr;
+  }
+};
 
-        const parsed = JSON.parse(rpcRes.payload);
-        if (!parsed.match_id) throw new Error(text.error.receivedUnexpectedPayload);
-
-        return parsed.match_id;
-      } catch (error) {
-        const parsedErr = await parseError(error);
-        return parsedErr;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [socket]
-  );
-
-  return {
-    joinPool,
-    createMatch,
-    joinMatch,
-    isLoading,
-  };
+export const joinPool = async () => {
+  try {
+    await nakama.socket.addMatchmaker(DEFAULT_POOL_QUERY, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_MAX_PLAYERS);
+  } catch (error) {
+    console.info(error);
+  }
 };

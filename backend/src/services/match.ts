@@ -97,15 +97,6 @@ export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.Mat
   return false;
 };
 
-//TODO maybe add broadcast event to other players when a player reconnects
-export const handlePlayerReconnect = (state: MatchState, presence: nkruntime.Presence, logger: nkruntime.Logger): MatchState => {
-  if (state.players[presence.userId].status === "disconnected") {
-    state.players[presence.userId].status = "playing";
-    logger.info(state.players[presence.userId].userId, "reconnected");
-  }
-  return state;
-};
-
 export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, message: nkruntime.MatchMessage, error?: nkruntime.Error | string) => {
   if (error) {
     const parsedError = parseError(error);

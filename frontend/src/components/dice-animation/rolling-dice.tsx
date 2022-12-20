@@ -13,6 +13,8 @@ interface RollingDiceProps {
   dieType?: DieType;
 }
 
+// TODO: fix rendering on built version
+// TODO: fix the scenario when multiple re-joins make this component throw and the user gets out of the match view
 export const RollingDice: FC<RollingDiceProps> = ({ dice, dieColor, dieType = DieType.D6 }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const [roll, setRoll] = useState<DiceRoll | undefined>();

@@ -17,13 +17,12 @@ import {
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, isNkError, NkCode } from "../../types";
 import { routes } from "../../navigation";
-import { useAuth } from "../../service/auth";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 import { useStore } from "../../store";
+import { useAuthenticateUser } from "../../service";
 
-// TODO: make a form component
 export const LoginForm: FC = () => {
-  const { authenticateUser } = useAuth();
+  const { authenticateUser } = useAuthenticateUser();
   const navigate = useNavigate();
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const { width, height } = useViewport();

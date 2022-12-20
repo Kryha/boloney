@@ -18,13 +18,13 @@ import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constant
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, isNkError, NkCode } from "../../types";
 import { routes } from "../../navigation";
-import { useAuth } from "../../service";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 import { useStore } from "../../store";
+import { useAuthenticateUser } from "../../service";
 
 // TODO: make a form component
 export const CreateAccountForm: FC = () => {
-  const { authenticateUser } = useAuth();
+  const { authenticateUser } = useAuthenticateUser();
   const navigate = useNavigate();
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const { width, height } = useViewport();

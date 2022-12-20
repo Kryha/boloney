@@ -21,10 +21,10 @@ export const isAvatarId = (value: unknown): value is AvatarId => {
   return value >= 1 || value <= 7;
 };
 
-export type PlayerStatus = "playing" | "disconnected" | "lost";
+export type PlayerStatus = "playing" | "lost";
 
 export const isPlayerStatus = (value: unknown): value is PlayerStatus => {
-  const statuses: PlayerStatus[] = ["playing", "disconnected", "lost"];
+  const statuses: PlayerStatus[] = ["playing", "lost"];
   const assertedVal = value as PlayerStatus;
   return statuses.includes(assertedVal);
 };
@@ -137,6 +137,7 @@ export interface MatchSettings {
   dicePerPlayer: number;
   initialPowerUpAmount: number;
   maxPowerUpAmount: number;
+  availablePowerUps: PowerUpId[];
   healPowerUpAmount: number;
   stageNumberDivisor: number;
   drawRoundOffset: number;
@@ -226,7 +227,7 @@ export enum MatchOpCode {
   STOP_LOADING = 13,
   PLAYER_UPDATE = 14,
   LEADERBOARD_UPDATE = 15,
-  ERROR = 17, // TODO: send as a notification
+  ERROR = 16, // TODO: send as a notification
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {

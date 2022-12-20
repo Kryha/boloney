@@ -1,9 +1,18 @@
-import { Session } from "@heroiclabs/nakama-js";
 import { produce } from "immer";
 import { StateCreator } from "zustand";
 
-import { getLocalStorage } from "../service";
-import { Die, MatchStage, PowerUpId, PlayerPublic, MatchSettings, Bid, TurnActionStep, TurnAction, Action } from "../types";
+import {
+  Die,
+  MatchStage,
+  PowerUpId,
+  PlayerPublic,
+  MatchSettings,
+  Bid,
+  TurnActionStep,
+  TurnAction,
+  PlayerJoinedPayloadBackend,
+  Action,
+} from "../types";
 
 interface RoundState {
   hasRolledDice: boolean;
@@ -14,12 +23,11 @@ interface RoundState {
 }
 
 export interface MatchSliceState extends RoundState {
-  sessionState?: Session;
+  isJoining: boolean;
   matchId?: string;
   matchStage: MatchStage;
   players: Record<string, PlayerPublic>;
   playerOrder: string[];
-  matchUrl: string;
   powerUpIds: PowerUpId[];
   matchSettings?: MatchSettings;
   leaderboard: PlayerPublic[];
@@ -27,20 +35,16 @@ export interface MatchSliceState extends RoundState {
 }
 
 interface MatchSliceSetters {
-  setSession: (session: Session) => void;
-  setMatchId: (match_id: string) => void;
+  setIsJoining: (isJoining: boolean) => void;
+  setMatchId: (matchId: string) => void;
   setDiceValue: (diceValue: Die[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
   setPlayers: (players: Record<string, PlayerPublic>) => void;
   setPlayerOrder: (playerOrder: string[]) => void;
-  setInitialState: () => void;
-  setMatchUrl: (matchUrl: string) => void;
   setPowerUpIds: (ids: PowerUpId[]) => void;
   setActivePlayer: (playerId: string) => void;
-  setMatchSettings: (matchSettings: MatchSettings) => void;
   setHasRolledDice: (hasRolledDice: boolean) => void;
-  setMatchState: (matchState: MatchSliceState) => void;
-  loadLocalStorageToStore: () => void;
+  setMatchState: (payload: PlayerJoinedPayloadBackend) => void;
   setTurnActionStep: (turnActionStep: TurnActionStep) => void;
   setAction: (action: TurnAction) => void;
   setBids: (bids: Record<string, Bid>) => void;
@@ -60,11 +64,10 @@ const initialRoundState: RoundState = {
 };
 
 const initialMatchState: MatchSliceState = {
-  matchId: undefined,
+  isJoining: false,
   matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
-  matchUrl: "",
   powerUpIds: [],
   matchSettings: undefined,
   leaderboard: [],
@@ -75,14 +78,12 @@ const initialMatchState: MatchSliceState = {
 export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
   ...initialMatchState,
 
-  setSession: (session) => set(() => ({ sessionState: session })),
+  setIsJoining: (isJoining) => set(() => ({ isJoining })),
   setMatchId: (matchId) => set(() => ({ matchId })),
   setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
   setMatchStage: (matchStage) => set(() => ({ matchStage })),
   setPlayers: (players) => set(() => ({ players })),
   setPlayerOrder: (playerOrder) => set(() => ({ playerOrder })),
-  setMatchUrl: (matchUrl) => set(() => ({ matchUrl })),
-  setInitialState: () => set(({ matchSettings }) => ({ ...initialMatchState, matchSettings: matchSettings })),
   setPowerUpIds: (powerUpIds) => set(() => ({ powerUpIds })),
   setActivePlayer: (playerId: string) => {
     set(
@@ -93,10 +94,8 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
       })
     );
   },
-  setMatchSettings: (matchSettings) => set(() => ({ matchSettings })),
   setHasRolledDice: (hasRolledDice) => set(() => ({ hasRolledDice })),
-  setMatchState: (matchState) => set(() => ({ ...matchState })),
-  loadLocalStorageToStore: () => set(() => ({ ...getLocalStorage() })),
+  setMatchState: (payload) => set(() => ({ ...payload })),
   setBids: (bids) => set(() => ({ bids })),
   resetRound: () =>
     set(
