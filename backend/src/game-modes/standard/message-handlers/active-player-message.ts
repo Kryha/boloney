@@ -2,12 +2,14 @@ import {
   errors,
   getLatestBid,
   getNextPlayerId,
+  getFilteredPlayerIds,
   getTotalDiceWithFace,
   handlePlayerLoss,
   hidePlayersData,
   isBidHigher,
   isBidMaxTotal,
   messageHandler,
+  sendNotification,
   setActivePlayer,
   setAllPlayersReady,
   stopLoading,
@@ -19,6 +21,9 @@ import {
   isBidPayloadFrontend,
   MatchLoopParams,
   MatchOpCode,
+  NotificationContentCallBoloney,
+  NotificationContentCallExact,
+  NotificationOpCode,
   Player,
 } from "../../../types";
 
@@ -48,14 +53,23 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
 });
 
 const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => {
-  const { logger, state, dispatcher } = loopParams;
+  const { nk, logger, state, dispatcher } = loopParams;
 
   logger.info(sender.username, "called Boloney");
-
   setActivePlayer(sender.userId, state.players);
 
   const bid = getLatestBid(state.bids);
   if (!bid) throw errors.invalidPayload;
+
+  //TODO set in notification function
+  const notificationContent: NotificationContentCallBoloney = {
+    activePlayerName: state.presences[sender.userId].username,
+    targetPlayerName: state.presences[bid.userId].username,
+  };
+
+  const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
+
+  sendNotification(nk, idlePlayers, NotificationOpCode.BOLONEY, notificationContent);
 
   const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
@@ -69,7 +83,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
   loser.actionRole = "loser";
   winner.actionRole = "winner";
 
-  if (loser.diceAmount <= 0) handlePlayerLoss(state, loser);
+  if (loser.diceAmount <= 0) handlePlayerLoss(loopParams, loser);
 
   setAllPlayersReady(state);
 
@@ -83,7 +97,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
 });
 
 const handlePlayerCallExact = messageHandler((loopParams, message, sender) => {
-  const { logger, state, dispatcher } = loopParams;
+  const { nk, logger, state, dispatcher } = loopParams;
 
   logger.info(sender.username, "called Exact");
 
@@ -91,6 +105,14 @@ const handlePlayerCallExact = messageHandler((loopParams, message, sender) => {
 
   const bid = getLatestBid(state.bids);
   if (!bid) throw errors.invalidPayload;
+
+  const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
+
+  const notificationContent: NotificationContentCallExact = {
+    activePlayerName: state.presences[sender.userId].username,
+  };
+
+  sendNotification(nk, idlePlayers, NotificationOpCode.EXACT, notificationContent);
 
   const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
@@ -104,7 +126,7 @@ const handlePlayerCallExact = messageHandler((loopParams, message, sender) => {
   loser.actionRole = "loser";
   winner.actionRole = "winner";
 
-  if (loser.diceAmount <= 0) handlePlayerLoss(state, loser);
+  if (loser.diceAmount <= 0) handlePlayerLoss(loopParams, loser);
 
   setAllPlayersReady(state);
 

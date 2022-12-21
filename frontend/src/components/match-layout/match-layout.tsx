@@ -9,6 +9,7 @@ import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
 import { PlayerMenu } from "../player-menu";
 import { useIsInMatch, useLocalPlayer } from "../../service";
+import { MatchNotification } from "../notification";
 
 interface MatchLayoutProps {
   children?: ReactNode;
@@ -36,6 +37,7 @@ export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
 
       <MainContentContainer isStageWithHUD={isStageWithHUD(matchStage)} isInMatch={isInMatch}>
         <ContentContainer>{children}</ContentContainer>
+        <MatchNotification />
       </MainContentContainer>
     </>
   );

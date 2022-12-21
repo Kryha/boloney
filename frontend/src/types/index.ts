@@ -8,3 +8,4 @@ export * from "./power-up";
 export * from "./die";
 export * from "./ui";
 export * from "./bid";
+export * from "./notification";

@@ -70,7 +70,7 @@ export const env = {
     if (ctx.env.TOOLKIT_BASE_URL) this.TOOLKIT_BASE_URL = ctx.env.TOOLKIT_BASE_URL;
   },
 };
-
+export const NOT_USED = "Don't use this title";
 export const MATCH_STAGES: readonly MatchStage[] = [
   "lobbyStage",
   "getPowerUpStage",

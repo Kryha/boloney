@@ -1,4 +1,15 @@
-import { Bid, BidPayloadFrontend, BidWithUserId, MatchState, Player, PlayerPublic } from "../types";
+import {
+  Bid,
+  BidPayloadFrontend,
+  BidWithUserId,
+  MatchLoopParams,
+  MatchState,
+  NotificationOpCode,
+  NotificationContentPlayerLost,
+  Player,
+  PlayerPublic,
+} from "../types";
+import { sendNotification } from "./notification";
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
   if (state.playersReady.includes(userId)) return;
@@ -36,6 +47,12 @@ export const getOtherPresences = (currentPlayerId: string, presences: Record<str
   return Object.entries(presences)
     .filter((presenceRecord) => presenceRecord[0] !== currentPlayerId)
     .map((presenceRecord) => presenceRecord[1]);
+};
+
+export const getFilteredPlayerIds = (players: Record<string, Player>, playerId: string): string[] => {
+  return Object.values(players).reduce((acc, player) => {
+    return player.userId !== playerId ? acc.concat(player.userId) : acc;
+  }, [] as string[]);
 };
 
 export const setActivePlayer = (activePlayerId: string, players: Record<string, Player>): string => {
@@ -76,7 +93,8 @@ export const getTotalDiceWithFace = (players: Record<string, Player>, face: numb
     0
   );
 
-export const handlePlayerLoss = (state: MatchState, loser: Player) => {
+export const handlePlayerLoss = (loopParams: MatchLoopParams, loser: Player) => {
+  const { nk, state } = loopParams;
   state.leaderboard.unshift(hidePlayerData(loser));
 
   loser.status = "lost";
@@ -85,6 +103,10 @@ export const handlePlayerLoss = (state: MatchState, loser: Player) => {
   if (playersInGame.length === 1) {
     state.leaderboard.unshift(hidePlayerData(playersInGame[0]));
   }
+  const notificationContent: NotificationContentPlayerLost = {
+    activePlayerName: loser.username,
+  };
+  sendNotification(nk, getFilteredPlayerIds(state.players, loser.userId), NotificationOpCode.PLAYER_LOST, notificationContent);
 };
 
 export const getLatestBid = (bids: Record<string, Bid>): BidWithUserId | undefined =>

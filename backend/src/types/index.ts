@@ -9,3 +9,4 @@ export * from "./api";
 export * from "./bid";
 export * from "./functions";
 export * from "./status-codes";
+export * from "./notifications";
