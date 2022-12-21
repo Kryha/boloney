@@ -121,8 +121,10 @@ const handlePlayerCallExact = messageHandler((loopParams, message, sender) => {
 
   const [winner, loser] = bid.amount === totalDice ? [sender, target] : [target, sender];
 
-  // TODO: implement ZK lose dice logic
-  loser.diceAmount -= 1;
+  if (loser.userId === sender.userId) {
+    loser.diceAmount -= 1;
+  }
+  // TODO: if caller is winner, give them power-ups
   loser.actionRole = "loser";
   winner.actionRole = "winner";
 
