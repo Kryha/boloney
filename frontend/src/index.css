@@ -14,11 +14,9 @@
 
 canvas {
   position: fixed;
-  width: 50vw;
-  height: 50vh;
   left: 12.5vw;
-  top: 10vh;
 }
+
 @font-face {
   font-family: "itc-clearface-black-italic";
   src: url("./assets/fonts/itc-clearface-W03-Black-italic.otf") format("opentype");

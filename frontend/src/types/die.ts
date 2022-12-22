@@ -11,3 +11,9 @@ export const rollDicePayloadSchema = z.object({
 });
 
 export type RollDicePayload = z.infer<typeof rollDicePayloadSchema>;
+
+export const rollDiceAssetsSchema = z.object({
+  assets: z.array(z.string()),
+});
+
+export type RollDiceAssets = z.infer<typeof rollDiceAssetsSchema>;

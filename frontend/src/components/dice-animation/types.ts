@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { avatarColorSchema } from "../../types";
+
 export enum DieType {
   D4 = "d4",
   D6 = "d6",
@@ -21,5 +23,7 @@ export const diceRollSchema = baseDBSchema.extend({
   amount: z.preprocess((n) => (typeof n === "string" ? Number(n) : n), z.number().int().positive()),
   result: z.array(z.object({ type: dieTypeSchema, roll: z.number().positive() })),
   campaignId: z.number().int().positive().optional().nullable(),
-  color: z.string(),
+  color: avatarColorSchema,
 });
+
+export type DiceRoll = z.infer<typeof diceRollSchema>;

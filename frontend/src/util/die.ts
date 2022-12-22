@@ -1,4 +1,4 @@
 import { avatars } from "../assets";
-import { PlayerPublic } from "../types";
+import { AvatarColor, PlayerPublic } from "../types";
 
-export const getDieColor = (player: PlayerPublic): string => avatars[player.avatarId].color;
+export const getDieColor = (player: PlayerPublic): AvatarColor => avatars[player.avatarId].color;

@@ -1,15 +1,9 @@
 import * as CANNON from "cannon";
 import * as THREE from "three";
-import { BufferGeometry } from "three";
+import { BufferGeometry, LoadingManager, MeshBasicMaterial, TextureLoader } from "three";
 
-const zeroDie = "/src/assets/images/zero-die.png";
-const zeroOneDie = "/src/assets/images/zero-one-die.png";
-const oneDie = "/src/assets/images/one-die.png";
-const twoDie = "/src/assets/images/two-die.png";
-const threeDie = "/src/assets/images/three-die.png";
-const fourDie = "/src/assets/images/four-die.png";
-const fiveDie = "/src/assets/images/five-die.png";
-const sixDie = "/src/assets/images/six-die.png";
+import { rollDice } from "../../assets";
+import { AvatarColor } from "../../types";
 
 class DiceManagerClass {
   diceBodyMaterial?: CANNON.Material;
@@ -41,7 +35,7 @@ class DiceManagerClass {
   }
 
   prepareValues(diceValues: { dice: DiceObject; value: number; vectors?: Vectors; stableCount?: number }[]) {
-    if (this.throwRunning) throw new Error("Cannot start another throw. Please wait, till the current throw is finished.");
+    if (this.throwRunning) throw new Error("Cannot start another roll. Please wait, till the current roll is finished.");
 
     for (let i = 0; i < diceValues.length; i++) {
       if (diceValues[i].value < 1 || diceValues[i].dice.values < diceValues[i].value) {
@@ -96,7 +90,7 @@ class DiceManagerClass {
 export interface DiceOptions {
   size: number;
   fontColor: string;
-  backColor: string;
+  backColor: AvatarColor;
 }
 
 interface Vectors {
@@ -119,7 +113,7 @@ export abstract class DiceObject {
     flatShading: boolean;
   };
   labelColor: string;
-  diceColor: string;
+  diceColor: AvatarColor;
 
   tab!: number;
   af!: number;
@@ -141,7 +135,7 @@ export abstract class DiceObject {
     options = this.setDefaults(options, {
       size: 100,
       fontColor: "#000000",
-      backColor: "#ffffff",
+      backColor: "#5573F6",
     });
 
     (this.object as any) = null;
@@ -150,7 +144,7 @@ export abstract class DiceObject {
 
     this.materialOptions = {
       specular: 0x172022,
-      color: 0xf0f0f0,
+      color: 0xffffff,
       shininess: 1,
       flatShading: true,
     };
@@ -438,26 +432,52 @@ export abstract class DiceObject {
   }
 
   getMaterials() {
-    const materials = [];
-    for (let i = 0; i < (this.faceTexts?.length ?? 0); ++i) {
-      // TODO: make smart component
-      const texture0 = new THREE.TextureLoader().load(zeroDie);
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture0 })));
-      const texture01 = new THREE.TextureLoader().load(zeroOneDie);
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture01 })));
-      const texture1 = new THREE.TextureLoader().load(oneDie);
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture1 })));
-      const texture2 = new THREE.TextureLoader().load(twoDie);
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture2 })));
-      const texture3 = new THREE.TextureLoader().load(threeDie);
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture3 })));
-      const texture4 = new THREE.TextureLoader().load(fourDie);
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture4 })));
-      const texture5 = new THREE.TextureLoader().load(fiveDie);
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture5 })));
-      const texture6 = new THREE.TextureLoader().load(sixDie);
-      materials.push(new THREE.MeshPhongMaterial(Object.assign({}, this.materialOptions, { map: texture6 })));
-    }
+    const materials: MeshBasicMaterial[] = [];
+
+    const dice = rollDice[this.diceColor];
+
+    if (!dice) throw new Error("dice assets not found");
+
+    const getTextures = () =>
+      new Promise((resolve) => {
+        const manager: LoadingManager = new LoadingManager(() => resolve(textures));
+        const loader = new TextureLoader(manager);
+        const textures = [
+          dice.assets[0],
+          dice.assets[1],
+          dice.assets[2],
+          dice.assets[3],
+          dice.assets[4],
+          dice.assets[5],
+          dice.assets[6],
+          dice.assets[7],
+        ].map((filename) => loader.load(filename));
+      });
+
+    getTextures().then((result) => {
+      const textures = result as THREE.Texture[];
+
+      const zero = new MeshBasicMaterial({ map: textures[0] });
+      const zeroOne = new MeshBasicMaterial({ map: textures[1] });
+      const one = new MeshBasicMaterial({ map: textures[2] });
+      const two = new MeshBasicMaterial({ map: textures[3] });
+      const three = new MeshBasicMaterial({ map: textures[4] });
+      const four = new MeshBasicMaterial({ map: textures[5] });
+      const five = new MeshBasicMaterial({ map: textures[6] });
+      const six = new MeshBasicMaterial({ map: textures[7] });
+
+      materials.push(zero);
+      materials.push(zeroOne);
+      materials.push(one);
+      materials.push(two);
+      materials.push(three);
+      materials.push(four);
+      materials.push(five);
+      materials.push(six);
+
+      return materials;
+    });
+
     return materials;
   }
 
@@ -501,16 +521,12 @@ export abstract class DiceObject {
   resetBody() {
     if (!this.object?.body) throw new Error("object not initialized");
     this.object.body.vlambda = new CANNON.Vec3();
-    //this.object.body.collisionResponse = true;
     this.object.body.position = new CANNON.Vec3();
     this.object.body.previousPosition = new CANNON.Vec3();
     this.object.body.initPosition = new CANNON.Vec3();
     this.object.body.velocity = new CANNON.Vec3();
     this.object.body.initVelocity = new CANNON.Vec3();
     this.object.body.force = new CANNON.Vec3();
-    //this.object.body.sleepState = 0;
-    //this.object.body.timeLastSleepy = 0;
-    //this.object.body._wakeUpAfterNarrowphase = false;
     this.object.body.torque = new CANNON.Vec3();
     this.object.body.quaternion = new CANNON.Quaternion();
     this.object.body.initQuaternion = new CANNON.Quaternion();
@@ -521,19 +537,14 @@ export abstract class DiceObject {
     this.object.body.inertia = new CANNON.Vec3();
     this.object.body.invInertia = new CANNON.Vec3();
     this.object.body.invInertiaWorld = new CANNON.Mat3();
-    //this.object.body.invMassSolve = 0;
     this.object.body.invInertiaSolve = new CANNON.Vec3();
-    // @ts-ignore
-    this.object.body.invInertiaWorldSolve = new CANNON.Mat3();
-    //this.object.body.aabb = new CANNON.AABB();
-    //this.object.body.aabbNeedsUpdate = true;
     this.object.body.wlambda = new CANNON.Vec3();
 
     this.object.body.updateMassProperties();
   }
 
-  updateMaterialsForValue(diceValue: any) {
-    //
+  updateMaterialsForValue(_diceValue: unknown) {
+    // empty
   }
 }
 
@@ -565,7 +576,7 @@ export class DiceD4 extends DiceObject {
       [[], [0, 0, 0], [4, 2, 3], [1, 4, 3], [4, 1, 2], [1, 3, 2]],
     ];
     this.faceTexts = this.d4FaceTexts[0];
-    this.updateMaterialsForValue = function (diceValue) {
+    this.updateMaterialsForValue = function (diceValue: number) {
       if (diceValue < 0) diceValue += 4;
       this.faceTexts = this.d4FaceTexts[diceValue];
       this.object.material = this.getMaterials();
@@ -627,7 +638,7 @@ export class DiceD6 extends DiceObject {
     ];
     this.scaleFactor = 0.5;
     this.values = 6;
-    this.faceTexts = [" ", "", "1", "2", "3", "4", "5", "6", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+    this.faceTexts = ["1", "2", "3", "4", "5", "6"];
 
     this.textMargin = 2;
     this.mass = 300;
@@ -970,7 +981,6 @@ export class DiceD100 extends DiceObject {
     this.mass = 350;
     this.inertia = 9;
 
-    // @ts-ignore
     this.create();
   }
 }

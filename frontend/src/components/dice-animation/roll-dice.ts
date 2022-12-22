@@ -1,7 +1,7 @@
 import * as CANNON from "cannon";
 import { MutableRefObject } from "react";
 import * as THREE from "three";
-import { DiceRoll } from "./index";
+import { DiceRoll } from "./types";
 import { OrbitControls } from "three-orbitcontrols-ts";
 import { DiceD10, DiceD100, DiceD100D10, DiceD12, DiceD20, DiceD4, DiceD6, DiceD8, DiceManager, DiceObject } from "./dice";
 
@@ -26,6 +26,7 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
   renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.setPixelRatio(window.devicePixelRatio);
 
   ref?.current.appendChild(renderer.domElement);
   // EVENTS
@@ -71,7 +72,84 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
   floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
   world.addBody(floorBody);
 
-  const size = 11;
+  // barrier
+  let barrier = new CANNON.Body({
+    mass: 0,
+    shape: new CANNON.Box(new CANNON.Vec3(1, 10, 50)),
+  });
+
+  let wall = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 5, 120),
+    new THREE.MeshPhongMaterial({
+      color: "#0000aa",
+      opacity: 0,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+  );
+
+  //top
+  barrier = new CANNON.Body({
+    mass: 0,
+    shape: new CANNON.Box(new CANNON.Vec3(1, 10, 50)),
+  });
+  barrier.position.set(20 * ASPECT, 0, 0);
+  world.addBody(barrier);
+
+  wall = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 5, 120),
+    new THREE.MeshPhongMaterial({
+      color: "#0000aa",
+      opacity: 0,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+  );
+  wall.quaternion.set(barrier.quaternion.x, barrier.quaternion.y, barrier.quaternion.z, barrier.quaternion.w);
+  wall.position.set(barrier.position.x, barrier.position.y, barrier.position.z);
+  scene.add(wall);
+  // left
+  barrier = new CANNON.Body({
+    mass: 0,
+    shape: new CANNON.Box(new CANNON.Vec3(75, 50, 1)),
+  });
+  barrier.position.set(0, 0, -50);
+  world.addBody(barrier);
+
+  wall = new THREE.Mesh(
+    new THREE.BoxGeometry(75, 5, 1),
+    new THREE.MeshPhongMaterial({
+      color: "#0000aa",
+      opacity: 0,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+  );
+  wall.quaternion.set(barrier.quaternion.x, barrier.quaternion.y, barrier.quaternion.z, barrier.quaternion.w);
+  wall.position.set(barrier.position.x, barrier.position.y, barrier.position.z);
+  scene.add(wall);
+  // right
+  barrier = new CANNON.Body({
+    mass: 0,
+    shape: new CANNON.Box(new CANNON.Vec3(75, 50, 1)),
+  });
+  barrier.position.set(0, 0, 48);
+  world.addBody(barrier);
+
+  wall = new THREE.Mesh(
+    new THREE.BoxGeometry(75, 5, 1),
+    new THREE.MeshPhongMaterial({
+      color: "#0000aa",
+      opacity: 0,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+  );
+  wall.quaternion.set(barrier.quaternion.x, barrier.quaternion.y, barrier.quaternion.z, barrier.quaternion.w);
+  wall.position.set(barrier.position.x, barrier.position.y, barrier.position.z);
+  scene.add(wall);
+
+  const size = 8;
   const dice: DiceObject[] = [];
   const diceValues = [];
   for (const result of roll.result) {
@@ -81,7 +159,7 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
         die = new DiceD4({
           size,
           fontColor: "white",
-          backColor: "black",
+          backColor: "#5573F6",
         });
         scene.add(die.getObject());
         dice.push(die);
@@ -101,7 +179,7 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
         die = new DiceD8({
           size,
           fontColor: "white",
-          backColor: "black",
+          backColor: "#5573F6",
         });
         scene.add(die.getObject());
         dice.push(die);
@@ -111,7 +189,7 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
         die = new DiceD10({
           size,
           fontColor: "white",
-          backColor: "black",
+          backColor: "#5573F6",
         });
         scene.add(die.getObject());
         dice.push(die);
@@ -121,7 +199,7 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
         die = new DiceD12({
           size,
           fontColor: "white",
-          backColor: "black",
+          backColor: "#5573F6",
         });
         scene.add(die.getObject());
         dice.push(die);
@@ -131,7 +209,7 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
         die = new DiceD20({
           size,
           fontColor: "white",
-          backColor: "black",
+          backColor: "#5573F6",
         });
         scene.add(die.getObject());
         dice.push(die);
@@ -142,13 +220,13 @@ export const rollDice = (ref: MutableRefObject<any>, roll: DiceRoll) => {
         const die1 = new DiceD100({
           size,
           fontColor: "white",
-          backColor: "black",
+          backColor: "#5573F6",
         });
         // eslint-disable-next-line no-case-declarations
         const die2 = new DiceD100D10({
           size,
           fontColor: "white",
-          backColor: "black",
+          backColor: "#5573F6",
         });
         scene.add(die1.getObject());
         scene.add(die2.getObject());

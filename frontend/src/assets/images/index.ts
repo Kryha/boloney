@@ -26,6 +26,8 @@ import PercentageIcon from "./percentage.svg";
 import BoloneyToaster from "./boloney-toaster.png";
 import ExactDartBoard from "./exact-dart-board.png";
 
+export * from "./dice-assets";
+
 export {
   Hand,
   HookHand,

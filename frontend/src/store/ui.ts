@@ -7,8 +7,6 @@ export interface UISlice {
   modalComponentChildren?: OverlayComponent;
   isContainerVisible: boolean;
   isModalButtonVisible: boolean;
-  isDiceThrown: boolean;
-  isDiceStable: boolean;
   isLoadingSpinnerVisible: boolean;
   isPlayerReady: boolean;
 
@@ -16,8 +14,6 @@ export interface UISlice {
   closeModal: () => void;
   setModalWithoutContainer: (isVisible: boolean) => void;
   setModalWithContainer: (isVisible: boolean) => void;
-  setIsDiceThrown: (isDiceThrown: boolean) => void;
-  setIsDiceStable: (isDiceStable: boolean) => void;
   setSpinnerVisibility: (isVisible: boolean) => void;
   setPlayerReady: (isReady: boolean) => void;
 }
@@ -28,8 +24,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   modalComponentChildren: undefined,
   isContainerVisible: false,
   isModalButtonVisible: false,
-  isDiceThrown: false,
-  isDiceStable: true,
   isLoadingSpinnerVisible: false,
   isPlayerReady: false,
 
@@ -55,8 +49,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
       isOverlayVisible: isVisible,
       isContainerVisible: isVisible,
     })),
-  setIsDiceThrown: (isDiceThrown) => set(() => ({ isDiceThrown })),
-  setIsDiceStable: (isDiceStable) => set(() => ({ isDiceStable })),
   setSpinnerVisibility: (isVisible: boolean) =>
     set(() => ({
       modalComponentChildren: isVisible ? "sausage-spinner" : undefined,
