@@ -8,4 +8,5 @@ export const notifications = {
   playerIsCallingBoloneyOnYou: (activePlayer: string) => `${activePlayer} is calling boloney against you... Good luck!`,
   idlePlayerCallingBoloney: (activeUsername: string, targetPlayer: string) =>
     `${activeUsername} is calling boloney against ${targetPlayer}...  Wait and see the result of this bold move!`,
+  playerLeftTheMatch: (player: string) => `${player} left the match...`,
 };

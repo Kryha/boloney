@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import { LightningIcon, TimerIcon } from "../../assets/icons";
 import { color, margins, zIndex } from "../../design";
+import { NavigationLocation } from "../../types";
 import { GeneralText, Heading6, HorizontalDivider, Paragraph } from "../atoms";
 import { Link } from "../buttons";
 import { ButtonContainer as DropDownButtonContainer } from "../buttons/styles";
@@ -80,7 +81,7 @@ export const ChildrenContainer = styled(DropdownWrapper)<DropdownProps>`
   background: ${color.lightGrey};
 `;
 interface MenuProps {
-  isInMatch?: boolean;
+  location: NavigationLocation;
 }
 
 export const MenuContainer = styled.div<MenuProps>`
@@ -90,13 +91,18 @@ export const MenuContainer = styled.div<MenuProps>`
   align-items: flex-end;
   background: ${color.white};
   box-shadow: 0px 0px 28px rgb(0 0 0 / 10%);
-  ${({ isInMatch }) =>
-    isInMatch
+  ${({ location }) =>
+    location === "default"
       ? ""
       : `
-        ${HorizontalDivider} {
-          display: none;
-        }
+      ${HorizontalDivider} {
+        display: none;
+      }
+`};
+  ${({ location }) =>
+    location !== "match"
+      ? ""
+      : `
         ${MatchStatsContainer} {
           display: none;
         }

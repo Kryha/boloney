@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
 import { routes } from "../../navigation";
-import { useLogout } from "../../service";
+import { useLogout, useMatch } from "../../service";
 import { useSession, useStore } from "../../store";
+import { isNkError } from "../../types";
 import { HorizontalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
@@ -12,20 +13,23 @@ import { Dropdown } from "./dropdown";
 import { MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
 
+type NavigationLocation = "match" | "lobby" | "default";
 interface MenuDropdownProps {
   setHover?: (hover: boolean) => void;
   isActive: boolean;
-  isInMatch?: boolean;
+  location?: NavigationLocation;
   setActiveDropdown: (dropdown: ActiveDropdown) => void;
 }
 
-export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown, isInMatch }) => {
+export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown, location }) => {
   const navigate = useNavigate();
   const session = useSession();
 
   const logout = useLogout();
   const setModalWithContainer = useStore((state) => state.setModalWithContainer);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
+  const { broadcastPlayerLeft } = useMatch();
+  const currentLocation = location || "default";
 
   const handleLogout = () => {
     logout();
@@ -38,9 +42,14 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
     setModalComponentChildren("match-settings-overview");
   };
 
-  const leaveMatch = () => {
-    // TODO: call game server
-    navigate(routes.home);
+  const leaveMatch = async () => {
+    const res = await broadcastPlayerLeft();
+    if (isNkError(res)) {
+      // TODO: show error to user
+      console.warn(res);
+    } else {
+      navigate(routes.home);
+    }
   };
 
   return (
@@ -51,15 +60,17 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       buttonText={text.general.menu}
       buttonIcon={<Ellipsis />}
     >
-      <MenuContainer isInMatch={isInMatch}>
-        {isInMatch && <DropdownButton text={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => handleSettings()} />}
+      <MenuContainer location={currentLocation}>
+        {location !== "default" && (
+          <DropdownButton text={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => handleSettings()} />
+        )}
         {!!session && (
           <>
             <HorizontalDivider />
             <DropdownButton onClick={() => handleLogout()} text={text.general.logout} icon={<LogoutIcon />} />
           </>
         )}
-        {isInMatch && (
+        {location && location !== "default" && (
           <>
             <HorizontalDivider />
             <DropdownButton onClick={() => leaveMatch()} text={text.general.leaveMatch} icon={<ExitIcon />} />

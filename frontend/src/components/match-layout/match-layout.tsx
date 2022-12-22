@@ -22,12 +22,13 @@ export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
   const isInMatch = useIsInMatch();
+  const location = isInMatch ? "match" : "default";
 
   if (!localPlayer) return <ErrorView />;
 
   return (
     <>
-      <TopNavigation isInMatch={isInMatch} />
+      <TopNavigation location={location} />
 
       <MatchPlayersOverview />
 

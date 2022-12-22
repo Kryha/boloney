@@ -40,3 +40,10 @@ export const leaderboardUpdatePayloadBackendSchema = z.object({
   leaderboard: z.array(playerPublicSchema),
 });
 export type LeaderboardUpdatePayloadBackend = z.infer<typeof leaderboardUpdatePayloadBackendSchema>;
+
+export const playerLeftPayloadBackend = z.object({
+  players: z.record(playerPublicSchema),
+  playerOrder: z.array(z.string()),
+  stage: matchStageSchema,
+  leaderboard: z.array(playerPublicSchema).optional(),
+});

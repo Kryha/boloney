@@ -8,6 +8,7 @@ export enum NotificationOpCode {
   BOLONEY = 11,
   ERROR = 17,
   PLAYER_LOST = 18,
+  PLAYER_LEFT = 19,
 }
 
 export interface NotificationContentPlayerLost {

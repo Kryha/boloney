@@ -153,6 +153,22 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
         boldText: [],
       };
     }
+    case NotificationOpCode.PLAYER_LEFT: {
+      const parsedNotificationContent = notificationPlayerLostSchema.safeParse(notification.content);
+
+      if (!parsedNotificationContent.success) return defaultUnknownError;
+
+      const { activePlayerName } = parsedNotificationContent.data;
+
+      return {
+        //TODO: Change image to figma design
+        id: notification.id,
+        img: BoloneyToaster,
+        title: text.notifications.playerLeftTheMatch(activePlayerName),
+        description: "",
+        boldText: [activePlayerName],
+      };
+    }
     default:
       return defaultUnknownError;
   }

@@ -65,6 +65,11 @@ export const resetActivePlayer = (players: Record<string, Player>): void => {
   Object.keys(players).forEach((playerId) => (players[playerId].isActive = false));
 };
 
+export const isMatchEnded = (players: Record<string, Player>): boolean => {
+  const playersLeft = Object.values(players).filter((player) => player.status !== "lost");
+  return playersLeft.length <= 1;
+};
+
 export const getActivePlayerId = (players: Record<string, Player>): string | undefined => {
   const activePlayer = Object.values(players).find((player) => player.isActive);
   return activePlayer ? activePlayer.userId : undefined;
@@ -93,7 +98,7 @@ export const getTotalDiceWithFace = (players: Record<string, Player>, face: numb
     0
   );
 
-export const handlePlayerLoss = (loopParams: MatchLoopParams, loser: Player) => {
+export const handlePlayerLoss = (loopParams: MatchLoopParams, loser: Player, opCode: NotificationOpCode) => {
   const { nk, state } = loopParams;
   state.leaderboard.unshift(hidePlayerData(loser));
 
@@ -106,7 +111,7 @@ export const handlePlayerLoss = (loopParams: MatchLoopParams, loser: Player) => 
   const notificationContent: NotificationContentPlayerLost = {
     activePlayerName: loser.username,
   };
-  sendNotification(nk, getFilteredPlayerIds(state.players, loser.userId), NotificationOpCode.PLAYER_LOST, notificationContent);
+  sendNotification(nk, getFilteredPlayerIds(state.players, loser.userId), opCode, notificationContent);
 };
 
 export const getLatestBid = (bids: Record<string, Bid>): BidWithUserId | undefined =>

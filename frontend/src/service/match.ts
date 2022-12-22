@@ -39,9 +39,9 @@ export const useOrderedPlayers = (): PlayerPublic[] => {
     const localPlayerIndex = order.indexOf(session.user_id);
 
     if (localPlayerIndex !== 0) {
-      const topPart = order.splice(localPlayerIndex, order.length - 1);
-      const bottomPart = order.splice(0, localPlayerIndex);
-      const newPlayerArray = topPart.concat(bottomPart);
+      const topPart = [...order].splice(localPlayerIndex, order.length - 1);
+      const bottomPart = [...order].splice(0, localPlayerIndex);
+      const newPlayerArray = [...topPart].concat(bottomPart);
       return newPlayerArray.map((playerId) => players[playerId]);
     }
     return order.map((playerId) => players[playerId]);
@@ -148,6 +148,8 @@ export const useMatch = () => {
     sendMatchState(MatchOpCode.PLAYER_CALL_BOLONEY);
   };
 
+  const broadcastPlayerLeft = () => sendMatchState(MatchOpCode.PLAYER_LEFT);
+
   return {
     isLoading,
     sendMatchState,
@@ -155,5 +157,6 @@ export const useMatch = () => {
     broadcastPlaceBid,
     broadcastCallExact,
     broadcastCallBoloney,
+    broadcastPlayerLeft,
   };
 };

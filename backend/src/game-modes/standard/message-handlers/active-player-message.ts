@@ -83,7 +83,9 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
   loser.actionRole = "loser";
   winner.actionRole = "winner";
 
-  if (loser.diceAmount <= 0) handlePlayerLoss(loopParams, loser);
+  if (loser.diceAmount <= 0) {
+    handlePlayerLoss(loopParams, loser, NotificationOpCode.PLAYER_LOST);
+  }
 
   setAllPlayersReady(state);
 
@@ -128,7 +130,7 @@ const handlePlayerCallExact = messageHandler((loopParams, message, sender) => {
   loser.actionRole = "loser";
   winner.actionRole = "winner";
 
-  if (loser.diceAmount <= 0) handlePlayerLoss(loopParams, loser);
+  if (loser.diceAmount <= 0) handlePlayerLoss(loopParams, loser, NotificationOpCode.PLAYER_LOST);
 
   setAllPlayersReady(state);
 

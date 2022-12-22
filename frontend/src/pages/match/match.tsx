@@ -32,7 +32,9 @@ import {
   boloneyPayloadBackendSchema,
   exactPayloadBackendSchema,
   playerUpdatePayloadBackendSchema,
+  isString,
   leaderboardUpdatePayloadBackendSchema,
+  playerLeftPayloadBackend,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -174,10 +176,28 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           setPlayers(parsed.data.players);
           break;
         }
+        case MatchOpCode.PLAYER_LEFT: {
+          const parsed = playerLeftPayloadBackend.safeParse(data);
+          if (!parsed.success) return;
+
+          setPlayers(parsed.data.players);
+          setPlayerOrder(parsed.data.playerOrder);
+          setMatchStage(parsed.data.stage);
+
+          const activePlayer = Object.values(parsed.data.players).find((player) => player.isActive === true);
+          if (activePlayer) setActivePlayer(activePlayer.userId);
+          //TODO: leaderboards could be updated somewhere else.
+          if (parsed.data.leaderboard) setLeaderboard(parsed.data.leaderboard);
+          break;
+        }
         case MatchOpCode.LEADERBOARD_UPDATE: {
           const parsed = leaderboardUpdatePayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
           setLeaderboard(parsed.data.leaderboard);
+          break;
+        }
+        case MatchOpCode.DEBUG_INFO: {
+          if (import.meta.env.DEV && isString(data)) console.log("DEBUG_INFO", JSON.parse(data));
           break;
         }
         // TODO: receive as a notification and show it to the user
@@ -187,6 +207,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
       }
     };
   }, [
+    matchStage,
     resetRound,
     session,
     setActivePlayer,

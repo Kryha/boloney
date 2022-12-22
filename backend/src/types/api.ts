@@ -30,3 +30,10 @@ export interface PlayerUpdatePayloadBackend {
 export interface LeaderboardUpdatePayloadBackend {
   leaderboard: PlayerPublic[];
 }
+
+export interface PlayerLeftPayloadBackend {
+  players: Record<string, PlayerPublic>;
+  playerOrder: string[];
+  stage: MatchStage;
+  leaderboard?: PlayerPublic[];
+}

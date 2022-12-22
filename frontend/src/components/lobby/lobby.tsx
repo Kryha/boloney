@@ -17,7 +17,7 @@ export const Lobby: FC = () => {
 
   return (
     <LobbyWrapper>
-      <TopNavigation />
+      <TopNavigation location={"lobby"} />
       <LineContainer isPlayerReady={localPlayer.isReady} onClick={broadcastPlayerReady}>
         {players.map((player) => (
           <LobbyPlayer key={player.username} player={player} />

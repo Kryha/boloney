@@ -8,13 +8,16 @@ import {
   MatchState,
   MessageCallback,
   MessageHandler,
+  NotificationOpCode,
   Player,
+  PlayerLeftPayloadBackend,
   StageLogicCallback,
   StageTransitionCallback,
   TransitionHandler,
 } from "../types";
 import { randomInt } from "../utils";
 import { errors, handleError, parseError } from "./error";
+import { getActivePlayerId, getNextPlayerId, handlePlayerLoss, hidePlayersData, isMatchEnded, setActivePlayer } from "./player";
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
   const messageSender = state.players[message.sender.userId];
@@ -50,7 +53,6 @@ export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: S
   const { state } = loopParams;
   const nextStage = getNextStage(state);
 
-  // TODO: consider also players that are not playing anymore in this check.
   if (state.playersReady.length < state.settings.players) return;
 
   state.matchStage = nextStage;
@@ -95,6 +97,57 @@ export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.Mat
     return true;
   }
   return false;
+};
+
+export const handlePlayerLeftDuringMatch = (loopParams: MatchLoopParams, senderId: string) => {
+  recomputeMatchState(loopParams, loopParams.state.players[senderId]);
+
+  if (isMatchEnded(loopParams.state.players)) {
+    loopParams.state.matchStage = "endOfMatchStage";
+    const payloadMatchEnded: PlayerLeftPayloadBackend = {
+      players: hidePlayersData(loopParams.state.players),
+      playerOrder: loopParams.state.playerOrder,
+      leaderboard: loopParams.state.leaderboard,
+      stage: loopParams.state.matchStage,
+    };
+    loopParams.dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payloadMatchEnded));
+    return;
+  }
+
+  let activePlayerId = getActivePlayerId(loopParams.state.players);
+  if (activePlayerId === senderId) setActivePlayer(getNextPlayerId(activePlayerId, loopParams.state), loopParams.state.players);
+  activePlayerId = getActivePlayerId(loopParams.state.players);
+  loopParams.state.matchStage = "getPowerUpStage";
+
+  const payloadMatchContinues: PlayerLeftPayloadBackend = {
+    players: hidePlayersData(loopParams.state.players),
+    playerOrder: loopParams.state.playerOrder,
+    leaderboard: loopParams.state.leaderboard,
+    stage: loopParams.state.matchStage,
+  };
+  loopParams.dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payloadMatchContinues));
+};
+
+const recomputeMatchState = (loopParams: MatchLoopParams, player: Player) => {
+  handlePlayerLoss(loopParams, player, NotificationOpCode.PLAYER_LEFT);
+  player.diceValue.splice(0);
+  player.diceAmount = 0;
+  resetRound(loopParams);
+};
+
+export const handlePlayerLeftDuringLobby = (state: MatchState, sender: string, dispatcher: nkruntime.MatchDispatcher) => {
+  state.playerOrder = state.playerOrder.slice().filter((value) => state.players[value].userId !== sender);
+  delete state.players[sender];
+  const payload: PlayerLeftPayloadBackend = {
+    players: hidePlayersData(state.players),
+    playerOrder: state.playerOrder,
+    stage: state.matchStage,
+  };
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payload));
+};
+
+export const broadcastDebugInfo = (dispatcher: nkruntime.MatchDispatcher, payload: object, _state?: MatchState): void => {
+  dispatcher.broadcastMessage(MatchOpCode.DEBUG_INFO, JSON.stringify(payload));
 };
 
 export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, message: nkruntime.MatchMessage, error?: nkruntime.Error | string) => {

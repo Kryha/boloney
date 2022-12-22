@@ -228,6 +228,8 @@ export enum MatchOpCode {
   PLAYER_UPDATE = 14,
   LEADERBOARD_UPDATE = 15,
   ERROR = 16, // TODO: send as a notification
+  PLAYER_LEFT = 17,
+  DEBUG_INFO = 99,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
