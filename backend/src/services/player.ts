@@ -100,13 +100,13 @@ export const getTotalDiceWithFace = (players: Record<string, Player>, face: numb
 
 export const handlePlayerLoss = (loopParams: MatchLoopParams, loser: Player, opCode: NotificationOpCode) => {
   const { nk, state } = loopParams;
-  state.leaderboard.unshift(hidePlayerData(loser));
+  state.leaderboard.unshift({ ...hidePlayerData(loser), lostAtRound: state.round });
 
   loser.status = "lost";
 
   const playersInGame = Object.values(state.players).filter((player) => player.status !== "lost");
   if (playersInGame.length === 1) {
-    state.leaderboard.unshift(hidePlayerData(playersInGame[0]));
+    state.leaderboard.unshift({ ...hidePlayerData(playersInGame[0]), lostAtRound: state.round });
   }
   const notificationContent: NotificationContentPlayerLost = {
     activePlayerName: loser.username,

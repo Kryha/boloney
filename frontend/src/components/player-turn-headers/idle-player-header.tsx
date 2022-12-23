@@ -1,7 +1,9 @@
 import { FC } from "react";
+
 import { idlePlayerTurnData } from "../../assets";
 import { color } from "../../design";
-import { useActivePlayer, useRound } from "../../service";
+import { useActivePlayer } from "../../service";
+import { useStore } from "../../store";
 import { TurnActionStep } from "../../types";
 import { Heading2 } from "../atoms";
 import { ErrorView } from "../error-view";
@@ -13,7 +15,8 @@ interface IdlePlayerHeaderProps {
 
 export const IdlePlayerHeader: FC<IdlePlayerHeaderProps> = ({ step }) => {
   const activePlayer = useActivePlayer();
-  const round = useRound();
+
+  const round = useStore((state) => state.round);
 
   if (!activePlayer) return <ErrorView />;
 

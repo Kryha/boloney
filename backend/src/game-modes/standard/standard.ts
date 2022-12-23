@@ -41,6 +41,7 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger,
       bids: {},
       emptyTicks: 0,
       leaderboard: [],
+      round: 1,
     };
 
     return {
@@ -127,6 +128,7 @@ export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger,
           hasRolledDice: player.hasRolledDice,
           diceValue: player.diceValue,
           bids: state.bids,
+          round: state.round,
         };
         dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
       })

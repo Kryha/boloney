@@ -89,14 +89,6 @@ export const useActivePlayer = (): PlayerPublic | undefined => {
   }, [players]);
 };
 
-export const useRound = (): number => {
-  const leaderboard = useStore((state) => state.leaderboard);
-
-  return useMemo(() => {
-    return leaderboard.length + 1;
-  }, [leaderboard.length]);
-};
-
 export const useWinner = (): PlayerPublic | undefined => {
   const players = useStore((state) => state.players);
 

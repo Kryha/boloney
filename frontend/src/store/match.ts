@@ -12,6 +12,7 @@ import {
   TurnAction,
   PlayerJoinedPayloadBackend,
   Action,
+  PlayerRanked,
 } from "../types";
 
 interface RoundState {
@@ -30,8 +31,9 @@ export interface MatchSliceState extends RoundState {
   playerOrder: string[];
   powerUpIds: PowerUpId[];
   matchSettings?: MatchSettings;
-  leaderboard: PlayerPublic[];
+  leaderboard: PlayerRanked[];
   lastAction: Action;
+  round: number;
 }
 
 interface MatchSliceSetters {
@@ -48,8 +50,9 @@ interface MatchSliceSetters {
   setTurnActionStep: (turnActionStep: TurnActionStep) => void;
   setAction: (action: TurnAction) => void;
   setBids: (bids: Record<string, Bid>) => void;
-  setLeaderboard: (players: PlayerPublic[]) => void;
+  setLeaderboard: (players: PlayerRanked[]) => void;
   setLastAction: (move: Action) => void;
+  setRound: (round: number) => void;
   resetRound: () => void;
 }
 
@@ -72,6 +75,7 @@ const initialMatchState: MatchSliceState = {
   matchSettings: undefined,
   leaderboard: [],
   lastAction: "Boloney",
+  round: 1,
   ...initialRoundState,
 };
 
@@ -123,5 +127,6 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
       action: action,
     })),
   setLeaderboard: (players) => set(() => ({ leaderboard: players })),
+  setRound: (round) => set(() => ({ round })),
   setLastAction: (action) => set(() => ({ lastAction: action })),
 });

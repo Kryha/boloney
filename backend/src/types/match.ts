@@ -105,6 +105,16 @@ export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
   );
 };
 
+export interface PlayerRanked extends PlayerPublic {
+  lostAtRound: number;
+}
+
+export const isPlayerRanked = (value: unknown): value is PlayerRanked => {
+  const assertedVal = value as PlayerRanked;
+
+  return isPlayerPublic(assertedVal) && assertedVal.lostAtRound !== undefined && isNumber(assertedVal.lostAtRound);
+};
+
 export const isPlayerPublicArray = (values: unknown): values is PlayerPublic[] => {
   if (!values || !(values instanceof Array)) return false;
   return values.every((val) => isPlayerPublic(val));
@@ -166,6 +176,7 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     isPowerUpProbabilityArray(assertedVal.powerUpProbability)
   );
 };
+
 export interface MatchState {
   settings: MatchSettings;
   players: Record<string, Player>;
@@ -175,27 +186,9 @@ export interface MatchState {
   playerOrder: string[];
   matchStage: MatchStage;
   emptyTicks: number;
-  leaderboard: PlayerPublic[];
+  leaderboard: PlayerRanked[];
+  round: number;
 }
-
-export const isMatchState = (value: unknown): value is MatchState => {
-  const assertedVal = value as MatchState;
-  return (
-    assertedVal.settings !== undefined &&
-    assertedVal.players !== undefined &&
-    assertedVal.presences !== undefined &&
-    assertedVal.bids !== undefined &&
-    assertedVal.playersReady !== undefined &&
-    assertedVal.playerOrder !== undefined &&
-    assertedVal.matchStage !== undefined &&
-    assertedVal.emptyTicks !== undefined &&
-    isMatchSettings(assertedVal.settings) &&
-    isStringArray(assertedVal.playersReady) &&
-    isStringArray(assertedVal.playerOrder) &&
-    isMatchStage(assertedVal.matchStage) &&
-    isNumber(assertedVal.emptyTicks)
-  );
-};
 
 export type MatchStage =
   | "lobbyStage" // waiting for players to be ready

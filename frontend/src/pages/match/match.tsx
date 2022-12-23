@@ -67,6 +67,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setBids = useStore((state) => state.setBids);
   const setLastAction = useStore((state) => state.setLastAction);
   const setLeaderboard = useStore((state) => state.setLeaderboard);
+  const setRound = useStore((state) => state.setRound);
   const resetRound = useStore((state) => state.resetRound);
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const setMatchState = useStore((state) => state.setMatchState);
@@ -194,6 +195,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           const parsed = leaderboardUpdatePayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
           setLeaderboard(parsed.data.leaderboard);
+          setRound(parsed.data.round);
           break;
         }
         case MatchOpCode.DEBUG_INFO: {
@@ -222,6 +224,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     setPlayerReady,
     setPlayers,
     setPowerUpIds,
+    setRound,
     setSpinnerVisibility,
   ]);
 

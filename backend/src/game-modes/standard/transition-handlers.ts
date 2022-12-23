@@ -20,8 +20,9 @@ export const handleLobbyTransition = transitionHandler(({ state, dispatcher }, n
 export const handleSummaryTransition = transitionHandler((loopParams, nextStage) => {
   const { dispatcher, state } = loopParams;
   resetRound(loopParams);
+  state.round += 1;
 
-  const leaderboardPayload: LeaderboardUpdatePayloadBackend = { leaderboard: state.leaderboard };
+  const leaderboardPayload: LeaderboardUpdatePayloadBackend = { leaderboard: state.leaderboard, round: state.round };
   dispatcher.broadcastMessage(MatchOpCode.LEADERBOARD_UPDATE, JSON.stringify(leaderboardPayload));
 
   dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: nextStage }));

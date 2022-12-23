@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets";
@@ -20,11 +20,11 @@ export const EndOfMatch: FC = () => {
 
   const localPlayer = useLocalPlayer();
 
-  const [isLocalWinner, isLocalLoser] = useMemo(() => {
+  const [isLocalWinner, isLocalLoser] = (() => {
     const winner = leaderboard.at(0);
     const secondPlayer = leaderboard.at(1);
     return [winner?.userId === localPlayer?.userId, secondPlayer?.userId === localPlayer?.userId];
-  }, [leaderboard, localPlayer?.userId]);
+  })();
 
   const handleNewMatch = (): void => {
     broadcastPlayerReady();
@@ -46,7 +46,7 @@ export const EndOfMatch: FC = () => {
       </TitleSection>
 
       {leaderboard.map((player, i) => (
-        <PlayerLeaderboard key={player.userId} player={player} rank={i + 1} lostOnRound={leaderboard.length - i} />
+        <PlayerLeaderboard key={player.userId} player={player} rank={i + 1} />
       ))}
 
       <PrimaryButton text={text.match.homePage} onClick={() => handleNewMatch()} />

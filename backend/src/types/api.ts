@@ -1,6 +1,6 @@
 import { BidPayloadBackend } from "./bid";
 import { Die } from "./die";
-import { MatchSettings, MatchStage, PlayerPublic } from "./match";
+import { MatchSettings, MatchStage, PlayerPublic, PlayerRanked } from "./match";
 import { PowerUpId } from "./power-up";
 
 export interface PlayerJoinedPayloadBackend {
@@ -9,10 +9,11 @@ export interface PlayerJoinedPayloadBackend {
   matchStage: MatchStage;
   powerUpIds: PowerUpId[];
   matchSettings: MatchSettings;
-  leaderboard: PlayerPublic[];
+  leaderboard: PlayerRanked[];
   hasRolledDice: boolean;
   diceValue: Die[];
   bids: BidPayloadBackend;
+  round: number;
 }
 
 export interface BoloneyPayloadBackend {
@@ -28,7 +29,8 @@ export interface PlayerUpdatePayloadBackend {
 }
 
 export interface LeaderboardUpdatePayloadBackend {
-  leaderboard: PlayerPublic[];
+  leaderboard: PlayerRanked[];
+  round: number;
 }
 
 export interface PlayerLeftPayloadBackend {

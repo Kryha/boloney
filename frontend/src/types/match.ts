@@ -70,6 +70,9 @@ export const playerPublicSchema = z.object({
 
 export type PlayerPublic = z.infer<typeof playerPublicSchema>;
 
+export const playerRankedSchema = playerPublicSchema.extend({ lostAtRound: z.number() });
+export type PlayerRanked = z.infer<typeof playerRankedSchema>;
+
 export const playerSchema = playerPublicSchema.merge(playerPrivateSchema);
 export type Player = z.infer<typeof playerSchema>;
 

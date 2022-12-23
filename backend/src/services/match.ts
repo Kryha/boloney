@@ -130,7 +130,7 @@ export const handlePlayerLeftDuringMatch = (loopParams: MatchLoopParams, senderI
 
 const recomputeMatchState = (loopParams: MatchLoopParams, player: Player) => {
   handlePlayerLoss(loopParams, player, NotificationOpCode.PLAYER_LEFT);
-  player.diceValue.splice(0);
+  player.diceValue = [];
   player.diceAmount = 0;
   resetRound(loopParams);
 };

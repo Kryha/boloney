@@ -1,10 +1,10 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 
 import { avatars, text } from "../../assets";
 import { color, handProportion } from "../../design";
 import { useLocalPlayer } from "../../service";
 import { useStore } from "../../store";
-import { PlayerPublic } from "../../types";
+import { PlayerRanked } from "../../types";
 import { prefixDigit } from "../../util";
 import { Bold } from "../atoms";
 import { WinnerBadge } from "../badges";
@@ -22,12 +22,11 @@ import {
 } from "./styles";
 
 interface Props {
-  player: PlayerPublic;
+  player: PlayerRanked;
   rank: number;
-  lostOnRound: number;
 }
 
-export const PlayerLeaderboard: FC<Props> = ({ player, rank, lostOnRound }) => {
+export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
   const localPlayer = useLocalPlayer();
 
   const lastAction = useStore((state) => state.lastAction);
@@ -37,11 +36,11 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank, lostOnRound }) => {
   const isWinner = rank === 1;
   const isSecond = rank === 2;
 
-  const [normalDescription, boldDescription] = useMemo(() => {
+  const [normalDescription, boldDescription] = (() => {
     if (isWinner) return text.endOfMatch.wonCalling(lastAction);
     if (isSecond) return text.endOfMatch.lostOnRound("last");
-    return text.endOfMatch.lostOnRound(lostOnRound);
-  }, [isSecond, isWinner, lastAction, lostOnRound]);
+    return text.endOfMatch.lostOnRound(player.lostAtRound);
+  })();
 
   return (
     <LeaderboardWrapper place={rank}>
