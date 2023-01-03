@@ -10,9 +10,10 @@ import { PlayersDiceContainer } from "./styles";
 
 interface Props {
   register: UseFormRegister<MatchSettings>;
+  minPowerUps: number;
 }
 
-export const PowerUpsAmountField: FC<Props> = ({ register }) => {
+export const PowerUpsAmountField: FC<Props> = ({ register, minPowerUps }) => {
   return (
     <PlayersDiceContainer>
       <InputLegend
@@ -22,9 +23,9 @@ export const PowerUpsAmountField: FC<Props> = ({ register }) => {
         tooltipTitle={text.general.toolTipTitle}
       >
         <BaseSelect {...register("initialPowerUpAmount")}>
-          {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
-            <BaseOption key={n} value={n}>
-              {text.param.powerUps(n)}
+          {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((powerUpAmount) => (
+            <BaseOption key={powerUpAmount} value={powerUpAmount}>
+              {text.param.powerUps(powerUpAmount)}
             </BaseOption>
           ))}
         </BaseSelect>
@@ -37,10 +38,8 @@ export const PowerUpsAmountField: FC<Props> = ({ register }) => {
         tooltipTitle={text.general.toolTipTitle}
       >
         <BaseSelect {...register("maxPowerUpAmount")}>
-          {range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER).map((n) => (
-            <BaseOption key={n} value={n}>
-              {text.param.powerUps(n)}
-            </BaseOption>
+          {range(MAX_POWERUPS_PER_PLAYER, Math.round(minPowerUps)).map((maxPowerupAmount) => (
+            <BaseOption key={maxPowerupAmount}>{text.param.powerUps(maxPowerupAmount)}</BaseOption>
           ))}
         </BaseSelect>
       </InputLegend>

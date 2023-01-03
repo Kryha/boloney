@@ -13,20 +13,21 @@ import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewMatchContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
 import { splitMatchId } from "../../util";
+import { MIN_POWERUPS_PER_PLAYER } from "../../constants";
 
 interface Props {
   setMatchId: (id: string) => void;
 }
 
 export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
-  const { register, handleSubmit } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
+  const { register, handleSubmit, watch } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
   const availablePowerUps = useMatchCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useMatchCreationFormState((state) => state.powerUpProbability);
   const isPowerUpError = useMatchCreationFormState((state) => state.getIsError());
 
+  const watchPowerUpAmount = watch("initialPowerUpAmount", MIN_POWERUPS_PER_PLAYER);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     setIsLoading(true);
     const result = matchFormSettingsSchema.safeParse({
@@ -58,7 +59,7 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
         <FormContainer>
           <PlayersField register={register} />
 
-          <PowerUpsAmountField register={register} />
+          <PowerUpsAmountField register={register} minPowerUps={watchPowerUpAmount} />
 
           <DrawRoundOffsetField register={register} />
 
