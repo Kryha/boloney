@@ -26,19 +26,29 @@ export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
 
   const lowerBound = useMemo(() => {
     if (!lastBid) return 1;
-    if (lastBid.face === faceValue) return lastBid.amount + 1;
-    return lastBid.amount;
-  }, [faceValue, lastBid]);
+    if (lastBid && (lastBid.amount === diceInMatch || (faceValue && faceValue > lastBid.face))) return lastBid.amount;
+    if (faceValue) return lastBid.amount + 1;
+    return 1;
+  }, [diceInMatch, faceValue, lastBid]);
 
   const upperBound = diceInMatch;
 
+  const isFirstBid = diceAmount && !lastBid;
+  const isFaceValueHigher = diceAmount && faceValue && lastBid && faceValue > lastBid?.face;
+  const isBidHigher = diceAmount && lastBid && diceAmount > lastBid?.amount;
+
+  const isBidValid = isFaceValueHigher || isBidHigher;
+  const isDefaultViewNumber = isFirstBid || isBidValid;
+
   useEffect(() => {
-    if (diceAmount) {
+    if (!faceValue) setDiceAmount(lowerBound);
+    if (isDefaultViewNumber) {
       setViewNumbers(getViewArray(diceAmount));
     } else {
+      setViewNumbers(getViewArray(lowerBound));
       setDiceAmount(lowerBound);
     }
-  }, [diceAmount, faceValue, lastBid, lowerBound, setDiceAmount]);
+  }, [diceAmount, faceValue, isDefaultViewNumber, lastBid, lowerBound, setDiceAmount]);
 
   const handleClick = (index: number) => {
     const nextAmount = (diceAmount || 1) + index;

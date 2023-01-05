@@ -20,7 +20,10 @@ export const PlaceBid: FC = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const { broadcastPlaceBid } = useMatch();
   const noBidSet = !diceAmount || !faceValue;
-  const isMaxBidPlaced = latestBid?.amount === diceAmount && latestBid?.face === faceValue;
+
+  let isMaxBidPlaced = latestBid ? true : false;
+  if (faceValue && latestBid && diceAmount) isMaxBidPlaced = latestBid.face >= faceValue && latestBid.amount >= diceAmount;
+
   const localPlayer = useLocalPlayer();
 
   const handleClick = () => {

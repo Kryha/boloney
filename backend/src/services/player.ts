@@ -127,9 +127,9 @@ export const isBidMaxTotal = (playersRecord: Record<string, Player>, bid: BidPay
 };
 
 export const isBidHigher = (previousHighest: Bid, newHighest: BidPayloadFrontend): boolean => {
-  const sameFace = previousHighest.face === newHighest.face && previousHighest.amount < newHighest.amount;
-  const sameAmount = previousHighest.amount === newHighest.amount && previousHighest.face < newHighest.face;
-  const bothHigher = previousHighest.amount < newHighest.amount && previousHighest.face < newHighest.face;
+  if (!previousHighest) return true;
+  const isHigherAmount = previousHighest.amount < newHighest.amount;
+  const isHigherFace = previousHighest.face < newHighest.face;
 
-  return sameFace || sameAmount || bothHigher;
+  return isHigherAmount || isHigherFace;
 };
