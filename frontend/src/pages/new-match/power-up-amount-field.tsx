@@ -39,7 +39,7 @@ export const PowerUpsAmountField: FC<Props> = ({ register, minPowerUps }) => {
       >
         <BaseSelect {...register("maxPowerUpAmount")}>
           {range(MAX_POWERUPS_PER_PLAYER, Math.round(minPowerUps)).map((maxPowerupAmount) => (
-            <BaseOption key={maxPowerupAmount}>{text.param.powerUps(maxPowerupAmount)}</BaseOption>
+            <BaseOption key={maxPowerupAmount} value={maxPowerupAmount}>{text.param.powerUps(maxPowerupAmount)}</BaseOption>
           ))}
         </BaseSelect>
       </InputLegend>
