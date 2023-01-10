@@ -34,6 +34,7 @@ export interface MatchSliceState extends RoundState {
   leaderboard: PlayerRanked[];
   lastAction: Action;
   round: number;
+  channelId?: string;
 }
 
 interface MatchSliceSetters {
@@ -52,6 +53,7 @@ interface MatchSliceSetters {
   setBids: (bids: Record<string, Bid>) => void;
   setLeaderboard: (players: PlayerRanked[]) => void;
   setLastAction: (move: Action) => void;
+  setChannelId: (channelId: string) => void;
   setRound: (round: number) => void;
   resetRound: () => void;
 }
@@ -129,4 +131,5 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setLeaderboard: (players) => set(() => ({ leaderboard: players })),
   setRound: (round) => set(() => ({ round })),
   setLastAction: (action) => set(() => ({ lastAction: action })),
+  setChannelId: (channelId) => set(() => ({ channelId })),
 });

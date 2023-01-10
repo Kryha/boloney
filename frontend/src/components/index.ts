@@ -45,3 +45,4 @@ export * from "./notification";
 export * from "./toast-message";
 export * from "./call-action";
 export * from "./menu-toggle";
+export * from "./chat-message";

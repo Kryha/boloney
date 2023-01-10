@@ -9,11 +9,12 @@ interface MenuToggleProps {
   closeMenuItem: () => void;
   isToggled: boolean;
   title: string;
-  isChat?: boolean;
   children: ReactNode;
+  isChat?: boolean;
+  isInLobby?: boolean;
 }
 
-export const MenuToggle: FC<MenuToggleProps> = ({ closeMenuItem, isToggled, title, children, isChat = false }) => {
+export const MenuToggle: FC<MenuToggleProps> = ({ closeMenuItem, isToggled, title, children, isChat = false, isInLobby = false }) => {
   const isChatToggled = useLayoutStore((state) => state.isChatToggled);
   const isHistoryToggled = useLayoutStore((state) => state.isHistoryToggled);
   const isInMatch = useIsInMatch();
@@ -25,6 +26,7 @@ export const MenuToggle: FC<MenuToggleProps> = ({ closeMenuItem, isToggled, titl
       isToggled={isToggled}
       isInMatch={isInMatch}
       isChat={isChat}
+      isInLobby={isInLobby}
     >
       <MenuToggleHeadingSection>
         <Heading4>{title}</Heading4>

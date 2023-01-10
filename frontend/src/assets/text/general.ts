@@ -32,4 +32,5 @@ export const general = {
   continue: "continue",
   rollIt: "roll it",
   copied: "copied!",
+  typeHere: "type here...",
 };

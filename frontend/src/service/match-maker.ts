@@ -5,6 +5,7 @@ import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY,
 import { useSession, useStore } from "../store";
 import { MatchSettings, NkResponse } from "../types";
 import { parseError } from "../util";
+import { joinChat } from "./chat";
 import { nakama } from "./nakama";
 
 export const useJoinMatch = (matchId: string) => {
@@ -12,23 +13,29 @@ export const useJoinMatch = (matchId: string) => {
   const session = useSession();
   const setMatchId = useStore((state) => state.setMatchId);
   const setIsJoining = useStore((state) => state.setIsJoining);
+  const setChannelId = useStore((state) => state.setChannelId);
+  const clearMessages = useStore((state) => state.clearMessages);
 
   useEffect(() => {
-    const join = async () => {
+    const joinMatch = async () => {
       if (!session || !session.username) return;
       try {
         setIsJoining(true);
         const match = await nakama.socket.joinMatch(matchId, undefined, { username: session.username });
         setMatchId(match.match_id);
+
+        const channelId = await joinChat(match.match_id);
+        setChannelId(channelId);
+        clearMessages();
       } catch (error) {
         setIsJoining(false);
-        console.info(error);
+        console.error(error);
       } finally {
         setIsLoading(false);
       }
     };
-    join();
-  }, [matchId, session, setIsJoining, setMatchId]);
+    joinMatch();
+  }, [clearMessages, matchId, session, setChannelId, setIsJoining, setMatchId]);
 
   return isLoading;
 };

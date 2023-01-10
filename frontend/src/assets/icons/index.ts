@@ -1,7 +1,7 @@
 import { ReactComponent as PlusIcon } from "./plus.svg";
 import { ReactComponent as TimerIcon } from "./timer.svg";
 import { ReactComponent as ExitIcon } from "./exit.svg";
-import { ReactComponent as RightArrowIcon } from "./right-arrow.svg";
+import RightArrowIconUrl, { ReactComponent as RightArrowIcon } from "./right-arrow.svg";
 import { ReactComponent as LeftArrowIcon } from "./left-arrow.svg";
 import { ReactComponent as CloseIcon } from "./close.svg";
 import { ReactComponent as HourglassIcon } from "./hourglass.svg";
@@ -40,6 +40,7 @@ export {
   TimerIcon,
   ExitIcon,
   RightArrowIcon,
+  RightArrowIconUrl,
   LeftArrowIcon,
   CloseIcon,
   HourglassIcon,

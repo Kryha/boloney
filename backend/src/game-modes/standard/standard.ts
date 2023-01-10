@@ -7,6 +7,7 @@ import {
   hidePlayersData,
   setLosersAsReady,
   updateEmptyTicks,
+  createChatGroup,
 } from "../../services";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayloadBackend } from "../../types";
 import { handleStage } from "./stage-handlers";
@@ -26,7 +27,7 @@ export const matchmakerMatched: nkruntime.MatchmakerMatchedFunction = (_context,
   }
 };
 
-export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger, _nk, params) => {
+export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, nk, params) => {
   try {
     if (!isMatchSettings(params)) throw errors.invalidPayload;
 
@@ -43,6 +44,8 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (_ctx, logger,
       leaderboard: [],
       round: 1,
     };
+
+    createChatGroup(nk, ctx, logger);
 
     return {
       state: initialState,

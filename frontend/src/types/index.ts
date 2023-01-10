@@ -9,3 +9,4 @@ export * from "./die";
 export * from "./ui";
 export * from "./bid";
 export * from "./notification";
+export * from "./chat";

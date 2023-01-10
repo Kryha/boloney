@@ -42,7 +42,6 @@ export const LineContainer: FC<LineContainerProps> = ({ children, isPlayerReady,
         <HorizontalContainer height={height} width={width}>
           <HorizontalLine />
           <WaitForOthersContainer isPlayerReady={isPlayerReady}>
-            {/* TODO: button should be hidden when logged user is ready */}
             {isPlayerReady ? (
               <WaitingText>{text.general.waitingForTheOthersToBeReady}</WaitingText>
             ) : (
@@ -54,7 +53,7 @@ export const LineContainer: FC<LineContainerProps> = ({ children, isPlayerReady,
           <NameContainer>
             <AppName />
           </NameContainer>
-          <Chat />
+          <Chat isInLobby />
         </NameWrapper>
       </WaitingWrapper>
     </LineWrapper>

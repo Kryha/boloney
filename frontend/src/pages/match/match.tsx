@@ -15,7 +15,7 @@ import {
   ErrorView,
   Loading,
 } from "../../components";
-import { nakama, useJoinMatch } from "../../service";
+import { nakama, useChatHistory, useJoinMatch } from "../../service";
 import { useSession, useStore } from "../../store";
 import {
   MatchOpCode,
@@ -73,7 +73,9 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setMatchState = useStore((state) => state.setMatchState);
   const setIsJoining = useStore((state) => state.setIsJoining);
 
-  const isLoading = useJoinMatch(matchId);
+  const joinMatchDone = useJoinMatch(matchId);
+  const joinChatDone = useChatHistory();
+  const isLoading = joinMatchDone && joinChatDone;
 
   const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {

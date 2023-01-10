@@ -94,7 +94,6 @@ export const PlayerNameContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px ${margins.small2};
   gap: ${margins.small1};
 `;
 

@@ -1,11 +1,11 @@
 import { FC } from "react";
 
 import { Bid, PlayerPublic } from "../../types";
-import { Heading6 } from "../atoms";
+import { ChatUserName, Heading6 } from "../atoms";
 import { Die } from "../die";
 import { getDieColor } from "../../util";
 import { DiceIcon, PowerUpIcon } from "../icons";
-import { PlayerNameContainer, PlayerColor, MatchStateContainer, PlayerName as Name, DiceContainer } from "./styles";
+import { PlayerNameContainer, PlayerColor, MatchStateContainer, DiceContainer } from "./styles";
 import { text } from "../../assets";
 
 interface PlayerNameProps {
@@ -17,7 +17,7 @@ export const PlayerName: FC<PlayerNameProps> = ({ name, color }) => {
   return (
     <PlayerNameContainer>
       <PlayerColor customColor={color} />
-      <Name>{name}</Name>
+      <ChatUserName>{name}</ChatUserName>
     </PlayerNameContainer>
   );
 };

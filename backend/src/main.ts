@@ -11,7 +11,7 @@ import {
   matchSignal,
   matchTerminate,
 } from "./game-modes/standard";
-import { rollDice, createMatch, findMatch } from "./rpc";
+import { rollDice, createMatch, findMatch, rtBeforeChannelMessageSend } from "./rpc";
 import { MatchState } from "./types";
 import { env } from "./constants";
 
@@ -37,6 +37,9 @@ function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkrun
   initializer.registerRpc("roll_dice", rollDice);
   initializer.registerRpc("create_match", createMatch);
   initializer.registerRpc("find_match", findMatch);
+
+  // realtime registration
+  initializer.registerRtBefore("ChannelMessageSend", rtBeforeChannelMessageSend);
 
   logger.info("JavaScript logic loaded.");
 }

@@ -4,3 +4,4 @@ export * from "./match-maker";
 export * from "./match";
 export * from "./notification";
 export * from "./nakama";
+export * from "./chat";

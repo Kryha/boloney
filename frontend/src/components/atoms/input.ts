@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { ChevronDownIcon } from "../../assets";
+import { ChevronDownIcon, RightArrowIconUrl } from "../../assets";
 import { color, fontSize, fontWeight, margins } from "../../design";
 
 export const BaseInput = styled.input`
@@ -92,3 +92,62 @@ export const BaseSelect = styled.select`
 `;
 
 export const BaseOption = styled.option``;
+
+export const ChatInput = styled(BaseInput)`
+  text-transform: initial;
+  font-size: ${fontSize.small1};
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  color: ${color.black};
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+  gap: 10px;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+  width: clamp(225px, 25vw + -15px, 465px);
+  height: 44px;
+  background: ${color.greyWhite};
+  &::placeholder {
+    font-family: ibm-plex-mono;
+    font-weight: ${fontWeight.light};
+    font-size: ${fontSize.small1};
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    color: ${color.darkGrey};
+  }
+  -moz-appearance: textfield;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  :disabled {
+    &::placeholder {
+      color: ${color.darkGrey};
+    }
+  }
+  :focus {
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+    outline-width: 0px !important;
+    outline-width: 0px !important;
+    box-shadow: none;
+    background-image: url(${RightArrowIconUrl});
+    background-position: right 12px bottom 70%;
+    background-repeat: no-repeat;
+    border: 1px solid ${color.black} !important;
+  }
+  :active {
+    background-image: url(${RightArrowIconUrl});
+    background-position: right 12px bottom 70%;
+    background-repeat: no-repeat;
+  }
+  box-sizing: border-box;
+  cursor: pointer;
+  select::-ms-expand {
+    display: none;
+  }
+  -webkit-appearance: none;
+  -moz-appearance: none;
+`;

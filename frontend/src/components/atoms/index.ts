@@ -6,3 +6,4 @@ export * from "./wrappers";
 export * from "./lines";
 export * from "./animations";
 export * from "./sausage-animate";
+export * from "./chat";
