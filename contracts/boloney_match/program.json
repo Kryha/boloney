@@ -1,0 +1,10 @@
+{
+  "program": "boloney_match.aleo",
+  "version": "0.0.0",
+  "description": "",
+  "development": {
+    "private_key": "APrivateKey1zkp7AUBaLJ7DUwFFn3ziSDyZrvJhzizbmdiWWyRWt2oey89",
+    "address": "aleo1z9rkh2xecmpnx9jxkvnyq08mfeddrsrccny0j2hgw4yfhnxpxyqqp42329"
+  },
+  "license": "MIT"
+}

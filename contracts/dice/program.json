@@ -1,0 +1,10 @@
+{
+    "program": "dice.aleo",
+    "version": "0.0.0",
+    "description": "",
+    "development": {
+        "private_key": "APrivateKey1zkp3c82pHBy8F1KMpGWuCcd4qZV2VCtHMPJ4qb1tRqvphZ8",
+        "address": "aleo1858u2692n6rykxpsy2sxh42fdm0gm562k650z43lkv8wjywfsqxq9u6p30"
+    },
+    "license": "MIT"
+}

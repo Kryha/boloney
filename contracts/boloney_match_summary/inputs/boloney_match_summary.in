@@ -1,0 +1,13 @@
+// The program input for boloney_match_summary/src/main.leo
+[create_match_summary]
+public owner: address = aleo1r6smfgcrfpp7rwgve3v9f27le0clt9rfrnw08f7wtup6wc6xqyxsg7n9kv;
+public match_id: field = 12345678998765432123456789098765field;
+public ranking: Ranking = Ranking {
+    first: 11345678998765432123456789098765field,
+    second: 22345678998765432123456789098765field,
+    third: 33345678998765432123456789098765field,
+    forth: 44345678998765432123456789098765field,
+    fifth: 55345678998765432123456789098765field,
+    sixth: 66345678998765432123456789098765field,
+    seventh: 77345678998765432123456789098765field,
+};

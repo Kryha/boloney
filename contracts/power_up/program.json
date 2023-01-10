@@ -1,0 +1,10 @@
+{
+    "program": "power_up.aleo",
+    "version": "0.0.0",
+    "description": "",
+    "development": {
+        "private_key": "APrivateKey1zkp8tsTEeYdnqFY9R2HBPie9YCoxLTioZfQtRpEBRvgZHAo",
+        "address": "aleo1p4ye54p6n5cfdyzmy6fcs583mmwrghdxl8upeuew4w8uqmhqdqxq3e4tfl"
+    },
+    "license": "MIT"
+}
