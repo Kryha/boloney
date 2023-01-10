@@ -35,7 +35,7 @@ export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUpIds, 
       {dataPowerUp.map((powerUp, i) => (
         <PowerUpContainer key={i} width={width} isPowerUpInUse={isPowerUpInUse}>
           <PowerUpCard>
-            <PowerUpImage src={powerUp.cardImage} />
+            <PowerUpImage src={powerUp.cardImage} isImageLarge={powerUp.isImageLarge} />
             <PowerUpInfoWrapper>
               <PowerUpInfoContainer>
                 <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>

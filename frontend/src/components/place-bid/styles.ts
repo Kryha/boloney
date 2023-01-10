@@ -108,7 +108,7 @@ export const Number = styled(UnorderedListItems)<ItemProps>`
   ${({ isCurrent }): string =>
     isCurrent
       ? ` font-size: 140px;
-          line-height: 140px; 
+          line-height: 140px;
           width: 130px;
           height:140px;
           margin-left: 55px;

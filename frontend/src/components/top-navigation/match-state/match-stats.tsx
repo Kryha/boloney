@@ -1,8 +1,10 @@
 import { FC } from "react";
-import { MatchStateItemDiceAMount } from "./match-stats-item-dice-amount";
 import { MatchStateVerticalDivider, MatchStatsContainer } from "../styles";
 import { MatchStateItemStage } from "./match-stats-item-phase";
 import { MatchStateItemDrawRound } from "./match-stats-item-draw-round";
+import { DiceIcon } from "../../icons";
+import { color } from "../../../design";
+import { MATCH_STATS_DICE_VALUE } from "../../../constants";
 
 //TODO: Get this from the game state
 const MockState = {
@@ -15,7 +17,7 @@ const MockState = {
 export const MatchStats: FC = () => {
   return (
     <MatchStatsContainer>
-      <MatchStateItemDiceAMount diceAmount={MockState.numberOfDice} />
+      <DiceIcon diceAmount={MockState.numberOfDice} faceColor={color.white} pipColor={color.black} diceValue={MATCH_STATS_DICE_VALUE} />
       <MatchStateVerticalDivider />
       <MatchStateItemStage phaseNumber={MockState.phaseNumber} />
       <MatchStateVerticalDivider />

@@ -16,7 +16,7 @@ export const powerUpSchema = z.object({
   name: z.string(),
   shortDescription: z.string(),
   longDescription: z.string(),
-  icon: z.string(),
   cardImage: z.string(),
+  isImageLarge: z.boolean(),
 });
 export type PowerUp = z.infer<typeof powerUpSchema>;

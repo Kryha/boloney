@@ -169,8 +169,11 @@ export const MatchStatsContainer = styled.div`
   padding: ${margins.small2};
   height: 5.5vh;
   gap: ${margins.small1};
+  ${GeneralText} {
+    color: ${color.black};
+  }
   ${DieWrapper} {
-    margin-top: 0.125em;
+    height: 1em;
   }
   ${Lightning} {
     margin-top: 0.125em;

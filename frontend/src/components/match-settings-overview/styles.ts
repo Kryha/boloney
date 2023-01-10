@@ -29,7 +29,7 @@ export const ChoiceContainer = styled.div`
 `;
 
 export const MatchSettingsFooter = styled.div`
-  background: linear-gradient(0deg, ${color.greyWhite} 50%, rgba(238, 234, 233, 0) 139.86%);
+  background: linear-gradient(0deg, ${color.white} 50%, rgba(238, 234, 233, 0) 139.86%);
   border-radius: 0px 0px 10px 10px;
   height: 10vh;
   position: fixed;

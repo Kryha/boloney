@@ -9,9 +9,17 @@ interface PowerUpComponentProps {
 }
 
 export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp, showPowerUps }) => {
+  const isSmokeAnMirrorsPowerUp = powerUp.id === "8";
+  const isDoubleUpPowerUp = powerUp.id === "4";
+
   return (
     <PowerUpWrapper onClick={() => showPowerUps && showPowerUps()}>
-      <PowerUpCardImage src={powerUp.icon} alt={powerUp.name} />
+      <PowerUpCardImage
+        src={powerUp.cardImage}
+        alt={powerUp.name}
+        isDoubleUp={isDoubleUpPowerUp}
+        isSmokeAndMirrors={isSmokeAnMirrorsPowerUp}
+      />
     </PowerUpWrapper>
   );
 };

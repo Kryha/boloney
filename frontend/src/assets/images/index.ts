@@ -13,18 +13,18 @@ import LobsterHandPaint from "./lobster-hand-paint.svg";
 import PlasticHandPaint from "./plastic-hand-paint.svg";
 import ScooperHandPaint from "./poop-scooper-hand-paint.svg";
 import SausageHandPaint from "./sausage-hand.svg";
-import CoupDEtatIcon from "./coupdetat.png";
-import DefectionIcon from "./defection.png";
-import DiversionIcon from "./diversion.png";
-import InterrogateIcon from "./interrogate.png";
-import ReconnaissanceIcon from "./reconnaissance.png";
-import RegroupIcon from "./regroup.png";
-import ReinforceIcon from "./reinforce.png";
-import SabotageIcon from "./sabotage.png";
-import SatelliteIcon from "./satellite.png";
 import PercentageIcon from "./percentage.svg";
 import BoloneyToaster from "./boloney-toaster.png";
 import ExactDartBoard from "./exact-dart-board.png";
+import Grill from "./grill.png";
+import Vendetta from "./vendetta.png";
+import MenageATrois from "./menage-a-trois.png";
+import DoubleUp from "./double-up.png";
+import SecondChance from "./second-chance.png";
+import SmokeAndMirrors from "./smoke-and-mirrors.png";
+import Coup from "./coup.png";
+import GuardTower from "./guard-tower.png";
+import Hypnosis from "./hypnosis.png";
 
 export * from "./dice-assets";
 
@@ -43,17 +43,17 @@ export {
   PlasticHandPaint,
   ScooperHandPaint,
   SausageHandPaint,
-  CoupDEtatIcon,
-  DefectionIcon,
-  DiversionIcon,
-  InterrogateIcon,
-  ReconnaissanceIcon,
-  RegroupIcon,
-  ReinforceIcon,
-  SabotageIcon,
-  SatelliteIcon,
   PercentageIcon,
   DiceCrown,
   BoloneyToaster,
   ExactDartBoard,
+  Grill,
+  Vendetta,
+  MenageATrois,
+  DoubleUp,
+  SecondChance,
+  SmokeAndMirrors,
+  Coup,
+  GuardTower,
+  Hypnosis,
 };

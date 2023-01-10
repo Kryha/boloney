@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color } from "../../design";
+import { color, margins } from "../../design";
 
 export const PowerUpWrapper = styled.div`
   box-sizing: border-box;
@@ -11,11 +11,20 @@ export const PowerUpWrapper = styled.div`
   border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
 `;
 
-export const PowerUpCardImage = styled.img`
-  // TODO:change depending on assets
-  height: 100%;
-  width: auto;
-  margin-left: -15px;
+interface PowerUpProps {
+  isSmokeAndMirrors: boolean;
+  isDoubleUp: boolean;
+}
+
+export const PowerUpCardImage = styled.img<PowerUpProps>`
+  height: auto;
+  width: ${({ isSmokeAndMirrors }): string =>
+    isSmokeAndMirrors ? "clamp(65px, 2.08vw + 45px, 85px)" : " clamp(45px, 2.08vw + 25px, 65px)"};
+  margin-right: ${({ isDoubleUp }): string => (isDoubleUp ? "-0.8vw" : "0px")};
 `;
