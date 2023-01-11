@@ -7,45 +7,28 @@ interface FaceProps {
   size?: string;
   padding?: string;
   pipColor?: string;
-  isSixDie?: boolean;
+  borderRadius?: string;
+  isDiceHidden?: boolean;
 }
 
 export const DieWrapper = styled.div<FaceProps>`
+  height: ${({ isDiceHidden }): string => (isDiceHidden ? "1em" : "clamp(20px, 2.08vw + 0px, 40px)")};
   > svg {
     width: ${({ size }): string => size || "clamp(20px, 2.08vw + 0px, 40px)"};
     height: ${({ size }): string => size || "clamp(20px, 2.08vw + 0px, 40px)"};
-    ${({ isSixDie, faceColor, pipColor }): string => {
-      return isSixDie
+    background-color: ${({ faceColor }): string => faceColor || color.darkBlue};
+    border-radius: ${({ borderRadius }): string => borderRadius || "clamp(2px, 0.1vw + 1px, 3px)"};
+    ${({ isDiceHidden, pipColor }): string =>
+      isDiceHidden
         ? `
-        path: nth-of-type(1) {
+        path {
           fill: ${pipColor || color.pureWhite};
         }
-          `
+        `
         : `
-        path: nth-of-type(1) {
-          fill: ${faceColor || color.darkBlue};
+        rect {
+          fill: ${pipColor || color.pureWhite};
         }
-        `;
-    }};
-    path: nth-of-type(2) {
-      fill: ${({ pipColor }): string => pipColor || color.white};
-    }
-    path: nth-of-type(3) {
-      fill: ${({ pipColor }): string => pipColor || color.white};
-    }
-    path: nth-of-type(4) {
-      fill: ${({ pipColor }): string => pipColor || color.white};
-    }
-    path: nth-of-type(5) {
-      fill: ${({ pipColor }): string => pipColor || color.white};
-    }
-    path: nth-of-type(6) {
-      fill: ${({ pipColor }): string => pipColor || color.white};
-    }
-    g {
-      path {
-        fill: ${({ faceColor }): string => faceColor || color.darkBlue} !important;
-      }
-    }
+    `};
   }
 `;

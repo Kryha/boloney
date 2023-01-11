@@ -14,8 +14,14 @@ import PlasticHandPaint from "./plastic-hand-paint.svg";
 import ScooperHandPaint from "./poop-scooper-hand-paint.svg";
 import SausageHandPaint from "./sausage-hand.svg";
 import PercentageIcon from "./percentage.svg";
-import BoloneyToaster from "./boloney-toaster.png";
-import ExactDartBoard from "./exact-dart-board.png";
+import CallBoloney from "./call-boloney.png";
+import CallBoloneyWinner from "./call-boloney-winner.png";
+import CallBoloneyLoser from "./call-boloney-loser.png";
+import CallExact from "./call-exact.png";
+import CallExactWinner from "./call-exact-winner.png";
+import CallExactLoser from "./call-exact-loser.png";
+import HealDiceOne from "./heal-dice-one.png";
+import HealDiceTwo from "./heal-dice-two.png";
 import Grill from "./grill.png";
 import Vendetta from "./vendetta.png";
 import MenageATrois from "./menage-a-trois.png";
@@ -45,8 +51,14 @@ export {
   SausageHandPaint,
   PercentageIcon,
   DiceCrown,
-  BoloneyToaster,
-  ExactDartBoard,
+  CallBoloney,
+  CallBoloneyLoser,
+  CallBoloneyWinner,
+  CallExact,
+  CallExactLoser,
+  CallExactWinner,
+  HealDiceOne,
+  HealDiceTwo,
   Grill,
   Vendetta,
   MenageATrois,

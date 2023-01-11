@@ -3,21 +3,21 @@ import styled from "@emotion/styled";
 import { LightningIcon } from "../../assets";
 import { color, margins } from "../../design";
 import { GeneralText, Row } from "../atoms";
-import { DieWrapper } from "../die/styles";
 
 export const Lightning = styled(LightningIcon)`
-  width: 11px;
-  height: 15px;
+  width: auto;
+  height: 1em;
+  margin-top: 3px;
   path {
     stroke: ${color.darkGrey};
   }
-  margin-top: 3px;
 `;
 
 export const PowerUpIconWrapper = styled(Row)`
-  gap: ${margins.small0};
   align-items: center;
-  margin-top: -1px;
+  padding: 0px;
+  gap: 0.1em;
+
   ${GeneralText} {
     :first-letter {
       text-transform: none;
@@ -26,11 +26,10 @@ export const PowerUpIconWrapper = styled(Row)`
 `;
 
 export const DiceIconWrapper = styled(Row)`
-  gap: ${margins.small0};
   align-items: center;
-  ${DieWrapper} {
-    margin-top: ${margins.small1};
-  }
+  padding: 0px;
+  gap: ${margins.small0};
+
   ${GeneralText} {
     :first-letter {
       text-transform: none;

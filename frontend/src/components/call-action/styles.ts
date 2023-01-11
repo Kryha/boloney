@@ -22,8 +22,14 @@ export const CallActionWrapper = styled.section`
   }
 `;
 
-export const ActionImage = styled.img`
+interface ActionProps {
+  isCallBoloney: boolean;
+}
+
+export const ActionImage = styled.img<ActionProps>`
   object-fit: contain;
-  width: clamp(687.98px, 71.77vw + -1.03px, 1376.99px);
-  height: clamp(291.72px, 30.99vw + -5.75px, 589.19px);
+  width: ${({ isCallBoloney }): string =>
+    isCallBoloney ? "clamp(600px, 72.92vw + -100px, 1300px)" : "clamp(600px, 62.5vw + 0px, 1200px)"};
+  height: auto;
+  margin-top: ${({ isCallBoloney }): string => (isCallBoloney ? "-4vw" : "-8vw")};
 `;

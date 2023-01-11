@@ -19,6 +19,7 @@ export const ActivePlayerResults: FC = () => {
   const isWinner = localPlayer.actionRole === "winner";
 
   const playerData = getResultData(lastAction, winner);
+  const actionImg = isWinner ? playerData.winnerImg : playerData.loserImg;
 
   return (
     <ActivePlayerResultWrapper>
@@ -28,7 +29,7 @@ export const ActivePlayerResults: FC = () => {
         ) : (
           <ActivePlayerTextResults data={playerData} isWinner={isWinner} />
         )}
-        <ActivePlayerImage src={playerData.img} alt={playerData.name} />
+        <ActivePlayerImage src={actionImg} alt={playerData.name} isBoloney={lastAction === "Boloney"} />
         <ButtonReady />
       </BottomButtonWrapper>
     </ActivePlayerResultWrapper>

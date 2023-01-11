@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { GAME_PLAYER_HEIGHT } from "../../constants";
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, GeneralText, Heading5, Heading6 } from "../atoms";
+import { avatarHeight, Heading5, Heading6 } from "../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
@@ -15,7 +15,8 @@ export const DiceCrownWrapper = styled.div`
 `;
 
 export const DiceCrownImg = styled.img`
-  width: 90%;
+  width: 300%;
+  height: auto;
   object-fit: cover;
 `;
 
@@ -30,6 +31,7 @@ export const MatchWinnerWrapper = styled.div`
   flex-direction: column;
   ${DiceIconWrapper} {
     justify-content: center;
+    height: clamp(89.81px, 9.5vw + -1.36px, 180.97px);
   }
 `;
 
@@ -150,11 +152,6 @@ export const PlayerInfoContainer = styled.section`
   bottom: 0;
   ${DieWrapper} {
     margin-top: 0 !important;
-  }
-  ${DiceIconWrapper} {
-    ${GeneralText} {
-      margin-top: -5px;
-    }
   }
 `;
 

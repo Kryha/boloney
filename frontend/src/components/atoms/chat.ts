@@ -22,13 +22,13 @@ export const Message = styled.div<MessageProps>`
   text-transform: none;
   transform: rotate(180deg);
   direction: ltr;
-  background: ${color.greyWhite};
+  background: ${color.white};
   border-radius: ${margins.small1};
   display: flex;
   flex-direction: column;
   padding: ${margins.small2};
   gap: 6px;
-  background: ${({ isLocalUser }): string => (isLocalUser ? color.grey : color.greyWhite)};
+  background: ${({ isLocalUser }): string => (isLocalUser ? color.grey : color.white)};
   width: fit-content;
 `;
 

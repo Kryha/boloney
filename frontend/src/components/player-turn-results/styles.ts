@@ -24,8 +24,13 @@ export const ActivePlayerResultWrapper = styled.section`
   }
 `;
 
-export const ActivePlayerImage = styled.img`
+interface ActivePlayerProps {
+  isBoloney: boolean;
+}
+
+export const ActivePlayerImage = styled.img<ActivePlayerProps>`
   object-fit: contain;
-  width: clamp(619.18px, 38.78vw + 246.93px, 991.43px);
-  height: clamp(262.55px, 21.75vw + 53.74px, 471.35px);
+  width: ${({ isBoloney }): string => (isBoloney ? "clamp(600px, 62.5vw + 0px, 1200px)" : "clamp(550px, 46.88vw + 100px, 1000px)")};
+  height: auto;
+  margin-top: -7vw;
 `;

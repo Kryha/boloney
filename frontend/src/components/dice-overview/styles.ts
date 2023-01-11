@@ -32,15 +32,19 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
     }
   }
 `;
+interface DiceProps {
+  isRow?: boolean;
+}
 
-export const YourDiceContainer = styled.div`
+export const YourDiceContainer = styled.div<DiceProps>`
   display: flex;
   flex-direction: row;
   margin-left: ${margins.small5};
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: ${margins.small0};
+  gap: ${({ isRow }) => (isRow ? margins.small2 : margins.small1)};
+
   ${DieWrapper} {
     -webkit-animation-name: ${fadeInPop};
     -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);

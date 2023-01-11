@@ -9,7 +9,7 @@ import {
   notificationCallBoloneySchema,
   NkResponse,
 } from "../types";
-import { BoloneyToaster, ExactDartBoard, text } from "../assets";
+import { CallBoloney, CallExact, text } from "../assets";
 import { Notification } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 import { useStore } from "../store";
@@ -69,7 +69,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
   // TODO: update the text for all opcodes
   const defaultUnknownError: NotificationContent = {
     id: "1001",
-    img: BoloneyToaster,
+    img: CallBoloney,
     title: text.error.somethingWentWrong,
     description: text.error.somethingWentWrong,
     boldText: [],
@@ -84,7 +84,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
       //TODO: Change image to figma design
       const data: NotificationContent = {
         id: notification.id,
-        img: BoloneyToaster,
+        img: CallBoloney,
         title: text.match.boloney,
         description: "",
         boldText: [],
@@ -118,7 +118,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
       //TODO: Change image to figma design
       return {
         id: notification.id,
-        img: ExactDartBoard,
+        img: CallExact,
         title: text.match.exact,
         description: text.notifications.playerIsCallingExactOnYou(activePlayerName),
         boldText: [activePlayerName],
@@ -133,7 +133,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
       return {
         //TODO: Change image to figma design
         id: notification.id,
-        img: BoloneyToaster,
+        img: CallBoloney,
         title: text.notifications.playerIsOutOfTheMatchTitle(activePlayerName),
         description: text.notifications.playerIsOutOfTheMatchDescription(activePlayerName),
         boldText: [activePlayerName],
@@ -147,7 +147,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
       const { errorMessage } = parsedNotificationContent.data;
       return {
         id: notification.id,
-        img: BoloneyToaster,
+        img: CallBoloney,
         title: text.error.somethingWentWrong,
         description: errorMessage,
         boldText: [],
@@ -163,7 +163,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
       return {
         //TODO: Change image to figma design
         id: notification.id,
-        img: BoloneyToaster,
+        img: CallBoloney,
         title: text.notifications.playerLeftTheMatch(activePlayerName),
         description: "",
         boldText: [activePlayerName],

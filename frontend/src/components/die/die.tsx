@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { DiceFiveIcon, DiceFourIcon, DiceHiddenIcon, DiceOneIcon, DiceSixIcon, DiceThreeIcon, DiceTwoIcon } from "../../assets";
+import { LARGE_DIE_SIZE } from "../../constants";
 
 import { DieWrapper } from "./styles";
 
@@ -8,7 +9,7 @@ interface DieProps {
   size?: string;
   faceColor?: string;
   pipColor?: string;
-  padding?: string;
+  isRow?: boolean;
 }
 
 export const findDieFace = (value?: number) => {
@@ -30,9 +31,11 @@ export const findDieFace = (value?: number) => {
   }
 };
 
-export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor }) => {
+export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor, isRow }) => {
+  const diceSize = isRow ? LARGE_DIE_SIZE : size;
+
   return (
-    <DieWrapper faceColor={faceColor} size={size} pipColor={pipColor} isSixDie={value === 6}>
+    <DieWrapper faceColor={faceColor} size={diceSize} pipColor={pipColor} isDiceHidden={!value}>
       {findDieFace(value)}
     </DieWrapper>
   );

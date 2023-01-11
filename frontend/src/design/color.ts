@@ -14,6 +14,7 @@ export const color = {
   powderedWhite: "#EAEAE5",
   offWhite: "#EEEAE9",
   pureWhite: "#FFFFFF",
+  greyWhite: "#F2F3F5",
   black: "#292929",
   red: "#FC0E0E",
 };

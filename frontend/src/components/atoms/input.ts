@@ -108,7 +108,7 @@ export const ChatInput = styled(BaseInput)`
   -webkit-border-radius: 0px;
   width: clamp(225px, 25vw + -15px, 465px);
   height: 44px;
-  background: ${color.greyWhite};
+  background: ${color.white};
   &::placeholder {
     font-family: ibm-plex-mono;
     font-weight: ${fontWeight.light};

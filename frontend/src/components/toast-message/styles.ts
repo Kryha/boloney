@@ -21,7 +21,7 @@ export const ToastWrapper = styled.section`
 export const ToastImage = styled.img`
   object-fit: contain;
   width: clamp(132px, 13.96vw + -2px, 266px);
-  height: clamp(87.78px, 9.28vw + -1.33px, 176.89px);
+  height: auto;
 `;
 
 export const CloseButton = styled(CloseIcon)`
@@ -43,6 +43,7 @@ export const ToastDescriptionContainer = styled.div`
     font-weight: bold;
     background-color: transparent;
     text-transform: capitalize;
+    color: ${color.black};
   }
   ${Heading6} {
     text-transform: uppercase;
