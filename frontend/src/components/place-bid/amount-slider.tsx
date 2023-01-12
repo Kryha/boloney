@@ -34,7 +34,7 @@ export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
   const upperBound = diceInMatch;
 
   const isFirstBid = diceAmount && !lastBid;
-  const isFaceValueHigher = diceAmount && faceValue && lastBid && faceValue > lastBid?.face;
+  const isFaceValueHigher = diceAmount && faceValue && lastBid && faceValue > lastBid?.face && diceAmount >= lastBid?.amount;
   const isBidHigher = diceAmount && lastBid && diceAmount > lastBid?.amount;
 
   const isBidValid = isFaceValueHigher || isBidHigher;

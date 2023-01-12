@@ -29,17 +29,17 @@ export const DiceFaces: FC<DiceFaceProps> = ({ lastBid, dieColor }) => {
     }
   };
 
+  const isDisabled = (die: number) => {
+    return !!lastBid && lastBid.amount === diceInMatch && lastBid.face >= die;
+  };
+
   return (
     <DiceContainer>
       {ARRAY_OF_POSABLE_DIE_FACES.map((die, index) => (
-        <Die key={index} disabled={isDisabled(lastBid, die, diceInMatch)} isSelected={faceValue === die} onClick={() => handleClick(die)}>
+        <Die key={index} disabled={isDisabled(die)} isSelected={faceValue === die} onClick={() => handleClick(die)}>
           <DieComponent faceColor={dieColor} value={die} size={faceValue === die ? bidDieSize.selected : bidDieSize.idle} />
         </Die>
       ))}
     </DiceContainer>
   );
-};
-
-const isDisabled = (lastBid: Bid | undefined, die: number, diceInMatch: number) => {
-  return !!lastBid && lastBid.amount === diceInMatch && lastBid.face >= die;
 };

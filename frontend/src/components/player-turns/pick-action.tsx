@@ -15,6 +15,12 @@ export const PickAction: FC = () => {
 
   const maxBidPlaced = latestBid && latestBid.amount === totalDice && latestBid.face === MAX_DIE_FACE;
 
+  const handleBidAction = () => {
+    if (latestBid && latestBid.amount === totalDice && latestBid.face === MAX_DIE_FACE) return;
+    setTurnActionStep("proceedWithAction");
+    setAction("bid");
+  };
+
   return (
     <ActivePlayerWrapper>
       <ActivePlayerContainer>
@@ -36,8 +42,7 @@ export const PickAction: FC = () => {
             disabled={maxBidPlaced}
             text={text.match.bid}
             onClick={() => {
-              setTurnActionStep("proceedWithAction");
-              setAction("bid");
+              handleBidAction();
             }}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
