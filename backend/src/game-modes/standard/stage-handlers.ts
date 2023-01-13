@@ -1,6 +1,6 @@
 import { handleMatchStage } from "../../services";
 import { MatchLoopParams, MatchStage } from "../../types";
-import { handleEmptyLogic, handlePowerUpLogic } from "./logic-handlers";
+import { handlePowerUpLogic, handleLogicWithTimer, handleEmptyLogic } from "./logic-handlers";
 import {
   handleLobbyMessage,
   handlePlayerTurnMessage,
@@ -21,16 +21,16 @@ export const handleStage: StageHandlers = {
 
   getPowerUpStage: (loopParams) => handleMatchStage(loopParams, handlePowerUpMessage, handlePowerUpLogic, handleBasicTransition),
 
-  rollDiceStage: (loopParams) => handleMatchStage(loopParams, handleRollDiceMessage, handleEmptyLogic, handleBasicTransition),
+  rollDiceStage: (loopParams) => handleMatchStage(loopParams, handleRollDiceMessage, handleLogicWithTimer, handleBasicTransition),
 
   /*
    * In the turn loop players won't indicate that they are ready.
    * We'll move to the next stage only when the conditions are met.
    * Next stage transition will be trigger by a "round ending" action (exact, boloney)
    */
-  playerTurnLoopStage: (loopParams) => handleMatchStage(loopParams, handlePlayerTurnMessage, handleEmptyLogic, handleBasicTransition),
+  playerTurnLoopStage: (loopParams) => handleMatchStage(loopParams, handlePlayerTurnMessage, handleLogicWithTimer, handleBasicTransition),
 
-  roundSummaryStage: (loopParams) => handleMatchStage(loopParams, handleReadyMessage, handleEmptyLogic, handleSummaryTransition),
+  roundSummaryStage: (loopParams) => handleMatchStage(loopParams, handleReadyMessage, handleLogicWithTimer, handleSummaryTransition),
 
   /**
    * TODO: currently the match terminates after the creator leaves the end of match page

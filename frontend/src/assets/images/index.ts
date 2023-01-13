@@ -14,6 +14,7 @@ import PlasticHandPaint from "./plastic-hand-paint.svg";
 import ScooperHandPaint from "./poop-scooper-hand-paint.svg";
 import SausageHandPaint from "./sausage-hand.svg";
 import PercentageIcon from "./percentage.svg";
+import TimerIsOut from "./timer-is-out.png";
 import CallBoloney from "./call-boloney.png";
 import CallBoloneyWinner from "./call-boloney-winner.png";
 import CallBoloneyLoser from "./call-boloney-loser.png";
@@ -51,6 +52,7 @@ export {
   SausageHandPaint,
   PercentageIcon,
   DiceCrown,
+  TimerIsOut,
   CallBoloney,
   CallBoloneyLoser,
   CallBoloneyWinner,

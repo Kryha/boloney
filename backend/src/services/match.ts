@@ -17,7 +17,7 @@ import {
 } from "../types";
 import { randomInt } from "../utils";
 import { errors, handleError, parseError } from "./error";
-import { getActivePlayerId, getNextPlayerId, handlePlayerLoss, hidePlayersData, isMatchEnded, setActivePlayer } from "./player";
+import { getActivePlayerId, getNextPlayerId, handlePlayerLostMatch, hidePlayersData, isMatchEnded, setActivePlayer } from "./player";
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
   const messageSender = state.players[message.sender.userId];
@@ -129,7 +129,7 @@ export const handlePlayerLeftDuringMatch = (loopParams: MatchLoopParams, senderI
 };
 
 const recomputeMatchState = (loopParams: MatchLoopParams, player: Player) => {
-  handlePlayerLoss(loopParams, player, NotificationOpCode.PLAYER_LEFT);
+  handlePlayerLostMatch(loopParams, player, NotificationOpCode.PLAYER_LEFT);
   player.diceValue = [];
   player.diceAmount = 0;
   resetRound(loopParams);

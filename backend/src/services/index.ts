@@ -1,4 +1,5 @@
 export * from "./match";
+export * from "./timer";
 export * from "./player";
 export * from "./profanity-filter";
 export * from "./error";

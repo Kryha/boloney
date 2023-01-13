@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 
 import { text } from "../assets";
 import { useSession, useStore } from "../store";
-import { BidPayloadFrontend, BidWithUserId, MatchOpCode, NkResponse, PlayerPublic } from "../types";
+import { ActionRole, BidPayloadFrontend, BidWithUserId, MatchOpCode, NkResponse, PlayerPublic } from "../types";
 import { parseError } from "../util";
 import { nakama } from "./nakama";
 
@@ -89,13 +89,13 @@ export const useActivePlayer = (): PlayerPublic | undefined => {
   }, [players]);
 };
 
-export const useWinner = (): PlayerPublic | undefined => {
+export const usePlayerWithRole = (actionRole: ActionRole): PlayerPublic | undefined => {
   const players = useStore((state) => state.players);
 
   return useMemo(() => {
     const playersValues = Object.values(players);
-    return playersValues.find((player) => player.actionRole === "winner");
-  }, [players]);
+    return playersValues.find((player) => player.actionRole === actionRole);
+  }, [players, actionRole]);
 };
 
 export const useMatch = () => {

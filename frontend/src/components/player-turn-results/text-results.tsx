@@ -6,7 +6,7 @@ import { TextResultWrapper } from "./styles";
 
 interface TextResultsProps {
   data: ResultData;
-  isWinner: boolean;
+  isWinner?: boolean;
 }
 
 export const ActivePlayerTextResults: FC<TextResultsProps> = ({ data, isWinner }) => {

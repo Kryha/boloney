@@ -1,16 +1,23 @@
-import { logicHandler } from "../../services";
+import { logicHandler ,handleTimeOutTicks} from "../../services";
 import { getPowerUp } from "../../toolkit-api";
-import { isPowerUpId, MatchOpCode } from "../../types";
+import { isPowerUpId, MatchLoopParams, MatchOpCode } from "../../types";
 import { getRange } from "../../utils";
 
 export const handleEmptyLogic = logicHandler(async () => {
-  // handler for stages that have no logic
+  //For empty logic
 });
 
-export const handlePowerUpLogic = logicHandler(async ({ state, dispatcher }) => {
+export const handleLogicWithTimer = logicHandler(async (loopParams: MatchLoopParams) => {
+  handleTimeOutTicks(loopParams);
+});
+
+export const handlePowerUpLogic = logicHandler(async (loopParams: MatchLoopParams) => {
+  const { state, dispatcher } = loopParams;
   const playersList = Object.values(state.players);
   const initialPowerUpAmount = state.settings.initialPowerUpAmount;
   const range = getRange(initialPowerUpAmount);
+
+  handleTimeOutTicks(loopParams);
 
   await Promise.all(
     playersList.map(async (player) => {

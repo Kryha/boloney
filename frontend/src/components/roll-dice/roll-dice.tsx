@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
-import { TimerHeader } from "../timer-header";
+import { Timer } from "../timer";
 import { color } from "../../design";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
@@ -32,7 +32,7 @@ export const RollDice: FC = () => {
 
   return (
     <BottomButtonWrapper>
-      <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={text.powerUps.settingItUp} />
+      <Timer title={text.powerUps.settingItUp} />
       <Heading2 customColor={color.darkGrey}>{text.param.findOutYourPips(localPlayer.username)}</Heading2>
 
       {dice && <RollingDice dice={dice} dieColor={dieColor} />}

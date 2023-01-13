@@ -14,11 +14,20 @@ export const WinnerBadge = () => {
   );
 };
 
-export const LoserBadge = () => {
+const LoserBadge = () => {
   return (
     <BadgeWrapper>
       <CoolHand />
       <GeneralText>{text.playerTurn.loser}</GeneralText>
+    </BadgeWrapper>
+  );
+};
+
+const TimeOutBadge = () => {
+  return (
+    <BadgeWrapper>
+      <CoolHand />
+      <GeneralText>{text.playerTurn.outOfTime}</GeneralText>
     </BadgeWrapper>
   );
 };
@@ -30,5 +39,6 @@ interface PlayerBadgeProps {
 export const PlayerBadge: FC<PlayerBadgeProps> = ({ player }) => {
   if (!player.actionRole) return <></>;
   if (player.actionRole === "loser") return <LoserBadge />;
+  if (player.actionRole === "timeOut") return <TimeOutBadge />;
   return <WinnerBadge />;
 };

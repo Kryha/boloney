@@ -15,7 +15,7 @@ import {
   ErrorView,
   Loading,
 } from "../../components";
-import { nakama, useChatHistory, useJoinMatch } from "../../service";
+import { nakama, useJoinMatch } from "../../service";
 import { useSession, useStore } from "../../store";
 import {
   MatchOpCode,
@@ -72,10 +72,12 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const setMatchState = useStore((state) => state.setMatchState);
   const setIsJoining = useStore((state) => state.setIsJoining);
+  const setTimerTimeInSeconds = useStore((state) => state.setTimerTimeInSeconds);
+  const setTurnActionStep = useStore((state) => state.setTurnActionStep);
 
   const joinMatchDone = useJoinMatch(matchId);
-  const joinChatDone = useChatHistory();
-  const isLoading = joinMatchDone && joinChatDone;
+
+  const isLoading = joinMatchDone;
 
   const getStageComponent = (stage: MatchStage): ReactNode => {
     switch (stage) {
@@ -111,7 +113,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
 
           if (parsed.data.matchStage === "rollDiceStage") resetRound();
-
+          setTimerTimeInSeconds(parsed.data.remainingStageTime);
           setMatchStage(parsed.data.matchStage);
           setPlayerReady(false);
           break;
@@ -119,7 +121,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
         case MatchOpCode.PLAYER_JOINED: {
           const parsed = playerJoinedPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
-          setMatchState(parsed.data);
+          setTimerTimeInSeconds(parsed.data.remainingStageTime);
+          setMatchState(parsed.data.matchState);
           setIsJoining(false);
           break;
         }
@@ -158,6 +161,14 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
           setLastAction("Boloney");
           setPlayers(parsed.data.players);
+          break;
+        }
+        case MatchOpCode.PLAYER_LOST_BY_TIMEOUT: {
+          const parsed = boloneyPayloadBackendSchema.safeParse(data);
+          if (!parsed.success) return;
+          setLastAction("lostByTimeOut");
+          setPlayers(parsed.data.players);
+          setTurnActionStep("results");
           break;
         }
         case MatchOpCode.PLAYER_CALL_EXACT: {
@@ -228,6 +239,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     setPowerUpIds,
     setRound,
     setSpinnerVisibility,
+    setTimerTimeInSeconds,
+    setTurnActionStep,
   ]);
 
   if (isLoading || isJoining) return <Loading />;

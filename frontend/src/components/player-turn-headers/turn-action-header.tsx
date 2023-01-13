@@ -3,7 +3,7 @@ import { color } from "../../design";
 import { useStore } from "../../store";
 import { Heading2 } from "../atoms";
 import { GoBackButton } from "../buttons";
-import { TimerHeader } from "../timer-header";
+import { Timer } from "../timer";
 import { TurnActionHeaderWrapper, TurnActionHeading } from "./styles";
 
 export const TurnActionHeader = () => {
@@ -12,7 +12,6 @@ export const TurnActionHeader = () => {
   const turnActionStep = useStore((state) => state.turnActionStep);
   const round = useStore((state) => state.round);
 
-  // TODO: refractor from computed value
   const headerData = activePlayerTurnData(action, turnActionStep, round);
 
   return (
@@ -21,7 +20,7 @@ export const TurnActionHeader = () => {
       {turnActionStep === "evaluateWinner" ? (
         <TurnActionHeading>{headerData.timerTitle}</TurnActionHeading>
       ) : (
-        <TimerHeader timeInSeconds={0} isCountDownStarted={false} title={headerData.timerTitle} />
+        <Timer title={headerData.timerTitle} />
       )}
       <Heading2>{headerData.headingTitle}</Heading2>
       <Heading2 customColor={color.darkGrey}>{headerData.subHeadingTitle}</Heading2>

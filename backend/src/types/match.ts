@@ -30,10 +30,10 @@ export const isPlayerStatus = (value: unknown): value is PlayerStatus => {
 };
 
 // we need both undefined and null because nakama
-export type ActionRole = "winner" | "loser" | undefined | null;
+export type ActionRole = "winner" | "loser" | "timeOut" | undefined | null;
 
 export const isActionRole = (value: unknown): value is ActionRole => {
-  const roles: ActionRole[] = ["winner", "loser", undefined, null];
+  const roles: ActionRole[] = ["winner", "loser", "timeOut", undefined, null];
   return roles.includes(value as ActionRole);
 };
 
@@ -185,6 +185,8 @@ export interface MatchState {
   playersReady: string[];
   playerOrder: string[];
   matchStage: MatchStage;
+  ticksBeforeTimeOut: number;
+  timerHasStarted: boolean;
   emptyTicks: number;
   leaderboard: PlayerRanked[];
   round: number;
@@ -222,12 +224,14 @@ export enum MatchOpCode {
   LEADERBOARD_UPDATE = 15,
   ERROR = 16, // TODO: send as a notification
   PLAYER_LEFT = 17,
+  PLAYER_LOST_BY_TIMEOUT = 18,
   DEBUG_INFO = 99,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_GET_POWERUPS;
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_LOST_BY_TIMEOUT;
 };
+
 
 export interface MatchLoopParams {
   ctx: nkruntime.Context;

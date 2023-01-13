@@ -81,6 +81,8 @@ export const MATCH_STAGES: readonly MatchStage[] = [
   "terminateMatchStage",
 ];
 
+//TODO: get variable from envirement variables
+export const TICK_RATE = 1;
 export const MAX_INACTIVE_TICKS = 500;
 
 export const EMPTY_DATA = JSON.stringify({});

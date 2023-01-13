@@ -4,7 +4,6 @@ import {
   getNextPlayerId,
   getFilteredPlayerIds,
   getTotalDiceWithFace,
-  handlePlayerLoss,
   hidePlayersData,
   isBidHigher,
   isBidMaxTotal,
@@ -13,6 +12,7 @@ import {
   setActivePlayer,
   setAllPlayersReady,
   stopLoading,
+  handlePlayerLostRound,
 } from "../../../services";
 import {
   BidPayloadBackend,
@@ -47,6 +47,9 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
   setActivePlayer(nextActivePlayerId, state.players);
 
   const placeBidPayload: BidPayloadBackend = state.bids;
+
+  state.timerHasStarted = false;
+
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
   stopLoading(loopParams, message);
@@ -78,14 +81,9 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
 
   const [winner, loser] = bid.amount <= totalDice ? [target, sender] : [sender, target];
 
+  handlePlayerLostRound(loopParams, loser.userId, false);
   // TODO: implement ZK lose dice logic
-  loser.diceAmount -= 1;
-  loser.actionRole = "loser";
   winner.actionRole = "winner";
-
-  if (loser.diceAmount <= 0) {
-    handlePlayerLoss(loopParams, loser, NotificationOpCode.PLAYER_LOST);
-  }
 
   setAllPlayersReady(state);
 
@@ -124,13 +122,10 @@ const handlePlayerCallExact = messageHandler((loopParams, message, sender) => {
   const [winner, loser] = bid.amount === totalDice ? [sender, target] : [target, sender];
 
   if (loser.userId === sender.userId) {
-    loser.diceAmount -= 1;
+    handlePlayerLostRound(loopParams, loser.userId, false);
   }
   // TODO: if caller is winner, give them power-ups
-  loser.actionRole = "loser";
   winner.actionRole = "winner";
-
-  if (loser.diceAmount <= 0) handlePlayerLoss(loopParams, loser, NotificationOpCode.PLAYER_LOST);
 
   setAllPlayersReady(state);
 

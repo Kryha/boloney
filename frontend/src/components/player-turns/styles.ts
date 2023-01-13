@@ -5,7 +5,7 @@ import { ButtonWithHelperWrapper } from "../button-with-helper/styles";
 import { Info } from "../../components/tooltip/styles";
 import { BottomButtonWrapper, Heading6, Heading1 } from "../atoms";
 import { SecondaryButtonContainer } from "../buttons/styles";
-import { TimerRow } from "../timer-header/styles";
+import { TimerRow } from "../timer/styles";
 
 export const ActivePlayerWrapper = styled.section``;
 

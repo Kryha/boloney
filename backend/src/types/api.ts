@@ -4,16 +4,19 @@ import { MatchSettings, MatchStage, PlayerPublic, PlayerRanked } from "./match";
 import { PowerUpId } from "./power-up";
 
 export interface PlayerJoinedPayloadBackend {
-  players: Record<string, PlayerPublic>;
-  playerOrder: string[];
-  matchStage: MatchStage;
-  powerUpIds: PowerUpId[];
-  matchSettings: MatchSettings;
-  leaderboard: PlayerRanked[];
-  hasRolledDice: boolean;
-  diceValue: Die[];
-  bids: BidPayloadBackend;
-  round: number;
+  matchState: {
+    players: Record<string, PlayerPublic>;
+    playerOrder: string[];
+    matchStage: MatchStage;
+    powerUpIds: PowerUpId[];
+    matchSettings: MatchSettings;
+    leaderboard: PlayerRanked[];
+    hasRolledDice: boolean;
+    diceValue: Die[];
+    bids: BidPayloadBackend;
+    round: number;
+  };
+  remainingStageTime: number;
 }
 
 export interface BoloneyPayloadBackend {
@@ -25,6 +28,10 @@ export interface ExactPayloadBackend {
 }
 
 export interface PlayerUpdatePayloadBackend {
+  players: Record<string, PlayerPublic>;
+}
+
+export interface PlayerLostByTimeOut {
   players: Record<string, PlayerPublic>;
 }
 

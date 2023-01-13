@@ -1,35 +1,38 @@
 import { FC } from "react";
+import { text ,ResultData} from "../../assets";
 
-import { getResultData } from "../../assets/local-data/player-result";
-import { useLocalPlayer, useWinner } from "../../service";
-import { useStore } from "../../store";
-import { BottomButtonWrapper } from "../atoms";
+import { color } from "../../design";
+
+import { ActionRole } from "../../types";
+import { BottomButtonWrapper, Heading1, Heading2 } from "../atoms";
 import { ButtonReady } from "../button-ready";
-import { ErrorView } from "../error-view";
 import { ActivePlayerImage, ActivePlayerResultWrapper } from "./styles";
-import { ActivePlayerTextResults, TargetPlayerTextResults } from "./text-results";
+import { ActivePlayerTextResults } from "./text-results";
 
-export const ActivePlayerResults: FC = () => {
-  const lastAction = useStore((state) => state.lastAction);
-  const winner = useWinner();
-  const localPlayer = useLocalPlayer();
+interface ActivePlayerResult {
+  actionRole: ActionRole;
+  isWinner: boolean;
+  playerData: ResultData;
+  isBoloney: boolean;
+}
 
-  if (!winner || !localPlayer) return <ErrorView />;
-
-  const isWinner = localPlayer.actionRole === "winner";
-
-  const playerData = getResultData(lastAction, winner);
-  const actionImg = isWinner ? playerData.winnerImg : playerData.loserImg;
-
+export const ActivePlayerResults: FC<ActivePlayerResult> = ({ actionRole, isWinner, playerData, isBoloney }) => {
+  const isTimeOut = actionRole === "timeOut";
   return (
     <ActivePlayerResultWrapper>
       <BottomButtonWrapper>
-        {localPlayer.isActive ? (
-          <TargetPlayerTextResults data={playerData} isWinner={isWinner} />
+        {isTimeOut ? (
+          <>
+            <Heading1>{text.playerTurn.playerTimeOut}</Heading1>
+            <Heading2 customColor={color.darkGrey}>{text.playerTurn.youRunOutOfTime}</Heading2>
+            <ActivePlayerImage src={playerData.loserImg} alt={playerData.name} isBoloney={isBoloney} />
+          </>
         ) : (
-          <ActivePlayerTextResults data={playerData} isWinner={isWinner} />
+          <>
+            <ActivePlayerTextResults data={playerData} isWinner={isWinner} />
+            <ActivePlayerImage src={isWinner ? playerData.winnerImg : playerData.loserImg} alt={playerData.name} isBoloney={isBoloney} />
+          </>
         )}
-        <ActivePlayerImage src={actionImg} alt={playerData.name} isBoloney={lastAction === "Boloney"} />
         <ButtonReady />
       </BottomButtonWrapper>
     </ActivePlayerResultWrapper>

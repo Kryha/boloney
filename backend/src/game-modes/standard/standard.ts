@@ -1,4 +1,4 @@
-import { DEFAULT_MATCH_SETTINGS } from "../../constants";
+import { DEFAULT_MATCH_SETTINGS, TICK_RATE } from "../../constants";
 import {
   errors,
   getAvailableAvatar,
@@ -9,6 +9,7 @@ import {
   updateEmptyTicks,
   createChatGroup,
 } from "../../services";
+import { getSecondsFromTicks } from "../../services/timer";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayloadBackend } from "../../types";
 import { handleStage } from "./stage-handlers";
 
@@ -40,6 +41,8 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, 
       players: {},
       presences: {},
       bids: {},
+      ticksBeforeTimeOut: 0,
+      timerHasStarted: false,
       emptyTicks: 0,
       leaderboard: [],
       round: 1,
@@ -50,7 +53,7 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, 
     return {
       state: initialState,
       // TODO: Set tickRate to 5 after development is done for improved UX. But for dev purposes 1 is more than enough.
-      tickRate: 1, // 1 tick per second = 1 matchLoop func invocations per second.
+      tickRate: TICK_RATE, // 1 tick per second = 1 matchLoop func invocations per second.
       label: "StandardMatch",
     };
   } catch (error) {
@@ -122,16 +125,19 @@ export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger,
       Object.values(state.presences).map(async (presence) => {
         const player = state.players[presence.userId];
         const payload: PlayerJoinedPayloadBackend = {
-          players: hiddenPlayers,
-          playerOrder: state.playerOrder,
-          matchStage: state.matchStage,
-          powerUpIds: player.powerUpIds,
-          matchSettings: state.settings,
-          leaderboard: state.leaderboard,
-          hasRolledDice: player.hasRolledDice,
-          diceValue: player.diceValue,
-          bids: state.bids,
-          round: state.round,
+          matchState: {
+            players: hiddenPlayers,
+            playerOrder: state.playerOrder,
+            matchStage: state.matchStage,
+            powerUpIds: player.powerUpIds,
+            matchSettings: state.settings,
+            leaderboard: state.leaderboard,
+            hasRolledDice: player.hasRolledDice,
+            diceValue: player.diceValue,
+            bids: state.bids,
+            round: state.round,
+          },
+          remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
         };
         dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
       })

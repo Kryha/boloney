@@ -9,6 +9,7 @@ export interface UISlice {
   isModalButtonVisible: boolean;
   isLoadingSpinnerVisible: boolean;
   isPlayerReady: boolean;
+  timerTimeInSeconds: number;
 
   setModalComponentChildren: (component: OverlayComponent) => void;
   closeModal: () => void;
@@ -16,6 +17,7 @@ export interface UISlice {
   setModalWithContainer: (isVisible: boolean) => void;
   setSpinnerVisibility: (isVisible: boolean) => void;
   setPlayerReady: (isReady: boolean) => void;
+  setTimerTimeInSeconds: (timeInSeconds: number) => void;
 }
 
 export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
@@ -26,6 +28,7 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   isModalButtonVisible: false,
   isLoadingSpinnerVisible: false,
   isPlayerReady: false,
+  timerTimeInSeconds: 0,
 
   setModalComponentChildren: (component: OverlayComponent) => set(() => ({ modalComponentChildren: component })),
   closeModal: () =>
@@ -56,4 +59,5 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
       isOverlayVisible: isVisible,
     })),
   setPlayerReady: (isReady) => set(() => ({ isPlayerReady: isReady })),
+  setTimerTimeInSeconds: (timeInSeconds) => set(() => ({ timerTimeInSeconds: timeInSeconds })),
 });

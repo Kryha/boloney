@@ -1,24 +1,12 @@
 import { z } from "zod";
-import { bidPayloadBackendSchema } from "./bid";
-import { dieSchema } from "./die";
-
 import { NkError } from "./error";
-import { matchSettingsSchema, matchStageSchema, playerPublicSchema, playerRankedSchema } from "./match";
-import { powerUpIdSchema } from "./power-up";
+import { matchStageSchema, matchStateSchema, playerPublicSchema, playerRankedSchema } from "./match";
 
 export type NkResponse<T = void> = NkError | T;
 
 export const playerJoinedPayloadBackendSchema = z.object({
-  players: z.record(playerPublicSchema),
-  playerOrder: z.array(z.string()),
-  matchStage: matchStageSchema,
-  powerUpIds: z.array(powerUpIdSchema),
-  matchSettings: matchSettingsSchema,
-  leaderboard: z.array(playerRankedSchema),
-  hasRolledDice: z.boolean(),
-  diceValue: z.array(dieSchema),
-  bids: bidPayloadBackendSchema,
-  round: z.number(),
+  matchState: matchStateSchema,
+  remainingStageTime: z.number(),
 });
 export type PlayerJoinedPayloadBackend = z.infer<typeof playerJoinedPayloadBackendSchema>;
 
@@ -36,6 +24,11 @@ export const playerUpdatePayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),
 });
 export type PlayerUpdatePayloadBackend = z.infer<typeof playerUpdatePayloadBackendSchema>;
+
+export const playerLostByTimeOutPayloadBeckendSchema = z.object({
+  players: z.record(playerPublicSchema),
+});
+export type PlayerLostByTimeOutPayloadBeckend = z.infer<typeof playerLostByTimeOutPayloadBeckendSchema>;
 
 export const leaderboardUpdatePayloadBackendSchema = z.object({
   leaderboard: z.array(playerRankedSchema),

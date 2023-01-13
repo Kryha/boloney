@@ -10,9 +10,9 @@ import {
   Bid,
   TurnActionStep,
   TurnAction,
-  PlayerJoinedPayloadBackend,
   Action,
   PlayerRanked,
+  MatchState,
 } from "../types";
 
 interface RoundState {
@@ -47,7 +47,7 @@ interface MatchSliceSetters {
   setPowerUpIds: (ids: PowerUpId[]) => void;
   setActivePlayer: (playerId: string) => void;
   setHasRolledDice: (hasRolledDice: boolean) => void;
-  setMatchState: (payload: PlayerJoinedPayloadBackend) => void;
+  setMatchState: (payload: MatchState) => void;
   setTurnActionStep: (turnActionStep: TurnActionStep) => void;
   setAction: (action: TurnAction) => void;
   setBids: (bids: Record<string, Bid>) => void;

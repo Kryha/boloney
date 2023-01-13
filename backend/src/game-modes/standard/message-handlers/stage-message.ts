@@ -4,9 +4,9 @@ import {
   handlePlayerLeftDuringMatch,
   hidePlayersData,
   messageHandler,
+  rollDiceForPlayer,
 } from "../../../services";
-import { rollDice } from "../../../toolkit-api";
-import { MatchOpCode, RollDicePayload } from "../../../types";
+import { MatchOpCode } from "../../../types";
 import { handleActivePlayerMessages } from "./active-player-message";
 
 export const handleLobbyMessage = messageHandler((loopParams, message, sender) => {
@@ -34,7 +34,7 @@ export const handlePowerUpMessage = messageHandler((loopParams, message, sender)
 });
 
 export const handleRollDiceMessage = messageHandler(async (loopParams, message, sender) => {
-  const { state, dispatcher } = loopParams;
+  const { state } = loopParams;
   const { userId } = message.sender;
   const player = state.players[userId];
 
@@ -49,19 +49,7 @@ export const handleRollDiceMessage = messageHandler(async (loopParams, message, 
     }
     case MatchOpCode.ROLL_DICE: {
       if (player.hasRolledDice) return;
-
-      state.players[userId].hasRolledDice = true; // this has to be here in order to prevent user spamming
-
-      try {
-        const diceValue = await rollDice(player.diceAmount);
-        state.players[userId].diceValue = diceValue;
-
-        const payload: RollDicePayload = { diceValue };
-        dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [message.sender]);
-      } catch (error) {
-        state.players[userId].hasRolledDice = false;
-        throw error;
-      }
+      await rollDiceForPlayer(loopParams, sender.userId);
       break;
     }
   }

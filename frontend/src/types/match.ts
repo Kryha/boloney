@@ -1,6 +1,6 @@
 import { z } from "zod";
-
 import { MAX_POWERUPS_PER_PLAYER } from "../constants";
+import { bidPayloadBackendSchema } from "./bid";
 import { dieSchema } from "./die";
 import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
 
@@ -35,6 +35,7 @@ export enum MatchOpCode {
   LEADERBOARD_UPDATE = 15,
   ERROR = 16, // TODO: receive as a notification
   PLAYER_LEFT = 17,
+  PLAYER_LOST_BY_TIMEOUT = 18,
   DEBUG_INFO = 99,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
@@ -43,7 +44,7 @@ export const playerStatusSchema = z.enum(["playing", "lost"]);
 export type PlayerStatus = z.infer<typeof playerStatusSchema>;
 
 // we need both optional and nullable because nakama
-export const actionRoleSchema = z.enum(["winner", "loser"]).optional().nullable();
+export const actionRoleSchema = z.enum(["winner", "loser", "timeOut"]).optional().nullable();
 export type ActionRole = z.infer<typeof actionRoleSchema>;
 
 export const playerPrivateSchema = z.object({
@@ -89,6 +90,7 @@ export type MatchStage = z.infer<typeof matchStageSchema>;
 
 export const stageTransitionSchema = z.object({
   matchStage: matchStageSchema,
+  remainingStageTime: z.number(),
 });
 
 export type StageTration = z.infer<typeof stageTransitionSchema>;
@@ -118,6 +120,21 @@ export const matchSettingsSchema = z.object({
 });
 export type MatchSettings = z.infer<typeof matchSettingsSchema>;
 
+export const matchStateSchema = z.object({
+  players: z.record(playerPublicSchema),
+  playerOrder: z.array(z.string()),
+  matchStage: matchStageSchema,
+  powerUpIds: z.array(powerUpIdSchema),
+  matchSettings: matchSettingsSchema,
+  leaderboard: z.array(playerRankedSchema),
+  hasRolledDice: z.boolean(),
+  diceValue: z.array(dieSchema),
+  bids: bidPayloadBackendSchema,
+  round: z.number(),
+});
+
+export type MatchState = z.infer<typeof matchStateSchema>;
+
 export const matchFormSettingsSchema = z.object({
   players: z.string().transform((val) => Number(val)),
   dicePerPlayer: z.string().transform((val) => Number(val)),
@@ -143,5 +160,11 @@ export const playerActivePayloadSchema = z.object({
   activePlayerId: playerIdSchema,
 });
 
-export const actionSchema = z.enum(["Boloney", "Exact"]);
+export const actionSchema = z.enum(["Boloney", "Exact", "lostByTimeOut"]);
 export type Action = z.infer<typeof actionSchema>;
+
+export const stageTimerSchema = z.object({
+  startTime: z.number(),
+  duration: z.number(),
+});
+export type StageTimer = z.infer<typeof stageTimerSchema>;
