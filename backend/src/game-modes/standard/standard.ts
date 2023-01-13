@@ -8,8 +8,10 @@ import {
   setLosersAsReady,
   updateEmptyTicks,
   createChatGroup,
+  calcStageNumber,
+  calcDrawRoundCounter,
+  getSecondsFromTicks,
 } from "../../services";
-import { getSecondsFromTicks } from "../../services/timer";
 import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayloadBackend } from "../../types";
 import { handleStage } from "./stage-handlers";
 
@@ -32,7 +34,9 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, 
   try {
     if (!isMatchSettings(params)) throw errors.invalidPayload;
 
-    //TODO: If match settings are not specified as param use the default ones
+    const stageNumber = calcStageNumber(params.dicePerPlayer * params.players, params.stageNumberDivisor);
+    const drawRoundCounter = calcDrawRoundCounter(stageNumber, params.drawRoundOffset);
+
     const initialState: MatchState = {
       settings: params,
       playersReady: [],
@@ -46,6 +50,8 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, 
       emptyTicks: 0,
       leaderboard: [],
       round: 1,
+      stageNumber,
+      drawRoundCounter,
     };
 
     createChatGroup(nk, ctx, logger);
@@ -136,6 +142,8 @@ export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger,
             diceValue: player.diceValue,
             bids: state.bids,
             round: state.round,
+            stageNumber: state.stageNumber,
+            drawRoundCounter: state.drawRoundCounter,
           },
           remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
         };

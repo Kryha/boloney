@@ -1,6 +1,6 @@
-import { logicHandler ,handleTimeOutTicks} from "../../services";
+import { logicHandler, handleTimeOutTicks } from "../../services";
 import { getPowerUp } from "../../toolkit-api";
-import { isPowerUpId, MatchLoopParams, MatchOpCode } from "../../types";
+import { isPowerUpId, MatchLoopParams, MatchOpCode, PlayerGetPowerUpsPayloadBackend } from "../../types";
 import { getRange } from "../../utils";
 
 export const handleEmptyLogic = logicHandler(async () => {
@@ -22,16 +22,16 @@ export const handlePowerUpLogic = logicHandler(async (loopParams: MatchLoopParam
   await Promise.all(
     playersList.map(async (player) => {
       if (player.hasInitialPowerUps) return;
-
       await Promise.all(
         range.map(async () => {
           const powerUpId = await getPowerUp(state.settings.powerUpProbability);
           if (isPowerUpId(powerUpId)) player.powerUpIds.push(powerUpId);
         })
       );
-
       player.hasInitialPowerUps = true;
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(player.powerUpIds), [state.presences[player.userId]]);
+
+      const payload: PlayerGetPowerUpsPayloadBackend = player.powerUpIds;
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(payload), [state.presences[player.userId]]);
     })
   );
 });

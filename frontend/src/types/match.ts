@@ -31,11 +31,10 @@ export enum MatchOpCode {
   PLAYER_CALL_BOLONEY = 11,
   PLAYER_ACTIVE = 12,
   STOP_LOADING = 13,
-  PLAYER_UPDATE = 14,
-  LEADERBOARD_UPDATE = 15,
-  ERROR = 16, // TODO: receive as a notification
-  PLAYER_LEFT = 17,
-  PLAYER_LOST_BY_TIMEOUT = 18,
+  ROUND_SUMMARY_TRANSITION = 14,
+  ERROR = 15,
+  PLAYER_LEFT = 16,
+  PLAYER_LOST_BY_TIMEOUT = 17,
   DEBUG_INFO = 99,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
@@ -131,6 +130,8 @@ export const matchStateSchema = z.object({
   diceValue: z.array(dieSchema),
   bids: bidPayloadBackendSchema,
   round: z.number(),
+  stageNumber: z.number(),
+  drawRoundCounter: z.number(),
 });
 
 export type MatchState = z.infer<typeof matchStateSchema>;

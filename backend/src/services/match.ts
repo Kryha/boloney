@@ -100,7 +100,12 @@ export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.Mat
 };
 
 export const handlePlayerLeftDuringMatch = (loopParams: MatchLoopParams, senderId: string) => {
-  recomputeMatchState(loopParams, loopParams.state.players[senderId]);
+  const player = loopParams.state.players[senderId];
+
+  handlePlayerLostMatch(loopParams, player, NotificationOpCode.PLAYER_LEFT);
+  player.diceValue = [];
+  player.diceAmount = 0;
+  resetRound(loopParams);
 
   if (isMatchEnded(loopParams.state.players)) {
     loopParams.state.matchStage = "endOfMatchStage";
@@ -126,13 +131,6 @@ export const handlePlayerLeftDuringMatch = (loopParams: MatchLoopParams, senderI
     stage: loopParams.state.matchStage,
   };
   loopParams.dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payloadMatchContinues));
-};
-
-const recomputeMatchState = (loopParams: MatchLoopParams, player: Player) => {
-  handlePlayerLostMatch(loopParams, player, NotificationOpCode.PLAYER_LEFT);
-  player.diceValue = [];
-  player.diceAmount = 0;
-  resetRound(loopParams);
 };
 
 export const handlePlayerLeftDuringLobby = (state: MatchState, sender: string, dispatcher: nkruntime.MatchDispatcher) => {
@@ -183,6 +181,18 @@ export const transitionHandler: TransitionHandler = (callback) => (loopParams, n
   } catch (error) {
     handleError(error, loopParams.logger);
   }
+};
+
+export const calcStageNumber = (totalDice: number, stageNumberDivisor: number): number => {
+  const res = Math.round(totalDice / stageNumberDivisor);
+  if (res < 1) return 1;
+  return res;
+};
+
+export const calcDrawRoundCounter = (stageNumber: number, drawRoundOffset: number) => {
+  const res = Math.floor(stageNumber + drawRoundOffset);
+  if (res < 1) return 1;
+  return res;
 };
 
 export const resetRound = ({ state }: MatchLoopParams) => {

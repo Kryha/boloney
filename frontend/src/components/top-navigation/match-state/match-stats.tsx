@@ -1,27 +1,28 @@
 import { FC } from "react";
+
 import { MatchStateVerticalDivider, MatchStatsContainer } from "../styles";
 import { MatchStateItemStage } from "./match-stats-item-phase";
 import { MatchStateItemDrawRound } from "./match-stats-item-draw-round";
 import { DiceIcon } from "../../icons";
 import { color } from "../../../design";
 import { MATCH_STATS_DICE_VALUE } from "../../../constants";
+import { useTotalDiceInMatch } from "../../../service";
+import { useStore } from "../../../store";
 
-//TODO: Get this from the game state
-const MockState = {
-  numberOfDice: 30,
-  phaseNumber: 7,
-  tillDrawRound: 2,
-  amountOfPowerUps: 1,
-};
+const AMOUNT_OF_POWER_UPS = 1;
 
 export const MatchStats: FC = () => {
+  const totalDice = useTotalDiceInMatch();
+  const stageNumber = useStore((state) => state.stageNumber);
+  const drawRoundCounter = useStore((state) => state.drawRoundCounter);
+
   return (
     <MatchStatsContainer>
-      <DiceIcon diceAmount={MockState.numberOfDice} faceColor={color.white} pipColor={color.black} diceValue={MATCH_STATS_DICE_VALUE} />
+      <DiceIcon diceAmount={totalDice} faceColor={color.white} pipColor={color.black} diceValue={MATCH_STATS_DICE_VALUE} />
       <MatchStateVerticalDivider />
-      <MatchStateItemStage phaseNumber={MockState.phaseNumber} />
+      <MatchStateItemStage phaseNumber={stageNumber} />
       <MatchStateVerticalDivider />
-      <MatchStateItemDrawRound powerUpAmount={MockState.amountOfPowerUps} roundNumber={MockState.tillDrawRound} />
+      <MatchStateItemDrawRound powerUpAmount={AMOUNT_OF_POWER_UPS} roundNumber={drawRoundCounter} />
     </MatchStatsContainer>
   );
 };

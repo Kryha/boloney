@@ -8,7 +8,7 @@ import {
   handleReadyMessage,
   handleRollDiceMessage,
 } from "./message-handlers";
-import { handleBasicTransition, handleLobbyTransition, handleSummaryTransition } from "./transition-handlers";
+import { handleBasicTransition, handleLobbyTransition, handleRoundSummaryTransition } from "./transition-handlers";
 
 export type StageHandler = (loopParams: MatchLoopParams) => void;
 
@@ -30,7 +30,7 @@ export const handleStage: StageHandlers = {
    */
   playerTurnLoopStage: (loopParams) => handleMatchStage(loopParams, handlePlayerTurnMessage, handleLogicWithTimer, handleBasicTransition),
 
-  roundSummaryStage: (loopParams) => handleMatchStage(loopParams, handleReadyMessage, handleLogicWithTimer, handleSummaryTransition),
+  roundSummaryStage: (loopParams) => handleMatchStage(loopParams, handleReadyMessage, handleLogicWithTimer, handleRoundSummaryTransition),
 
   /**
    * TODO: currently the match terminates after the creator leaves the end of match page

@@ -8,10 +8,7 @@ import { nakama } from "./nakama";
 
 export const useTotalDiceInMatch = (): number => {
   const players = useStore((state) => state.players);
-
-  return useMemo(() => {
-    return Object.values(players).reduce((total, player) => total + player.diceAmount, 0);
-  }, [players]);
+  return Object.values(players).reduce((total, player) => total + player.diceAmount, 0);
 };
 
 export const useLatestBid = (): BidWithUserId | undefined => {

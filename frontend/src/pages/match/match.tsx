@@ -22,7 +22,6 @@ import {
   MatchStage,
   matchOpCodeSchema,
   rollDicePayloadSchema,
-  powerUpIdSchema,
   stageTransitionSchema,
   playerOrderSchema,
   playerPublicSchema,
@@ -31,10 +30,10 @@ import {
   bidPayloadBackendSchema,
   boloneyPayloadBackendSchema,
   exactPayloadBackendSchema,
-  playerUpdatePayloadBackendSchema,
   isString,
-  leaderboardUpdatePayloadBackendSchema,
   playerLeftPayloadBackend,
+  roundSummaryTransitionPayloadBackendSchema,
+  playerGetPowerUpsPayloadBackendSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -72,6 +71,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const setMatchState = useStore((state) => state.setMatchState);
   const setIsJoining = useStore((state) => state.setIsJoining);
+  const setStageNumberAndCounter = useStore((state) => state.setStageNumberAndCounter);
   const setTimerTimeInSeconds = useStore((state) => state.setTimerTimeInSeconds);
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
 
@@ -139,7 +139,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           break;
         }
         case MatchOpCode.PLAYER_GET_POWERUPS: {
-          const parsed = z.array(powerUpIdSchema).safeParse(data);
+          const parsed = playerGetPowerUpsPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
           setPowerUpIds(parsed.data);
           break;
@@ -184,12 +184,6 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           setActivePlayer(parsed.data.activePlayerId);
           break;
         }
-        case MatchOpCode.PLAYER_UPDATE: {
-          const parsed = playerUpdatePayloadBackendSchema.safeParse(data);
-          if (!parsed.success) return;
-          setPlayers(parsed.data.players);
-          break;
-        }
         case MatchOpCode.PLAYER_LEFT: {
           const parsed = playerLeftPayloadBackend.safeParse(data);
           if (!parsed.success) return;
@@ -204,11 +198,13 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (parsed.data.leaderboard) setLeaderboard(parsed.data.leaderboard);
           break;
         }
-        case MatchOpCode.LEADERBOARD_UPDATE: {
-          const parsed = leaderboardUpdatePayloadBackendSchema.safeParse(data);
+        case MatchOpCode.ROUND_SUMMARY_TRANSITION: {
+          const parsed = roundSummaryTransitionPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
+          setPlayers(parsed.data.players);
           setLeaderboard(parsed.data.leaderboard);
           setRound(parsed.data.round);
+          setStageNumberAndCounter(parsed.data.stageNumber, parsed.data.drawRoundCounter);
           break;
         }
         case MatchOpCode.DEBUG_INFO: {
@@ -222,7 +218,6 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
       }
     };
   }, [
-    matchStage,
     resetRound,
     session,
     setActivePlayer,
@@ -239,6 +234,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     setPowerUpIds,
     setRound,
     setSpinnerVisibility,
+    setStageNumberAndCounter,
     setTimerTimeInSeconds,
     setTurnActionStep,
   ]);

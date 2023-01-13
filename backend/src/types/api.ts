@@ -15,6 +15,8 @@ export interface PlayerJoinedPayloadBackend {
     diceValue: Die[];
     bids: BidPayloadBackend;
     round: number;
+    stageNumber: number;
+    drawRoundCounter: number;
   };
   remainingStageTime: number;
 }
@@ -27,17 +29,16 @@ export interface ExactPayloadBackend {
   players: Record<string, PlayerPublic>;
 }
 
-export interface PlayerUpdatePayloadBackend {
-  players: Record<string, PlayerPublic>;
-}
-
 export interface PlayerLostByTimeOut {
   players: Record<string, PlayerPublic>;
 }
 
-export interface LeaderboardUpdatePayloadBackend {
+export interface RoundSummaryTransitionPayloadBackend {
+  players: Record<string, PlayerPublic>;
   leaderboard: PlayerRanked[];
   round: number;
+  stageNumber: number;
+  drawRoundCounter: number;
 }
 
 export interface PlayerLeftPayloadBackend {
@@ -46,3 +47,5 @@ export interface PlayerLeftPayloadBackend {
   stage: MatchStage;
   leaderboard?: PlayerPublic[];
 }
+
+export type PlayerGetPowerUpsPayloadBackend = PowerUpId[];

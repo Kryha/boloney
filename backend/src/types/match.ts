@@ -190,6 +190,8 @@ export interface MatchState {
   emptyTicks: number;
   leaderboard: PlayerRanked[];
   round: number;
+  stageNumber: number;
+  drawRoundCounter: number;
 }
 
 export type MatchStage =
@@ -220,18 +222,19 @@ export enum MatchOpCode {
   PLAYER_CALL_BOLONEY = 11,
   PLAYER_ACTIVE = 12,
   STOP_LOADING = 13,
-  PLAYER_UPDATE = 14,
-  LEADERBOARD_UPDATE = 15,
-  ERROR = 16, // TODO: send as a notification
-  PLAYER_LEFT = 17,
-  PLAYER_LOST_BY_TIMEOUT = 18,
+  ROUND_SUMMARY_TRANSITION = 14,
+  ERROR = 15,
+  PLAYER_LEFT = 16,
+  PLAYER_LOST_BY_TIMEOUT = 17,
   DEBUG_INFO = 99,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_LOST_BY_TIMEOUT;
+  return (
+    isNumber(value) &&
+    ((value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_LOST_BY_TIMEOUT) || value === MatchOpCode.DEBUG_INFO)
+  );
 };
-
 
 export interface MatchLoopParams {
   ctx: nkruntime.Context;
