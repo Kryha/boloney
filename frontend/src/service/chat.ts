@@ -30,15 +30,18 @@ export const useChat = () => {
   return messages;
 };
 
-export const useChatHistory = () => {
+export const useChatHistory = (joinedMatch: boolean) => {
   const [isLoading, setIsLoading] = useState(true);
   const channelId = useStore((state) => state.channelId);
   const session = useStore((state) => state.session);
   const localPlayer = useLocalPlayer();
   const players = useStore((state) => state.players);
   const addMessage = useStore((state) => state.addMessage);
+  const messages = useStore((state) => state.messages);
 
   useEffect(() => {
+    if (joinedMatch || messages.length > 0) return;
+
     const joinChat = async () => {
       try {
         if (!channelId || !session) return;
@@ -63,7 +66,7 @@ export const useChatHistory = () => {
       }
     };
     joinChat();
-  }, [addMessage, channelId, localPlayer, players, session]);
+  }, [addMessage, channelId, joinedMatch, localPlayer, messages.length, players, session]);
 
   return isLoading;
 };
