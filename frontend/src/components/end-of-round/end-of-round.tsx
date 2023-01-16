@@ -12,13 +12,14 @@ import { TurnActionWrapper, IdlePlayerWrapper } from "../player-turns/styles";
 export const EndOfRound: FC = () => {
   const localPlayer = useLocalPlayer();
   const lastAction = useStore((state) => state.lastAction);
+  const receivedPowerUps = useStore((state) => state.receivedPowerUps);
   const winner = usePlayerWithRole("winner");
   const loserByTimeOut = usePlayerWithRole("timeOut");
 
   if (!localPlayer) return <ErrorView />;
 
   const isWinner = localPlayer.actionRole === "winner";
-  const playerData = getResultData(lastAction, winner);
+  const playerData = getResultData(lastAction, winner, receivedPowerUps);
   const isBoloney = lastAction === "Boloney";
 
   if (localPlayer.isActive) {

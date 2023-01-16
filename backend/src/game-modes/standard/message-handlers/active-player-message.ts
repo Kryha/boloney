@@ -14,18 +14,22 @@ import {
   stopLoading,
   handlePlayerLostRound,
 } from "../../../services";
+import { getPowerUp } from "../../../toolkit-api";
 import {
   BidPayloadBackend,
   BoloneyPayloadBackend,
   ExactPayloadBackend,
   isBidPayloadFrontend,
+  isPowerUpId,
   MatchLoopParams,
   MatchOpCode,
   NotificationContentCallBoloney,
   NotificationContentCallExact,
   NotificationOpCode,
   Player,
+  PlayerGetPowerUpsPayloadBackend,
 } from "../../../types";
+import { range } from "../../../utils";
 
 const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
   const { logger, nk, state, dispatcher } = loopParams;
@@ -96,7 +100,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
   stopLoading(loopParams, message);
 });
 
-const handlePlayerCallExact = messageHandler((loopParams, message, sender) => {
+const handlePlayerCallExact = messageHandler(async (loopParams, message, sender) => {
   const { nk, logger, state, dispatcher } = loopParams;
 
   logger.info(sender.username, "called Exact");
@@ -124,7 +128,25 @@ const handlePlayerCallExact = messageHandler((loopParams, message, sender) => {
   if (loser.userId === sender.userId) {
     handlePlayerLostRound(loopParams, loser.userId, false);
   }
-  // TODO: if caller is winner, give them power-ups
+
+  if (winner.userId === sender.userId) {
+    const { maxPowerUpAmount } = state.settings;
+    const currentPowerUpAmount = winner.powerUpIds.length;
+
+    const totalAfterReceive = currentPowerUpAmount + state.stageNumber;
+    const amountToReceive = totalAfterReceive > maxPowerUpAmount ? maxPowerUpAmount - currentPowerUpAmount : state.stageNumber;
+
+    await Promise.all(
+      range(amountToReceive - 1).map(async () => {
+        const powerUpId = await getPowerUp(state.settings.powerUpProbability);
+        if (isPowerUpId(powerUpId)) winner.powerUpIds.push(powerUpId);
+      })
+    );
+
+    const payload: PlayerGetPowerUpsPayloadBackend = winner.powerUpIds;
+    dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(payload), [state.presences[winner.userId]]);
+  }
+
   winner.actionRole = "winner";
 
   setAllPlayersReady(state);
