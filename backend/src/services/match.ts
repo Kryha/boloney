@@ -13,6 +13,7 @@ import {
   PlayerLeftPayloadBackend,
   StageLogicCallback,
   StageTransitionCallback,
+  StageTransitionPayloadBackend,
   TransitionHandler,
 } from "../types";
 import { randomInt } from "../utils";
@@ -93,7 +94,8 @@ export const updateEmptyTicks = (state: MatchState, messages: nkruntime.MatchMes
 // TODO: Add paylod to the message for correctly rendering the end of match stage when match inactive
 export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.MatchDispatcher): boolean => {
   if (state.emptyTicks > MAX_INACTIVE_TICKS) {
-    dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify({ matchStage: "endOfMatchStage" }));
+    const payload: StageTransitionPayloadBackend = { matchStage: "endOfMatchStage" };
+    dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(payload));
     return true;
   }
   return false;
@@ -144,15 +146,10 @@ export const handlePlayerLeftDuringLobby = (state: MatchState, sender: string, d
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payload));
 };
 
-export const broadcastDebugInfo = (dispatcher: nkruntime.MatchDispatcher, payload: object, _state?: MatchState): void => {
-  dispatcher.broadcastMessage(MatchOpCode.DEBUG_INFO, JSON.stringify(payload));
-};
-
 export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, message: nkruntime.MatchMessage, error?: nkruntime.Error | string) => {
   if (error) {
     const parsedError = parseError(error);
     logger.error("WS error:", parsedError);
-    // TODO: send as a notification
     dispatcher.broadcastMessage(MatchOpCode.ERROR, JSON.stringify(parsedError));
   }
   dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [message.sender]);

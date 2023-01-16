@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { NkError } from "./error";
-import { matchStageSchema, matchStateSchema, playerPublicSchema, playerRankedSchema } from "./match";
+import { matchStageSchema, matchStateSchema, playerIdSchema, playerPublicSchema, playerRankedSchema } from "./match";
 import { powerUpIdSchema } from "./power-up";
 
 export type NkResponse<T = void> = NkError | T;
@@ -21,10 +21,10 @@ export const exactPayloadBackendSchema = z.object({
 });
 export type ExactPayloadBackend = z.infer<typeof exactPayloadBackendSchema>;
 
-export const playerLostByTimeOutPayloadBeckendSchema = z.object({
+export const playerLostByTimeOutPayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),
 });
-export type PlayerLostByTimeOutPayloadBeckend = z.infer<typeof playerLostByTimeOutPayloadBeckendSchema>;
+export type PlayerLostByTimeOutPayloadBackend = z.infer<typeof playerLostByTimeOutPayloadBackendSchema>;
 
 export const roundSummaryTransitionPayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),
@@ -45,3 +45,22 @@ export const playerLeftPayloadBackend = z.object({
 
 export const playerGetPowerUpsPayloadBackendSchema = z.array(powerUpIdSchema);
 export type PlayerGetPowerUpsPayloadBackend = z.infer<typeof playerGetPowerUpsPayloadBackendSchema>;
+
+export const stageTransitionPayloadBackendSchema = z.object({
+  matchStage: matchStageSchema,
+  remainingStageTime: z.number().optional(),
+});
+export type StageTransitionPayloadBackend = z.infer<typeof stageTransitionPayloadBackendSchema>;
+
+export const playerReadyPayloadBackendSchema = z.record(playerPublicSchema);
+export type PlayerReadyPayloadBackend = z.infer<typeof playerReadyPayloadBackendSchema>;
+
+export const playerOrderShufflePayloadBackendSchema = z.object({
+  playerOrder: z.array(z.string()),
+});
+export type PlayerOrderShufflePayloadBackend = z.infer<typeof playerOrderShufflePayloadBackendSchema>;
+
+export const playerActivePayloadBackendSchema = z.object({
+  activePlayerId: playerIdSchema,
+});
+export type PlayerActivePayloadBackend = z.infer<typeof playerActivePayloadBackendSchema>;

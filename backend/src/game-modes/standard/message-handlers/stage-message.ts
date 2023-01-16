@@ -6,13 +6,13 @@ import {
   messageHandler,
   rollDiceForPlayer,
 } from "../../../services";
-import { MatchOpCode } from "../../../types";
+import { MatchOpCode, PlayerReadyPayloadBackend } from "../../../types";
 import { handleActivePlayerMessages } from "./active-player-message";
 
 export const handleLobbyMessage = messageHandler((loopParams, message, sender) => {
   if (message.opCode === MatchOpCode.PLAYER_READY) {
     attemptSetPlayerReady(loopParams.state, sender.userId);
-    const payload = hidePlayersData(loopParams.state.players);
+    const payload: PlayerReadyPayloadBackend = hidePlayersData(loopParams.state.players);
     loopParams.dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(payload));
   }
 

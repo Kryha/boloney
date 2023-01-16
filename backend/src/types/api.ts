@@ -29,7 +29,7 @@ export interface ExactPayloadBackend {
   players: Record<string, PlayerPublic>;
 }
 
-export interface PlayerLostByTimeOut {
+export interface PlayerLostByTimeOutPayloadBackend {
   players: Record<string, PlayerPublic>;
 }
 
@@ -49,3 +49,18 @@ export interface PlayerLeftPayloadBackend {
 }
 
 export type PlayerGetPowerUpsPayloadBackend = PowerUpId[];
+
+export interface StageTransitionPayloadBackend {
+  matchStage: MatchStage;
+  remainingStageTime?: number;
+}
+
+export type PlayerReadyPayloadBackend = Record<string, PlayerPublic>;
+
+export interface PlayerOrderShufflePayloadBackend {
+  playerOrder: string[];
+}
+
+export interface PlayerActivePayloadBackend {
+  activePlayerId: string;
+}

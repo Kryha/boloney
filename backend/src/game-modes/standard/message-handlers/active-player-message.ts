@@ -27,6 +27,7 @@ import {
   NotificationContentCallExact,
   NotificationOpCode,
   Player,
+  PlayerActivePayloadBackend,
   PlayerGetPowerUpsPayloadBackend,
 } from "../../../types";
 import { range } from "../../../utils";
@@ -50,12 +51,13 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
   const nextActivePlayerId = getNextPlayerId(sender.userId, state);
   setActivePlayer(nextActivePlayerId, state.players);
 
-  const placeBidPayload: BidPayloadBackend = state.bids;
-
   state.timerHasStarted = false;
 
+  const placeBidPayload: BidPayloadBackend = state.bids;
+  const playerActivePayload: PlayerActivePayloadBackend = { activePlayerId: nextActivePlayerId };
+
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
-  dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify({ activePlayerId: nextActivePlayerId }));
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify(playerActivePayload));
   stopLoading(loopParams, message);
 });
 

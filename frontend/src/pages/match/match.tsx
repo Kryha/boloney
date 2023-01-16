@@ -1,7 +1,6 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { FC, ReactNode, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { z } from "zod";
 
 import {
   EndOfMatch,
@@ -22,18 +21,17 @@ import {
   MatchStage,
   matchOpCodeSchema,
   rollDicePayloadSchema,
-  stageTransitionSchema,
-  playerOrderSchema,
-  playerPublicSchema,
+  stageTransitionPayloadBackendSchema,
   playerJoinedPayloadBackendSchema,
-  playerActivePayloadSchema,
+  playerActivePayloadBackendSchema,
   bidPayloadBackendSchema,
   boloneyPayloadBackendSchema,
   exactPayloadBackendSchema,
-  isString,
   playerLeftPayloadBackend,
   roundSummaryTransitionPayloadBackendSchema,
   playerGetPowerUpsPayloadBackendSchema,
+  playerReadyPayloadBackendSchema,
+  playerOrderShufflePayloadBackendSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -109,11 +107,11 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           break;
         }
         case MatchOpCode.STAGE_TRANSITION: {
-          const parsed = stageTransitionSchema.safeParse(data);
+          const parsed = stageTransitionPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
 
           if (parsed.data.matchStage === "rollDiceStage") resetRound();
-          setTimerTimeInSeconds(parsed.data.remainingStageTime);
+          setTimerTimeInSeconds(parsed.data.remainingStageTime || 0);
           setMatchStage(parsed.data.matchStage);
           setPlayerReady(false);
           break;
@@ -127,13 +125,13 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           break;
         }
         case MatchOpCode.PLAYER_READY: {
-          const parsed = z.record(playerPublicSchema).safeParse(data);
+          const parsed = playerReadyPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
           setPlayers(parsed.data);
           break;
         }
         case MatchOpCode.PLAYER_ORDER_SHUFFLE: {
-          const parsed = playerOrderSchema.safeParse(data);
+          const parsed = playerOrderShufflePayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
           setPlayerOrder(parsed.data.playerOrder);
           break;
@@ -179,7 +177,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           break;
         }
         case MatchOpCode.PLAYER_ACTIVE: {
-          const parsed = playerActivePayloadSchema.safeParse(data);
+          const parsed = playerActivePayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
           setActivePlayer(parsed.data.activePlayerId);
           break;
@@ -207,11 +205,6 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           setStageNumberAndCounter(parsed.data.stageNumber, parsed.data.drawRoundCounter);
           break;
         }
-        case MatchOpCode.DEBUG_INFO: {
-          if (import.meta.env.DEV && isString(data)) console.log("DEBUG_INFO", JSON.parse(data));
-          break;
-        }
-        // TODO: receive as a notification and show it to the user
         case MatchOpCode.ERROR: {
           console.error("MESSAGE ERROR: ", data);
         }

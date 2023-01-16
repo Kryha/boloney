@@ -35,7 +35,6 @@ export enum MatchOpCode {
   ERROR = 15,
   PLAYER_LEFT = 16,
   PLAYER_LOST_BY_TIMEOUT = 17,
-  DEBUG_INFO = 99,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
@@ -86,19 +85,6 @@ export const matchStageSchema = z.enum([
 ]);
 
 export type MatchStage = z.infer<typeof matchStageSchema>;
-
-export const stageTransitionSchema = z.object({
-  matchStage: matchStageSchema,
-  remainingStageTime: z.number(),
-});
-
-export type StageTration = z.infer<typeof stageTransitionSchema>;
-
-export const playerOrderSchema = z.object({
-  playerOrder: z.array(z.string()),
-});
-
-export type PlayerOrder = z.infer<typeof playerOrderSchema>;
 
 export const matchJoinMetadataSchema = z.object({
   username: z.string(),
@@ -156,10 +142,6 @@ export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
 export const playerIdSchema = z.string().length(36);
 
 export type PlayerId = z.infer<typeof playerIdSchema>;
-
-export const playerActivePayloadSchema = z.object({
-  activePlayerId: playerIdSchema,
-});
 
 export const actionSchema = z.enum(["Boloney", "Exact", "lostByTimeOut"]);
 export type Action = z.infer<typeof actionSchema>;

@@ -226,14 +226,10 @@ export enum MatchOpCode {
   ERROR = 15,
   PLAYER_LEFT = 16,
   PLAYER_LOST_BY_TIMEOUT = 17,
-  DEBUG_INFO = 99,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return (
-    isNumber(value) &&
-    ((value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_LOST_BY_TIMEOUT) || value === MatchOpCode.DEBUG_INFO)
-  );
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_LOST_BY_TIMEOUT;
 };
 
 export interface MatchLoopParams {
