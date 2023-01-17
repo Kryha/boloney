@@ -15,7 +15,7 @@ import {
   InputLegend,
 } from "../../components";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, isNkError, NkCode } from "../../types";
+import { AuthFields, isNkError } from "../../types";
 import { routes } from "../../navigation";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 import { useStore } from "../../store";
@@ -30,12 +30,13 @@ export const LoginForm: FC = () => {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors, isValid },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
   const showPasswordError = () => {
     switch (errors.password?.type) {
-      case NkCode.NOT_FOUND.toString():
+      case "User account not found.":
         return text.authForm.errorMessages.invalidCredentials;
       case "required":
         return text.authForm.errorMessages.passwordRequired;
@@ -49,6 +50,7 @@ export const LoginForm: FC = () => {
     if (!isValid) return;
     const res = await authenticateUser(username, password);
     setSpinnerVisibility(false);
+    setValue("password", "");
     if (!isNkError(res)) return navigate(routes.home);
     setError("password", { type: res.message }); // response is an error
   };
