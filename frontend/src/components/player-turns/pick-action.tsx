@@ -3,6 +3,7 @@ import { text } from "../../assets";
 import { MAX_DIE_FACE } from "../../constants";
 import { useLatestBid, useTotalDiceInMatch } from "../../service";
 import { useStore } from "../../store";
+import { TurnAction } from "../../types";
 import { GeneralText } from "../atoms";
 import { PrimaryButtonWithHelper } from "../button-with-helper";
 import { ActivePlayerWrapper, ActivePlayerContainer, PowerUpButtonContainer, ActionButtonContainer } from "./styles";
@@ -19,6 +20,14 @@ export const PickAction: FC = () => {
     if (latestBid && latestBid.amount === totalDice && latestBid.face === MAX_DIE_FACE) return;
     setTurnActionStep("proceedWithAction");
     setAction("bid");
+  };
+
+  const handleOnClickAction = (action: TurnAction) => {
+    //TODO: this conditional shouldn't be here, fix disabled propery
+    if (latestBid) {
+      setTurnActionStep("proceedWithAction");
+      setAction(action);
+    }
   };
 
   return (
@@ -51,8 +60,7 @@ export const PickAction: FC = () => {
             disabled={!latestBid}
             text={text.match.boloney}
             onClick={() => {
-              setTurnActionStep("proceedWithAction");
-              setAction("boloney");
+              handleOnClickAction("boloney");
             }}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
@@ -61,8 +69,7 @@ export const PickAction: FC = () => {
             disabled={!latestBid}
             text={text.match.exact}
             onClick={() => {
-              setTurnActionStep("proceedWithAction");
-              setAction("exact");
+              handleOnClickAction("exact");
             }}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}

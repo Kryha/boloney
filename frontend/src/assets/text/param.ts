@@ -31,6 +31,8 @@ export const param = {
   congratulationsExact: (username: string) => `congratulations ${username}, you rock at calling Exact!`,
   playerIsSafe: (username: string) => `congratulations ${username}, your ass is safe!`,
   appendColon: (text?: string) => `${text}:`,
+  congratulationsIdlePlayerActiveWon: (username: string, action: Action) => `congratulations ${username}, you rock at calling ${action}!`,
+  congratulationsIdlePlayerActiveLost: (username: string, action: Action) => `congratulations ${username}, your ass is safe ${action}!`,
   congratulationsIdlePlayer: (username: string, action: Action) => `congratulations ${username}, they are awesome at calling ${action}!`,
   aPlayerLostByTimeOut: (username: string) => `${username} run out of time. We skip his turn and he also loses a die!`,
 };

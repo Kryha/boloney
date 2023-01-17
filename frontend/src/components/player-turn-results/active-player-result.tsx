@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { text ,ResultData} from "../../assets";
+import { text, ResultData } from "../../assets";
 
 import { color } from "../../design";
 
@@ -17,6 +17,7 @@ interface ActivePlayerResult {
 }
 
 export const ActivePlayerResults: FC<ActivePlayerResult> = ({ actionRole, isWinner, playerData, isBoloney }) => {
+  const actionImg = isWinner ? playerData.winnerImg : playerData.loserImg;
   const isTimeOut = actionRole === "timeOut";
   return (
     <ActivePlayerResultWrapper>
@@ -30,7 +31,7 @@ export const ActivePlayerResults: FC<ActivePlayerResult> = ({ actionRole, isWinn
         ) : (
           <>
             <ActivePlayerTextResults data={playerData} isWinner={isWinner} />
-            <ActivePlayerImage src={isWinner ? playerData.winnerImg : playerData.loserImg} alt={playerData.name} isBoloney={isBoloney} />
+            <ActivePlayerImage src={actionImg} alt={playerData.name} isBoloney={isBoloney} />
           </>
         )}
         <ButtonReady />

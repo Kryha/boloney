@@ -4,19 +4,22 @@ import { color } from "../../design";
 import { Action, PlayerPublic } from "../../types";
 import { BottomButtonWrapper, Heading1, Heading2 } from "../atoms";
 import { ButtonReady } from "../button-ready";
-import { ErrorView } from "../error-view";
 import { TextResultWrapper } from "../player-turns/styles";
 
 import { ActivePlayerResultWrapper } from "./styles";
 
-interface IdlePLayerResultPayload {
-  player?: PlayerPublic;
+interface IdlePlayerResultPayload {
+  player: PlayerPublic;
   lastAction: Action;
+  isActivePlayerWinner: boolean;
 }
 
-export const IdlePlayerResult: FC<IdlePLayerResultPayload> = ({ player, lastAction }) => {
-  if (!player) return <ErrorView />;
+export const IdlePlayerResult: FC<IdlePlayerResultPayload> = ({ player, lastAction, isActivePlayerWinner }) => {
   const isTimeOut = lastAction === "lostByTimeOut";
+
+  const congratulationsMessage = isActivePlayerWinner
+    ? text.param.congratulationsIdlePlayerActiveWon(player.username, lastAction)
+    : text.param.congratulationsIdlePlayerActiveLost(player.username, lastAction);
 
   return (
     <ActivePlayerResultWrapper>
@@ -30,9 +33,7 @@ export const IdlePlayerResult: FC<IdlePLayerResultPayload> = ({ player, lastActi
           ) : (
             <>
               <Heading1>{text.playerTurn.weHaveAWinner}</Heading1>
-              <Heading2 customColor={color.darkGrey}>
-                {text.param.congratulationsIdlePlayer(player.username, lastAction)}
-              </Heading2>
+              <Heading2 customColor={color.darkGrey}>{congratulationsMessage}</Heading2>
             </>
           )}
         </TextResultWrapper>

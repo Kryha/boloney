@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { getResultData } from "../../assets";
 
-import { usePlayerWithRole, useLocalPlayer } from "../../service";
+import { usePlayerWithRole, useLocalPlayer, useActivePlayer } from "../../service";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { TurnActionHeader, IdlePlayerHeader } from "../player-turn-headers";
@@ -10,19 +10,24 @@ import { ActivePlayerResults, IdlePlayerResult, TargetPlayerResult } from "../pl
 import { TurnActionWrapper, IdlePlayerWrapper } from "../player-turns/styles";
 
 export const EndOfRound: FC = () => {
-  const localPlayer = useLocalPlayer();
   const lastAction = useStore((state) => state.lastAction);
   const receivedPowerUps = useStore((state) => state.receivedPowerUps);
+  const localPlayer = useLocalPlayer();
+  const activePlayer = useActivePlayer();
+
   const winner = usePlayerWithRole("winner");
   const loserByTimeOut = usePlayerWithRole("timeOut");
+  const player = loserByTimeOut ? loserByTimeOut : winner;
 
-  if (!localPlayer) return <ErrorView />;
+  const isActivePlayerWinner = activePlayer?.userId === winner?.userId;
+
+  if (!localPlayer || !player) return <ErrorView />;
 
   const isWinner = localPlayer.actionRole === "winner";
   const playerData = getResultData(lastAction, winner, receivedPowerUps);
   const isBoloney = lastAction === "Boloney";
 
-  if (localPlayer.isActive) {
+  if (localPlayer.isActive && !loserByTimeOut) {
     return (
       <TurnActionWrapper>
         <TurnActionHeader />
@@ -34,10 +39,10 @@ export const EndOfRound: FC = () => {
   return (
     <IdlePlayerWrapper>
       <IdlePlayerHeader step="results" />
-      {localPlayer.isTarget ? (
+      {localPlayer.isTarget && isBoloney ? (
         <TargetPlayerResult playerData={playerData} isWinner={isWinner} isBoloney={isBoloney} />
       ) : (
-        <IdlePlayerResult player={loserByTimeOut} lastAction={lastAction} />
+        <IdlePlayerResult player={player} lastAction={lastAction} isActivePlayerWinner={isActivePlayerWinner} />
       )}
     </IdlePlayerWrapper>
   );
