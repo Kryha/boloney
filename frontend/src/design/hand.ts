@@ -13,6 +13,7 @@ import {
   SkeletonHandPaint,
   SausageHand,
   SausageHandPaint,
+  GraveStone,
 } from "../assets";
 
 interface HandProps {
@@ -96,6 +97,16 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 2.5,
         avatar: SkeletonHand,
         paint: SkeletonHandPaint,
+      };
+    case "grave":
+      return {
+        width: "clamp(90px, 11.46vw + -20px, 200px)",
+        height: "clamp(40px, 5.21vw + -10px, 90px)",
+        shadowSmallWidth: 3.2,
+        shadowLargeWidth: 3.2,
+        speed: 2.5,
+        avatar: GraveStone,
+        paint: GraveStone,
       };
     default:
       return {

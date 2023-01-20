@@ -18,7 +18,7 @@ interface HUDProps {
 }
 
 export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
-  const { avatar } = handProportion(avatars[player.avatarId].name);
+  const { avatar } = player.diceAmount === 0 ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
   const lastBid = useLatestBid();
   const dieColor = getDieColor(player);
   const isPlayerLastBid = lastBid?.userId === player.userId;

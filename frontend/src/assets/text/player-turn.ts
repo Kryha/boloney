@@ -7,6 +7,7 @@ export const playerTurn = {
   itsTequilaUnderTheBridge: "it's tequila under the bridge...",
   youHaveWon: "you've won!",
   youHaveLost: "you've lost!",
+  youDied: "you died!",
   youRock: "you rock at calling Boloney!",
   youSuck: "you suck at calling Boloney... you lose a dice!",
   waitingTime: "waiting time",
@@ -25,4 +26,5 @@ export const playerTurn = {
   placeBid: "add your bid",
   guess: "what is your guess?",
   itsTimeToThinkOutLoud: "time to think out loud, go forth and conquer!",
+  lostAllDice: "your last die is gone, you are out of the game.\nStay tuned and see how the match ends.",
 };

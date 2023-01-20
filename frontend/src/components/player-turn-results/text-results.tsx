@@ -44,3 +44,12 @@ export const TargetPlayerTextResults: FC<TextResultsProps> = ({ data, isWinner }
     </TextResultWrapper>
   );
 };
+
+export const PlayerLostTextResults: FC<TextResultsProps> = ({ data }) => {
+  return (
+    <TextResultWrapper>
+      <Heading1>{data.lostAllDice.headingTitle}</Heading1>
+      <Heading2 customColor={color.darkGrey}>{data.lostAllDice.subHeadingTitle}</Heading2>
+    </TextResultWrapper>
+  );
+};

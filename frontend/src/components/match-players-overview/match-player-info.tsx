@@ -43,6 +43,8 @@ interface PlayerLastBidProps {
 }
 
 export const PlayerLastBid: FC<PlayerLastBidProps> = ({ lastBid, player }) => {
+  if (player.diceAmount === 0) return <></>;
+
   const dieColor = getDieColor(player);
 
   return (

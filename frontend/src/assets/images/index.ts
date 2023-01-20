@@ -32,6 +32,7 @@ import SmokeAndMirrors from "./smoke-and-mirrors.png";
 import Coup from "./coup.png";
 import GuardTower from "./guard-tower.png";
 import Hypnosis from "./hypnosis.png";
+import GraveStone from "./lose-all-dice.png";
 
 export * from "./dice-assets";
 
@@ -70,4 +71,5 @@ export {
   Coup,
   GuardTower,
   Hypnosis,
+  GraveStone,
 };

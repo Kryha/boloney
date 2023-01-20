@@ -12,6 +12,7 @@ export interface ResultData {
   activeLoser: ResultTextData;
   targetWinner: ResultTextData;
   targetLoser: ResultTextData;
+  lostAllDice: ResultTextData;
   winnerImg: string;
   loserImg: string;
   name: string;
@@ -26,6 +27,7 @@ export const getResultData = (action: Action, winner?: PlayerPublic, dieAmount?:
         activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuck },
         targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youCanBreath },
         targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.param.youSuckAtBluffing(winnerUserName) },
+        lostAllDice: { headingTitle: text.playerTurn.youDied, subHeadingTitle: text.playerTurn.lostAllDice },
         winnerImg: CallBoloneyWinner,
         loserImg: CallBoloneyLoser,
         name: text.playerTurn.boloney,
@@ -36,6 +38,7 @@ export const getResultData = (action: Action, winner?: PlayerPublic, dieAmount?:
         activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
         targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youCanBreath },
         targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
+        lostAllDice: { headingTitle: text.playerTurn.youDied, subHeadingTitle: text.playerTurn.lostAllDice },
         winnerImg: CallExactWinner,
         loserImg: CallExactLoser,
         name: text.playerTurn.exact,
@@ -46,6 +49,7 @@ export const getResultData = (action: Action, winner?: PlayerPublic, dieAmount?:
         activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
         targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youCanBreath },
         targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
+        lostAllDice: { headingTitle: text.playerTurn.youDied, subHeadingTitle: text.playerTurn.lostAllDice },
         winnerImg: TimerIsOut,
         loserImg: TimerIsOut,
         name: text.playerTurn.loser,

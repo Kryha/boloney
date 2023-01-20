@@ -9,6 +9,8 @@ import {
   PlayerAvatarContainer,
   PlayerInfoContainer,
   MatchPlayersContainer,
+  DeadPlayerAvatar,
+  DeadPlayerName,
 } from "./styles";
 import { handProportion } from "../../design/hand";
 import { PlayerPublic } from "../../types";
@@ -23,23 +25,33 @@ interface MatchPlayerProps {
 }
 
 export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
-  const { avatar } = handProportion(avatars[player.avatarId].name);
+  const hasPlayerLost = player.diceAmount === 0;
+  const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
   const latestBid = useLatestBid();
+
   return (
-    <MatchPlayersWrapper totalPlayers={totalPlayers} isActive={player.isActive}>
+    <MatchPlayersWrapper isActive={player.isActive} hasPlayerLost={hasPlayerLost}>
       <PlayerBadge player={player} />
 
       <MatchPlayersContainer totalPlayers={totalPlayers}>
-        <PlayerAvatarContainer>
-          <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
-        </PlayerAvatarContainer>
-
-        <PlayerInfoContainer>
-          <PlayerNameContainer>
-            <Name>{player.username}</Name>
-          </PlayerNameContainer>
-          <PlayerMatchState player={player} />
-        </PlayerInfoContainer>
+        {hasPlayerLost ? (
+          <PlayerAvatarContainer>
+            <DeadPlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
+            <DeadPlayerName>{player.username}</DeadPlayerName>
+          </PlayerAvatarContainer>
+        ) : (
+          <>
+            <PlayerAvatarContainer>
+              <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
+            </PlayerAvatarContainer>
+            <PlayerInfoContainer>
+              <PlayerNameContainer>
+                <Name>{player.username}</Name>
+              </PlayerNameContainer>
+              <PlayerMatchState player={player} />
+            </PlayerInfoContainer>
+          </>
+        )}
       </MatchPlayersContainer>
       {latestBid?.userId === player.userId && <PlayerLastBid player={player} lastBid={latestBid} />}
     </MatchPlayersWrapper>

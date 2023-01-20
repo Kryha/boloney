@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 
-import { GAME_PLAYER_HEIGHT } from "../../constants";
 import { color, margins, zIndex } from "../../design";
 import { avatarHeight, Heading5, Heading6 } from "../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
 import { DiceIconWrapper } from "../icons/styles";
+
+const GAME_PLAYER_HEIGHT = 89;
 
 export const DiceCrownWrapper = styled.div`
   display: flex;
@@ -38,14 +39,14 @@ export const MatchWinnerWrapper = styled.div`
 interface MatchPlayersProps {
   isActive?: boolean;
   customColor?: string;
-  totalPlayers: number;
+  hasPlayerLost: boolean;
 }
 
 export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
   padding: 0px;
   width: 12.5vw;
   background: ${({ isActive, customColor }): string => (isActive ? customColor || color.white : color.lightGrey)};
-  height: ${({ totalPlayers }): string => `${GAME_PLAYER_HEIGHT / totalPlayers}vh`};
+  height: ${({ hasPlayerLost }): string => (hasPlayerLost ? "100px" : `${GAME_PLAYER_HEIGHT}vh`)};
   position: relative;
   border-bottom: 1px solid ${color.mediumGrey};
   ${BadgeWrapper} {
@@ -63,7 +64,7 @@ export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
   align-items: flex-start;
   padding: 0px;
   position: absolute;
-  height: ${({ isWinner }) => (isWinner ? "100vh" : `${GAME_PLAYER_HEIGHT}vh`)};
+  height: ${() => `${GAME_PLAYER_HEIGHT}vh`};
   left: 0px;
   top: 0px;
   border-right: 1px solid ${color.mediumGrey};
@@ -133,11 +134,23 @@ export const PlayerAvatar = styled.img<AvatarProps>`
   width: 100%;
 `;
 
+export const DeadPlayerAvatar = styled(PlayerAvatar)<AvatarProps>`
+  position: absolute;
+  right: 40%;
+`;
+
 export const PlayerName = styled(Heading5)`
   width: 13.5vh;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const DeadPlayerName = styled(PlayerName)`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 15vh;
 `;
 
 export const MatchStateContainer = styled(PlayerNameContainer)`

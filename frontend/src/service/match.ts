@@ -67,6 +67,14 @@ export const useLocalPlayer = (): PlayerPublic | undefined => {
   }, [players, session]);
 };
 
+export const useArrangedPlayers = (): PlayerPublic[] => {
+  const players = useRemotePlayers();
+  const deadPlayers = players.filter((player) => player.status === "lost");
+  const playingPlayers = players.filter((player) => player.status === "playing");
+
+  return useMemo(() => [...deadPlayers, ...playingPlayers], [deadPlayers, playingPlayers]);
+};
+
 export const useRemotePlayers = (): PlayerPublic[] => {
   const session = useSession();
   const orderedPlayers = useOrderedPlayers();

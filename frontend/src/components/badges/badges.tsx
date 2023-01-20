@@ -38,6 +38,7 @@ interface PlayerBadgeProps {
 
 export const PlayerBadge: FC<PlayerBadgeProps> = ({ player }) => {
   if (!player.actionRole) return <></>;
+
   if (player.actionRole === "loser") return <LoserBadge />;
   if (player.actionRole === "timeOut") return <TimeOutBadge />;
   return <WinnerBadge />;
