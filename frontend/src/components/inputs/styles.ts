@@ -39,7 +39,7 @@ export const LabelContainer = styled.div`
 
 export const Error = styled(ErrorIcon)``;
 
-export const ErrorContainer = styled.div`
+export const CheckboxErrorContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -48,6 +48,11 @@ export const ErrorContainer = styled.div`
   margin-left: ${margins.large0};
   margin-right: 4px;
   margin-top: ${margins.small2};
+`;
+
+export const InputErrorContainer = styled(CheckboxErrorContainer)`
+  position: absolute;
+  bottom: -50px;
 `;
 
 export const TextLabel = styled(GeneralText)`

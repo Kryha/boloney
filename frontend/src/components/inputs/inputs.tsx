@@ -8,13 +8,14 @@ import {
   InputLabel,
   LabelContainer,
   Error,
-  ErrorContainer,
   InputIconContainer,
   TextLabel,
   FieldSet,
   Legend,
   LegendContainer,
   LegendTitle,
+  InputErrorContainer,
+  CheckboxErrorContainer,
 } from "./styles";
 
 interface InputProps {
@@ -37,10 +38,10 @@ export const Input: FC<InputProps> = ({ children, label, isError = false, errorM
       </LabelContainer>
       {children}
       {isError && (
-        <ErrorContainer>
+        <InputErrorContainer>
           <Error />
           <Paragraph>{errorMessage || text.authForm.somethingWentWrong}</Paragraph>
-        </ErrorContainer>
+        </InputErrorContainer>
       )}
     </InputContainer>
   );
@@ -68,10 +69,10 @@ export const InputLegend: FC<InputProps> = ({
         {children}
       </FieldSet>
       {isError && (
-        <ErrorContainer>
+        <InputErrorContainer>
           <Error />
           <Paragraph>{errorMessage || text.authForm.somethingWentWrong}</Paragraph>
-        </ErrorContainer>
+        </InputErrorContainer>
       )}
     </InputContainer>
   );
@@ -82,10 +83,10 @@ export const CheckboxInput: FC<InputProps> = ({ children, isError = false, error
     <InputIconContainer>
       <TextLabel>{children}</TextLabel>
       {isError && (
-        <ErrorContainer>
+        <CheckboxErrorContainer>
           <Error />
           <Paragraph>{errorMessage || text.newMatch.invalidPercentage}</Paragraph>
-        </ErrorContainer>
+        </CheckboxErrorContainer>
       )}
     </InputIconContainer>
   );

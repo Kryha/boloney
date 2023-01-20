@@ -23,7 +23,7 @@ export const SignOrJoinContainer = styled.div<ViewProps>`
   justify-content: flex-end;
   align-items: center;
   padding: 0px;
-  margin-top: ${(props) => (props.height < SMALL_VIEWPORT_WIDTH ? "-10px" : margins.large0)};
+  margin-top: ${(props) => (props.height < SMALL_VIEWPORT_WIDTH ? "30px" : margins.large0)};
   ${PrimaryButtonContainer} {
     margin-left: ${margins.small3};
   }
