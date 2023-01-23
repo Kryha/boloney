@@ -58,7 +58,7 @@ export const rollDice: Record<AvatarColor, RollDiceAssets> = {
       LightBlueSixDie,
     ],
   },
-  "#BD8DE9": {
+  "#B68fE3": {
     assets: [PurpleOneDie, PurpleOneDie, PurpleOneDie, PurpleTwoDie, PurpleThreeDie, PurpleFourDie, PurpleFiveDie, PurpleSixDie],
   },
   "#F96939": {
