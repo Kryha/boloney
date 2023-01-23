@@ -1,5 +1,6 @@
 import { EMPTY_DATA, MATCH_STAGES, MAX_INACTIVE_TICKS } from "../constants";
 import {
+  Action,
   AvatarId,
   LogicHandler,
   MatchLoopParams,
@@ -203,4 +204,8 @@ export const resetRound = ({ state }: MatchLoopParams) => {
     playerRef.actionRole = undefined;
     playerRef.isTarget = false;
   });
+};
+
+export const setAction = (action: Action, state: MatchState) => {
+  state.action = action;
 };

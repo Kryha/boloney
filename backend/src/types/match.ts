@@ -29,6 +29,10 @@ export const isPlayerStatus = (value: unknown): value is PlayerStatus => {
   return statuses.includes(assertedVal);
 };
 
+export type TurnActionStep = "pickAction" | "proceedWithAction" | "evaluateWinner" | "results";
+
+export type Action = "Exact" | "Boloney" | "lostByTimeOut";
+
 // we need both undefined and null because nakama
 export type ActionRole = "winner" | "loser" | "timeOut" | undefined | null;
 
@@ -192,6 +196,8 @@ export interface MatchState {
   round: number;
   stageNumber: number;
   drawRoundCounter: number;
+  turnActionStep: TurnActionStep;
+  action: Action;
 }
 
 export type MatchStage =

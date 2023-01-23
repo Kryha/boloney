@@ -52,6 +52,8 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, 
       round: 1,
       stageNumber,
       drawRoundCounter,
+      turnActionStep: "pickAction",
+      action: "Boloney",
     };
 
     createChatGroup(nk, ctx, logger);
@@ -130,6 +132,7 @@ export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger,
     Promise.all(
       Object.values(state.presences).map(async (presence) => {
         const player = state.players[presence.userId];
+        const turnActionStep = state.matchStage === "roundSummaryStage" ? "results" : state.turnActionStep;
         const payload: PlayerJoinedPayloadBackend = {
           matchState: {
             players: hiddenPlayers,
@@ -144,6 +147,8 @@ export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger,
             round: state.round,
             stageNumber: state.stageNumber,
             drawRoundCounter: state.drawRoundCounter,
+            turnActionStep: turnActionStep,
+            lastAction: state.action,
           },
           remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
         };

@@ -1,6 +1,8 @@
 import {
   calcDrawRoundCounter,
   calcStageNumber,
+  getActivePlayerId,
+  getNextPlayerId,
   hidePlayersData,
   matchStageDuration,
   resetRound,
@@ -78,6 +80,12 @@ export const handleRoundSummaryTransition = transitionHandler(async (loopParams,
   }
 
   state.round++;
+
+  const activePlayer = getActivePlayerId(state.players);
+  if (activePlayer) {
+    const nextPlayerId = getNextPlayerId(activePlayer, state);
+    setActivePlayer(nextPlayerId, state.players);
+  }
 
   const roundSummaryTransitionPayload: RoundSummaryTransitionPayloadBackend = {
     leaderboard: state.leaderboard,

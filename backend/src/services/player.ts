@@ -64,7 +64,7 @@ export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: s
 
   //!! Setting the hasRolledDice variable to true before the dice are rolled prevent the users ability to spam !!
   player.hasRolledDice = true;
-  
+
   try {
     const diceValue = await rollDice(player.diceAmount);
     player.diceValue = diceValue;

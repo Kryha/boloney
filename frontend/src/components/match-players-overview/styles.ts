@@ -166,6 +166,7 @@ export const PlayerInfoContainer = styled.section`
   ${DieWrapper} {
     margin-top: 0 !important;
   }
+  padding-left: 0.62em;
 `;
 
 interface PlayersContainerProps {

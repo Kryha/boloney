@@ -3,6 +3,7 @@ import { MAX_POWERUPS_PER_PLAYER } from "../constants";
 import { bidPayloadBackendSchema } from "./bid";
 import { dieSchema } from "./die";
 import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
+import { turnActionStepSchema } from "./ui";
 
 export const avatarNameSchema = z.enum(["sausage", "hook", "plastic", "scooper", "hand", "lobster", "skeleton", "grave"]);
 export type AvatarName = z.infer<typeof avatarNameSchema>;
@@ -46,6 +47,9 @@ export type PlayerStatus = z.infer<typeof playerStatusSchema>;
 // we need both optional and nullable because nakama
 export const actionRoleSchema = z.enum(["winner", "loser", "timeOut"]).optional().nullable();
 export type ActionRole = z.infer<typeof actionRoleSchema>;
+
+export const actionSchema = z.enum(["Boloney", "Exact", "lostByTimeOut"]);
+export type Action = z.infer<typeof actionSchema>;
 
 export const playerPrivateSchema = z.object({
   diceValue: z.array(dieSchema).optional(),
@@ -120,6 +124,8 @@ export const matchStateSchema = z.object({
   round: z.number(),
   stageNumber: z.number(),
   drawRoundCounter: z.number(),
+  turnActionStep: turnActionStepSchema,
+  lastAction: actionSchema,
 });
 
 export type MatchState = z.infer<typeof matchStateSchema>;
@@ -144,9 +150,6 @@ export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
 export const playerIdSchema = z.string().length(36);
 
 export type PlayerId = z.infer<typeof playerIdSchema>;
-
-export const actionSchema = z.enum(["Boloney", "Exact", "lostByTimeOut"]);
-export type Action = z.infer<typeof actionSchema>;
 
 export const stageTimerSchema = z.object({
   startTime: z.number(),
