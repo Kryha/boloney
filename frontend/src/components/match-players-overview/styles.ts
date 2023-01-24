@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, Heading5, Heading6 } from "../atoms";
+import { avatarHeight, Heading5 } from "../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
 import { DiceIconWrapper } from "../icons/styles";
+import { PlayerSidebarInfoContainer } from "../player-sidebar-info/styles";
 
 const GAME_PLAYER_HEIGHT = 89;
 
@@ -40,6 +41,8 @@ interface MatchPlayersProps {
   isActive?: boolean;
   customColor?: string;
   hasPlayerLost: boolean;
+  isTargetPlayer: boolean;
+  isPowerUpInUse: boolean;
 }
 
 export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
@@ -51,6 +54,12 @@ export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
   border-bottom: 1px solid ${color.mediumGrey};
   ${BadgeWrapper} {
     z-index: ${zIndex.inFront};
+  }
+  :hover {
+    background: ${({ isPowerUpInUse }): string => (isPowerUpInUse ? color.white : "")};
+    ${PlayerSidebarInfoContainer} {
+      background: ${({ isPowerUpInUse }): string => (isPowerUpInUse ? color.white : "")};
+    }
   }
 `;
 
@@ -199,19 +208,6 @@ export const DiceContainer = styled.div`
   align-items: center;
   padding: 0px;
   gap: 14px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 2.7vw;
-  height: 100%;
-  background: ${color.grey};
-  z-index: ${zIndex.behind};
-  justify-content: center;
-  ${Heading6} {
-    :first-letter {
-      text-transform: none;
-    }
-  }
 `;
 
 export const AmountDice = styled.div`

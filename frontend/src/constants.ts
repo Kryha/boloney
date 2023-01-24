@@ -128,3 +128,5 @@ export const MINIMUM_POWER_UP_WIDTH_VIEW = 1045;
 export const LARGE_DIE_SIZE = "clamp(27px, 2.81vw + 0px, 54px)";
 
 export const MATCH_STATS_DICE_VALUE = 2;
+
+export const MAX_PLAYER_SIDEBAR_AMOUNT = 6;

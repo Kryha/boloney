@@ -38,6 +38,7 @@ export interface MatchSliceState extends RoundState {
   stageNumber: number;
   drawRoundCounter: number;
   receivedPowerUps: number;
+  targetPowerUpPlayerId?: string;
 }
 
 interface MatchSliceSetters {
@@ -60,6 +61,7 @@ interface MatchSliceSetters {
   setRound: (round: number) => void;
   resetRound: () => void;
   setStageNumberAndCounter: (stageNumber: number, drawRoundCounter: number) => void;
+  setTargetPowerUpPlayerId: (userId: string) => void;
 }
 
 export type MatchSlice = MatchSliceState & MatchSliceSetters;
@@ -85,6 +87,7 @@ const initialMatchState: MatchSliceState = {
   stageNumber: 0,
   drawRoundCounter: 0,
   receivedPowerUps: 0,
+  targetPowerUpPlayerId: undefined,
   ...initialRoundState,
 };
 
@@ -140,4 +143,5 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setLastAction: (action) => set(() => ({ lastAction: action })),
   setChannelId: (channelId) => set(() => ({ channelId })),
   setStageNumberAndCounter: (stageNumber, drawRoundCounter) => set(() => ({ stageNumber, drawRoundCounter })),
+  setTargetPowerUpPlayerId: (targetPowerUpPlayerId) => set(() => ({ targetPowerUpPlayerId })),
 });

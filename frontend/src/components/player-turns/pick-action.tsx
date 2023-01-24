@@ -30,6 +30,11 @@ export const PickAction: FC = () => {
     }
   };
 
+  const handlePowerUpAction = (action: TurnAction) => {
+    // TODO: implement power up view
+    setAction(action);
+  };
+
   return (
     <ActivePlayerWrapper>
       <ActivePlayerContainer>
@@ -38,6 +43,7 @@ export const PickAction: FC = () => {
             text={text.match.powerUp}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
+            onClick={() => handlePowerUpAction("powerUp")}
           />
           <PrimaryButtonWithHelper
             text={text.match.healDice}

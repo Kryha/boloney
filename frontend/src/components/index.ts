@@ -47,3 +47,5 @@ export * from "./call-action";
 export * from "./menu-toggle";
 export * from "./chat-message";
 export * from "./timer";
+export * from "./power-up-checkbox";
+export * from "./player-sidebar-info";

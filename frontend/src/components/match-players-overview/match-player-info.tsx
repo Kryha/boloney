@@ -38,12 +38,12 @@ export const PlayerMatchState: FC<PlayerMatchStateProps> = ({ player }) => {
 };
 
 interface PlayerLastBidProps {
-  lastBid: Bid;
+  lastBid?: Bid;
   player: PlayerPublic;
 }
 
 export const PlayerLastBid: FC<PlayerLastBidProps> = ({ lastBid, player }) => {
-  if (player.diceAmount === 0) return <></>;
+  if (player.diceAmount === 0 || !lastBid) return <></>;
 
   const dieColor = getDieColor(player);
 

@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 
 import { color, margins } from "../../design";
-import { avatarHeight } from "../atoms";
+import { avatarHeight, Heading6 } from "../atoms";
+import { DiceContainer } from "../match-players-overview/styles";
 
 interface PlayerOverviewProps {
   isActive: boolean;
@@ -21,7 +22,11 @@ export const PlayerOverview = styled.section<PlayerOverviewProps>`
   left: 0;
 `;
 
-export const LocalPlayer = styled.div`
+interface LocalPlayerProps {
+  isLastBid: boolean;
+}
+
+export const LocalPlayer = styled.div<LocalPlayerProps>`
   width: 12.5vw;
   height: 100%;
   padding: 0px;
@@ -29,6 +34,25 @@ export const LocalPlayer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${DiceContainer} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: clamp(14px, 1.04vw + 4px, 24px);
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2.7vw;
+    height: 100%;
+    background: ${({ isLastBid }): string => (isLastBid ? color.grey : "transparent")};
+    justify-content: center;
+    ${Heading6} {
+      :first-letter {
+        text-transform: none;
+      }
+    }
+  }
 `;
 
 interface AvatarProps {

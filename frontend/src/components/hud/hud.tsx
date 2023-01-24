@@ -27,7 +27,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
     <PlayerOverview isActive={player.isActive}>
       <PlayerBadge player={player} />
 
-      <LocalPlayer>
+      <LocalPlayer isLastBid={isPlayerLastBid}>
         <PlayerAvatar height="10vh" src={avatar} />
         {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
       </LocalPlayer>

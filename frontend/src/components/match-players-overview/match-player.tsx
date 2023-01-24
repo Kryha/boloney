@@ -15,9 +15,11 @@ import {
 import { handProportion } from "../../design/hand";
 import { PlayerPublic } from "../../types";
 import { avatars } from "../../assets";
-import { PlayerMatchState, PlayerLastBid } from "./match-player-info";
+import { PlayerMatchState } from "./match-player-info";
 import { useLatestBid } from "../../service";
 import { PlayerBadge } from "../badges";
+import { PlayerSidebarInfo } from "../player-sidebar-info";
+import { useStore } from "../../store";
 
 interface MatchPlayerProps {
   totalPlayers: number;
@@ -28,9 +30,21 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const hasPlayerLost = player.diceAmount === 0;
   const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
   const latestBid = useLatestBid();
+  const targetPowerUpPlayerId = useStore((state) => state.targetPowerUpPlayerId);
+
+  const showSelectionView = () => {
+    // TODO: return true or false if that particular power-up requires a target.
+    if (player.status === "lost") return false;
+    return false;
+  };
 
   return (
-    <MatchPlayersWrapper isActive={player.isActive} hasPlayerLost={hasPlayerLost}>
+    <MatchPlayersWrapper
+      isActive={player.isActive}
+      hasPlayerLost={hasPlayerLost}
+      isTargetPlayer={targetPowerUpPlayerId === player.userId}
+      isPowerUpInUse={showSelectionView()}
+    >
       <PlayerBadge player={player} />
 
       <MatchPlayersContainer totalPlayers={totalPlayers}>
@@ -53,7 +67,14 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
           </>
         )}
       </MatchPlayersContainer>
-      {latestBid?.userId === player.userId && <PlayerLastBid player={player} lastBid={latestBid} />}
+      <PlayerSidebarInfo
+        player={player}
+        lastBid={latestBid}
+        showLastBid={latestBid?.userId === player.userId}
+        totalPlayers={totalPlayers}
+        targetPlayerId={targetPowerUpPlayerId}
+        isPowerUpInUse={showSelectionView()}
+      />
     </MatchPlayersWrapper>
   );
 };
