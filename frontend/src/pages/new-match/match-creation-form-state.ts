@@ -2,6 +2,7 @@ import create from "zustand";
 import { produce } from "immer";
 
 import { PowerUpId, PowerUpProbability } from "../../types";
+import { DEFAULT_MATCH_SETTINGS } from "../../constants";
 
 export interface NewMatchState {
   availablePowerUps: Set<PowerUpId>;
@@ -17,8 +18,8 @@ export interface NewMatchState {
 
 // TODO: refactor behaviour of removing/adding to set to just updating the probability, maybe also use just one single structure
 export const useMatchCreationFormState = create<NewMatchState>((set, get) => ({
-  availablePowerUps: new Set<PowerUpId>(),
-  powerUpProbability: new Map<PowerUpId, PowerUpProbability>(),
+  availablePowerUps: new Set<PowerUpId>(DEFAULT_MATCH_SETTINGS.availablePowerUps),
+  powerUpProbability: new Map<PowerUpId, PowerUpProbability>(DEFAULT_MATCH_SETTINGS.powerUpProbability.map((p) => [p.id, p])),
   isProbabilityManuallyUpdated: false,
 
   getTotalProbability: () => Array.from(get().powerUpProbability.values()).reduce((total, p) => total + p.probability, 0),

@@ -70,53 +70,52 @@ export const MIN_DIE_FACE = 1;
 export const ARRAY_OF_POSABLE_DIE_FACES = Array.from({ length: MAX_DIE_FACE }, (_, index) => index + 1);
 
 export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
-  // TODO: change players to 7 before releasing to production
-  players: 3,
+  players: 5,
   dicePerPlayer: 5,
   initialPowerUpAmount: 3,
   stageNumberDivisor: 5,
   drawRoundOffset: 0,
-  healPowerUpAmount: 1,
-  maxPowerUpAmount: 3,
+  healPowerUpAmount: 5,
+  maxPowerUpAmount: 7,
   powerUpProbability: [
     {
       id: "1",
-      probability: 25,
+      probability: 12,
     },
     {
       id: "2",
-      probability: 0,
+      probability: 11,
     },
     {
       id: "3",
-      probability: 0,
+      probability: 11,
     },
     {
       id: "4",
-      probability: 25,
+      probability: 11,
     },
     {
       id: "5",
-      probability: 0,
+      probability: 11,
     },
     {
       id: "6",
-      probability: 25,
+      probability: 11,
     },
     {
       id: "7",
-      probability: 0,
+      probability: 11,
     },
     {
       id: "8",
-      probability: 25,
+      probability: 11,
     },
     {
       id: "9",
-      probability: 0,
+      probability: 11,
     },
   ],
-  availablePowerUps: ["1", "4", "6", "8"],
+  availablePowerUps: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
 };
 
 export const COPIED_TEXT_TIMEOUT = 2500;

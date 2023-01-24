@@ -16,6 +16,7 @@ interface Props {
 export const PowerUpsAmountField: FC<Props> = ({ register, minPowerUps }) => {
   const initAmountPowerUpIds = range(MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER);
   const maxAmountPowerUps = range(MAX_POWERUPS_PER_PLAYER, Math.round(minPowerUps));
+
   return (
     <PlayersDiceContainer>
       <InputLegend

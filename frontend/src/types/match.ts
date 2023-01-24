@@ -131,21 +131,26 @@ export const matchStateSchema = z.object({
 export type MatchState = z.infer<typeof matchStateSchema>;
 
 export const matchFormSettingsSchema = z.object({
-  players: z.string().transform((val) => Number(val)),
-  dicePerPlayer: z.string().transform((val) => Number(val)),
-  initialPowerUpAmount: z.string().transform((val) => Number(val)),
+  players: z.number().or(z.string().transform((val) => Number(val))),
+  dicePerPlayer: z.number().or(z.string().transform((val) => Number(val))),
+  initialPowerUpAmount: z.number().or(z.string().transform((val) => Number(val))),
   maxPowerUpAmount: z
-    .string()
+    .number()
     .max(MAX_POWERUPS_PER_PLAYER)
-    .transform((val) => Number(val)),
+    .or(
+      z
+        .string()
+        .max(MAX_POWERUPS_PER_PLAYER)
+        .transform((val) => Number(val))
+    ),
   availablePowerUps: z.array(powerUpIdSchema),
-  healPowerUpAmount: z.string().transform((val) => Number(val)),
-  stageNumberDivisor: z.string().transform((val) => Number(val)),
-  drawRoundOffset: z.string().transform((val) => Number(val)),
+  healPowerUpAmount: z.number().or(z.string().transform((val) => Number(val))),
+  stageNumberDivisor: z.number().or(z.string().transform((val) => Number(val))),
+  drawRoundOffset: z.number().or(z.string().transform((val) => Number(val))),
   powerUpProbability: z.array(powerUpProbabilitySchema),
 });
 
-export type MatchFormSettings = z.infer<typeof matchSettingsSchema>;
+export type MatchFormSettings = z.infer<typeof matchFormSettingsSchema>;
 
 export const playerIdSchema = z.string().length(36);
 

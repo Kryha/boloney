@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
@@ -13,14 +13,23 @@ import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewMatchContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
 import { splitMatchId } from "../../util";
-import { MIN_POWERUPS_PER_PLAYER } from "../../constants";
+import { DEFAULT_MATCH_SETTINGS, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 
 interface Props {
   setMatchId: (id: string) => void;
 }
 
 export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
-  const { register, handleSubmit, watch } = useForm<MatchSettings>({ mode: "onChange", reValidateMode: "onChange" });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { isSubmitSuccessful },
+  } = useForm<MatchSettings>({
+    mode: "onChange",
+    reValidateMode: "onChange",
+  });
   const availablePowerUps = useMatchCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useMatchCreationFormState((state) => state.powerUpProbability);
   const isPowerUpError = useMatchCreationFormState((state) => state.getIsError());
@@ -28,6 +37,11 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
   const watchPowerUpAmount = watch("initialPowerUpAmount", MIN_POWERUPS_PER_PLAYER);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    reset({ ...DEFAULT_MATCH_SETTINGS });
+  }, [isSubmitSuccessful, reset]);
+
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     setIsLoading(true);
     const result = matchFormSettingsSchema.safeParse({
