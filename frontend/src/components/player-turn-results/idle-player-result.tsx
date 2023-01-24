@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Highlighter from "react-highlight-words";
 import { text } from "../../assets";
 import { color } from "../../design";
 import { Action, PlayerPublic } from "../../types";
@@ -28,12 +29,26 @@ export const IdlePlayerResult: FC<IdlePlayerResultPayload> = ({ player, lastActi
           {isTimeOut ? (
             <>
               <Heading1>{text.playerTurn.playerTimeOut}</Heading1>
-              <Heading2 customColor={color.darkGrey}>{text.param.aPlayerLostByTimeOut(player.username)}</Heading2>
+              <Heading2 customColor={color.darkGrey}>
+                <Highlighter
+                  highlightClassName="bold"
+                  searchWords={[player.username]}
+                  autoEscape
+                  textToHighlight={text.param.aPlayerLostByTimeOut(player.username)}
+                />
+              </Heading2>
             </>
           ) : (
             <>
               <Heading1>{text.playerTurn.weHaveAWinner}</Heading1>
-              <Heading2 customColor={color.darkGrey}>{congratulationsMessage}</Heading2>
+              <Heading2 customColor={color.darkGrey}>
+                <Highlighter
+                  highlightClassName="bold"
+                  searchWords={[player.username]}
+                  autoEscape
+                  textToHighlight={congratulationsMessage}
+                />
+              </Heading2>
             </>
           )}
         </TextResultWrapper>

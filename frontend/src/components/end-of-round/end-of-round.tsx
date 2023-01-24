@@ -24,10 +24,10 @@ export const EndOfRound: FC = () => {
   if (!localPlayer || !player) return <ErrorView />;
 
   const isWinner = localPlayer.actionRole === "winner";
-  const playerData = getResultData(lastAction, winner, receivedPowerUps);
+  const playerData = getResultData(lastAction, localPlayer, winner, receivedPowerUps);
   const isBoloney = lastAction === "Boloney";
 
-  if (localPlayer.isActive && !loserByTimeOut) {
+  if (localPlayer.isActive) {
     return (
       <TurnActionWrapper>
         <TurnActionHeader />

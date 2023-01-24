@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Highlighter from "react-highlight-words";
 
 import { text } from "../../assets";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
@@ -33,7 +34,14 @@ export const RollDice: FC = () => {
   return (
     <BottomButtonWrapper>
       <Timer title={text.powerUps.settingItUp} />
-      <Heading2 customColor={color.darkGrey}>{text.param.findOutYourPips(localPlayer.username)}</Heading2>
+      <Heading2 customColor={color.darkGrey}>
+        <Highlighter
+          highlightClassName="bold"
+          searchWords={[localPlayer.username]}
+          autoEscape
+          textToHighlight={text.param.findOutYourPips(localPlayer.username)}
+        />
+      </Heading2>
 
       {dice && <RollingDice dice={dice} dieColor={dieColor} />}
 

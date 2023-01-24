@@ -19,6 +19,7 @@ interface ActivePlayerResult {
 export const ActivePlayerResults: FC<ActivePlayerResult> = ({ actionRole, isWinner, playerData, isBoloney }) => {
   const actionImg = isWinner ? playerData.winnerImg : playerData.loserImg;
   const isTimeOut = actionRole === "timeOut";
+
   return (
     <ActivePlayerResultWrapper>
       <BottomButtonWrapper>

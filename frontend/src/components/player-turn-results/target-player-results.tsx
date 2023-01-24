@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ResultData } from "../../assets/local-data/player-result";
+import { ResultData } from "../../assets";
 import { BottomButtonWrapper } from "../atoms";
 import { ButtonReady } from "../button-ready";
 import { ActivePlayerImage, ActivePlayerResultWrapper } from "./styles";

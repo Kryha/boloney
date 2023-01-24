@@ -27,6 +27,9 @@ export const Heading2 = styled.h2<TextProps>`
   :first-letter {
     text-transform: capitalize;
   }
+  .bold {
+    background-color: transparent;
+  }
 `;
 
 export const Heading3 = styled.h3<TextProps>`

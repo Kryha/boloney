@@ -16,10 +16,12 @@ export interface ResultData {
   winnerImg: string;
   loserImg: string;
   name: string;
+  playerName: string;
 }
 
-export const getResultData = (action: Action, winner?: PlayerPublic, dieAmount?: number): ResultData => {
+export const getResultData = (action: Action, localPlayer: PlayerPublic, winner?: PlayerPublic, dieAmount?: number): ResultData => {
   const winnerUserName = winner ? winner.username : "";
+  const playerName = localPlayer.isActive ? localPlayer.username : winnerUserName;
   switch (action) {
     case "Boloney":
       return {
@@ -31,6 +33,7 @@ export const getResultData = (action: Action, winner?: PlayerPublic, dieAmount?:
         winnerImg: CallBoloneyWinner,
         loserImg: CallBoloneyLoser,
         name: text.playerTurn.boloney,
+        playerName: playerName,
       };
     case "Exact":
       return {
@@ -42,6 +45,7 @@ export const getResultData = (action: Action, winner?: PlayerPublic, dieAmount?:
         winnerImg: CallExactWinner,
         loserImg: CallExactLoser,
         name: text.playerTurn.exact,
+        playerName: playerName,
       };
     case "lostByTimeOut":
       return {
@@ -53,6 +57,7 @@ export const getResultData = (action: Action, winner?: PlayerPublic, dieAmount?:
         winnerImg: TimerIsOut,
         loserImg: TimerIsOut,
         name: text.playerTurn.loser,
+        playerName: playerName,
       };
   }
 };

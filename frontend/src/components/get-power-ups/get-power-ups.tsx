@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Highlighter from "react-highlight-words";
 
 import { useLocalPlayer } from "../../service";
 import { text } from "../../assets";
@@ -16,7 +17,14 @@ export const GetPowerUps: FC = () => {
   return (
     <BottomButtonWrapper>
       <Timer title={text.powerUps.settingItUp} />
-      <Heading2 customColor={color.darkGrey}>{text.param.powerUpsHiddenMoves(localPlayer.username)}</Heading2>
+      <Heading2 customColor={color.darkGrey}>
+        <Highlighter
+          highlightClassName="bold"
+          searchWords={[localPlayer.username]}
+          autoEscape
+          textToHighlight={text.param.powerUpsHiddenMoves(localPlayer.username)}
+        />
+      </Heading2>
 
       <ButtonReady />
     </BottomButtonWrapper>
