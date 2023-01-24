@@ -8,6 +8,7 @@ import {
   PlayerPublic,
   notificationCallBoloneySchema,
   NkResponse,
+  notificationUsePowerUpSchema,
 } from "../types";
 import { CallBoloney, CallExact, text } from "../assets";
 import { Notification } from "@heroiclabs/nakama-js";
@@ -167,6 +168,25 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
         title: text.notifications.playerLeftTheMatch(activePlayerName),
         description: "",
         boldText: [activePlayerName],
+      };
+    }
+    case NotificationOpCode.USE_POWER_UP: {
+      const parsed = notificationUsePowerUpSchema.safeParse(notification.content);
+
+      if (!parsed.success) return defaultUnknownError;
+
+      const { callerName, targetName } = parsed.data;
+
+      const boldText = targetName ? [callerName, targetName] : [callerName];
+
+      // TODO: change image based on power-up
+      // TODO: write text based on power-up
+      return {
+        id: notification.id,
+        img: CallBoloney,
+        title: `${callerName} called power-up on ${targetName}`,
+        description: "",
+        boldText,
       };
     }
     default:

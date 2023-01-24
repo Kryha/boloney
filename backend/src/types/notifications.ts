@@ -1,14 +1,16 @@
+import { PowerUpId } from "./power-up";
 import { isString } from "./primitive";
 
 export enum NotificationOpCode {
-  HEAL_DICE = 4,
-  LOSE_ALL_DICE = 5,
-  POWER_UP = 8,
-  EXACT = 10,
-  BOLONEY = 11,
-  ERROR = 17,
-  PLAYER_LOST = 18,
-  PLAYER_LEFT = 19,
+  HEAL_DICE = 1,
+  LOSE_ALL_DICE = 2,
+  POWER_UP = 3,
+  EXACT = 4,
+  BOLONEY = 5,
+  ERROR = 6,
+  PLAYER_LOST = 7,
+  PLAYER_LEFT = 8,
+  USE_POWER_UP = 9,
 }
 
 export interface NotificationContentPlayerLost {
@@ -58,8 +60,15 @@ export const isNotificationContentError = (value: unknown): value is Notificatio
   );
 };
 
+export interface NotificationContentUsePowerUp {
+  id: PowerUpId;
+  callerName: string;
+  targetName?: string;
+}
+
 export type NotificationContent =
   | NotificationContentCallBoloney
   | NotificationContentCallExact
   | NotificationContentError
-  | NotificationContentPlayerLost;
+  | NotificationContentPlayerLost
+  | NotificationContentUsePowerUp;

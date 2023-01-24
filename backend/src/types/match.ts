@@ -232,10 +232,11 @@ export enum MatchOpCode {
   ERROR = 15,
   PLAYER_LEFT = 16,
   PLAYER_LOST_BY_TIMEOUT = 17,
+  USE_POWER_UP = 18,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_LOST_BY_TIMEOUT;
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.USE_POWER_UP;
 };
 
 export interface MatchLoopParams {

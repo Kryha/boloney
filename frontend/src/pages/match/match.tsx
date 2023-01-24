@@ -32,6 +32,7 @@ import {
   playerGetPowerUpsPayloadBackendSchema,
   playerReadyPayloadBackendSchema,
   playerOrderShufflePayloadBackendSchema,
+  usePowerUpPayloadBackendSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -203,6 +204,15 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           setLeaderboard(parsed.data.leaderboard);
           setRound(parsed.data.round);
           setStageNumberAndCounter(parsed.data.stageNumber, parsed.data.drawRoundCounter);
+          break;
+        }
+        case MatchOpCode.USE_POWER_UP: {
+          const parsed = usePowerUpPayloadBackendSchema.safeParse(data);
+          if (!parsed.success) return;
+
+          // TODO: delete log
+          // TODO: define a function that checks the power-up and updates the store accordingly
+          console.log("Notification Data:", parsed.data);
           break;
         }
         case MatchOpCode.ERROR: {

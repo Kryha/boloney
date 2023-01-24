@@ -14,6 +14,7 @@ import {
   stopLoading,
   handlePlayerLostRound,
   setAction,
+  powerUp,
 } from "../../../services";
 import { getPowerUp } from "../../../toolkit-api";
 import {
@@ -171,6 +172,9 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
       break;
     case MatchOpCode.PLAYER_CALL_EXACT:
       handlePlayerCallExact(loopParams, message, sender);
+      break;
+    case MatchOpCode.USE_POWER_UP:
+      powerUp.handlePlayerUsePowerUp(loopParams, message, sender);
       break;
     default:
       logger.info("Unknown OP_CODE received: ", message.opCode);
