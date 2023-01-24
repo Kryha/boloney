@@ -5,7 +5,7 @@ import { DieWrapper } from "../die/styles";
 
 export const bidDieSize = {
   idle: "clamp(66px, 6.98vw + -1px, 133px)",
-  selected: "clamp(76px, 6.98vw + 9px, 143px)",
+  selected: "clamp(70px, 7.6vw + -3px, 143px)",
 };
 
 export const BidWrapper = styled.section`
@@ -19,17 +19,17 @@ export const BidContainer = styled.div`
   margin-top: 3vw;
 `;
 
+export const FaceContainer = styled.div`
+  width: clamp(260px, 25vw + 20px, 500px);
+`;
+
 export const DiceContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  min-width: 235px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 5px;
+  display: grid;
   max-width: clamp(240px, 25vw + 0px, 480px);
-  margin-left: -0.3vw;
-  margin-top: clamp(40px, 2.08vw + 20px, 60px);
   ${DieWrapper} {
-    height: clamp(66px, 6.98vw + -1px, 133px);
+    min-height: clamp(66px, 6.98vw + -1px, 133px);
     > svg {
       border-radius: 8px;
     }
@@ -49,11 +49,13 @@ export const Die = styled.div<DieProps>`
   align-content: center;
   align-items: center;
   margin: 0.6vw 0.3vw;
-
-  svg {
-    box-shadow: ${({ isSelected, disabled }): string =>
-      isSelected && !disabled ? "0px 0px 10px rgba(0, 0, 0, 0.16), 0px 0px 30px rgba(0, 0, 0, 0.4)" : "none"};
-  }
+  width: clamp(70px, 7.6vw + -3px, 143px);
+  border-radius: 8px;
+  -webkit-appearance: none;
+  -webkit-box-shadow: ${({ isSelected, disabled }): string =>
+    isSelected && !disabled ? "0px 0px 10px rgba(0, 0, 0, 0.16), 0px 0px 30px rgba(0, 0, 0, 0.4)" : "none"};
+  box-shadow: ${({ isSelected, disabled }): string =>
+    isSelected && !disabled ? "0px 0px 10px rgba(0, 0, 0, 0.16), 0px 0px 30px rgba(0, 0, 0, 0.4)" : "none"};
 `;
 
 export const AmountContainer = styled.div`

@@ -10,7 +10,7 @@ import { ErrorView } from "../error-view";
 import { usePlaceBidFormState } from "./bid-state";
 import { DiceFaces } from "./dice-faces";
 import { AmountSlider } from "./amount-slider";
-import { AmountContainer, BidContainer, BidWrapper } from "./styles";
+import { AmountContainer, BidContainer, BidWrapper, FaceContainer } from "./styles";
 
 export const PlaceBid: FC = () => {
   const latestBid = useLatestBid();
@@ -39,8 +39,9 @@ export const PlaceBid: FC = () => {
   return (
     <BidWrapper>
       <BidContainer>
-        <DiceFaces dieColor={getDieColor(localPlayer)} lastBid={latestBid} />
-
+        <FaceContainer>
+          <DiceFaces dieColor={getDieColor(localPlayer)} lastBid={latestBid} />
+        </FaceContainer>
         <AmountContainer>
           <AmountSlider lastBid={latestBid} />
         </AmountContainer>
