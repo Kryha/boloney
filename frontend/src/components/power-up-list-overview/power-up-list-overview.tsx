@@ -1,52 +1,10 @@
 import { FC } from "react";
 
-import {
-  ButtonWrapper,
-  DescriptionText,
-  PowerUpCard,
-  PowerUpContainer,
-  PowerUpImage,
-  PowerUpInfoContainer,
-  PowerUpInfoWrapper,
-  PowerUpListOverviewWrapper,
-} from "./styles";
+import { PowerUpListOverviewWrapper } from "./styles";
 import { PowerUp, PowerUpId } from "../../types";
-import { text } from "../../assets";
-import { GeneralText, Heading2 } from "../atoms";
-import { color } from "../../design";
-import { PrimaryButton } from "../buttons";
 import { getPowerUpData } from "../../util";
-import { useViewport } from "../../hooks";
 import { useStore } from "../../store";
-
-interface PowerUpListItemProps {
-  powerUp: PowerUp;
-  onClick?: (powerUp: PowerUp) => void;
-}
-
-const PowerUpListItem: FC<PowerUpListItemProps> = ({ powerUp, onClick }) => {
-  const { width } = useViewport();
-
-  return (
-    <PowerUpContainer width={width} isPowerUpInUse={!!onClick}>
-      <PowerUpCard>
-        <PowerUpImage src={powerUp.cardImage} isImageLarge={powerUp.isImageLarge} />
-        <PowerUpInfoWrapper>
-          <PowerUpInfoContainer>
-            <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>
-            <DescriptionText>{powerUp.longDescription}</DescriptionText>
-            <GeneralText>{text.param.zeroAmount(powerUp.id)}</GeneralText>
-          </PowerUpInfoContainer>
-        </PowerUpInfoWrapper>
-      </PowerUpCard>
-      {!!onClick && (
-        <ButtonWrapper>
-          <PrimaryButton text={text.powerUps.boost} onClick={() => onClick(powerUp)} />
-        </ButtonWrapper>
-      )}
-    </PowerUpContainer>
-  );
-};
+import { PowerUpCard } from "../power-up-card";
 
 interface PowerUpListProps {
   powerUps: PowerUp[];
@@ -57,7 +15,7 @@ const PowerUpList: FC<PowerUpListProps> = ({ powerUps, onClick }) => {
   return (
     <PowerUpListOverviewWrapper powerUpsAmount={powerUps.length}>
       {powerUps.map((powerUp, i) => (
-        <PowerUpListItem key={i} powerUp={powerUp} onClick={onClick} />
+        <PowerUpCard key={i} powerUp={powerUp} onClick={() => onClick} />
       ))}
     </PowerUpListOverviewWrapper>
   );

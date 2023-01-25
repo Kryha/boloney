@@ -3,4 +3,5 @@ export const powerUps = {
   yourPowerUps: "your power-ups!",
   seeDetails: "see details",
   boost: "boost!",
+  theTotalSumOfTheDice: "the total sum of the dice is...",
 };

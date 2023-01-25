@@ -6,6 +6,18 @@ interface TextProps {
   customColor?: string;
 }
 
+export const Heading0 = styled.h1<TextProps>`
+  font-family: "itc-clearface-regular";
+  font-weight: ${fontWeight.regular};
+  font-size: clamp(11.25rem, 10.42vw + 5rem, 17.5rem);
+  line-height: clamp(11.25rem, 10.42vw + 5rem, 17.5rem);
+  letter-spacing: -0.02em;
+  color: ${({ customColor }): string => customColor || color.black};
+  :first-letter {
+    text-transform: capitalize;
+  }
+`;
+
 export const Heading1 = styled.h1<TextProps>`
   font-family: "itc-clearface-regular";
   font-weight: ${fontWeight.regular};

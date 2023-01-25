@@ -50,3 +50,5 @@ export * from "./timer";
 export * from "./power-up-checkbox";
 export * from "./player-sidebar-info";
 export * from "./use-power-up";
+export * from "./power-up-result-view";
+export * from "./power-up-pile";

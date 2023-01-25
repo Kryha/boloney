@@ -33,4 +33,8 @@ export const general = {
   rollIt: "roll it",
   copied: "copied!",
   typeHere: "type here...",
+  youAreRight: "you're right!",
+  youAreWrong: "you're wrong!",
+  youRockAtThis: "you rock at this!",
+  badLuckWithYourMove: "bad luck with your move...",
 };
