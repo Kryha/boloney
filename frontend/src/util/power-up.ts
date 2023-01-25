@@ -10,3 +10,8 @@ export const getPowerUpData = (powerUpIds: PowerUpId[]) => {
     return POWER_UP_DATA[id];
   });
 };
+
+export const powerUpRequiresTarget = (powerUpId: PowerUpId): boolean => {
+  const idsWithTarget: PowerUpId[] = ["1", "2", "5", "7", "9"];
+  return idsWithTarget.includes(powerUpId);
+};

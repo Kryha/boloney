@@ -20,6 +20,7 @@ import { useLatestBid } from "../../service";
 import { PlayerBadge } from "../badges";
 import { PlayerSidebarInfo } from "../player-sidebar-info";
 import { useStore } from "../../store";
+import { powerUpRequiresTarget } from "../../util";
 
 interface MatchPlayerProps {
   totalPlayers: number;
@@ -27,15 +28,16 @@ interface MatchPlayerProps {
 }
 
 export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
+  const latestBid = useLatestBid();
+  const targetPowerUpPlayerId = useStore((state) => state.powerUpState.targetPlayerId);
+  const activePowerUp = useStore((state) => state.powerUpState.active);
+
   const hasPlayerLost = player.diceAmount === 0;
   const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
-  const latestBid = useLatestBid();
-  const targetPowerUpPlayerId = useStore((state) => state.targetPowerUpPlayerId);
 
   const showSelectionView = () => {
-    // TODO: return true or false if that particular power-up requires a target.
-    if (player.status === "lost") return false;
-    return false;
+    if (player.status === "lost" || !activePowerUp) return false;
+    return powerUpRequiresTarget(activePowerUp.id);
   };
 
   return (

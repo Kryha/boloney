@@ -3,6 +3,7 @@ import { PlaceBid } from "../place-bid";
 import { CallBoloney } from "../call-boloney";
 import { CallExact } from "../call-exact";
 import { ProceedWithActionWrapper } from "./styles";
+import { UsePowerUp } from "../use-power-up";
 
 export const ProceedWithAction = () => {
   const action = useStore((state) => state.action);
@@ -18,7 +19,7 @@ export const ProceedWithAction = () => {
       case "healDice":
         return <></>;
       case "powerUp":
-        return <></>;
+        return <UsePowerUp />;
       default:
         return <></>;
     }

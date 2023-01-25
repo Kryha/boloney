@@ -8,7 +8,7 @@ interface PlayerCheckboxProps {
 }
 
 export const PlayerCheckboxProps: FC<PlayerCheckboxProps> = ({ userId, targetPlayerId }) => {
-  const setTargetPowerUpPlayerId = useStore((state) => state.setTargetPowerUpPlayerId);
+  const setPowerUpState = useStore((state) => state.setPowerUpState);
 
-  return <RadioButton onSelect={() => setTargetPowerUpPlayerId(userId)} isChecked={userId === targetPlayerId} />;
+  return <RadioButton onSelect={() => setPowerUpState({ targetPlayerId: userId })} isChecked={userId === targetPlayerId} />;
 };

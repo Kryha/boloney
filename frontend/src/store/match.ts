@@ -13,7 +13,15 @@ import {
   Action,
   PlayerRanked,
   MatchState,
+  PowerUp,
+  UsePowerUpPayloadBackend,
 } from "../types";
+
+interface PowerUpState {
+  targetPlayerId?: string;
+  active?: PowerUp;
+  result?: UsePowerUpPayloadBackend;
+}
 
 interface RoundState {
   hasRolledDice: boolean;
@@ -38,7 +46,8 @@ export interface MatchSliceState extends RoundState {
   stageNumber: number;
   drawRoundCounter: number;
   receivedPowerUps: number;
-  targetPowerUpPlayerId?: string;
+
+  powerUpState: PowerUpState;
 }
 
 interface MatchSliceSetters {
@@ -61,10 +70,18 @@ interface MatchSliceSetters {
   setRound: (round: number) => void;
   resetRound: () => void;
   setStageNumberAndCounter: (stageNumber: number, drawRoundCounter: number) => void;
-  setTargetPowerUpPlayerId: (userId: string) => void;
+
+  setPowerUpState: (powerUpState: PowerUpState) => void;
+  resetPowerUpState: () => void;
 }
 
 export type MatchSlice = MatchSliceState & MatchSliceSetters;
+
+const initialPoweUpState: PowerUpState = {
+  active: undefined,
+  targetPlayerId: undefined,
+  result: undefined,
+};
 
 const initialRoundState: RoundState = {
   hasRolledDice: false,
@@ -87,7 +104,7 @@ const initialMatchState: MatchSliceState = {
   stageNumber: 0,
   drawRoundCounter: 0,
   receivedPowerUps: 0,
-  targetPowerUpPlayerId: undefined,
+  powerUpState: initialPoweUpState,
   ...initialRoundState,
 };
 
@@ -143,5 +160,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setLastAction: (action) => set(() => ({ lastAction: action })),
   setChannelId: (channelId) => set(() => ({ channelId })),
   setStageNumberAndCounter: (stageNumber, drawRoundCounter) => set(() => ({ stageNumber, drawRoundCounter })),
-  setTargetPowerUpPlayerId: (targetPowerUpPlayerId) => set(() => ({ targetPowerUpPlayerId })),
+
+  setPowerUpState: (powerUpState) => set(() => ({ powerUpState })),
+  resetPowerUpState: () => set(() => ({ powerUpState: initialPoweUpState })),
 });

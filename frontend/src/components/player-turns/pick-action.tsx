@@ -11,6 +11,8 @@ import { ActivePlayerWrapper, ActivePlayerContainer, PowerUpButtonContainer, Act
 export const PickAction: FC = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const setAction = useStore((state) => state.setAction);
+  const showModal = useStore((state) => state.showModal);
+
   const latestBid = useLatestBid();
   const totalDice = useTotalDiceInMatch();
 
@@ -30,9 +32,10 @@ export const PickAction: FC = () => {
     }
   };
 
-  const handlePowerUpAction = (action: TurnAction) => {
-    // TODO: implement power up view
-    setAction(action);
+  const handlePowerUpAction = () => {
+    setTurnActionStep("proceedWithAction");
+    setAction("powerUp");
+    showModal("power-up-use");
   };
 
   return (
@@ -43,7 +46,7 @@ export const PickAction: FC = () => {
             text={text.match.powerUp}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
-            onClick={() => handlePowerUpAction("powerUp")}
+            onClick={() => handlePowerUpAction()}
           />
           <PrimaryButtonWithHelper
             text={text.match.healDice}

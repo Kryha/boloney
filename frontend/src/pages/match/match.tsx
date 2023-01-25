@@ -73,6 +73,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setStageNumberAndCounter = useStore((state) => state.setStageNumberAndCounter);
   const setTimerTimeInSeconds = useStore((state) => state.setTimerTimeInSeconds);
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
+  const setPowerUpState = useStore((state) => state.setPowerUpState);
 
   const joinMatchDone = useJoinMatch(matchId);
   const joinChatDone = useChatHistory(joinMatchDone);
@@ -211,8 +212,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
 
           // TODO: delete log
-          // TODO: define a function that checks the power-up and updates the store accordingly
-          console.log("Notification Data:", parsed.data);
+          console.log("Call Data:", parsed.data);
+          setPowerUpState({ result: parsed.data });
           break;
         }
         case MatchOpCode.ERROR: {
@@ -235,6 +236,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     setPlayerReady,
     setPlayers,
     setPowerUpIds,
+    setPowerUpState,
     setRound,
     setSpinnerVisibility,
     setStageNumberAndCounter,

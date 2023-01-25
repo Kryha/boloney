@@ -10,48 +10,79 @@ import {
   PowerUpInfoWrapper,
   PowerUpListOverviewWrapper,
 } from "./styles";
-import { PowerUpId } from "../../types";
+import { PowerUp, PowerUpId } from "../../types";
 import { text } from "../../assets";
 import { GeneralText, Heading2 } from "../atoms";
 import { color } from "../../design";
 import { PrimaryButton } from "../buttons";
 import { getPowerUpData } from "../../util";
-import { ErrorView } from "../error-view";
 import { useViewport } from "../../hooks";
+import { useStore } from "../../store";
 
-interface PowerUpListOverviewProps {
-  powerUpIds: PowerUpId[];
-  isPowerUpInUse?: boolean;
+interface PowerUpListItemProps {
+  powerUp: PowerUp;
+  onClick?: (powerUp: PowerUp) => void;
 }
 
-export const PowerUpListOverview: FC<PowerUpListOverviewProps> = ({ powerUpIds, isPowerUpInUse = false }) => {
-  const dataPowerUp = getPowerUpData(powerUpIds);
+const PowerUpListItem: FC<PowerUpListItemProps> = ({ powerUp, onClick }) => {
   const { width } = useViewport();
 
-  if (!dataPowerUp) return <ErrorView />;
-
   return (
-    <PowerUpListOverviewWrapper powerUpsAmount={powerUpIds.length}>
-      {dataPowerUp.map((powerUp, i) => (
-        <PowerUpContainer key={i} width={width} isPowerUpInUse={isPowerUpInUse}>
-          <PowerUpCard>
-            <PowerUpImage src={powerUp.cardImage} isImageLarge={powerUp.isImageLarge} />
-            <PowerUpInfoWrapper>
-              <PowerUpInfoContainer>
-                <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>
-                <DescriptionText>{powerUp.longDescription}</DescriptionText>
-                <GeneralText>{text.param.zeroAmount(powerUp.id)}</GeneralText>
-              </PowerUpInfoContainer>
-            </PowerUpInfoWrapper>
-          </PowerUpCard>
-          {isPowerUpInUse && (
-            <ButtonWrapper>
-              {/* TODO: implement boost */}
-              <PrimaryButton text={text.powerUps.boost} />
-            </ButtonWrapper>
-          )}
-        </PowerUpContainer>
+    <PowerUpContainer width={width} isPowerUpInUse={!!onClick}>
+      <PowerUpCard>
+        <PowerUpImage src={powerUp.cardImage} isImageLarge={powerUp.isImageLarge} />
+        <PowerUpInfoWrapper>
+          <PowerUpInfoContainer>
+            <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>
+            <DescriptionText>{powerUp.longDescription}</DescriptionText>
+            <GeneralText>{text.param.zeroAmount(powerUp.id)}</GeneralText>
+          </PowerUpInfoContainer>
+        </PowerUpInfoWrapper>
+      </PowerUpCard>
+      {!!onClick && (
+        <ButtonWrapper>
+          <PrimaryButton text={text.powerUps.boost} onClick={() => onClick(powerUp)} />
+        </ButtonWrapper>
+      )}
+    </PowerUpContainer>
+  );
+};
+
+interface PowerUpListProps {
+  powerUps: PowerUp[];
+  onClick?: (powerUp: PowerUp) => void;
+}
+
+const PowerUpList: FC<PowerUpListProps> = ({ powerUps, onClick }) => {
+  return (
+    <PowerUpListOverviewWrapper powerUpsAmount={powerUps.length}>
+      {powerUps.map((powerUp, i) => (
+        <PowerUpListItem key={i} powerUp={powerUp} onClick={onClick} />
       ))}
     </PowerUpListOverviewWrapper>
   );
+};
+
+interface Props {
+  powerUpIds: PowerUpId[];
+}
+
+export const PowerUpListOverview: FC<Props> = ({ powerUpIds }) => {
+  const powerUps = getPowerUpData(powerUpIds);
+
+  return <PowerUpList powerUps={powerUps} />;
+};
+
+export const PowerUpListUse: FC<Props> = ({ powerUpIds }) => {
+  const hideModal = useStore((state) => state.hideModal);
+  const setPowerUpState = useStore((state) => state.setPowerUpState);
+
+  const powerUps = getPowerUpData(powerUpIds);
+
+  const handleClick = (powerUp: PowerUp) => {
+    setPowerUpState({ active: powerUp });
+    hideModal();
+  };
+
+  return <PowerUpList powerUps={powerUps} onClick={handleClick} />;
 };

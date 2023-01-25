@@ -16,16 +16,14 @@ interface PowerUpListProps {
 }
 
 export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
-  const setModalWithoutContainer = useStore((state) => state.setModalWithoutContainer);
-  const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
+  const showModal = useStore((state) => state.showModal);
 
   const { width } = useViewport();
 
   const initialPowerUpsShown = width > MEDIUM_VIEWPORT_WIDTH ? POWER_UP_DEFAULT_VIEW : POWER_UP_DEFAULT_VIEW_SMALL;
 
   const toggleShowModal = () => {
-    setModalWithoutContainer(true);
-    setModalComponentChildren("power-up-list");
+    showModal("power-up-list");
   };
 
   return (
