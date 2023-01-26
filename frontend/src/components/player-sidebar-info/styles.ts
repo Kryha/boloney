@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
+
 import { color, zIndex } from "../../design";
 import { Heading6, RadioCheckbox } from "../atoms";
 import { DiceContainer } from "../match-players-overview/styles";
 
 interface SidebarInfoContainerProps {
   isLastBid: boolean;
-  isPowerUpInUse: boolean;
   isTotalPlayers: boolean;
 }
 
@@ -46,12 +46,4 @@ export const PlayerSidebarInfoContainer = styled.div<SidebarInfoContainerProps>`
           display: none;
         }
       `};
-  ${({ isPowerUpInUse }) =>
-    !isPowerUpInUse
-      ? `
-        ${RadioCheckbox} {
-          display: none;
-        }
-      `
-      : ""};
 `;

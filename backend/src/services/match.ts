@@ -11,6 +11,7 @@ import {
   MessageHandler,
   NotificationOpCode,
   Player,
+  PlayerJoinedPayloadBackend,
   PlayerLeftPayloadBackend,
   StageLogicCallback,
   StageTransitionCallback,
@@ -20,6 +21,7 @@ import {
 import { randomInt } from "../utils";
 import { errors, handleError, parseError } from "./error";
 import { getActivePlayerId, getNextPlayerId, handlePlayerLostMatch, hidePlayersData, isMatchEnded, setActivePlayer } from "./player";
+import { getSecondsFromTicks } from "./timer";
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
   const messageSender = state.players[message.sender.userId];
@@ -208,4 +210,35 @@ export const resetRound = ({ state }: MatchLoopParams) => {
 
 export const setAction = (action: Action, state: MatchState) => {
   state.action = action;
+};
+
+export const updatePlayersState = (state: MatchState, dispatcher: nkruntime.MatchDispatcher) => {
+  const hiddenPlayersData = hidePlayersData(state.players);
+
+  Promise.all(
+    Object.values(state.presences).map(async (presence) => {
+      const player = state.players[presence.userId];
+      const turnActionStep = state.matchStage === "roundSummaryStage" ? "results" : state.turnActionStep;
+      const payload: PlayerJoinedPayloadBackend = {
+        matchState: {
+          players: hiddenPlayersData,
+          playerOrder: state.playerOrder,
+          matchStage: state.matchStage,
+          powerUpIds: player.powerUpIds,
+          matchSettings: state.settings,
+          leaderboard: state.leaderboard,
+          hasRolledDice: player.hasRolledDice,
+          diceValue: player.diceValue,
+          bids: state.bids,
+          round: state.round,
+          stageNumber: state.stageNumber,
+          drawRoundCounter: state.drawRoundCounter,
+          turnActionStep: turnActionStep,
+          lastAction: state.action,
+        },
+        remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
+      };
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
+    })
+  );
 };

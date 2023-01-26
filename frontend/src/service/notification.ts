@@ -15,7 +15,7 @@ import { CallBoloney, CallExact, HealDiceCoffin, text } from "../assets";
 import { Notification } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 import { useStore } from "../store";
-import { parseError } from "../util";
+import { getPowerUp, parseError } from "../util";
 
 import { useLocalPlayer } from "./match";
 import { nakama } from "../service";
@@ -101,7 +101,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
         return {
           ...data,
           description: text.notifications.playerIsCallingBoloneyOnYou(activePlayerName),
-          boldText: [activePlayerName, "you"],
+          boldText: [activePlayerName, text.general.you],
         };
       }
 
@@ -191,17 +191,17 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
 
       if (!parsed.success) return defaultUnknownError;
 
-      const { callerName, targetName } = parsed.data;
+      const { callerName, targetName, id } = parsed.data;
 
-      const boldText = targetName ? [callerName, targetName] : [callerName];
+      const powerUp = getPowerUp(id);
 
-      // TODO: change image based on power-up
-      // TODO: write text based on power-up
+      const boldText = targetName ? [callerName, targetName, text.general.you] : [callerName];
+
       return {
         id: notification.id,
-        img: CallBoloney,
-        title: `${callerName} called power-up on ${targetName}`,
-        description: "",
+        img: powerUp.cardImage,
+        title: powerUp.name,
+        description: text.notifications.playerIsSpreadingShockwaves(id, localPlayer.username, callerName, targetName),
         boldText,
       };
     }

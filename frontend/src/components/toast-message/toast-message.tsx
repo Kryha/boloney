@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Highlighter from "react-highlight-words";
-import { text } from "../../assets";
+
 import { GeneralText, Heading6 } from "../atoms";
 import { CloseButton, ToastDescriptionContainer, ToastImage, ToastWrapper, MultipleToast, MultipleToastWrapper } from "./styles";
 
@@ -30,7 +30,6 @@ export const ToastMessage: FC<ToastMessageProps> = ({
           <Heading6>{title}</Heading6>
           <GeneralText>
             <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={description} />
-            {text.notifications.patienceYoungOne}
           </GeneralText>
         </ToastDescriptionContainer>
         <CloseButton onClick={() => closeToast()} />

@@ -71,4 +71,6 @@ export const general = {
   youAreWrong: "you're wrong!",
   youRockAtThis: "you rock at this!",
   badLuckWithYourMove: "bad luck with your move...",
+  you: "you.",
+  done: "done!",
 };

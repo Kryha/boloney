@@ -18,3 +18,11 @@ export const getPowerUp = async (powerUpProbability: PowerUpProbability[]): Prom
 export const destroyPoweUp = async (state: MatchState, selectedPowerUps: PowerUpId[]) => {
   //TODO Implement
 };
+
+const useBirdsEye = async () => {
+  // TODO: implement
+};
+
+export const toolkitUse = {
+  birdsEye: useBirdsEye,
+};

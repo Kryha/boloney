@@ -43,10 +43,15 @@ export type UseGrillFrontend = z.infer<typeof useGrillFrontendSchema>;
 export const useGrillBackendSchema = z.object({});
 export type UseGrillBackend = z.infer<typeof useGrillBackendSchema>;
 
-export const useBirdsEyeFrontendSchema = z.object({});
+export const useBirdsEyeFrontendSchema = z.object({
+  targetId: z.string(),
+});
 export type UseBirdsEyeFrontend = z.infer<typeof useBirdsEyeFrontendSchema>;
 
-export const useBirdsEyeBackendSchema = z.object({});
+export const useBirdsEyeBackendSchema = z.object({
+  targetId: z.string(),
+  sum: z.number(),
+});
 export type UseBirdsEyeBackend = z.infer<typeof useBirdsEyeBackendSchema>;
 
 export const useMenageFrontendSchema = z.object({});

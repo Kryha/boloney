@@ -19,6 +19,7 @@ interface PowerUpCardProps {
   powerUp: PowerUp;
   onClick?: (powerUp: PowerUp) => void;
 }
+
 export const PowerUpCard: FC<PowerUpCardProps> = ({ powerUp, onClick }) => {
   const { width } = useViewport();
 

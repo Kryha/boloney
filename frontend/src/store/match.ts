@@ -15,6 +15,7 @@ import {
   MatchState,
   PowerUp,
   UsePowerUpPayloadBackend,
+  PlayerRoundData,
 } from "../types";
 
 interface PowerUpState {
@@ -29,6 +30,7 @@ interface RoundState {
   bids: Record<string, Bid>;
   action?: TurnAction;
   turnActionStep: TurnActionStep;
+  playersRoundData: Record<string, PlayerRoundData>;
 }
 
 export interface MatchSliceState extends RoundState {
@@ -70,6 +72,8 @@ interface MatchSliceSetters {
   setRound: (round: number) => void;
   resetRound: () => void;
   setStageNumberAndCounter: (stageNumber: number, drawRoundCounter: number) => void;
+  setPlayerRoundData: (playerId: string, playersRoundData: PlayerRoundData) => void;
+  getPlayerRoundData: (playerID: string) => PlayerRoundData | undefined;
 
   setPowerUpState: (powerUpState: PowerUpState) => void;
   resetPowerUpState: () => void;
@@ -89,6 +93,7 @@ const initialRoundState: RoundState = {
   bids: {},
   action: undefined,
   turnActionStep: "pickAction",
+  playersRoundData: {},
 };
 
 const initialMatchState: MatchSliceState = {
@@ -108,7 +113,7 @@ const initialMatchState: MatchSliceState = {
   ...initialRoundState,
 };
 
-export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set) => ({
+export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set, get) => ({
   ...initialMatchState,
 
   setIsJoining: (isJoining) => set(() => ({ isJoining })),
@@ -128,7 +133,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
     );
   },
   setHasRolledDice: (hasRolledDice) => set(() => ({ hasRolledDice })),
-  setMatchState: (payload) => set(() => ({ ...payload })),
+  setMatchState: (payload) => set((oldState) => ({ ...payload, turnActionStep: oldState.turnActionStep })),
   setBids: (bids) => set(() => ({ bids })),
   resetRound: () =>
     set(
@@ -138,6 +143,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
         state.bids = initialRoundState.bids;
         state.action = initialRoundState.action;
         state.turnActionStep = initialRoundState.turnActionStep;
+        state.playersRoundData = initialRoundState.playersRoundData;
 
         Object.values(state.players).forEach((player) => {
           const playerRef = state.players[player.userId];
@@ -161,6 +167,19 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setChannelId: (channelId) => set(() => ({ channelId })),
   setStageNumberAndCounter: (stageNumber, drawRoundCounter) => set(() => ({ stageNumber, drawRoundCounter })),
 
-  setPowerUpState: (powerUpState) => set(() => ({ powerUpState })),
+  setPlayerRoundData: (playerId, playersRoundData) =>
+    set(
+      produce((state: MatchSliceState) => {
+        const oldExtra = state.playersRoundData[playerId];
+        if (!oldExtra) {
+          state.playersRoundData[playerId] = playersRoundData;
+        } else {
+          state.playersRoundData[playerId] = { ...oldExtra, ...playersRoundData };
+        }
+      })
+    ),
+  getPlayerRoundData: (playerId) => get().playersRoundData[playerId],
+
+  setPowerUpState: (newState) => set(({ powerUpState }) => ({ powerUpState: { ...powerUpState, ...newState } })),
   resetPowerUpState: () => set(() => ({ powerUpState: initialPoweUpState })),
 });

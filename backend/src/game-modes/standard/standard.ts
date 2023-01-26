@@ -4,15 +4,14 @@ import {
   getAvailableAvatar,
   handleError,
   handleInactiveMatch,
-  hidePlayersData,
   setLosersAsReady,
   updateEmptyTicks,
   createChatGroup,
   calcStageNumber,
   calcDrawRoundCounter,
-  getSecondsFromTicks,
+  updatePlayersState,
 } from "../../services";
-import { MatchState, isMatchSettings, MatchOpCode, isMatchJoinMetadata, MatchLoopParams, PlayerJoinedPayloadBackend } from "../../types";
+import { MatchState, isMatchSettings, isMatchJoinMetadata, MatchLoopParams } from "../../types";
 import { handleStage } from "./stage-handlers";
 
 // This gets called when enough players are in a pool
@@ -127,35 +126,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
 // !don't do any operations related to state update in this function!
 export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger, _nk, dispatcher, _tick, state, _presences) => {
   try {
-    const hiddenPlayers = hidePlayersData(state.players);
-
-    Promise.all(
-      Object.values(state.presences).map(async (presence) => {
-        const player = state.players[presence.userId];
-        const turnActionStep = state.matchStage === "roundSummaryStage" ? "results" : state.turnActionStep;
-        const payload: PlayerJoinedPayloadBackend = {
-          matchState: {
-            players: hiddenPlayers,
-            playerOrder: state.playerOrder,
-            matchStage: state.matchStage,
-            powerUpIds: player.powerUpIds,
-            matchSettings: state.settings,
-            leaderboard: state.leaderboard,
-            hasRolledDice: player.hasRolledDice,
-            diceValue: player.diceValue,
-            bids: state.bids,
-            round: state.round,
-            stageNumber: state.stageNumber,
-            drawRoundCounter: state.drawRoundCounter,
-            turnActionStep: turnActionStep,
-            lastAction: state.action,
-          },
-          remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
-        };
-        dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
-      })
-    );
-
+    updatePlayersState(state, dispatcher);
     return { state };
   } catch (error) {
     throw handleError(error, logger);

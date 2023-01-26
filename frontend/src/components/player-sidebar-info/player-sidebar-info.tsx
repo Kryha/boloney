@@ -1,35 +1,33 @@
 import { FC } from "react";
+
 import { MAX_PLAYER_SIDEBAR_AMOUNT } from "../../constants";
-import { Bid, PlayerPublic } from "../../types";
+import { BidWithUserId, PlayerPublic } from "../../types";
 import { PlayerLastBid } from "../match-players-overview";
-import { PlayerCheckboxProps } from "../power-up-checkbox/player-checkbox";
+import { RadioButton } from "../power-up-checkbox";
 import { PlayerSidebarInfoContainer } from "./styles";
 
 interface PlayerSidebarInfoProps {
-  lastBid?: Bid;
   player: PlayerPublic;
-  showLastBid: boolean;
+  lastBid?: BidWithUserId;
   totalPlayers: number;
-  targetPlayerId?: string;
-  isPowerUpInUse: boolean;
+  hasRadioButton?: boolean;
+  isChecked?: boolean;
+
+  onSelect: () => void;
 }
 
 export const PlayerSidebarInfo: FC<PlayerSidebarInfoProps> = ({
-  lastBid,
   player,
-  showLastBid,
+  lastBid,
   totalPlayers,
-  targetPlayerId,
-  isPowerUpInUse,
+  hasRadioButton,
+  isChecked = false,
+  onSelect,
 }) => {
   return (
-    <PlayerSidebarInfoContainer
-      isLastBid={showLastBid}
-      isPowerUpInUse={isPowerUpInUse}
-      isTotalPlayers={totalPlayers === MAX_PLAYER_SIDEBAR_AMOUNT}
-    >
-      {showLastBid && <PlayerLastBid lastBid={lastBid} player={player} />}
-      <PlayerCheckboxProps userId={player.userId} targetPlayerId={targetPlayerId} />
+    <PlayerSidebarInfoContainer isLastBid={lastBid?.userId === player.userId} isTotalPlayers={totalPlayers === MAX_PLAYER_SIDEBAR_AMOUNT}>
+      {!!lastBid && <PlayerLastBid lastBid={lastBid} player={player} />}
+      {hasRadioButton && <RadioButton onSelect={onSelect} isChecked={isChecked} />}
     </PlayerSidebarInfoContainer>
   );
 };

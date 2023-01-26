@@ -1,3 +1,5 @@
+import { EMPTY_DATA } from "../constants";
+import { toolkitUse } from "../toolkit-api";
 import {
   MatchLoopParams,
   MatchOpCode,
@@ -26,6 +28,7 @@ import {
   UseVendettaBackend,
   UseVendettaFrontend,
 } from "../types";
+import { updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendNotification } from "./notification";
 import { getFilteredPlayerIds } from "./player";
@@ -43,7 +46,8 @@ const useBirdsEye = async (loopParams: MatchLoopParams, data: UseBirdsEyeFronten
 
   const sum = target.diceValue.reduce((tot, die) => tot + die.rolledValue, 0);
 
-  // TODO: add interaction with toolkit
+  // TODO: improve tk function
+  await toolkitUse.birdsEye();
 
   return { sum, targetId };
 };
@@ -84,7 +88,7 @@ const useHypnosis = async (loopParams: MatchLoopParams, data: UseHypnosisFronten
 };
 
 const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage, sender: Player): Promise<void> => {
-  const { ctx, state, dispatcher, nk } = loopParams;
+  const { state, dispatcher, nk } = loopParams;
 
   // TODO: use type predicates instead of assertion
   const payload = JSON.parse(nk.binaryToString(message.data)) as UsePowerUpPayloadFrontend;
@@ -94,7 +98,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
   const powerUp = sender.powerUpIds.find((powerUp) => powerUp === id);
   if (!powerUp) throw new Error(`Player does not own a power-up with id ${id}`);
 
-  // TODO: add interaction with toolkit
+  // TODO: add interaction with toolkit and rollback if execution fails
   sender.powerUpIds.splice(sender.powerUpIds.indexOf(powerUp), 1);
   sender.powerUpsAmount--;
 
@@ -148,14 +152,20 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     }
   }
 
-  dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload), [state.presences[ctx.userId]]);
+  const senderPresence = state.presences[sender.userId];
+
+  dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload), [senderPresence]);
+
+  updatePlayersState(state, dispatcher);
+
+  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [senderPresence]);
 
   const notificationPayload: NotificationContentUsePowerUp = {
     id,
     callerName: sender.username,
     targetName: "targetId" in data ? state.players[data.targetId].username : undefined,
   };
-  const idlePlayers = getFilteredPlayerIds(state.players, ctx.userId);
+  const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
   sendNotification(nk, idlePlayers, NotificationOpCode.USE_POWER_UP, notificationPayload);
 };
 

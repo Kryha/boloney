@@ -41,8 +41,7 @@ interface MatchPlayersProps {
   isActive?: boolean;
   customColor?: string;
   hasPlayerLost: boolean;
-  isTargetPlayer: boolean;
-  isPowerUpInUse: boolean;
+  isTargetable: boolean;
 }
 
 export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
@@ -56,9 +55,9 @@ export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
     z-index: ${zIndex.inFront};
   }
   :hover {
-    background: ${({ isPowerUpInUse }): string => (isPowerUpInUse ? color.white : "")};
+    background: ${({ isTargetable }): string => (isTargetable ? color.white : "")};
     ${PlayerSidebarInfoContainer} {
-      background: ${({ isPowerUpInUse }): string => (isPowerUpInUse ? color.white : "")};
+      background: ${({ isTargetable }): string => (isTargetable ? color.white : "")};
     }
   }
 `;

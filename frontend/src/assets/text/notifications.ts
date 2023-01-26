@@ -1,3 +1,6 @@
+import { PowerUpId } from "../../types";
+import { powerUpRequiresTarget } from "../../util";
+
 export const notifications = {
   againstYou: "against you...",
   playerIsDead: "DEAD!",
@@ -10,17 +13,26 @@ export const notifications = {
   secondChance: "SECOND CHANCE",
   doubleUp: "DOUBLE UP",
   smokeAndMirrors: "SMOKE AND MIRRORS",
-  patienceYoungOne: "Patience, young one. Your time to shine approaches.",
+
   playerIsOutOfTheMatchTitle: (loser: string) => `${loser} is out of the match`,
   playerIsOutOfTheMatchDescription: (loser: string) =>
-    `${loser} lost his last dice and goes directly to the cemetery... Let’s have a minute of silence on their regard!`,
-  playerIsCallingExactOnYou: (activePlayer: string) => `${activePlayer} thinks they’re on the money with this call.`,
-  playerIsCallingBoloneyOnYou: (activePlayer: string) => `${activePlayer} smells a bluff from you.`,
-  idlePlayerCallingBoloney: (activeUsername: string, targetPlayer: string) => `${activeUsername} smells a bluff from ${targetPlayer}.`,
+    `${loser} lost his last dice and goes directly to the cemetery... Let's have a minute of silence on their regard!`,
+  playerIsCallingExactOnYou: (activePlayer: string) =>
+    `${activePlayer} thinks they’re on the money with this call. Patience, young one. Your time to shine approaches.`,
+  playerIsCallingBoloneyOnYou: (activePlayer: string) =>
+    `${activePlayer} smells a bluff from you. Patience, young one. Your time to shine approaches.`,
+  idlePlayerCallingBoloney: (activeUsername: string, targetPlayer: string) =>
+    `${activeUsername} smells a bluff from ${targetPlayer}. Patience, young one. Your time to shine approaches.`,
   playerLeftTheMatch: (player: string) => `${player} left the match...`,
-  playerIsUsingPowerUpOnYou: (activePlayer: string) => `${activePlayer} is spreading shockwaves with a power-up against you. `,
-  playerIsUsingPowerUpWithTarget: (activePlayer: string, targetPlayer: string) =>
-    `${activePlayer} is spreading shockwaves with a power-up against ${targetPlayer}.`,
-  playerIsUsingPowerUpWithoutTarget: (activePlayer: string) => `${activePlayer} Skinny.boy is spreading shockwaves with a power-up.`,
-  playerIsUsingHealDice: (activePlayer: string) => `I’m back, baby! ${activePlayer} traded in power-ups to get back a die.`,
+
+  playerIsSpreadingShockwaves: (id: PowerUpId, localPlayerName: string, callerName: string, targetName?: string) => {
+    if (powerUpRequiresTarget(id)) {
+      return `${callerName} is spreading shockwaves with a power-up against ${
+        localPlayerName === targetName ? "you" : targetName
+      }. Patience, young one. Your time to shine approaches.`;
+    } else {
+      return `${callerName} is spreading shockwaves with a power-up. Patience, young one. Your time to shine approaches.`;
+    }
+  },
+  playerIsUsingHealDice: (activePlayer: string) => `I'm back, baby! ${activePlayer} traded in power-ups to get back a die.`,
 };

@@ -16,11 +16,11 @@ import { handProportion } from "../../design/hand";
 import { PlayerPublic } from "../../types";
 import { avatars } from "../../assets";
 import { PlayerMatchState } from "./match-player-info";
-import { useLatestBid } from "../../service";
 import { PlayerBadge } from "../badges";
 import { PlayerSidebarInfo } from "../player-sidebar-info";
 import { useStore } from "../../store";
 import { powerUpRequiresTarget } from "../../util";
+import { useLatestBid } from "../../service";
 
 interface MatchPlayerProps {
   totalPlayers: number;
@@ -28,24 +28,29 @@ interface MatchPlayerProps {
 }
 
 export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
-  const latestBid = useLatestBid();
-  const targetPowerUpPlayerId = useStore((state) => state.powerUpState.targetPlayerId);
-  const activePowerUp = useStore((state) => state.powerUpState.active);
+  const lastBid = useLatestBid();
+
+  const playerRoundData = useStore((state) => state.getPlayerRoundData(player.userId));
+  const { targetPlayerId: targetPowerUpPlayerId, active: activePowerUp, result } = useStore((state) => state.powerUpState);
+  const setPowerUpState = useStore((state) => state.setPowerUpState);
 
   const hasPlayerLost = player.diceAmount === 0;
   const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
 
-  const showSelectionView = () => {
-    if (player.status === "lost" || !activePowerUp) return false;
+  const isTargetable = (): boolean => {
+    if (player.status === "lost" || !activePowerUp || !!result) return false;
     return powerUpRequiresTarget(activePowerUp.id);
+  };
+
+  const handleSelect = () => {
+    setPowerUpState({ targetPlayerId: player.userId });
   };
 
   return (
     <MatchPlayersWrapper
-      isActive={player.isActive}
+      isActive={player.isActive || targetPowerUpPlayerId === player.userId}
       hasPlayerLost={hasPlayerLost}
-      isTargetPlayer={targetPowerUpPlayerId === player.userId}
-      isPowerUpInUse={showSelectionView()}
+      isTargetable={isTargetable()}
     >
       <PlayerBadge player={player} />
 
@@ -64,18 +69,18 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
               <PlayerNameContainer>
                 <Name>{player.username}</Name>
               </PlayerNameContainer>
-              <PlayerMatchState player={player} />
+              <PlayerMatchState player={player} playerRoundData={playerRoundData} />
             </PlayerInfoContainer>
           </>
         )}
       </MatchPlayersContainer>
       <PlayerSidebarInfo
         player={player}
-        lastBid={latestBid}
-        showLastBid={latestBid?.userId === player.userId}
+        lastBid={lastBid}
         totalPlayers={totalPlayers}
-        targetPlayerId={targetPowerUpPlayerId}
-        isPowerUpInUse={showSelectionView()}
+        hasRadioButton={isTargetable()}
+        isChecked={player.userId === targetPowerUpPlayerId}
+        onSelect={handleSelect}
       />
     </MatchPlayersWrapper>
   );

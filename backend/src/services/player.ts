@@ -53,9 +53,9 @@ export const getOtherPresences = (currentPlayerId: string, presences: Record<str
 };
 
 export const getFilteredPlayerIds = (players: Record<string, Player>, playerId: string): string[] => {
-  return Object.values(players).reduce((acc, player) => {
-    return player.userId !== playerId ? acc.concat(player.userId) : acc;
-  }, [] as string[]);
+  return Object.values(players)
+    .filter((player) => player.userId !== playerId)
+    .map((player) => player.userId);
 };
 
 export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: string) => {

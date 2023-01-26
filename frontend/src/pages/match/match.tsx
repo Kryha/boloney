@@ -219,8 +219,6 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           const parsed = usePowerUpPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
 
-          // TODO: delete log
-          console.log("Call Data:", parsed.data);
           setPowerUpState({ result: parsed.data });
           break;
         }

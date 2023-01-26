@@ -83,6 +83,11 @@ export type PlayerRanked = z.infer<typeof playerRankedSchema>;
 export const playerSchema = playerPublicSchema.merge(playerPrivateSchema);
 export type Player = z.infer<typeof playerSchema>;
 
+export const playerRoundDataSchema = z.object({
+  diceSum: z.number().optional(),
+});
+export type PlayerRoundData = z.infer<typeof playerRoundDataSchema>;
+
 export const matchStageSchema = z.enum([
   "lobbyStage",
   "getPowerUpStage",

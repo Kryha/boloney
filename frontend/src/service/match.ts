@@ -1,7 +1,16 @@
 import { useCallback, useMemo, useState } from "react";
 import { text } from "../assets";
 import { useSession, useStore } from "../store";
-import { ActionRole, BidPayloadFrontend, BidWithUserId, HealDicePayloadFrontend, MatchOpCode, NkResponse, PlayerPublic } from "../types";
+import {
+  ActionRole,
+  BidPayloadFrontend,
+  BidWithUserId,
+  MatchOpCode,
+  NkResponse,
+  PlayerPublic,
+  UsePowerUpPayloadFrontend,
+  HealDicePayloadFrontend,
+} from "../types";
 import { parseError } from "../util";
 import { nakama } from "./nakama";
 
@@ -104,6 +113,7 @@ export const usePlayerWithRole = (actionRole: ActionRole): PlayerPublic | undefi
 
 export const useMatch = () => {
   const matchId = useStore((state) => state.matchId);
+  const powerUpState = useStore((state) => state.powerUpState);
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
 
@@ -151,6 +161,32 @@ export const useMatch = () => {
 
   const broadcastPlayerLeft = () => sendMatchState(MatchOpCode.PLAYER_LEFT);
 
+  const broadcastUsePowerUp = () => {
+    try {
+      setSpinnerVisibility(true);
+
+      const { active, targetPlayerId } = powerUpState;
+      if (!active) throw new Error(text.error.noActivePowerUp);
+
+      let payload: UsePowerUpPayloadFrontend;
+      switch (active.id) {
+        // TODO: handle all cases
+        case "2":
+          if (!targetPlayerId) throw new Error(text.error.powerUpRequiresTarget);
+          payload = { id: active.id, data: { targetId: targetPlayerId } };
+          break;
+        default:
+          payload = { id: active.id, data: {} };
+          throw new Error(text.error.powerUpNotImplemented);
+      }
+
+      sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
+    } catch (error) {
+      console.warn(error);
+      setSpinnerVisibility(false);
+    }
+  };
+
   return {
     isLoading,
     sendMatchState,
@@ -159,6 +195,7 @@ export const useMatch = () => {
     broadcastCallExact,
     broadcastCallBoloney,
     broadcastPlayerLeft,
+    broadcastUsePowerUp,
     broadcastHealDice,
   };
 };
