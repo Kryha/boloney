@@ -1,4 +1,4 @@
-import { isPowerUpId, PowerUpId, PowerUpProbability } from "../types";
+import { isPowerUpId, MatchState, PowerUpId, PowerUpProbability } from "../types";
 
 //TODO: implement this function to work with the toolkit
 export const getPowerUp = async (powerUpProbability: PowerUpProbability[]): Promise<PowerUpId | undefined> => {
@@ -13,4 +13,8 @@ export const getPowerUp = async (powerUpProbability: PowerUpProbability[]): Prom
   const id = availablePowerUps[Math.floor(Math.random() * availablePowerUps.length)];
   if (!isPowerUpId(id)) return;
   return id;
+};
+
+export const destroyPoweUp = async (state: MatchState, selectedPowerUps: PowerUpId[]) => {
+  //TODO Implement
 };

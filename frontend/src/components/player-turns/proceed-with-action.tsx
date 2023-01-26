@@ -3,6 +3,7 @@ import { PlaceBid } from "../place-bid";
 import { CallBoloney } from "../call-boloney";
 import { CallExact } from "../call-exact";
 import { ProceedWithActionWrapper } from "./styles";
+import { HealDice } from "../heal-dice";
 import { UsePowerUp } from "../use-power-up";
 
 export const ProceedWithAction = () => {
@@ -17,7 +18,7 @@ export const ProceedWithAction = () => {
       case "exact":
         return <CallExact />;
       case "healDice":
-        return <></>;
+        return <HealDice />;
       case "powerUp":
         return <UsePowerUp />;
       default:

@@ -35,4 +35,5 @@ export const param = {
   congratulationsIdlePlayerActiveLost: (username: string, action: Action) => `congratulations ${username}, your ass is safe ${action}!`,
   congratulationsIdlePlayer: (username: string, action: Action) => `congratulations ${username}, they are awesome at calling ${action}!`,
   aPlayerLostByTimeOut: (username: string) => `${username} run out of time. We skip his turn and he also loses a die!`,
+  healDice: (healDiceAmount: string) => `select the x${healDiceAmount} power-ups you want to exchange!`,
 };

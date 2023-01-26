@@ -16,7 +16,7 @@ export const match = {
   takeAction: "take action",
   or: "or...",
   powerUp: "power-up",
-  healDice: "heal dice",
+  healDice: "heal a die",
   bid: "bid",
   boloney: "boloney!",
   exact: "exact",
@@ -30,4 +30,5 @@ export const match = {
   powerUpTypeOnTheTable: "power-up type on the table",
   imReady: "im ready",
   homePage: "homepage",
+  continueHealDice: "continue",
 };

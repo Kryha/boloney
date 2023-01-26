@@ -32,6 +32,7 @@ import {
   playerGetPowerUpsPayloadBackendSchema,
   playerReadyPayloadBackendSchema,
   playerOrderShufflePayloadBackendSchema,
+  healDicePayloadBackendSchema,
   usePowerUpPayloadBackendSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
@@ -196,6 +197,13 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (activePlayer) setActivePlayer(activePlayer.userId);
           //TODO: leaderboards could be updated somewhere else.
           if (parsed.data.leaderboard) setLeaderboard(parsed.data.leaderboard);
+          break;
+        }
+        case MatchOpCode.PLAYER_HEAL_DICE: {
+          const parsed = healDicePayloadBackendSchema.safeParse(data);
+          if (!parsed.success) return;
+          setTurnActionStep("pickAction");
+          setPlayers(parsed.data.players);
           break;
         }
         case MatchOpCode.ROUND_SUMMARY_TRANSITION: {

@@ -4,6 +4,7 @@ import {
   NotificationContentUsePowerUp,
   NotificationOpCode,
   Player,
+  PowerUpId,
   UseBirdsEyeBackend,
   UseBirdsEyeFrontend,
   UseCoupBackend,
@@ -25,6 +26,7 @@ import {
   UseVendettaBackend,
   UseVendettaFrontend,
 } from "../types";
+import { handleError } from "./error";
 import { sendNotification } from "./notification";
 import { getFilteredPlayerIds } from "./player";
 
@@ -158,3 +160,29 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
 };
 
 export const powerUp = { handlePlayerUsePowerUp: use };
+
+export const deletePowerUps = async (
+  loopParams: MatchLoopParams,
+  selectedPowerUps: PowerUpId[],
+  targetPlayer: string
+): Promise<PowerUpId[]> => {
+  const { state, logger } = loopParams;
+  const sourcePowerUpArray = state.players[targetPlayer].powerUpIds;
+
+  try {
+    //TODO: add call to the Toolkit to remove the records of the powerUps
+
+    // Removing the powerUpIds from targetPlayer array
+    const countPowerUps = selectedPowerUps.reduce((powerUpCounts, powerUpId) => {
+      powerUpCounts[powerUpId] = (powerUpCounts[powerUpId] || 0) + 1;
+      return powerUpCounts;
+    }, {} as { [key: string]: number });
+
+    return sourcePowerUpArray.filter((powerUpId) => countPowerUps[powerUpId] === undefined || --countPowerUps[powerUpId] < 0);
+  } catch (error) {
+    // TODO revert an changes that are made in the try
+    handleError(error, logger);
+    //Return the original powerUp array
+    return sourcePowerUpArray;
+  }
+};

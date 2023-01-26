@@ -11,8 +11,9 @@ export const TurnActionHeader = () => {
   const action = useStore((state) => state.action);
   const turnActionStep = useStore((state) => state.turnActionStep);
   const round = useStore((state) => state.round);
+  const matchSettings = useStore((state) => state.matchSettings);
 
-  const headerData = activePlayerTurnData(action, turnActionStep, round);
+  const headerData = activePlayerTurnData(action, turnActionStep, round, matchSettings?.healPowerUpAmount);
 
   return (
     <TurnActionHeaderWrapper isBackButtonVisible={turnActionStep === "proceedWithAction"}>

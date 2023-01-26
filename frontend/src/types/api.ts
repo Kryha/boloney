@@ -26,6 +26,17 @@ export const playerLostByTimeOutPayloadBackendSchema = z.object({
 });
 export type PlayerLostByTimeOutPayloadBackend = z.infer<typeof playerLostByTimeOutPayloadBackendSchema>;
 
+export const healDicePayloadBackendSchema = z.object({
+  players: z.record(playerPublicSchema),
+});
+export type HealDicePayloadBackend = z.infer<typeof healDicePayloadBackendSchema>;
+
+// Payload send to the backend when player call Heal Dice
+export const healDicePayloadFrontendSchema = z.object({
+  selectedPowerUps: z.array(powerUpIdSchema),
+});
+export type HealDicePayloadFrontend = z.infer<typeof healDicePayloadFrontendSchema>;
+
 export const roundSummaryTransitionPayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),
   leaderboard: z.array(playerRankedSchema),

@@ -1,5 +1,4 @@
 import { FC } from "react";
-
 import { PowerUpListOverviewWrapper } from "./styles";
 import { PowerUp, PowerUpId } from "../../types";
 import { getPowerUpData } from "../../util";
@@ -15,7 +14,7 @@ const PowerUpList: FC<PowerUpListProps> = ({ powerUps, onClick }) => {
   return (
     <PowerUpListOverviewWrapper powerUpsAmount={powerUps.length}>
       {powerUps.map((powerUp, i) => (
-        <PowerUpCard key={i} powerUp={powerUp} onClick={() => onClick} />
+        <PowerUpCard key={i} powerUp={powerUp} onClick={onClick} />
       ))}
     </PowerUpListOverviewWrapper>
   );

@@ -118,6 +118,10 @@ export const GeneralMessageText = styled(GeneralText)`
   }
 `;
 
+export const GeneralTextUnderlined = styled(GeneralText)`
+  text-decoration-line: underline;
+`;
+
 export const IntroText = styled.h3<TextProps>`
   font-family: "itc-clearface-regular";
   font-style: normal;

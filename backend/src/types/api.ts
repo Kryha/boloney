@@ -1,7 +1,7 @@
 import { BidPayloadBackend } from "./bid";
 import { Die } from "./die";
 import { Action, MatchSettings, MatchStage, PlayerPublic, PlayerRanked, TurnActionStep } from "./match";
-import { PowerUpId } from "./power-up";
+import { PowerUpId, isPowerUpTypeArray } from "./power-up";
 
 export interface PlayerJoinedPayloadBackend {
   matchState: {
@@ -30,10 +30,22 @@ export interface BoloneyPayloadBackend {
 export interface ExactPayloadBackend {
   players: Record<string, PlayerPublic>;
 }
-
 export interface PlayerLostByTimeOutPayloadBackend {
   players: Record<string, PlayerPublic>;
 }
+
+export interface HealDicePayloadBackend {
+  players: Record<string, PlayerPublic>;
+}
+export interface HealDicePayloadFrontend {
+  selectedPowerUps: PowerUpId[];
+}
+
+export const isHealDicePayloadFrontend = (value: unknown): value is HealDicePayloadFrontend => {
+  const assertedVal = value as HealDicePayloadFrontend;
+
+  return isPowerUpTypeArray(assertedVal.selectedPowerUps);
+};
 
 export interface RoundSummaryTransitionPayloadBackend {
   players: Record<string, PlayerPublic>;

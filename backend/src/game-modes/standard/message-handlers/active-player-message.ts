@@ -14,23 +14,30 @@ import {
   stopLoading,
   handlePlayerLostRound,
   setAction,
+  handleError,
+  deletePowerUps,
+  updatePlayerPublicData,
   powerUp,
 } from "../../../services";
-import { getPowerUp } from "../../../toolkit-api";
+import { getPowerUp, rollDice } from "../../../toolkit-api";
 import {
   BidPayloadBackend,
   BoloneyPayloadBackend,
   ExactPayloadBackend,
+  HealDicePayloadBackend,
   isBidPayloadFrontend,
+  isHealDicePayloadFrontend,
   isPowerUpId,
   MatchLoopParams,
   MatchOpCode,
   NotificationContentCallBoloney,
   NotificationContentCallExact,
+  NotificationContentHealDice,
   NotificationOpCode,
   Player,
   PlayerActivePayloadBackend,
   PlayerGetPowerUpsPayloadBackend,
+  RollDicePayload,
 } from "../../../types";
 import { range } from "../../../utils";
 
@@ -160,9 +167,63 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
   stopLoading(loopParams, message);
 });
 
+const handlePlayerCallHealDice = messageHandler(async (loopParams, message, sender) => {
+  const { nk, logger, state, dispatcher } = loopParams;
+
+  logger.info(sender.username, "called Heal dice");
+
+  const data = JSON.parse(nk.binaryToString(message.data));
+
+  if (!isHealDicePayloadFrontend(data)) throw errors.invalidPayload;
+
+  // Check if the frontend payload coresponds with the players proposed powerups
+  if (sender.powerUpIds.length < data.selectedPowerUps.length) throw errors.invalidPayload;
+
+  // Remote calls to zk gaming toolkit
+  try {
+    // create die record
+
+    // roll the die
+    const newRolledDice = await rollDice(1);
+    state.players[sender.userId].diceValue.push(newRolledDice[0]);
+
+    // removes the powerUpIds from the state and toolkit
+    const updatedPowerUps = await deletePowerUps(loopParams, data.selectedPowerUps, sender.userId);
+    state.players[sender.userId].powerUpIds = updatedPowerUps;
+
+    // update playerPublic data for other player to see the results
+    updatePlayerPublicData(loopParams, [sender.userId]);
+  } catch (error) {
+    // TODO revert changes to the state
+    throw handleError(error, logger);
+  }
+
+  //Healing dice is not a turn ending action
+  const notificationContent: NotificationContentHealDice = {
+    activePlayerName: sender.username,
+  };
+
+  const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
+  sendNotification(nk, idlePlayers, NotificationOpCode.HEAL_DICE, notificationContent);
+
+  const payloadDice: RollDicePayload = {
+    diceValue: sender.diceValue,
+  };
+  dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payloadDice), [state.presences[sender.userId]]);
+
+  const payloadPowerUps: PlayerGetPowerUpsPayloadBackend = sender.powerUpIds;
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(payloadPowerUps), [state.presences[sender.userId]]);
+
+  const payload: HealDicePayloadBackend = {
+    players: hidePlayersData(state.players),
+  };
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_HEAL_DICE, JSON.stringify(payload));
+
+  stopLoading(loopParams, message);
+});
+
 export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => {
   const { logger } = loopParams;
-
   switch (message.opCode) {
     case MatchOpCode.PLAYER_PLACE_BID:
       handlePlayerPlaceBid(loopParams, message, sender);
@@ -172,6 +233,9 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
       break;
     case MatchOpCode.PLAYER_CALL_EXACT:
       handlePlayerCallExact(loopParams, message, sender);
+      break;
+    case MatchOpCode.PLAYER_HEAL_DICE:
+      handlePlayerCallHealDice(loopParams, message, sender);
       break;
     case MatchOpCode.USE_POWER_UP:
       powerUp.handlePlayerUsePowerUp(loopParams, message, sender);

@@ -110,6 +110,17 @@ export const getActivePlayerId = (players: Record<string, Player>): string | und
   return activePlayer ? activePlayer.userId : undefined;
 };
 
+export const updatePlayerPublicData = (loopParams: MatchLoopParams, playerIds: string[]): void => {
+  const { state } = loopParams;
+
+  playerIds.forEach((playerId) => {
+    const player = state.players[playerId];
+
+    player.diceAmount = player.diceValue.length;
+    player.powerUpsAmount = player.powerUpIds.length;
+  });
+};
+
 export const hidePlayerData = (player: Player): PlayerPublic => {
   const copy = Object.assign({}, player); // making a hard copy of the object
   const { diceValue: _, powerUpIds: __, ...publicData } = copy;

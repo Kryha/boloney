@@ -7,6 +7,7 @@ import { TurnAction } from "../../types";
 import { GeneralText } from "../atoms";
 import { PrimaryButtonWithHelper } from "../button-with-helper";
 import { ActivePlayerWrapper, ActivePlayerContainer, PowerUpButtonContainer, ActionButtonContainer } from "./styles";
+import { useCanLocalPlayerHealDice } from "./util";
 
 export const PickAction: FC = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
@@ -15,6 +16,7 @@ export const PickAction: FC = () => {
 
   const latestBid = useLatestBid();
   const totalDice = useTotalDiceInMatch();
+  const canHealDice = useCanLocalPlayerHealDice();
 
   const maxBidPlaced = latestBid && latestBid.amount === totalDice && latestBid.face === MAX_DIE_FACE;
 
@@ -25,11 +27,12 @@ export const PickAction: FC = () => {
   };
 
   const handleOnClickAction = (action: TurnAction) => {
-    //TODO: this conditional shouldn't be here, fix disabled propery
-    if (latestBid) {
-      setTurnActionStep("proceedWithAction");
-      setAction(action);
+    if (action === "exact" || action === "boloney") {
+      if (!latestBid) return;
     }
+    if (action === "healDice" && !canHealDice) return;
+    setTurnActionStep("proceedWithAction");
+    setAction(action);
   };
 
   const handlePowerUpAction = () => {
@@ -49,9 +52,13 @@ export const PickAction: FC = () => {
             onClick={() => handlePowerUpAction()}
           />
           <PrimaryButtonWithHelper
+            disabled={!canHealDice}
             text={text.match.healDice}
             tooltipTitle={text.general.toolTipTitle}
             tooltipInfo={text.general.toolTipInfo}
+            onClick={() => {
+              handleOnClickAction("healDice");
+            }}
           />
         </PowerUpButtonContainer>
         <GeneralText>{text.match.or}</GeneralText>

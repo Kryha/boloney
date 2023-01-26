@@ -44,6 +44,17 @@ export const isNotificationContentCallBoloney = (value: unknown): value is Notif
     isString(assertedVal.targetPlayerName)
   );
 };
+
+export interface NotificationContentHealDice {
+  activePlayerName: string;
+}
+
+export const isNotificationContentHealDice = (value: unknown): value is NotificationContentHealDice => {
+  const assertedVal = value as NotificationContentHealDice;
+
+  return assertedVal.activePlayerName !== undefined && isString(assertedVal.activePlayerName);
+};
+
 export interface NotificationContentError {
   activePlayerName: string;
   errorMessage: string;
@@ -71,4 +82,5 @@ export type NotificationContent =
   | NotificationContentCallExact
   | NotificationContentError
   | NotificationContentPlayerLost
+  | NotificationContentHealDice
   | NotificationContentUsePowerUp;

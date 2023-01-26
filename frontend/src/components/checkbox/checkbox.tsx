@@ -4,7 +4,7 @@ import { GeneralText, GeneralContentWrapper } from "../atoms";
 import { CheckboxContainer, CheckContainer, Close, Description, DescriptionContainer, ToggleSwitchOff, ToggleSwitchOn } from "./styles";
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
   isUsingSwitchIcon?: boolean;
   isTop?: boolean;

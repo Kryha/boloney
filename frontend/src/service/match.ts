@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
-
 import { text } from "../assets";
 import { useSession, useStore } from "../store";
-import { ActionRole, BidPayloadFrontend, BidWithUserId, MatchOpCode, NkResponse, PlayerPublic } from "../types";
+import { ActionRole, BidPayloadFrontend, BidWithUserId, HealDicePayloadFrontend, MatchOpCode, NkResponse, PlayerPublic } from "../types";
 import { parseError } from "../util";
 import { nakama } from "./nakama";
 
@@ -135,6 +134,11 @@ export const useMatch = () => {
     sendMatchState(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(bid));
   };
 
+  const broadcastHealDice = (powerUpIds: HealDicePayloadFrontend) => {
+    setSpinnerVisibility(true);
+    sendMatchState(MatchOpCode.PLAYER_HEAL_DICE, JSON.stringify(powerUpIds));
+  };
+
   const broadcastCallExact = () => {
     setSpinnerVisibility(true);
     sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
@@ -155,5 +159,6 @@ export const useMatch = () => {
     broadcastCallExact,
     broadcastCallBoloney,
     broadcastPlayerLeft,
+    broadcastHealDice,
   };
 };

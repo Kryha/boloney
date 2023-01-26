@@ -39,6 +39,7 @@ export enum MatchOpCode {
   PLAYER_LEFT = 16,
   PLAYER_LOST_BY_TIMEOUT = 17,
   USE_POWER_UP = 18,
+  PLAYER_HEAL_DICE = 19,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 

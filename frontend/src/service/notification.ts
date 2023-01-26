@@ -8,9 +8,10 @@ import {
   PlayerPublic,
   notificationCallBoloneySchema,
   NkResponse,
+  notificationHealDiceSchema,
   notificationUsePowerUpSchema,
 } from "../types";
-import { CallBoloney, CallExact, text } from "../assets";
+import { CallBoloney, CallExact, HealDiceCoffin, text } from "../assets";
 import { Notification } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 import { useStore } from "../store";
@@ -122,6 +123,21 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
         img: CallExact,
         title: text.match.exact,
         description: text.notifications.playerIsCallingExactOnYou(activePlayerName),
+        boldText: [activePlayerName],
+      };
+    }
+    case NotificationOpCode.HEAL_DICE: {
+      const parsedNotificationContent = notificationHealDiceSchema.safeParse(notification.content);
+
+      if (!parsedNotificationContent.success) return defaultUnknownError;
+
+      const { activePlayerName } = parsedNotificationContent.data;
+
+      return {
+        id: notification.id,
+        img: HealDiceCoffin,
+        title: text.match.healDice,
+        description: text.notifications.playerIsHealingADie(activePlayerName),
         boldText: [activePlayerName],
       };
     }

@@ -2,7 +2,7 @@ export const playerTurn = {
   back: "back",
   boloney: "boloney!",
   callBoloney: "call boloney!",
-  continue: "continue",
+  continueWithAction: "continue",
   letsSeeWhoIsRight: "let's see who is right...",
   itsTequilaUnderTheBridge: "it's tequila under the bridge...",
   youHaveWon: "you've won!",
@@ -26,5 +26,6 @@ export const playerTurn = {
   placeBid: "add your bid",
   guess: "what is your guess?",
   itsTimeToThinkOutLoud: "time to think out loud, go forth and conquer!",
+  getDiceBack: "get a die back!",
   lostAllDice: "your last die is gone, you are out of the game.\nStay tuned and see how the match ends.",
 };

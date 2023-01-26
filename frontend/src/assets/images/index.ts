@@ -33,6 +33,7 @@ import Coup from "./coup.png";
 import GuardTower from "./guard-tower.png";
 import Hypnosis from "./hypnosis.png";
 import GraveStone from "./lose-all-dice.png";
+import HealDiceCoffin from "./heal-dice-coffin.png";
 
 export * from "./dice-assets";
 
@@ -72,4 +73,5 @@ export {
   GuardTower,
   Hypnosis,
   GraveStone,
+  HealDiceCoffin,
 };

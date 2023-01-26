@@ -40,8 +40,8 @@ const proceedActions = {
     subHeadingTitle: "",
   },
   healDice: {
-    timerTitle: "",
-    headingTitle: "",
+    timerTitle: text.match.healDice,
+    headingTitle: text.playerTurn.getDiceBack,
     subHeadingTitle: "",
   },
   exact: {
@@ -79,7 +79,7 @@ const evaluateResults = {
   },
 };
 
-export const activePlayerTurnData = (action: TurnAction | undefined, steps: TurnActionStep, round: number): PlayerTurnData => {
+export const activePlayerTurnData = (action: TurnAction | undefined, steps: TurnActionStep, round: number, healDiceAmount?: number): PlayerTurnData => {
   switch (steps) {
     case "pickAction":
       return {
@@ -88,6 +88,11 @@ export const activePlayerTurnData = (action: TurnAction | undefined, steps: Turn
         subHeadingTitle: text.match.timeToPickUpAStrategy,
       };
     case "proceedWithAction":
+      if (action === "healDice") {
+        const healDiceData = proceedActions[action];
+        healDiceData.subHeadingTitle = text.param.healDice(healDiceAmount ? healDiceAmount.toString() : "0");
+        return healDiceData;
+      }
       if (action) return proceedActions[action];
       return {
         timerTitle: "",

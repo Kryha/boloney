@@ -26,6 +26,11 @@ export const notificationCallExactSchema = z.object({
 });
 export type NotificationCallExact = z.infer<typeof notificationCallExactSchema>;
 
+export const notificationHealDiceSchema = z.object({
+  activePlayerName: z.string(),
+});
+export type NotificationHealDice = z.infer<typeof notificationHealDiceSchema>;
+
 export const notificationCallBoloneySchema = z.object({
   activePlayerName: z.string(),
   targetPlayerName: z.string(),
