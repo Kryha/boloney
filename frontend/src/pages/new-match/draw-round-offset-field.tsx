@@ -15,7 +15,11 @@ interface Props {
 export const DrawRoundOffsetField: FC<Props> = ({ register }) => {
   return (
     <InputFieldContainer>
-      <InputLegend label={text.newMatch.drawRoundOffset} tooltipInfo={text.general.toolTipInfo} tooltipTitle={text.general.toolTipTitle}>
+      <InputLegend
+        label={text.newMatch.drawRoundOffset}
+        tooltipInfo={text.general.toolTipDrawRoundOffsetInfo}
+        tooltipTitle={text.general.toolTipDrawRoundOffsetTitle}
+      >
         <BaseSelect {...register("drawRoundOffset")}>
           {range(MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET).map((n) => (
             <BaseOption key={n} value={n}>

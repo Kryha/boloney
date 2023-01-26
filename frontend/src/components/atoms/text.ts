@@ -21,7 +21,7 @@ export const Heading0 = styled.h1<TextProps>`
 export const Heading1 = styled.h1<TextProps>`
   font-family: "itc-clearface-regular";
   font-weight: ${fontWeight.regular};
-  font-size: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
+  font-size: clamp(5.63rem, 7vw + -1.25rem, 9rem);
   line-height: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
   letter-spacing: -0.02em;
   color: ${({ customColor }): string => customColor || color.black};
@@ -88,6 +88,10 @@ export const Heading6 = styled.h6<TextProps>`
   }
 `;
 
+export const BulletList = styled.ul<TextProps>`
+  list-style-type: circle;
+`;
+
 export const Paragraph = styled.p<TextProps>`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
@@ -98,6 +102,7 @@ export const Paragraph = styled.p<TextProps>`
   :first-letter {
     text-transform: capitalize;
   }
+  padding-right: 0.3em;
 `;
 
 export const GeneralText = styled.h3<TextProps>`

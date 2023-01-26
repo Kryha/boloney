@@ -22,8 +22,8 @@ export const PowerUpsAmountField: FC<Props> = ({ register, minPowerUps }) => {
       <InputLegend
         label={text.newMatch.initialPowerUpAmount}
         isRow
-        tooltipInfo={text.general.toolTipInfo}
-        tooltipTitle={text.general.toolTipTitle}
+        tooltipInfo={text.general.toolTipPowerUpInfo}
+        tooltipTitle={text.general.toolTipPowerUpTitle}
       >
         <BaseSelect {...register("initialPowerUpAmount")}>
           {initAmountPowerUpIds.map((powerUpAmount) => (
@@ -37,8 +37,8 @@ export const PowerUpsAmountField: FC<Props> = ({ register, minPowerUps }) => {
         label={text.newMatch.maxPowerUpAmount}
         isRow
         childNode={2}
-        tooltipInfo={text.general.toolTipInfo}
-        tooltipTitle={text.general.toolTipTitle}
+        tooltipInfo={text.general.toolTipPowerUpMaxInfo}
+        tooltipTitle={text.general.toolTipPowerUpMaxTitle}
       >
         <BaseSelect {...register("maxPowerUpAmount")}>
           {maxAmountPowerUps.map((maxPowerupAmount) => (

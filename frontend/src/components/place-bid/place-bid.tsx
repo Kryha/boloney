@@ -47,7 +47,12 @@ export const PlaceBid: FC = () => {
         </AmountContainer>
       </BidContainer>
       <BottomButtonWrapper>
-        <PrimaryButton disabled={isMaxBidPlaced || noBidSet || faceValue === 0} text={text.match.bid} onClick={() => handleClick()} />
+        <PrimaryButton
+          disabled={isMaxBidPlaced || noBidSet || faceValue === 0}
+          primaryText={text.match.bid}
+          secondaryText={text.playerTurn.bidSecondaryView}
+          onClick={() => handleClick()}
+        />
       </BottomButtonWrapper>
     </BidWrapper>
   );

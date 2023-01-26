@@ -12,7 +12,7 @@ interface FaceProps {
 }
 
 export const DieWrapper = styled.div<FaceProps>`
-  height: ${({ isDiceHidden }): string => (isDiceHidden ? "1em" : "clamp(20px, 2.08vw + 0px, 40px)")};
+  height: ${({ isDiceHidden }): string => (isDiceHidden ? "1em" : "clamp(17px, 0px, 40px)")};
   > svg {
     width: ${({ size }): string => size || "clamp(20px, 2.08vw + 0px, 40px)"};
     height: ${({ size }): string => size || "clamp(20px, 2.08vw + 0px, 40px)"};

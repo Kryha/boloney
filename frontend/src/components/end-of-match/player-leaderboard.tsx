@@ -37,6 +37,7 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
   const isSecond = rank === 2;
 
   const [normalDescription, boldDescription] = (() => {
+    if (isWinner && lastAction === "lostByTimeOut") return text.endOfMatch.wonByTimeOut;
     if (isWinner) return text.endOfMatch.wonCalling(lastAction);
     if (isSecond) return text.endOfMatch.lostOnRound("last");
     return text.endOfMatch.lostOnRound(player.lostAtRound);

@@ -14,7 +14,7 @@ export const UsePowerUp: FC = () => {
         setTurnActionStep("pickAction");
         reset();
       }}
-      text="Reset"
+      primaryText="Reset"
     />
   );
 };

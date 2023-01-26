@@ -22,35 +22,38 @@ export const MatchSettingsOverview: FC = () => {
       <Heading1 customColor={color.mediumGrey}>{text.match.matchSettings}</Heading1>
       <MatchInfoButtons>
         <MatchInfo title={text.match.players} matchSettingsType="players" matchSettings={matchSettings} />
-        <MatchInfo title={text.match.dicePP} matchSettingsType="dice" matchSettings={matchSettings} />
-        {/* TODO: update tooltip info */}
+        <MatchInfo title={text.match.dice} matchSettingsType="dice" matchSettings={matchSettings} />
         <MatchInfo
           title={text.match.powerUpPP}
-          matchSettingsType="powerUp"
+          matchSettingsType="powerUps"
           matchSettings={matchSettings}
-          tooltipTitle={text.general.toolTipTitle}
-          tooltipDescription={text.general.toolTipInfo}
+          tooltipTitle={text.general.toolTipPowerUpTitle}
+          tooltipDescription={text.general.toolTipPowerUpInfo}
           hasTooltip
         />
         <MatchInfo
-          title={text.match.extraPowerUp}
-          matchSettingsType="extraPowerUp"
+          title={text.match.drawRoundOffset}
+          matchSettingsType="drawRoundOffset"
           matchSettings={matchSettings}
-          tooltipTitle={text.general.toolTipTitle}
-          tooltipDescription={text.general.toolTipInfo}
+          tooltipTitle={text.general.toolTipDrawRoundOffsetTitle}
+          tooltipDescription={text.general.toolTipDrawRoundOffsetInfo}
           hasTooltip
         />
         <MatchInfo
           title={text.match.healAction}
           matchSettingsType="healAction"
           matchSettings={matchSettings}
-          tooltipTitle={text.general.toolTipTitle}
-          tooltipDescription={text.general.toolTipInfo}
+          tooltipTitle={text.general.toolTipHealTitle}
+          tooltipDescription={text.general.toolTipHealInfo}
           hasTooltip
         />
       </MatchInfoButtons>
       <Heading6>{text.match.powerUpTypeOnTheTable}</Heading6>
-      <InfoButton text={text.newMatch.chance} />
+      <InfoButton
+        primaryText={text.newMatch.chance}
+        tooltipInfo={text.general.toolTipPowerUpTypeInfo}
+        tooltipTitle={text.general.toolTipPowerUpTypeTitle}
+      />
       {powerUpProbabilities.map((powerUp) => (
         <PowerUpContainer key={powerUp.id}>
           <PowerUpDescription powerUp={getPowerUp(powerUp.id)} />

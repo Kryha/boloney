@@ -23,7 +23,7 @@ export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, butt
         onMouseEnter={() => setHover && setHover(true)}
         onMouseLeave={() => setHover && setHover(false)}
       >
-        <DropdownButton text={buttonText} isOpen={isActive} icon={buttonIcon} />
+        <DropdownButton primaryText={buttonText} isOpen={isActive} icon={buttonIcon} />
       </ButtonContainer>
       <ChildrenContainer isHidden={!isActive}>{children}</ChildrenContainer>
     </DropdownWrapper>

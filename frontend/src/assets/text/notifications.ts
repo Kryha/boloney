@@ -1,14 +1,26 @@
 export const notifications = {
   againstYou: "against you...",
-
+  playerIsDead: "DEAD!",
+  grill: "GRILL!",
+  birdsEyeView: "BIRD'S EYE VIEW",
+  vendetta: "VENDETTA",
+  coup: "COUP",
+  hypnosys: "HYPNOSYS",
+  menageATrois: "MENAGE A TROIS",
+  secondChance: "SECOND CHANCE",
+  doubleUp: "DOUBLE UP",
+  smokeAndMirrors: "SMOKE AND MIRRORS",
+  patienceYoungOne: "Patience, young one. Your time to shine approaches.",
   playerIsOutOfTheMatchTitle: (loser: string) => `${loser} is out of the match`,
   playerIsOutOfTheMatchDescription: (loser: string) =>
-    `${loser} has no dice and goes directly to the cemetery... Lets have a minute of silence on his regard!`,
-  playerIsCallingExactOnYou: (activePlayer: string) => `${activePlayer} is calling exact, wait and see the result of this bold move!`,
-  playerIsHealingADie: (activePlayer: string) =>
-    `i’m back, baby! ${activePlayer} traded in power-ups to get back a die. Patience, young one. Your time to shine approaches.`,
-  playerIsCallingBoloneyOnYou: (activePlayer: string) => `${activePlayer} is calling boloney against you... Good luck!`,
-  idlePlayerCallingBoloney: (activeUsername: string, targetPlayer: string) =>
-    `${activeUsername} is calling boloney against ${targetPlayer}...  Wait and see the result of this bold move!`,
+    `${loser} lost his last dice and goes directly to the cemetery... Let’s have a minute of silence on their regard!`,
+  playerIsCallingExactOnYou: (activePlayer: string) => `${activePlayer} thinks they’re on the money with this call.`,
+  playerIsCallingBoloneyOnYou: (activePlayer: string) => `${activePlayer} smells a bluff from you.`,
+  idlePlayerCallingBoloney: (activeUsername: string, targetPlayer: string) => `${activeUsername} smells a bluff from ${targetPlayer}.`,
   playerLeftTheMatch: (player: string) => `${player} left the match...`,
+  playerIsUsingPowerUpOnYou: (activePlayer: string) => `${activePlayer} is spreading shockwaves with a power-up against you. `,
+  playerIsUsingPowerUpWithTarget: (activePlayer: string, targetPlayer: string) =>
+    `${activePlayer} is spreading shockwaves with a power-up against ${targetPlayer}.`,
+  playerIsUsingPowerUpWithoutTarget: (activePlayer: string) => `${activePlayer} Skinny.boy is spreading shockwaves with a power-up.`,
+  playerIsUsingHealDice: (activePlayer: string) => `I’m back, baby! ${activePlayer} traded in power-ups to get back a die.`,
 };

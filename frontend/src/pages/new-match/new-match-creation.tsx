@@ -67,7 +67,8 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
     <NewMatchContainer>
       <GeneralContentWrapper>
         <Heading1>{text.newMatch.newMatch}</Heading1>
-        <Heading4>{text.newMatch.newMatchDescription}</Heading4>
+        <Heading4>{text.newMatch.newMatchDescriptionFirstSentence}</Heading4>
+        <Heading4>{text.newMatch.newMatchDescriptionSecondSentence}</Heading4>
       </GeneralContentWrapper>
       <form onSubmit={handleFormSubmit}>
         <FormContainer>
@@ -87,7 +88,7 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
           {isLoading && <Heading6>{text.newMatch.loading}</Heading6>}
           {isError && <Heading6>{text.newMatch.error}</Heading6>}
           <ButtonContainer>
-            <PrimaryButton type="submit" text={text.newMatch.continue} disabled={isPowerUpError} />
+            <PrimaryButton type="submit" primaryText={text.newMatch.continueText} disabled={isPowerUpError} />
           </ButtonContainer>
         </FormContainer>
       </form>

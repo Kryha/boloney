@@ -42,7 +42,7 @@ export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
           }}
           isCopied={isLinkCopied}
         >
-          <Link text={matchUrl} />
+          <Link primaryText={matchUrl} />
           <CopyIcon />
           <LinkCopied isCopied={isLinkCopied}>
             <GeneralText>{text.general.copied}</GeneralText>
@@ -50,7 +50,7 @@ export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
         </CopyLink>
       </NewMatchConfirmationContainer>
       <GoToLobbyButton>
-        <PrimaryButton text={text.general.goToLobby} onClick={() => navigate(`${routes.match}/${matchId}`)} />
+        <PrimaryButton primaryText={text.general.goToLobby} onClick={() => navigate(`${routes.match}/${matchId}`)} />
       </GoToLobbyButton>
       <NewMatchHands />
     </>

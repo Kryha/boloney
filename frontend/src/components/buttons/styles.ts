@@ -159,6 +159,20 @@ export const ButtonContainer = styled.div<ButtonProps>`
   cursor: pointer;
 `;
 
+export const RightButtonContainer = styled.div<ButtonProps>`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 13px ${margins.small5} 13px ${margins.small4};
+  gap: ${margins.small1};
+  ${SecondaryButtonBase} {
+    padding: 0px;
+  }
+  gap: 0em;
+  cursor: pointer;
+  justify-content: flex-end;
+`;
+
 export const LinkText = styled.a`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
@@ -170,9 +184,6 @@ export const LinkText = styled.a`
   position: relative;
   text-decoration: none;
   display: inline-block;
-  :first-letter {
-    text-transform: capitalize;
-  }
   &:after {
     display: block;
     content: "";
@@ -185,6 +196,7 @@ export const LinkText = styled.a`
     transform: scaleX(0);
     transform-origin: 0 100%;
   }
+  padding-top: 0.1em;
 `;
 
 export const LinkContainer = styled.span<ButtonProps>``;

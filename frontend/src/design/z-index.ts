@@ -6,4 +6,5 @@ export const zIndex = {
   onTop: 4,
   overlay: 5,
   modal: 6,
+  modalBackground: 7,
 };

@@ -13,6 +13,7 @@ import {
   PrimaryButtonContainer,
   PrimaryButtonText,
   PrimaryButtonWrapper,
+  RightButtonContainer,
   SecondaryArrow,
   SecondaryButtonContainer,
   SecondaryView,
@@ -21,7 +22,8 @@ import {
 interface ButtonProps {
   disabled?: boolean;
   onClick?: () => void;
-  text?: string;
+  primaryText?: string;
+  secondaryText?: string;
   isOpen?: boolean;
   type?: "button" | "submit" | "reset";
   tooltipTitle?: string;
@@ -33,60 +35,61 @@ interface DropdownButtonProps extends ButtonProps {
   icon: ReactNode;
 }
 
-export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, text, type = "button" }) => (
-  <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled}>
-    <PrimaryButtonContainer disabled={disabled}>
-      <InitialButtonView>
-        <PrimaryButtonBase type={type} disabled={disabled}>
-          <PrimaryButtonText>{text}</PrimaryButtonText>
-        </PrimaryButtonBase>
-      </InitialButtonView>
-      <SecondaryView>
-        <PrimaryButtonBase type={type} backgroundColor={color.black} disabled={disabled}>
-          <PrimaryButtonText customColor={color.white}>{text}</PrimaryButtonText>
-        </PrimaryButtonBase>
-      </SecondaryView>
-    </PrimaryButtonContainer>
-  </PrimaryButtonWrapper>
-);
-
-export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
+export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText, secondaryText, type = "button" }) => {
+  return (
+    <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled}>
+      <PrimaryButtonContainer disabled={disabled}>
+        <InitialButtonView>
+          <PrimaryButtonBase type={type} disabled={disabled}>
+            <PrimaryButtonText>{primaryText}</PrimaryButtonText>
+          </PrimaryButtonBase>
+        </InitialButtonView>
+        <SecondaryView>
+          <PrimaryButtonBase type={type} backgroundColor={color.black} disabled={disabled}>
+            <PrimaryButtonText customColor={color.white}>{secondaryText ? secondaryText : primaryText}</PrimaryButtonText>
+          </PrimaryButtonBase>
+        </SecondaryView>
+      </PrimaryButtonContainer>
+    </PrimaryButtonWrapper>
+  );
+};
+export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
   <SecondaryButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
-    <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
+    <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
     <SecondaryArrow />
   </SecondaryButtonContainer>
 );
 
-export const DropdownButton: FC<DropdownButtonProps> = ({ disabled, onClick, text, isOpen, icon }) => (
+export const DropdownButton: FC<DropdownButtonProps> = ({ disabled, onClick, primaryText, isOpen, icon }) => (
   <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
-    <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
+    <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
     {isOpen ? <CloseButton /> : icon}
   </ButtonContainer>
 );
 
-export const InfoButton: FC<ButtonProps> = ({ disabled, onClick, text, tooltipInfoPosition, tooltipTitle, tooltipInfo }) => (
-  <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
-    <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
+export const InfoButton: FC<ButtonProps> = ({ disabled, onClick, primaryText, tooltipInfoPosition, tooltipTitle, tooltipInfo }) => (
+  <RightButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
+    <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
     <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={tooltipInfoPosition} />
-  </ButtonContainer>
+  </RightButtonContainer>
 );
 
-export const ExitButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
+export const ExitButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
   <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
-    <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
+    <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
     <Exit />
   </ButtonContainer>
 );
 
-export const Link: FC<ButtonProps> = ({ disabled, onClick, text }) => (
+export const Link: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
   <LinkContainer onClick={() => onClick && onClick()} disabled={disabled}>
-    <LinkText>{text}</LinkText>
+    <LinkText>{primaryText}</LinkText>
   </LinkContainer>
 );
 
-export const GoBackButton: FC<ButtonProps> = ({ disabled, onClick, text }) => (
+export const GoBackButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
   <SecondaryButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <LeftArrow />
-    <SecondaryButtonBase disabled={disabled}>{text}</SecondaryButtonBase>
+    <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
   </SecondaryButtonContainer>
 );

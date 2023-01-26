@@ -26,9 +26,9 @@ export const getResultData = (action: Action, localPlayer: PlayerPublic, winner?
     case "Boloney":
       return {
         activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youRock },
-        activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuck },
-        targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youCanBreath },
-        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.param.youSuckAtBluffing(winnerUserName) },
+        activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.badTimeCallingBoloney },
+        targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youAreRocking },
+        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.badTimeToBluff },
         lostAllDice: { headingTitle: text.playerTurn.youDied, subHeadingTitle: text.playerTurn.lostAllDice },
         winnerImg: CallBoloneyWinner,
         loserImg: CallBoloneyLoser,
@@ -39,8 +39,8 @@ export const getResultData = (action: Action, localPlayer: PlayerPublic, winner?
       return {
         activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.param.youRockAtExact(dieAmount || 0) },
         activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
-        targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youCanBreath },
-        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
+        targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.param.activeWasRightExact(playerName) },
+        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.param.activeWasWrongExact(playerName) },
         lostAllDice: { headingTitle: text.playerTurn.youDied, subHeadingTitle: text.playerTurn.lostAllDice },
         winnerImg: CallExactWinner,
         loserImg: CallExactLoser,

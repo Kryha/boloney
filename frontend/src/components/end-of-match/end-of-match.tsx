@@ -16,7 +16,6 @@ export const EndOfMatch: FC = () => {
   const { broadcastPlayerReady } = useMatch();
 
   const leaderboard = useStore((state) => state.leaderboard);
-  const lastAction = useStore((state) => state.lastAction);
 
   const localPlayer = useLocalPlayer();
 
@@ -32,9 +31,14 @@ export const EndOfMatch: FC = () => {
   };
 
   const headingText = () => {
-    if (isLocalWinner) return text.endOfMatch.youWon;
-    if (isLocalLoser) return text.endOfMatch.youLost;
+    if (isLocalWinner) return text.endOfMatch.youWonTitle;
+    if (isLocalLoser) return text.endOfMatch.youLostTitle(leaderboard.at(0)?.username || "");
     return text.endOfMatch.weHaveAWinner;
+  };
+
+  const headingDescription = () => {
+    if (isLocalWinner) return text.endOfMatch.youWonDescription;
+    return text.endOfMatch.youLostDescription;
   };
 
   return (
@@ -42,14 +46,14 @@ export const EndOfMatch: FC = () => {
       <TitleSection>
         <Heading6>{text.endOfMatch.endOfMatch}</Heading6>
         <Heading2>{headingText()}</Heading2>
-        <Heading2 customColor={color.darkGrey}>{text.endOfMatch.callingBoldMove(lastAction)}</Heading2>
+        <Heading2 customColor={color.darkGrey}>{headingDescription()}</Heading2>
       </TitleSection>
 
       {leaderboard.map((player, i) => (
         <PlayerLeaderboard key={player.userId} player={player} rank={i + 1} />
       ))}
 
-      <PrimaryButton text={text.match.homePage} onClick={() => handleNewMatch()} />
+      <PrimaryButton primaryText={text.match.homePage} onClick={() => handleNewMatch()} />
     </EndOfMatchWrapper>
   );
 };

@@ -16,6 +16,7 @@ export const EndOfRound: FC = () => {
   const activePlayer = useActivePlayer();
 
   const winner = usePlayerWithRole("winner");
+  const loser = usePlayerWithRole("loser");
   const loserByTimeOut = usePlayerWithRole("timeOut");
   const player = loserByTimeOut ? loserByTimeOut : winner;
 
@@ -42,7 +43,7 @@ export const EndOfRound: FC = () => {
       {localPlayer.isTarget && isBoloney ? (
         <TargetPlayerResult playerData={playerData} isWinner={isWinner} isBoloney={isBoloney} />
       ) : (
-        <IdlePlayerResult player={player} lastAction={lastAction} isActivePlayerWinner={isActivePlayerWinner} />
+        <IdlePlayerResult player={player} lastAction={lastAction} isActivePlayerWinner={isActivePlayerWinner} loser={loser} />
       )}
     </IdlePlayerWrapper>
   );

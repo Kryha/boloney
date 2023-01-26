@@ -40,11 +40,11 @@ export const MatchSelect: FC = () => {
 
         {/* TODO: abstract this button in a component, together with the useEffect and the join function */}
         <ButtonContainer>
-          <PrimaryButton text={text.home.quickPlay} onClick={() => joinMatchPool()} />
+          <PrimaryButton primaryText={text.home.quickPlay} onClick={() => joinMatchPool()} />
         </ButtonContainer>
 
         <ButtonContainer>
-          <PrimaryButton text={text.home.createMatch} onClick={() => navigate(routes.newMatch)} />
+          <PrimaryButton primaryText={text.home.createMatch} onClick={() => navigate(routes.newMatch)} />
         </ButtonContainer>
       </GeneralContentWrapper>
     </MatchSelectContainer>

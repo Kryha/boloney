@@ -56,7 +56,7 @@ export const TooltipContent = styled.div<TooltipProps>`
   background: ${color.white};
   box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.1);
   z-index: ${zIndex.inFront};
-  min-width: clamp(220px, 3.96vw + 182px, 258px);
+  min-width: clamp(220px, 3.96vw + 182px, 358px);
   box-sizing: border-box;
   animation: ${tooltipAnimation} 0.5s;
   ${Heading3} {

@@ -46,16 +46,18 @@ export const PickAction: FC = () => {
       <ActivePlayerContainer>
         <PowerUpButtonContainer>
           <PrimaryButtonWithHelper
-            text={text.match.powerUp}
-            tooltipTitle={text.general.toolTipTitle}
-            tooltipInfo={text.general.toolTipInfo}
+            primaryText={text.match.powerUp}
+            secondaryText={text.playerTurn.spreadShockwaves}
+            tooltipTitle={text.general.toolTipPowerUpTitle}
+            tooltipInfo={text.general.toolTipPowerUpInfo}
             onClick={() => handlePowerUpAction()}
           />
           <PrimaryButtonWithHelper
+            primaryText={text.match.healDice}
+            secondaryText={text.playerTurn.healDiceSecondaryView}
+            tooltipTitle={text.general.toolTipHealTitle}
+            tooltipInfo={text.general.toolTipHealInfo}
             disabled={!canHealDice}
-            text={text.match.healDice}
-            tooltipTitle={text.general.toolTipTitle}
-            tooltipInfo={text.general.toolTipInfo}
             onClick={() => {
               handleOnClickAction("healDice");
             }}
@@ -65,30 +67,33 @@ export const PickAction: FC = () => {
         <ActionButtonContainer>
           <PrimaryButtonWithHelper
             disabled={maxBidPlaced}
-            text={text.match.bid}
+            primaryText={text.match.bid}
+            secondaryText={text.playerTurn.bidSecondaryView}
             onClick={() => {
               handleBidAction();
             }}
-            tooltipTitle={text.general.toolTipTitle}
-            tooltipInfo={text.general.toolTipInfo}
+            tooltipTitle={text.general.toolTipBidTitle}
+            tooltipInfo={text.general.toolTipBidInfo}
           />
           <PrimaryButtonWithHelper
             disabled={!latestBid}
-            text={text.match.boloney}
+            primaryText={text.match.boloney}
+            secondaryText={text.playerTurn.boloneySecondaryView}
             onClick={() => {
               handleOnClickAction("boloney");
             }}
-            tooltipTitle={text.general.toolTipTitle}
-            tooltipInfo={text.general.toolTipInfo}
+            tooltipTitle={text.general.toolTipBoloneyTitle}
+            tooltipInfo={text.general.toolTipBoloneyInfo}
           />
           <PrimaryButtonWithHelper
             disabled={!latestBid}
-            text={text.match.exact}
+            primaryText={text.match.exact}
+            secondaryText={text.playerTurn.exactSecondaryView}
             onClick={() => {
               handleOnClickAction("exact");
             }}
-            tooltipTitle={text.general.toolTipTitle}
-            tooltipInfo={text.general.toolTipInfo}
+            tooltipTitle={text.general.toolTipExactTitle}
+            tooltipInfo={text.general.toolTipExactInfo}
           />
         </ActionButtonContainer>
       </ActivePlayerContainer>

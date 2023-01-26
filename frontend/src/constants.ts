@@ -129,4 +129,6 @@ export const LARGE_DIE_SIZE = "clamp(27px, 2.81vw + 0px, 54px)";
 
 export const MATCH_STATS_DICE_VALUE = 2;
 
+//TODO: fix styled.ul for bullet points in rule set...
+export const BULLET_POINT = "\u2022 ";
 export const MAX_PLAYER_SIDEBAR_AMOUNT = 6;

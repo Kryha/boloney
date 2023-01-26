@@ -18,39 +18,51 @@ export const idlePlayerTurnData = (activePlayer: PlayerPublic, round: number, st
     return {
       timerTitle: text.playerTurn.waitingTime,
       headingTitle: text.param.playerIsMakingAMove(activePlayer.username),
-      subHeadingTitle: text.playerTurn.itsTequilaUnderTheBridge,
+      subHeadingTitle: text.playerTurn.thisMightBeBlessing,
     };
   }
 };
 
-const proceedActions = {
-  bid: {
-    timerTitle: text.playerTurn.placeBid,
-    headingTitle: text.playerTurn.guess,
-    subHeadingTitle: text.playerTurn.itsTimeToThinkOutLoud,
-  },
-  boloney: {
-    timerTitle: text.playerTurn.boloney,
-    headingTitle: text.playerTurn.callBoloney,
-    subHeadingTitle: text.playerTurn.areYouSureYouWantToCallBoloney,
-  },
-  powerUp: {
-    timerTitle: "",
-    headingTitle: "",
-    subHeadingTitle: "",
-  },
-  healDice: {
-    timerTitle: text.match.healDice,
-    headingTitle: text.playerTurn.getDiceBack,
-    subHeadingTitle: "",
-  },
-  exact: {
-    timerTitle: text.playerTurn.exact,
-    headingTitle: text.playerTurn.callExact,
-    subHeadingTitle: text.playerTurn.areYouSureYouWantToCallExact,
-  },
+const proceedActions = (action: TurnAction, lastActivePlayerName: string): PlayerTurnData => {
+  switch (action) {
+    case "bid":
+      return {
+        timerTitle: text.playerTurn.placeBid,
+        headingTitle: text.playerTurn.guess,
+        subHeadingTitle: text.playerTurn.bidOnValue,
+      };
+    case "boloney":
+      return {
+        timerTitle: text.playerTurn.boloney,
+        headingTitle: text.playerTurn.callBoloney,
+        subHeadingTitle: text.param.areYouSureYouWantToCallBoloney(lastActivePlayerName),
+      };
+
+    //TODO: set correct text for powerUp
+    case "powerUp":
+      return {
+        timerTitle: "",
+        headingTitle: "",
+        subHeadingTitle: "",
+      };
+
+    case "healDice":
+      return {
+        timerTitle: text.playerTurn.healDice,
+        headingTitle: text.playerTurn.iAmBack,
+        subHeadingTitle: text.playerTurn.choose5PowerUps,
+      };
+
+    case "exact":
+      return {
+        timerTitle: text.playerTurn.exact,
+        headingTitle: text.playerTurn.callExact,
+        subHeadingTitle: text.playerTurn.areYouSureYouWantToCallExact,
+      };
+  }
 };
 
+//TODO: replace with correct text
 const evaluateResults = {
   bid: {
     timerTitle: "",
@@ -60,7 +72,7 @@ const evaluateResults = {
   boloney: {
     timerTitle: text.match.callBoloney,
     headingTitle: text.playerTurn.letsSeeWhoIsRight,
-    subHeadingTitle: text.playerTurn.itsTequilaUnderTheBridge,
+    subHeadingTitle: text.playerTurn.thisMightBeBlessing,
   },
   powerUp: {
     timerTitle: "",
@@ -75,25 +87,31 @@ const evaluateResults = {
   exact: {
     timerTitle: text.match.callExact,
     headingTitle: text.playerTurn.letsSeeWhoIsRight,
-    subHeadingTitle: text.playerTurn.itsTequilaUnderTheBridge,
+    subHeadingTitle: text.playerTurn.thisMightBeBlessing,
   },
 };
 
-export const activePlayerTurnData = (action: TurnAction | undefined, steps: TurnActionStep, round: number, healDiceAmount?: number): PlayerTurnData => {
+export const activePlayerTurnData = (
+  action: TurnAction | undefined,
+  steps: TurnActionStep,
+  round: number,
+  lastActivePlayerName: string | undefined,
+  healDiceAmount?: number
+): PlayerTurnData => {
   switch (steps) {
     case "pickAction":
       return {
         timerTitle: text.match.takeAction,
-        headingTitle: text.match.whatsYourNextMove,
-        subHeadingTitle: text.match.timeToPickUpAStrategy,
+        headingTitle: text.match.eggsInTheGame,
+        subHeadingTitle: text.match.goOnShowThem,
       };
     case "proceedWithAction":
       if (action === "healDice") {
-        const healDiceData = proceedActions[action];
+        const healDiceData = proceedActions(action, lastActivePlayerName || "");
         healDiceData.subHeadingTitle = text.param.healDice(healDiceAmount ? healDiceAmount.toString() : "0");
         return healDiceData;
       }
-      if (action) return proceedActions[action];
+      if (action) return proceedActions(action, lastActivePlayerName || "");
       return {
         timerTitle: "",
         headingTitle: "",

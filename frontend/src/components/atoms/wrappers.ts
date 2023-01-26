@@ -101,13 +101,6 @@ export const ListSection = styled.section<TextProps>`
   :first-letter {
     text-transform: capitalize;
   }
-  counter-reset: css-counter 0;
-  ${Heading6} {
-    counter-increment: css-counter 1;
-  }
-  ${Heading6}:after {
-    content: counter(css-counter, decimal-leading-zero) ""; /* Apply counter before children's content. */
-  }
   ${Paragraph} {
     margin-bottom: ${margins.medium0};
   }

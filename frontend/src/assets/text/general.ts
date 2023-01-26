@@ -16,12 +16,11 @@ export const general = {
   waitingForTheOthersToBeReady: "waiting for the others to be ready...",
   appName: "Boloney",
   matchCreated: "match created!",
-  yourMatchHasBeenCreated:
-    "your match has been successfully created! Now you can share it with your friends using the link below. Have fun!",
+  yourMatchHasBeenCreated: "your match is ready to go! Share it with your friends using the link below.",
   onlyPlayersWithThisCode: "only players with this code are able to join the match.",
-  goToLobby: "go to lobby",
+  goToLobby: "let's roll",
   ready: "ready",
-  imReady: "i'm ready!",
+  imReady: "let's roll!",
   loading: "loading",
   close: "close",
   goBack: "go back",
@@ -29,10 +28,45 @@ export const general = {
   toolTipInfo: "this is the description",
   toolTipTitle: "this is the title",
   yourDice: "your dice",
-  continue: "continue",
-  rollIt: "roll it",
+  continueWithAction: "continue",
+  rollIt: "let's roll",
   copied: "copied!",
   typeHere: "type here...",
+  toolTipBoloneyInfo:
+    "if the amount of dice on the table that match the bid’s face value is less than the last player’s bid, then the Boloney! call is correct, and the last bidding player loses a die. If the amount of dice on the table that match the bid’s face value is equal to or more than the last player’s bid, then the Boloney! call is incorrect, and the player that called Boloney! loses a die. The round ends either way, and the player that called Boloney! takes the first turn in the next round.",
+  toolTipBoloneyTitle: "call Boloney!",
+  toolTipExactInfo:
+    "if the amount of dice on the table that match the bid’s face value exactly matches the last player’s bid, then the Exact call is correct and the calling player receives a number of power-ups depending on the number of dice in play and the number of rounds played. If it doesn’t exactly match, the calling player loses a die. The round ends either way, and the player that called Exact takes the first turn in the next round.",
+  toolTipExactTitle: "call Exact",
+  toolTipBidInfo:
+    "for the starting player, there’s no set bid range. Subsequent bids must be either: Greater in face value and equal in number of dice. Greater in number of dice and any face value. Placing a bid ends your turn.",
+  toolTipBidTitle: "place a bid",
+  toolTipHealInfo:
+    "player chooses 5 power-ups from their hand to destroy in exchange for 1 die. You can heal dice to gain up to the number of dice you started the match with, and no more. Healing dice doesn’t end your turn.",
+  toolTipHealTitle: "heal a dice",
+  toolTipPowerUpInfo:
+    "power-ups boost your turn, letting you gain more information from other players and make smarter calls to increase your odds of winning. Each power-up affects the match and its players differently. Multiple power-ups can be used per turn, and using a power-up doesn’t end your turn.",
+  toolTipPowerUpTitle: "power-ups",
+  toolTipPlayerTitle: "players",
+  toolTipPlayerInfo: "multiplayer game, max. 7 players per match.",
+  toolTipDiceTitle: "dice per player",
+  toolTipDiceInfo: "initial amount of dice per player (min. 1, max. 10).",
+  toolTipPowerUpsTitle: "power-ups initial amount",
+  toolTipPowerUpsInfo: "amount of power-ups each player gets at the beginning of the match.",
+  toolTipPowerUpMaxTitle: "power-up Max",
+  toolTipPowerUpMaxInfo: "amount of power-ups each player gets at the beginning of the match.",
+  toolTipDrawRoundOffsetTitle: "draw round offset",
+  toolTipDrawRoundOffsetInfo:
+    "counter initially set to be equal to the starting “Stage Number” and decrements every round. When it reaches zero the counter is reset to be equal to the current “Stage Number” and every player receives a new power-up.",
+  toolTipPowerUpTypeTitle: "power-up type",
+  toolTipPowerUpTypeInfo: "type of power-ups available per match and the probability of players receiving each of them.",
+  toolTipHealActionTitle: "heal action",
+  toolTipHealActionInfo: "amount of power-ups each player should destroy in exchange for 1 die.",
+  toolTipStageNumberTitle: "stage Number Divisor",
+  toolTipStageNumberInfo:
+    "Stage Number Divisor: Global modifier based on the total number of dice in play. It affects two base mechanics:" +
+    "How many cards are gained by calling Exact" +
+    "How often a power-up draw round occurs",
   youAreRight: "you're right!",
   youAreWrong: "you're wrong!",
   youRockAtThis: "you rock at this!",

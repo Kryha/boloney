@@ -15,7 +15,12 @@ interface Props {
 export const HealActionField: FC<Props> = ({ register }) => {
   return (
     <PlayersDiceContainer>
-      <InputLegend label={text.newMatch.healAction} isRow tooltipInfo={text.general.toolTipInfo} tooltipTitle={text.general.toolTipTitle}>
+      <InputLegend
+        label={text.newMatch.healAction}
+        isRow
+        tooltipInfo={text.general.toolTipHealInfo}
+        tooltipTitle={text.general.toolTipHealTitle}
+      >
         <BaseSelect {...register("healPowerUpAmount")}>
           {range(MAX_HEAL_POWER_UP_AMOUNT, MIN_HEAL_POWER_UP_AMOUNT).map((n) => (
             <BaseOption key={n} value={n}>
@@ -28,8 +33,8 @@ export const HealActionField: FC<Props> = ({ register }) => {
         label={text.newMatch.stageNumberDivisor}
         isRow
         childNode={2}
-        tooltipInfo={text.general.toolTipInfo}
-        tooltipTitle={text.general.toolTipTitle}
+        tooltipInfo={text.general.toolTipStageNumberInfo}
+        tooltipTitle={text.general.toolTipStageNumberTitle}
       >
         <BaseSelect {...register("stageNumberDivisor")}>
           {range(MAX_STAGE_NUMBER_DIVISOR, MIN_STAGE_NUMBER_DIVISOR).map((n) => (

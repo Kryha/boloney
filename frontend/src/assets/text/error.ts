@@ -1,5 +1,6 @@
 export const error = {
-  somethingWentWrong: "something went wrong...",
+  somethingWentWrong: "something went wrong!",
+  errorTitle: "error!",
   pageNotFound: "page not found...",
   dataNotFound: "data not found...",
   couldNotFindEvent: "could not find event",

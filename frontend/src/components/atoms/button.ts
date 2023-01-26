@@ -33,6 +33,8 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
         cursor: default;
       }
     `};
+  white-space: nowrap;
+  text-align: center;
 `;
 
 export const SecondaryButtonBase = styled.button<ButtonProps>`

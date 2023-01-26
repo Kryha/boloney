@@ -61,19 +61,19 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       buttonIcon={<Ellipsis />}
     >
       <MenuContainer location={currentLocation}>
-        {location !== "default" && (
-          <DropdownButton text={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => handleSettings()} />
+        {location && location !== "default" && (
+          <DropdownButton primaryText={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => handleSettings()} />
         )}
         {!!session && (
           <>
             <HorizontalDivider />
-            <DropdownButton onClick={() => handleLogout()} text={text.general.logout} icon={<LogoutIcon />} />
+            <DropdownButton onClick={() => handleLogout()} primaryText={text.general.logout} icon={<LogoutIcon />} />
           </>
         )}
         {location && location !== "default" && (
           <>
             <HorizontalDivider />
-            <DropdownButton onClick={() => leaveMatch()} text={text.general.leaveMatch} icon={<ExitIcon />} />
+            <DropdownButton onClick={() => leaveMatch()} primaryText={text.general.leaveMatch} icon={<ExitIcon />} />
           </>
         )}
       </MenuContainer>

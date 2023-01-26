@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { CloseIcon } from "../../assets";
 import { color, margins, zIndex } from "../../design";
-import { Heading6 } from "../atoms";
 
 export const ToastWrapper = styled.section`
   display: flex;
@@ -42,11 +41,7 @@ export const ToastDescriptionContainer = styled.div`
   .bold {
     font-weight: bold;
     background-color: transparent;
-    text-transform: capitalize;
     color: ${color.black};
-  }
-  ${Heading6} {
-    text-transform: uppercase;
   }
 `;
 

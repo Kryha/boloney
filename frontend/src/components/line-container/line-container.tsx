@@ -45,7 +45,7 @@ export const LineContainer: FC<LineContainerProps> = ({ children, isPlayerReady,
             {isPlayerReady ? (
               <WaitingText>{text.general.waitingForTheOthersToBeReady}</WaitingText>
             ) : (
-              <PrimaryButton text={text.general.imReady} onClick={onClick && onClick} />
+              <PrimaryButton primaryText={text.general.imReady} onClick={onClick && onClick} />
             )}
           </WaitForOthersContainer>
         </HorizontalContainer>

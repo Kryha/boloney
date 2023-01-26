@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { LightningIcon, TimerIcon } from "../../assets/icons";
-import { color, margins, zIndex } from "../../design";
+import { color, fontWeight, margins, zIndex } from "../../design";
 import { NavigationLocation } from "../../types";
 import { GeneralText, Heading6, HorizontalDivider, Paragraph } from "../atoms";
 import { Link } from "../buttons";
@@ -138,6 +138,23 @@ interface LightningProps {
 export const Lightning = styled(LightningIcon)<LightningProps>`
   width: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
   height: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
+`;
+
+export const ParagraphNoMargin = styled(Paragraph)`
+  margin-bottom: 0;
+`;
+
+export const ParagraphReducedMargin = styled(Paragraph)`
+  list-style-type: circle;
+  margin-bottom: 0.5em;
+`;
+
+export const ParagraphBulletPoint = styled(ParagraphReducedMargin)`
+  margin-left: 0.6em;
+`;
+
+export const ParagraphBulletPointBold = styled(ParagraphReducedMargin)`
+  font-weight: ${fontWeight.bold};
 `;
 
 export const MatchStateItemContainer = styled.div`

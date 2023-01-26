@@ -76,7 +76,7 @@ export const CreateAccountForm: FC = () => {
   return (
     <LoginFormContainer>
       <GeneralContentWrapper>
-        <Heading1>{text.authForm.firstThingsFirst}</Heading1>
+        <Heading1>{text.authForm.createAccount}</Heading1>
         <Heading4>{text.authForm.whoAreYou}</Heading4>
       </GeneralContentWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
@@ -97,8 +97,8 @@ export const CreateAccountForm: FC = () => {
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
             <Paragraph>{text.authForm.iAlreadyHaveAnAccount}</Paragraph>
-            <Link onClick={() => navigate(routes.login)} text={text.authForm.signIn} />
-            <PrimaryButton type="submit" text={text.authForm.join} />
+            <Link onClick={() => navigate(routes.login)} primaryText={text.authForm.here} />
+            <PrimaryButton type="submit" primaryText={text.authForm.join} />
           </SignOrJoinContainer>
         </FormContainer>
       </form>

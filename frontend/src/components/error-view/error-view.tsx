@@ -31,8 +31,8 @@ export const ErrorView: FC<ErrorViewProps> = ({ redirectRoute, headingText, navi
         <Heading2>{headingText || text.error.pageNotFound}</Heading2>
         <Paragraph>{descriptionText || text.error.sorrySomethingWentWrong}</Paragraph>
         <ButtonContainer>
-          <SecondaryButton onClick={() => navigate(GO_BACK)} text={text.error.goBack} />
-          <PrimaryButton onClick={() => handleButtonClick()} text={text.error.goHome || navigationText} />
+          <SecondaryButton onClick={() => navigate(GO_BACK)} primaryText={text.error.goBack} />
+          <PrimaryButton onClick={() => handleButtonClick()} primaryText={text.error.goHome || navigationText} />
         </ButtonContainer>
       </InformationContainer>
     </ErrorContainer>

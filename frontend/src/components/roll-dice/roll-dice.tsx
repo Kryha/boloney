@@ -2,7 +2,7 @@ import { FC } from "react";
 import Highlighter from "react-highlight-words";
 
 import { text } from "../../assets";
-import { BottomButtonWrapper, Heading2 } from "../atoms";
+import { BottomButtonWrapper, Heading1, Heading2 } from "../atoms";
 import { Timer } from "../timer";
 import { color } from "../../design";
 import { useStore } from "../../store";
@@ -19,6 +19,8 @@ export const RollDice: FC = () => {
 
   const hasRolledDice = useStore((state) => state.hasRolledDice);
   const localPlayer = useLocalPlayer();
+  const setPlayerReady = useStore((state) => state.setPlayerReady);
+  const isPlayerReady = useStore((state) => state.isPlayerReady);
   const dice = useStore((state) => state.diceValue);
 
   if (!localPlayer) return <ErrorView />;
@@ -28,18 +30,41 @@ export const RollDice: FC = () => {
   const button = () => {
     if (localPlayer.status === "lost") return <></>;
     if (hasRolledDice) return <ButtonReady />;
-    return <PrimaryButton text={text.general.rollIt} onClick={() => sendMatchState(MatchOpCode.ROLL_DICE)} />;
+    return (
+      <PrimaryButton
+        primaryText={text.general.rollIt}
+        onClick={() => {
+          setPlayerReady(false);
+          sendMatchState(MatchOpCode.ROLL_DICE);
+        }}
+      />
+    );
   };
+
+  if (hasRolledDice && isPlayerReady) {
+    return (
+      <BottomButtonWrapper>
+        <Timer title={text.powerUps.waitingTime} />
+        <Heading1>{text.powerUps.timeToWait}</Heading1>
+        <Heading2 customColor={color.darkGrey}>{text.powerUps.waitForPlayers}</Heading2>
+
+        {dice && <RollingDice dice={dice} dieColor={dieColor} />}
+
+        {button()}
+      </BottomButtonWrapper>
+    );
+  }
 
   return (
     <BottomButtonWrapper>
       <Timer title={text.powerUps.settingItUp} />
+      <Heading1>{text.match.getDice}</Heading1>
       <Heading2 customColor={color.darkGrey}>
         <Highlighter
           highlightClassName="bold"
           searchWords={[localPlayer.username]}
           autoEscape
-          textToHighlight={text.param.findOutYourPips(localPlayer.username)}
+          textToHighlight={text.match.findOutYourPips}
         />
       </Heading2>
 

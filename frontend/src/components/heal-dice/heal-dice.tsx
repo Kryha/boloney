@@ -69,7 +69,7 @@ export const HealDice: FC = () => {
         ))}
       </PowerUpSelectionWrapper>
       <ScrollableBottomButton>
-        {reachedMaxSelectedPowerUps && <PrimaryButton text={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} />}
+        {reachedMaxSelectedPowerUps && <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} />}
       </ScrollableBottomButton>
     </HealDiceWrapper>
   );

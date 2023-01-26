@@ -72,7 +72,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
   const defaultUnknownError: NotificationContent = {
     id: "1001",
     img: CallBoloney,
-    title: text.error.somethingWentWrong,
+    title: text.error.errorTitle,
     description: text.error.somethingWentWrong,
     boldText: [],
   };
@@ -101,7 +101,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
         return {
           ...data,
           description: text.notifications.playerIsCallingBoloneyOnYou(activePlayerName),
-          boldText: [activePlayerName],
+          boldText: [activePlayerName, "you"],
         };
       }
 
@@ -137,7 +137,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
         id: notification.id,
         img: HealDiceCoffin,
         title: text.match.healDice,
-        description: text.notifications.playerIsHealingADie(activePlayerName),
+        description: text.notifications.playerIsUsingHealDice(activePlayerName),
         boldText: [activePlayerName],
       };
     }
@@ -151,7 +151,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
         //TODO: Change image to figma design
         id: notification.id,
         img: CallBoloney,
-        title: text.notifications.playerIsOutOfTheMatchTitle(activePlayerName),
+        title: text.notifications.playerIsDead,
         description: text.notifications.playerIsOutOfTheMatchDescription(activePlayerName),
         boldText: [activePlayerName],
       };

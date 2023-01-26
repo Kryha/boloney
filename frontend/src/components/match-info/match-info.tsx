@@ -7,7 +7,7 @@ import { DiceIcon, PowerUpIcon } from "../icons";
 import { Tooltip } from "../tooltip";
 import { MatchInfoDescription, MatchInfoHeader, MatchInfoOverview, RaisedHand, Round } from "./styles";
 
-type MatchInfoSettings = "players" | "dice" | "powerUp" | "extraPowerUp" | "healAction" | undefined;
+type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | undefined;
 interface MatchInfoProps {
   matchSettingsType: MatchInfoSettings;
   title: string;
@@ -29,9 +29,9 @@ const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: MatchSett
     case "dice":
       // TODO: remove hardcoded value
       return <DiceIcon diceAmount={matchSettings.dicePerPlayer} diceValue={2} faceColor={color.white} pipColor={color.black} />;
-    case "powerUp":
+    case "powerUps":
       return <PowerUpIcon powerUpAmount={matchSettings.initialPowerUpAmount} />;
-    case "extraPowerUp":
+    case "drawRoundOffset":
       return (
         <>
           <Round />

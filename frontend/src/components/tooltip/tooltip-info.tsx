@@ -19,6 +19,7 @@ export const TooltipInfo: FC<TooltipInfoProps> = ({ title, position = "top", con
 
   const hideTip = () => setActive(false);
 
+  //TODO: add link to tooltip
   return (
     <TooltipWrap onMouseEnter={showTip} onMouseLeave={hideTip} onBlur={hideTip}>
       {children}

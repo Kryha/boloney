@@ -13,14 +13,18 @@ interface IdlePlayerResultPayload {
   player: PlayerPublic;
   lastAction: Action;
   isActivePlayerWinner: boolean;
+  loser: PlayerPublic | undefined;
 }
 
-export const IdlePlayerResult: FC<IdlePlayerResultPayload> = ({ player, lastAction, isActivePlayerWinner }) => {
+export const IdlePlayerResult: FC<IdlePlayerResultPayload> = ({ player, lastAction, isActivePlayerWinner, loser }) => {
   const isTimeOut = lastAction === "lostByTimeOut";
 
-  const congratulationsMessage = isActivePlayerWinner
-    ? text.param.congratulationsIdlePlayerActiveWon(player.username, lastAction)
-    : text.param.congratulationsIdlePlayerActiveLost(player.username, lastAction);
+  const exactMessage = isActivePlayerWinner
+    ? text.param.activeWasRightExact(player.username)
+    : text.param.activeWasWrongExact(loser?.username || "");
+
+  const boloneyMessage = text.param.idleBoloney(player.username, loser?.username || "");
+  const congratulationsMessage = lastAction === "Boloney" ? boloneyMessage : exactMessage;
 
   return (
     <ActivePlayerResultWrapper>
@@ -40,11 +44,11 @@ export const IdlePlayerResult: FC<IdlePlayerResultPayload> = ({ player, lastActi
             </>
           ) : (
             <>
-              <Heading1>{text.playerTurn.weHaveAWinner}</Heading1>
+              <Heading1>{text.playerTurn.roundEnded}</Heading1>
               <Heading2 customColor={color.darkGrey}>
                 <Highlighter
                   highlightClassName="bold"
-                  searchWords={[player.username]}
+                  searchWords={[player.username, loser?.username || ""]}
                   autoEscape
                   textToHighlight={congratulationsMessage}
                 />
