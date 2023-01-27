@@ -16,9 +16,11 @@ export const TurnActionHeader = () => {
   const round = useStore((state) => state.round);
   const latestBid = useLatestBid();
   const player = usePlayer(latestBid?.userId || "");
+  const powerUpState = useStore((state) => state.powerUpState);
 
   const matchSettings = useStore((state) => state.matchSettings);
   const headerData = activePlayerTurnData(action, turnActionStep, round, player?.username, matchSettings?.healPowerUpAmount);
+  const timerTitle = powerUpState.active ? powerUpState.active.name : headerData.timerTitle;
 
   const handleGoBack = () => {
     setTurnActionStep("pickAction");
@@ -28,11 +30,7 @@ export const TurnActionHeader = () => {
   return (
     <TurnActionHeaderWrapper isBackButtonVisible={turnActionStep === "proceedWithAction"}>
       <GoBackButton primaryText={text.playerTurn.back} onClick={handleGoBack} />
-      {turnActionStep === "evaluateWinner" ? (
-        <TurnActionHeading>{headerData.timerTitle}</TurnActionHeading>
-      ) : (
-        <Timer title={headerData.timerTitle} />
-      )}
+      {turnActionStep === "evaluateWinner" ? <TurnActionHeading>{headerData.timerTitle}</TurnActionHeading> : <Timer title={timerTitle} />}
       <Heading2>{headerData.headingTitle}</Heading2>
       <Heading2 customColor={color.darkGrey}>
         <Highlighter

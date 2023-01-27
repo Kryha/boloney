@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Bid, PlayerPublic, PlayerRoundData } from "../../types";
+import { Bid, PlayerPublic, PowerUpId, PlayerRoundData } from "../../types";
 import { ChatUserName, Heading6 } from "../atoms";
 import { Die } from "../die";
 import { getDieColor } from "../../util";
@@ -25,19 +25,18 @@ export const PlayerName: FC<PlayerNameProps> = ({ name, color }) => {
 interface PlayerMatchStateProps {
   player: PlayerPublic;
   playerRoundData?: PlayerRoundData;
+  powerUpIds?: PowerUpId[];
 }
 
 export const PlayerMatchState: FC<PlayerMatchStateProps> = ({ player, playerRoundData }) => {
   const dieColor = getDieColor(player);
-
-  // TODO: show dice sum on ui
-  // TODO: delete log after implementing view
-  console.log("dice sum:", playerRoundData?.diceSum);
+  // TODO: get from playerRoundData once implemented
+  const fakePowerUpIds = undefined;
 
   return (
     <MatchStateContainer>
-      <DiceIcon diceAmount={player.diceAmount} faceColor={dieColor} />
-      <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
+      <DiceIcon diceAmount={player.diceAmount} faceColor={dieColor} diceSum={playerRoundData?.diceSum} />
+      <PowerUpIcon powerUpAmount={player.powerUpsAmount} powerUpIds={fakePowerUpIds} />
     </MatchStateContainer>
   );
 };

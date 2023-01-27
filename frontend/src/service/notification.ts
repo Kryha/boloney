@@ -195,6 +195,8 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
 
       const powerUp = getPowerUp(id);
 
+      if (!powerUp) return defaultUnknownError;
+
       const boldText = targetName ? [callerName, targetName, text.general.you] : [callerName];
 
       return {

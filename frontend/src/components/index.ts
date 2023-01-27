@@ -53,3 +53,5 @@ export * from "./player-sidebar-info";
 export * from "./use-power-up";
 export * from "./power-up-result-view";
 export * from "./power-up-pile";
+export * from "./selection-view";
+export * from "./revealed-power-ups";

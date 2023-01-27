@@ -14,13 +14,22 @@ interface ModalProps {
 export const Modal: FC<ModalProps> = ({ hasContainer = true, children, isModalButtonVisible }) => {
   const isModalVisible = useStore((state) => state.isModalVisible);
   const closeModal = useStore((state) => state.closeModal);
+  const action = useStore((state) => state.action);
+  const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   // TODO: listen to modal store
+
+  const close = () => {
+    closeModal();
+    if (action === "powerUp") {
+      setTurnActionStep("pickAction");
+    }
+  };
 
   return (
     <ModalWrapper isModalVisible={isModalVisible}>
       {isModalButtonVisible && (
         <CloseWrapper>
-          <CloseButton onClick={() => closeModal()}>
+          <CloseButton onClick={() => close()}>
             <GeneralText>{text.general.close}</GeneralText>
             <Close />
           </CloseButton>

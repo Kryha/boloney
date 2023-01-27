@@ -1,7 +1,8 @@
 import { POWER_UP_DATA } from "../assets";
 import { PowerUp, PowerUpId } from "../types";
 
-export const getPowerUp = (powerUpId: PowerUpId): PowerUp => {
+export const getPowerUp = (powerUpId?: PowerUpId): PowerUp | undefined => {
+  if (!powerUpId) return;
   return POWER_UP_DATA[powerUpId];
 };
 

@@ -40,6 +40,7 @@ export const Heading2 = styled.h2<TextProps>`
     text-transform: capitalize;
   }
   .bold {
+    color: ${color.black};
     background-color: transparent;
   }
 `;
@@ -115,6 +116,11 @@ export const GeneralText = styled.h3<TextProps>`
   line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
   letter-spacing: -0.01em;
   color: ${({ customColor }): string => customColor || color.black};
+  .bold {
+    color: ${color.black};
+    background-color: transparent;
+    font-weight: ${fontWeight.bold};
+  }
 `;
 
 export const GeneralMessageText = styled(GeneralText)`

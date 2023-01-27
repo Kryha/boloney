@@ -17,7 +17,7 @@ export const PowerUpIconWrapper = styled(Row)`
   align-items: center;
   padding: 0px;
   gap: 0.1em;
-
+  margin-bottom: 4px;
   ${GeneralText} {
     :first-letter {
       text-transform: none;
@@ -29,7 +29,7 @@ export const DiceIconWrapper = styled(Row)`
   align-items: center;
   padding: 0px;
   gap: ${margins.small0};
-
+  margin-bottom: 4px;
   ${GeneralText} {
     :first-letter {
       text-transform: none;

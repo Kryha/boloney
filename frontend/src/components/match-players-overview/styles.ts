@@ -162,7 +162,7 @@ export const DeadPlayerName = styled(PlayerName)`
 `;
 
 export const MatchStateContainer = styled(PlayerNameContainer)`
-  align-items: flex-start;
+  align-items: flex-end;
 `;
 
 export const PlayerInfoContainer = styled.section`

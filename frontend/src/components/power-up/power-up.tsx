@@ -4,11 +4,13 @@ import { PowerUpCardImage, PowerUpWrapper } from "./styles";
 import { PowerUp } from "../../types";
 
 interface PowerUpComponentProps {
-  powerUp: PowerUp;
+  powerUp?: PowerUp;
   showPowerUps?: () => void;
 }
 
 export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp, showPowerUps }) => {
+  if (!powerUp) return <></>;
+
   const isSmokeAnMirrorsPowerUp = powerUp.id === "8";
   const isDoubleUpPowerUp = powerUp.id === "4";
 
