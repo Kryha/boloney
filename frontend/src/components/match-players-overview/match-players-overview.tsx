@@ -12,12 +12,14 @@ export const MatchPlayersOverview: FC = () => {
   const localPlayer = useLocalPlayer();
   const arrangedPlayers = useArrangedPlayers();
 
+  // TODO: get actual value
+  const isShuffling = false;
   const winner = leaderboard.at(0);
 
   const isWinner = localPlayer?.actionRole === "winner";
 
   return (
-    <MatchPlayersOverviewWrapper isWinner={isWinner}>
+    <MatchPlayersOverviewWrapper isWinner={isWinner} isShuffling={isShuffling} isOnePlayer={arrangedPlayers.length === 1}>
       {matchStage === "endOfMatchStage" ? (
         <MatchWinner player={winner} />
       ) : (

@@ -1,7 +1,15 @@
 import styled from "@emotion/styled";
+import {
+  playerOnePercentages,
+  playerTwoPercentages,
+  playerThreePercentages,
+  playerFourPercentages,
+  playerFivePercentages,
+  playerSixPercentages,
+} from "../../assets";
 
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, Heading5 } from "../atoms";
+import { avatarHeight, Heading5, shuffle } from "../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
@@ -64,6 +72,8 @@ export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
 
 interface OverviewProps {
   isWinner?: boolean;
+  isShuffling: boolean;
+  isOnePlayer?: boolean;
 }
 
 export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
@@ -77,6 +87,14 @@ export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
   top: 0px;
   border-right: 1px solid ${color.mediumGrey};
 
+  ${MatchPlayersWrapper} {
+    animation-duration: 5.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    transform-origin: bottom;
+  }
+
   ${MatchPlayersWrapper}:first-of-type {
     border-top: none;
   }
@@ -85,6 +103,31 @@ export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
   }
   ${HandWrapper} {
     align-self: center;
+  }
+
+  ${MatchPlayersWrapper}:nth-of-type(1) {
+    animation-name: ${({ isShuffling, isOnePlayer }) => (isShuffling && !isOnePlayer ? shuffle(playerOnePercentages) : null)};
+    animation-delay: 0s;
+  }
+  ${MatchPlayersWrapper}:nth-of-type(2) {
+    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerTwoPercentages) : null)};
+    animation-delay: 0.1s;
+  }
+  ${MatchPlayersWrapper}:nth-of-type(3) {
+    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerThreePercentages) : null)};
+    animation-delay: 0.2s;
+  }
+  ${MatchPlayersWrapper}:nth-of-type(4) {
+    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerFourPercentages) : null)};
+    animation-delay: 0.3s;
+  }
+  ${MatchPlayersWrapper}:nth-of-type(5) {
+    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerFivePercentages) : null)};
+    animation-delay: 0.4s;
+  }
+  ${MatchPlayersWrapper}:nth-of-type(6) {
+    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerSixPercentages) : null)};
+    animation-delay: 0.5s;
   }
 `;
 

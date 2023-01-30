@@ -1,4 +1,5 @@
 import { keyframes } from "@emotion/react";
+import { color, zIndex } from "../../design";
 
 // Hands
 export const float = keyframes`
@@ -71,5 +72,61 @@ export const slideUp = keyframes`
   100% {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
+  }
+`;
+
+// shuffle
+export const shuffle = (percentages: string[]) => keyframes`
+  0%   {
+    transform: translateY(${percentages[0]});
+    background: ${color.lightGrey};
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 2px 0px 20px rgba(0, 0, 0, 0.1);
+    left: 0px;
+    z-index: ${zIndex.overlay};
+
+  }
+  10%   {
+    transform: translateY(${percentages[1]});
+    background: ${color.lightGrey};
+    left: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 2px 0px 20px rgba(0, 0, 0, 0.1);
+    z-index: ${zIndex.overlay};
+  }
+  20%   {
+    transform: translateY(${percentages[2]});
+    background: ${color.lightGrey};
+    left: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 2px 0px 20px rgba(0, 0, 0, 0.1);
+    z-index: ${zIndex.overlay};
+  }
+  40%   {
+    transform: translateY(${percentages[3]});
+    background: ${color.lightGrey};
+    left: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 2px 0px 20px rgba(0, 0, 0, 0.1);
+    z-index: ${zIndex.overlay};
+  }
+  55%   {
+    transform: translateY(${percentages[4]});
+    background: ${color.lightGrey};
+    left: 0px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 2px 0px 20px rgba(0, 0, 0, 0.1);
+    z-index: ${zIndex.overlay};
+  }
+  70%  {
+    transform: translateY(0%);
+    border-right: none;
+   }
+  80%  {
+    transform: translateY(0%);
+    border-right: none;
+   }
+  95%  {
+    transform: translateY(0%);
+    border-right: none;
+   }
+  100% {
+    transform: translateY(0%);
+    border-right: none;
   }
 `;
