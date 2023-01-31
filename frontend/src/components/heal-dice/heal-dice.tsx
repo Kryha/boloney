@@ -56,7 +56,7 @@ export const HealDice: FC = () => {
 
   return (
     <HealDiceWrapper>
-      <PowerUpSelectionWrapper powerUpsAmount={playerPowerUps.length}>
+      <PowerUpSelectionWrapper>
         {powerUps.map((powerUp, i) => (
           <PowerUpCardCheckbox
             key={i}

@@ -94,8 +94,8 @@ export const PowerUpCardContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 0px;
-  width: clamp(171px, 21.5vw + 3px, 339px);
-  height: clamp(272px, 27.79vw + 82px, 462px);
+  width: clamp(171px, 17.5vw + 3px, 339px);
+  height: clamp(272px, 19.79vw + 82px, 462px);
   background: ${color.white};
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: ${margins.small2};
@@ -124,12 +124,12 @@ export const PowerUpCardWrapperCheckbox = styled.div`
   justify-content: space-between;
   flex-direction: column;
   padding: 0px;
-  width: 95%;
-  height: 95%;
+  width: clamp(171px, 17.5vw + 3px, 339px);
+  height: clamp(272px, 19.79vw + 82px, 462px);
   background: ${color.white};
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: ${margins.small2};
-  overflow: hidden;
+  overflow: scroll;
   cursor: pointer;
   ${CheckboxContainer} {
     margin-bottom: 1vh;

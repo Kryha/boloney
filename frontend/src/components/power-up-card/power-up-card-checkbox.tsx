@@ -33,9 +33,11 @@ export const PowerUpCardCheckbox: FC<PowerUpCardCheckboxProps> = ({
   const handleDescriptionClick = () => {
     setIsDescriptionVisible((isDescriptionVisible) => !isDescriptionVisible);
   };
+
   const onClick = () => {
     toggleCheckBox(powerUpKey, powerUp.id);
   };
+
   return (
     <PowerUpCardWrapperCheckbox>
       <PowerUpImageSmall src={powerUp.cardImage} />
