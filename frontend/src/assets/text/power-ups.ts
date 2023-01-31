@@ -8,5 +8,7 @@ export const powerUps = {
   timeToWait: "time to wait...",
   waitingTime: "waiting time",
   waitForPlayers: "wait for all the players to roll it!",
+  spreadShockwaves: "spread shockwaves",
+  playingSmokeAndMirrors: "playing ‘Smoke and mirrors’ to boost your odds of winning",
   whoIsGoingToGetIt: "who's gonna get it?",
 };

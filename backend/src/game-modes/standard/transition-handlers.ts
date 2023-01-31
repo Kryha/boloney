@@ -30,6 +30,7 @@ export const handleBasicTransition = transitionHandler(({ state, dispatcher }, n
 
 export const handleLobbyTransition = transitionHandler(({ state, dispatcher }, nextStage) => {
   state.playerOrder = shuffleArray(state.playerOrder);
+
   const activePlayerId = state.playerOrder[0];
   setActivePlayer(activePlayerId, state.players);
 

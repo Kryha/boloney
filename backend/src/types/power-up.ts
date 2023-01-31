@@ -96,9 +96,13 @@ export interface UseCoupFrontend {}
 
 export interface UseCoupBackend {}
 
-export interface UseSmokeAndMirrorsFrontend {}
+export type UseSmokeAndMirrorsFrontend = {
+  // keep empty
+};
 
-export interface UseSmokeAndMirrorsBackend {}
+export type UseSmokeAndMirrorsBackend = {
+  // keep empty
+};
 
 export interface UseHypnosisFrontend {}
 

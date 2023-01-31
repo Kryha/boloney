@@ -34,6 +34,7 @@ import {
   playerOrderShufflePayloadBackendSchema,
   healDicePayloadBackendSchema,
   usePowerUpPayloadBackendSchema,
+  UsePowerUpPayloadBackend,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -75,6 +76,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setTimerTimeInSeconds = useStore((state) => state.setTimerTimeInSeconds);
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const setPowerUpState = useStore((state) => state.setPowerUpState);
+  const setPlayerRoundData = useStore((state) => state.setPlayerRoundData);
 
   const joinMatchDone = useJoinMatch(matchId);
   const joinChatDone = useChatHistory(joinMatchDone);
@@ -97,6 +99,19 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
 
   useEffect(() => {
     if (!session) return;
+
+    const handlePowerUpSiceEffects = (powerUpPayload: UsePowerUpPayloadBackend) => {
+      const { id, data } = powerUpPayload;
+
+      switch (id) {
+        case "2":
+          setPlayerRoundData(data.targetId, { diceSum: data.sum });
+          break;
+      }
+
+      setPowerUpState({ result: powerUpPayload });
+    };
+
     nakama.socket.onmatchdata = (matchData: MatchData) => {
       const parsedCode = matchOpCodeSchema.safeParse(matchData.op_code);
       if (!parsedCode.success) return;
@@ -219,7 +234,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           const parsed = usePowerUpPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
 
-          setPowerUpState({ result: parsed.data });
+          handlePowerUpSiceEffects(parsed.data);
           break;
         }
         case MatchOpCode.ERROR: {
@@ -240,6 +255,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     setMatchState,
     setPlayerOrder,
     setPlayerReady,
+    setPlayerRoundData,
     setPlayers,
     setPowerUpIds,
     setPowerUpState,

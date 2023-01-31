@@ -1,29 +1,40 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { MatchPlayersOverviewWrapper } from "./styles";
 import { useStore } from "../../store";
 import { MatchPlayer } from "./match-player";
 import { MatchWinner } from "./match-winner";
-import { useArrangedPlayers, useLocalPlayer } from "../../service";
+import { useLocalPlayer } from "../../service";
+import { PlayerPublic } from "../../types";
 
-export const MatchPlayersOverview: FC = () => {
+interface MatchPlayersOverviewProps {
+  playerOrder: PlayerPublic[];
+}
+
+export const MatchPlayersOverview: FC<MatchPlayersOverviewProps> = ({ playerOrder }) => {
   const matchStage = useStore((state) => state.matchStage);
   const leaderboard = useStore((state) => state.leaderboard);
   const localPlayer = useLocalPlayer();
-  const arrangedPlayers = useArrangedPlayers();
+  const [isShuffling, setIsShuffling] = useState(false);
 
-  // TODO: get actual value
-  const isShuffling = false;
+  // TODO: Fix animation for this component
+  // useEffect(() => {
+  //   setIsShuffeling(true);
+  //   setTimeout(() => {
+  //     setIsShuffeling((isShuffling) => !isShuffling);
+  //   }, 5500);
+  // }, [playerOrder]);
+
   const winner = leaderboard.at(0);
 
   const isWinner = localPlayer?.actionRole === "winner";
 
   return (
-    <MatchPlayersOverviewWrapper isWinner={isWinner} isShuffling={isShuffling} isOnePlayer={arrangedPlayers.length === 1}>
+    <MatchPlayersOverviewWrapper isWinner={isWinner} isShuffling={isShuffling} isOnePlayer={playerOrder.length === 1}>
       {matchStage === "endOfMatchStage" ? (
         <MatchWinner player={winner} />
       ) : (
-        arrangedPlayers.map((player) => <MatchPlayer key={player.userId} player={player} totalPlayers={arrangedPlayers.length} />)
+        playerOrder.map((player) => <MatchPlayer key={player.userId} player={player} totalPlayers={playerOrder.length} />)
       )}
     </MatchPlayersOverviewWrapper>
   );

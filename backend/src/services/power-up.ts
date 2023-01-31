@@ -26,16 +26,15 @@ import {
   UseSecondChanceBackend,
   UseSecondChanceFrontend,
   UseSmokeAndMirrorsBackend,
-  UseSmokeAndMirrorsFrontend,
   UseVendettaBackend,
   UseVendettaFrontend,
 } from "../types";
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendNotification } from "./notification";
-import { getFilteredPlayerIds } from "./player";
+import { getFilteredPlayerIds, getNextPlayerId, setActivePlayer } from "./player";
 import { readUserKeys } from "../hooks/auth";
-import { cleanUUID } from "../utils";
+import { shuffleArray, cleanUUID } from "../utils";
 
 const useGrill = async (loopParams: MatchLoopParams, data: UseGrillFrontend): Promise<UseGrillBackend> => {
   // TODO: implement
@@ -96,8 +95,16 @@ const useCoup = async (loopParams: MatchLoopParams, data: UseCoupFrontend): Prom
   return {};
 };
 
-const useSmokeAndMirrors = async (loopParams: MatchLoopParams, data: UseSmokeAndMirrorsFrontend): Promise<UseSmokeAndMirrorsBackend> => {
-  // TODO: implement
+const useSmokeAndMirrors = (loopParams: MatchLoopParams, sender: Player): UseSmokeAndMirrorsBackend => {
+  const { state } = loopParams;
+
+  state.playerOrder = shuffleArray(state.playerOrder);
+
+  const nextActivePlayerId = getNextPlayerId(sender.userId, state);
+  setActivePlayer(nextActivePlayerId, state.players);
+
+  state.timerHasStarted = false;
+
   return {};
 };
 
@@ -169,7 +176,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
         break;
       }
       case "8": {
-        const resData = await useSmokeAndMirrors(loopParams, data);
+        const resData = useSmokeAndMirrors(loopParams, sender);
         resPayload = { id, data: resData };
         break;
       }

@@ -46,7 +46,7 @@ export type NotificationError = z.infer<typeof notificationErrorSchema>;
 export const notificationUsePowerUpSchema = z.object({
   id: powerUpIdSchema,
   callerName: z.string(),
-  targetName: z.string().optional(),
+  targetName: z.string().optional().nullable(),
 });
 export type NotificationUsePowerUp = z.infer<typeof notificationUsePowerUpSchema>;
 

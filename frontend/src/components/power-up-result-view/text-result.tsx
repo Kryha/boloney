@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { text } from "../../assets";
 import { color } from "../../design";
 import { Heading1, Heading2 } from "../atoms";

@@ -188,16 +188,15 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
     }
     case NotificationOpCode.USE_POWER_UP: {
       const parsed = notificationUsePowerUpSchema.safeParse(notification.content);
-
       if (!parsed.success) return defaultUnknownError;
 
       const { callerName, targetName, id } = parsed.data;
 
       const powerUp = getPowerUp(id);
 
-      if (!powerUp) return defaultUnknownError;
-
       const boldText = targetName ? [callerName, targetName, text.general.you] : [callerName];
+
+      if (!powerUp) return defaultUnknownError;
 
       return {
         id: notification.id,

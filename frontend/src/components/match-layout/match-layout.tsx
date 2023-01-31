@@ -8,7 +8,7 @@ import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
 import { PlayerMenu } from "../player-menu";
-import { useIsInMatch, useLocalPlayer } from "../../service";
+import { useArrangedPlayers, useIsInMatch, useLocalPlayer } from "../../service";
 import { MatchNotification } from "../notification";
 
 interface MatchLayoutProps {
@@ -18,7 +18,7 @@ interface MatchLayoutProps {
 export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
   const dice = useStore((state) => state.diceValue);
   const localPlayer = useLocalPlayer();
-
+  const arrangedPlayers = useArrangedPlayers();
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
   const isInMatch = useIsInMatch();
@@ -30,7 +30,7 @@ export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
     <>
       <TopNavigation location={location} />
 
-      <MatchPlayersOverview />
+      <MatchPlayersOverview playerOrder={arrangedPlayers} />
 
       {isStageWithHUD(matchStage) && <HUD dice={dice} powerUpIds={powerUpIds} player={localPlayer} />}
 

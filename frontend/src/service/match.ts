@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+
 import { text } from "../assets";
 import { useSession, useStore } from "../store";
 import {
@@ -10,6 +11,7 @@ import {
   PlayerPublic,
   UsePowerUpPayloadFrontend,
   HealDicePayloadFrontend,
+  PowerUp,
 } from "../types";
 import { parseError } from "../util";
 import { nakama } from "./nakama";
@@ -161,11 +163,15 @@ export const useMatch = () => {
 
   const broadcastPlayerLeft = () => sendMatchState(MatchOpCode.PLAYER_LEFT);
 
-  const broadcastUsePowerUp = () => {
+  /**
+   * If the param is provided, the service will use the provided power-up to perform the call to the server,
+   * else it will use the data present in the global state.
+   */
+  const broadcastUsePowerUp = async (powerUpData?: { active?: PowerUp; targetPlayerId?: string }) => {
     try {
       setSpinnerVisibility(true);
 
-      const { active, targetPlayerId } = powerUpState;
+      const { active, targetPlayerId } = powerUpData || powerUpState;
       if (!active) throw new Error(text.error.noActivePowerUp);
 
       let payload: UsePowerUpPayloadFrontend;
@@ -175,12 +181,15 @@ export const useMatch = () => {
           if (!targetPlayerId) throw new Error(text.error.powerUpRequiresTarget);
           payload = { id: active.id, data: { targetId: targetPlayerId } };
           break;
+        case "8":
+          payload = { id: active.id, data: {} };
+          break;
         default:
           payload = { id: active.id, data: {} };
           throw new Error(text.error.powerUpNotImplemented);
       }
 
-      sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
+      await sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
     } catch (error) {
       console.warn(error);
       setSpinnerVisibility(false);
