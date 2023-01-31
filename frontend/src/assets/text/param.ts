@@ -26,7 +26,6 @@ export const param = {
     `${activeUsername} is calling boloney against ${targetUsername}... Wait and see the result of this bold move!`,
   congratulationsBoloney: (username: string) => `congratulations ${username}, you rock calling Boloney!`,
   youSuckAtBluffing: (username?: string) => `${username} is right, you suck at bluffing... You lose a die!`,
-  youRockAtExact: (amount: number | string) => `you rock at calling Exact! You get x${amount} new power-ups!`,
   congratulationsExact: (username: string) => `congratulations ${username}, you rock at calling Exact!`,
   playerIsSafe: (username: string) => `congratulations ${username}, your ass is safe!`,
   appendColon: (text?: string) => `${text}:`,
@@ -40,6 +39,6 @@ export const param = {
   idleBoloney: (winner: string, loser: string) => `${winner} outsmarted ${loser}. Better luck next time!`,
   choosePlayer: (powerUp: string) => `choose the player you want to play ${powerUp} against. Yikes.`,
   targetsPowerUps: (username: string) => `${username}'s power-ups`,
-  healDice: (healDiceAmount: string) => `select the x${healDiceAmount} power-ups you want to exchange!`,
+  healDice: (healDiceAmount: string) => `select x${healDiceAmount} power-ups you want to exchange!`,
   sumOfDice: (sum: number) => `=${sum}`,
 };

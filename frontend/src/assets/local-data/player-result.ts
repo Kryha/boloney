@@ -19,7 +19,7 @@ export interface ResultData {
   playerName: string;
 }
 
-export const getResultData = (action: Action, localPlayer: PlayerPublic, winner?: PlayerPublic, dieAmount?: number): ResultData => {
+export const getResultData = (action: Action, localPlayer: PlayerPublic, winner?: PlayerPublic): ResultData => {
   const winnerUserName = winner ? winner.username : "";
   const playerName = localPlayer.isActive ? localPlayer.username : winnerUserName;
   switch (action) {
@@ -37,7 +37,7 @@ export const getResultData = (action: Action, localPlayer: PlayerPublic, winner?
       };
     case "Exact":
       return {
-        activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.param.youRockAtExact(dieAmount || 0) },
+        activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youRockAtExact },
         activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
         targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.param.activeWasRightExact(playerName) },
         targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.param.activeWasWrongExact(playerName) },
@@ -49,10 +49,10 @@ export const getResultData = (action: Action, localPlayer: PlayerPublic, winner?
       };
     case "lostByTimeOut":
       return {
-        activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.param.youRockAtExact(dieAmount || 0) },
-        activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
-        targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: text.playerTurn.youCanBreath },
-        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: text.playerTurn.youSuckCallingExact },
+        activeWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: "" },
+        activeLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: "" },
+        targetWinner: { headingTitle: text.playerTurn.youHaveWon, subHeadingTitle: "" },
+        targetLoser: { headingTitle: text.playerTurn.youHaveLost, subHeadingTitle: "" },
         lostAllDice: { headingTitle: text.playerTurn.youDied, subHeadingTitle: text.playerTurn.lostAllDice },
         winnerImg: TimerIsOut,
         loserImg: TimerIsOut,

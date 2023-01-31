@@ -16,7 +16,7 @@ export const notifications = {
 
   playerIsOutOfTheMatchTitle: (loser: string) => `${loser} is out of the match`,
   playerIsOutOfTheMatchDescription: (loser: string) =>
-    `${loser} lost his last dice and goes directly to the cemetery... Let's have a minute of silence on their regard!`,
+    `${loser} lost their last dice and goes directly to the cemetery... Let's have a minute of silence!`,
   playerIsCallingExactOnYou: (activePlayer: string) =>
     `${activePlayer} thinks they’re on the money with this call. Patience, young one. Your time to shine approaches.`,
   playerIsCallingBoloneyOnYou: (activePlayer: string) =>

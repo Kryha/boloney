@@ -12,7 +12,7 @@ export const endOfMatch = {
   endOfMatch: "end of the match",
   youWon: "congratulations, you won!",
   youWonTitle: "congratulations, you won the match!",
-  youWonDescription: "go bask in your glory.",
+  youWonDescription: "go bask in your glory",
   youLost: "we have a winner!",
   weHaveAWinner: "we have a winner!",
   youLostDescription: "perhaps glory awaits you next time…",

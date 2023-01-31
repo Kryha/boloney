@@ -10,7 +10,7 @@ export const match = {
   callBoloney: "call boloney",
   whatsYourNextMove: "what's your next move hot shot?",
   eggsInTheGame: "eggs in the game",
-  goOnShowThem: "go on, show them what you’re made of.",
+  goOnShowThem: "go on, show them what you’re made of",
   addYourBid: "add your bid",
   takeAction: "take action",
   or: "or...",
