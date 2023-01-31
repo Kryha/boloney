@@ -1,4 +1,16 @@
-import { isPowerUpId, MatchState, PowerUpId, PowerUpProbability } from "../types";
+import {
+  DiceDataToolkit,
+  isBirdsEyeResToolkit,
+  isPowerUpId,
+  MatchLoopParams,
+  MatchState,
+  PowerUpId,
+  PowerUpProbability,
+  PowerUpToolkit,
+  UseBirdsEyeBodyToolkit,
+  UseBirdsEyeResToolkit,
+} from "../types";
+import { httpRequest, tkUrl } from "../utils";
 
 //TODO: implement this function to work with the toolkit
 export const getPowerUp = async (powerUpProbability: PowerUpProbability[]): Promise<PowerUpId | undefined> => {
@@ -19,8 +31,19 @@ export const destroyPoweUp = async (state: MatchState, selectedPowerUps: PowerUp
   //TODO Implement
 };
 
-const useBirdsEye = async () => {
-  // TODO: implement
+const useBirdsEye = (loopParams: MatchLoopParams, powerUp: PowerUpToolkit, diceData: DiceDataToolkit): UseBirdsEyeResToolkit => {
+  const { nk } = loopParams;
+
+  const url = tkUrl("/power-ups/2");
+  const body: UseBirdsEyeBodyToolkit = { powerUp, diceData };
+
+  const res = httpRequest(nk, url, "post", body);
+
+  const parsed = JSON.parse(res.body);
+
+  if (!isBirdsEyeResToolkit(parsed)) throw new Error(res.body);
+
+  return parsed;
 };
 
 export const toolkitUse = {

@@ -54,7 +54,7 @@ export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data,
   const payload = { collection: "Accounts", key: "keys" };
 
   // if keys are already stored, skip their creation
-  const storedKeys = readUserKeys(nk, ctx, payload);
+  const storedKeys = readUserKeys(nk, ctx.userId, payload);
   if (storedKeys.length) return;
 
   // call the toolkit to generate some new keys and store them in the database
@@ -66,12 +66,12 @@ export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data,
   storeNewKeysInCollection(nk, ctx, newKeyPayload);
 });
 
-export const readUserKeys = (nk: nkruntime.Nakama, ctx: nkruntime.Context, payload: CollectionInteractionRead) => {
+export const readUserKeys = (nk: nkruntime.Nakama, userId: string, payload: CollectionInteractionRead) => {
   const existingKeys = nk.storageRead([
     {
       key: payload.key,
       collection: payload.collection,
-      userId: ctx.userId,
+      userId,
     },
   ]);
   return existingKeys;

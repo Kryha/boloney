@@ -12,7 +12,7 @@ import { DrawRoundOffsetField } from "./draw-round-offset-field";
 import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewMatchContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
-import { splitMatchId } from "../../util";
+import { cleanUUID } from "../../util";
 import { DEFAULT_MATCH_SETTINGS, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 
 interface Props {
@@ -55,7 +55,7 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
     } else {
       const matchId = await createMatch(result.data);
       if (isString(matchId)) {
-        setMatchId(splitMatchId(matchId));
+        setMatchId(cleanUUID(matchId));
       } else {
         setIsError(true);
       }

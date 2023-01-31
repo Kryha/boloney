@@ -8,7 +8,7 @@ import { GeneralContentWrapper, Heading1, Heading4, PrimaryButton } from "../../
 import { routes } from "../../navigation";
 import { joinPool, nakama } from "../../service";
 import { useSession, useStore } from "../../store";
-import { splitMatchId } from "../../util";
+import { cleanUUID } from "../../util";
 import { MatchSelectContainer, ButtonContainer } from "./styles";
 
 export const MatchSelect: FC = () => {
@@ -22,7 +22,7 @@ export const MatchSelect: FC = () => {
     if (!session) return;
     nakama.socket.onmatchmakermatched = (matched: MatchmakerMatched) => {
       setSpinnerVisibility(false);
-      const matchId = splitMatchId(matched.match_id);
+      const matchId = cleanUUID(matched.match_id);
       navigate(`${routes.match}/${matchId}`);
     };
   }, [closeModal, session, navigate, setSpinnerVisibility]);

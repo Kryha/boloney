@@ -15,7 +15,6 @@ import {
   handlePlayerLostRound,
   setAction,
   handleError,
-  deletePowerUps,
   updatePlayerPublicData,
   powerUp,
 } from "../../../services";
@@ -188,7 +187,7 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
     state.players[sender.userId].diceValue.push(newRolledDice[0]);
 
     // removes the powerUpIds from the state and toolkit
-    const updatedPowerUps = await deletePowerUps(loopParams, data.selectedPowerUps, sender.userId);
+    const updatedPowerUps = await powerUp.handleDeletePowerUps(loopParams, data.selectedPowerUps, sender.userId);
     state.players[sender.userId].powerUpIds = updatedPowerUps;
 
     // update playerPublic data for other player to see the results

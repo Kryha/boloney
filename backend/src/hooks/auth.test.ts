@@ -63,7 +63,7 @@ describe("After authentication hook", () => {
 
     const payload = { collection: "Accounts", key: "keys" };
 
-    const res = !!readUserKeys(mockNk, mockCtx, payload).length;
+    const res = !!readUserKeys(mockNk, mockCtx.userId, payload).length;
 
     expect(res).toBe(true);
   });
