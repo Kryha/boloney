@@ -7,6 +7,7 @@ import { GeneralText, Heading6, HorizontalDivider, Paragraph } from "../atoms";
 import { Link } from "../buttons";
 import { ButtonContainer as DropDownButtonContainer } from "../buttons/styles";
 import { DieWrapper } from "../die/styles";
+import { DiceIconWrapper } from "../icons/styles";
 
 export const TopNavigationSection = styled.section`
   display: flex;
@@ -184,6 +185,9 @@ export const MatchStatsContainer = styled.div`
   flex-direction: row;
   align-items: center;
   padding: ${margins.small2};
+  ${DiceIconWrapper} {
+    padding: ${margins.small1};
+  }
   height: 5.5vh;
   gap: ${margins.small1};
   ${GeneralText} {

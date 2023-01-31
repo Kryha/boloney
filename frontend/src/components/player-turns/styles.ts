@@ -52,10 +52,6 @@ export const TurnActionWrapper = styled.section`
       margin-bottom: ${margins.small4};
     }
   }
-  ${Heading1} {
-    margin-top: -0.2em;
-    margin-bottom: 0;
-  }
   ${TimerRow} {
     padding-top: ${margins.medium0};
   }

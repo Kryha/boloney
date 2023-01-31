@@ -28,7 +28,7 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
     disabled &&
     `
       color: ${color.darkGrey};
-      background: transparent;
+      background: rgba(255, 255, 255, 0.2);
       && {
         cursor: default;
       }

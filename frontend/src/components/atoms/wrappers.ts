@@ -49,7 +49,8 @@ export const GeneralContentWrapper = styled.div<GeneralContentWrapperProps>`
   margin-left: ${({ withoutSideMargins }) => (withoutSideMargins ? 0 : margins.large0)};
   margin-top: ${margins.large3};
   ${Heading1} {
-    margin-bottom: 0.3em;
+    margin-top: ${margins.small0};
+    margin-bottom: ${margins.small0};
   }
   ${Heading2} {
     margin-bottom: ${margins.small0};

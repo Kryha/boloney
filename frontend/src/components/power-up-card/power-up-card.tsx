@@ -37,7 +37,7 @@ export const PowerUpCard: FC<PowerUpCardProps> = ({ powerUp, onClick }) => {
       </PowerUpCardContainer>
       {!!onClick && (
         <ButtonWrapper>
-          <PrimaryButton primaryText={text.powerUps.boost} onClick={() => onClick(powerUp)} />
+          <PrimaryButton primaryText={text.powerUps.useIt} onClick={() => onClick(powerUp)} />
         </ButtonWrapper>
       )}
     </PowerUpCardWrapper>

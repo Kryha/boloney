@@ -22,7 +22,7 @@ export const Heading1 = styled.h1<TextProps>`
   font-family: "itc-clearface-regular";
   font-weight: ${fontWeight.regular};
   font-size: clamp(5.63rem, 7vw + -1.25rem, 9rem);
-  line-height: clamp(5.63rem, 11.46vw + -1.25rem, 12.5rem);
+  line-height: clamp(4.5rem, 4.05vw + 2.07rem, 6.93rem);
   letter-spacing: -0.02em;
   color: ${({ customColor }): string => customColor || color.black};
   :first-letter {

@@ -3,6 +3,7 @@ import { getResultData } from "../../assets";
 
 import { usePlayerWithRole, useLocalPlayer, useActivePlayer } from "../../service";
 import { useStore } from "../../store";
+import { GeneralContentWrapper } from "../atoms";
 import { ErrorView } from "../error-view";
 import { TurnActionHeader, IdlePlayerHeader } from "../player-turn-headers";
 import { ActivePlayerResults, IdlePlayerResult, TargetPlayerResult } from "../player-turn-results";
@@ -31,7 +32,9 @@ export const EndOfRound: FC = () => {
     return (
       <TurnActionWrapper>
         <TurnActionHeader />
-        <ActivePlayerResults actionRole={localPlayer.actionRole} isWinner={isWinner} playerData={playerData} isBoloney={isBoloney} />
+        <GeneralContentWrapper withoutSideMargins>
+          <ActivePlayerResults actionRole={localPlayer.actionRole} isWinner={isWinner} playerData={playerData} isBoloney={isBoloney} />
+        </GeneralContentWrapper>
       </TurnActionWrapper>
     );
   }
@@ -39,11 +42,13 @@ export const EndOfRound: FC = () => {
   return (
     <IdlePlayerWrapper>
       <IdlePlayerHeader step="results" />
-      {localPlayer.isTarget && isBoloney ? (
-        <TargetPlayerResult playerData={playerData} isWinner={isWinner} isBoloney={isBoloney} />
-      ) : (
-        <IdlePlayerResult player={player} lastAction={lastAction} isActivePlayerWinner={isActivePlayerWinner} loser={loser} />
-      )}
+      <GeneralContentWrapper withoutSideMargins>
+        {localPlayer.isTarget && isBoloney ? (
+          <TargetPlayerResult playerData={playerData} isWinner={isWinner} isBoloney={isBoloney} />
+        ) : (
+          <IdlePlayerResult player={player} lastAction={lastAction} isActivePlayerWinner={isActivePlayerWinner} loser={loser} />
+        )}
+      </GeneralContentWrapper>
     </IdlePlayerWrapper>
   );
 };

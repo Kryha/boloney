@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { margins, zIndex } from "../../design";
-import { BottomButtonWrapper, Heading6, Heading1 } from "../atoms";
+import { BottomButtonWrapper, Heading6 } from "../atoms";
 import { SecondaryButtonContainer } from "../buttons/styles";
 
 export const TextResultWrapper = styled.section``;
@@ -15,12 +15,8 @@ export const ActivePlayerResultWrapper = styled.section`
   }
   ${BottomButtonWrapper} {
     ${Heading6} {
-      margin-bottom: ${margins.small4};
+      margin-bottom: 15px;
     }
-  }
-  ${Heading1} {
-    margin-top: 0.3em;
-    margin-bottom: 0;
   }
 `;
 
