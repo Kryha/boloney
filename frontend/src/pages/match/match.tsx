@@ -77,6 +77,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
   const setPowerUpState = useStore((state) => state.setPowerUpState);
   const setPlayerRoundData = useStore((state) => state.setPlayerRoundData);
+  const resetPowerUpState = useStore((state) => state.resetPowerUpState);
 
   const joinMatchDone = useJoinMatch(matchId);
   const joinChatDone = useChatHistory(joinMatchDone);
@@ -100,12 +101,15 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   useEffect(() => {
     if (!session) return;
 
-    const handlePowerUpSiceEffects = (powerUpPayload: UsePowerUpPayloadBackend) => {
+    const handlePowerUpSideEffects = (powerUpPayload: UsePowerUpPayloadBackend) => {
       const { id, data } = powerUpPayload;
 
       switch (id) {
         case "2":
           setPlayerRoundData(data.targetId, { diceSum: data.sum });
+          break;
+        case "8":
+          resetPowerUpState();
           break;
       }
 
@@ -234,7 +238,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           const parsed = usePowerUpPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
 
-          handlePowerUpSiceEffects(parsed.data);
+          handlePowerUpSideEffects(parsed.data);
           break;
         }
         case MatchOpCode.ERROR: {
@@ -243,6 +247,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
       }
     };
   }, [
+    resetPowerUpState,
     resetRound,
     session,
     setActivePlayer,

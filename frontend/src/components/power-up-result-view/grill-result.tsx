@@ -4,13 +4,13 @@ import { text } from "../../assets";
 import { color } from "../../design";
 import { Heading1, Heading2 } from "../atoms";
 
-interface TextResultProps {
-  isWinner?: boolean;
+interface Props {
+  isCorrect: boolean;
 }
 
-export const TextResult: FC<TextResultProps> = ({ isWinner }) => {
-  const heading1 = isWinner ? text.general.youAreRight : text.general.youAreWrong;
-  const heading2 = isWinner ? text.general.youRockAtThis : text.general.badLuckWithYourMove;
+export const GrillResult: FC<Props> = ({ isCorrect }) => {
+  const heading1 = isCorrect ? text.general.youAreRight : text.general.youAreWrong;
+  const heading2 = isCorrect ? text.general.youRockAtThis : text.general.badLuckWithYourMove;
 
   return (
     <>

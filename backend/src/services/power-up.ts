@@ -36,9 +36,15 @@ import { getFilteredPlayerIds, getNextPlayerId, setActivePlayer } from "./player
 import { readUserKeys } from "../hooks/auth";
 import { shuffleArray, cleanUUID } from "../utils";
 
-const useGrill = async (loopParams: MatchLoopParams, data: UseGrillFrontend): Promise<UseGrillBackend> => {
-  // TODO: implement
-  return {};
+const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
+  const { state } = loopParams;
+
+  const diceAmount = state.players[data.targetId].diceValue.filter((die) => die.rolledValue === data.face).length;
+  const isCorrect = diceAmount === data.amount;
+
+  // TODO: call toolkit
+
+  return { isCorrect, targetId: data.targetId };
 };
 
 const useBirdsEye = (loopParams: MatchLoopParams, data: UseBirdsEyeFrontend, powerUpRecord: PowerUpToolkit): UseBirdsEyeBackend => {
@@ -156,7 +162,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
 
     switch (id) {
       case "1": {
-        const resData = await useGrill(loopParams, data);
+        const resData = useGrill(loopParams, data);
         resPayload = { id, data: resData };
         break;
       }

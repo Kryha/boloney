@@ -63,9 +63,16 @@ export const isPowerUpProbabilityArray = (values: unknown): values is PowerUpPro
 // USE_POWER_UP API payloads
 // TODO: define all types
 
-export interface UseGrillFrontend {}
+export interface UseGrillFrontend {
+  targetId: string;
+  face: number;
+  amount: number;
+}
 
-export interface UseGrillBackend {}
+export interface UseGrillBackend {
+  targetId: string;
+  isCorrect: boolean;
+}
 
 export interface UseBirdsEyeFrontend {
   targetId: string;

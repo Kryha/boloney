@@ -17,5 +17,8 @@ export const error = {
   selectedPowerUpsMustBeEqualTo: "selected power-ups must be more than the initial power-up amount",
   noActivePowerUp: "no active power-up",
   powerUpRequiresTarget: "power-up requires a target",
+  powerUpDataRequired: "power-up data required",
   powerUpNotImplemented: "power-up not implemented",
+
+  required: (valueName: string): string => `${valueName} required`,
 };

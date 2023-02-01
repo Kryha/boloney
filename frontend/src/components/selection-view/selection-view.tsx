@@ -30,13 +30,14 @@ export const SelectionHand: FC<SelectionHandProps> = ({ userId }) => {
   );
 };
 
+// TODO: disable button when no target is selected
 export const SelectionView: FC<SelectionViewProps> = ({ powerUpName, userId, onClick }) => {
   return (
     <BottomButtonWrapper>
       <Heading2>{text.powerUps.whoIsGoingToGetIt}</Heading2>
       <Heading2 customColor={color.darkGrey}>{text.param.choosePlayer(powerUpName)}</Heading2>
       {userId && <SelectionHand userId={userId} />}
-      <PrimaryButton primaryText={text.match.goForIt} onClick={() => onClick && onClick()} />
+      {onClick && <PrimaryButton primaryText={text.match.goForIt} onClick={() => onClick()} />}
     </BottomButtonWrapper>
   );
 };

@@ -3,17 +3,17 @@ import styled from "@emotion/styled";
 import { UnorderedListItems } from "../atoms";
 import { DieWrapper } from "../die/styles";
 
-export const bidDieSize = {
+export const selectorDieSize = {
   idle: "clamp(66px, 6.98vw + -1px, 133px)",
   selected: "clamp(70px, 7.6vw + -3px, 143px)",
 };
 
-export const BidWrapper = styled.section`
+export const DiceSelectorWrapper = styled.section`
   display: flex;
   flex-direction: column;
 `;
 
-export const BidContainer = styled.div`
+export const DiceSelectorContainer = styled.div`
   display: flex;
   align-items: flex-start;
   margin-top: 3vw;

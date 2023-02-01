@@ -1,12 +1,14 @@
 import { FC } from "react";
+
 import { text } from "../../assets";
 import { Heading0, Heading2 } from "../atoms";
 import { TextInfoContainer } from "./styles";
 
-interface SumResultProps {
+interface Props {
   sum: number;
 }
-export const SumResult: FC<SumResultProps> = ({ sum }) => {
+
+export const BirdsEyeResult: FC<Props> = ({ sum }) => {
   return (
     <TextInfoContainer>
       <Heading2>{text.powerUps.theTotalSumOfTheDice}</Heading2>

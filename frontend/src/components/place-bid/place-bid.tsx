@@ -10,26 +10,67 @@ import { ErrorView } from "../error-view";
 import { usePlaceBidFormState } from "./bid-state";
 import { DiceFaces } from "./dice-faces";
 import { AmountSlider } from "./amount-slider";
-import { AmountContainer, BidContainer, BidWrapper, FaceContainer } from "./styles";
+import { AmountContainer, DiceSelectorContainer, DiceSelectorWrapper, FaceContainer } from "./styles";
+import { Bid, Player } from "../../types";
 
-export const PlaceBid: FC = () => {
-  const latestBid = useLatestBid();
+// TODO: declare these components in 2 different files
+
+interface DiceSelectorProps {
+  lastBid?: Bid;
+  player: Player;
+  disabled?: boolean;
+  primaryText: string;
+  secondaryText: string;
+  onClick: (diceAmount: number, faceValue: number) => void;
+}
+
+export const DiceSelector: FC<DiceSelectorProps> = ({ lastBid, player, disabled, primaryText, secondaryText, onClick }) => {
   const diceAmount = usePlaceBidFormState((state) => state.diceAmount);
   const faceValue = usePlaceBidFormState((state) => state.faceValue);
   const resetBidState = usePlaceBidFormState((state) => state.resetBidState);
-  const setTurnActionStep = useStore((state) => state.setTurnActionStep);
-  const { broadcastPlaceBid } = useMatch();
-  const noBidSet = !diceAmount || !faceValue;
 
-  let isMaxBidPlaced = latestBid ? true : false;
-  if (faceValue && latestBid && diceAmount) isMaxBidPlaced = latestBid.face >= faceValue && latestBid.amount >= diceAmount;
+  const isBidSet = diceAmount && faceValue;
+
+  const isMaxBidPlaced = lastBid && isBidSet && lastBid.face >= faceValue && lastBid.amount >= diceAmount;
+
+  const handleClick = () => {
+    if (!isBidSet) return;
+    resetBidState();
+    onClick(diceAmount, faceValue);
+  };
+
+  return (
+    <DiceSelectorWrapper>
+      <DiceSelectorContainer>
+        <FaceContainer>
+          <DiceFaces dieColor={getDieColor(player)} lastBid={lastBid} />
+        </FaceContainer>
+        <AmountContainer>
+          <AmountSlider lastBid={lastBid} />
+        </AmountContainer>
+      </DiceSelectorContainer>
+      <BottomButtonWrapper>
+        <PrimaryButton
+          disabled={isMaxBidPlaced || !isBidSet || disabled}
+          primaryText={primaryText}
+          secondaryText={secondaryText}
+          onClick={handleClick}
+        />
+      </BottomButtonWrapper>
+    </DiceSelectorWrapper>
+  );
+};
+
+export const PlaceBid: FC = () => {
+  const { broadcastPlaceBid } = useMatch();
+  const latestBid = useLatestBid();
+
+  const setTurnActionStep = useStore((state) => state.setTurnActionStep);
 
   const localPlayer = useLocalPlayer();
 
-  const handleClick = () => {
-    if (noBidSet) return;
-
-    resetBidState();
+  // TODO: consider passing an object as param
+  const handleClick = (diceAmount: number, faceValue: number) => {
     setTurnActionStep("pickAction");
     broadcastPlaceBid({ face: faceValue, amount: diceAmount });
   };
@@ -37,23 +78,12 @@ export const PlaceBid: FC = () => {
   if (!localPlayer) return <ErrorView />;
 
   return (
-    <BidWrapper>
-      <BidContainer>
-        <FaceContainer>
-          <DiceFaces dieColor={getDieColor(localPlayer)} lastBid={latestBid} />
-        </FaceContainer>
-        <AmountContainer>
-          <AmountSlider lastBid={latestBid} />
-        </AmountContainer>
-      </BidContainer>
-      <BottomButtonWrapper>
-        <PrimaryButton
-          disabled={isMaxBidPlaced || noBidSet || faceValue === 0}
-          primaryText={text.match.bid}
-          secondaryText={text.playerTurn.bidSecondaryView}
-          onClick={() => handleClick()}
-        />
-      </BottomButtonWrapper>
-    </BidWrapper>
+    <DiceSelector
+      onClick={handleClick}
+      player={localPlayer}
+      lastBid={latestBid}
+      primaryText={text.match.bid}
+      secondaryText={text.playerTurn.bidSecondaryView}
+    />
   );
 };

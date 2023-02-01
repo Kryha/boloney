@@ -1,25 +1,33 @@
 import { FC } from "react";
 
+import { text } from "../../assets";
 import { useStore } from "../../store";
+import { BottomButtonWrapper, Heading2 } from "../atoms";
 import { PowerUpResultView } from "../power-up-result-view";
-import { ProceedWithPowerUp } from "./proceed-with-power-up";
+import { UseBirdsEye } from "./use-birds-eye";
+import { UseGrill } from "./use-grill";
 
 /**
- * This component switches between the two views based on the power-up result.
- * Do not add extra logic to this component!
+ * This component will return the result views if the result is present.
+ * If the result is not present, the component will return the "Use" view related to the active power-up.
+ * The "Use" views are smart components that handle data input and submission for each (non immediate) power-up.
  */
 export const UsePowerUp: FC = () => {
-  const powerUpState = useStore((state) => state.powerUpState);
+  const { active, result } = useStore((state) => state.powerUpState);
 
-  if (!powerUpState.active) return <></>;
+  if (result) return <PowerUpResultView result={result} />;
 
-  return (
-    <>
-      {powerUpState.result ? (
-        <PowerUpResultView result={powerUpState.result} />
-      ) : (
-        <ProceedWithPowerUp activePowerUp={powerUpState.active} targetPlayerId={powerUpState.targetPlayerId} />
-      )}
-    </>
-  );
+  const view = () => {
+    if (!active) return <></>;
+    switch (active.id) {
+      case "1":
+        return <UseGrill />;
+      case "2":
+        return <UseBirdsEye />;
+      default:
+        return <Heading2>{text.newMatch.continueText}</Heading2>;
+    }
+  };
+
+  return <BottomButtonWrapper>{view()}</BottomButtonWrapper>;
 };

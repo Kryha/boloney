@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { DiceContainer, Die, bidDieSize } from "./styles";
-import { Die as DieComponent } from "../die";
 
+import { DiceContainer, Die, selectorDieSize } from "./styles";
+import { Die as DieComponent } from "../die";
 import { usePlaceBidFormState } from "./bid-state";
 import { Bid } from "../../types";
 import { ARRAY_OF_POSABLE_DIE_FACES as ARRAY_OF_POSABLE_DIE_FACES } from "../../constants";
@@ -37,7 +37,7 @@ export const DiceFaces: FC<DiceFaceProps> = ({ lastBid, dieColor }) => {
     <DiceContainer>
       {ARRAY_OF_POSABLE_DIE_FACES.map((die, index) => (
         <Die key={index} disabled={isDisabled(die)} isSelected={faceValue === die} onClick={() => handleClick(die)}>
-          <DieComponent faceColor={dieColor} value={die} size={faceValue === die ? bidDieSize.selected : bidDieSize.idle} />
+          <DieComponent faceColor={dieColor} value={die} size={faceValue === die ? selectorDieSize.selected : selectorDieSize.idle} />
         </Die>
       ))}
     </DiceContainer>

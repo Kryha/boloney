@@ -6,11 +6,11 @@ import { PowerUpId, UsePowerUpPayloadBackend } from "../../types";
 import { getPowerUpData } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
 import { PrimaryButton } from "../buttons";
+import { GrillResult } from "./grill-result";
 import { DoubleUpResult } from "./double-up-result";
 import { PowerUpResult } from "./power-up-result";
 import { SmokeAndMirrorsResult } from "./smoke-and-mirrors-result";
-import { SumResult } from "./sum-result";
-import { TextResult } from "./text-result";
+import { BirdsEyeResult } from "./birds-eye-result";
 
 interface Props {
   result: UsePowerUpPayloadBackend;
@@ -23,10 +23,9 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
   const showResult = () => {
     switch (result.id) {
       case "1":
-        // TODO: extract isWinner from payload after power-up gets implemented
-        return <TextResult isWinner={false} />;
+        return <GrillResult isCorrect={result.data.isCorrect} />;
       case "2": {
-        return <SumResult sum={result.data.sum} />;
+        return <BirdsEyeResult sum={result.data.sum} />;
       }
       case "4": {
         return <DoubleUpResult data={result.data} id={result.id} />;

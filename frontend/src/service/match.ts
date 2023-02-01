@@ -11,7 +11,7 @@ import {
   PlayerPublic,
   UsePowerUpPayloadFrontend,
   HealDicePayloadFrontend,
-  PowerUp,
+  PowerUpId,
 } from "../types";
 import { parseError } from "../util";
 import { nakama } from "./nakama";
@@ -55,10 +55,10 @@ export const useOrderedPlayers = (): PlayerPublic[] => {
   }, [order, players, session]);
 };
 
-export const usePlayer = (id: string): PlayerPublic | undefined => {
+export const usePlayer = (id?: string): PlayerPublic | undefined => {
   const players = useStore((state) => state.players);
-
-  return useMemo(() => players[id], [id, players]);
+  if (!id) return;
+  return players[id];
 };
 
 export const useIsInMatch = (): boolean => {
@@ -115,7 +115,6 @@ export const usePlayerWithRole = (actionRole: ActionRole): PlayerPublic | undefi
 
 export const useMatch = () => {
   const matchId = useStore((state) => state.matchId);
-  const powerUpState = useStore((state) => state.powerUpState);
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
 
@@ -163,55 +162,20 @@ export const useMatch = () => {
 
   const broadcastPlayerLeft = () => sendMatchState(MatchOpCode.PLAYER_LEFT);
 
-  /**
-   * If the param is provided, the service will use the provided power-up to perform the call to the server,
-   * else it will use the data present in the global state.
-   */
-  const broadcastUsePowerUp = async (powerUpData?: { active?: PowerUp; targetPlayerId?: string }) => {
+  const broadcastUseImmediatePowerUp = async (powerUpId: PowerUpId) => {
     try {
       setSpinnerVisibility(true);
-
-      const { active, targetPlayerId } = powerUpData || powerUpState;
-      if (!active) throw new Error(text.error.noActivePowerUp);
-
-      let payload: UsePowerUpPayloadFrontend;
-      switch (active.id) {
-        // TODO: handle all cases
-        case "2":
-          if (!targetPlayerId) throw new Error(text.error.powerUpRequiresTarget);
-          payload = { id: active.id, data: { targetId: targetPlayerId } };
-          break;
-        case "8":
-          payload = { id: active.id, data: {} };
-          break;
-        default:
-          payload = { id: active.id, data: {} };
-          throw new Error(text.error.powerUpNotImplemented);
-      }
-
-      await sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
+      await sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify({ id: powerUpId }));
     } catch (error) {
       console.warn(error);
       setSpinnerVisibility(false);
     }
   };
 
-  const broadcastUseNonTargetPowerUp = (powerUp: PowerUp) => {
+  const broadcastUsePowerUp = async (payload: UsePowerUpPayloadFrontend) => {
     try {
       setSpinnerVisibility(true);
-
-      if (!powerUp) throw new Error(text.error.noActivePowerUp);
-
-      let payload: UsePowerUpPayloadFrontend;
-      switch (powerUp.id) {
-        case "4":
-          payload = { id: powerUp.id, data: {} };
-          break;
-        default:
-          throw new Error(text.error.powerUpNotImplemented);
-      }
-
-      sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
+      await sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
     } catch (error) {
       console.warn(error);
       setSpinnerVisibility(false);
@@ -226,8 +190,8 @@ export const useMatch = () => {
     broadcastCallExact,
     broadcastCallBoloney,
     broadcastPlayerLeft,
+    broadcastUseImmediatePowerUp,
     broadcastUsePowerUp,
-    broadcastUseNonTargetPowerUp,
     broadcastHealDice,
   };
 };
