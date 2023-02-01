@@ -16,7 +16,7 @@ export const MatchPlayersOverview: FC<MatchPlayersOverviewProps> = ({ playerOrde
   const leaderboard = useStore((state) => state.leaderboard);
   const localPlayer = useLocalPlayer();
   const [isShuffling, setIsShuffling] = useState(false);
-
+  const isEndOfMatch = matchStage === "endOfMatchStage";
   // TODO: Fix animation for this component
   // useEffect(() => {
   //   setIsShuffeling(true);
@@ -30,8 +30,13 @@ export const MatchPlayersOverview: FC<MatchPlayersOverviewProps> = ({ playerOrde
   const isWinner = localPlayer?.actionRole === "winner";
 
   return (
-    <MatchPlayersOverviewWrapper isWinner={isWinner} isShuffling={isShuffling} isOnePlayer={playerOrder.length === 1}>
-      {matchStage === "endOfMatchStage" ? (
+    <MatchPlayersOverviewWrapper
+      isWinner={isWinner}
+      isShuffling={isShuffling}
+      isOnePlayer={playerOrder.length === 1}
+      isEndOfMatch={isEndOfMatch}
+    >
+      {isEndOfMatch ? (
         <MatchWinner player={winner} />
       ) : (
         playerOrder.map((player) => <MatchPlayer key={player.userId} player={player} totalPlayers={playerOrder.length} />)

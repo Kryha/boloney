@@ -34,9 +34,7 @@ export const LineContainer: FC<LineContainerProps> = ({ children, isPlayerReady,
           <HorizontalLine />
           <HorizontalLine />
         </HorizontalLineContainerTwo>
-        <ChildrenWrapper height={height} width={width}>
-          {children}
-        </ChildrenWrapper>
+        <ChildrenWrapper>{children}</ChildrenWrapper>
       </LineWrap>
       <WaitingWrapper>
         <HorizontalContainer height={height} width={width}>

@@ -28,8 +28,7 @@ interface ActionProps {
 
 export const ActionImage = styled.img<ActionProps>`
   object-fit: contain;
-  width: ${({ isCallBoloney }): string =>
-    isCallBoloney ? "clamp(600px, 72.92vw + -100px, 1300px)" : "clamp(600px, 62.5vw + 0px, 1200px)"};
-  height: auto;
-  margin-top: ${({ isCallBoloney }): string => (isCallBoloney ? "-4vw" : "-8vw")};
+  height: 50vh;
+  margin-top: 4.1vh;
+  margin-top: ${({ isCallBoloney }): string => (isCallBoloney ? "4.1vh" : "0vw")};
 `;

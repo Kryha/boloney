@@ -1,6 +1,13 @@
 import { FC } from "react";
 import { text } from "../../assets";
-import { MAX_DIE_FACE } from "../../constants";
+import {
+  BOLONEY_HELPER_WIDTH,
+  HEAL_DICE_HELPER_WIDTH,
+  MAX_DIE_FACE,
+  POWER_HELPER_UP_WIDTH,
+  BID_HELPER_WIDTH,
+  EXACT_HELPER_WIDTH,
+} from "../../constants";
 import { useLatestBid, useTotalDiceInMatch } from "../../service";
 import { useStore } from "../../store";
 import { TurnAction } from "../../types";
@@ -51,6 +58,7 @@ export const PickAction: FC = () => {
             tooltipTitle={text.general.toolTipPowerUpTitle}
             tooltipInfo={text.general.toolTipPowerUpInfo}
             onClick={() => handlePowerUpAction()}
+            width={POWER_HELPER_UP_WIDTH}
           />
           <PrimaryButtonWithHelper
             primaryText={text.match.healDice}
@@ -61,6 +69,7 @@ export const PickAction: FC = () => {
             onClick={() => {
               handleOnClickAction("healDice");
             }}
+            width={HEAL_DICE_HELPER_WIDTH}
           />
         </PowerUpButtonContainer>
         <GeneralText>{text.match.or}</GeneralText>
@@ -74,6 +83,7 @@ export const PickAction: FC = () => {
             }}
             tooltipTitle={text.general.toolTipBidTitle}
             tooltipInfo={text.general.toolTipBidInfo}
+            width={BID_HELPER_WIDTH}
           />
           <PrimaryButtonWithHelper
             disabled={!latestBid}
@@ -84,6 +94,7 @@ export const PickAction: FC = () => {
             }}
             tooltipTitle={text.general.toolTipBoloneyTitle}
             tooltipInfo={text.general.toolTipBoloneyInfo}
+            width={BOLONEY_HELPER_WIDTH}
           />
           <PrimaryButtonWithHelper
             disabled={!latestBid}
@@ -94,6 +105,7 @@ export const PickAction: FC = () => {
             }}
             tooltipTitle={text.general.toolTipExactTitle}
             tooltipInfo={text.general.toolTipExactInfo}
+            width={EXACT_HELPER_WIDTH}
           />
         </ActionButtonContainer>
       </ActivePlayerContainer>

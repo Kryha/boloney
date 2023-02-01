@@ -117,13 +117,6 @@ export const Row = styled.div`
 
 export const BottomButtonWrapper = styled.section`
   ${PrimaryButtonWrapper} {
-    position: absolute;
-    bottom: 0;
-    left: 1px;
-  }
-`;
-export const ScrollableBottomButton = styled.section`
-  ${PrimaryButtonWrapper} {
     position: fixed;
     bottom: 11vh;
     left: 12.5vw;

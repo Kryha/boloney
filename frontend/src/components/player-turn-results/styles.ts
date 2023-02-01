@@ -22,11 +22,12 @@ export const ActivePlayerResultWrapper = styled.section`
 
 interface ActivePlayerProps {
   isBoloney: boolean;
+  actionImgMargin?: string;
 }
 
 export const ActivePlayerImage = styled.img<ActivePlayerProps>`
   object-fit: contain;
-  width: ${({ isBoloney }): string => (isBoloney ? "clamp(600px, 62.5vw + 0px, 1200px)" : "clamp(550px, 46.88vw + 100px, 1000px)")};
-  height: auto;
-  margin-top: -7vw;
+  width: auto;
+  height: 50vh;
+  margin-top: ${({ actionImgMargin }) => actionImgMargin};
 `;

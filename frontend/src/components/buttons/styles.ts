@@ -7,6 +7,7 @@ import { SecondaryButtonBase } from "../atoms";
 
 interface ButtonProps {
   disabled?: boolean;
+  width?: number;
 }
 
 interface TextProps {
@@ -76,13 +77,14 @@ export const SecondaryView = styled.span`
 `;
 
 export const PrimaryButtonContainer = styled.div<ButtonProps>`
-  ${({ disabled }) =>
+  ${({ disabled, width }) =>
     !disabled
       ? css`
         transform-origin: center;
         transform-style: preserve-3d;
         transition: transform 0.4s;
         :hover {
+          width: ${width ? `${width}px` : "fit-content"};
           ${SecondaryView} {
             opacity: 1;
             transition: opacity 0.4s, white 0.4s, transform 0.4s;
@@ -104,9 +106,7 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
 `;
 
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
-  width: fit-content;
   cursor: ${({ disabled }) => !disabled && "pointer"};
-  width: fit-content;
   ${PrimaryArrow} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};

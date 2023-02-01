@@ -75,6 +75,7 @@ interface OverviewProps {
   isWinner?: boolean;
   isShuffling: boolean;
   isOnePlayer?: boolean;
+  isEndOfMatch?: boolean;
 }
 
 export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
@@ -83,7 +84,7 @@ export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
   align-items: flex-start;
   padding: 0px;
   position: absolute;
-  height: ${() => `${GAME_PLAYER_HEIGHT}vh`};
+  height: ${({ isEndOfMatch }) => (isEndOfMatch ? "100vh" : `${GAME_PLAYER_HEIGHT}vh`)};
   left: 0px;
   top: 0px;
   border-right: 1px solid ${color.mediumGrey};

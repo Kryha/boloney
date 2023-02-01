@@ -12,6 +12,7 @@ interface PrimaryButtonWithHelperProps {
   onClick?: () => void;
   primaryText?: string;
   secondaryText?: string;
+  width?: number;
 }
 
 export const PrimaryButtonWithHelper: FC<PrimaryButtonWithHelperProps> = ({
@@ -22,10 +23,11 @@ export const PrimaryButtonWithHelper: FC<PrimaryButtonWithHelperProps> = ({
   onClick,
   primaryText,
   secondaryText,
+  width,
 }) => {
   return (
     <ButtonWithHelperWrapper id={primaryText}>
-      <PrimaryButton primaryText={primaryText} secondaryText={secondaryText} disabled={disabled} onClick={onClick} />
+      <PrimaryButton primaryText={primaryText} secondaryText={secondaryText} disabled={disabled} onClick={onClick} width={width} />
       <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={tooltipInfoPosition} isButtonWithHelper />
     </ButtonWithHelperWrapper>
   );

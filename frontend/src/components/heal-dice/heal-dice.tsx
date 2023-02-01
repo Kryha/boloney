@@ -4,7 +4,7 @@ import { useMatch } from "../../service";
 import { useStore } from "../../store";
 import { PowerUpId } from "../../types";
 import { HealDicePowerUpSelection } from "./types";
-import { ScrollableBottomButton } from "../atoms";
+import { BottomButtonWrapper } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { ErrorView } from "../error-view";
 import { HealDiceWrapper, PowerUpSelectionWrapper } from "./styles";
@@ -68,9 +68,9 @@ export const HealDice: FC = () => {
           />
         ))}
       </PowerUpSelectionWrapper>
-      <ScrollableBottomButton>
+      <BottomButtonWrapper>
         {reachedMaxSelectedPowerUps && <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} />}
-      </ScrollableBottomButton>
+      </BottomButtonWrapper>
     </HealDiceWrapper>
   );
 };

@@ -30,7 +30,7 @@ export const Shadow = styled.div<ShadowProps>`
   opacity: 0.1;
   border-radius: 100%;
   margin: 0px 0px 0px 0px;
-  top: 55px;
+  top: 70px;
   animation: ${({ smallWidth, largeWidth, speed }) => {
     return css`
       ${shadowAnimation(smallWidth, largeWidth)} ease ${speed || FLOATING_ANIMATION_SPEED}s infinite;

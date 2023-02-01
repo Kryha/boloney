@@ -21,7 +21,7 @@ export const LineWrapper = styled.section`
   }
 `;
 
-export const ChildrenWrapper = styled.div<ViewProps>`
+export const ChildrenWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -34,8 +34,7 @@ export const ChildrenWrapper = styled.div<ViewProps>`
     border-top: none;
     border-bottom: none;
     ${HandWrapper} {
-      margin-top: ${({ width }) =>
-        width > MEDIUM_VIEWPORT_WIDTH ? "clamp(50px, -1.04vw + 60px, 40px)" : "clamp(40px, 8.33vw + -40px, 120px)"};
+      margin-top: clamp(10px, 1.04vw + 0px, 20px);
     }
   }
 `;

@@ -29,22 +29,23 @@ interface ButtonProps {
   tooltipTitle?: string;
   tooltipInfo?: string;
   tooltipInfoPosition?: InfoPosition;
+  width?: number;
 }
 
 interface DropdownButtonProps extends ButtonProps {
   icon: ReactNode;
 }
 
-export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText, secondaryText, type = "button" }) => {
+export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText, secondaryText, type = "button", width }) => {
   return (
     <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled}>
-      <PrimaryButtonContainer disabled={disabled}>
+      <PrimaryButtonContainer disabled={disabled} width={width}>
         <InitialButtonView>
           <PrimaryButtonBase type={type} disabled={disabled}>
             <PrimaryButtonText>{primaryText}</PrimaryButtonText>
           </PrimaryButtonBase>
         </InitialButtonView>
-        <SecondaryView>
+        <SecondaryView className="box">
           <PrimaryButtonBase type={type} backgroundColor={color.black} disabled={disabled}>
             <PrimaryButtonText customColor={color.white}>{secondaryText ? secondaryText : primaryText}</PrimaryButtonText>
           </PrimaryButtonBase>

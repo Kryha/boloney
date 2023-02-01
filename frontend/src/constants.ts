@@ -135,3 +135,9 @@ export const MAX_PLAYER_SIDEBAR_AMOUNT = 6;
 
 export const MAX_SIDEBAR_POWER_UPS_SHOWN = 2;
 export const MIN_SIDEBAR_POWER_UPS_SHOWN = 1;
+
+export const POWER_HELPER_UP_WIDTH = 513;
+export const HEAL_DICE_HELPER_WIDTH = 455;
+export const BID_HELPER_WIDTH = 484;
+export const BOLONEY_HELPER_WIDTH = 426;
+export const EXACT_HELPER_WIDTH = 368;
