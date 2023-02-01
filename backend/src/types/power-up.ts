@@ -80,9 +80,12 @@ export interface UseMenageFrontend {}
 
 export interface UseMenageBackend {}
 
-export interface UseDoubleUpFrontend {}
+export type UseDoubleUpFrontend = {};
 
-export interface UseDoubleUpBackend {}
+export interface UseDoubleUpBackend {
+  powerUpIds: PowerUpId[];
+  recentlyAdded: number;
+}
 
 export interface UseVendettaFrontend {}
 

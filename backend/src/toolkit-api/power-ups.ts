@@ -46,6 +46,11 @@ const useBirdsEye = (loopParams: MatchLoopParams, powerUp: PowerUpToolkit, diceD
   return parsed;
 };
 
+const useDoubleUp = async () => {
+  // TODO: implement
+};
+
 export const toolkitUse = {
   birdsEye: useBirdsEye,
+  doubleUp: useDoubleUp,
 };

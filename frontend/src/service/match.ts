@@ -196,6 +196,28 @@ export const useMatch = () => {
     }
   };
 
+  const broadcastUseNonTargetPowerUp = (powerUp: PowerUp) => {
+    try {
+      setSpinnerVisibility(true);
+
+      if (!powerUp) throw new Error(text.error.noActivePowerUp);
+
+      let payload: UsePowerUpPayloadFrontend;
+      switch (powerUp.id) {
+        case "4":
+          payload = { id: powerUp.id, data: {} };
+          break;
+        default:
+          throw new Error(text.error.powerUpNotImplemented);
+      }
+
+      sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
+    } catch (error) {
+      console.warn(error);
+      setSpinnerVisibility(false);
+    }
+  };
+
   return {
     isLoading,
     sendMatchState,
@@ -205,6 +227,7 @@ export const useMatch = () => {
     broadcastCallBoloney,
     broadcastPlayerLeft,
     broadcastUsePowerUp,
+    broadcastUseNonTargetPowerUp,
     broadcastHealDice,
   };
 };

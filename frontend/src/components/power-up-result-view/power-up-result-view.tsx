@@ -6,6 +6,7 @@ import { PowerUpId, UsePowerUpPayloadBackend } from "../../types";
 import { getPowerUpData } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
 import { PrimaryButton } from "../buttons";
+import { DoubleUpResult } from "./double-up-result";
 import { PowerUpResult } from "./power-up-result";
 import { SmokeAndMirrorsResult } from "./smoke-and-mirrors-result";
 import { SumResult } from "./sum-result";
@@ -26,6 +27,9 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
         return <TextResult isWinner={false} />;
       case "2": {
         return <SumResult sum={result.data.sum} />;
+      }
+      case "4": {
+        return <DoubleUpResult data={result.data} id={result.id} />;
       }
       case "8":
         // TODO: see how to show this properly, since the turn is being changed

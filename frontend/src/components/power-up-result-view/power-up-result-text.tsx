@@ -9,13 +9,14 @@ import { TextInfoContainer } from "./styles";
 
 interface PowerUpResultTextProps {
   id: PowerUpId;
+  receivedPowerUps?: number;
 }
 
-export const PowerUpResultText: FC<PowerUpResultTextProps> = ({ id }) => {
+export const PowerUpResultText: FC<PowerUpResultTextProps> = ({ id, receivedPowerUps }) => {
   const powerUpState = useStore((state) => state.powerUpState);
   const targetedPlayer = usePlayer(powerUpState.targetPlayerId || "");
 
-  const info = powerUpResult(id, targetedPlayer?.username);
+  const info = powerUpResult(id, targetedPlayer?.username, receivedPowerUps);
 
   return (
     <TextInfoContainer>

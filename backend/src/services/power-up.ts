@@ -1,7 +1,8 @@
 import { EMPTY_DATA } from "../constants";
-import { toolkitUse } from "../toolkit-api";
+import { getPowerUp, toolkitUse } from "../toolkit-api";
 import {
   DiceDataToolkit,
+  isPowerUpTypeArray,
   MatchLoopParams,
   MatchOpCode,
   NotificationContentUsePowerUp,
@@ -14,7 +15,6 @@ import {
   UseCoupBackend,
   UseCoupFrontend,
   UseDoubleUpBackend,
-  UseDoubleUpFrontend,
   UseGrillBackend,
   UseGrillFrontend,
   UseHypnosisBackend,
@@ -75,9 +75,24 @@ const useMenage = async (loopParams: MatchLoopParams, data: UseMenageFrontend): 
   return {};
 };
 
-const useDoubleUp = async (loopParams: MatchLoopParams, data: UseDoubleUpFrontend): Promise<UseDoubleUpBackend> => {
-  // TODO: implement
-  return {};
+const useDoubleUp = async (loopParams: MatchLoopParams, sender: Player): Promise<UseDoubleUpBackend> => {
+  const { state } = loopParams;
+
+  const numberofNewPowerUps = sender.powerUpsAmount >= state.settings.maxPowerUpAmount ? 1 : 2;
+  const newPowerUps =
+    numberofNewPowerUps === 1
+      ? await Promise.all([getPowerUp(state.settings.powerUpProbability)])
+      : await Promise.all([getPowerUp(state.settings.powerUpProbability), getPowerUp(state.settings.powerUpProbability)]);
+
+  if (!isPowerUpTypeArray(newPowerUps)) throw new Error("Failed to get new power-ups");
+
+  state.players[sender.userId].powerUpIds.push(...Object.values(newPowerUps));
+  state.players[sender.userId].powerUpsAmount = state.players[sender.userId].powerUpIds.length;
+
+  // TODO: perform call to toolkit
+  await toolkitUse.doubleUp();
+
+  return { powerUpIds: newPowerUps, recentlyAdded: numberofNewPowerUps };
 };
 
 const useVendetta = async (loopParams: MatchLoopParams, data: UseVendettaFrontend): Promise<UseVendettaBackend> => {
@@ -156,7 +171,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
         break;
       }
       case "4": {
-        const resData = await useDoubleUp(loopParams, data);
+        const resData = await useDoubleUp(loopParams, sender);
         resPayload = { id, data: resData };
         break;
       }
@@ -201,7 +216,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     const notificationPayload: NotificationContentUsePowerUp = {
       id,
       callerName: sender.username,
-      targetName: "targetId" in data ? state.players[data.targetId].username : undefined,
+      targetName: data && "targetId" in data ? state.players[data.targetId].username : undefined,
     };
     const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
     sendNotification(nk, idlePlayers, NotificationOpCode.USE_POWER_UP, notificationPayload);

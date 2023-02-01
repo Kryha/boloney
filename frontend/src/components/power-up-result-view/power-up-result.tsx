@@ -13,7 +13,7 @@ export const PowerUpResult: FC<PowerUpResultProps> = ({ data, id }) => {
 
   return (
     <>
-      <PowerUpResultText id={id} />
+      <PowerUpResultText id={id} receivedPowerUps={data.length} />
       <PowerUpPile data={data} />
     </>
   );

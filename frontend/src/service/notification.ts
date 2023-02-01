@@ -202,7 +202,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
         id: notification.id,
         img: powerUp.cardImage,
         title: powerUp.name,
-        description: text.notifications.playerIsSpreadingShockwaves(id, localPlayer.username, callerName, targetName),
+        description: text.notifications.playerIsSpreadingShockwaves(id, localPlayer.username, callerName, targetName || undefined),
         boldText,
       };
     }

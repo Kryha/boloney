@@ -38,6 +38,7 @@ export const PowerUpListUse: FC<Props> = ({ powerUpIds }) => {
   const { broadcastUsePowerUp } = useMatch();
 
   const powerUps = getPowerUpData(powerUpIds);
+  const { broadcastUseNonTargetPowerUp } = useMatch();
 
   const handleClick = async (powerUp: PowerUp) => {
     setPowerUpState({ active: powerUp });
@@ -47,6 +48,7 @@ export const PowerUpListUse: FC<Props> = ({ powerUpIds }) => {
     }
 
     hideModal();
+    if (isPowerUpTriggeredImmediately(powerUp.id)) broadcastUseNonTargetPowerUp(powerUp);
   };
 
   return <PowerUpList powerUps={powerUps} onClick={handleClick} />;

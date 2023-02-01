@@ -63,7 +63,10 @@ export type UseMenageBackend = z.infer<typeof useMenageBackendSchema>;
 export const useDoubleUpFrontendSchema = z.object({});
 export type UseDoubleUpFrontend = z.infer<typeof useDoubleUpFrontendSchema>;
 
-export const useDoubleUpBackendSchema = z.object({});
+export const useDoubleUpBackendSchema = z.object({
+  powerUpIds: z.array(powerUpIdSchema),
+  recentlyAdded: z.number(),
+});
 export type UseDoubleUpBackend = z.infer<typeof useDoubleUpBackendSchema>;
 
 export const useVendettaFrontendSchema = z.object({});
