@@ -33,7 +33,6 @@ import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendNotification } from "./notification";
 import { getFilteredPlayerIds, getNextPlayerId, setActivePlayer } from "./player";
-import { readUserKeys } from "../hooks/auth";
 import { shuffleArray, cleanUUID } from "../utils";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
@@ -158,8 +157,6 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
       matchId: cleanUUID(ctx.matchId),
       _nonce: "4393085214842307962009839145934641063703150241291667000462643412531900836455group",
     };
-
-    logger.debug("powerUpRecord:", powerUpRecord);
 
     let resPayload: UsePowerUpPayloadBackend;
 
