@@ -12,7 +12,8 @@ export const PowerUpPileContainer = styled.section`
   margin-top: 30px;
   ${PowerUpCardWrapper} {
     width: clamp(171px, 17.5vw + 3px, 339px);
-    height: clamp(272px, 19.79vw + 82px, 462px);
+    height: 42.87vh;
+    min-height: 330px;
     z-index: ${zIndex.inFront};
   }
 `;
@@ -24,7 +25,8 @@ export const EmptyPowerUpCard = styled.div`
   padding: 0px;
   position: absolute;
   width: clamp(171px, 17.5vw + 3px, 339px);
-  height: clamp(272px, 19.79vw + 82px, 462px);
+  height: 42.87vh;
+  min-height: 330px;
   background: ${color.white};
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
