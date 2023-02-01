@@ -61,4 +61,6 @@ export const SecondaryButtonBase = styled.button<ButtonProps>`
         cursor: default;
       }
     `};
+  white-space: nowrap;
+  text-align: center;
 `;

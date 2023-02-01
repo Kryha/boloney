@@ -28,6 +28,7 @@ export const DiceCrownImg = styled.img`
   width: 300%;
   height: auto;
   object-fit: cover;
+  flex-shrink: 0;
 `;
 
 export const MatchWinnerWrapper = styled.div`
