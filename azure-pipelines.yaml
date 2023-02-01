@@ -1,5 +1,7 @@
+# trigger:
+#   - develop
 trigger:
-  - develop
+  - hotfix/pup-staging
 
 pool:
   vmImage: "ubuntu-latest"
