@@ -140,22 +140,14 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     // TODO: use type predicates instead of assertion
     const payload = JSON.parse(nk.binaryToString(message.data)) as UsePowerUpPayloadFrontend;
 
-    logger.debug("payload:", payload);
-
     const { id, data } = payload;
-
-    logger.debug("id:", id);
-    logger.debug("data:", data);
 
     const powerUp = sender.powerUpIds.find((powerUp) => powerUp === id);
     if (!powerUp) throw new Error(`Player does not own a power-up with id ${id}`);
 
-    logger.debug("powerUp:", powerUp);
-
-    const [key] = readUserKeys(nk, sender.userId, { collection: "Accounts", key: "keys" });
-    if (!key) throw new Error("User not found in collection");
-
-    logger.debug("key:", key);
+    // TODO: investigate why keys do not get stored in staging env
+    // const [key] = readUserKeys(nk, sender.userId, { collection: "Accounts", key: "keys" });
+    // if (!key) throw new Error("User not found in collection");
 
     // TODO: use real record
     // TODO: pass key.value.address as owner field after implementing proper power-up generation
