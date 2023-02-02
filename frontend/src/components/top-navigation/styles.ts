@@ -186,7 +186,8 @@ export const MatchStatsContainer = styled.div`
   align-items: center;
   padding: ${margins.small2};
   ${DiceIconWrapper} {
-    padding: ${margins.small1};
+    padding-left: ${margins.small1};
+    margin-bottom: 0px;
   }
   height: 5.5vh;
   gap: ${margins.small1};

@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import { text } from "../../assets/text";
 
 import { Paragraph } from "../atoms";
-import { Tooltip } from "../tooltip";
+import { InfoPosition, Tooltip } from "../tooltip";
 import {
   InputContainer,
   InputLabel,
@@ -28,6 +28,7 @@ interface InputProps {
   description?: string;
   tooltipInfo?: string;
   tooltipTitle?: string;
+  infoPosition?: InfoPosition;
 }
 
 export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
@@ -56,6 +57,7 @@ export const InputLegend: FC<InputProps> = ({
   childNode = 1,
   tooltipInfo,
   tooltipTitle,
+  infoPosition,
 }) => {
   return (
     <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
@@ -63,7 +65,7 @@ export const InputLegend: FC<InputProps> = ({
         <Legend>
           <LegendContainer>
             <LegendTitle>{label}</LegendTitle>
-            <Tooltip title={tooltipTitle} info={tooltipInfo} />
+            <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={infoPosition} />
           </LegendContainer>
         </Legend>
         {children}

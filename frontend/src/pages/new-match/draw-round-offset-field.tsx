@@ -19,6 +19,8 @@ export const DrawRoundOffsetField: FC<Props> = ({ register }) => {
         label={text.newMatch.drawRoundOffset}
         tooltipInfo={text.general.toolTipDrawRoundOffsetInfo}
         tooltipTitle={text.general.toolTipDrawRoundOffsetTitle}
+        infoPosition="right"
+        isRow
       >
         <BaseSelect {...register("drawRoundOffset")}>
           {range(MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET).map((n) => (

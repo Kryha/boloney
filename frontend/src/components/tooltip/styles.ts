@@ -15,7 +15,7 @@ export const ButtonInfoWrap = styled.span`
   margin-left: ${margins.small1};
 `;
 
-export const ToolTipText = styled.p`
+export const ToolTipText = styled.h2`
   font-family: ibm-plex-mono, sans-serif;
   font-weight: ${fontWeight.light};
   font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
@@ -47,7 +47,7 @@ interface TooltipProps {
 }
 
 export const TooltipContent = styled.div<TooltipProps>`
-  max-width: clamp(260px, 2.08vw + 240px, 280px);
+  max-width: clamp(450px, 10.42vw + 350px, 550px);
   position: absolute;
   left: 130px;
   transform: translateX(-50%);
@@ -56,7 +56,7 @@ export const TooltipContent = styled.div<TooltipProps>`
   background: ${color.white};
   box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.1);
   z-index: ${zIndex.inFront};
-  min-width: clamp(220px, 3.96vw + 182px, 358px);
+  min-width: clamp(400px, 10.42vw + 300px, 500px);
   box-sizing: border-box;
   animation: ${tooltipAnimation} 0.5s;
   ${Heading3} {

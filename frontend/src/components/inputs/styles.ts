@@ -18,6 +18,18 @@ export const InputContainer = styled.div<InputContainerProps>`
   isolation: isolate;
   position: relative;
   flex: 1;
+  ${({ isRow, childNode }) =>
+    isRow &&
+    childNode === 1 &&
+    `
+    z-index: 5;
+`};
+  ${({ isRow, childNode }) =>
+    isRow &&
+    childNode === 2 &&
+    `
+    z-index: 2;
+`};
 `;
 
 export const InputLabel = styled.h3`
