@@ -3,8 +3,10 @@ import { FC } from "react";
 import { text } from "../../assets";
 import { InfoIcon } from "../../assets/icons";
 import { BULLET_POINT } from "../../constants";
+import { useStore } from "../../store";
 import { ColorSpan, ListSection, Paragraph } from "../atoms";
 import { LeadingZeroList } from "../leading-zero-list";
+import { OverlayWrapper } from "../overlay-wrapper";
 import { Dropdown } from "./dropdown";
 import {
   ParagraphBulletPoint,
@@ -25,6 +27,12 @@ interface Props {
 }
 
 export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown }) => {
+  const showModal = useStore((state) => state.showModal);
+
+  const onClick = () => {
+    showModal("power-up-list-description");
+  };
+
   return (
     <Dropdown
       setHover={setHover}
@@ -95,7 +103,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
                     <Paragraph key={index}>{paragraph}</Paragraph>
                   ))}
                   {/* TODO: FIX LINK */}
-                  <RulesLink primaryText={text.rules.seeAvailablePowerUps} />
+                  <RulesLink primaryText={text.rules.seeAvailablePowerUps} onClick={() => onClick && onClick()} />
                   <Paragraph />
                 </>
               }

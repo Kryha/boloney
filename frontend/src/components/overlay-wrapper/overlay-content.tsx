@@ -3,6 +3,7 @@ import { FC } from "react";
 import { OverlayComponent } from "../../types";
 import { PowerUpListOverview, SausageSpinner, MatchSettingsOverview, PowerUpListUse } from "../../components";
 import { useStore } from "../../store";
+import { DEFAULT_MATCH_SETTINGS } from "../../constants";
 
 interface Props {
   name: OverlayComponent | undefined;
@@ -21,6 +22,8 @@ export const OverlayContent: FC<Props> = ({ name }) => {
       return <SausageSpinner />;
     case "match-settings-overview":
       return <MatchSettingsOverview />;
+    case "power-up-list-description":
+      return <PowerUpListOverview powerUpIds={DEFAULT_MATCH_SETTINGS.availablePowerUps} />;
     case undefined:
       return <></>;
   }

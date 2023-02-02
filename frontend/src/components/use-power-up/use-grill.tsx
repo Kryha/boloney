@@ -18,7 +18,7 @@ interface PlaceGrillBetProps {
 const PlaceGrillBet: FC<PlaceGrillBetProps> = ({ onSubmit, player }) => {
   return (
     <>
-      <Heading2>{text.match.eggsInTheGame}</Heading2>
+      <Heading2>{text.match.makeYourClaim}</Heading2>
       <Heading2 customColor={color.darkGrey}>{text.playerTurn.whatsYourGuess}</Heading2>
       <DiceSelector onClick={onSubmit} player={player} primaryText={text.match.goForIt} secondaryText={text.match.goForIt} />
     </>

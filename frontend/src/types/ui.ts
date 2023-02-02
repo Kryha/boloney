@@ -1,6 +1,12 @@
 import { z } from "zod";
 
-export const overlayComponentSchema = z.enum(["sausage-spinner", "power-up-list", "power-up-use", "match-settings-overview"]);
+export const overlayComponentSchema = z.enum([
+  "sausage-spinner",
+  "power-up-list",
+  "power-up-use",
+  "match-settings-overview",
+  "power-up-list-description",
+]);
 
 export type OverlayComponent = z.infer<typeof overlayComponentSchema>;
 

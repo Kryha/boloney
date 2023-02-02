@@ -1,6 +1,6 @@
 // TODO: update file with with different actions
 import { PlayerPublic, TurnAction, TurnActionStep } from "../../types";
-import { getNumberWithOrdinal } from "../../util";
+import { getNumberWithOrdinal, getRandomMessage } from "../../util";
 import { text } from "../text";
 
 interface PlayerTurnData {
@@ -18,7 +18,7 @@ export const idlePlayerTurnData = (activePlayer: PlayerPublic, round: number, st
     return {
       timerTitle: text.playerTurn.waitingTime,
       headingTitle: text.param.playerIsMakingAMove(activePlayer.username),
-      subHeadingTitle: text.playerTurn.thisMightBeBlessing,
+      subHeadingTitle: getRandomMessage(text.playerTurn.randomMessages),
     };
   }
 };
@@ -28,7 +28,7 @@ const proceedActions = (action: TurnAction, lastActivePlayerName: string): Playe
     case "bid":
       return {
         timerTitle: text.playerTurn.placeBid,
-        headingTitle: text.playerTurn.guess,
+        headingTitle: text.playerTurn.makeYourClaim,
         subHeadingTitle: text.playerTurn.bidOnValue,
       };
     case "boloney":
@@ -72,7 +72,7 @@ const evaluateResults = {
   boloney: {
     timerTitle: text.match.callBoloney,
     headingTitle: text.playerTurn.letsSeeWhoIsRight,
-    subHeadingTitle: text.playerTurn.thisMightBeBlessing,
+    subHeadingTitle: getRandomMessage(text.playerTurn.randomMessages),
   },
   powerUp: {
     timerTitle: "",
@@ -87,7 +87,7 @@ const evaluateResults = {
   exact: {
     timerTitle: text.match.callExact,
     headingTitle: text.playerTurn.letsSeeWhoIsRight,
-    subHeadingTitle: text.playerTurn.thisMightBeBlessing,
+    subHeadingTitle: getRandomMessage(text.playerTurn.randomMessages),
   },
 };
 
@@ -102,7 +102,7 @@ export const activePlayerTurnData = (
     case "pickAction":
       return {
         timerTitle: text.match.takeAction,
-        headingTitle: text.match.eggsInTheGame,
+        headingTitle: text.match.whatsYourNextMove,
         subHeadingTitle: text.match.goOnShowThem,
       };
     case "proceedWithAction":

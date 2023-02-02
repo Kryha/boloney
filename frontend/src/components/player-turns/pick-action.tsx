@@ -54,7 +54,7 @@ export const PickAction: FC = () => {
         <PowerUpButtonContainer>
           <PrimaryButtonWithHelper
             primaryText={text.match.powerUp}
-            secondaryText={text.playerTurn.spreadShockwaves}
+            secondaryText={text.playerTurn.feelThePower}
             tooltipTitle={text.general.toolTipPowerUpTitle}
             tooltipInfo={text.general.toolTipPowerUpInfo}
             onClick={() => handlePowerUpAction()}

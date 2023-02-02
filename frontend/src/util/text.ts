@@ -17,3 +17,8 @@ export const prefixDigit = (n: number): string => {
 };
 
 export const capitalize = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
+
+export const getRandomMessage = (randomMessages: string[]): string => {
+  const randomIndex = Math.floor(Math.random() * randomMessages.length);
+  return randomMessages[randomIndex];
+};

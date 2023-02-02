@@ -194,6 +194,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           setLastAction("lostByTimeOut");
           setPlayers(parsed.data.players);
           setTurnActionStep("results");
+          resetPowerUpState();
           break;
         }
         case MatchOpCode.PLAYER_CALL_EXACT: {
