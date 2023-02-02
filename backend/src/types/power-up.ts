@@ -102,9 +102,14 @@ export interface UseSecondChanceFrontend {}
 
 export interface UseSecondChanceBackend {}
 
-export interface UseCoupFrontend {}
+export interface UseCoupFrontend {
+  targetId: string;
+}
 
-export interface UseCoupBackend {}
+export interface UseCoupBackend {
+  powerUpIds: PowerUpId[];
+  targetId: string;
+}
 
 export type UseSmokeAndMirrorsFrontend = {
   // keep empty

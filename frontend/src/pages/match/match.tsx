@@ -108,6 +108,10 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
         case "2":
           setPlayerRoundData(data.targetId, { diceSum: data.sum });
           break;
+        case "7":
+          setTurnActionStep("pickAction");
+          resetPowerUpState();
+          break;
         case "8":
           resetPowerUpState();
           break;
@@ -141,6 +145,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
         case MatchOpCode.PLAYER_JOINED: {
           const parsed = playerJoinedPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
+
           setTimerTimeInSeconds(parsed.data.remainingStageTime);
           setMatchState(parsed.data.matchState);
           setIsJoining(false);

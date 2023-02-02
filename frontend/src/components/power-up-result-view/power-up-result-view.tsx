@@ -27,6 +27,8 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
       case "2": {
         return <BirdsEyeResult sum={result.data.sum} />;
       }
+      case "7":
+        return <></>;
       case "4": {
         return <DoubleUpResult data={result.data} id={result.id} />;
       }

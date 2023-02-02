@@ -1,8 +1,8 @@
 import { EMPTY_DATA } from "../constants";
 import { getPowerUp, toolkitUse } from "../toolkit-api";
 import {
-  DiceDataToolkit,
   isPowerUpTypeArray,
+  DiceDataToolkit,
   MatchLoopParams,
   MatchOpCode,
   NotificationContentUsePowerUp,
@@ -34,7 +34,7 @@ import { handleError } from "./error";
 import { sendNotification } from "./notification";
 import { getFilteredPlayerIds, getNextPlayerId, setActivePlayer } from "./player";
 import { readUserKeys } from "../hooks/auth";
-import { shuffleArray, cleanUUID } from "../utils";
+import { shuffleArray, cleanUUID, getRange } from "../utils";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
   const { state } = loopParams;
@@ -111,9 +111,20 @@ const useSecondChance = async (loopParams: MatchLoopParams, data: UseSecondChanc
   return {};
 };
 
-const useCoup = async (loopParams: MatchLoopParams, data: UseCoupFrontend): Promise<UseCoupBackend> => {
-  // TODO: implement
-  return {};
+const useCoup = async (loopParams: MatchLoopParams, data: UseCoupFrontend, isSelfTarget: boolean): Promise<UseCoupBackend> => {
+  const { state } = loopParams;
+
+  const powerUpsAmount = isSelfTarget ? state.players[data.targetId].powerUpsAmount - 1 : state.players[data.targetId].powerUpsAmount;
+
+  const newPowerUps = await Promise.all(getRange(powerUpsAmount).map(async () => getPowerUp(state.settings.powerUpProbability)));
+  if (!isPowerUpTypeArray(newPowerUps)) throw new Error("Failed to get new power-ups.");
+  state.players[data.targetId].powerUpIds = newPowerUps;
+  state.players[data.targetId].powerUpsAmount = newPowerUps.length;
+
+  // TODO: implement toolkit call
+  // await toolkitUse.coup();
+
+  return { powerUpIds: newPowerUps, targetId: data.targetId };
 };
 
 const useSmokeAndMirrors = (loopParams: MatchLoopParams, sender: Player): UseSmokeAndMirrorsBackend => {
@@ -160,6 +171,8 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
 
     let resPayload: UsePowerUpPayloadBackend;
 
+    let shouldRemovePowerUp = true;
+
     switch (id) {
       case "1": {
         const resData = useGrill(loopParams, data);
@@ -192,7 +205,9 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
         break;
       }
       case "7": {
-        const resData = await useCoup(loopParams, data);
+        const isSelfTarget = sender.userId === data.targetId;
+        shouldRemovePowerUp = !isSelfTarget;
+        const resData = await useCoup(loopParams, data, isSelfTarget);
         resPayload = { id, data: resData };
         break;
       }
@@ -208,8 +223,10 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
       }
     }
 
-    sender.powerUpIds.splice(sender.powerUpIds.indexOf(powerUp), 1);
-    sender.powerUpsAmount--;
+    if (shouldRemovePowerUp) {
+      sender.powerUpIds.splice(sender.powerUpIds.indexOf(powerUp), 1);
+      sender.powerUpsAmount--;
+    }
 
     const senderPresence = state.presences[sender.userId];
 

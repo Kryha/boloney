@@ -5,6 +5,7 @@ import { useStore } from "../../store";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
 import { PowerUpResultView } from "../power-up-result-view";
 import { UseBirdsEye } from "./use-birds-eye";
+import { UseCoup } from "./use-coup";
 import { UseGrill } from "./use-grill";
 
 /**
@@ -24,6 +25,8 @@ export const UsePowerUp: FC = () => {
         return <UseGrill />;
       case "2":
         return <UseBirdsEye />;
+      case "7":
+        return <UseCoup />;
       default:
         return <Heading2>{text.newMatch.continueText}</Heading2>;
     }

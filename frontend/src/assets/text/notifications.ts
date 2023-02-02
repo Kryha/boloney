@@ -26,10 +26,11 @@ export const notifications = {
   playerLeftTheMatch: (player: string) => `${player} left the match...`,
   playerIsSpreadingShockwaves: (id: PowerUpId, localPlayerName: string, callerName: string, targetName?: string | null) => {
     if (powerUpRequiresTarget(id)) {
-      return `${callerName} is spreading shockwaves with a power-up against ${localPlayerName === targetName ? "you" : targetName
-        }. Patience, young one. Your time to shine approaches.`;
+      return `${callerName} is feeling their power with a power-up against ${
+        localPlayerName === targetName ? "you" : targetName
+      }. Patience, young one. Your time to shine approaches.`;
     } else {
-      return `${callerName} is spreading shockwaves with a power-up. Patience, young one. Your time to shine approaches.`;
+      return `${callerName} is feeling their power with a power-up. Patience, young one. Your time to shine approaches.`;
     }
   },
   playerIsUsingHealDice: (activePlayer: string) => `I'm back, baby! ${activePlayer} traded in power-ups to get back a die.`,

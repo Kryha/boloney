@@ -91,7 +91,10 @@ export type UseSecondChanceBackend = z.infer<typeof useSecondChanceBackendSchema
 export const useCoupFrontendSchema = z.object({});
 export type UseCoupFrontend = z.infer<typeof useCoupFrontendSchema>;
 
-export const useCoupBackendSchema = z.object({});
+export const useCoupBackendSchema = z.object({
+  powerUpIds: z.array(powerUpIdSchema),
+  targetId: z.string(),
+});
 export type UseCoupBackend = z.infer<typeof useCoupBackendSchema>;
 
 export const useSmokeAndMirrorsFrontendSchema = z.object({});
