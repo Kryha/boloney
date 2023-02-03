@@ -34,6 +34,8 @@ import GuardTower from "./guard-tower.png";
 import Hypnosis from "./hypnosis.png";
 import GraveStone from "./lose-all-dice.png";
 import HealDiceCoffin from "./heal-dice-coffin.png";
+import PowerUpCards from "./power-up-cards.png";
+import TombstoneHand from "./tombstone-hand.png";
 
 export * from "./dice-assets";
 
@@ -74,4 +76,6 @@ export {
   Hypnosis,
   GraveStone,
   HealDiceCoffin,
+  PowerUpCards,
+  TombstoneHand,
 };

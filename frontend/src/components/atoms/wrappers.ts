@@ -123,3 +123,21 @@ export const BottomButtonWrapper = styled.section`
     margin-left: 1px;
   }
 `;
+
+export const NumberedListSection = styled.section`
+  font-family: ibm-plex-mono;
+  font-weight: ${fontWeight.bolder};
+  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
+  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
+  :first-letter {
+    text-transform: capitalize;
+  }
+  counter-reset: css-counter 0;
+  ${Heading1} {
+    counter-increment: css-counter 1;
+    padding-left: 47px;
+  }
+  ${Heading1}:after {
+    content: counter(css-counter, decimal-leading-zero) ""; /* Apply counter before children's content. */
+  }
+`;

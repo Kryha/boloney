@@ -55,3 +55,6 @@ export * from "./power-up-result-view";
 export * from "./power-up-pile";
 export * from "./selection-view";
 export * from "./revealed-power-ups";
+export * from "./landing-paragraphs";
+export * from "./links";
+export * from "./landing-footer";
