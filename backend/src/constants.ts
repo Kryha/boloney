@@ -65,6 +65,8 @@ export const ADDRESS_PREFIX = "aleo1";
 
 export const env = {
   TOOLKIT_BASE_URL: "http://zk-gaming-tk.zk-gaming-tk-local.svc.cluster.local:5001",
+  // TODO: config envs correctly
+  // TOOLKIT_BASE_URL: "https://zk-gaming-tk.staging.kryha.dev",
 
   init(ctx: nkruntime.Context) {
     if (ctx.env.TOOLKIT_BASE_URL) this.TOOLKIT_BASE_URL = ctx.env.TOOLKIT_BASE_URL;

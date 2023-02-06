@@ -33,7 +33,6 @@ import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendNotification } from "./notification";
 import { getFilteredPlayerIds, getNextPlayerId, setActivePlayer } from "./player";
-import { readUserKeys } from "../hooks/auth";
 import { shuffleArray, cleanUUID, getRange } from "../utils";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
@@ -156,8 +155,9 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     const powerUp = sender.powerUpIds.find((powerUp) => powerUp === id);
     if (!powerUp) throw new Error(`Player does not own a power-up with id ${id}`);
 
-    const [key] = readUserKeys(nk, sender.userId, { collection: "Accounts", key: "keys" });
-    if (!key) throw new Error("User not found in collection");
+    // TODO: investigate why keys do not get stored in staging env
+    // const [key] = readUserKeys(nk, sender.userId, { collection: "Accounts", key: "keys" });
+    // if (!key) throw new Error("User not found in collection");
 
     // TODO: use real record
     // TODO: pass key.value.address as owner field after implementing proper power-up generation
