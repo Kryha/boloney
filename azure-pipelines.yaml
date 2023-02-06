@@ -34,7 +34,7 @@ stages:
           - task: Kubernetes@1
             inputs:
               connectionType: "Kubernetes Service Connection"
-              kubernetesServiceEndpoint: "gke-service-connection"
+              kubernetesServiceEndpoint: "gke-zk-gaming"
               namespace: "liars-dice-staging"
               command: "login"
           - script: |
