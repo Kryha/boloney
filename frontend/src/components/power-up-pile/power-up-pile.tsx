@@ -18,8 +18,8 @@ export const PowerUpPile: FC<PowerUpPileProps> = ({ data }) => {
     <>
       {displayPowerUps ? (
         <PowerUpSpreadContainer>
-          {data.map((powerUp) => (
-            <PowerUpCard powerUp={powerUp} key={powerUp.id} />
+          {data.map((powerUp, index) => (
+            <PowerUpCard powerUp={powerUp} key={index} />
           ))}
         </PowerUpSpreadContainer>
       ) : (

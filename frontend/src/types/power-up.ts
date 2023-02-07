@@ -100,7 +100,9 @@ export type UseCoupBackend = z.infer<typeof useCoupBackendSchema>;
 export const useSmokeAndMirrorsFrontendSchema = z.object({});
 export type UseSmokeAndMirrorsFrontend = z.infer<typeof useSmokeAndMirrorsFrontendSchema>;
 
-export const useSmokeAndMirrorsBackendSchema = z.object({});
+export const useSmokeAndMirrorsBackendSchema = z.object({
+  playerOrder: z.array(z.string()),
+});
 export type UseSmokeAndMirrorsBackend = z.infer<typeof useSmokeAndMirrorsBackendSchema>;
 
 export const useHypnosisFrontendSchema = z.object({});

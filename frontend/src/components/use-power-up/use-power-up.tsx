@@ -2,11 +2,12 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { useStore } from "../../store";
-import { BottomButtonWrapper, Heading2 } from "../atoms";
+import { Heading2 } from "../atoms";
 import { PowerUpResultView } from "../power-up-result-view";
 import { UseBirdsEye } from "./use-birds-eye";
 import { UseCoup } from "./use-coup";
 import { UseGrill } from "./use-grill";
+import { UseSmokeAndMirrors } from "./use-smoke-and-mirrors";
 
 /**
  * This component will return the result views if the result is present.
@@ -27,10 +28,12 @@ export const UsePowerUp: FC = () => {
         return <UseBirdsEye />;
       case "7":
         return <UseCoup />;
+      case "8":
+        return <UseSmokeAndMirrors />;
       default:
         return <Heading2>{text.newMatch.continueText}</Heading2>;
     }
   };
 
-  return <BottomButtonWrapper>{view()}</BottomButtonWrapper>;
+  return <>{view()}</>;
 };

@@ -116,7 +116,7 @@ export type UseSmokeAndMirrorsFrontend = {
 };
 
 export type UseSmokeAndMirrorsBackend = {
-  // keep empty
+  playerOrder: string[];
 };
 
 export interface UseHypnosisFrontend {}

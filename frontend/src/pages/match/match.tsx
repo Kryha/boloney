@@ -78,6 +78,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setPowerUpState = useStore((state) => state.setPowerUpState);
   const setPlayerRoundData = useStore((state) => state.setPlayerRoundData);
   const resetPowerUpState = useStore((state) => state.resetPowerUpState);
+  const setShufflingPlayers = useStore((state) => state.setShufflingPlayers);
 
   const joinMatchDone = useJoinMatch(matchId);
   const joinChatDone = useChatHistory(joinMatchDone);
@@ -113,7 +114,10 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           resetPowerUpState();
           break;
         case "8":
+          setPlayerOrder(data.playerOrder);
+          setShufflingPlayers(true);
           resetPowerUpState();
+          setTurnActionStep("pickAction");
           break;
       }
 
@@ -271,6 +275,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     setPowerUpIds,
     setPowerUpState,
     setRound,
+    setShufflingPlayers,
     setSpinnerVisibility,
     setStageNumberAndCounter,
     setTimerTimeInSeconds,

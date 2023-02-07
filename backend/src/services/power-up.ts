@@ -136,7 +136,7 @@ const useSmokeAndMirrors = (loopParams: MatchLoopParams, sender: Player): UseSmo
 
   state.timerHasStarted = false;
 
-  return {};
+  return { playerOrder: state.playerOrder };
 };
 
 const useHypnosis = async (loopParams: MatchLoopParams, data: UseHypnosisFrontend): Promise<UseHypnosisBackend> => {
@@ -172,6 +172,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     let resPayload: UsePowerUpPayloadBackend;
 
     let shouldRemovePowerUp = true;
+    let shouldBroadcastOnlyToSender = true;
 
     switch (id) {
       case "1": {
@@ -214,6 +215,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
       case "8": {
         const resData = useSmokeAndMirrors(loopParams, sender);
         resPayload = { id, data: resData };
+        shouldBroadcastOnlyToSender = false;
         break;
       }
       case "9": {
@@ -230,7 +232,11 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
 
     const senderPresence = state.presences[sender.userId];
 
-    dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload), [senderPresence]);
+    if (shouldBroadcastOnlyToSender) {
+      dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload), [senderPresence]);
+    } else {
+      dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload));
+    }
 
     updatePlayersState(state, dispatcher);
 

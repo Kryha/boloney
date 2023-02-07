@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 
 import { MatchPlayersOverviewWrapper } from "./styles";
 import { useStore } from "../../store";
@@ -15,15 +15,16 @@ export const MatchPlayersOverview: FC<MatchPlayersOverviewProps> = ({ playerOrde
   const matchStage = useStore((state) => state.matchStage);
   const leaderboard = useStore((state) => state.leaderboard);
   const localPlayer = useLocalPlayer();
-  const [isShuffling, setIsShuffling] = useState(false);
+  const isShuffling = useStore((state) => state.isShufflingPlayers);
+  const setShuffling = useStore((state) => state.setShufflingPlayers);
   const isEndOfMatch = matchStage === "endOfMatchStage";
-  // TODO: Fix animation for this component
-  // useEffect(() => {
-  //   setIsShuffeling(true);
-  //   setTimeout(() => {
-  //     setIsShuffeling((isShuffling) => !isShuffling);
-  //   }, 5500);
-  // }, [playerOrder]);
+
+  // TODO: fix bug where animation sometimes is not triggered for idle player.
+  useEffect(() => {
+    setTimeout(() => {
+      setShuffling(false);
+    }, 1500);
+  }, [setShuffling]);
 
   const winner = leaderboard.at(0);
 

@@ -76,6 +76,7 @@ interface MatchSliceSetters {
   getPlayerRoundData: (playerID: string) => PlayerRoundData | undefined;
 
   setPowerUpState: (powerUpState: PowerUpState) => void;
+  replacePowerUpState: (powerUpState: PowerUpState) => void;
   resetPowerUpState: () => void;
 }
 
@@ -182,4 +183,5 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
 
   setPowerUpState: (newState) => set(({ powerUpState }) => ({ powerUpState: { ...powerUpState, ...newState } })),
   resetPowerUpState: () => set(() => ({ powerUpState: initialPoweUpState })),
+  replacePowerUpState: (newState) => set(() => ({ powerUpState: newState })),
 });
