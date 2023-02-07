@@ -18,8 +18,6 @@ import { env } from "./constants";
 function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
   env.init(ctx);
 
-  logger.debug("Environment:", env);
-
   initializer.registerMatch<MatchState>("standard", {
     matchInit,
     matchJoinAttempt,
@@ -44,6 +42,8 @@ function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkrun
   initializer.registerRtBefore("ChannelMessageSend", rtBeforeChannelMessageSend);
 
   logger.info("JavaScript logic loaded.");
+
+  logger.info("Environment:", env);
 }
 
 // Reference InitModule to avoid it getting removed on build
