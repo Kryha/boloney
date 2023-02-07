@@ -2,13 +2,12 @@ import {
   errors,
   getLatestBid,
   getNextPlayerId,
-  getFilteredPlayerIds,
   getTotalDiceWithFace,
   hidePlayersData,
   isBidHigher,
   isBidMaxTotal,
   messageHandler,
-  sendNotification,
+  sendMatchNotification,
   setActivePlayer,
   setAllPlayersReady,
   stopLoading,
@@ -70,7 +69,7 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
 });
 
 const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => {
-  const { nk, logger, state, dispatcher } = loopParams;
+  const { logger, state, dispatcher } = loopParams;
 
   logger.info(sender.username, "called Boloney");
   setActivePlayer(sender.userId, state.players);
@@ -83,10 +82,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
     activePlayerName: state.presences[sender.userId].username,
     targetPlayerName: state.presences[bid.userId].username,
   };
-
-  const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
-
-  sendNotification(nk, idlePlayers, NotificationOpCode.BOLONEY, notificationContent);
+  sendMatchNotification(loopParams, NotificationOpCode.BOLONEY, notificationContent, sender.userId);
 
   const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
@@ -109,7 +105,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
 });
 
 const handlePlayerCallExact = messageHandler(async (loopParams, message, sender) => {
-  const { nk, logger, state, dispatcher } = loopParams;
+  const { logger, state, dispatcher } = loopParams;
 
   logger.info(sender.username, "called Exact");
 
@@ -118,13 +114,11 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
   const bid = getLatestBid(state.bids);
   if (!bid) throw errors.invalidPayload;
 
-  const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
-
   const notificationContent: NotificationContentCallExact = {
     activePlayerName: state.presences[sender.userId].username,
   };
 
-  sendNotification(nk, idlePlayers, NotificationOpCode.EXACT, notificationContent);
+  sendMatchNotification(loopParams, NotificationOpCode.EXACT, notificationContent, sender.userId);
 
   const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
@@ -202,8 +196,7 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
     activePlayerName: sender.username,
   };
 
-  const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
-  sendNotification(nk, idlePlayers, NotificationOpCode.HEAL_DICE, notificationContent);
+  sendMatchNotification(loopParams, NotificationOpCode.HEAL_DICE, notificationContent, sender.userId);
 
   const payloadDice: RollDicePayload = {
     diceValue: sender.diceValue,

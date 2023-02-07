@@ -12,7 +12,7 @@ import {
   RollDicePayload,
   MatchOpCode,
 } from "../types";
-import { sendNotification } from "./notification";
+import { sendMatchNotification } from "./notification";
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
   if (state.playersReady.includes(userId)) return;
@@ -146,7 +146,7 @@ export const getTotalDiceWithFace = (players: Record<string, Player>, face: numb
   );
 
 export const handlePlayerLostMatch = (loopParams: MatchLoopParams, loser: Player, opCode: NotificationOpCode) => {
-  const { nk, state } = loopParams;
+  const { state } = loopParams;
   state.leaderboard.unshift({ ...hidePlayerData(loser), lostAtRound: state.round });
 
   loser.status = "lost";
@@ -158,7 +158,7 @@ export const handlePlayerLostMatch = (loopParams: MatchLoopParams, loser: Player
   const notificationContent: NotificationContentPlayerLost = {
     activePlayerName: loser.username,
   };
-  sendNotification(nk, getFilteredPlayerIds(state.players, loser.userId), opCode, notificationContent);
+  sendMatchNotification(loopParams, opCode, notificationContent, loser.userId);
 };
 
 export const getLatestBid = (bids: Record<string, Bid>): BidWithUserId | undefined =>

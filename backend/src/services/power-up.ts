@@ -31,8 +31,8 @@ import {
 } from "../types";
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
-import { sendNotification } from "./notification";
-import { getFilteredPlayerIds, getNextPlayerId, setActivePlayer } from "./player";
+import { sendMatchNotification } from "./notification";
+import { getNextPlayerId, setActivePlayer } from "./player";
 import { shuffleArray, cleanUUID, getRange } from "../utils";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
@@ -247,8 +247,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
       callerName: sender.username,
       targetName: data && "targetId" in data ? state.players[data.targetId].username : undefined,
     };
-    const idlePlayers = getFilteredPlayerIds(state.players, sender.userId);
-    sendNotification(nk, idlePlayers, NotificationOpCode.USE_POWER_UP, notificationPayload);
+    sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, sender.userId);
   } catch (error) {
     logger.error("Use power-up", error);
     stopLoading(loopParams, message);

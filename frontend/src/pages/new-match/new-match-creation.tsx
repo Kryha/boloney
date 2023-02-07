@@ -2,7 +2,16 @@ import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { text } from "../../assets";
-import { FormContainer, Heading1, Heading4, GeneralContentWrapper, Paragraph, PrimaryButton, Heading6 } from "../../components";
+import {
+  FormContainer,
+  Heading1,
+  Heading4,
+  GeneralContentWrapper,
+  Paragraph,
+  PrimaryButton,
+  Heading6,
+  GoBackButton,
+} from "../../components";
 import { createMatch } from "../../service";
 import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
 import { useMatchCreationFormState } from "./match-creation-form-state";
@@ -14,6 +23,8 @@ import { BottomContainer, ButtonContainer, NewMatchContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
 import { cleanUUID } from "../../util";
 import { DEFAULT_MATCH_SETTINGS, MIN_POWERUPS_PER_PLAYER } from "../../constants";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../navigation";
 
 interface Props {
   setMatchId: (id: string) => void;
@@ -33,6 +44,7 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
   const availablePowerUps = useMatchCreationFormState((state) => state.availablePowerUps);
   const powerUpProbability = useMatchCreationFormState((state) => state.powerUpProbability);
   const isPowerUpError = useMatchCreationFormState((state) => state.getIsError());
+  const navigate = useNavigate();
 
   const watchPowerUpAmount = watch("initialPowerUpAmount", MIN_POWERUPS_PER_PLAYER);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,8 +75,13 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
     setIsLoading(false);
   });
 
+  const handleGoBack = () => {
+    navigate(routes.home);
+  };
+
   return (
     <NewMatchContainer>
+      <GoBackButton primaryText={text.playerTurn.back} onClick={handleGoBack} />
       <GeneralContentWrapper>
         <Heading1>{text.newMatch.newMatch}</Heading1>
         <Heading4>{text.newMatch.newMatchDescriptionFirstSentence}</Heading4>

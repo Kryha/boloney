@@ -5,7 +5,7 @@ import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
 import { routes } from "../../navigation";
 import { useLogout, useMatch } from "../../service";
 import { useSession, useStore } from "../../store";
-import { isNkError } from "../../types";
+import { isNkError, NavigationLocation } from "../../types";
 import { HorizontalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
 import { Ellipsis } from "../buttons/styles";
@@ -13,7 +13,6 @@ import { Dropdown } from "./dropdown";
 import { MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
 
-type NavigationLocation = "match" | "lobby" | "default";
 interface MenuDropdownProps {
   setHover?: (hover: boolean) => void;
   isActive: boolean;
