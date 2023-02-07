@@ -71,8 +71,14 @@ export const handlePlayerTurnMessage = messageHandler((loopParams, message, send
   }
 });
 
-export const handleReadyMessage = messageHandler(({ state }, message, sender) => {
+export const handleReadyMessage = messageHandler((loopParams, message, sender) => {
+  const { state } = loopParams;
+
   if (message.opCode === MatchOpCode.PLAYER_READY) {
     attemptSetPlayerReady(state, sender.userId);
+  }
+
+  if (message.opCode === MatchOpCode.PLAYER_LEFT) {
+    handlePlayerLeftDuringMatch(loopParams, sender.userId);
   }
 });

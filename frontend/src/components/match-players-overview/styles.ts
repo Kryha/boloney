@@ -59,6 +59,7 @@ export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
   background: ${({ isActive, customColor }): string => (isActive ? customColor || color.white : color.lightGrey)};
   height: ${({ hasPlayerLost }): string => (hasPlayerLost ? "100px" : `${GAME_PLAYER_HEIGHT}vh`)};
   position: relative;
+  ${(isTargetable) => isTargetable && "cursor: pointer;"}
   border-bottom: 1px solid ${color.mediumGrey};
   ${BadgeWrapper} {
     z-index: ${zIndex.inFront};

@@ -37,10 +37,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const hasPlayerLost = player.diceAmount === 0;
   const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
 
-  const isTargetable = (): boolean => {
-    if (player.status === "lost" || !activePowerUp || !!result) return false;
-    return powerUpRequiresTarget(activePowerUp.id);
-  };
+  const isTargetable = player.status !== "lost" && !!activePowerUp && !result && powerUpRequiresTarget(activePowerUp.id);
 
   const handleSelect = () => {
     setPowerUpState({ targetPlayerId: player.userId });
@@ -50,7 +47,8 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
     <MatchPlayersWrapper
       isActive={player.isActive || targetPowerUpPlayerId === player.userId}
       hasPlayerLost={hasPlayerLost}
-      isTargetable={isTargetable()}
+      isTargetable={isTargetable}
+      onClick={() => isTargetable && handleSelect()}
     >
       <PlayerBadge player={player} />
 
@@ -78,7 +76,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
         player={player}
         lastBid={lastBid}
         totalPlayers={totalPlayers}
-        hasRadioButton={isTargetable()}
+        hasRadioButton={isTargetable}
         isChecked={player.userId === targetPowerUpPlayerId}
         onSelect={handleSelect}
       />

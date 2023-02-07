@@ -24,6 +24,7 @@ export const PlayerOverview = styled.section<PlayerOverviewProps>`
 
 interface LocalPlayerProps {
   isLastBid: boolean;
+  isTargetable: boolean;
 }
 
 export const LocalPlayer = styled.div<LocalPlayerProps>`
@@ -34,6 +35,7 @@ export const LocalPlayer = styled.div<LocalPlayerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${(isTargetable) => isTargetable && "cursor: pointer;"}
   ${DiceContainer} {
     display: flex;
     flex-direction: column;

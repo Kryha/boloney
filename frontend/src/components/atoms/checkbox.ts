@@ -9,6 +9,7 @@ export const RadioCheckbox = styled.input`
   height: clamp(20px, 2.08vw + 0px, 40px);
   border: 1px solid ${color.mediumGrey};
   border-radius: 50%;
+  cursor: pointer;
   ::after {
     content: "";
     display: block;

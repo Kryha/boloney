@@ -37,7 +37,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
     <PlayerOverview isActive={player.isActive}>
       <PlayerBadge player={player} />
 
-      <LocalPlayer isLastBid={isPlayerLastBid}>
+      <LocalPlayer isLastBid={isPlayerLastBid} onClick={() => isTargetable && handleSelect()} isTargetable={isTargetable}>
         <PlayerAvatar height="10vh" src={avatar} />
         {isTargetable && <RadioButton onSelect={handleSelect} isChecked={targetPlayerId === player.userId} />}
         {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
