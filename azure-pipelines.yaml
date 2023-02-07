@@ -1,5 +1,8 @@
 trigger:
-  - develop
+  - deployment/nakama-env
+
+# trigger:
+#   - develop
 
 pool:
   vmImage: "ubuntu-latest"

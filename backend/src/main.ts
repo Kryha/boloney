@@ -18,6 +18,8 @@ import { env } from "./constants";
 function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
   env.init(ctx);
 
+  logger.info("Environment:", env);
+
   initializer.registerMatch<MatchState>("standard", {
     matchInit,
     matchJoinAttempt,
