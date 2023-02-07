@@ -3,13 +3,16 @@ import styled from "@emotion/styled";
 import { color } from "../../design";
 import { TopNavigationSection } from "../top-navigation/styles";
 
-export const BaseLayoutWrapper = styled.div`
+interface Props {
+  isLanding?: boolean;
+}
+export const BaseLayoutWrapper = styled.div<Props>`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   height: 100%;
   ${TopNavigationSection} {
-    position: relative;
+    ${({ isLanding }): string => (isLanding ? "position: absolute " : "position: relative")};
   }
 `;
 
@@ -29,4 +32,13 @@ export const MainSection = styled.section`
 export const RightSection = styled.section`
   width: 25vw;
   height: 100vh;
+`;
+
+export const EqualMainSection = styled(MainSection)`
+  width: 75vw;
+`;
+
+export const EqualRightSection = styled(RightSection)`
+  width: 12.5vw;
+  min-height: 100vh;
 `;

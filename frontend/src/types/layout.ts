@@ -3,4 +3,4 @@ export interface ViewProps {
   width: number;
 }
 
-export type NavigationLocation = "match" | "lobby" | "default";
+export type NavigationLocation = "match" | "lobby" | "landing" | "default";

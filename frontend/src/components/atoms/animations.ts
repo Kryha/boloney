@@ -130,3 +130,23 @@ export const shuffle = (percentages: string[]) => keyframes`
     border-right: none;
   }
 `;
+
+export const fadeUp = keyframes`
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  75% {
+    opacity: 0.75;
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
+export const fadeOut = keyframes`
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+`;

@@ -36,6 +36,7 @@ import GraveStone from "./lose-all-dice.png";
 import HealDiceCoffin from "./heal-dice-coffin.png";
 import PowerUpCards from "./power-up-cards.png";
 import TombstoneHand from "./tombstone-hand.png";
+import WhiteDice from "./white-dice.png";
 
 export * from "./dice-assets";
 
@@ -78,4 +79,5 @@ export {
   HealDiceCoffin,
   PowerUpCards,
   TombstoneHand,
+  WhiteDice,
 };

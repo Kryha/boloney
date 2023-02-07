@@ -173,7 +173,7 @@ export const RightButtonContainer = styled.div<ButtonProps>`
   justify-content: flex-end;
 `;
 
-export const LinkText = styled.a`
+export const LinkText = styled.h3`
   font-family: ibm-plex-mono;
   font-weight: ${fontWeight.light};
   font-size: ${fontSize.small1};

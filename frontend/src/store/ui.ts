@@ -11,6 +11,7 @@ export interface UISlice {
   isPlayerReady: boolean;
   isShufflingPlayers: boolean;
   timerTimeInSeconds: number;
+  isSidebarVisible: boolean;
 
   setModalComponentChildren: (component: OverlayComponent) => void;
   closeModal: () => void;
@@ -21,6 +22,7 @@ export interface UISlice {
   setSpinnerVisibility: (isVisible: boolean) => void;
   setPlayerReady: (isReady: boolean) => void;
   setTimerTimeInSeconds: (timeInSeconds: number) => void;
+  setIsSidebarVisible: (isVisible: boolean) => void;
   setShufflingPlayers: (isShuffling: boolean) => void;
 }
 
@@ -34,6 +36,7 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   isPlayerReady: false,
   isShufflingPlayers: false,
   timerTimeInSeconds: 0,
+  isSidebarVisible: false,
 
   setModalComponentChildren: (component: OverlayComponent) => set(() => ({ modalComponentChildren: component })),
   closeModal: () =>
@@ -79,5 +82,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
     })),
   setPlayerReady: (isReady) => set(() => ({ isPlayerReady: isReady })),
   setTimerTimeInSeconds: (timeInSeconds) => set(() => ({ timerTimeInSeconds: timeInSeconds })),
+  setIsSidebarVisible: (isVisible: boolean) => set(() => ({ isSidebarVisible: isVisible })),
   setShufflingPlayers: (isShufflingPlayers) => set(() => ({ isShufflingPlayers: isShufflingPlayers })),
 });

@@ -73,4 +73,5 @@ export const general = {
   badLuckWithYourMove: "bad luck with your move...",
   you: "you.",
   done: "done!",
+  login: "login",
 };
