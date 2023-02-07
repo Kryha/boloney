@@ -5,7 +5,6 @@ import { MatchStateItemStage } from "./match-stats-item-phase";
 import { MatchStateItemDrawRound } from "./match-stats-item-draw-round";
 import { DiceIcon } from "../../icons";
 import { color } from "../../../design";
-import { MATCH_STATS_DICE_VALUE } from "../../../constants";
 import { useTotalDiceInMatch } from "../../../service";
 import { useStore } from "../../../store";
 
@@ -18,7 +17,7 @@ export const MatchStats: FC = () => {
 
   return (
     <MatchStatsContainer>
-      <DiceIcon diceAmount={totalDice} faceColor={color.white} pipColor={color.black} diceValue={MATCH_STATS_DICE_VALUE} />
+      <DiceIcon diceAmount={totalDice} faceColor={color.white} pipColor={color.black} />
       <MatchStateVerticalDivider />
       <MatchStateItemStage phaseNumber={stageNumber} />
       <MatchStateVerticalDivider />

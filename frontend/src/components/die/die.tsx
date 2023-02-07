@@ -10,6 +10,7 @@ interface DieProps {
   faceColor?: string;
   pipColor?: string;
   isRow?: boolean;
+  isMatchSettings?: boolean;
 }
 
 export const findDieFace = (value?: number) => {
@@ -31,11 +32,11 @@ export const findDieFace = (value?: number) => {
   }
 };
 
-export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor, isRow }) => {
+export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor, isRow, isMatchSettings }) => {
   const diceSize = isRow ? LARGE_DIE_SIZE : size;
 
   return (
-    <DieWrapper faceColor={faceColor} size={diceSize} pipColor={pipColor} isDiceHidden={!value}>
+    <DieWrapper faceColor={faceColor} size={diceSize} pipColor={pipColor} isDiceHidden={!value} isMatchSettings={isMatchSettings}>
       {findDieFace(value)}
     </DieWrapper>
   );

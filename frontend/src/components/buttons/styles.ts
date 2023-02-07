@@ -163,7 +163,6 @@ export const RightButtonContainer = styled.div<ButtonProps>`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 13px ${margins.small5} 13px ${margins.small4};
   gap: ${margins.small1};
   ${SecondaryButtonBase} {
     padding: 0px;

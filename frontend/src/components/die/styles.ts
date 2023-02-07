@@ -9,10 +9,13 @@ interface FaceProps {
   pipColor?: string;
   borderRadius?: string;
   isDiceHidden?: boolean;
+  isMatchSettings?: boolean;
 }
 
 export const DieWrapper = styled.div<FaceProps>`
-  height: ${({ isDiceHidden }): string => (isDiceHidden ? "1em" : "clamp(18px, 2.08vw + -2px, 38px)")};
+  height: ${({ isDiceHidden, isMatchSettings }): string =>
+    isMatchSettings ? "" : isDiceHidden ? "1em" : "clamp(18px, 2.08vw + -2px, 38px)"};
+  padding-top: ${({ isMatchSettings }): string => (isMatchSettings ? "6px" : "")};
   > svg {
     width: ${({ size }): string => size || "clamp(18px, 2.08vw + -2px, 38px)"};
     height: ${({ size }): string => size || "clamp(18px, 2.08vw + -2px, 38px)"};

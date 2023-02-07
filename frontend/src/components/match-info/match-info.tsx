@@ -27,8 +27,7 @@ const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: MatchSett
         </>
       );
     case "dice":
-      // TODO: remove hardcoded value
-      return <DiceIcon diceAmount={matchSettings.dicePerPlayer} diceValue={2} faceColor={color.white} pipColor={color.black} />;
+      return <DiceIcon diceAmount={matchSettings.dicePerPlayer} faceColor={color.white} pipColor={color.black} isMatchSettings />;
     case "powerUps":
       return <PowerUpIcon powerUpAmount={matchSettings.initialPowerUpAmount} />;
     case "drawRoundOffset":

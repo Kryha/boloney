@@ -12,12 +12,13 @@ interface DiceUpProps {
   faceColor?: string;
   pipColor?: string;
   diceSum?: number;
+  isMatchSettings?: boolean;
 }
 
-export const DiceIcon: FC<DiceUpProps> = ({ diceAmount, diceValue, faceColor, pipColor, diceSum }) => {
+export const DiceIcon: FC<DiceUpProps> = ({ diceAmount, diceValue, faceColor, pipColor, diceSum, isMatchSettings }) => {
   return (
     <DiceIconWrapper>
-      <Die value={diceValue} size={margins.small4} faceColor={faceColor} pipColor={pipColor} />
+      <Die value={diceValue} size={margins.small4} faceColor={faceColor} pipColor={pipColor} isMatchSettings={isMatchSettings} />
       <GeneralText customColor={color.darkGrey}>{text.param.xAmount(diceAmount)}</GeneralText>
       {diceSum && (
         <GeneralText customColor={color.darkGrey}>
