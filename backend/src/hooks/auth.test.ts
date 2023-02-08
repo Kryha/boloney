@@ -87,7 +87,7 @@ describe("After authentication hook", () => {
 
     (mockHttpRequest as jest.Mock).mockReturnValueOnce(httpResponse);
 
-    const res = getNewKeysFromToolkit(mockNk, mockLogger);
+    const res = getNewKeysFromToolkit(mockCtx, mockLogger, mockNk);
 
     expect(res).toEqual(mockAccountKeys);
   });

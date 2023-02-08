@@ -58,7 +58,7 @@ export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data,
   if (storedKeys.length) return;
 
   // call the toolkit to generate some new keys and store them in the database
-  const newKeys = getNewKeysFromToolkit(nk, logger);
+  const newKeys = getNewKeysFromToolkit(ctx, logger, nk);
   const newKeyPayload = {
     ...payload,
     value: { viewKey: newKeys.viewKey, privateKey: newKeys.privateKey, address: newKeys.address },
@@ -77,8 +77,8 @@ export const readUserKeys = (nk: nkruntime.Nakama, userId: string, payload: Coll
   return existingKeys;
 };
 
-export const getNewKeysFromToolkit = (nk: nkruntime.Nakama, logger: nkruntime.Logger): AccountKeys => {
-  const url = tkUrl("/account/create");
+export const getNewKeysFromToolkit = (ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkruntime.Nakama): AccountKeys => {
+  const url = tkUrl(ctx, "/account/create");
   const res = nk.httpRequest(url, "post", undefined, undefined, 60000);
   return handleHttpResponse(res, logger);
 };
