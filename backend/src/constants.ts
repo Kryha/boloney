@@ -63,15 +63,6 @@ export const PRIVATE_KEY_PREFIX = "APrivateKey1";
 export const VIEW_KEY_PREFIX = "AViewKey1";
 export const ADDRESS_PREFIX = "aleo1";
 
-export const env = {
-  TOOLKIT_BASE_URL: "http://zk-gaming-tk.zk-gaming-tk-local.svc.cluster.local:5001",
-  // TODO: config envs correctly
-  // TOOLKIT_BASE_URL: "https://zk-gaming-tk.staging.kryha.dev",
-
-  init(ctx: nkruntime.Context) {
-    if (ctx.env.TOOLKIT_BASE_URL) this.TOOLKIT_BASE_URL = ctx.env.TOOLKIT_BASE_URL;
-  },
-};
 export const NOT_USED = "Don't use this title";
 export const MATCH_STAGES: readonly MatchStage[] = [
   "lobbyStage",

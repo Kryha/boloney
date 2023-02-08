@@ -13,11 +13,8 @@ import {
 } from "./game-modes/standard";
 import { rollDice, createMatch, findMatch, rtBeforeChannelMessageSend } from "./rpc";
 import { MatchState } from "./types";
-import { env } from "./constants";
 
-function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
-  env.init(ctx);
-
+function InitModule(_ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
   initializer.registerMatch<MatchState>("standard", {
     matchInit,
     matchJoinAttempt,

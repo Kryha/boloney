@@ -32,9 +32,10 @@ export const destroyPoweUp = async (state: MatchState, selectedPowerUps: PowerUp
 };
 
 const useBirdsEye = (loopParams: MatchLoopParams, powerUp: PowerUpToolkit, diceData: DiceDataToolkit): UseBirdsEyeResToolkit => {
-  const { nk } = loopParams;
+  const { nk, ctx } = loopParams;
 
-  const url = tkUrl("/power-ups/2");
+  const url = tkUrl(ctx, "/power-ups/2");
+
   const body: UseBirdsEyeBodyToolkit = { powerUp, diceData };
 
   const res = httpRequest(nk, url, "post", body);
