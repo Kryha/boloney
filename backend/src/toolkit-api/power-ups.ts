@@ -35,6 +35,9 @@ const useBirdsEye = (loopParams: MatchLoopParams, powerUp: PowerUpToolkit, diceD
   const { nk } = loopParams;
 
   const url = tkUrl("/power-ups/2");
+
+  loopParams.logger.info("POST URL:", url);
+
   const body: UseBirdsEyeBodyToolkit = { powerUp, diceData };
 
   const res = httpRequest(nk, url, "post", body);
