@@ -149,13 +149,13 @@ export const handlePlayerLeftDuringLobby = (state: MatchState, sender: string, d
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payload));
 };
 
-export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, message: nkruntime.MatchMessage, error?: nkruntime.Error | string) => {
+export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, sender: nkruntime.Presence, error?: nkruntime.Error | string) => {
   if (error) {
     const parsedError = parseError(error);
     logger.error("WS error:", parsedError);
     dispatcher.broadcastMessage(MatchOpCode.ERROR, JSON.stringify(parsedError));
   }
-  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [message.sender]);
+  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [sender]);
 };
 
 export const messageHandler: MessageHandler = (callback) => (loopParams, message, sender) => {
@@ -163,7 +163,7 @@ export const messageHandler: MessageHandler = (callback) => (loopParams, message
     callback(loopParams, message, sender);
   } catch (error) {
     const parsedError = parseError(error);
-    stopLoading(loopParams, message, parsedError);
+    stopLoading(loopParams, message.sender, parsedError);
   }
 };
 

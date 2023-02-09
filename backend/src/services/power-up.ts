@@ -32,8 +32,8 @@ import {
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
+import { cleanUUID, getRange, shuffleArray } from "../utils";
 import { getNextPlayerId, setActivePlayer } from "./player";
-import { shuffleArray, cleanUUID, getRange } from "../utils";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
   const { state } = loopParams;
@@ -86,8 +86,8 @@ const useDoubleUp = async (loopParams: MatchLoopParams, sender: Player): Promise
   const numberofNewPowerUps = sender.powerUpsAmount >= state.settings.maxPowerUpAmount ? 1 : 2;
   const newPowerUps =
     numberofNewPowerUps === 1
-      ? await Promise.all([getPowerUp(state.settings.powerUpProbability)])
-      : await Promise.all([getPowerUp(state.settings.powerUpProbability), getPowerUp(state.settings.powerUpProbability)]);
+      ? await Promise.all([getPowerUp(loopParams)])
+      : await Promise.all([getPowerUp(loopParams), getPowerUp(loopParams)]);
 
   if (!isPowerUpTypeArray(newPowerUps)) throw new Error("Failed to get new power-ups");
 
@@ -115,7 +115,7 @@ const useCoup = async (loopParams: MatchLoopParams, data: UseCoupFrontend, isSel
 
   const powerUpsAmount = isSelfTarget ? state.players[data.targetId].powerUpsAmount - 1 : state.players[data.targetId].powerUpsAmount;
 
-  const newPowerUps = await Promise.all(getRange(powerUpsAmount).map(async () => getPowerUp(state.settings.powerUpProbability)));
+  const newPowerUps = await Promise.all(getRange(powerUpsAmount).map(async () => getPowerUp(loopParams)));
   if (!isPowerUpTypeArray(newPowerUps)) throw new Error("Failed to get new power-ups.");
   state.players[data.targetId].powerUpIds = newPowerUps;
   state.players[data.targetId].powerUpsAmount = newPowerUps.length;
@@ -250,7 +250,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, sender.userId);
   } catch (error) {
     logger.error("Use power-up", error);
-    stopLoading(loopParams, message);
+    stopLoading(loopParams, message.sender);
   }
 };
 

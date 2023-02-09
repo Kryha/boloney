@@ -1,6 +1,22 @@
 import { PowerUpId } from "./power-up";
 import { isNumber } from "./primitive";
 
+export interface RandomNumberBodyToolkit {
+  seed: number;
+  min: number;
+  max: number;
+}
+
+export interface RandomNumberResToolkit {
+  randomNumber: number;
+}
+
+export const isRandomNumberResToolkit = (value: unknown): value is RandomNumberResToolkit => {
+  const assertedVal = value as RandomNumberResToolkit;
+
+  return assertedVal.randomNumber !== undefined && isNumber(assertedVal.randomNumber);
+};
+
 export interface PowerUpToolkit {
   owner: string;
   gates: number;

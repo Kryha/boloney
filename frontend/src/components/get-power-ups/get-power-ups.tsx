@@ -8,9 +8,16 @@ import { Timer } from "../timer";
 import { color } from "../../design";
 import { ErrorView } from "../error-view";
 import { ButtonReady } from "../button-ready";
+import { useEffectOnce } from "usehooks-ts";
+import { useStore } from "../../store";
 
 export const GetPowerUps: FC = () => {
   const localPlayer = useLocalPlayer();
+  const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+
+  useEffectOnce(() => {
+    setSpinnerVisibility(true);
+  });
 
   if (!localPlayer) return <ErrorView />;
 

@@ -65,7 +65,7 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
 
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify(playerActivePayload));
-  stopLoading(loopParams, message);
+  stopLoading(loopParams, message.sender);
 });
 
 const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => {
@@ -101,7 +101,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify(payload));
 
   setAction("Boloney", state);
-  stopLoading(loopParams, message);
+  stopLoading(loopParams, message.sender);
 });
 
 const handlePlayerCallExact = messageHandler(async (loopParams, message, sender) => {
@@ -140,7 +140,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
 
     await Promise.all(
       range(amountToReceive - 1).map(async () => {
-        const powerUpId = await getPowerUp(state.settings.powerUpProbability);
+        const powerUpId = getPowerUp(loopParams);
         if (isPowerUpId(powerUpId)) winner.powerUpIds.push(powerUpId);
       })
     );
@@ -157,7 +157,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify(payload));
 
   setAction("Exact", state);
-  stopLoading(loopParams, message);
+  stopLoading(loopParams, message.sender);
 });
 
 const handlePlayerCallHealDice = messageHandler(async (loopParams, message, sender) => {
@@ -211,7 +211,7 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
   };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_HEAL_DICE, JSON.stringify(payload));
 
-  stopLoading(loopParams, message);
+  stopLoading(loopParams, message.sender);
 });
 
 export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => {

@@ -74,13 +74,14 @@ export const msecToSec = (n: number): number => {
   return Math.floor(n / 1000);
 };
 
+// TODO: Reduce general Durations after Toolkit calls return quicker
 // Some stages have no timer at the moment but they may be implemented in the future
 // Duration is in seconds
 export const matchStageDuration: Record<MatchStage, number> = {
   lobbyStage: 0, // Stage does not have a timer
-  getPowerUpStage: 180,
-  rollDiceStage: 180,
-  playerTurnLoopStage: 180,
+  getPowerUpStage: 1800,
+  rollDiceStage: 1800,
+  playerTurnLoopStage: 1800,
   roundSummaryStage: 180,
   endOfMatchStage: 0, // Stage does not have a timer
   terminateMatchStage: 0, // Stage does not have a timer

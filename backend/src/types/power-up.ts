@@ -60,6 +60,14 @@ export const isPowerUpProbabilityArray = (values: unknown): values is PowerUpPro
   return areValid;
 };
 
+export interface ProbabilityRange {
+  id: string;
+  from: number;
+  to: number;
+}
+
+export type ProbabilityRanges = ProbabilityRange[];
+
 // USE_POWER_UP API payloads
 // TODO: define all types
 
@@ -87,7 +95,9 @@ export interface UseMenageFrontend {}
 
 export interface UseMenageBackend {}
 
-export type UseDoubleUpFrontend = {};
+export type UseDoubleUpFrontend = {
+  // TODO: improve these type definitions @marius
+};
 
 export interface UseDoubleUpBackend {
   powerUpIds: PowerUpId[];

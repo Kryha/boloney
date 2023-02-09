@@ -2,27 +2,79 @@ import {
   DiceDataToolkit,
   isBirdsEyeResToolkit,
   isPowerUpId,
+  isRandomNumberResToolkit,
   MatchLoopParams,
   MatchState,
   PowerUpId,
   PowerUpProbability,
   PowerUpToolkit,
+  ProbabilityRanges,
+  RandomNumberBodyToolkit,
   UseBirdsEyeBodyToolkit,
   UseBirdsEyeResToolkit,
 } from "../types";
-import { httpRequest, tkUrl } from "../utils";
+import { httpRequest, randomInt, tkUrl } from "../utils";
 
-//TODO: implement this function to work with the toolkit
-export const getPowerUp = async (powerUpProbability: PowerUpProbability[]): Promise<PowerUpId | undefined> => {
-  const availablePowerUps: string[] = [];
+export const getAvailablePowerUps = (powerUpsProbability: PowerUpProbability[]): PowerUpProbability[] => {
+  const availablePowerUps = powerUpsProbability.filter((powerUp) => powerUp.probability !== 0);
 
-  powerUpProbability.forEach((powerUp) => {
-    if (powerUp.probability !== 0) {
-      availablePowerUps.push(powerUp.id);
-    }
-  });
-  //TODO: Add a algorithm for the unequal distribution
-  const id = availablePowerUps[Math.floor(Math.random() * availablePowerUps.length)];
+  return availablePowerUps;
+};
+
+export const generateProbabilityRange = (powerUpsProbability: PowerUpProbability[]): ProbabilityRanges => {
+  const availablePowerUps = getAvailablePowerUps(powerUpsProbability);
+  const probabilityRanges: ProbabilityRanges = [];
+
+  availablePowerUps.reduce((accumulator, currentElement) => {
+    const currentTotal: number = accumulator + currentElement.probability;
+
+    probabilityRanges.push({
+      id: currentElement.id,
+      from: accumulator + 1,
+      to: currentTotal,
+    });
+
+    return currentTotal;
+  }, 0);
+
+  return probabilityRanges;
+};
+
+export const getPowerUpIdFromProbability = (randomNumber: number, probabilityRange: ProbabilityRanges): PowerUpId | undefined => {
+  const [id] = probabilityRange
+    .filter((segment) => segment.from <= randomNumber && randomNumber <= segment.to)
+    .map((segment) => segment.id);
+
+  if (!isPowerUpId(id)) return;
+  return id;
+};
+
+export const getPowerUp = (loopParams: MatchLoopParams): PowerUpId | undefined => {
+  const { nk, state, ctx } = loopParams;
+  const { powerUpProbability } = state.settings;
+
+  const availablePowerUps = getAvailablePowerUps(powerUpProbability);
+  const probabilityRange = generateProbabilityRange(availablePowerUps);
+
+  // Generate Random Number 1-100
+  // TODO: For now mock the seed, eventually get it from the combined hashes
+  const mockRn = randomInt(1, 999999999999999);
+  const randomSeed = mockRn;
+
+  const url = tkUrl(ctx, "/random/number");
+  const body: RandomNumberBodyToolkit = { seed: randomSeed, min: 1, max: 100 };
+
+  // TODO: Return a PowerUpRecord and extract ID
+  const res = httpRequest(nk, url, "post", body);
+  const parsedBody = JSON.parse(res.body);
+
+  if (!isRandomNumberResToolkit(parsedBody)) throw new Error(res.body);
+
+  // Use random number to get PowerUpId based on given probabilities
+  const id = getPowerUpIdFromProbability(parsedBody.randomNumber, probabilityRange);
+
+  // TODO: Store PU Record
+
   if (!isPowerUpId(id)) return;
   return id;
 };

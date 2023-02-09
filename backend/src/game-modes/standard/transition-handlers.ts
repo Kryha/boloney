@@ -63,13 +63,13 @@ export const handleRoundSummaryTransition = transitionHandler(async (loopParams,
     state.drawRoundCounter = calcDrawRoundCounter(state.stageNumber, state.settings.drawRoundOffset);
   } else if (state.drawRoundCounter === 1) {
     state.drawRoundCounter--;
+
     // give each player a new power-up when the counter reaches 0
     await Promise.all(
       playersList.map(async (player) => {
         if (player.powerUpIds.length >= state.settings.maxPowerUpAmount) return;
 
-        // TODO: add ZK logic here
-        const powerUpId = await getPowerUp(state.settings.powerUpProbability);
+        const powerUpId = getPowerUp(loopParams);
         if (isPowerUpId(powerUpId)) player.powerUpIds.push(powerUpId);
 
         const payload: PlayerGetPowerUpsPayloadBackend = player.powerUpIds;

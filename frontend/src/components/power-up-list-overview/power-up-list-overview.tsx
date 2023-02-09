@@ -41,12 +41,11 @@ export const PowerUpListUse: FC<Props> = ({ powerUpIds }) => {
 
   const handleClick = async (powerUp: PowerUp) => {
     replacePowerUpState({ active: powerUp });
+    hideModal();
 
     if (isPowerUpTriggeredImmediately(powerUp.id)) {
       await broadcastUseImmediatePowerUp(powerUp.id);
     }
-
-    hideModal();
   };
 
   return <PowerUpList powerUps={powerUps} onClick={handleClick} />;

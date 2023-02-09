@@ -1,4 +1,4 @@
-import { logicHandler, handleTimeOutTicks } from "../../services";
+import { logicHandler, handleTimeOutTicks, stopLoading } from "../../services";
 import { getPowerUp } from "../../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, PlayerGetPowerUpsPayloadBackend } from "../../types";
 import { getRange } from "../../utils";
@@ -19,19 +19,24 @@ export const handlePowerUpLogic = logicHandler(async (loopParams: MatchLoopParam
 
   handleTimeOutTicks(loopParams);
 
+  // TODO: Store PowerUp records instead of just IDs
   await Promise.all(
     playersList.map(async (player) => {
       if (player.hasInitialPowerUps) return;
+
       await Promise.all(
         range.map(async () => {
-          const powerUpId = await getPowerUp(state.settings.powerUpProbability);
+          const powerUpId = getPowerUp(loopParams);
           if (isPowerUpId(powerUpId)) player.powerUpIds.push(powerUpId);
         })
       );
+
       player.hasInitialPowerUps = true;
 
       const payload: PlayerGetPowerUpsPayloadBackend = player.powerUpIds;
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(payload), [state.presences[player.userId]]);
+
+      stopLoading(loopParams, state.presences[player.userId]);
     })
   );
 });
