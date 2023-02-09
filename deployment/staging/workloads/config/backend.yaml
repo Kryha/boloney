@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: "eu.gcr.io/web3-335312/aleo/liars-dice/backend:latest"
+          image: "eu.gcr.io/web3-335312/aleo/boloney/backend:latest"
           env:
             - name: POD_NAMESPACE
               valueFrom:

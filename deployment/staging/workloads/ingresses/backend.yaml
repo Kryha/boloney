@@ -8,17 +8,17 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "https://liars-dice.staging.kryha.dev"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://boloney.staging.kryha.dev"
 spec:
   tls:
-    - secretName: "backend.liars-dice.staging.kryha.dev"
+    - secretName: "backend.boloney.staging.kryha.dev"
       hosts:
-        - "backend.liars-dice.staging.kryha.dev"
-    - secretName: "api.liars-dice.staging.kryha.dev"
+        - "backend.boloney.staging.kryha.dev"
+    - secretName: "api.boloney.staging.kryha.dev"
       hosts:
-        - "api.liars-dice.staging.kryha.dev"
+        - "api.boloney.staging.kryha.dev"
   rules:
-    - host: "backend.liars-dice.staging.kryha.dev"
+    - host: "backend.boloney.staging.kryha.dev"
       http:
         paths:
           - path: "/(.*)"
@@ -28,7 +28,7 @@ spec:
                 name: backend
                 port:
                   name: dashboard
-    - host: "api.liars-dice.staging.kryha.dev"
+    - host: "api.boloney.staging.kryha.dev"
       http:
         paths:
           - path: "/(.*)"

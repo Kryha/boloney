@@ -1,8 +1,8 @@
 {
-  "name": "@zk-liars-dice/frontend",
+  "name": "@boloney/frontend",
   "private": true,
   "version": "0.0.1",
-  "description": "Liar's Dice frontend",
+  "description": "Boloney frontend",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

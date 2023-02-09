@@ -10,4 +10,4 @@ resources:
 patchesStrategicMerge:
   - config/frontend.yaml
   - config/backend.yaml
-namespace: liars-dice-staging
+namespace: boloney-staging

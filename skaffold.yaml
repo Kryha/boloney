@@ -1,7 +1,7 @@
 apiVersion: skaffold/v3
 kind: Config
 metadata:
-  name: liars-dice
+  name: boloney
 build:
   tagPolicy:
     sha256: {}
@@ -9,10 +9,10 @@ build:
     concurrency: 0
     push: true
   artifacts:
-    - image: localhost:5000/aleo/liars-dice/frontend
+    - image: localhost:5000/aleo/boloney/frontend
       docker:
         dockerfile: Dockerfile.frontend
-    - image: localhost:5000/aleo/liars-dice/backend
+    - image: localhost:5000/aleo/boloney/backend
       docker:
         dockerfile: Dockerfile.backend
 manifests:

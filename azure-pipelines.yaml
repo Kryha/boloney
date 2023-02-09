@@ -33,7 +33,7 @@ stages:
             inputs:
               connectionType: "Kubernetes Service Connection"
               kubernetesServiceEndpoint: "gke-zk-gaming"
-              namespace: "liars-dice-staging"
+              namespace: "boloney-staging"
               command: "login"
           - script: |
               envsubst < deployment/staging/workloads/secrets/backend.template.yaml > deployment/staging/workloads/secrets/backend.yaml

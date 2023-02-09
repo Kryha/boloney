@@ -1,8 +1,8 @@
 {
-  "name": "zk-liars-dice",
+  "name": "boloney",
   "private": true,
   "version": "0.0.1",
-  "description": "Liar's Dice game",
+  "description": "Boloney game",
   "packageManager": "yarn@3.2.2",
   "workspaces": [
     "frontend/",

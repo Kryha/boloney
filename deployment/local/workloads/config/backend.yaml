@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: "localhost:5000/aleo/liars-dice/backend:latest"
+          image: "localhost:5000/aleo/boloney/backend:latest"
           env:
             - name: POD_NAMESPACE
               valueFrom:

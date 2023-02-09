@@ -10,4 +10,4 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: "localhost:5000/aleo/liars-dice/frontend:latest"
+          image: "localhost:5000/aleo/boloney/frontend:latest"
