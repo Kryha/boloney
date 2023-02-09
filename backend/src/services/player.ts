@@ -1,3 +1,4 @@
+import { EMPTY_DATA } from "../constants";
 import { rollDice } from "../toolkit-api";
 import {
   Bid,
@@ -66,10 +67,14 @@ export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: s
   player.hasRolledDice = true;
 
   try {
-    const diceValue = await rollDice(player.diceAmount);
+    const diceValue = await rollDice(loopParams, player.diceAmount);
+
+    if (!diceValue) throw Error("Rolling dice has failed");
+
     player.diceValue = diceValue;
 
     const payload: RollDicePayload = { diceValue };
+    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [state.presences[playerId]]);
     dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [state.presences[playerId]]);
   } catch (error) {
     player.hasRolledDice = false;

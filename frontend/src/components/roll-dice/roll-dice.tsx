@@ -17,6 +17,7 @@ import { RollingDice } from "../dice-animation";
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
 
+  const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const hasRolledDice = useStore((state) => state.hasRolledDice);
   const localPlayer = useLocalPlayer();
   const setPlayerReady = useStore((state) => state.setPlayerReady);
@@ -27,18 +28,16 @@ export const RollDice: FC = () => {
 
   const dieColor = getDieColor(localPlayer);
 
+  const handleClick = (): void => {
+    setSpinnerVisibility(true);
+    setPlayerReady(false);
+    sendMatchState(MatchOpCode.ROLL_DICE);
+  };
+
   const button = () => {
     if (localPlayer.status === "lost") return <></>;
     if (hasRolledDice) return <ButtonReady />;
-    return (
-      <PrimaryButton
-        primaryText={text.general.rollIt}
-        onClick={() => {
-          setPlayerReady(false);
-          sendMatchState(MatchOpCode.ROLL_DICE);
-        }}
-      />
-    );
+    return <PrimaryButton primaryText={text.general.rollIt} onClick={() => handleClick()} />;
   };
 
   if (hasRolledDice && isPlayerReady) {

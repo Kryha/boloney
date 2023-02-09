@@ -1,3 +1,4 @@
+import { EMPTY_DATA } from "../../../constants";
 import {
   errors,
   getLatestBid,
@@ -177,7 +178,10 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
     // create die record
 
     // roll the die
-    const newRolledDice = await rollDice(1);
+    const newRolledDice = await rollDice(loopParams, 1);
+
+    if (!newRolledDice) throw Error("Rolling dice has failed");
+
     state.players[sender.userId].diceValue.push(newRolledDice[0]);
 
     // removes the powerUpIds from the state and toolkit
@@ -201,6 +205,8 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
   const payloadDice: RollDicePayload = {
     diceValue: sender.diceValue,
   };
+
+  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [state.presences[sender.userId]]);
   dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payloadDice), [state.presences[sender.userId]]);
 
   const payloadPowerUps: PlayerGetPowerUpsPayloadBackend = sender.powerUpIds;
