@@ -10,4 +10,4 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: eu.gcr.io/web3-335312/aleo/boloney/frontend:latest
+          image: eu.gcr.io/web3-335312/aleo/boloney-staging/frontend:latest

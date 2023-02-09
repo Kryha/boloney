@@ -9,7 +9,7 @@ build:
     concurrency: 0
     push: true
   artifacts:
-    - image: eu.gcr.io/web3-335312/aleo/boloney/frontend
+    - image: eu.gcr.io/web3-335312/aleo/boloney-staging/frontend
       docker:
         dockerfile: Dockerfile.frontend
         buildArgs:
@@ -17,7 +17,7 @@ build:
           VITE_API_URL: api.boloney.staging.kryha.dev
           VITE_USE_SSL: true
           VITE_API_PORT: "443"
-    - image: eu.gcr.io/web3-335312/aleo/boloney/backend
+    - image: eu.gcr.io/web3-335312/aleo/boloney-staging/backend
       docker:
         dockerfile: Dockerfile.backend
 manifests:
