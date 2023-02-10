@@ -11,6 +11,7 @@ interface ToastMessageProps {
   description?: string;
   isMultipleMessage?: boolean;
   wordsToBold?: string[] | RegExp[];
+  isButtonVisible?: boolean;
 }
 
 export const ToastMessage: FC<ToastMessageProps> = ({
@@ -20,9 +21,10 @@ export const ToastMessage: FC<ToastMessageProps> = ({
   description = "",
   isMultipleMessage = false,
   wordsToBold = [],
+  isButtonVisible,
 }) => {
   return (
-    <MultipleToastWrapper>
+    <MultipleToastWrapper isButtonVisible={isButtonVisible}>
       {isMultipleMessage && <MultipleToast />}
       <ToastWrapper>
         <ToastImage src={img} alt={title} />

@@ -75,6 +75,18 @@ export const slideUp = keyframes`
   }
 `;
 
+export const slideRight = keyframes`
+
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+`;
+
 // shuffle
 export const shuffle = (percentages: string[]) => keyframes`
   0%   {

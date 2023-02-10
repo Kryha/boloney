@@ -1,5 +1,7 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect } from "react";
 import { color } from "../../design";
+import { useObserver } from "../../hooks";
+import { useStore } from "../../store";
 import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
 import { Tooltip, InfoPosition } from "../tooltip";
 import {
@@ -30,15 +32,31 @@ interface ButtonProps {
   tooltipInfo?: string;
   tooltipInfoPosition?: InfoPosition;
   width?: number;
+  isBottomButton?: boolean;
 }
 
 interface DropdownButtonProps extends ButtonProps {
   icon: ReactNode;
 }
 
-export const PrimaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText, secondaryText, type = "button", width }) => {
+export const PrimaryButton: FC<ButtonProps> = ({
+  disabled,
+  onClick,
+  primaryText,
+  secondaryText,
+  type = "button",
+  width,
+  isBottomButton,
+}) => {
+  const { ref, isVisible } = useObserver();
+  const setBottomButtonVisible = useStore((state) => state.setBottomButtonVisible);
+
+  useEffect(() => {
+    if (isBottomButton) setBottomButtonVisible(isVisible);
+  }, [isBottomButton, isVisible, setBottomButtonVisible]);
+
   return (
-    <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled}>
+    <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled} ref={ref}>
       <PrimaryButtonContainer disabled={disabled} width={width}>
         <InitialButtonView>
           <PrimaryButtonBase type={type} disabled={disabled}>

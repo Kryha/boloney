@@ -253,6 +253,7 @@ export const DiceContainer = styled.div`
   align-items: center;
   padding: 0px;
   gap: 14px;
+  scale: 85%;
 `;
 
 export const AmountDice = styled.div`

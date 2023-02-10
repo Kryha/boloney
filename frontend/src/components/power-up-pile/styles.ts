@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { color, zIndex } from "../../design";
+import { fadeIn, slideRight } from "../atoms";
 import { PowerUpCardWrapper } from "../power-up-card/styles";
 
 export const PowerUpPileContainer = styled.section`
@@ -16,6 +17,10 @@ export const PowerUpPileContainer = styled.section`
     min-height: 330px;
     z-index: ${zIndex.inFront};
   }
+  -webkit-animation-name: ${fadeIn};
+  -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);
+  -webkit-animation-duration: 0.3s;
+  -webkit-animation-fill-mode: forwards;
 `;
 
 export const EmptyPowerUpCard = styled.div`
@@ -41,4 +46,10 @@ export const PowerUpSpreadContainer = styled.div`
   padding: 0px;
   gap: 30px;
   margin-top: 30px;
+  ${PowerUpCardWrapper} {
+    -webkit-animation-name: ${slideRight};
+    -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-fill-mode: forwards;
+  }
 `;

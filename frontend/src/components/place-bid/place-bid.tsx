@@ -55,6 +55,7 @@ export const DiceSelector: FC<DiceSelectorProps> = ({ lastBid, player, disabled,
           primaryText={primaryText}
           secondaryText={secondaryText}
           onClick={handleClick}
+          isBottomButton
         />
       </BottomButtonWrapper>
     </DiceSelectorWrapper>

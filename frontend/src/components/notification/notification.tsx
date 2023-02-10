@@ -1,12 +1,14 @@
 import { FC, useCallback, useEffect } from "react";
 import { NOTIFICATION_VISIBILITY_TIME } from "../../constants";
 import { useNotificationListener, useDeleteNotification } from "../../service";
+import { useStore } from "../../store";
 
 import { ToastMessage } from "../toast-message";
 
 export const MatchNotification: FC = () => {
   const { notifications } = useNotificationListener();
   const { deleteNotification } = useDeleteNotification();
+  const isBottomButtonVisible = useStore((state) => state.isBottomButtonVisible);
 
   const notificationData = notifications.at(0);
 
@@ -34,6 +36,7 @@ export const MatchNotification: FC = () => {
       isMultipleMessage={notifications.length > 1}
       closeToast={closeNotification}
       wordsToBold={notificationData.boldText}
+      isButtonVisible={isBottomButtonVisible}
     />
   );
 };

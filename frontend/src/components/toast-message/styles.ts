@@ -45,12 +45,17 @@ export const ToastDescriptionContainer = styled.div`
   }
 `;
 
-export const MultipleToastWrapper = styled.section`
+interface MultipleToastProps {
+  isButtonVisible?: boolean;
+}
+
+export const MultipleToastWrapper = styled.section<MultipleToastProps>`
   position: absolute;
   width: clamp(541.2px, 57.23vw + -8.2px, 1090.6px);
   height: clamp(114.18px, 12.07vw + -1.73px, 230.09px);
+  bottom: ${({ isButtonVisible }) => (isButtonVisible ? "5em" : "2vh")};
+
   left: ${margins.small5};
-  bottom: ${margins.large3};
 `;
 
 export const MultipleToast = styled.div`

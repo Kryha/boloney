@@ -8,7 +8,7 @@ import { PrimaryButton } from "../buttons";
 import { useLocalPlayer, useMatch } from "../../service";
 import { color } from "../../design";
 import { PlayerLeaderboard } from "./player-leaderboard";
-import { EndOfMatchWrapper, TitleSection } from "./styles";
+import { EndOfMatchWrapper, MatchStatsButtonWrapper, TitleSection } from "./styles";
 import { useStore } from "../../store";
 
 export const EndOfMatch: FC = () => {
@@ -53,7 +53,9 @@ export const EndOfMatch: FC = () => {
         <PlayerLeaderboard key={player.userId} player={player} rank={i + 1} />
       ))}
 
-      <PrimaryButton primaryText={text.match.homePage} onClick={() => handleNewMatch()} />
+      <MatchStatsButtonWrapper>
+        <PrimaryButton primaryText={text.match.homePage} onClick={() => handleNewMatch()} />
+      </MatchStatsButtonWrapper>
     </EndOfMatchWrapper>
   );
 };

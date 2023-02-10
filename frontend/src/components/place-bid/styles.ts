@@ -15,7 +15,7 @@ export const DiceSelectorWrapper = styled.section`
 
 export const DiceSelectorContainer = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 3vw;
 `;
 
@@ -24,6 +24,7 @@ export const FaceContainer = styled.div`
 `;
 
 export const DiceContainer = styled.div`
+  position: relative;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 5px;
   display: grid;
@@ -34,6 +35,7 @@ export const DiceContainer = styled.div`
       border-radius: 8px;
     }
   }
+  bottom: 1vh;
 `;
 
 export interface DieProps {
@@ -56,6 +58,14 @@ export const Die = styled.div<DieProps>`
     isSelected && !disabled ? "0px 0px 10px rgba(0, 0, 0, 0.16), 0px 0px 30px rgba(0, 0, 0, 0.4)" : "none"};
   box-shadow: ${({ isSelected, disabled }): string =>
     isSelected && !disabled ? "0px 0px 10px rgba(0, 0, 0, 0.16), 0px 0px 30px rgba(0, 0, 0, 0.4)" : "none"};
+  :hover {
+    ${DieWrapper} {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.16), 0px 0px 30px rgba(0, 0, 0, 0.4);
+      -webkit-box-shadow: 0px 0px 10px rgb(0 0 0 / 16%), 0px 0px 30px rgb(0 0 0 / 40%);
+      border-radius: 8px;
+      -webkit-appearance: none;
+    }
+  }
 `;
 
 export const AmountContainer = styled.div`

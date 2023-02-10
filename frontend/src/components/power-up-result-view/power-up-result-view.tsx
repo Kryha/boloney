@@ -54,7 +54,7 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
   return (
     <BottomButtonWrapper>
       {showResult()}
-      <PrimaryButton primaryText={text.general.done} onClick={handleDone} />
+      <PrimaryButton primaryText={text.general.done} onClick={handleDone} isBottomButton />
     </BottomButtonWrapper>
   );
 };

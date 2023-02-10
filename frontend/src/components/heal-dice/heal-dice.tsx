@@ -69,7 +69,9 @@ export const HealDice: FC = () => {
         ))}
       </PowerUpSelectionWrapper>
       <BottomButtonWrapper>
-        {reachedMaxSelectedPowerUps && <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} />}
+        {reachedMaxSelectedPowerUps && (
+          <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} isBottomButton />
+        )}
       </BottomButtonWrapper>
     </HealDiceWrapper>
   );

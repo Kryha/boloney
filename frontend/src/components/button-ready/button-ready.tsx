@@ -20,5 +20,7 @@ export const ButtonReady: FC = () => {
     broadcastPlayerReady();
   };
 
-  return <PrimaryButton disabled={isPlayerReady || isLoser} primaryText={text.match.goForIt} onClick={() => handleClick()} />;
+  return (
+    <PrimaryButton disabled={isPlayerReady || isLoser} primaryText={text.match.goForIt} onClick={() => handleClick()} isBottomButton />
+  );
 };

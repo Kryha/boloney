@@ -26,7 +26,7 @@ export const CallAction: FC<CallActionProps> = ({ isCallBoloney = false, image, 
     <CallActionWrapper>
       <BottomButtonWrapper>
         <ActionImage src={image} alt={alt} isCallBoloney={isCallBoloney} />
-        <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => takeAction()} />
+        <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => takeAction()} isBottomButton />
       </BottomButtonWrapper>
     </CallActionWrapper>
   );

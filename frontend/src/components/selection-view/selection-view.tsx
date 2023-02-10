@@ -37,7 +37,7 @@ export const SelectionView: FC<SelectionViewProps> = ({ powerUpName, userId, onC
       <Heading2>{text.powerUps.whoIsGoingToGetIt}</Heading2>
       <Heading2 customColor={color.darkGrey}>{text.param.choosePlayer(powerUpName)}</Heading2>
       {userId && <SelectionHand userId={userId} />}
-      {onClick && <PrimaryButton primaryText={text.match.goForIt} onClick={() => onClick()} />}
+      {onClick && <PrimaryButton primaryText={text.match.goForIt} onClick={() => onClick()} isBottomButton />}
     </BottomButtonWrapper>
   );
 };

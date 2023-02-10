@@ -7,6 +7,7 @@ import { text } from "../../assets/text";
 import { useViewport } from "../../hooks";
 import { Die } from "../../types";
 import { MAX_DICE_VIEW_AMOUNT } from "../../constants";
+import { useLocalPlayer } from "../../service";
 
 interface DiceOverviewProps {
   dice?: Die[];
@@ -15,8 +16,14 @@ interface DiceOverviewProps {
 
 export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor }) => {
   const { height } = useViewport();
+  const localPlayer = useLocalPlayer();
 
-  if (!dice || !dice.length) return <DieOverviewContainer height={height} />;
+  if (!dice || !dice.length)
+    return (
+      <DieOverviewContainer height={height}>
+        {localPlayer ? <GeneralText>{text.param.xAmount(localPlayer.diceAmount)}</GeneralText> : <></>}
+      </DieOverviewContainer>
+    );
 
   const isRow = dice.length < MAX_DICE_VIEW_AMOUNT;
 
