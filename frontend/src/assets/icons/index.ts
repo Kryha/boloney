@@ -35,6 +35,7 @@ import { ReactComponent as Crown } from "./crown.svg";
 import { ReactComponent as CoolHand } from "./cool-hand.svg";
 import { ReactComponent as ArrowButton } from "./arrow-button.svg";
 import { ReactComponent as LockIcon } from "./lock.svg";
+import { ReactComponent as WhiteDiceIcon } from "./white-dice.svg";
 
 export {
   PlusIcon,
@@ -75,4 +76,5 @@ export {
   CoolHand,
   ArrowButton,
   LockIcon,
+  WhiteDiceIcon,
 };

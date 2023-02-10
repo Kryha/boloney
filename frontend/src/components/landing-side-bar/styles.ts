@@ -1,0 +1,131 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { WhiteDiceIcon } from "../../assets";
+import { color } from "../../design";
+import { fadeOut, slideUpFromBottom } from "../atoms";
+import { ButtonContainer } from "../buttons/styles";
+import { Hand, HandContainer, HandWrapper, ImageWrapper, Paint } from "../hand/styles";
+
+interface Props {
+  isDice?: boolean;
+  isSidebarVisible?: boolean;
+}
+
+interface DiceProps {
+  customColor: string;
+}
+
+export const LandingSideBarWrapper = styled.section`
+  min-height: 100vh;
+  height: 100%;
+  position: fixed;
+  width: 12.5vw;
+  ${ButtonContainer} {
+    background: ${color.lightGrey};
+    height: 5.5vh;
+  }
+`;
+
+export const ColumnGroup = styled.div<Props>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 0px 30px;
+  ${ImageWrapper} {
+    height: 15vh;
+    width: 7.21vw;
+  }
+
+  ${HandContainer} {
+    height: 15vh;
+    width: 7.21vw;
+  }
+
+  ${Hand} {
+    width: auto !important;
+    height: 100% !important;
+  }
+  ${Paint} {
+    width: auto !important;
+    height: 100% !important;
+  }
+
+  ${({ isDice }) =>
+    isDice
+      ? `
+      padding-top: 0;
+      zoom: 0.5;
+      gap: 14vh;
+      ${HandContainer} {
+        height: 15vh;
+        width: 7.21vw;
+      }
+      ${ImageWrapper} {
+        height: 11vh;
+        width: 7.21vw;
+      }
+  `
+      : `
+      zoom: 0.37;
+      gap: 17vh;
+      `}
+`;
+
+export const SidebarWrapper = styled.div<Props>`
+  ${({ isSidebarVisible }) =>
+    isSidebarVisible
+      ? css`
+          visibility: visible;
+          ${HandWrapper} {
+            -webkit-animation-name: ${slideUpFromBottom};
+            -webkit-animation-timing-function: cubic-bezier(0.71, -0.36, 0.48, 1.54);
+            -webkit-animation-duration: 1s;
+            -webkit-animation-fill-mode: forwards;
+          }
+          ${HandWrapper}:nth-of-type(1) {
+            animation-delay: 2.2s;
+            opacity: 0;
+          }
+          ${HandWrapper}:nth-of-type(2) {
+            animation-delay: 1.8s;
+            opacity: 0;
+          }
+          ${HandWrapper}:nth-of-type(3) {
+            animation-delay: 1.4s;
+            opacity: 0;
+          }
+          ${HandWrapper}:nth-of-type(4) {
+            animation-delay: 1.1s;
+            opacity: 0;
+          }
+          ${HandWrapper}:nth-of-type(5) {
+            animation-delay: 0.8s;
+            opacity: 0;
+          }
+          ${HandWrapper}:nth-of-type(6) {
+            animation-delay: 0.4s;
+            opacity: 0;
+          }
+          ${HandWrapper}:nth-of-type(7) {
+            animation-delay: 0s;
+            opacity: 0;
+          }
+        `
+      : css`
+          animation: ${fadeOut} 1.2s forwards;
+          visibility: hidden;
+        `}
+`;
+
+export const SidebarContainer = styled.div`
+  padding-top: 5.5vh;
+`;
+
+export const WhiteDice = styled(WhiteDiceIcon)<DiceProps>`
+  width: 7.5vw;
+  height: auto;
+  ellipse {
+    fill: ${({ customColor }) => `${customColor}`};
+  }
+`;

@@ -6,7 +6,7 @@ export const landing = {
     "behind Boloney!'s tech lies the zero-knowledge gaming toolkit developed by Kryha on Aleo. This toolkit uses zero-knowledge proofs (ZKPs) to allow players to prove that their statements are valid without revealing the statements themselves, keeping the hidden elements of their game strategy for their eyes only. For private, secure on-chain gaming, without the fun-squashing giveaways!",
   paragraphTwoHeading: "a scalable MVP created by Kryha",
   paragraphTwo:
-    "Boloney! was built as a scalable MVP to showcase the power of ZKPs for gaming in the Web3 ecosystem, allowing games to be played truly decentralised. It’s the first game built with the ZK-gaming toolkit developed by Kryha and built on Aleo, of many more to come.",
+    "Boloney! was built as a scalable MVP to showcase the power of ZKPs for gaming in the Web3 ecosystem, allowing games to be played truly decentralised. It's the first game built with the ZK-gaming toolkit developed by Kryha and built on Aleo, of many more to come.",
   paragraphThreeHeading: "the best Boloney! is the group kind",
   paragraphThree:
     "We want to shape Boloney! together, as a community. We're ready for your feedback on how to improve and evolve the game.",
@@ -35,5 +35,5 @@ export const landing = {
   // TODO: Put discord link
   discordLink: "https://joindiscord.com",
   letsRoll:
-    "lets roll! Lets roll! Lets roll! Let's roll! Lets roll! Lets roll! Lets roll! Let's roll! Lets roll! Lets roll! Lets roll! Let's roll!",
+    "let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll!",
 };

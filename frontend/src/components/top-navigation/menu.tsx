@@ -20,7 +20,7 @@ interface MenuDropdownProps {
   setActiveDropdown: (dropdown: ActiveDropdown) => void;
 }
 
-export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown, location }) => {
+export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setActiveDropdown, location = "default" }) => {
   const navigate = useNavigate();
   const session = useSession();
 
@@ -28,7 +28,6 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
   const setModalWithContainer = useStore((state) => state.setModalWithContainer);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const { broadcastPlayerLeft } = useMatch();
-  const currentLocation = location || "default";
 
   const handleLogout = () => {
     logout();
@@ -51,6 +50,11 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
     }
   };
 
+  if (location === "landing") {
+    if (session) return <DropdownButton onClick={() => handleLogout()} primaryText={text.general.logout} icon={<LogoutIcon />} />;
+    return <DropdownButton primaryText={text.general.login} icon={<SettingsIcon />} onClick={() => navigate(routes.login)} />;
+  }
+
   return (
     <Dropdown
       setHover={setHover}
@@ -59,7 +63,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       buttonText={text.general.menu}
       buttonIcon={<Ellipsis />}
     >
-      <MenuContainer location={currentLocation}>
+      <MenuContainer location={location}>
         {location && location !== "default" && (
           <DropdownButton primaryText={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => handleSettings()} />
         )}

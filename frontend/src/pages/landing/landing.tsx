@@ -1,19 +1,19 @@
-import { Navigate } from "react-router-dom";
+import { EqualLayout, LandingComponent, LandingFooter, LeftLandingSideBar, RightLandingSideBar } from "../../components";
 
-import { routes } from "../../navigation";
-import { useSession } from "../../store";
+import { useSession, useStore } from "../../store";
 
-// TODO: implement as per designs
-// The landing page will have:
-// - About
-// - Rules/How to play
-// - Actions to take
-// - Create new game
-// - Join an existing game
-// - Copyright
-// - Privacy & terms
 export const Landing = () => {
   const session = useSession();
+  const isSidebarVisible = useStore((state) => state.isSidebarVisible);
 
-  return <Navigate to={session ? routes.home : routes.login} />;
+  return (
+    <>
+      <EqualLayout
+        leftSection={<LeftLandingSideBar isSidebarVisible={isSidebarVisible} />}
+        mainSection={<LandingComponent />}
+        rightSection={<RightLandingSideBar isSidebarVisible={isSidebarVisible} />}
+      />
+      <LandingFooter session={session} />
+    </>
+  );
 };

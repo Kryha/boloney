@@ -150,3 +150,27 @@ export const fadeOut = keyframes`
   0% { opacity: 1; }
   100% { opacity: 0; }
 `;
+
+export const ticker = keyframes`
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+  }
+`;
+
+export const slideUpFromBottom = keyframes`
+  0% {
+    opacity: 0;
+    transform: translate(0, 20px) rotate(0deg) scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+`;

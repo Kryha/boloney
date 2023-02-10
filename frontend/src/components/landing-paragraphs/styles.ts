@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { fadeUp, GeneralMessageText, Heading3 } from "../atoms";
+import { fadeUp, GeneralText, Heading3 } from "../atoms";
 
 export const ParagraphContainer = styled.div`
   display: flex;
@@ -42,12 +42,7 @@ export const NeutralContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 10px;
-  ${GeneralMessageText} {
-    max-width: 32.63vw;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+  ${GeneralText} {
     padding: 10px 0px 10px 20px;
-    gap: 10px;
   }
 `;

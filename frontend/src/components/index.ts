@@ -58,3 +58,6 @@ export * from "./revealed-power-ups";
 export * from "./landing-paragraphs";
 export * from "./links";
 export * from "./landing-footer";
+export * from "./landing-component";
+export * from "./image-containers";
+export * from "./landing-side-bar";
