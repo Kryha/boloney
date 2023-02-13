@@ -2,13 +2,13 @@ import { FC } from "react";
 import Highlighter from "react-highlight-words";
 
 import { idlePlayerTurnData } from "../../assets";
-import { color } from "../../design";
 import { useActivePlayer } from "../../service";
 import { useStore } from "../../store";
 import { TurnActionStep } from "../../types";
 import { Heading2 } from "../atoms";
 import { ErrorView } from "../error-view";
 import { Timer } from "../timer";
+import { AnimatedWaitingText } from "../waiting-text";
 
 interface IdlePlayerHeaderProps {
   step?: TurnActionStep;
@@ -34,7 +34,7 @@ export const IdlePlayerHeader: FC<IdlePlayerHeaderProps> = ({ step }) => {
           />
         )}
       </Heading2>
-      <Heading2 customColor={color.darkGrey}>{headerData.subHeadingTitle}</Heading2>
+      <AnimatedWaitingText headingTwo={headerData.subHeadingTitle || ""} />
     </>
   );
 };

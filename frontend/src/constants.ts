@@ -141,3 +141,6 @@ export const HEAL_DICE_HELPER_WIDTH = 455;
 export const BID_HELPER_WIDTH = 455;
 export const BOLONEY_HELPER_WIDTH = 426;
 export const EXACT_HELPER_WIDTH = 368;
+
+export const FADE_INTERVAL_MS = 4000;
+export const WORD_CHANGE_INTERVAL_MS = FADE_INTERVAL_MS * 2;

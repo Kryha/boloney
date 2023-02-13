@@ -1,10 +1,8 @@
 import { FC } from "react";
-import Highlighter from "react-highlight-words";
 
 import { text } from "../../assets";
-import { BottomButtonWrapper, Heading1, Heading2 } from "../atoms";
+import { BottomButtonWrapper } from "../atoms";
 import { Timer } from "../timer";
-import { color } from "../../design";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { PrimaryButton } from "../buttons";
@@ -13,6 +11,7 @@ import { MatchOpCode } from "../../types";
 import { ButtonReady } from "../button-ready";
 import { getDieColor } from "../../util";
 import { RollingDice } from "../dice-animation";
+import { MatchHeading } from "../match-heading";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -44,8 +43,7 @@ export const RollDice: FC = () => {
     return (
       <BottomButtonWrapper>
         <Timer title={text.powerUps.waitingTime} />
-        <Heading1>{text.powerUps.timeToWait}</Heading1>
-        <Heading2 customColor={color.darkGrey}>{text.powerUps.waitForPlayers}</Heading2>
+        <MatchHeading headingOne={text.powerUps.timeToWait} headingTwo={text.powerUps.waitForPlayers} isAnimated />
 
         {dice && <RollingDice dice={dice} dieColor={dieColor} />}
 
@@ -57,15 +55,12 @@ export const RollDice: FC = () => {
   return (
     <BottomButtonWrapper>
       <Timer title={text.powerUps.settingItUp} />
-      <Heading1>{text.match.getDice}</Heading1>
-      <Heading2 customColor={color.darkGrey}>
-        <Highlighter
-          highlightClassName="bold"
-          searchWords={[localPlayer.username]}
-          autoEscape
-          textToHighlight={text.match.findOutYourPips}
-        />
-      </Heading2>
+      <MatchHeading
+        headingOne={text.match.getDice}
+        headingTwo={text.match.findOutYourPips}
+        wordsToBold={[localPlayer.username]}
+        isAnimated
+      />
 
       {dice && <RollingDice dice={dice} dieColor={dieColor} />}
 

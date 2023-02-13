@@ -6,3 +6,4 @@ export * from "./player-result";
 export * from "./power-up-result";
 export * from "./player-shuffle";
 export * from "./landing-dice";
+export * from "./waiting-text";
