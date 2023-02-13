@@ -61,3 +61,4 @@ export * from "./landing-footer";
 export * from "./landing-component";
 export * from "./image-containers";
 export * from "./landing-side-bar";
+export * from "./content-loader";

@@ -1,8 +1,9 @@
-import { FC, ReactNode, useEffect } from "react";
+import { FC, ReactNode, useState, useEffect } from "react";
 import { color } from "../../design";
 import { useObserver } from "../../hooks";
 import { useStore } from "../../store";
 import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
+import { ContentLoader } from "../content-loader";
 import { Tooltip, InfoPosition } from "../tooltip";
 import {
   ButtonContainer,
@@ -27,11 +28,13 @@ interface ButtonProps {
   primaryText?: string;
   secondaryText?: string;
   isOpen?: boolean;
+  // TODO: to rename this prop as it's a keyword so better not use it
   type?: "button" | "submit" | "reset";
   tooltipTitle?: string;
   tooltipInfo?: string;
   tooltipInfoPosition?: InfoPosition;
   width?: number;
+  isLoading?: boolean;
   isBottomButton?: boolean;
 }
 
@@ -46,8 +49,19 @@ export const PrimaryButton: FC<ButtonProps> = ({
   secondaryText,
   type = "button",
   width,
+  isLoading,
   isBottomButton,
 }) => {
+  const isLoadingSpinnerVisible = useStore((state) => state.isLoadingSpinnerVisible);
+  const [showSpinner, setShowSpinner] = useState(false);
+  const contentLoader = isLoadingSpinnerVisible || isLoading;
+  const loading = contentLoader && showSpinner;
+
+  const handleClick = () => {
+    onClick && onClick();
+    setShowSpinner(true);
+  };
+
   const { ref, isVisible } = useObserver();
   const setBottomButtonVisible = useStore((state) => state.setBottomButtonVisible);
 
@@ -56,15 +70,16 @@ export const PrimaryButton: FC<ButtonProps> = ({
   }, [isBottomButton, isVisible, setBottomButtonVisible]);
 
   return (
-    <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled} ref={ref}>
-      <PrimaryButtonContainer disabled={disabled} width={width}>
+    <PrimaryButtonWrapper onClick={() => handleClick()} disabled={disabled} ref={ref}>
+      <PrimaryButtonContainer disabled={disabled} width={width} isLoading={loading}>
         <InitialButtonView>
-          <PrimaryButtonBase type={type} disabled={disabled}>
+          <PrimaryButtonBase type={type} disabled={disabled} isLoading={loading}>
             <PrimaryButtonText>{primaryText}</PrimaryButtonText>
+            {loading && <ContentLoader loading={loading} />}
           </PrimaryButtonBase>
         </InitialButtonView>
         <SecondaryView className="box">
-          <PrimaryButtonBase type={type} backgroundColor={color.black} disabled={disabled}>
+          <PrimaryButtonBase type={type} backgroundColor={color.black} disabled={disabled} isLoading={loading}>
             <PrimaryButtonText customColor={color.white}>{secondaryText ? secondaryText : primaryText}</PrimaryButtonText>
           </PrimaryButtonBase>
         </SecondaryView>
@@ -72,6 +87,7 @@ export const PrimaryButton: FC<ButtonProps> = ({
     </PrimaryButtonWrapper>
   );
 };
+
 export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
   <SecondaryButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>

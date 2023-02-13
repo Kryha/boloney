@@ -8,6 +8,7 @@ import { SecondaryButtonBase } from "../atoms";
 interface ButtonProps {
   disabled?: boolean;
   width?: number;
+  isLoading?: boolean;
 }
 
 interface TextProps {
@@ -77,10 +78,15 @@ export const SecondaryView = styled.span`
 `;
 
 export const PrimaryButtonContainer = styled.div<ButtonProps>`
-  ${({ disabled, width }) =>
-    !disabled
+  ${({ disabled, width, isLoading }) =>
+    disabled || isLoading
       ? css`
-        transform-origin: center;
+          ${PrimaryButtonText} {
+            color: ${isLoading ? color.lightGrey : color.mediumGrey};
+          }
+        `
+      : `
+       transform-origin: center;
         transform-style: preserve-3d;
         transition: transform 0.4s;
         :hover {
@@ -97,11 +103,6 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
           }
           transform: rotateX(90deg);
         }
-  `
-      : `
-  ${PrimaryButtonText} {
-    color: ${color.mediumGrey};
-  }
   `};
 `;
 
@@ -109,9 +110,10 @@ export const PrimaryButtonWrapper = styled.div<ButtonProps>`
   cursor: ${({ disabled }) => !disabled && "pointer"};
   ${PrimaryArrow} {
     path {
-      fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
+      fill: ${({ disabled, isLoading }): string => (disabled || isLoading ? `${color.darkGrey}` : `${color.black}`)};
     }
   }
+  cursor: ${({ isLoading }) => !isLoading && "pointer"};
 `;
 
 export const SecondaryArrow = styled(RightArrowIcon)``;

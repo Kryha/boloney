@@ -4,7 +4,7 @@ import {
   BOLONEY_HELPER_WIDTH,
   HEAL_DICE_HELPER_WIDTH,
   MAX_DIE_FACE,
-  POWER_HELPER_UP_WIDTH,
+  POWER_UP_HELPER_WIDTH,
   BID_HELPER_WIDTH,
   EXACT_HELPER_WIDTH,
 } from "../../constants";
@@ -58,7 +58,7 @@ export const PickAction: FC = () => {
             tooltipTitle={text.general.toolTipPowerUpTitle}
             tooltipInfo={text.general.toolTipPowerUpInfo}
             onClick={() => handlePowerUpAction()}
-            width={POWER_HELPER_UP_WIDTH}
+            width={POWER_UP_HELPER_WIDTH}
           />
           <PrimaryButtonWithHelper
             primaryText={text.match.healDice}

@@ -79,9 +79,7 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
     }),
   setSpinnerVisibility: (isVisible: boolean) =>
     set(() => ({
-      modalComponentChildren: isVisible ? "sausage-spinner" : undefined,
-      isModalVisible: isVisible,
-      isOverlayVisible: isVisible,
+      isLoadingSpinnerVisible: isVisible,
     })),
   setPlayerReady: (isReady) => set(() => ({ isPlayerReady: isReady })),
   setTimerTimeInSeconds: (timeInSeconds) => set(() => ({ timerTimeInSeconds: timeInSeconds })),

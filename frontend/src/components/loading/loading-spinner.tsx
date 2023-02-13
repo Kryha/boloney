@@ -8,7 +8,7 @@ export const Loading: FC = () => {
   const { height } = useViewport();
   return (
     <LoadingContainer height={height}>
-      <SausageSpinner />
+      <SausageSpinner hasLoadingText />
     </LoadingContainer>
   );
 };

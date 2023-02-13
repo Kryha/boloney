@@ -6,6 +6,7 @@ interface ButtonProps {
   backgroundColor?: string;
   fontColor?: string;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export const PrimaryButtonBase = styled.button<ButtonProps>`
@@ -24,11 +25,23 @@ export const PrimaryButtonBase = styled.button<ButtonProps>`
   cursor: pointer;
   padding: 10px;
   height: 60px;
+  position: relative;
   ${({ disabled }) =>
     disabled &&
     `
       color: ${color.darkGrey};
       background: rgba(255, 255, 255, 0.2);
+      && {
+        cursor: default;
+      }
+    `};
+
+  ${({ isLoading }) =>
+    isLoading &&
+    `
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    color: ${color.lightGrey};
       && {
         cursor: default;
       }

@@ -19,7 +19,7 @@ export const OverlayContent: FC<Props> = ({ name }) => {
     case "power-up-use":
       return <PowerUpListUse powerUpIds={powerUpIds} />;
     case "sausage-spinner":
-      return <SausageSpinner />;
+      return <SausageSpinner hasLoadingText />;
     case "match-settings-overview":
       return <MatchSettingsOverview />;
     case "power-up-list-description":

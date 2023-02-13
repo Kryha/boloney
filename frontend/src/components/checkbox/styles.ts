@@ -69,7 +69,8 @@ interface CheckboxContainerProps {
 
 export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   display: flex;
-  width: 100%;
+  width: 62.5vw;
+  margin-right: -3px;
   cursor: pointer;
   border-top: ${({ isTop }) => (isTop ? `1px solid ${color.mediumGrey}` : "0px")};
   background: ${({ isChecked }) => (isChecked ? color.white : "transparent")};

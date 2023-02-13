@@ -6,7 +6,11 @@ import { sausageAnimate } from "../atoms";
 import { SausageLoader, text } from "../../assets";
 import { FC, useEffect } from "react";
 
-export const SausageSpinner: FC = () => {
+interface Props {
+  hasLoadingText?: boolean;
+}
+
+export const SausageSpinner: FC<Props> = ({ hasLoadingText = false }) => {
   useEffect(() => {
     gsap.set("svg", {
       visibility: "visible",
@@ -32,7 +36,7 @@ export const SausageSpinner: FC = () => {
     <SausageSection>
       <SausageContainer>
         <SausageLoader />
-        <LoadingTextContainer>{text.general.loading}</LoadingTextContainer>
+        {hasLoadingText && <LoadingTextContainer>{text.general.loading}</LoadingTextContainer>}
       </SausageContainer>
     </SausageSection>
   );
