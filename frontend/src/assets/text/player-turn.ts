@@ -58,4 +58,5 @@ export const playerTurn = {
     "cool your Sea Cucumbers",
     "soothe your Sasquatches",
   ],
+  availableNextRound: "available next round",
 };

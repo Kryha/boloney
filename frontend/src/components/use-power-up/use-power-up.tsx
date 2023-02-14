@@ -7,6 +7,7 @@ import { PowerUpResultView } from "../power-up-result-view";
 import { UseBirdsEye } from "./use-birds-eye";
 import { UseCoup } from "./use-coup";
 import { UseGrill } from "./use-grill";
+import { UseMenageATrois } from "./use-menage-a-trois";
 import { UseSmokeAndMirrors } from "./use-smoke-and-mirrors";
 
 /**
@@ -26,6 +27,8 @@ export const UsePowerUp: FC = () => {
         return <UseGrill />;
       case "2":
         return <UseBirdsEye />;
+      case "3":
+        return <UseMenageATrois />;
       case "7":
         return <UseCoup />;
       case "8":

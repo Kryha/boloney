@@ -76,6 +76,7 @@ export interface PlayerPublic {
   status: PlayerStatus;
   actionRole: ActionRole;
   isTarget: boolean;
+  extraDice: number;
 }
 
 export const isPlayerPublic = (value: unknown): value is PlayerPublic => {

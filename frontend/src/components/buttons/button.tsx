@@ -36,6 +36,7 @@ interface ButtonProps {
   width?: number;
   isLoading?: boolean;
   isBottomButton?: boolean;
+  isSpinnerShown?: boolean;
 }
 
 interface DropdownButtonProps extends ButtonProps {
@@ -51,6 +52,7 @@ export const PrimaryButton: FC<ButtonProps> = ({
   width,
   isLoading,
   isBottomButton,
+  isSpinnerShown,
 }) => {
   const isLoadingSpinnerVisible = useStore((state) => state.isLoadingSpinnerVisible);
   const [showSpinner, setShowSpinner] = useState(false);
@@ -67,7 +69,8 @@ export const PrimaryButton: FC<ButtonProps> = ({
 
   useEffect(() => {
     if (isBottomButton) setBottomButtonVisible(isVisible);
-  }, [isBottomButton, isVisible, setBottomButtonVisible]);
+    if (isSpinnerShown) setShowSpinner(true);
+  }, [isBottomButton, isVisible, setBottomButtonVisible, isSpinnerShown]);
 
   return (
     <PrimaryButtonWrapper onClick={() => handleClick()} disabled={disabled} ref={ref}>

@@ -1,3 +1,4 @@
+import { Die } from "./die";
 import { isNumber, isString } from "./primitive";
 
 /**
@@ -91,9 +92,13 @@ export interface UseBirdsEyeBackend {
   sum: number;
 }
 
-export interface UseMenageFrontend {}
+export type UseMenageFrontend = {
+  // keep empty
+};
 
-export interface UseMenageBackend {}
+export interface UseMenageBackend {
+  newRolledDice: Die[];
+}
 
 export type UseDoubleUpFrontend = {
   // TODO: improve these type definitions @marius
@@ -104,13 +109,13 @@ export interface UseDoubleUpBackend {
   recentlyAdded: number;
 }
 
-export interface UseVendettaFrontend {}
+export interface UseVendettaFrontend { }
 
-export interface UseVendettaBackend {}
+export interface UseVendettaBackend { }
 
-export interface UseSecondChanceFrontend {}
+export interface UseSecondChanceFrontend { }
 
-export interface UseSecondChanceBackend {}
+export interface UseSecondChanceBackend { }
 
 export interface UseCoupFrontend {
   targetId: string;
@@ -129,82 +134,82 @@ export type UseSmokeAndMirrorsBackend = {
   playerOrder: string[];
 };
 
-export interface UseHypnosisFrontend {}
+export interface UseHypnosisFrontend { }
 
-export interface UseHypnosisBackend {}
+export interface UseHypnosisBackend { }
 
 export type UsePowerUpPayloadFrontend =
   | {
-      id: "1";
-      data: UseGrillFrontend;
-    }
+    id: "1";
+    data: UseGrillFrontend;
+  }
   | {
-      id: "2";
-      data: UseBirdsEyeFrontend;
-    }
+    id: "2";
+    data: UseBirdsEyeFrontend;
+  }
   | {
-      id: "3";
-      data: UseMenageFrontend;
-    }
+    id: "3";
+    data: UseMenageFrontend;
+  }
   | {
-      id: "4";
-      data: UseDoubleUpFrontend;
-    }
+    id: "4";
+    data: UseDoubleUpFrontend;
+  }
   | {
-      id: "5";
-      data: UseVendettaFrontend;
-    }
+    id: "5";
+    data: UseVendettaFrontend;
+  }
   | {
-      id: "6";
-      data: UseSecondChanceFrontend;
-    }
+    id: "6";
+    data: UseSecondChanceFrontend;
+  }
   | {
-      id: "7";
-      data: UseCoupFrontend;
-    }
+    id: "7";
+    data: UseCoupFrontend;
+  }
   | {
-      id: "8";
-      data: UseSmokeAndMirrorsFrontend;
-    }
+    id: "8";
+    data: UseSmokeAndMirrorsFrontend;
+  }
   | {
-      id: "9";
-      data: UseHypnosisFrontend;
-    };
+    id: "9";
+    data: UseHypnosisFrontend;
+  };
 
 export type UsePowerUpPayloadBackend =
   | {
-      id: "1";
-      data: UseGrillBackend;
-    }
+    id: "1";
+    data: UseGrillBackend;
+  }
   | {
-      id: "2";
-      data: UseBirdsEyeBackend;
-    }
+    id: "2";
+    data: UseBirdsEyeBackend;
+  }
   | {
-      id: "3";
-      data: UseMenageBackend;
-    }
+    id: "3";
+    data: UseMenageBackend;
+  }
   | {
-      id: "4";
-      data: UseDoubleUpBackend;
-    }
+    id: "4";
+    data: UseDoubleUpBackend;
+  }
   | {
-      id: "5";
-      data: UseVendettaBackend;
-    }
+    id: "5";
+    data: UseVendettaBackend;
+  }
   | {
-      id: "6";
-      data: UseSecondChanceBackend;
-    }
+    id: "6";
+    data: UseSecondChanceBackend;
+  }
   | {
-      id: "7";
-      data: UseCoupBackend;
-    }
+    id: "7";
+    data: UseCoupBackend;
+  }
   | {
-      id: "8";
-      data: UseSmokeAndMirrorsBackend;
-    }
+    id: "8";
+    data: UseSmokeAndMirrorsBackend;
+  }
   | {
-      id: "9";
-      data: UseHypnosisBackend;
-    };
+    id: "9";
+    data: UseHypnosisBackend;
+  };

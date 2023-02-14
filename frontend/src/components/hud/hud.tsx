@@ -43,7 +43,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
         {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
       </LocalPlayer>
 
-      <DiceOverview dice={dice} dieColor={dieColor} />
+      <DiceOverview dice={dice} dieColor={dieColor} extraDice={player.extraDice} />
       <PowerUpOverview powerUpIds={powerUpIds} />
     </PlayerOverview>
   );

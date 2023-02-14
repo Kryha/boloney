@@ -41,4 +41,6 @@ export const param = {
   targetsPowerUps: (username: string) => `${username}'s power-ups`,
   healDice: (healDiceAmount: string) => `select x${healDiceAmount} power-ups you want to exchange!`,
   sumOfDice: (sum: number) => `=${sum}`,
+  //TODO: Make one function that handles similar functions
+  plusAmount: (amount: number) => `+${amount}`,
 };

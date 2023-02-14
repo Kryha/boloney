@@ -1,8 +1,17 @@
 import { FC } from "react";
-import { DiceFiveIcon, DiceFourIcon, DiceHiddenIcon, DiceOneIcon, DiceSixIcon, DiceThreeIcon, DiceTwoIcon } from "../../assets";
+import {
+  DiceFiveIcon,
+  DiceFourIcon,
+  DiceHiddenIcon,
+  DiceOneIcon,
+  DiceSixIcon,
+  DiceThreeIcon,
+  DiceTwoIcon,
+  RefreshIcon,
+} from "../../assets";
 import { LARGE_DIE_SIZE } from "../../constants";
 
-import { DieWrapper } from "./styles";
+import { DiceContainer, DieWrapper, TemporaryDieIconWrapper } from "./styles";
 
 interface DieProps {
   value?: number;
@@ -10,6 +19,7 @@ interface DieProps {
   faceColor?: string;
   pipColor?: string;
   isRow?: boolean;
+  isTemporaryDice?: boolean;
   isMatchSettings?: boolean;
 }
 
@@ -32,12 +42,15 @@ export const findDieFace = (value?: number) => {
   }
 };
 
-export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor, isRow, isMatchSettings }) => {
+export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor, isRow, isTemporaryDice, isMatchSettings }) => {
   const diceSize = isRow ? LARGE_DIE_SIZE : size;
 
   return (
-    <DieWrapper faceColor={faceColor} size={diceSize} pipColor={pipColor} isDiceHidden={!value} isMatchSettings={isMatchSettings}>
-      {findDieFace(value)}
-    </DieWrapper>
+    <DiceContainer>
+      <DieWrapper faceColor={faceColor} size={diceSize} pipColor={pipColor} isDiceHidden={!value} isMatchSettings={isMatchSettings}>
+        {findDieFace(value)}
+      </DieWrapper>
+      <TemporaryDieIconWrapper isRow={isRow}>{isTemporaryDice && <RefreshIcon />}</TemporaryDieIconWrapper>
+    </DiceContainer>
   );
 };

@@ -12,14 +12,17 @@ interface DiceUpProps {
   faceColor?: string;
   pipColor?: string;
   diceSum?: number;
+  extraDice?: number;
   isMatchSettings?: boolean;
 }
 
-export const DiceIcon: FC<DiceUpProps> = ({ diceAmount, diceValue, faceColor, pipColor, diceSum, isMatchSettings }) => {
+export const DiceIcon: FC<DiceUpProps> = ({ diceAmount, diceValue, faceColor, pipColor, diceSum, extraDice = 0, isMatchSettings }) => {
+  const totalDice = diceAmount - extraDice;
+
   return (
     <DiceIconWrapper>
       <Die value={diceValue} size={margins.small4} faceColor={faceColor} pipColor={pipColor} isMatchSettings={isMatchSettings} />
-      <GeneralText customColor={color.darkGrey}>{text.param.xAmount(diceAmount)}</GeneralText>
+      <GeneralText customColor={color.darkGrey}>{text.param.xAmount(totalDice)}</GeneralText>
       {diceSum && (
         <GeneralText customColor={color.darkGrey}>
           <Highlighter
@@ -27,6 +30,16 @@ export const DiceIcon: FC<DiceUpProps> = ({ diceAmount, diceValue, faceColor, pi
             searchWords={[String(diceSum)]}
             autoEscape
             textToHighlight={text.param.sumOfDice(diceSum)}
+          />
+        </GeneralText>
+      )}
+      {extraDice !== 0 && (
+        <GeneralText customColor={color.darkGrey}>
+          <Highlighter
+            highlightClassName="bold"
+            searchWords={[String(extraDice)]}
+            autoEscape
+            textToHighlight={text.param.plusAmount(extraDice)}
           />
         </GeneralText>
       )}

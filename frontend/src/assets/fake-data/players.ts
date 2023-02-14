@@ -15,6 +15,7 @@ export const fakePlayers: PlayerPublic[] = [
     status: "playing",
     actionRole: undefined,
     isTarget: false,
+    extraDice: 0,
   },
   {
     userId: "000000000000000000000000000000000001",
@@ -30,6 +31,7 @@ export const fakePlayers: PlayerPublic[] = [
     status: "playing",
     actionRole: undefined,
     isTarget: false,
+    extraDice: 0,
   },
   {
     userId: "000000000000000000000000000000000002",
@@ -45,6 +47,7 @@ export const fakePlayers: PlayerPublic[] = [
     status: "playing",
     actionRole: undefined,
     isTarget: false,
+    extraDice: 0,
   },
   {
     userId: "000000000000000000000000000000000003",
@@ -60,6 +63,7 @@ export const fakePlayers: PlayerPublic[] = [
     status: "playing",
     actionRole: undefined,
     isTarget: false,
+    extraDice: 0,
   },
   {
     userId: "000000000000000000000000000000000004",
@@ -75,6 +79,7 @@ export const fakePlayers: PlayerPublic[] = [
     status: "playing",
     actionRole: undefined,
     isTarget: false,
+    extraDice: 0,
   },
   {
     userId: "000000000000000000000000000000000005",
@@ -90,5 +95,6 @@ export const fakePlayers: PlayerPublic[] = [
     status: "playing",
     actionRole: undefined,
     isTarget: false,
+    extraDice: 0,
   },
 ];

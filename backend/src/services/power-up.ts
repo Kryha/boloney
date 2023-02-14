@@ -1,5 +1,5 @@
-import { EMPTY_DATA } from "../constants";
-import { getPowerUp, toolkitUse } from "../toolkit-api";
+import { EMPTY_DATA, MENAGE_A_TROIS_DICE_AMOUNT } from "../constants";
+import { getPowerUp, rollDice, toolkitUse } from "../toolkit-api";
 import {
   isPowerUpTypeArray,
   DiceDataToolkit,
@@ -20,7 +20,6 @@ import {
   UseHypnosisBackend,
   UseHypnosisFrontend,
   UseMenageBackend,
-  UseMenageFrontend,
   UsePowerUpPayloadBackend,
   UsePowerUpPayloadFrontend,
   UseSecondChanceBackend,
@@ -28,6 +27,7 @@ import {
   UseSmokeAndMirrorsBackend,
   UseVendettaBackend,
   UseVendettaFrontend,
+  isDieArray,
 } from "../types";
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
@@ -75,17 +75,27 @@ const useBirdsEye = (loopParams: MatchLoopParams, data: UseBirdsEyeFrontend, pow
   return { sum, targetId };
 };
 
-const useMenage = async (loopParams: MatchLoopParams, data: UseMenageFrontend): Promise<UseMenageBackend> => {
-  // TODO: implement
-  return {};
+const useMenage = async (loopParams: MatchLoopParams, sender: Player): Promise<UseMenageBackend> => {
+  const { state } = loopParams;
+  const activePlayer = state.players[sender.userId];
+
+  const newRolledDice = await rollDice(loopParams, MENAGE_A_TROIS_DICE_AMOUNT);
+
+  if (!isDieArray(newRolledDice)) throw new Error("Failed to roll new dice!");
+
+  activePlayer.diceValue = [...activePlayer.diceValue, ...newRolledDice];
+  activePlayer.diceAmount = activePlayer.diceValue.length;
+  activePlayer.extraDice = activePlayer.extraDice + MENAGE_A_TROIS_DICE_AMOUNT;
+
+  return { newRolledDice: newRolledDice };
 };
 
 const useDoubleUp = async (loopParams: MatchLoopParams, sender: Player): Promise<UseDoubleUpBackend> => {
   const { state } = loopParams;
 
-  const numberofNewPowerUps = sender.powerUpsAmount >= state.settings.maxPowerUpAmount ? 1 : 2;
+  const numberOfNewPowerUps = sender.powerUpsAmount >= state.settings.maxPowerUpAmount ? 1 : 2;
   const newPowerUps =
-    numberofNewPowerUps === 1
+    numberOfNewPowerUps === 1
       ? await Promise.all([getPowerUp(loopParams)])
       : await Promise.all([getPowerUp(loopParams), getPowerUp(loopParams)]);
 
@@ -97,7 +107,7 @@ const useDoubleUp = async (loopParams: MatchLoopParams, sender: Player): Promise
   // TODO: perform call to toolkit
   await toolkitUse.doubleUp();
 
-  return { powerUpIds: newPowerUps, recentlyAdded: numberofNewPowerUps };
+  return { powerUpIds: newPowerUps, recentlyAdded: numberOfNewPowerUps };
 };
 
 const useVendetta = async (loopParams: MatchLoopParams, data: UseVendettaFrontend): Promise<UseVendettaBackend> => {
@@ -186,7 +196,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
         break;
       }
       case "3": {
-        const resData = await useMenage(loopParams, data);
+        const resData = await useMenage(loopParams, sender);
         resPayload = { id, data: resData };
         break;
       }

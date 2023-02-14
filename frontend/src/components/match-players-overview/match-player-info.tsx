@@ -35,7 +35,7 @@ export const PlayerMatchState: FC<PlayerMatchStateProps> = ({ player, playerRoun
 
   return (
     <MatchStateContainer>
-      <DiceIcon diceAmount={player.diceAmount} faceColor={dieColor} diceSum={playerRoundData?.diceSum} />
+      <DiceIcon diceAmount={player.diceAmount} faceColor={dieColor} diceSum={playerRoundData?.diceSum} extraDice={player.extraDice} />
       <PowerUpIcon powerUpAmount={player.powerUpsAmount} powerUpIds={fakePowerUpIds} />
     </MatchStateContainer>
   );

@@ -12,9 +12,10 @@ import { useLocalPlayer } from "../../service";
 interface DiceOverviewProps {
   dice?: Die[];
   dieColor: string;
+  extraDice: number;
 }
 
-export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor }) => {
+export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor, extraDice }) => {
   const { height } = useViewport();
   const localPlayer = useLocalPlayer();
 
@@ -27,13 +28,17 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor }) => {
 
   const isRow = dice.length < MAX_DICE_VIEW_AMOUNT;
 
+  const isTemporaryDice = (index: number) => {
+    const firstTemporaryDieIndex = dice.length - extraDice;
+    return extraDice !== 0 && index >= firstTemporaryDieIndex;
+  };
   return (
     <DieOverviewWrapper>
       <DieOverviewContainer height={height}>
         <GeneralText>{text.param.xAmount(dice.length)}</GeneralText>
         <YourDiceContainer isRow={isRow}>
           {dice.map((die, index) => (
-            <DieComponent key={index} value={die.rolledValue} faceColor={dieColor} isRow={isRow} />
+            <DieComponent key={index} value={die.rolledValue} faceColor={dieColor} isRow={isRow} isTemporaryDice={isTemporaryDice(index)} />
           ))}
         </YourDiceContainer>
       </DieOverviewContainer>

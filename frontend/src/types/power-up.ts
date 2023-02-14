@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { dieSchema } from "./die";
 
 /**
  * Power-ups are matched to their ID in the following way:
@@ -64,7 +65,9 @@ export type UseBirdsEyeBackend = z.infer<typeof useBirdsEyeBackendSchema>;
 export const useMenageFrontendSchema = z.object({});
 export type UseMenageFrontend = z.infer<typeof useMenageFrontendSchema>;
 
-export const useMenageBackendSchema = z.object({});
+export const useMenageBackendSchema = z.object({
+  newRolledDice: z.array(dieSchema),
+});
 export type UseMenageBackend = z.infer<typeof useMenageBackendSchema>;
 
 export const useDoubleUpFrontendSchema = z.object({});

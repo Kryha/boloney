@@ -94,7 +94,7 @@ export const updateEmptyTicks = (state: MatchState, messages: nkruntime.MatchMes
   }
 };
 
-// TODO: Add paylod to the message for correctly rendering the end of match stage when match inactive
+// TODO: Add payload to the message for correctly rendering the end of match stage when match inactive
 export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.MatchDispatcher): boolean => {
   if (state.emptyTicks > MAX_INACTIVE_TICKS) {
     const payload: StageTransitionPayloadBackend = { matchStage: "endOfMatchStage" };
@@ -201,6 +201,10 @@ export const resetRound = ({ state }: MatchLoopParams) => {
   Object.values(state.players).forEach((player) => {
     const playerRef = state.players[player.userId];
 
+    if (playerRef.extraDice !== 0) {
+      playerRef.diceAmount = playerRef.diceAmount - playerRef.extraDice;
+      playerRef.extraDice = 0;
+    }
     playerRef.hasRolledDice = false;
     playerRef.diceValue = [];
     playerRef.actionRole = undefined;

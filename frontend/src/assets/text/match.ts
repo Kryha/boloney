@@ -31,6 +31,7 @@ export const match = {
   homePage: "homepage",
   findOutYourPips: "time to reveal your pips for this round. Oh, the suspense…",
   getDice: "get your dice!",
+  rollingYourDice: "wait for dice to be rolled!",
   drawRoundOffset: "draw round offset",
   continueHealDice: "continue",
 };

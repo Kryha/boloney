@@ -30,7 +30,11 @@ export const useNotificationListener = () => {
   useEffect(() => {
     if (!localPlayer) return;
     nakama.socket.onnotification = (notification) => {
+      const parsedCode = notificationOpCodeSchema.safeParse(notification.code);
+      if (!parsedCode.success) return;
+
       const notificationContent: NotificationContent = getNotificationContent(notification, localPlayer);
+
       addNotifications(notificationContent);
     };
   }, [addNotifications, localPlayer]);

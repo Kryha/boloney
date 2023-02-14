@@ -4,6 +4,7 @@ import { color } from "../../design";
 import { useViewport } from "../../hooks";
 import { PowerUp } from "../../types";
 import { GeneralText, Heading2 } from "../atoms";
+import { PowerUpBadge } from "../badges";
 import { PrimaryButton } from "../buttons";
 import {
   ButtonWrapper,
@@ -18,13 +19,15 @@ import {
 interface PowerUpCardProps {
   powerUp: PowerUp;
   onClick?: (powerUp: PowerUp) => void;
+  isButtonDisabled?: boolean;
 }
 
-export const PowerUpCard: FC<PowerUpCardProps> = ({ powerUp, onClick }) => {
+export const PowerUpCard: FC<PowerUpCardProps> = ({ powerUp, onClick, isButtonDisabled: isDisabled }) => {
   const { width } = useViewport();
 
   return (
     <PowerUpCardWrapper width={width} isPowerUpInUse={!!onClick}>
+      {isDisabled && <PowerUpBadge />}
       <PowerUpCardContainer>
         <PowerUpImage src={powerUp.cardImage} isImageLarge={powerUp.isImageLarge} />
         <PowerUpInfoWrapper>
@@ -37,7 +40,7 @@ export const PowerUpCard: FC<PowerUpCardProps> = ({ powerUp, onClick }) => {
       </PowerUpCardContainer>
       {!!onClick && (
         <ButtonWrapper>
-          <PrimaryButton primaryText={text.powerUps.useIt} onClick={() => onClick(powerUp)} />
+          <PrimaryButton disabled={isDisabled} primaryText={text.powerUps.useIt} onClick={() => onClick(powerUp)} />
         </ButtonWrapper>
       )}
     </PowerUpCardWrapper>

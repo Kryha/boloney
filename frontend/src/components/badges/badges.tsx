@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { CoolHand, Crown, text } from "../../assets";
+import { LockIcon, CoolHand, Crown, text } from "../../assets";
 import { PlayerPublic } from "../../types";
 import { GeneralText } from "../atoms";
 import { BadgeWrapper } from "./styles";
@@ -30,6 +30,19 @@ const TimeOutBadge = () => {
       <GeneralText>{text.playerTurn.outOfTime}</GeneralText>
     </BadgeWrapper>
   );
+};
+
+const PowerUpNotAvailable = () => {
+  return (
+    <BadgeWrapper>
+      <LockIcon />
+      <GeneralText>{text.playerTurn.availableNextRound}</GeneralText>
+    </BadgeWrapper>
+  );
+};
+
+export const PowerUpBadge: FC = () => {
+  return <PowerUpNotAvailable />;
 };
 
 interface PlayerBadgeProps {

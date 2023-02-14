@@ -79,3 +79,5 @@ export const TICK_RATE = 1;
 export const MAX_INACTIVE_TICKS = 500;
 
 export const EMPTY_DATA = JSON.stringify({});
+
+export const MENAGE_A_TROIS_DICE_AMOUNT = 3;
