@@ -1,3 +1,4 @@
+import { WITH_ZK_LOGIC } from "../constants";
 import {
   DiceDataToolkit,
   isBirdsEyeResToolkit,
@@ -56,23 +57,28 @@ export const getPowerUp = (loopParams: MatchLoopParams): PowerUpId | undefined =
   const availablePowerUps = getAvailablePowerUps(powerUpProbability);
   const probabilityRange = generateProbabilityRange(availablePowerUps);
 
-  // Generate Random Number 1-100
-  // TODO: For now mock the seed, eventually get it from the combined hashes
-  const mockRn = randomInt(1, 999999999999999);
-  const randomSeed = mockRn;
+  let id: PowerUpId | undefined = undefined;
 
-  const url = tkUrl(ctx, "/random/number");
-  const body: RandomNumberBodyToolkit = { seed: randomSeed, min: 1, max: 100 };
+  if (WITH_ZK_LOGIC) {
+    // Generate Random Number 1-100
+    // TODO: For now mock the seed, eventually get it from the combined hashes
+    const mockRn = randomInt(1, 999999999999999);
+    const randomSeed = mockRn;
 
-  // TODO: Return a PowerUpRecord and extract ID
-  const res = httpRequest(nk, url, "post", body);
-  const parsedBody = JSON.parse(res.body);
+    const url = tkUrl(ctx, "/random/number");
+    const body: RandomNumberBodyToolkit = { seed: randomSeed, min: 1, max: 100 };
 
-  if (!isRandomNumberResToolkit(parsedBody)) throw new Error(res.body);
+    // TODO: Return a PowerUpRecord and extract ID
+    const res = httpRequest(nk, url, "post", body);
+    const parsedBody = JSON.parse(res.body);
 
-  // Use random number to get PowerUpId based on given probabilities
-  const id = getPowerUpIdFromProbability(parsedBody.randomNumber, probabilityRange);
+    if (!isRandomNumberResToolkit(parsedBody)) throw new Error(res.body);
 
+    // Use random number to get PowerUpId based on given probabilities
+    id = getPowerUpIdFromProbability(parsedBody.randomNumber, probabilityRange);
+  } else {
+    id = getPowerUpIdFromProbability(randomInt(1, 100), probabilityRange);
+  }
   // TODO: Store PU Record
 
   if (!isPowerUpId(id)) return;
