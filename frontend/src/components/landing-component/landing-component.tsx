@@ -35,8 +35,8 @@ export const LandingComponent: FC = () => {
       <AppName />
       <BottomHeading>{text.landing.theUtterlyAbsurdDice}</BottomHeading>
       <LandingImage src={CallBoloney} alt="boloney" width={width} height={height} />
-      <VisibilityContainer ref={ref} />
       <LandingComponentContainer width={width} height={height}>
+        <VisibilityContainer ref={ref} />
         <NumberedListSection>
           <NumberedParagraph heading={text.landing.paragraphOneHeading} paragraph={text.landing.paragraphOne} />
           <RightDisplaySection>
@@ -44,7 +44,7 @@ export const LandingComponent: FC = () => {
           </RightDisplaySection>
           <NumberedParagraph heading={text.landing.paragraphThreeHeading} paragraph={text.landing.paragraphThree} />
         </NumberedListSection>
-        <LargeHeadingSection firstText={text.landing.lets} secondText={text.landing.ruleThe} lastText={text.landing.game} />
+        <LargeHeadingSection firstText={text.landing.lets} secondText={text.landing.ruleThe} />
         <ImageContainer image={CallBoloney} heading={text.landing.bestBlufferWins} paragraph={text.landing.boloneyDescription} />
         <ImageContainer
           image={PowerUpCards}

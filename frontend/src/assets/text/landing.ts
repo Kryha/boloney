@@ -10,11 +10,11 @@ export const landing = {
   paragraphThreeHeading: "the best Boloney! is the group kind",
   paragraphThree:
     "We want to shape Boloney! together, as a community. We're ready for your feedback on how to improve and evolve the game.",
-  lets: "let's",
+  lets: "let's rule",
   bestBlufferWins: "best bluffer wins",
   boloneyDescription:
     "Boloney! is a game of dice and bluffing. To win, bluff the best about the total value of dice on the table to outsmart your opponents.",
-  ruleThe: "rule the",
+  ruleThe: "the game",
   creatorsChoice: "creator's choice",
   multiplayerDescription:
     "multiplayer, max. 7 players per match. Settings vary per match, and the match creator controls how many dice and power-ups are involved.",

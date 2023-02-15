@@ -94,7 +94,14 @@ export const TopLandingWrapper = styled.div<Props>`
   ${({ isVisible }) =>
     isVisible
       ? css`
-          animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
+          -webkit-animation-duration: 0.6s;
+          -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);
+          -webkit-animation-delay: 0.25s;
+          -webkit-animation-iteration-count: 1;
+          -webkit-animation-direction: normal;
+          -webkit-animation-fill-mode: forwards;
+          -webkit-animation-play-state: running;
+          -webkit-animation-name: ${fadeUp};
           transform: translate3d(0, 1rem, 0);
         `
       : ""};
@@ -127,5 +134,5 @@ export const LinkContainer = styled(TopLandingWrapper)<Props>`
 `;
 
 export const VisibilityContainer = styled.div`
-  height: 100vh;
+  width: 100%;
 `;

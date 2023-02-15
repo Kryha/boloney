@@ -9,6 +9,7 @@ export const GeneralLinkWrapper = styled.section`
   align-items: flex-start;
   padding: 0px;
   gap: 10px;
+  width: 35vw;
   ${Heading6} {
     text-transform: uppercase;
   }

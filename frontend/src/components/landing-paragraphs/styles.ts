@@ -6,9 +6,10 @@ export const ParagraphContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px 0px 40px 80px;
+  padding: 0px 0px 40px 0px;
+  padding-left: clamp(70px, 3.13vw + 40px, 100px);
   gap: 10px;
-  margin-top: -3.6vh;
+  margin-top: -3vh;
 `;
 
 interface Props {
@@ -21,18 +22,26 @@ export const NumberedParagraphContainer = styled.div<Props>`
   align-items: flex-start;
   padding: 20px 0px 0px;
   opacity: 0;
+  padding-bottom: 40px;
 
   ${({ isVisible }) =>
     isVisible
       ? css`
-          animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
+          -webkit-animation-duration: 0.6s;
+          -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);
+          -webkit-animation-delay: 0.25s;
+          -webkit-animation-iteration-count: 1;
+          -webkit-animation-direction: normal;
+          -webkit-animation-fill-mode: forwards;
+          -webkit-animation-play-state: running;
+          -webkit-animation-name: ${fadeUp};
           transform: translate3d(0, 1rem, 0);
         `
       : ""};
 
   ${Heading3} {
     margin-top: 10px;
-    width: 43.5vw;
+    width: 54vw;
   }
 `;
 

@@ -135,7 +135,7 @@ export const NumberedListSection = styled.section`
   counter-reset: css-counter 0;
   ${Heading1} {
     counter-increment: css-counter 1;
-    padding-left: 47px;
+    padding-left: 40px;
   }
   ${Heading1}:after {
     content: counter(css-counter, decimal-leading-zero) ""; /* Apply counter before children's content. */

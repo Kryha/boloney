@@ -17,11 +17,11 @@ type FadeProp = { fade: "fade-in" | "fade-out" };
 export const AnimatedWaitingText: FC<Props> = ({ headingTwo, wordsToBold = [] }) => {
   const [fade, setFade] = useState<FadeProp>({ fade: "fade-in" });
   const [wordOrder, setWordOrder] = useState(0);
-  const wordsToAnimate = [...waitingText, headingTwo];
+  const wordsToAnimate = [headingTwo, ...waitingText];
 
   useEffect(() => {
     const fadeTimeout = setInterval(() => {
-      fade.fade === "fade-in" ? setFade({ fade: "fade-out" }) : setFade({ fade: "fade-in" });
+      fade.fade === "fade-in" && setFade({ fade: "fade-in" });
     }, FADE_INTERVAL_MS);
 
     return () => clearInterval(fadeTimeout);

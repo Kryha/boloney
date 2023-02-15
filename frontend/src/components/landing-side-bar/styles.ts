@@ -33,13 +33,13 @@ export const ColumnGroup = styled.div<Props>`
   align-items: center;
   padding: 0px 0px 30px;
   ${ImageWrapper} {
-    height: 15vh;
-    width: 7.21vw;
+    height: 30vh;
+    width: 14.81vw;
   }
 
   ${HandContainer} {
-    height: 15vh;
-    width: 7.21vw;
+    height: 30vh;
+    width: 14.81vw;
   }
 
   ${Hand} {
@@ -55,20 +55,14 @@ export const ColumnGroup = styled.div<Props>`
     isDice
       ? `
       padding-top: 0;
-      zoom: 0.5;
-      gap: 14vh;
-      ${HandContainer} {
-        height: 15vh;
-        width: 7.21vw;
-      }
-      ${ImageWrapper} {
-        height: 11vh;
-        width: 7.21vw;
-      }
+      zoom: 0.45;
+      gap: 11vh;
+
   `
       : `
       zoom: 0.37;
       gap: 17vh;
+      padding-top: 5vh;
       `}
 `;
 
@@ -123,8 +117,8 @@ export const SidebarContainer = styled.div`
 `;
 
 export const WhiteDice = styled(WhiteDiceIcon)<DiceProps>`
-  width: 7.5vw;
-  height: auto;
+  height: 30vh;
+  width: 14.81vw;
   ellipse {
     fill: ${({ customColor }) => `${customColor}`};
   }

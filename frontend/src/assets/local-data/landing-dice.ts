@@ -19,12 +19,4 @@ export const landingDice = [
     speed: 4,
     color: "#5573F6",
   },
-  {
-    speed: 2.5,
-    color: "#FFC300",
-  },
-  {
-    speed: 5,
-    color: "#B68fE3",
-  },
 ];

@@ -9,7 +9,7 @@ interface TextProps {
 export const Heading0 = styled.h1<TextProps>`
   font-family: "itc-clearface-regular";
   font-weight: ${fontWeight.regular};
-  font-size: clamp(10.5rem, 11.67vw + 3.5rem, 17.5rem);
+  font-size: clamp(11.63rem, 11.88vw + 4.5rem, 18.75rem);
   line-height: clamp(10.5rem, 11.67vw + 3.5rem, 17.5rem);
   letter-spacing: -0.02em;
   color: ${({ customColor }): string => customColor || color.black};

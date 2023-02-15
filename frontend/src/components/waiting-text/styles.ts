@@ -3,9 +3,9 @@ import { fadeIn, fadeOut } from "../atoms";
 
 export const AnimatedTextWrapper = styled.div`
   .fade-in {
-    animation: ${fadeIn} 1s forwards;
+    animation: ${fadeIn} 0.1s forwards;
   }
   .fade-out {
-    animation: ${fadeOut} 1s forwards;
+    animation: ${fadeOut} 0.1s forwards;
   }
 `;
