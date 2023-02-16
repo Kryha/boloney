@@ -120,6 +120,8 @@ export const GeneralText = styled.h3<TextProps>`
     color: ${color.black};
     background-color: transparent;
     font-weight: ${fontWeight.bold};
+    font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
+    line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
   }
 `;
 
