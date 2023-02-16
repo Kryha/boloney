@@ -32,7 +32,7 @@ import {
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
-import { cleanUUID, getRange, shuffleArray } from "../utils";
+import { cleanUUID, env, getRange, shuffleArray } from "../utils";
 import { getNextPlayerId, setActivePlayer } from "./player";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
@@ -47,30 +47,37 @@ const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrill
 };
 
 const useBirdsEye = (loopParams: MatchLoopParams, data: UseBirdsEyeFrontend, powerUpRecord: PowerUpToolkit): UseBirdsEyeBackend => {
-  const { state } = loopParams;
+  const { state, ctx } = loopParams;
   const { targetId } = data;
 
   const target = state.players[targetId];
 
-  const diceData: DiceDataToolkit = {
-    dice_1: 0,
-    dice_2: 0,
-    dice_3: 0,
-    dice_4: 0,
-    dice_5: 0,
-    dice_6: 0,
-    dice_7: 0,
-    dice_8: 0,
-    dice_9: 0,
-    dice_10: 0,
-  };
+  let sum: number;
 
-  target.diceValue.forEach((dice, i) => {
-    const key = `dice_${i + 1}` as keyof DiceDataToolkit;
-    diceData[key] = dice.rolledValue;
-  });
+  if (env(ctx).ZK_ENABLED) {
+    const diceData: DiceDataToolkit = {
+      dice_1: 0,
+      dice_2: 0,
+      dice_3: 0,
+      dice_4: 0,
+      dice_5: 0,
+      dice_6: 0,
+      dice_7: 0,
+      dice_8: 0,
+      dice_9: 0,
+      dice_10: 0,
+    };
 
-  const { sum } = toolkitUse.birdsEye(loopParams, powerUpRecord, diceData);
+    target.diceValue.forEach((dice, i) => {
+      const key = `dice_${i + 1}` as keyof DiceDataToolkit;
+      diceData[key] = dice.rolledValue;
+    });
+
+    const res = toolkitUse.birdsEye(loopParams, powerUpRecord, diceData);
+    sum = res.sum;
+  } else {
+    sum = target.diceValue.reduce((tot, die) => tot + die.rolledValue, 0);
+  }
 
   return { sum, targetId };
 };

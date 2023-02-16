@@ -1,6 +1,5 @@
-import { WITH_ZK_LOGIC } from "../constants";
 import { Die, isDieArray, isRandomNumberResToolkit, MatchLoopParams, RandomNumberBodyToolkit } from "../types";
-import { getRange, httpRequest, randomInt, tkUrl } from "../utils";
+import { env, getRange, httpRequest, randomInt, tkUrl } from "../utils";
 
 const requestRoll = async (loopParams: MatchLoopParams): Promise<number | undefined> => {
   const { nk, ctx } = loopParams;
@@ -28,7 +27,17 @@ const localRoll = async (): Promise<number | undefined> => {
 
 // TODO: Add spinner until response arrive
 export const rollDice = async (loopParams: MatchLoopParams, diceAmount: number): Promise<Die[] | undefined> => {
-  const value = await Promise.all(getRange(diceAmount).map(async () => (WITH_ZK_LOGIC ? requestRoll(loopParams) : localRoll())));
+  const { ctx } = loopParams;
+
+  const value = await Promise.all(
+    getRange(diceAmount).map(() => {
+      if (env(ctx).ZK_ENABLED) {
+        return requestRoll(loopParams);
+      } else {
+        return localRoll();
+      }
+    })
+  );
 
   const dice = value.map((die) => ({
     rolledValue: die,

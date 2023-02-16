@@ -1,4 +1,3 @@
-import { WITH_ZK_LOGIC } from "../constants";
 import {
   DiceDataToolkit,
   isBirdsEyeResToolkit,
@@ -14,7 +13,7 @@ import {
   UseBirdsEyeBodyToolkit,
   UseBirdsEyeResToolkit,
 } from "../types";
-import { httpRequest, randomInt, tkUrl } from "../utils";
+import { env, httpRequest, randomInt, tkUrl } from "../utils";
 
 export const getAvailablePowerUps = (powerUpsProbability: PowerUpProbability[]): PowerUpProbability[] => {
   const availablePowerUps = powerUpsProbability.filter((powerUp) => powerUp.probability !== 0);
@@ -59,7 +58,7 @@ export const getPowerUp = (loopParams: MatchLoopParams): PowerUpId | undefined =
 
   let id: PowerUpId | undefined = undefined;
 
-  if (WITH_ZK_LOGIC) {
+  if (env(ctx).ZK_ENABLED) {
     // Generate Random Number 1-100
     // TODO: For now mock the seed, eventually get it from the combined hashes
     const mockRn = randomInt(1, 999999999999999);

@@ -31,4 +31,4 @@ EXPOSE 7349
 EXPOSE 7350
 EXPOSE 7351
 
-ENTRYPOINT /nakama/nakama migrate up --database.address $DB_URI && exec /nakama/nakama --config /nakama/data/local.yml --database.address $DB_URI --runtime.env "TOOLKIT_BASE_URL=$TOOLKIT_BASE_URL"
+ENTRYPOINT /nakama/nakama migrate up --database.address $DB_URI && exec /nakama/nakama --config /nakama/data/local.yml --database.address $DB_URI --runtime.env "TOOLKIT_BASE_URL=$TOOLKIT_BASE_URL" --runtime.env "ZK_ENABLED=$ZK_ENABLED"
