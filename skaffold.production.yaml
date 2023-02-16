@@ -1,0 +1,28 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: boloney
+build:
+  tagPolicy:
+    sha256: {}
+  local:
+    concurrency: 0
+    push: true
+  artifacts:
+    - image: eu.gcr.io/web3-335312/aleo/boloney-production/frontend
+      docker:
+        dockerfile: Dockerfile.frontend
+        buildArgs:
+          VITE_BACKEND_URL: backend.boloney.io
+          VITE_API_URL: api.boloney.io
+          VITE_USE_SSL: true
+          VITE_API_PORT: "443"
+    - image: eu.gcr.io/web3-335312/aleo/boloney-production/backend
+      docker:
+        dockerfile: Dockerfile.backend
+manifests:
+  kustomize:
+    paths:
+      - ./deployment/production/workloads
+deploy:
+  kubectl: {}

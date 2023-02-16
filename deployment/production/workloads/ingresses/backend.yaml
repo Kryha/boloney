@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://boloney.io"
+spec:
+  tls:
+    - secretName: "backend.boloney.io"
+      hosts:
+        - "backend.boloney.io"
+    - secretName: "api.boloney.io"
+      hosts:
+        - "api.boloney.io"
+  rules:
+    - host: "backend.boloney.io"
+      http:
+        paths:
+          - path: "/(.*)"
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  name: dashboard
+    - host: "api.boloney.io"
+      http:
+        paths:
+          - path: "/(.*)"
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  name: api

@@ -1,0 +1,43 @@
+trigger:
+  - deployment/production
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  - name: GIT_MIRROR_URL
+    value: "$(gitMirrorURL)"
+  - name: GIT_MIRROR_TOKEN
+    value: "$(gitMirrorToken)"
+
+stages:
+  - stage: build_and_deploy
+    displayName: Build and Deploy
+    dependsOn: []
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - job: build_and_deploy
+        displayName: Build Docker images and deploy through Kubernetes
+        steps:
+          - script: curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
+            displayName: Install Skaffold
+          - task: DownloadSecureFile@1
+            name: authkey
+            displayName: "Download Service Account Key"
+            inputs:
+              secureFile: zk-gaming-azure.json
+              retryCount: "2"
+          - script: gcloud auth activate-service-account zk-gaming-azure@web3-335312.iam.gserviceaccount.com --key-file=$(authkey.secureFilePath)
+            displayName: Activate Service Account
+          - task: Kubernetes@1
+            inputs:
+              connectionType: "Kubernetes Service Connection"
+              kubernetesServiceEndpoint: "gke-zk-gaming"
+              namespace: "boloney-production"
+              command: "login"
+          - script: |
+              envsubst < deployment/production/workloads/secrets/backend.template.yaml > deployment/production/workloads/secrets/backend.yaml
+              skaffold run --filename skaffold.production.yaml
+            displayName: Build and push docker images
+            env:
+              DB_PASSWORD: $(DB_PASSWORD)

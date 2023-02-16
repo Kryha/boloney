@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: "localhost:5000/aleo/boloney/backend:latest"
+          image: "eu.gcr.io/web3-335312/aleo/boloney-production/backend:latest"
           env:
             - name: POD_NAMESPACE
               valueFrom:
@@ -28,5 +28,8 @@ spec:
                   key: db_password
             - name: DB_URI
               value: postgres:$(DB_PASSWORD)@postgres.$(POD_NAMESPACE).svc.cluster.local:5432/nakama
+              # TODO: update toolkit url after deploying a production toolkit
+            - name: TOOLKIT_BASE_URL
+              value: https://zk-gaming-tk.staging.kryha.dev
             - name: ZK_ENABLED
               value: "false"

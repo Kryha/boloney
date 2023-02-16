@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+spec:
+  tls:
+    - secretName: "boloney.io"
+      hosts:
+        - "boloney.io"
+  rules:
+    - host: "boloney.io"
+      http:
+        paths:
+          - path: "/(.*)"
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  name: frontend

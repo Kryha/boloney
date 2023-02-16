@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    spec:
+      containers:
+        - name: frontend
+          image: eu.gcr.io/web3-335312/aleo/boloney-production/frontend:latest
