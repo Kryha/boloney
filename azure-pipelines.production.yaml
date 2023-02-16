@@ -41,3 +41,4 @@ stages:
             displayName: Build and push docker images
             env:
               DB_PASSWORD: $(DB_PASSWORD)
+              CONSOLE_PASSWORD: $(CONSOLE_PASSWORD)
