@@ -8,7 +8,7 @@ import { ButtonReady } from "../button-ready";
 import { useEffectOnce } from "usehooks-ts";
 import { useStore } from "../../store";
 import { MatchHeading } from "../match-heading";
-import { TimeStamp } from "../history/history-atoms/styles";
+import { Timer } from "../timer";
 
 export const GetPowerUps: FC = () => {
   const localPlayer = useLocalPlayer();
@@ -22,7 +22,7 @@ export const GetPowerUps: FC = () => {
 
   return (
     <BottomButtonWrapper>
-      <TimeStamp title={text.powerUps.settingItUp} />
+      <Timer title={text.powerUps.settingItUp} />
       <MatchHeading
         headingOne={text.powerUps.getYourPowerUps}
         headingTwo={text.param.powerUpsHiddenMoves(localPlayer.username)}
