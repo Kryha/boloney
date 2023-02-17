@@ -21,6 +21,7 @@ interface DieProps {
   isRow?: boolean;
   isTemporaryDice?: boolean;
   isMatchSettings?: boolean;
+  isMatchHistory?: boolean;
 }
 
 export const findDieFace = (value?: number) => {
@@ -42,12 +43,19 @@ export const findDieFace = (value?: number) => {
   }
 };
 
-export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor, isRow, isTemporaryDice, isMatchSettings }) => {
+export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor, isRow, isTemporaryDice, isMatchSettings, isMatchHistory }) => {
   const diceSize = isRow ? LARGE_DIE_SIZE : size;
 
   return (
     <DiceContainer>
-      <DieWrapper faceColor={faceColor} size={diceSize} pipColor={pipColor} isDiceHidden={!value} isMatchSettings={isMatchSettings}>
+      <DieWrapper
+        faceColor={faceColor}
+        size={diceSize}
+        pipColor={pipColor}
+        isDiceHidden={!value}
+        isMatchSettings={isMatchSettings}
+        isMatchHistory={isMatchHistory}
+      >
         {findDieFace(value)}
       </DieWrapper>
       <TemporaryDieIconWrapper isRow={isRow}>{isTemporaryDice && <RefreshIcon />}</TemporaryDieIconWrapper>

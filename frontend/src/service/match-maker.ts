@@ -26,6 +26,7 @@ export const useJoinMatch = (matchId: string) => {
 
         const channelId = await joinChat(match.match_id);
         setChannelId(channelId);
+
         clearMessages();
       } catch (error) {
         setIsJoining(false);

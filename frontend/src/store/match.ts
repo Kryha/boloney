@@ -16,9 +16,10 @@ import {
   PowerUp,
   UsePowerUpPayloadBackend,
   PlayerRoundData,
+  HistoryEvent,
 } from "../types";
 
-interface PowerUpState {
+export interface PowerUpState {
   targetPlayerId?: string;
   active?: PowerUp;
   result?: UsePowerUpPayloadBackend;
@@ -48,6 +49,7 @@ export interface MatchSliceState extends RoundState {
   stageNumber: number;
   drawRoundCounter: number;
   receivedPowerUps: number;
+  historyEvents: HistoryEvent[];
 
   powerUpState: PowerUpState;
 }
@@ -78,6 +80,10 @@ interface MatchSliceSetters {
   setPowerUpState: (powerUpState: PowerUpState) => void;
   replacePowerUpState: (powerUpState: PowerUpState) => void;
   resetPowerUpState: () => void;
+
+  addHistoryEvent: (event: HistoryEvent) => void;
+  clearHistory: () => void;
+  setHistoryEvents: (events: HistoryEvent[]) => void;
 }
 
 export type MatchSlice = MatchSliceState & MatchSliceSetters;
@@ -110,6 +116,7 @@ const initialMatchState: MatchSliceState = {
   stageNumber: 0,
   drawRoundCounter: 0,
   receivedPowerUps: 0,
+  historyEvents: [],
   powerUpState: initialPoweUpState,
   ...initialRoundState,
 };
@@ -184,4 +191,13 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
   setPowerUpState: (newState) => set(({ powerUpState }) => ({ powerUpState: { ...powerUpState, ...newState } })),
   resetPowerUpState: () => set(() => ({ powerUpState: initialPoweUpState })),
   replacePowerUpState: (newState) => set(() => ({ powerUpState: newState })),
+
+  addHistoryEvent: (event) =>
+    set(({ historyEvents }) => {
+      return { historyEvents: [...historyEvents, event] };
+    }),
+  clearHistory: () => set(() => ({ historyEvents: [] })),
+  setHistoryEvents: (events) => {
+    set(() => ({ historyEvents: [...events] }));
+  },
 });

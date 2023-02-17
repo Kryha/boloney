@@ -7,7 +7,7 @@ import { useStore } from "../../store";
 import { TurnActionStep } from "../../types";
 import { Heading2 } from "../atoms";
 import { ErrorView } from "../error-view";
-import { Timer } from "../timer";
+import { TimeStamp } from "../history/history-atoms/styles";
 import { AnimatedWaitingText } from "../waiting-text";
 
 interface IdlePlayerHeaderProps {
@@ -23,7 +23,7 @@ export const IdlePlayerHeader: FC<IdlePlayerHeaderProps> = ({ step }) => {
 
   return (
     <>
-      <Timer title={headerData.timerTitle} />
+      <TimeStamp title={headerData.timerTitle} />
       <Heading2>
         {!!headerData.headingTitle && (
           <Highlighter

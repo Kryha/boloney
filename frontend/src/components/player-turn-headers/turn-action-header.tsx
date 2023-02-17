@@ -5,7 +5,7 @@ import { useLatestBid, usePlayer } from "../../service";
 import { useStore } from "../../store";
 import { Heading2 } from "../atoms";
 import { GoBackButton } from "../buttons";
-import { Timer } from "../timer";
+import { TimeStamp } from "../history/history-atoms/styles";
 import { TurnActionHeaderWrapper, TurnActionHeading } from "./styles";
 
 export const TurnActionHeader = () => {
@@ -30,7 +30,11 @@ export const TurnActionHeader = () => {
   return (
     <TurnActionHeaderWrapper isBackButtonVisible={turnActionStep === "proceedWithAction"}>
       <GoBackButton primaryText={text.playerTurn.back} onClick={handleGoBack} />
-      {turnActionStep === "evaluateWinner" ? <TurnActionHeading>{headerData.timerTitle}</TurnActionHeading> : <Timer title={timerTitle} />}
+      {turnActionStep === "evaluateWinner" ? (
+        <TurnActionHeading>{headerData.timerTitle}</TurnActionHeading>
+      ) : (
+        <TimeStamp title={timerTitle} />
+      )}
       <Heading2>{headerData.headingTitle}</Heading2>
       <Heading2 customColor={color.darkGrey}>
         <Highlighter

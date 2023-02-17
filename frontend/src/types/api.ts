@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { bidPayloadBackendSchema } from "./bid";
 import { NkError } from "./error";
 import { matchStageSchema, matchStateSchema, playerIdSchema, playerPublicSchema, playerRankedSchema } from "./match";
 import { powerUpIdSchema } from "./power-up";
@@ -75,3 +76,10 @@ export const playerActivePayloadBackendSchema = z.object({
   activePlayerId: playerIdSchema,
 });
 export type PlayerActivePayloadBackend = z.infer<typeof playerActivePayloadBackendSchema>;
+
+export const matchHistoryUpdateBackendPayloadSchema = z.discriminatedUnion("id", [
+  z.object({ id: z.literal("bid"), data: bidPayloadBackendSchema }),
+  z.object({ id: z.literal("healDice"), data: healDicePayloadBackendSchema }),
+]);
+
+export type MatchHistoryUpdateBackendPayload = z.infer<typeof matchHistoryUpdateBackendPayloadSchema>;

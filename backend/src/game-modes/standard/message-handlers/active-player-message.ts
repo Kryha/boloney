@@ -17,6 +17,7 @@ import {
   handleError,
   updatePlayerPublicData,
   powerUp,
+  saveHistoryEvent,
 } from "../../../services";
 import { getPowerUp, rollDice } from "../../../toolkit-api";
 import {
@@ -67,6 +68,8 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify(playerActivePayload));
   stopLoading(loopParams, message.sender);
+
+  saveHistoryEvent(state, { eventType: "bidAction", senderId: sender.userId });
 });
 
 const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => {
@@ -103,6 +106,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
 
   setAction("Boloney", state);
   stopLoading(loopParams, message.sender);
+  saveHistoryEvent(state, { eventType: "roundResults" });
 });
 
 const handlePlayerCallExact = messageHandler(async (loopParams, message, sender) => {
@@ -159,6 +163,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
 
   setAction("Exact", state);
   stopLoading(loopParams, message.sender);
+  saveHistoryEvent(state, { eventType: "roundResults" });
 });
 
 const handlePlayerCallHealDice = messageHandler(async (loopParams, message, sender) => {
@@ -218,6 +223,7 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_HEAL_DICE, JSON.stringify(payload));
 
   stopLoading(loopParams, message.sender);
+  saveHistoryEvent(state, { eventType: "playerAction", senderId: sender.userId });
 });
 
 export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => {

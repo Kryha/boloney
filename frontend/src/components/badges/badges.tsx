@@ -14,7 +14,7 @@ export const WinnerBadge = () => {
   );
 };
 
-const LoserBadge = () => {
+export const LoserBadge = () => {
   return (
     <BadgeWrapper>
       <CoolHand />

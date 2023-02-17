@@ -14,7 +14,7 @@ import {
   ErrorView,
   Loading,
 } from "../../components";
-import { nakama, useChatHistory, useJoinMatch } from "../../service";
+import { nakama, getRoundEndHistoryEvent, useChatHistory, useJoinMatch, getRoundStartHistoryEvent, getHistoryEvent } from "../../service";
 import { useSession, useStore } from "../../store";
 import {
   MatchOpCode,
@@ -35,6 +35,8 @@ import {
   healDicePayloadBackendSchema,
   usePowerUpPayloadBackendSchema,
   UsePowerUpPayloadBackend,
+  MatchHistoryUpdateBackendPayload,
+  RoundSummaryTransitionPayloadBackend,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -79,6 +81,13 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const setPlayerRoundData = useStore((state) => state.setPlayerRoundData);
   const resetPowerUpState = useStore((state) => state.resetPowerUpState);
   const setShufflingPlayers = useStore((state) => state.setShufflingPlayers);
+  const addHistoryEvent = useStore((state) => state.addHistoryEvent);
+  const setHistoryEvents = useStore((state) => state.setHistoryEvents);
+  const clearHistory = useStore((state) => state.clearHistory);
+  const powerUpState = useStore((state) => state.powerUpState);
+  const historyEvents = useStore((state) => state.historyEvents);
+  const round = useStore((state) => state.round);
+  const players = useStore((state) => state.players);
 
   const joinMatchDone = useJoinMatch(matchId);
   const joinChatDone = useChatHistory(joinMatchDone);
@@ -124,6 +133,16 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
       setPowerUpState({ result: powerUpPayload });
     };
 
+    const handleHistoryUpdate = (payload: MatchHistoryUpdateBackendPayload) => {
+      const newEvent = getHistoryEvent(payload);
+      if (newEvent) addHistoryEvent(newEvent);
+    };
+
+    const handleRoundEndHistoryEvent = (roundSummary: RoundSummaryTransitionPayloadBackend) => {
+      const roundStart = getRoundStartHistoryEvent(roundSummary);
+      addHistoryEvent(roundStart);
+    };
+
     nakama.socket.onmatchdata = (matchData: MatchData) => {
       const parsedCode = matchOpCodeSchema.safeParse(matchData.op_code);
       if (!parsedCode.success) return;
@@ -151,6 +170,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
 
           setTimerTimeInSeconds(parsed.data.remainingStageTime);
+          clearHistory();
           setMatchState(parsed.data.matchState);
           setIsJoining(false);
           break;
@@ -183,6 +203,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           const parsed = bidPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
           setBids(parsed.data);
+          handleHistoryUpdate({ id: "bid", data: parsed.data });
           break;
         }
         case MatchOpCode.PLAYER_CALL_BOLONEY: {
@@ -190,11 +211,15 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
           setLastAction("Boloney");
           setPlayers(parsed.data.players);
+          const roundEnd = getRoundEndHistoryEvent("Boloney", parsed.data.players, round);
+          if (roundEnd) addHistoryEvent(roundEnd);
           break;
         }
         case MatchOpCode.PLAYER_LOST_BY_TIMEOUT: {
           const parsed = boloneyPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
+          const roundEnd = getRoundEndHistoryEvent("lostByTimeOut", parsed.data.players, round);
+          if (roundEnd) addHistoryEvent(roundEnd);
           setLastAction("lostByTimeOut");
           setPlayers(parsed.data.players);
           setTurnActionStep("results");
@@ -206,6 +231,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
           setLastAction("Exact");
           setPlayers(parsed.data.players);
+          const roundEnd = getRoundEndHistoryEvent("Exact", parsed.data.players, round);
+          if (roundEnd) addHistoryEvent(roundEnd);
           break;
         }
         case MatchOpCode.PLAYER_ACTIVE: {
@@ -233,6 +260,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
           setTurnActionStep("pickAction");
           setPlayers(parsed.data.players);
+          handleHistoryUpdate({ id: "healDice", data: parsed.data });
           break;
         }
         case MatchOpCode.ROUND_SUMMARY_TRANSITION: {
@@ -242,6 +270,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           setLeaderboard(parsed.data.leaderboard);
           setRound(parsed.data.round);
           setStageNumberAndCounter(parsed.data.stageNumber, parsed.data.drawRoundCounter);
+
+          handleRoundEndHistoryEvent(parsed.data);
           break;
         }
         case MatchOpCode.USE_POWER_UP: {
@@ -249,6 +279,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
 
           handlePowerUpSideEffects(parsed.data);
+
           break;
         }
         case MatchOpCode.ERROR: {
@@ -257,12 +288,19 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
       }
     };
   }, [
+    addHistoryEvent,
+    clearHistory,
+    historyEvents,
+    players,
+    powerUpState,
     resetPowerUpState,
     resetRound,
+    round,
     session,
     setActivePlayer,
     setBids,
     setDiceValue,
+    setHistoryEvents,
     setIsJoining,
     setLastAction,
     setLeaderboard,

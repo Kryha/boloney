@@ -2,6 +2,7 @@ import { z } from "zod";
 import { MAX_POWERUPS_PER_PLAYER } from "../constants";
 import { bidPayloadBackendSchema } from "./bid";
 import { dieSchema } from "./die";
+import { historyEventsSchema } from "./history";
 import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
 import { turnActionStepSchema } from "./ui";
 
@@ -135,6 +136,7 @@ export const matchStateSchema = z.object({
   drawRoundCounter: z.number(),
   turnActionStep: turnActionStepSchema,
   lastAction: actionSchema,
+  historyEvents: historyEventsSchema,
 });
 
 export type MatchState = z.infer<typeof matchStateSchema>;

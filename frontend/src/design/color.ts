@@ -17,4 +17,5 @@ export const color = {
   greyWhite: "#F2F3F5",
   black: "#292929",
   red: "#FC0E0E",
+  greyWithOpacity: "rgba(238, 238, 234, 0.5)",
 };

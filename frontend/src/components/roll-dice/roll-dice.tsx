@@ -2,7 +2,6 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { BottomButtonWrapper } from "../atoms";
-import { Timer } from "../timer";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { PrimaryButton } from "../buttons";
@@ -12,6 +11,7 @@ import { ButtonReady } from "../button-ready";
 import { getDieColor } from "../../util";
 import { RollingDice } from "../dice-animation";
 import { MatchHeading } from "../match-heading";
+import { TimeStamp } from "../history/history-atoms/styles";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -42,7 +42,7 @@ export const RollDice: FC = () => {
   if (hasRolledDice && isPlayerReady) {
     return (
       <BottomButtonWrapper>
-        <Timer title={text.powerUps.waitingTime} />
+        <TimeStamp title={text.powerUps.waitingTime} />
         <MatchHeading headingOne={text.powerUps.timeToWait} headingTwo={text.powerUps.waitForPlayers} isAnimated />
 
         {dice && <RollingDice dice={dice} dieColor={dieColor} />}
@@ -54,7 +54,7 @@ export const RollDice: FC = () => {
 
   return (
     <BottomButtonWrapper>
-      <Timer title={text.powerUps.settingItUp} />
+      <TimeStamp title={text.powerUps.settingItUp} />
       <MatchHeading
         headingOne={text.match.getDice}
         headingTwo={text.match.findOutYourPips}

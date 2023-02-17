@@ -161,7 +161,6 @@ export const ParagraphBulletPointBold = styled(ParagraphReducedMargin)`
 export const MatchStateItemContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: ${margins.small0};
   padding: ${margins.small0};
   justify-content: flex-end;
   ${GeneralText} {

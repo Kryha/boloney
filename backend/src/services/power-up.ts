@@ -34,6 +34,7 @@ import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
 import { cleanUUID, env, getRange, shuffleArray } from "../utils";
 import { getNextPlayerId, setActivePlayer } from "./player";
+import { saveHistoryEvent } from "./history";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
   const { state } = loopParams;
@@ -119,7 +120,7 @@ const useDoubleUp = async (loopParams: MatchLoopParams, sender: Player): Promise
 
 const useVendetta = async (loopParams: MatchLoopParams, data: UseVendettaFrontend): Promise<UseVendettaBackend> => {
   // TODO: implement
-  return {};
+  return { targetId: "" };
 };
 
 const useSecondChance = async (loopParams: MatchLoopParams, data: UseSecondChanceFrontend): Promise<UseSecondChanceBackend> => {
@@ -158,7 +159,7 @@ const useSmokeAndMirrors = (loopParams: MatchLoopParams, sender: Player): UseSmo
 
 const useHypnosis = async (loopParams: MatchLoopParams, data: UseHypnosisFrontend): Promise<UseHypnosisBackend> => {
   // TODO: implement
-  return {};
+  return { targetId: "" };
 };
 
 const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage, sender: Player): Promise<void> => {
@@ -255,6 +256,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
       dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload));
     }
 
+    saveHistoryEvent(state, { eventType: "playerAction", senderId: sender.userId, powerUpPayload: resPayload });
     updatePlayersState(state, dispatcher);
 
     dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [senderPresence]);

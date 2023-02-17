@@ -1,5 +1,6 @@
 import { BidPayloadBackend } from "./bid";
 import { Die } from "./die";
+import { HistoryEvent } from "./history";
 import { Action, MatchSettings, MatchStage, PlayerPublic, PlayerRanked, TurnActionStep } from "./match";
 import { PowerUpId, isPowerUpTypeArray } from "./power-up";
 
@@ -19,6 +20,7 @@ export interface PlayerJoinedPayloadBackend {
     drawRoundCounter: number;
     turnActionStep: TurnActionStep;
     lastAction: Action;
+    historyEvents: HistoryEvent[];
   };
   remainingStageTime: number;
 }

@@ -6,6 +6,7 @@ import {
   hidePlayersData,
   matchStageDuration,
   resetRound,
+  saveHistoryEvent,
   setActivePlayer,
   transitionHandler,
 } from "../../services";
@@ -102,4 +103,6 @@ export const handleRoundSummaryTransition = transitionHandler(async (loopParams,
 
   dispatcher.broadcastMessage(MatchOpCode.ROUND_SUMMARY_TRANSITION, JSON.stringify(roundSummaryTransitionPayload));
   dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(stageTransitionPayload));
+
+  saveHistoryEvent(state, { eventType: "roundStart" });
 });

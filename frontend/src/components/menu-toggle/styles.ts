@@ -60,4 +60,5 @@ export const MenuToggleHeadingSection = styled.section`
 
 export const MenuChildrenContainer = styled.div`
   width: -webkit-fill-available;
+  overflow: scroll;
 `;

@@ -14,6 +14,7 @@ export const MatchStats: FC = () => {
   const totalDice = useTotalDiceInMatch();
   const stageNumber = useStore((state) => state.stageNumber);
   const drawRoundCounter = useStore((state) => state.drawRoundCounter);
+  const round = useStore((state) => state.round);
 
   return (
     <MatchStatsContainer>
@@ -21,7 +22,7 @@ export const MatchStats: FC = () => {
       <MatchStateVerticalDivider />
       <MatchStateItemStage phaseNumber={stageNumber} />
       <MatchStateVerticalDivider />
-      <MatchStateItemDrawRound powerUpAmount={AMOUNT_OF_POWER_UPS} roundNumber={drawRoundCounter} />
+      <MatchStateItemDrawRound powerUpsAmount={AMOUNT_OF_POWER_UPS} roundNumber={round} drawRoundCounter={drawRoundCounter} />
     </MatchStatsContainer>
   );
 };

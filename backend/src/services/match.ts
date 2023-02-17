@@ -212,6 +212,7 @@ export const resetRound = ({ state }: MatchLoopParams) => {
   });
 };
 
+// TODO: Remove after checking reload on Match Summary
 export const setAction = (action: Action, state: MatchState) => {
   state.action = action;
 };
@@ -239,10 +240,17 @@ export const updatePlayersState = (state: MatchState, dispatcher: nkruntime.Matc
           drawRoundCounter: state.drawRoundCounter,
           turnActionStep: turnActionStep,
           lastAction: state.action,
+          historyEvents: state.historyEvents,
         },
         remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
       };
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
     })
   );
+};
+
+export const totalDiceInMatch = (playersRecord: Record<string, Player>) => {
+  const players = Object.values(playersRecord);
+  const totalDice = players.reduce((total, player) => total + player.diceAmount, 0);
+  return totalDice;
 };

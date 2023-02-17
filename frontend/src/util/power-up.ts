@@ -18,6 +18,6 @@ export const powerUpRequiresTarget = (powerUpId: PowerUpId): boolean => {
 };
 
 export const isPowerUpTriggeredImmediately = (powerUpId: PowerUpId) => {
-  const immediate: PowerUpId[] = ["3", "4", "8"];
+  const immediate: PowerUpId[] = ["3", "4", "6", "8"];
   return immediate.includes(powerUpId);
 };

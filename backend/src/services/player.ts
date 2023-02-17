@@ -12,7 +12,9 @@ import {
   PlayerPublic,
   RollDicePayload,
   MatchOpCode,
+  ActionRole,
 } from "../types";
+import { totalDiceInMatch } from "./match";
 import { sendMatchNotification } from "./notification";
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
@@ -45,6 +47,11 @@ export const getNextPlayerId = (currentPlayerId: string, state: MatchState): str
   } while (nextPlayer.status === "lost");
 
   return nextPlayerId;
+};
+
+export const getPlayerWithRole = (state: MatchState, actionRole: ActionRole): Player | undefined => {
+  const playersValues = Object.values(state.players);
+  return playersValues.find((player) => player.actionRole === actionRole);
 };
 
 export const getOtherPresences = (currentPlayerId: string, presences: Record<string, nkruntime.Presence>): nkruntime.Presence[] => {
@@ -174,9 +181,7 @@ export const getLatestBid = (bids: Record<string, Bid>): BidWithUserId | undefin
   }, undefined);
 
 export const isBidMaxTotal = (playersRecord: Record<string, Player>, bid: BidPayloadFrontend) => {
-  const players = Object.values(playersRecord);
-  const totalDice = players.reduce((total, player) => total + player.diceAmount, 0);
-
+  const totalDice = totalDiceInMatch(playersRecord);
   return totalDice >= bid.amount;
 };
 

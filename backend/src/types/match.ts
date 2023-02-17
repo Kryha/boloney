@@ -1,6 +1,7 @@
 import { MATCH_STAGES } from "../constants";
 import { Bid } from "./bid";
 import { Die, isDieArray } from "./die";
+import { HistoryEvent } from "./history";
 import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
@@ -199,6 +200,7 @@ export interface MatchState {
   drawRoundCounter: number;
   turnActionStep: TurnActionStep;
   action: Action;
+  historyEvents: HistoryEvent[];
 }
 
 export type MatchStage =

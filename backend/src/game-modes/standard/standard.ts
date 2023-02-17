@@ -53,6 +53,7 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, 
       drawRoundCounter,
       turnActionStep: "pickAction",
       action: "Boloney",
+      historyEvents: [],
     };
 
     createChatGroup(nk, ctx, logger);
@@ -128,6 +129,7 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
 export const matchJoin: nkruntime.MatchJoinFunction<MatchState> = (_ctx, logger, _nk, dispatcher, _tick, state, _presences) => {
   try {
     updatePlayersState(state, dispatcher);
+
     return { state };
   } catch (error) {
     throw handleError(error, logger);

@@ -1,5 +1,6 @@
 import { TICK_RATE } from "../constants";
 import { MatchLoopParams, MatchOpCode, MatchStage, PlayerLostByTimeOutPayloadBackend } from "../types";
+import { saveHistoryEvent } from "./history";
 import { setAction } from "./match";
 import { getActivePlayerId, handlePlayerLostRound, hidePlayersData, rollDiceForPlayer, setAllPlayersReady } from "./player";
 
@@ -38,6 +39,7 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
     case "playerTurnLoopStage": {
       if (!activePlayerId) return;
       handlePlayerLostRound(loopParams, activePlayerId, true);
+      saveHistoryEvent(state, { eventType: "roundResults" });
 
       setAllPlayersReady(state);
 
