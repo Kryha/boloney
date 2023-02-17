@@ -80,42 +80,45 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   powerUpProbability: [
     {
       id: "1",
-      probability: 12,
+      probability: 16,
     },
     {
       id: "2",
-      probability: 11,
+      probability: 14,
     },
     {
       id: "3",
-      probability: 11,
+      probability: 14,
     },
     {
       id: "4",
-      probability: 11,
+      probability: 14,
     },
-    {
-      id: "5",
-      probability: 11,
-    },
+    //TODO: Enable when implemented
+    // {
+    //   id: "5",
+    //   probability: 11,
+    // },
     {
       id: "6",
-      probability: 11,
+      probability: 14,
     },
     {
       id: "7",
-      probability: 11,
+      probability: 14,
     },
     {
       id: "8",
-      probability: 11,
+      probability: 14,
     },
-    {
-      id: "9",
-      probability: 11,
-    },
+    //TODO: Enable when implemented
+    // {
+    //   id: "9",
+    //   probability: 11,
+    // },
   ],
-  availablePowerUps: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+  //TODO: Add powerup 5 and 9 back when implemented
+  availablePowerUps: ["1", "2", "3", "4", "6", "7", "8" /* "5","9"*/],
 };
 
 export const COPIED_TEXT_TIMEOUT = 2500;
