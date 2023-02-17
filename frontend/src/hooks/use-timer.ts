@@ -21,7 +21,7 @@ export const useTimer = () => {
 
   //  get remainder of seconds
   const seconds = count % 60;
-  const time = text.param.timeInMinsAndSeconds(padTo2Digits(minutes), padTo2Digits(seconds));
+  const time = text.param.time(padTo2Digits(minutes), padTo2Digits(seconds));
 
   useEffect(() => {
     startCountdown();

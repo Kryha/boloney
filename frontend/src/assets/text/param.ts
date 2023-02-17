@@ -51,4 +51,5 @@ export const param = {
   endOfTurnResult: (amount?: number | string) => (amount ? `-1 = x${amount}` : ""),
   diceAmount: (amount: number) => (amount > 1 ? `(dice x${amount} +` : `(die x${amount} +`),
   formatTime: (hour: number, minutes: number) => `${hour}:${minutes < 10 ? `0${minutes}` : minutes}`,
+  time: (hour: string, minutes: string) => `-${hour}:${minutes}`,
 };
