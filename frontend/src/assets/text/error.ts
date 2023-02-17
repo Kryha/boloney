@@ -19,6 +19,7 @@ export const error = {
   powerUpRequiresTarget: "power-up requires a target",
   powerUpDataRequired: "power-up data required",
   powerUpNotImplemented: "power-up not implemented",
+  noDiceAvailable: "player has no dice available",
 
   required: (valueName: string): string => `${valueName} required`,
 };

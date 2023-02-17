@@ -32,6 +32,7 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor, extraDice 
     const firstTemporaryDieIndex = dice.length - extraDice;
     return extraDice !== 0 && index >= firstTemporaryDieIndex;
   };
+
   return (
     <DieOverviewWrapper>
       <DieOverviewContainer height={height}>

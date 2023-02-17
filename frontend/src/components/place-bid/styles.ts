@@ -23,6 +23,19 @@ export const FaceContainer = styled.div`
   width: clamp(260px, 25vw + 20px, 500px);
 `;
 
+export const PlayerDiceContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  grid-column-gap: clamp(40px, 4.17vw + 0px, 80px);
+  max-width: clamp(240px, 25vw + 0px, 480px);
+  ${DieWrapper} {
+    min-height: clamp(66px, 6.98vw + -1px, 133px);
+    > svg {
+      border-radius: 8px;
+    }
+  }
+`;
+
 export const DiceContainer = styled.div`
   position: relative;
   grid-template-columns: repeat(3, 1fr);
@@ -39,8 +52,8 @@ export const DiceContainer = styled.div`
 `;
 
 export interface DieProps {
-  disabled: boolean;
   isSelected: boolean;
+  disabled?: boolean;
 }
 
 export const Die = styled.div<DieProps>`
@@ -118,7 +131,7 @@ export interface ItemProps {
   isEmpty?: boolean;
 }
 
-export const Number = styled(UnorderedListItems)<ItemProps>`
+export const Number = styled(UnorderedListItems) <ItemProps>`
   display: flex;
   justify-content: flex-start;
   align-items: center;

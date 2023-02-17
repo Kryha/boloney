@@ -123,9 +123,35 @@ const useVendetta = async (loopParams: MatchLoopParams, data: UseVendettaFronten
   return { targetId: "" };
 };
 
-const useSecondChance = async (loopParams: MatchLoopParams, data: UseSecondChanceFrontend): Promise<UseSecondChanceBackend> => {
-  // TODO: implement
-  return {};
+const useSecondChance = async (
+  loopParams: MatchLoopParams,
+  data: UseSecondChanceFrontend,
+  sender: Player
+): Promise<UseSecondChanceBackend> => {
+  const { state } = loopParams;
+
+  const activePlayer = state.players[sender.userId];
+
+  // Remove chosen dice from userId
+  const countDie = data.diceToReroll.reduce((dieCount, die) => {
+    dieCount[die.rolledValue] = (dieCount[die.rolledValue] || 0) + 1;
+    return dieCount;
+  }, {} as { [key: number]: number });
+
+  state.players[activePlayer.userId].diceValue = activePlayer.diceValue.filter(
+    (rolledValue) => countDie[rolledValue.rolledValue] === undefined || --countDie[rolledValue.rolledValue] < 0
+  );
+
+  // Reroll the amount of dice chosen
+  const newRolledDice = await rollDice(loopParams, data.diceToReroll.length);
+
+  if (!isDieArray(newRolledDice)) throw new Error("Failed to roll new dice!");
+
+  // Add new rolled dice to the players stage
+  activePlayer.diceValue = [...activePlayer.diceValue, ...newRolledDice];
+
+  // return the new rolled dice
+  return { newRolledDice: newRolledDice };
 };
 
 const useCoup = async (loopParams: MatchLoopParams, data: UseCoupFrontend, isSelfTarget: boolean): Promise<UseCoupBackend> => {
@@ -219,7 +245,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
         break;
       }
       case "6": {
-        const resData = await useSecondChance(loopParams, data);
+        const resData = await useSecondChance(loopParams, data, sender);
         resPayload = { id, data: resData };
         break;
       }

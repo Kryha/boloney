@@ -85,10 +85,14 @@ export type UseVendettaFrontend = z.infer<typeof useVendettaFrontendSchema>;
 export const useVendettaBackendSchema = z.object({});
 export type UseVendettaBackend = z.infer<typeof useVendettaBackendSchema>;
 
-export const useSecondChanceFrontendSchema = z.object({});
+export const useSecondChanceFrontendSchema = z.object({
+  diceToReroll: z.array(dieSchema),
+});
 export type UseSecondChanceFrontend = z.infer<typeof useSecondChanceFrontendSchema>;
 
-export const useSecondChanceBackendSchema = z.object({});
+export const useSecondChanceBackendSchema = z.object({
+  newRolledDice: z.array(dieSchema),
+});
 export type UseSecondChanceBackend = z.infer<typeof useSecondChanceBackendSchema>;
 
 export const useCoupFrontendSchema = z.object({});

@@ -7,6 +7,7 @@ import { getDieColor, getPowerUpData } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { MenageATroisResult } from "./menage-a-trois-result";
+import { SecondChanceResult } from "./second-chance-result";
 import { GrillResult } from "./grill-result";
 import { DoubleUpResult } from "./double-up-result";
 import { PowerUpResult } from "./power-up-result";
@@ -44,6 +45,9 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
       }
       case "3": {
         return <MenageATroisResult data={result.data} dieColor={dieColor} />;
+      }
+      case "6": {
+        return <SecondChanceResult data={result.data} dieColor={dieColor} />;
       }
       case "8":
         // TODO: see how to show this properly, since the turn is being changed

@@ -5,7 +5,7 @@ import { handProportion } from "../../design";
 import { useLatestBid } from "../../service";
 import { useStore } from "../../store";
 import { Die, PlayerPublic, PowerUpId } from "../../types";
-import { getDieColor } from "../../util";
+import { filterDice, getDieColor } from "../../util";
 import { PlayerBadge } from "../badges";
 import { DiceOverview } from "../dice-overview";
 import { PlayerLastBid } from "../match-players-overview";
@@ -25,9 +25,10 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const dieColor = getDieColor(player);
   const isPlayerLastBid = lastBid?.userId === player.userId;
   const setPowerUpState = useStore((state) => state.setPowerUpState);
-  const { targetPlayerId: targetPlayerId, active: activePowerUp } = useStore((state) => state.powerUpState);
+  const { targetPlayerId: targetPlayerId, active: activePowerUp, result: result } = useStore((state) => state.powerUpState);
 
   const isTargetable = activePowerUp?.id === "7";
+  const playerDice = result && result.id === "6" ? filterDice(result.data.newRolledDice, dice) : dice;
 
   const handleSelect = () => {
     setPowerUpState({ targetPlayerId: player.userId });
@@ -43,7 +44,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
         {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
       </LocalPlayer>
 
-      <DiceOverview dice={dice} dieColor={dieColor} extraDice={player.extraDice} />
+      <DiceOverview dice={playerDice} dieColor={dieColor} extraDice={player.extraDice} />
       <PowerUpOverview powerUpIds={powerUpIds} />
     </PlayerOverview>
   );

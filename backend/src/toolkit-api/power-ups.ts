@@ -55,7 +55,6 @@ export const getPowerUp = (loopParams: MatchLoopParams): PowerUpId | undefined =
 
   const availablePowerUps = getAvailablePowerUps(powerUpProbability);
   const probabilityRange = generateProbabilityRange(availablePowerUps);
-
   let id: PowerUpId | undefined = undefined;
 
   if (env(ctx).ZK_ENABLED) {
