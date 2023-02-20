@@ -33,7 +33,7 @@ import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
 import { cleanUUID, env, getRange, shuffleArray } from "../utils";
-import { getNextPlayerId, setActivePlayer } from "./player";
+import { getNextPlayerId, setActivePlayer, updatePlayerPowerUpAmount } from "./player";
 import { saveHistoryEvent } from "./history";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
@@ -199,6 +199,8 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     const powerUp = sender.powerUpIds.find((powerUp) => powerUp === id);
     if (!powerUp) throw new Error(`Player does not own a power-up with id ${id}`);
 
+    updatePlayerPowerUpAmount(loopParams, [sender.userId]);
+
     // TODO: investigate why keys do not get stored in staging env
     // const [key] = readUserKeys(nk, sender.userId, { collection: "Accounts", key: "keys" });
     // if (!key) throw new Error("User not found in collection");
@@ -283,6 +285,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     }
 
     saveHistoryEvent(state, { eventType: "playerAction", senderId: sender.userId, powerUpPayload: resPayload });
+    updatePlayerPowerUpAmount(loopParams, [sender.userId]);
     updatePlayersState(state, dispatcher);
 
     dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [senderPresence]);

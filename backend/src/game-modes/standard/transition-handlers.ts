@@ -9,6 +9,7 @@ import {
   saveHistoryEvent,
   setActivePlayer,
   transitionHandler,
+  updatePlayerPowerUpAmount,
 } from "../../services";
 import { getPowerUp } from "../../toolkit-api";
 import {
@@ -72,6 +73,7 @@ export const handleRoundSummaryTransition = transitionHandler(async (loopParams,
 
         const powerUpId = getPowerUp(loopParams);
         if (isPowerUpId(powerUpId)) player.powerUpIds.push(powerUpId);
+        updatePlayerPowerUpAmount(loopParams, [player.userId]);
 
         const payload: PlayerGetPowerUpsPayloadBackend = player.powerUpIds;
         dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(payload), [state.presences[player.userId]]);
