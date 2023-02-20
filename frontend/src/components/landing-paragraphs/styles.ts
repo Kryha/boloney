@@ -1,15 +1,16 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { ViewProps } from "../../types";
 import { fadeUp, GeneralText, Heading3 } from "../atoms";
 
-export const ParagraphContainer = styled.div`
+export const ParagraphContainer = styled.div<ViewProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px 0px 40px 0px;
   padding-left: clamp(70px, 3.13vw + 40px, 100px);
   gap: 10px;
-  margin-top: -3vh;
+  margin-top: -2.1vw;
 `;
 
 interface Props {

@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { BoloneyLogoIcon } from "../../assets";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
+import { zIndex } from "../../design";
 import { ViewProps } from "../../types";
 import { fadeUp, Heading0, Heading2 } from "../atoms";
 
@@ -69,7 +70,7 @@ export const LandingImage = styled.img<ImageProps>`
   right: -100px;
   bottom: -100px;
   position: absolute;
-  z-index: 10;
+  z-index: ${zIndex.background};
   pointer-events: none;
   opacity: 0;
   animation: ${fadeUp} 1.2s ease-out 0.25s forwards;

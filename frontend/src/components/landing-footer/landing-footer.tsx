@@ -3,8 +3,9 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { text } from "../../assets";
 import { routes } from "../../navigation";
+import { PrimaryButtonBase } from "../atoms";
 
-import { PrimaryButton } from "../buttons";
+import { PrimaryButtonText, PrimaryButtonWrapper } from "../buttons/styles";
 import { LandingFooterWrapper } from "./styles";
 
 interface Props {
@@ -17,7 +18,11 @@ export const LandingFooter: FC<Props> = ({ session }) => {
 
   return (
     <LandingFooterWrapper>
-      <PrimaryButton primaryText={text.landing.letsRoll} onClick={() => navigate(route)} />
+      <PrimaryButtonWrapper onClick={() => navigate(route)}>
+        <PrimaryButtonBase type="button">
+          <PrimaryButtonText>{text.landing.letsRoll}</PrimaryButtonText>
+        </PrimaryButtonBase>
+      </PrimaryButtonWrapper>
     </LandingFooterWrapper>
   );
 };

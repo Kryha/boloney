@@ -15,12 +15,13 @@ export const BottomLinkSection: FC = () => {
         link={text.landing.boloneyHelpEmail}
         linkText={text.landing.boloneyHelpEmail}
       />
-      <GeneralLink
+      {/* TODO: enable when there is a discord link */}
+      {/* <GeneralLink
         heading={text.landing.joinTheCommunity}
         generalText={text.landing.headTo}
         link={text.landing.discordLink}
         linkText={text.landing.discord}
-      />
+      /> */}
     </LinkContainer>
   );
 };

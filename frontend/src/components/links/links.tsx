@@ -28,7 +28,7 @@ export const WebsiteLink: FC<Props> = ({ linkText, link }) => {
   );
 };
 
-export const GeneralLink: FC<Props> = ({ isWebsite = true, link, generalText = "", linkText = "", heading = "" }) => {
+export const GeneralLink: FC<Props> = ({ isWebsite = false, link, generalText = "", linkText = "", heading = "" }) => {
   const component = isWebsite ? <WebsiteLink link={link} linkText={linkText} /> : <EmailLink link={link} linkText={linkText} />;
   return (
     <GeneralLinkWrapper>

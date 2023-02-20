@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { WhiteDiceIcon } from "../../assets";
-import { color } from "../../design";
+import { color, zIndex } from "../../design";
 import { fadeOut, slideUpFromBottom } from "../atoms";
 import { ButtonContainer } from "../buttons/styles";
 import { Hand, HandContainer, HandWrapper, ImageWrapper, Paint } from "../hand/styles";
@@ -20,6 +20,7 @@ export const LandingSideBarWrapper = styled.section`
   height: 100%;
   position: fixed;
   width: 12.5vw;
+  z-index: ${zIndex.inFront};
   ${ButtonContainer} {
     background: ${color.lightGrey};
     height: 5.5vh;
