@@ -2,9 +2,11 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { BoloneyLogoIcon } from "../../assets";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
-import { zIndex } from "../../design";
+import { color, fontWeight, zIndex } from "../../design";
 import { ViewProps } from "../../types";
 import { fadeUp, Heading0, Heading2 } from "../atoms";
+import { LinkText } from "../buttons/styles";
+import { GeneralLinkWrapper } from "../links/styles";
 
 interface Props {
   isVisible: boolean;
@@ -50,7 +52,7 @@ export const LandingComponentWrapper = styled.div`
   overflow-x: hidden;
 `;
 
-export const BottomHeading = styled(Heading2)`
+export const BottomHeading = styled.div`
   width: 35.4vw;
   min-width: 35.4vw;
   padding-bottom: 60px;
@@ -61,6 +63,64 @@ export const BottomHeading = styled(Heading2)`
   opacity: 0;
   animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
   transform: translate3d(0, 1rem, 0);
+  ${GeneralLinkWrapper} {
+    width: fit-content;
+    display: inline-block;
+  }
+  ${LinkText} {
+    color: ${color.black} !important;
+    font-family: "itc-clearface-regular";
+    font-weight: ${fontWeight.regular};
+    font-size: clamp(1.88rem, 3.13vw + 0rem, 3.75rem);
+    line-height: clamp(2.25rem, 2.71vw + 0.63rem, 3.88rem);
+    &:after {
+      border-bottom: 1px solid ${color.black} !important;
+    }
+  }
+`;
+
+export const LandingBottomHeading = styled(Heading2)`
+  display: inline;
+  margin-right: 10px;
+  :first-letter {
+    text-transform: capitalize;
+  }
+  .bold {
+    color: ${color.black};
+    background-color: transparent;
+  }
+`;
+
+export const LandingLink = styled.a`
+  display: inline-block;
+  font-family: "itc-clearface-regular";
+  font-weight: ${fontWeight.regular};
+  font-size: clamp(1.88rem, 3.13vw + 0rem, 3.75rem);
+  line-height: clamp(2.25rem, 2.71vw + 0.63rem, 3.88rem);
+  color: ${color.black};
+  text-decoration: none;
+  margin-right: 0px;
+  :first-letter {
+    text-transform: capitalize;
+  }
+  .bold {
+    color: ${color.black};
+    background-color: transparent;
+  }
+  cursor: pointer;
+  &:after {
+    display: block;
+    content: "";
+    border-bottom: 1px solid ${color.black};
+    transform: scaleX(1);
+    transition: transform 250ms ease-in-out;
+    transform-origin: bottom left;
+  }
+  &:hover:after {
+    transform: scaleX(0);
+    transform-origin: 0 100%;
+  }
+  padding-top: 0.1em;
 `;
 
 export const LandingImage = styled.img<ImageProps>`

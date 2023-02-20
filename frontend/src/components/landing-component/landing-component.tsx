@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
 import { CallBoloney, HealDiceCoffin, PowerUpCards, text, TombstoneHand } from "../../assets";
+import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
 import { useObserver, useViewport } from "../../hooks";
 import { useStore } from "../../store";
 import { NumberedListSection } from "../atoms";
@@ -10,9 +11,11 @@ import { LargeHeadingSection } from "./large-heading-section";
 import {
   AppName,
   BottomHeading,
+  LandingBottomHeading,
   LandingComponentContainer,
   LandingComponentWrapper,
   LandingImage,
+  LandingLink,
   RightDisplaySection,
   VisibilityContainer,
 } from "./styles";
@@ -33,7 +36,16 @@ export const LandingComponent: FC = () => {
   return (
     <LandingComponentWrapper>
       <AppName />
-      <BottomHeading>{text.landing.theUtterlyAbsurdDice}</BottomHeading>
+      <BottomHeading>
+        <LandingBottomHeading>{text.landing.theUtterlyAbsurdDice}</LandingBottomHeading>
+        <LandingLink href={text.landing.aleoLink} target={OPEN_LINK_IN_NEW_TAB}>
+          {text.landing.aleo}
+        </LandingLink>
+        <LandingBottomHeading>{text.landing.by}</LandingBottomHeading>
+        <LandingLink href={text.landing.kryhaLink} target={OPEN_LINK_IN_NEW_TAB}>
+          {text.landing.kryha}
+        </LandingLink>
+      </BottomHeading>
       <LandingImage src={CallBoloney} alt="boloney" width={width} height={height} />
       <LandingComponentContainer width={width} height={height}>
         <VisibilityContainer ref={ref} />

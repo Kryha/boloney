@@ -1,6 +1,14 @@
 export const landing = {
   login: "login",
-  theUtterlyAbsurdDice: "the utterly absurd dice game built on Aleo.",
+  // Inline text remove capitalization
+  theUtterlyAbsurdDice: "The utterly absurd dice game built on",
+
+  // normal text
+  aleo: "Aleo",
+  by: ", by",
+  kryha: "Kryha",
+  aleoLink: "https://www.aleo.org/",
+  kryhaLink: "https://kryha.io/",
   paragraphOneHeading: "built on Aleo",
   paragraphOne:
     "behind Boloney!'s tech lies the zero-knowledge gaming toolkit developed by Kryha on Aleo. This toolkit uses zero-knowledge proofs (ZKPs) to allow players to prove that their statements are valid without revealing the statements themselves, keeping the hidden elements of their game strategy for their eyes only. For private, secure on-chain gaming, without the fun-squashing giveaways!",
