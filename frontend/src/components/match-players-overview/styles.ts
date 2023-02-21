@@ -77,6 +77,7 @@ interface OverviewProps {
   isShuffling: boolean;
   isOnePlayer?: boolean;
   isEndOfMatch?: boolean;
+  areDeadPlayers?: boolean[];
 }
 
 export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
@@ -109,23 +110,28 @@ export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
   }
 
   ${MatchPlayersWrapper}:nth-of-type(1) {
-    animation-name: ${({ isShuffling, isOnePlayer }) => (isShuffling && !isOnePlayer ? shuffle(playerOnePercentages) : null)};
+    animation-name: ${({ isShuffling, isOnePlayer, areDeadPlayers }) =>
+      isShuffling && !isOnePlayer && areDeadPlayers && !areDeadPlayers[0] ? shuffle(playerOnePercentages) : null};
     animation-delay: 0s;
   }
   ${MatchPlayersWrapper}:nth-of-type(2) {
-    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerTwoPercentages) : null)};
+    animation-name: ${({ isShuffling, areDeadPlayers }) =>
+      isShuffling && areDeadPlayers && !areDeadPlayers[1] ? shuffle(playerTwoPercentages) : null};
     animation-delay: 0.1s;
   }
   ${MatchPlayersWrapper}:nth-of-type(3) {
-    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerThreePercentages) : null)};
+    animation-name: ${({ isShuffling, areDeadPlayers }) =>
+      isShuffling && areDeadPlayers && !areDeadPlayers[2] ? shuffle(playerThreePercentages) : null};
     animation-delay: 0.2s;
   }
   ${MatchPlayersWrapper}:nth-of-type(4) {
-    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerFourPercentages) : null)};
+    animation-name: ${({ isShuffling, areDeadPlayers }) =>
+      isShuffling && areDeadPlayers && !areDeadPlayers[3] ? shuffle(playerFourPercentages) : null};
     animation-delay: 0.3s;
   }
   ${MatchPlayersWrapper}:nth-of-type(5) {
-    animation-name: ${({ isShuffling }) => (isShuffling ? shuffle(playerFivePercentages) : null)};
+    animation-name: ${({ isShuffling, areDeadPlayers }) =>
+      isShuffling && areDeadPlayers && !areDeadPlayers[4] ? shuffle(playerFivePercentages) : null};
     animation-delay: 0.4s;
   }
   ${MatchPlayersWrapper}:nth-of-type(6) {
@@ -152,6 +158,9 @@ export const PlayerNameContainer = styled.div`
   flex-direction: row;
   align-items: center;
   gap: ${margins.small1};
+  font-family: itc-clearface-regular;
+  font-size: clamp(13.12px, 0.72vw + 6.24px, 20px);
+  font-weight: 500;
 `;
 
 interface AvatarProps {

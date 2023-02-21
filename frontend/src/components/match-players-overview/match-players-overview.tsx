@@ -19,16 +19,16 @@ export const MatchPlayersOverview: FC<MatchPlayersOverviewProps> = ({ playerOrde
   const setShuffling = useStore((state) => state.setShufflingPlayers);
   const isEndOfMatch = matchStage === "endOfMatchStage";
 
-  // TODO: fix bug where animation sometimes is not triggered for idle player.
   useEffect(() => {
     setTimeout(() => {
-      setShuffling(false);
+      if (isShuffling) setShuffling(false);
     }, 1500);
-  }, [setShuffling]);
+  }, [isShuffling, setShuffling]);
 
   const winner = leaderboard.at(0);
 
   const isWinner = localPlayer?.actionRole === "winner";
+  const areDeadPlayers = playerOrder.map((player) => player.status === "lost");
 
   return (
     <MatchPlayersOverviewWrapper
@@ -36,6 +36,7 @@ export const MatchPlayersOverview: FC<MatchPlayersOverviewProps> = ({ playerOrde
       isShuffling={isShuffling}
       isOnePlayer={playerOrder.length === 1}
       isEndOfMatch={isEndOfMatch}
+      areDeadPlayers={areDeadPlayers}
     >
       {isEndOfMatch ? (
         <MatchWinner player={winner} />

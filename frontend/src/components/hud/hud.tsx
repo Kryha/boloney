@@ -1,17 +1,18 @@
 import { FC } from "react";
 
 import { avatars } from "../../assets/local-data/avatar";
-import { handProportion } from "../../design";
-import { useLatestBid } from "../../service";
+import { handProportion, measurements } from "../../design";
+import { useLatestBid, useLocalPlayer } from "../../service";
 import { useStore } from "../../store";
 import { Die, PlayerPublic, PowerUpId } from "../../types";
 import { filterDice, getDieColor } from "../../util";
 import { PlayerBadge } from "../badges";
 import { DiceOverview } from "../dice-overview";
 import { PlayerLastBid } from "../match-players-overview";
+import { PlayerNameContainer } from "../match-players-overview/styles";
 import { RadioButton } from "../power-up-checkbox";
 import { PowerUpOverview } from "../power-up-overview";
-import { LocalPlayer, PlayerAvatar, PlayerOverview } from "./styles";
+import { LocalPlayer, LocalPlayerAvatar, LocalPlayerInfoContainer, PlayerOverview } from "./styles";
 
 interface HUDProps {
   dice?: Die[];
@@ -22,6 +23,7 @@ interface HUDProps {
 export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const { avatar } = player.diceAmount === 0 ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
   const lastBid = useLatestBid();
+  const localPlayer = useLocalPlayer();
   const dieColor = getDieColor(player);
   const isPlayerLastBid = lastBid?.userId === player.userId;
   const setPowerUpState = useStore((state) => state.setPowerUpState);
@@ -39,9 +41,12 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
       <PlayerBadge player={player} />
 
       <LocalPlayer isLastBid={isPlayerLastBid} onClick={() => isTargetable && handleSelect()} isTargetable={isTargetable}>
-        <PlayerAvatar height="10vh" src={avatar} />
+        <LocalPlayerAvatar height={measurements.localAvatarHeight} src={avatar} />
         {isTargetable && <RadioButton onSelect={handleSelect} isChecked={targetPlayerId === player.userId} />}
         {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
+        <LocalPlayerInfoContainer>
+          <PlayerNameContainer>{localPlayer?.username}</PlayerNameContainer>
+        </LocalPlayerInfoContainer>
       </LocalPlayer>
 
       <DiceOverview dice={playerDice} dieColor={dieColor} extraDice={player.extraDice} />

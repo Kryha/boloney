@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { color, margins } from "../../design";
 import { avatarHeight, Heading6 } from "../atoms";
-import { DiceContainer } from "../match-players-overview/styles";
+import { DiceContainer, PlayerInfoContainer } from "../match-players-overview/styles";
 
 interface PlayerOverviewProps {
   isActive: boolean;
@@ -27,13 +27,25 @@ interface LocalPlayerProps {
   isTargetable: boolean;
 }
 
+export const LocalPlayerAvatar = styled.img<AvatarProps>`
+  height: ${({ height }): string => height || `${avatarHeight[5]}`};
+  object-fit: contain;
+  width: 100%;
+`;
+
+export const LocalPlayerInfoContainer = styled(PlayerInfoContainer)`
+  padding-bottom: 0.5vh;
+  left: 0.425em;
+`;
+
 export const LocalPlayer = styled.div<LocalPlayerProps>`
   width: 12.5vw;
   height: 100%;
   padding: 0px;
   position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   ${(isTargetable) => isTargetable && "cursor: pointer;"}
   ${DiceContainer} {
