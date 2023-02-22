@@ -10,6 +10,8 @@ import { ErrorView } from "../error-view";
 import { HealDiceWrapper, PowerUpSelectionWrapper } from "./styles";
 import { PowerUpCardCheckbox } from "../power-up-card/power-up-card-checkbox";
 import { getPowerUpData } from "../../util";
+import { FadeTransition } from "../page-transition";
+import { FADE_TRANSITION_DURATION } from "../../constants";
 
 export const HealDice: FC = () => {
   const playerPowerUps = useStore((state) => state.powerUpIds);
@@ -55,24 +57,26 @@ export const HealDice: FC = () => {
   };
 
   return (
-    <HealDiceWrapper>
-      <PowerUpSelectionWrapper>
-        {powerUps.map((powerUp, i) => (
-          <PowerUpCardCheckbox
-            key={i}
-            powerUpKey={i}
-            powerUp={powerUp}
-            isClicked={isSelected(i)}
-            toggleCheckBox={handlePowerUpSelect}
-            disabledCheckbox={reachedMaxSelectedPowerUps}
-          />
-        ))}
-      </PowerUpSelectionWrapper>
-      <BottomButtonWrapper>
-        {reachedMaxSelectedPowerUps && (
-          <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} isBottomButton />
-        )}
-      </BottomButtonWrapper>
-    </HealDiceWrapper>
+    <FadeTransition delay={FADE_TRANSITION_DURATION}>
+      <HealDiceWrapper>
+        <PowerUpSelectionWrapper>
+          {powerUps.map((powerUp, i) => (
+            <PowerUpCardCheckbox
+              key={i}
+              powerUpKey={i}
+              powerUp={powerUp}
+              isClicked={isSelected(i)}
+              toggleCheckBox={handlePowerUpSelect}
+              disabledCheckbox={reachedMaxSelectedPowerUps}
+            />
+          ))}
+        </PowerUpSelectionWrapper>
+        <BottomButtonWrapper>
+          {reachedMaxSelectedPowerUps && (
+            <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} isBottomButton />
+          )}
+        </BottomButtonWrapper>
+      </HealDiceWrapper>
+    </FadeTransition>
   );
 };

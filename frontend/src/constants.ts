@@ -149,3 +149,12 @@ export const FADE_INTERVAL_MS = 4000;
 export const WORD_CHANGE_INTERVAL_MS = FADE_INTERVAL_MS * 2;
 
 export const OPEN_LINK_IN_NEW_TAB = "_blank";
+
+export const FADE_TRANSITION_DURATION = 0.4;
+
+export const MULTIPLE_FADE_TRANSITION_DURATION = 0.2;
+
+export const HEAL_DICE_BUTTON_INDEX = 2;
+export const BID_BUTTON_INDEX = 3;
+export const BOLONEY_BUTTON_INDEX = 4;
+export const EXACT_BUTTON_INDEX = 5;

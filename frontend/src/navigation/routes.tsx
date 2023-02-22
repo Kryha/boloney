@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 import { routes } from "./route-names";
 import { MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
@@ -44,9 +45,11 @@ export const RoutesWrapper: FC = () => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
-      <MainContainer>
-        <AppRoutes />
-      </MainContainer>
+      <AnimatePresence mode="wait">
+        <MainContainer>
+          <AppRoutes />
+        </MainContainer>
+      </AnimatePresence>
     </ErrorBoundary>
   );
 };

@@ -12,6 +12,7 @@ import { getDieColor } from "../../util";
 import { RollingDice } from "../dice-animation";
 import { MatchHeading } from "../match-heading";
 import { TimeStamp } from "../history/history-atoms/styles";
+import { FadeTransition } from "../page-transition";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -53,18 +54,20 @@ export const RollDice: FC = () => {
   }
 
   return (
-    <BottomButtonWrapper>
-      <TimeStamp title={text.powerUps.settingItUp} />
-      <MatchHeading
-        headingOne={text.match.getDice}
-        headingTwo={text.match.findOutYourPips}
-        wordsToBold={[localPlayer.username]}
-        isAnimated
-      />
+    <FadeTransition>
+      <BottomButtonWrapper>
+        <TimeStamp title={text.powerUps.settingItUp} />
+        <MatchHeading
+          headingOne={text.match.getDice}
+          headingTwo={text.match.findOutYourPips}
+          wordsToBold={[localPlayer.username]}
+          isAnimated
+        />
 
-      {dice && <RollingDice dice={dice} dieColor={dieColor} />}
+        {dice && <RollingDice dice={dice} dieColor={dieColor} />}
 
-      {button()}
-    </BottomButtonWrapper>
+        {button()}
+      </BottomButtonWrapper>
+    </FadeTransition>
   );
 };

@@ -9,6 +9,7 @@ import { useEffectOnce } from "usehooks-ts";
 import { useStore } from "../../store";
 import { MatchHeading } from "../match-heading";
 import { Timer } from "../timer";
+import { FadeTransition } from "../page-transition";
 
 export const GetPowerUps: FC = () => {
   const localPlayer = useLocalPlayer();
@@ -21,14 +22,16 @@ export const GetPowerUps: FC = () => {
   if (!localPlayer) return <ErrorView />;
 
   return (
-    <BottomButtonWrapper>
-      <Timer title={text.powerUps.settingItUp} />
-      <MatchHeading
-        headingOne={text.powerUps.getYourPowerUps}
-        headingTwo={text.param.powerUpsHiddenMoves(localPlayer.username)}
-        wordsToBold={[localPlayer.username]}
-      />
-      <ButtonReady />
-    </BottomButtonWrapper>
+    <FadeTransition>
+      <BottomButtonWrapper>
+        <Timer title={text.powerUps.settingItUp} />
+        <MatchHeading
+          headingOne={text.powerUps.getYourPowerUps}
+          headingTwo={text.param.powerUpsHiddenMoves(localPlayer.username)}
+          wordsToBold={[localPlayer.username]}
+        />
+        <ButtonReady />
+      </BottomButtonWrapper>
+    </FadeTransition>
   );
 };

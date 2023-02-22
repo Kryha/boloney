@@ -3,7 +3,7 @@ import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets";
-import { GeneralContentWrapper, Heading1, Heading4, PrimaryButton } from "../../components";
+import { FadeTransition, GeneralContentWrapper, Heading1, Heading4, PrimaryButton } from "../../components";
 
 import { routes } from "../../navigation";
 import { joinPool, nakama } from "../../service";
@@ -33,20 +33,22 @@ export const MatchSelect: FC = () => {
   };
 
   return (
-    <MatchSelectContainer>
-      <GeneralContentWrapper>
-        <Heading1>{text.home.helloYou}</Heading1>
-        <Heading4>{text.home.chooseWisely}</Heading4>
+    <FadeTransition>
+      <MatchSelectContainer>
+        <GeneralContentWrapper>
+          <Heading1>{text.home.helloYou}</Heading1>
+          <Heading4>{text.home.chooseWisely}</Heading4>
 
-        {/* TODO: abstract this button in a component, together with the useEffect and the join function */}
-        <ButtonContainer>
-          <PrimaryButton primaryText={text.home.quickPlay} onClick={() => joinMatchPool()} />
-        </ButtonContainer>
+          {/* TODO: abstract this button in a component, together with the useEffect and the join function */}
+          <ButtonContainer>
+            <PrimaryButton primaryText={text.home.quickPlay} onClick={() => joinMatchPool()} />
+          </ButtonContainer>
 
-        <ButtonContainer>
-          <PrimaryButton primaryText={text.home.createMatch} onClick={() => navigate(routes.newMatch)} />
-        </ButtonContainer>
-      </GeneralContentWrapper>
-    </MatchSelectContainer>
+          <ButtonContainer>
+            <PrimaryButton primaryText={text.home.createMatch} onClick={() => navigate(routes.newMatch)} />
+          </ButtonContainer>
+        </GeneralContentWrapper>
+      </MatchSelectContainer>
+    </FadeTransition>
   );
 };

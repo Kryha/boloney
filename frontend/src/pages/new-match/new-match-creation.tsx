@@ -11,6 +11,7 @@ import {
   PrimaryButton,
   Heading6,
   GoBackButton,
+  FadeTransition,
 } from "../../components";
 import { createMatch } from "../../service";
 import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
@@ -80,35 +81,37 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
   };
 
   return (
-    <NewMatchContainer>
-      <GoBackButton primaryText={text.playerTurn.back} onClick={handleGoBack} />
-      <GeneralContentWrapper>
-        <Heading1>{text.newMatch.newMatch}</Heading1>
-        <Heading4>{text.newMatch.newMatchDescriptionFirstSentence}</Heading4>
-        <Heading4>{text.newMatch.newMatchDescriptionSecondSentence}</Heading4>
-      </GeneralContentWrapper>
-      <form onSubmit={handleFormSubmit}>
-        <FormContainer>
-          <PlayersField register={register} />
+    <FadeTransition>
+      <NewMatchContainer>
+        <GoBackButton primaryText={text.playerTurn.back} onClick={handleGoBack} />
+        <GeneralContentWrapper>
+          <Heading1>{text.newMatch.newMatch}</Heading1>
+          <Heading4>{text.newMatch.newMatchDescriptionFirstSentence}</Heading4>
+          <Heading4>{text.newMatch.newMatchDescriptionSecondSentence}</Heading4>
+        </GeneralContentWrapper>
+        <form onSubmit={handleFormSubmit}>
+          <FormContainer>
+            <PlayersField register={register} />
 
-          <PowerUpsAmountField register={register} minPowerUps={watchPowerUpAmount} />
+            <PowerUpsAmountField register={register} minPowerUps={watchPowerUpAmount} />
 
-          <DrawRoundOffsetField register={register} />
+            <DrawRoundOffsetField register={register} />
 
-          <PowerUpsField />
+            <PowerUpsField />
 
-          <HealActionField register={register} />
+            <HealActionField register={register} />
 
-          <BottomContainer>
-            <Paragraph>{text.newMatch.bottomDesc}</Paragraph>
-          </BottomContainer>
-          {isLoading && <Heading6>{text.newMatch.loading}</Heading6>}
-          {isError && <Heading6>{text.newMatch.error}</Heading6>}
-          <ButtonContainer>
-            <PrimaryButton type="submit" primaryText={text.newMatch.continueText} disabled={isPowerUpError} />
-          </ButtonContainer>
-        </FormContainer>
-      </form>
-    </NewMatchContainer>
+            <BottomContainer>
+              <Paragraph>{text.newMatch.bottomDesc}</Paragraph>
+            </BottomContainer>
+            {isLoading && <Heading6>{text.newMatch.loading}</Heading6>}
+            {isError && <Heading6>{text.newMatch.error}</Heading6>}
+            <ButtonContainer>
+              <PrimaryButton type="submit" primaryText={text.newMatch.continueText} disabled={isPowerUpError} />
+            </ButtonContainer>
+          </FormContainer>
+        </form>
+      </NewMatchContainer>
+    </FadeTransition>
   );
 };

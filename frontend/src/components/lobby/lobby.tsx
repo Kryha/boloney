@@ -6,6 +6,7 @@ import { LobbyPlayer } from "../lobby-player";
 import { TopNavigation } from "../top-navigation";
 import { useLocalPlayer, useMatch, useOrderedPlayers } from "../../service";
 import { ErrorView } from "../error-view";
+import { FadeTransition } from "../page-transition";
 
 export const Lobby: FC = () => {
   const { broadcastPlayerReady } = useMatch();
@@ -16,13 +17,15 @@ export const Lobby: FC = () => {
   if (!localPlayer) return <ErrorView />;
 
   return (
-    <LobbyWrapper>
-      <TopNavigation location={"lobby"} />
-      <LineContainer isPlayerReady={localPlayer.isReady} onClick={broadcastPlayerReady}>
-        {players.map((player) => (
-          <LobbyPlayer key={player.username} player={player} />
-        ))}
-      </LineContainer>
-    </LobbyWrapper>
+    <FadeTransition>
+      <LobbyWrapper>
+        <TopNavigation location={"lobby"} />
+        <LineContainer isPlayerReady={localPlayer.isReady} onClick={broadcastPlayerReady}>
+          {players.map((player) => (
+            <LobbyPlayer key={player.username} player={player} />
+          ))}
+        </LineContainer>
+      </LobbyWrapper>
+    </FadeTransition>
   );
 };

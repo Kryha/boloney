@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { text } from "../../assets";
+import { FADE_TRANSITION_DURATION } from "../../constants";
 import { color } from "../../design";
 import { useLocalPlayer, useMatch } from "../../service";
 import { useStore } from "../../store";
@@ -8,6 +9,7 @@ import { getDieColor } from "../../util";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { ErrorView } from "../error-view";
+import { FadeTransition } from "../page-transition";
 import { PlayerDiceSelector } from "../place-bid/player-dice";
 import { DieWrapper, SecondChanceWrapper } from "./styles";
 
@@ -36,17 +38,21 @@ export const UseSecondChance: FC = () => {
   return (
     <BottomButtonWrapper>
       <SecondChanceWrapper>
-        <Heading2>{text.powerUps.feelThePower}</Heading2>
-        <Heading2 customColor={color.darkGrey}>{text.powerUps.playingSecondChance} </Heading2>
-        <DieWrapper>
-          <PlayerDiceSelector
-            playerDice={localPlayerDice}
-            handleClick={handleClick}
-            selectedDice={selectedDice}
-            dieColor={getDieColor(localPlayer)}
-          />
-        </DieWrapper>
-        <PrimaryButton primaryText={text.general.rollIt} disabled={isDisabled} onClick={handleSubmit} />
+        <FadeTransition>
+          <Heading2>{text.powerUps.feelThePower}</Heading2>
+          <Heading2 customColor={color.darkGrey}>{text.powerUps.playingSecondChance} </Heading2>
+        </FadeTransition>
+        <FadeTransition delay={FADE_TRANSITION_DURATION} animationKey="local-dice-roll">
+          <DieWrapper>
+            <PlayerDiceSelector
+              playerDice={localPlayerDice}
+              handleClick={handleClick}
+              selectedDice={selectedDice}
+              dieColor={getDieColor(localPlayer)}
+            />
+          </DieWrapper>
+          <PrimaryButton primaryText={text.general.rollIt} disabled={isDisabled} onClick={handleSubmit} />
+        </FadeTransition>
       </SecondChanceWrapper>
     </BottomButtonWrapper>
   );

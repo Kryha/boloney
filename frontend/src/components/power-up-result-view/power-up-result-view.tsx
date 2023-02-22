@@ -15,6 +15,7 @@ import { SmokeAndMirrorsResult } from "./smoke-and-mirrors-result";
 import { BirdsEyeResult } from "./birds-eye-result";
 import { useLocalPlayer } from "../../service";
 import { ErrorView } from "../error-view";
+import { FadeTransition } from "../page-transition";
 
 interface Props {
   result: UsePowerUpPayloadBackend;
@@ -70,7 +71,7 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
 
   return (
     <BottomButtonWrapper>
-      {showResult()}
+      <FadeTransition>{showResult()}</FadeTransition>
       <PrimaryButton primaryText={text.general.done} onClick={handleDone} isBottomButton />
     </BottomButtonWrapper>
   );

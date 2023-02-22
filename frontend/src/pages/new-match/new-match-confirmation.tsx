@@ -2,7 +2,7 @@ import { FC, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { CopyIcon, text } from "../../assets";
-import { Heading1, Heading4, Heading6, NewMatchHands, Link, PrimaryButton, GeneralText } from "../../components";
+import { Heading1, Heading4, Heading6, NewMatchHands, Link, PrimaryButton, GeneralText, FadeTransition } from "../../components";
 import { COPIED_TEXT_TIMEOUT } from "../../constants";
 import { routes } from "../../navigation";
 import { parseMatchUrl } from "../../util";
@@ -31,7 +31,7 @@ export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
   };
 
   return (
-    <>
+    <FadeTransition>
       <NewMatchConfirmationContainer>
         <Heading1>{text.general.matchCreated}</Heading1>
         <Heading4>{text.general.yourMatchHasBeenCreated}</Heading4>
@@ -53,6 +53,6 @@ export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
         <PrimaryButton primaryText={text.general.goToLobby} onClick={() => navigate(`${routes.match}/${matchId}`)} />
       </GoToLobbyButton>
       <NewMatchHands />
-    </>
+    </FadeTransition>
   );
 };

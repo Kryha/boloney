@@ -13,6 +13,7 @@ import {
   Lobby,
   ErrorView,
   Loading,
+  FadeTransition,
 } from "../../components";
 import { nakama, getRoundEndHistoryEvent, useChatHistory, useJoinMatch, getRoundStartHistoryEvent, getHistoryEvent } from "../../service";
 import { useSession, useStore } from "../../store";
@@ -325,8 +326,10 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   if (matchStage === "lobbyStage") return <Lobby />;
 
   return (
-    <MatchLayout>
-      <GeneralContentWrapper withoutSideMargins={matchStage === "endOfMatchStage"}>{getStageComponent(matchStage)}</GeneralContentWrapper>
-    </MatchLayout>
+    <FadeTransition>
+      <MatchLayout>
+        <GeneralContentWrapper withoutSideMargins={matchStage === "endOfMatchStage"}>{getStageComponent(matchStage)}</GeneralContentWrapper>
+      </MatchLayout>
+    </FadeTransition>
   );
 };

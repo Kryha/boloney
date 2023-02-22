@@ -5,6 +5,7 @@ import { usePlayerWithRole, useLocalPlayer, useActivePlayer } from "../../servic
 import { useStore } from "../../store";
 import { GeneralContentWrapper } from "../atoms";
 import { ErrorView } from "../error-view";
+import { FadeTransition } from "../page-transition";
 import { TurnActionHeader, IdlePlayerHeader } from "../player-turn-headers";
 import { ActivePlayerResults, IdlePlayerResult, TargetPlayerResult } from "../player-turn-results";
 
@@ -30,25 +31,29 @@ export const EndOfRound: FC = () => {
 
   if (localPlayer.isActive) {
     return (
-      <TurnActionWrapper>
-        <TurnActionHeader />
-        <GeneralContentWrapper withoutSideMargins>
-          <ActivePlayerResults actionRole={localPlayer.actionRole} isWinner={isWinner} playerData={playerData} isBoloney={isBoloney} />
-        </GeneralContentWrapper>
-      </TurnActionWrapper>
+      <FadeTransition>
+        <TurnActionWrapper>
+          <TurnActionHeader />
+          <GeneralContentWrapper withoutSideMargins>
+            <ActivePlayerResults actionRole={localPlayer.actionRole} isWinner={isWinner} playerData={playerData} isBoloney={isBoloney} />
+          </GeneralContentWrapper>
+        </TurnActionWrapper>
+      </FadeTransition>
     );
   }
 
   return (
-    <IdlePlayerWrapper>
-      <IdlePlayerHeader step="results" />
-      <GeneralContentWrapper withoutSideMargins>
-        {localPlayer.isTarget && isBoloney ? (
-          <TargetPlayerResult playerData={playerData} isWinner={isWinner} isBoloney={isBoloney} />
-        ) : (
-          <IdlePlayerResult player={player} lastAction={lastAction} isActivePlayerWinner={isActivePlayerWinner} loser={loser} />
-        )}
-      </GeneralContentWrapper>
-    </IdlePlayerWrapper>
+    <FadeTransition>
+      <IdlePlayerWrapper>
+        <IdlePlayerHeader step="results" />
+        <GeneralContentWrapper withoutSideMargins>
+          {localPlayer.isTarget && isBoloney ? (
+            <TargetPlayerResult playerData={playerData} isWinner={isWinner} isBoloney={isBoloney} />
+          ) : (
+            <IdlePlayerResult player={player} lastAction={lastAction} isActivePlayerWinner={isActivePlayerWinner} loser={loser} />
+          )}
+        </GeneralContentWrapper>
+      </IdlePlayerWrapper>
+    </FadeTransition>
   );
 };

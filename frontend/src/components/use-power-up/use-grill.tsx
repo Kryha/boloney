@@ -1,12 +1,14 @@
 import { FC, useState } from "react";
 
 import { text } from "../../assets";
+import { FADE_TRANSITION_DURATION } from "../../constants";
 import { color } from "../../design";
 import { useMatch, usePlayer } from "../../service";
 import { useStore } from "../../store";
 import { Player } from "../../types";
 import { getPowerUp } from "../../util";
 import { Heading2 } from "../atoms";
+import { FadeTransition } from "../page-transition";
 import { DiceSelector } from "../place-bid";
 import { SelectionView } from "../selection-view";
 
@@ -18,9 +20,13 @@ interface PlaceGrillBetProps {
 const PlaceGrillBet: FC<PlaceGrillBetProps> = ({ onSubmit, player }) => {
   return (
     <>
-      <Heading2>{text.match.makeYourClaim}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{text.playerTurn.whatsYourGuess}</Heading2>
-      <DiceSelector onClick={onSubmit} player={player} primaryText={text.match.goForIt} secondaryText={text.match.goForIt} />
+      <FadeTransition>
+        <Heading2>{text.match.makeYourClaim}</Heading2>
+        <Heading2 customColor={color.darkGrey}>{text.playerTurn.whatsYourGuess}</Heading2>
+      </FadeTransition>
+      <FadeTransition delay={FADE_TRANSITION_DURATION} key="grill-bet">
+        <DiceSelector onClick={onSubmit} player={player} primaryText={text.match.goForIt} secondaryText={text.match.goForIt} />
+      </FadeTransition>
     </>
   );
 };

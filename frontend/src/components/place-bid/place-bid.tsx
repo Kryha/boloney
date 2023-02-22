@@ -2,7 +2,6 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { useLatestBid, useLocalPlayer, useMatch } from "../../service";
-import { useStore } from "../../store";
 import { getDieColor } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
 import { PrimaryButton } from "../buttons";
@@ -12,6 +11,8 @@ import { DiceFaces } from "./dice-faces";
 import { AmountSlider } from "./amount-slider";
 import { AmountContainer, DiceSelectorContainer, DiceSelectorWrapper, FaceContainer } from "./styles";
 import { Bid, Player } from "../../types";
+import { FadeTransition } from "../page-transition";
+import { FADE_TRANSITION_DURATION } from "../../constants";
 
 // TODO: declare these components in 2 different files
 
@@ -66,25 +67,24 @@ export const PlaceBid: FC = () => {
   const { broadcastPlaceBid } = useMatch();
   const latestBid = useLatestBid();
 
-  const setTurnActionStep = useStore((state) => state.setTurnActionStep);
-
   const localPlayer = useLocalPlayer();
 
   // TODO: consider passing an object as param
   const handleClick = (diceAmount: number, faceValue: number) => {
-    setTurnActionStep("pickAction");
     broadcastPlaceBid({ face: faceValue, amount: diceAmount });
   };
 
   if (!localPlayer) return <ErrorView />;
 
   return (
-    <DiceSelector
-      onClick={handleClick}
-      player={localPlayer}
-      lastBid={latestBid}
-      primaryText={text.match.bid}
-      secondaryText={text.playerTurn.bidSecondaryView}
-    />
+    <FadeTransition delay={FADE_TRANSITION_DURATION}>
+      <DiceSelector
+        onClick={handleClick}
+        player={localPlayer}
+        lastBid={latestBid}
+        primaryText={text.match.bid}
+        secondaryText={text.playerTurn.bidSecondaryView}
+      />
+    </FadeTransition>
   );
 };

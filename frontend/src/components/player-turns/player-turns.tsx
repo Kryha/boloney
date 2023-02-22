@@ -7,6 +7,7 @@ import { IdlePlayerHeader, TurnActionHeader } from "../player-turn-headers";
 import { useLocalPlayer } from "../../service";
 import { useStore } from "../../store";
 import { ProceedWithAction } from "./proceed-with-action";
+import { FadeTransition } from "../page-transition";
 
 export const PlayerTurns: FC = () => {
   const localPlayer = useLocalPlayer();
@@ -16,16 +17,20 @@ export const PlayerTurns: FC = () => {
 
   if (localPlayer.isActive) {
     return (
-      <TurnActionWrapper>
-        <TurnActionHeader />
-        {turnActionStep === "pickAction" ? <PickAction /> : <ProceedWithAction />}
-      </TurnActionWrapper>
+      <FadeTransition>
+        <TurnActionWrapper>
+          <TurnActionHeader />
+          {turnActionStep === "pickAction" ? <PickAction /> : <ProceedWithAction />}
+        </TurnActionWrapper>
+      </FadeTransition>
     );
   }
 
   return (
-    <IdlePlayerWrapper>
-      <IdlePlayerHeader />
-    </IdlePlayerWrapper>
+    <FadeTransition>
+      <IdlePlayerWrapper>
+        <IdlePlayerHeader />
+      </IdlePlayerWrapper>
+    </FadeTransition>
   );
 };

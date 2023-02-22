@@ -6,6 +6,7 @@ import { BottomButtonWrapper, Heading2 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { ErrorView } from "../error-view";
 import { Hand } from "../hand";
+import { FadeTransition } from "../page-transition";
 import { HandWrapper } from "./styles";
 
 interface SelectionViewProps {
@@ -34,8 +35,10 @@ export const SelectionHand: FC<SelectionHandProps> = ({ userId }) => {
 export const SelectionView: FC<SelectionViewProps> = ({ powerUpName, userId, onClick }) => {
   return (
     <BottomButtonWrapper>
-      <Heading2>{text.powerUps.whoIsGoingToGetIt}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{text.param.choosePlayer(powerUpName)}</Heading2>
+      <FadeTransition>
+        <Heading2>{text.powerUps.whoIsGoingToGetIt}</Heading2>
+        <Heading2 customColor={color.darkGrey}>{text.param.choosePlayer(powerUpName)}</Heading2>
+      </FadeTransition>
       {userId && <SelectionHand userId={userId} />}
       {onClick && <PrimaryButton primaryText={text.match.goForIt} onClick={() => onClick()} isBottomButton />}
     </BottomButtonWrapper>
