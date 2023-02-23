@@ -46,8 +46,6 @@ export const RollDice: FC = () => {
         <TimeStamp title={text.powerUps.waitingTime} />
         <MatchHeading headingOne={text.powerUps.timeToWait} headingTwo={text.powerUps.waitForPlayers} isAnimated />
 
-        {dice && <RollingDice dice={dice} dieColor={dieColor} />}
-
         {button()}
       </BottomButtonWrapper>
     );
