@@ -10,6 +10,7 @@ import { UseGrill } from "./use-grill";
 import { UseSecondChance } from "./use-second-chance";
 import { UseMenageATrois } from "./use-menage-a-trois";
 import { UseSmokeAndMirrors } from "./use-smoke-and-mirrors";
+import { UseVendetta } from "./use-vendetta";
 
 /**
  * This component will return the result views if the result is present.
@@ -30,6 +31,8 @@ export const UsePowerUp: FC = () => {
         return <UseBirdsEye />;
       case "3":
         return <UseMenageATrois />;
+      case "5":
+        return <UseVendetta />;
       case "6":
         return <UseSecondChance />;
       case "7":

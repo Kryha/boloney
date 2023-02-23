@@ -75,6 +75,7 @@ export const playerPublicSchema = z.object({
   actionRole: actionRoleSchema,
   isTarget: z.boolean(),
   extraDice: z.number(),
+  arePowerUpsDisabled: z.boolean(),
 });
 
 export type PlayerPublic = z.infer<typeof playerPublicSchema>;
@@ -88,6 +89,7 @@ export type Player = z.infer<typeof playerSchema>;
 export const playerRoundDataSchema = z.object({
   diceSum: z.number().optional(),
   extraDice: z.number().optional(),
+  powerUps: z.array(powerUpIdSchema).optional(),
 });
 export type PlayerRoundData = z.infer<typeof playerRoundDataSchema>;
 

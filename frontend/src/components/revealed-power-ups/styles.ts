@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { color } from "../../design";
+import { color, zIndex } from "../../design";
 import { PowerUpCardImage, PowerUpWrapper } from "../power-up/styles";
 
 export const RevealedPowerUpsContainer = styled.div`
@@ -9,6 +9,7 @@ export const RevealedPowerUpsContainer = styled.div`
   padding: 0px;
   gap: 4px;
   margin-bottom: 4px;
+  z-index: ${zIndex.onTop};
   ${PowerUpWrapper} {
     width: clamp(18px, 1.25vw + 6px, 30px);
     height: clamp(23px, 1.25vw + 11px, 35px);

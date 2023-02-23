@@ -205,6 +205,7 @@ export const resetRound = ({ state }: MatchLoopParams) => {
       playerRef.diceAmount = playerRef.diceAmount - playerRef.extraDice;
       playerRef.extraDice = 0;
     }
+    playerRef.arePowerUpsDisabled = false;
     playerRef.hasRolledDice = false;
     playerRef.diceValue = [];
     playerRef.actionRole = undefined;

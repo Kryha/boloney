@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { avatars, text } from "../../assets";
 import { color, handProportion } from "../../design";
+import { useViewport } from "../../hooks";
 import { useLocalPlayer } from "../../service";
 import { useStore } from "../../store";
 import { PlayerRanked } from "../../types";
@@ -28,9 +29,8 @@ interface Props {
 
 export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
   const localPlayer = useLocalPlayer();
-
+  const { width } = useViewport();
   const lastAction = useStore((state) => state.lastAction);
-
   const { avatar } = handProportion(avatars[player.avatarId].name);
   const avatarColor = avatars[player.avatarId].color;
   const isWinner = rank === 1;
@@ -54,7 +54,7 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
         </LeaderboardAvatar>
         <LeaderboardDetails>
           <Username>{localPlayer && text.endOfMatch.username(player.username, player.userId, localPlayer.userId)}</Username>
-          <DiceAndPowerUps>
+          <DiceAndPowerUps screenWidth={width}>
             <DiceIcon diceAmount={player.diceAmount} faceColor={avatarColor} />
             <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
           </DiceAndPowerUps>

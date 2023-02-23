@@ -24,8 +24,9 @@ export const PowerUpsField: FC = () => {
   const totalProbability = useMatchCreationFormState((state) => state.getTotalProbability());
   const isPowerUpError = useMatchCreationFormState((state) => state.getIsError());
 
+  //TODO: Delete this function when Last powerup is implemented
   const isPowerUpAvailable = (powerUpId: PowerUpId) => {
-    if (powerUpId === "5" || powerUpId === "9") return false;
+    if (powerUpId === "9") return false;
     return true;
   };
 

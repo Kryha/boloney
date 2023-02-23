@@ -79,10 +79,15 @@ export const useDoubleUpBackendSchema = z.object({
 });
 export type UseDoubleUpBackend = z.infer<typeof useDoubleUpBackendSchema>;
 
-export const useVendettaFrontendSchema = z.object({});
+export const useVendettaFrontendSchema = z.object({
+  targetId: z.string(),
+});
 export type UseVendettaFrontend = z.infer<typeof useVendettaFrontendSchema>;
 
-export const useVendettaBackendSchema = z.object({});
+export const useVendettaBackendSchema = z.object({
+  targetId: z.string(),
+  targetPowerUps: z.array(powerUpIdSchema),
+});
 export type UseVendettaBackend = z.infer<typeof useVendettaBackendSchema>;
 
 export const useSecondChanceFrontendSchema = z.object({

@@ -113,6 +113,14 @@ export const usePlayerWithRole = (actionRole: ActionRole): PlayerPublic | undefi
   }, [players, actionRole]);
 };
 
+export const useArePowerUpsDisabled = (): boolean => {
+  const localPlayer = useLocalPlayer();
+
+  if (!localPlayer) return false;
+
+  return localPlayer.arePowerUpsDisabled;
+};
+
 export const useMatch = () => {
   const matchId = useStore((state) => state.matchId);
 

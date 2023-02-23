@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, margins } from "../../design";
+import { color, margins, zIndex } from "../../design";
 
 export const PowerUpWrapper = styled.div`
   box-sizing: border-box;
@@ -27,4 +27,22 @@ export const PowerUpCardImage = styled.img<PowerUpProps>`
   width: ${({ isSmokeAndMirrors }): string =>
     isSmokeAndMirrors ? "clamp(65px, 2.08vw + 45px, 85px)" : " clamp(45px, 2.08vw + 25px, 65px)"};
   margin-right: ${({ isDoubleUp }): string => (isDoubleUp ? "-0.8vw" : "0px")};
+`;
+
+export const DisabledPowerUpsIconWrapper = styled.div`
+  position: relative;
+  height: clamp(18px, 2.08vw + -2px, 38px);
+  bottom: 10px;
+  z-index: ${zIndex.onTop};
+  > svg {
+    width: clamp(18px, 2.08vw + -2px, 28px);
+    height: clamp(18px, 2.08vw + -2px, 28px);
+    border-radius: clamp(2px, 0.1vw + 1px, 3px);
+  }
+`;
+
+export const PowerUpContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

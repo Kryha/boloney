@@ -78,6 +78,7 @@ export interface PlayerPublic {
   actionRole: ActionRole;
   isTarget: boolean;
   extraDice: number;
+  arePowerUpsDisabled: boolean;
 }
 
 export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
@@ -96,6 +97,7 @@ export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
     assertedVal.status !== undefined &&
     assertedVal.actionRole !== undefined &&
     assertedVal.isTarget !== undefined &&
+    assertedVal.arePowerUpsDisabled !== undefined &&
     isString(assertedVal.userId) &&
     isString(assertedVal.username) &&
     isAvatarId(assertedVal.avatarId) &&
@@ -107,7 +109,8 @@ export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
     isBoolean(assertedVal.hasRolledDice) &&
     isPlayerStatus(assertedVal.status) &&
     isActionRole(assertedVal.actionRole) &&
-    isBoolean(assertedVal.isTarget)
+    isBoolean(assertedVal.isTarget) &&
+    isBoolean(assertedVal.arePowerUpsDisabled)
   );
 };
 

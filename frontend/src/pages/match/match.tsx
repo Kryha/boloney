@@ -114,10 +114,13 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
 
     const handlePowerUpSideEffects = (powerUpPayload: UsePowerUpPayloadBackend) => {
       const { id, data } = powerUpPayload;
-
+      //TODO: Make sure the playerRoundData is persisted on reload
       switch (id) {
         case "2":
           setPlayerRoundData(data.targetId, { diceSum: data.sum });
+          break;
+        case "5":
+          setPlayerRoundData(data.targetId, { powerUps: data.targetPowerUps });
           break;
         case "7":
           setTurnActionStep("pickAction");

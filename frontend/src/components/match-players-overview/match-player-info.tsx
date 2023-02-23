@@ -30,13 +30,15 @@ interface PlayerMatchStateProps {
 
 export const PlayerMatchState: FC<PlayerMatchStateProps> = ({ player, playerRoundData }) => {
   const dieColor = getDieColor(player);
-  // TODO: get from playerRoundData once implemented
-  const fakePowerUpIds = undefined;
 
   return (
     <MatchStateContainer>
       <DiceIcon diceAmount={player.diceAmount} faceColor={dieColor} diceSum={playerRoundData?.diceSum} extraDice={player.extraDice} />
-      <PowerUpIcon powerUpAmount={player.powerUpsAmount} powerUpIds={fakePowerUpIds} />
+      <PowerUpIcon
+        powerUpAmount={player.powerUpsAmount}
+        powerUpIds={playerRoundData?.powerUps}
+        powerUpDisabled={player.arePowerUpsDisabled}
+      />
     </MatchStateContainer>
   );
 };

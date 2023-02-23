@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, margins } from "../../design";
+import { color, margins, screenSizes } from "../../design";
 import { Heading2, Heading4, Heading6, Paragraph } from "../atoms";
 import { PrimaryButtonWrapper } from "../buttons/styles";
 
@@ -69,13 +69,17 @@ export const LeaderboardDetails = styled.div``;
 
 export const Username = styled(Heading4)``;
 
-export const DiceAndPowerUps = styled.div`
+interface DiceAndPowerUpsProps {
+  screenWidth: number;
+}
+
+export const DiceAndPowerUps = styled.div<DiceAndPowerUpsProps>`
   height: ${margins.medium0};
 
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: ${margins.small1};
+  gap: ${({ screenWidth }) => (screenWidth < screenSizes.small ? margins.small0 : margins.small3)};
 `;
 
 export const Description = styled(Paragraph)`

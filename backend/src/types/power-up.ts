@@ -114,10 +114,13 @@ export interface UseDoubleUpBackend {
   recentlyAdded: number;
 }
 
-export interface UseVendettaFrontend { }
+export interface UseVendettaFrontend {
+  targetId: string;
+}
 
 export interface UseVendettaBackend {
   targetId: string;
+  targetPowerUps: PowerUpId[];
 }
 
 export interface UseSecondChanceFrontend {

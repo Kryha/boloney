@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { text } from "../../assets";
+import { LockIcon, text } from "../../assets";
 import { color } from "../../design";
 import { PowerUpId } from "../../types";
 import { GeneralText } from "../atoms";
@@ -9,15 +9,17 @@ import { Lightning, PowerUpIconWrapper } from "./styles";
 interface PowerUpProps {
   powerUpAmount: number;
   powerUpIds?: PowerUpId[];
+  powerUpDisabled?: boolean;
 }
 
-export const PowerUpIcon: FC<PowerUpProps> = ({ powerUpAmount, powerUpIds }) => {
+export const PowerUpIcon: FC<PowerUpProps> = ({ powerUpAmount, powerUpIds, powerUpDisabled = false }) => {
   if (powerUpIds?.length) return <RevealedPowerUps powerUpIds={powerUpIds} />;
 
   return (
     <PowerUpIconWrapper>
       <Lightning />
       <GeneralText customColor={color.darkGrey}>{text.param.xAmount(powerUpAmount)}</GeneralText>
+      {powerUpDisabled && <LockIcon />}
     </PowerUpIconWrapper>
   );
 };

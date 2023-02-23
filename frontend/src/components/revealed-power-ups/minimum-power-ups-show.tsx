@@ -19,7 +19,7 @@ export const MinimumPowerUpsShown: FC<MinimumPowerUpsShownProps> = ({ powerUpIds
         <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={togglePowerUps} />
       ))}
       {powerUpIds.length > initialPowerUpsShown && (
-        <PowerUpContainer>
+        <PowerUpContainer onClick={togglePowerUps}>
           <GeneralText>{text.param.powerUpAmount(powerUpIds.length - initialPowerUpsShown)}</GeneralText>
         </PowerUpContainer>
       )}

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { text } from "../../assets";
 import { MEDIUM_VIEWPORT_WIDTH, POWER_UP_DEFAULT_VIEW, POWER_UP_DEFAULT_VIEW_SMALL } from "../../constants";
 import { useViewport } from "../../hooks";
+import { useArePowerUpsDisabled } from "../../service";
 import { useStore } from "../../store";
 import { PowerUpId } from "../../types";
 import { getPowerUp } from "../../util";
@@ -17,6 +18,7 @@ interface PowerUpListProps {
 
 export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
   const showModal = useStore((state) => state.showModal);
+  const isPowerUpDisabled = useArePowerUpsDisabled();
 
   const { width } = useViewport();
 
@@ -30,7 +32,7 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
     <YourPowerUpContainer>
       {powerUpIds.slice(0, initialPowerUpsShown).map((powerUpId, i) => (
         //! Don't use powerUpId as key since we allow for duplicate power-ups
-        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={toggleShowModal} />
+        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={toggleShowModal} isPowerUpDisabled={isPowerUpDisabled} />
       ))}
       {powerUpIds.length > initialPowerUpsShown && (
         <PowerUpWrapper onClick={() => toggleShowModal()}>

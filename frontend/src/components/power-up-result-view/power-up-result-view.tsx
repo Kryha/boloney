@@ -15,6 +15,7 @@ import { SmokeAndMirrorsResult } from "./smoke-and-mirrors-result";
 import { BirdsEyeResult } from "./birds-eye-result";
 import { useLocalPlayer } from "../../service";
 import { ErrorView } from "../error-view";
+import { VendettaResult } from "./vendetta-result";
 import { FadeTransition } from "../page-transition";
 
 interface Props {
@@ -39,17 +40,20 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
       case "2": {
         return <BirdsEyeResult sum={result.data.sum} />;
       }
-      case "7":
-        return <></>;
+      case "3": {
+        return <MenageATroisResult data={result.data} dieColor={dieColor} />;
+      }
       case "4": {
         return <DoubleUpResult data={result.data} id={result.id} />;
       }
-      case "3": {
-        return <MenageATroisResult data={result.data} dieColor={dieColor} />;
+      case "5": {
+        return <VendettaResult data={result.data} id={result.id} />;
       }
       case "6": {
         return <SecondChanceResult data={result.data} dieColor={dieColor} />;
       }
+      case "7":
+        return <></>;
       case "8":
         // TODO: see how to show this properly, since the turn is being changed
         return <SmokeAndMirrorsResult />;

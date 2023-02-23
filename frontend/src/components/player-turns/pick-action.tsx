@@ -13,7 +13,7 @@ import {
   EXACT_BUTTON_INDEX,
   HEAL_DICE_BUTTON_INDEX,
 } from "../../constants";
-import { useLatestBid, useTotalDiceInMatch } from "../../service";
+import { useArePowerUpsDisabled, useLatestBid, useTotalDiceInMatch } from "../../service";
 import { useStore } from "../../store";
 import { TurnAction } from "../../types";
 import { GeneralText } from "../atoms";
@@ -27,6 +27,7 @@ export const PickAction: FC = () => {
   const setAction = useStore((state) => state.setAction);
   const showModal = useStore((state) => state.showModal);
 
+  const powerUpsDisabled = useArePowerUpsDisabled();
   const latestBid = useLatestBid();
   const totalDice = useTotalDiceInMatch();
   const canHealDice = useCanLocalPlayerHealDice();
@@ -49,6 +50,7 @@ export const PickAction: FC = () => {
   };
 
   const handlePowerUpAction = () => {
+    if (powerUpsDisabled) return;
     setTurnActionStep("proceedWithAction");
     setAction("powerUp");
     showModal("power-up-use");
@@ -62,6 +64,7 @@ export const PickAction: FC = () => {
             <PrimaryButtonWithHelper
               primaryText={text.match.powerUp}
               secondaryText={text.playerTurn.feelThePower}
+              disabled={powerUpsDisabled}
               tooltipTitle={text.general.toolTipPowerUpTitle}
               tooltipInfo={text.general.toolTipPowerUpInfo}
               onClick={() => handlePowerUpAction()}

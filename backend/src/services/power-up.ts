@@ -119,8 +119,11 @@ const useDoubleUp = async (loopParams: MatchLoopParams, sender: Player): Promise
 };
 
 const useVendetta = async (loopParams: MatchLoopParams, data: UseVendettaFrontend): Promise<UseVendettaBackend> => {
-  // TODO: implement
-  return { targetId: "" };
+  const { state } = loopParams;
+
+  state.players[data.targetId].arePowerUpsDisabled = true;
+
+  return { targetId: data.targetId, targetPowerUps: state.players[data.targetId].powerUpIds };
 };
 
 const useSecondChance = async (
