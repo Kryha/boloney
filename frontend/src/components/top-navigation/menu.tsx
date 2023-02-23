@@ -30,6 +30,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
   const { broadcastPlayerLeft } = useMatch();
 
   const handleLogout = () => {
+    broadcastPlayerLeft();
     logout();
     setActiveDropdown(undefined);
     navigate(routes.root);
