@@ -121,6 +121,7 @@ export const BottomButtonWrapper = styled.section`
     bottom: 11vh;
     left: 12.5vw;
     margin-left: 1px;
+    z-index: ${zIndex.modal};
   }
 `;
 

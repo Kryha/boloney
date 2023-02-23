@@ -14,7 +14,9 @@
 
 canvas {
   position: fixed;
-  left: 12.5vw;
+  top: 5vh;
+  left: 12vw;
+  z-index: 5;
 }
 
 @font-face {
