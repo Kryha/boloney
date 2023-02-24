@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, ReactNode, useState } from "react";
 import { text } from "../../assets";
 import { TooltipContent, TooltipDescription, TooltipHeading, ToolTipText, TooltipWrap } from "./styles";
 
@@ -7,7 +7,7 @@ export type InfoPosition = "top" | "bottom" | "left" | "right";
 interface TooltipInfoProps {
   title?: string;
   position?: InfoPosition;
-  content: string;
+  content: ReactNode;
   children: React.ReactNode;
   isButtonWithHelper?: boolean;
 }

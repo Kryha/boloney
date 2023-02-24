@@ -21,7 +21,6 @@ export const RoundBadge: FC<Props> = ({ roundStart }) => {
           totalDice={roundStart.totalDiceAmount}
           stageNumber={roundStart.stageNumber}
           drawRoundCounter={roundStart.roundsUntillDrawRound}
-          roundNumber={roundStart.roundNumber}
         />
       </HistoryBadgeContainer>
       <HistoryDivider />

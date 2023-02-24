@@ -11,17 +11,16 @@ export interface StatsProps {
   stageNumber: number;
   drawRoundCounter: number;
   powerUpsAmount?: number;
-  roundNumber: number;
 }
 
-export const HistoryStats: FC<StatsProps> = ({ totalDice, stageNumber, powerUpsAmount, drawRoundCounter, roundNumber }) => {
+export const HistoryStats: FC<StatsProps> = ({ totalDice, stageNumber, powerUpsAmount, drawRoundCounter }) => {
   return (
     <HistoryStatsContainer>
       <DiceIcon diceAmount={totalDice} faceColor={color.white} pipColor={color.black} />
       <HistoryVerticalDivider />
       <GeneralText customColor={color.mediumGrey}>{text.param.stageNumber(stageNumber)}</GeneralText>
       <HistoryVerticalDivider />
-      <MatchStateItemDrawRound powerUpsAmount={powerUpsAmount} roundNumber={roundNumber} drawRoundCounter={drawRoundCounter} />
+      <MatchStateItemDrawRound powerUpsAmount={powerUpsAmount} drawRoundCounter={drawRoundCounter} />
     </HistoryStatsContainer>
   );
 };

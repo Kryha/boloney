@@ -183,3 +183,17 @@ export const ColorSpan = styled.span<ColorSpanProps>`
 export const Bold = styled.span`
   font-weight: bold;
 `;
+
+export const DefaultListItem = styled.li`
+  font-family: ibm-plex-mono, sans-serif;
+  font-weight: ${fontWeight.light};
+  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
+  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
+  letter-spacing: -0.01em;
+  color: ${color.black};
+  list-style-position: outside;
+`;
+
+export const BulletContainer = styled.ul`
+  padding-left: 20px;
+`;

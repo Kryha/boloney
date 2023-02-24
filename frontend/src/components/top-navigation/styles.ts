@@ -15,7 +15,7 @@ export const TopNavigationSection = styled.section`
   width: 100%;
   justify-content: flex-end;
   position: absolute;
-  z-index: ${zIndex.normal};
+  z-index: ${zIndex.modalBackground};
 `;
 
 export const Timer = styled(TimerIcon)`

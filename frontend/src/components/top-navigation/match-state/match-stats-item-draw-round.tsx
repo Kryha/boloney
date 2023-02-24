@@ -9,18 +9,17 @@ import { Lightning, MatchStateItemContainer } from "../styles";
 
 interface PropItem {
   powerUpsAmount?: number;
-  roundNumber: number;
   drawRoundCounter: number;
 }
 
-export const MatchStateItemDrawRound: FC<PropItem> = ({ powerUpsAmount, roundNumber, drawRoundCounter }) => {
+export const MatchStateItemDrawRound: FC<PropItem> = ({ powerUpsAmount, drawRoundCounter }) => {
   return (
     <MatchStateItemContainer>
       <Lightning size={margins.small5} />
       <GeneralText>{param.drawPowerUpsRound(powerUpsAmount)}</GeneralText>
       <GeneralText>{text.match.inXAmountOfRounds}</GeneralText>
       <GeneralText>{param.matchStatusItemNumber(drawRoundCounter)}</GeneralText>
-      <GeneralText>{param.round(roundNumber)}</GeneralText>
+      <GeneralText>{param.round(drawRoundCounter)}</GeneralText>
     </MatchStateItemContainer>
   );
 };

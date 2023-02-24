@@ -66,3 +66,4 @@ export * from "./waiting-text";
 export * from "./match-heading";
 export * from "./history";
 export * from "./page-transition";
+export * from "./tool-tip-content";

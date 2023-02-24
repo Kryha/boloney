@@ -26,7 +26,7 @@ interface InputProps {
   isRow?: boolean;
   childNode?: number;
   description?: string;
-  tooltipInfo?: string;
+  tooltipInfo?: ReactNode;
   tooltipTitle?: string;
   infoPosition?: InfoPosition;
 }

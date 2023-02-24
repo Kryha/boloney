@@ -1,10 +1,10 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { ButtonInfoWrap, Info } from "./styles";
 import { InfoPosition, TooltipInfo } from "./tooltip-info";
 
 interface TooltipProps {
   title?: string;
-  info?: string;
+  info?: ReactNode;
   infoPosition?: InfoPosition;
   isButtonWithHelper?: boolean;
 }

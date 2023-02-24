@@ -63,10 +63,9 @@ export const general = {
   toolTipHealActionTitle: "heal action",
   toolTipHealActionInfo: "amount of power-ups each player should destroy in exchange for 1 die.",
   toolTipStageNumberTitle: "stage Number Divisor",
-  toolTipStageNumberInfo:
-    "Stage Number Divisor: Global modifier based on the total number of dice in play. It affects two base mechanics:" +
-    "How many cards are gained by calling Exact" +
-    "How often a power-up draw round occurs",
+  toolTipStageNumberInfo: "Global modifier based on the total number of dice in play. It affects two base mechanics:",
+  toolTipStageNumberInfoPointOne: "How many cards are gained by calling Exact",
+  toolTipStageNumberInfoPointTwo: "How often a power-up draw round occurs",
   youAreRight: "you're right!",
   youAreWrong: "you're wrong!",
   youRockAtThis: "you rock at this!",

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, margins } from "../../design";
+import { color, margins, zIndex } from "../../design";
 import { avatarHeight, Heading6 } from "../atoms";
 import { DiceContainer, PlayerInfoContainer } from "../match-players-overview/styles";
 
@@ -20,6 +20,7 @@ export const PlayerOverview = styled.section<PlayerOverviewProps>`
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: ${zIndex.modal};
 `;
 
 interface LocalPlayerProps {

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
-import { BaseOption, BaseSelect, InputLegend } from "../../components";
+import { BaseOption, BaseSelect, InputLegend, ToolTipStageNumber } from "../../components";
 import { MAX_HEAL_POWER_UP_AMOUNT, MAX_STAGE_NUMBER_DIVISOR, MIN_HEAL_POWER_UP_AMOUNT, MIN_STAGE_NUMBER_DIVISOR } from "../../constants";
 import { MatchSettings } from "../../types";
 import { range } from "../../util";
@@ -33,7 +33,7 @@ export const HealActionField: FC<Props> = ({ register }) => {
         label={text.newMatch.stageNumberDivisor}
         isRow
         childNode={2}
-        tooltipInfo={text.general.toolTipStageNumberInfo}
+        tooltipInfo={<ToolTipStageNumber />}
         tooltipTitle={text.general.toolTipStageNumberTitle}
       >
         <BaseSelect {...register("stageNumberDivisor")}>
