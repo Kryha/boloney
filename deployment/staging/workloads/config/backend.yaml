@@ -32,4 +32,4 @@ spec:
               value: https://zk-gaming-tk.staging.kryha.dev
               # TODO: enable ZK once toolit is deployed on VM
             - name: ZK_ENABLED
-              value: "false"
+              value: "true"
