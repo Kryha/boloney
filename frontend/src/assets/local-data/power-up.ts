@@ -56,7 +56,7 @@ export const POWER_UP_DATA: Record<PowerUpId, PowerUp> = {
   "7": {
     id: "7",
     name: "coup",
-    shortDescription: "target player discards all their cards, then the player taking the action draws that many cards.",
+    shortDescription: "target player re-rolls all of their power-ups.",
     longDescription: "destroy all your power-ups and gain an equal amount of new power-ups.",
     cardImage: Coup,
     isImageLarge: true,
