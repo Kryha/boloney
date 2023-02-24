@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { routes } from "../navigation";
 
 import { useSession, useStore } from "../store";
 import { NkResponse } from "../types";
-import { parseError } from "../util";
+import { isAuthenticationRoute, isKnownRoute, parseError } from "../util";
 import { nakama } from "./nakama";
 
 export const useRefreshAuth = () => {
   const session = useSession();
   const setSession = useStore((state) => state.setSession);
   const setIsAuthenticating = useStore((state) => state.setIsAuthenticating);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const refreshSession = async () => {
@@ -17,14 +21,14 @@ export const useRefreshAuth = () => {
         const newSession = await nakama.refreshSession();
         setSession(newSession);
       } catch (e) {
-        // manual login required
+        if (!isAuthenticationRoute(pathname) && isKnownRoute(pathname)) navigate(routes.login);
         return;
       } finally {
         setIsAuthenticating(false);
       }
     };
     refreshSession();
-  }, [session, setIsAuthenticating, setSession]);
+  }, [navigate, pathname, session, setIsAuthenticating, setSession]);
 };
 
 export const useAuthenticateUser = () => {
