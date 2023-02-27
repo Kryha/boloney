@@ -9,7 +9,6 @@ export const MainPageContainer = styled.div``;
 
 export const MainWrap = styled.div<MainProps>`
   width: 100%;
-  height: 100%;
   flex-direction: row;
   overflow-y: scroll;
   position: relative;

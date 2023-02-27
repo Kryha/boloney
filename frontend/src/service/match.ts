@@ -118,6 +118,8 @@ export const useArePowerUpsDisabled = (): boolean => {
 
   if (!localPlayer) return false;
 
+  if (localPlayer.powerUpsAmount < 1) return true;
+
   return localPlayer.arePowerUpsDisabled;
 };
 
@@ -125,6 +127,7 @@ export const useMatch = () => {
   const matchId = useStore((state) => state.matchId);
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+  const setTurnActionStep = useStore((state) => state.setTurnActionStep);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -151,6 +154,7 @@ export const useMatch = () => {
   const broadcastPlaceBid = (bid: BidPayloadFrontend) => {
     setSpinnerVisibility(true);
     sendMatchState(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(bid));
+    setTurnActionStep("pickAction");
   };
 
   const broadcastHealDice = (powerUpIds: HealDicePayloadFrontend) => {

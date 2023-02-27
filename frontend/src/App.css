@@ -6,4 +6,6 @@
 body {
   background: #DDDDD9;
   overscroll-behavior: none;
+  -webkit-overflow-scrolling: none;
+  overflow: hidden;
 }
