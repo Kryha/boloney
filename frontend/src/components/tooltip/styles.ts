@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { InfoIcon } from "../../assets";
-import { color, fontWeight, margins, zIndex } from "../../design";
+import { color, fontWeight, margins } from "../../design";
 import { GeneralText, Heading3, tooltipAnimation } from "../atoms";
 
 export const TooltipWrap = styled.section`
@@ -15,7 +15,8 @@ export const ButtonInfoWrap = styled.span`
   margin-left: ${margins.small1};
 `;
 
-export const ToolTipText = styled.h2`
+export const ToolTipText = styled.span`
+  display: block;
   font-family: ibm-plex-mono, sans-serif;
   font-weight: ${fontWeight.light};
   font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
@@ -49,13 +50,11 @@ interface TooltipProps {
 export const TooltipContent = styled.div<TooltipProps>`
   max-width: clamp(450px, 10.42vw + 350px, 550px);
   position: absolute;
-  left: 130px;
-  transform: translateX(-50%);
+  left: 40px;
   padding: ${margins.small4};
   color: ${color.black};
   background: ${color.white};
   box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.1);
-  z-index: ${zIndex.inFront};
   min-width: clamp(400px, 10.42vw + 300px, 500px);
   box-sizing: border-box;
   animation: ${tooltipAnimation} 0.5s;
@@ -75,8 +74,17 @@ export const TooltipContent = styled.div<TooltipProps>`
     transform: translateX(0) translateY(0);
   }
   &.right {
-    left: calc(100% + 1.25em);
+    left: -31.2vw;
     top: 0%;
     transform: translateX(0) translateY(0);
   }
+`;
+
+interface Props {
+  zIndex?: number;
+}
+
+export const TooltipContentWrapper = styled.div<Props>`
+  position: relative;
+  z-index: ${({ zIndex }) => (zIndex ? zIndex : "1")};
 `;

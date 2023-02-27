@@ -4,7 +4,7 @@ import { color } from "../../design";
 import { MatchSettings } from "../../types";
 import { GeneralText, Heading6 } from "../atoms";
 import { DiceIcon, PowerUpIcon } from "../icons";
-import { Tooltip } from "../tooltip";
+import { InfoPosition, Tooltip } from "../tooltip";
 import { MatchInfoDescription, MatchInfoHeader, MatchInfoOverview, RaisedHand, Round } from "./styles";
 
 type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | undefined;
@@ -15,6 +15,7 @@ interface MatchInfoProps {
   tooltipTitle?: string;
   tooltipDescription?: string;
   matchSettings: MatchSettings;
+  tooltipPosition?: InfoPosition;
 }
 
 const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: MatchSettings) => {
@@ -49,12 +50,13 @@ export const MatchInfo: FC<MatchInfoProps> = ({
   tooltipDescription,
   tooltipTitle,
   matchSettings,
+  tooltipPosition,
 }) => {
   return (
     <MatchInfoOverview>
       <MatchInfoHeader>
         <Heading6>{title}</Heading6>
-        {hasTooltip && <Tooltip title={tooltipTitle} info={tooltipDescription} />}
+        {hasTooltip && <Tooltip title={tooltipTitle} info={tooltipDescription} infoPosition={tooltipPosition} />}
       </MatchInfoHeader>
       <MatchInfoDescription>{findInfo(matchSettingsType, matchSettings)}</MatchInfoDescription>
     </MatchInfoOverview>

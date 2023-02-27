@@ -21,8 +21,8 @@ export const newMatch = {
 
   continueText: "let's roll!",
   invalidPercentage: "match to 100%",
-  healAction: "heal action",
-  stageNumberDivisor: "stage number divisor",
+  healDie: "heal die",
+  startingNumberDivisor: "starting number divisor",
   chance: "chance",
   total: "total",
   outOfOneHundred: "/100 %",

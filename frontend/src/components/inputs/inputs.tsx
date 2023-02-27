@@ -29,6 +29,7 @@ interface InputProps {
   tooltipInfo?: ReactNode;
   tooltipTitle?: string;
   infoPosition?: InfoPosition;
+  zIndex?: number;
 }
 
 export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
@@ -58,6 +59,7 @@ export const InputLegend: FC<InputProps> = ({
   tooltipInfo,
   tooltipTitle,
   infoPosition,
+  zIndex,
 }) => {
   return (
     <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
@@ -65,7 +67,7 @@ export const InputLegend: FC<InputProps> = ({
         <Legend>
           <LegendContainer>
             <LegendTitle>{label}</LegendTitle>
-            <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={infoPosition} />
+            <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={infoPosition} zIndex={zIndex} />
           </LegendContainer>
         </Legend>
         {children}

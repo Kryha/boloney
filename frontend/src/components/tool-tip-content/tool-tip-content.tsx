@@ -1,15 +1,18 @@
 import { FC } from "react";
 import { text } from "../../assets/text";
-import { BulletContainer, DefaultListItem } from "../atoms";
+import { BulletContainer, DefaultListItem, GeneralText } from "../atoms";
 import { ToolTipContent } from "./styles";
 
 export const ToolTipStageNumber: FC = () => {
   return (
     <ToolTipContent>
       {text.general.toolTipStageNumberInfo}
+      <GeneralText>{text.general.example}</GeneralText>
+      <GeneralText>{text.general.diceInPlay}</GeneralText>
       <BulletContainer>
-        <DefaultListItem>{text.general.toolTipStageNumberInfoPointOne}</DefaultListItem>
-        <DefaultListItem>{text.general.toolTipStageNumberInfoPointTwo}</DefaultListItem>
+        {text.general.toolTipStageNumberBulletList.map((item, index) => (
+          <DefaultListItem key={index}>{item}</DefaultListItem>
+        ))}
       </BulletContainer>
     </ToolTipContent>
   );

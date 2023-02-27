@@ -2,14 +2,19 @@ import styled from "@emotion/styled";
 import { LightningIcon } from "../../assets";
 
 import { BaseInput, GeneralText, Heading4, Heading6 } from "../../components";
-import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper, LinkText } from "../../components/buttons/styles";
+import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper, LinkText, RightButtonContainer } from "../../components/buttons/styles";
 import { DescriptionContainer, CheckboxContainer as CheckboxWrapper } from "../../components/checkbox/styles";
 import { InputContainer } from "../../components/inputs/styles";
+import { TooltipContent } from "../../components/tooltip/styles";
 import { color, fontWeight, margins, zIndex } from "../../design";
 
 export const NewMatchContainer = styled.section``;
 
-export const PlayersDiceContainer = styled.section`
+interface Props {
+  zIndex?: number;
+}
+
+export const PlayersDiceContainer = styled.section<Props>`
   display: flex;
   padding: 0px;
   margin-top: ${margins.medium0};
@@ -17,10 +22,18 @@ export const PlayersDiceContainer = styled.section`
   ${InputContainer} {
     margin-top: ${margins.small5};
   }
+  position: relative;
+  z-index: ${({ zIndex }) => (zIndex ? zIndex : "0")} !important;
 `;
 
 export const FieldContainer = styled.section`
   margin-top: ${margins.medium1};
+  ${RightButtonContainer} {
+    ${TooltipContent} {
+      max-width: 20vw;
+      min-width: 20vw;
+    }
+  }
 `;
 
 export const CheckboxContainer = styled.section`

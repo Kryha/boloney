@@ -16,7 +16,6 @@ import {
 import { createMatch } from "../../service";
 import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
 import { useMatchCreationFormState } from "./match-creation-form-state";
-import { HealActionField } from "./heal-action-field";
 import { PlayersField } from "./players-field";
 import { DrawRoundOffsetField } from "./draw-round-offset-field";
 import { PowerUpsField } from "./power-ups-field";
@@ -26,6 +25,7 @@ import { cleanUUID } from "../../util";
 import { DEFAULT_MATCH_SETTINGS, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../navigation";
+import { StartingNumberDivisor } from "./starting-number-divisor";
 
 interface Props {
   setMatchId: (id: string) => void;
@@ -93,13 +93,13 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
           <FormContainer>
             <PlayersField register={register} />
 
-            <PowerUpsAmountField register={register} minPowerUps={watchPowerUpAmount} />
+            <StartingNumberDivisor register={register} />
 
             <DrawRoundOffsetField register={register} />
 
-            <PowerUpsField />
+            <PowerUpsAmountField register={register} minPowerUps={watchPowerUpAmount} />
 
-            <HealActionField register={register} />
+            <PowerUpsField />
 
             <BottomContainer>
               <Paragraph>{text.newMatch.bottomDesc}</Paragraph>

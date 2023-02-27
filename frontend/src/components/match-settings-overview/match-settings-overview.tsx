@@ -37,6 +37,7 @@ export const MatchSettingsOverview: FC = () => {
           matchSettings={matchSettings}
           tooltipTitle={text.general.toolTipDrawRoundOffsetTitle}
           tooltipDescription={text.general.toolTipDrawRoundOffsetInfo}
+          tooltipPosition="right"
           hasTooltip
         />
         <MatchInfo
@@ -45,6 +46,7 @@ export const MatchSettingsOverview: FC = () => {
           matchSettings={matchSettings}
           tooltipTitle={text.general.toolTipHealTitle}
           tooltipDescription={text.general.toolTipHealInfo}
+          tooltipPosition="right"
           hasTooltip
         />
       </MatchInfoButtons>
@@ -53,6 +55,7 @@ export const MatchSettingsOverview: FC = () => {
         primaryText={text.newMatch.chance}
         tooltipInfo={text.general.toolTipPowerUpTypeInfo}
         tooltipTitle={text.general.toolTipPowerUpTypeTitle}
+        tooltipInfoPosition="right"
       />
       {powerUpProbabilities.map((powerUp) => (
         <PowerUpContainer key={powerUp.id}>

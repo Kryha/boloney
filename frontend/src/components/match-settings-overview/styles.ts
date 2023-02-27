@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
 import { Heading6, Paragraph, Row } from "../atoms";
-import { ButtonContainer } from "../buttons/styles";
+import { ButtonContainer, RightButtonContainer } from "../buttons/styles";
 import { PowerUpWrapper } from "../power-up/styles";
+import { TooltipContent } from "../tooltip/styles";
 
 export const MatchSettingsOverviewComponent = styled.section`
   padding: 3.75em;
-  width: clamp(768px, 60.62vw + 186px, 1350px);
   overflow-y: scroll;
   ${Heading6} {
     text-transform: uppercase;
@@ -14,6 +14,14 @@ export const MatchSettingsOverviewComponent = styled.section`
   ${ButtonContainer} {
     height: fit-content;
     padding-right: 0px;
+  }
+  ${RightButtonContainer} {
+    width: clamp(768px, 60.62vw + 186px, 1350px);
+    ${TooltipContent} {
+      &.right {
+        left: -32vw;
+      }
+    }
   }
 `;
 
@@ -44,6 +52,7 @@ export const MatchInfoButtons = styled.div`
   gap: 3px;
   margin-top: 2.5em;
   margin-bottom: 3.75em;
+  width: clamp(768px, 60.62vw + 186px, 1350px);
 `;
 export const Percentage = styled(Paragraph)`
   padding: 0.625em 0px 0.625em 0.625em;
@@ -51,7 +60,7 @@ export const Percentage = styled(Paragraph)`
 
 export const PowerUpContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: clamp(768px, 60.62vw + 186px, 1350px);
   ${PowerUpWrapper} {
     margin-top: ${margins.small5};
     margin-bottom: ${margins.small3};
