@@ -1,41 +1,62 @@
 import { FC } from "react";
-import { useChat } from "../../service";
+import { useChat, useLayoutStore } from "../../service";
 import { ChatMessageContent } from "../../types";
-import { GeneralMessageText, Message, MessageWrapper } from "../atoms";
-import { PlayerName } from "../match-players-overview";
-import { MessageListContainer, MessageListWrapper } from "./styles";
+import { ChatMessageListContainer } from "../atoms";
+import { MessageInfo } from "./message-info";
+import { MessageListContainer, MessageListWrapper, MessageWindowContainer } from "./styles";
 
 export interface ChatMessageProps {
-  message: ChatMessageContent;
+  message: ChatMessageContent | ChatMessageContent[];
 }
 
-const ChatMessage: FC<ChatMessageProps> = (chatMessageProps) => {
-  const message = chatMessageProps.message;
+const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
+  if (Array.isArray(message)) return <ChatMessageList messages={message} />;
 
+  const isNameShowing = !message.isLocalUser && !message.isGroupedMessage;
+  return <MessageInfo message={message} isNameShowing={isNameShowing} />;
+};
+
+export interface ChatMessageListProps {
+  messages: ChatMessageContent[];
+}
+
+const ChatMessageList: FC<ChatMessageListProps> = ({ messages }) => {
+  const isNameShowing = !messages[0].isLocalUser;
   return (
-    <MessageWrapper isLocalUser={message.isLocalUser}>
-      <Message isLocalUser={message.isLocalUser}>
-        {!message.isLocalUser && <PlayerName name={message.name} color={message.color} />}
-        <GeneralMessageText>{message.content}</GeneralMessageText>
-      </Message>
-    </MessageWrapper>
+    <ChatMessageListContainer>
+      {messages.map((message, index) => (
+        <MessageInfo key={index} message={message} isNameShowing={isNameShowing && index === messages.length - 1} />
+      ))}
+    </ChatMessageListContainer>
   );
 };
 
-export const MessageList: FC = () => {
+export interface Props {
+  isInLobby: boolean;
+}
+
+export const MessageList: FC<Props> = ({ isInLobby }) => {
   const messages = useChat();
+  const isChatToggled = useLayoutStore((state) => state.isChatToggled);
+  const isHistoryToggled = useLayoutStore((state) => state.isHistoryToggled);
+  const isMenuOpen = isChatToggled && isHistoryToggled;
+
+  if (!messages) return <></>;
 
   return (
-    <MessageListWrapper>
-      <MessageListContainer
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        {messages.map((message, index) => {
-          return <ChatMessage key={index} message={message} />;
-        })}
-      </MessageListContainer>
+    <MessageListWrapper isMenuOpen={isMenuOpen}>
+      <MessageWindowContainer isInLobby={isInLobby}>
+        <MessageListContainer
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          isMenuOpen={isMenuOpen}
+        >
+          {messages.map((message, index) => {
+            return <ChatMessage key={index} message={message} />;
+          })}
+        </MessageListContainer>
+      </MessageWindowContainer>
     </MessageListWrapper>
   );
 };

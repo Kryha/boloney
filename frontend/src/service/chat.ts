@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { avatars } from "../assets";
 import { useStore } from "../store";
 import { ChatMessageContent, MessageContent, PlayerPublic } from "../types";
+import { parseMessages } from "../util";
 import { useLocalPlayer } from "./match";
 import { nakama } from "./nakama";
 
@@ -22,12 +23,16 @@ export const useChat = () => {
 
       if (message) {
         message.isLocalUser = isLocalUser;
+
         addMessage(message);
       }
     };
-  }, [addMessage, localPlayer?.userId, players]);
+  }, [addMessage, localPlayer?.userId, messages, players]);
 
-  return messages;
+  if (!messages.length) return [];
+  const chatMessages = parseMessages(messages);
+
+  return chatMessages;
 };
 
 export const useChatHistory = (joinedMatch: boolean) => {
@@ -110,6 +115,7 @@ export const parseToChatMessage = (message: ChannelMessage, player: PlayerPublic
     color: color,
     content: content.message,
     isLocalUser: false,
+    isGroupedMessage: false,
   };
   return newMessage;
 };

@@ -10,3 +10,10 @@ export const ChatWrapperSection = styled.section`
     margin: ${margins.small1};
   }
 `;
+
+export const ChatInputContainer = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5.63vh;
+`;

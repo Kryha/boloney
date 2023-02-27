@@ -153,7 +153,7 @@ export const PlayerColor = styled.div<PlayersColorProps>`
   background: ${({ customColor }): string => customColor || color.white};
 `;
 
-export const PlayerNameContainer = styled.div`
+export const PlayerNameContainer = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;

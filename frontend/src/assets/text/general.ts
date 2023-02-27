@@ -1,4 +1,8 @@
 export const general = {
+  // Inline text remove capitalization
+  typeHere: "Type here...",
+
+  // Normal text
   chat: "chat",
   history: "history",
   matchSettings: "match settings",
@@ -24,14 +28,10 @@ export const general = {
   loading: "loading",
   close: "close",
   goBack: "go back",
-  // TODO: delete
-  toolTipInfo: "this is the description",
-  toolTipTitle: "this is the title",
   yourDice: "your dice",
   continueWithAction: "continue",
   rollIt: "let's roll",
   copied: "copied!",
-  typeHere: "type here...",
   toolTipBoloneyInfo:
     "if the amount of dice on the table that match the bid’s face value is less than the last player’s bid, then the Boloney! call is correct, and the last bidding player loses a die. If the amount of dice on the table that match the bid’s face value is equal to or more than the last player’s bid, then the Boloney! call is incorrect, and the player that called Boloney! loses a die. The round ends either way, and the player that called Boloney! takes the first turn in the next round.",
   toolTipBoloneyTitle: "call Boloney!",

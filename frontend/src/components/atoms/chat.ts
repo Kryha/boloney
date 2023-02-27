@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
-import { Paragraph } from "./text";
+import { GeneralMessageText, Paragraph } from "./text";
 
 export const ChatUserName = styled(Paragraph)`
-  width: 17.5vh;
+  width: fit-content;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -14,27 +14,41 @@ export const ChatUserName = styled(Paragraph)`
 `;
 
 interface MessageProps {
-  isLocalUser: boolean;
+  isLocalUser?: boolean;
+  isGroupedMessage?: boolean;
 }
 
 export const Message = styled.div<MessageProps>`
-  padding: ${margins.small5};
-  text-transform: none;
-  transform: rotate(180deg);
-  direction: ltr;
-  background: ${color.white};
-  border-radius: ${margins.small1};
   display: flex;
   flex-direction: column;
-  padding: ${margins.small2};
+  align-items: flex-start;
+  padding: 10px;
   gap: 6px;
+  border-radius: 8px;
   background: ${({ isLocalUser }): string => (isLocalUser ? color.grey : color.white)};
   width: fit-content;
+  max-width: 23.5vw;
+  ${GeneralMessageText} {
+    white-space: initial;
+  }
 `;
 
 export const MessageWrapper = styled.section<MessageProps>`
+  padding-left: 13px;
+  padding-right: 13px;
+  padding-bottom: ${({ isGroupedMessage }): string => (isGroupedMessage ? "2px" : "16px")};
+  align-self: ${({ isLocalUser }): string => (isLocalUser ? "flex-end" : "flex-start")};
+`;
+
+export const ChatMessageListContainer = styled.section<MessageProps>`
   display: flex;
-  flex-direction: column;
-  padding: ${margins.small1} ${margins.small2} ${margins.small1} ${margins.large0};
-  align-items: ${({ isLocalUser }): string => (isLocalUser ? "flex-end" : "flex-start")};
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  ${MessageWrapper}:first-of-type {
+    padding-bottom: ${margins.small4};
+  }
+
+  ${MessageWrapper}:last-of-type {
+    padding-top: ${margins.small4};
+  }
 `;

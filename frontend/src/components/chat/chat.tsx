@@ -7,7 +7,7 @@ import { useStore } from "../../store";
 import { ChatInput } from "../atoms";
 import { MessageList } from "../chat-message";
 import { MenuToggle } from "../menu-toggle";
-import { ChatWrapperSection } from "./styles";
+import { ChatWrapperSection, ChatInputContainer } from "./styles";
 
 interface ChatProps {
   isInLobby?: boolean;
@@ -33,15 +33,17 @@ export const Chat: FC<ChatProps> = ({ isInLobby = false }) => {
   return (
     <MenuToggle closeMenuItem={toggleChat} isToggled={isChatToggled} title={text.general.chat} isChat isInLobby={isInLobby}>
       <ChatWrapperSection>
-        <MessageList />
-        <ChatInput
-          placeholder={text.general.typeHere}
-          type="text"
-          value={messageInput}
-          onChange={(event) => setMessageInput(event.target.value)}
-          onClick={(event) => handleSendEvent(event)}
-          onKeyDownCapture={(event) => handleKeyEvent(event)}
-        />
+        <MessageList isInLobby={isInLobby} />
+        <ChatInputContainer>
+          <ChatInput
+            placeholder={text.general.typeHere}
+            type="text"
+            value={messageInput}
+            onChange={(event) => setMessageInput(event.target.value)}
+            onClick={(event) => handleSendEvent(event)}
+            onKeyDownCapture={(event) => handleKeyEvent(event)}
+          />
+        </ChatInputContainer>
       </ChatWrapperSection>
     </MenuToggle>
   );

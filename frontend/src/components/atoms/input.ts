@@ -106,7 +106,7 @@ export const ChatInput = styled(BaseInput)`
   gap: 10px;
   border-radius: 0px;
   -webkit-border-radius: 0px;
-  width: clamp(225px, 25vw + -15px, 465px);
+  width: 23.75vw;
   height: 44px;
   background: ${color.white};
   &::placeholder {
@@ -116,6 +116,7 @@ export const ChatInput = styled(BaseInput)`
     line-height: 24px;
     letter-spacing: -0.01em;
     color: ${color.darkGrey};
+    text-transform: none;
   }
   -moz-appearance: textfield;
   &::-webkit-outer-spin-button,

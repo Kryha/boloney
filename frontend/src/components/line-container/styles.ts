@@ -139,11 +139,11 @@ export const NameContainer = styled.section`
 
 export const NameWrapper = styled.section`
   position: relative;
-  height: 100%;
+  height: calc(42.5vh - 60px) !important;
 
   ${MenuToggleSection} {
     display: block;
-    height: 100%;
+    height: calc(42.5vh - 60px) !important;
     border-left: 1px solid ${color.mediumGrey};
   }
 `;

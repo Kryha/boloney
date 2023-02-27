@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { CloseIcon } from "../../assets/icons";
 import { color, margins } from "../../design";
-import { MessageListContainer } from "../chat-message/styles";
+import { MessageListContainer, MessageListWrapper } from "../chat-message/styles";
 import { ChatWrapperSection } from "../chat/styles";
 
 interface LayoutProps {
@@ -25,20 +25,20 @@ export const MenuToggleSection = styled.section<LayoutProps>`
     isMenuOpen && isChat
       ? `
         ${ChatWrapperSection}{
-          height: ${isInLobby ? "32.5vh" : "42vh"};
-        }
-        ${MessageListContainer} {
-          height: ${isInLobby ? "clamp(130px, 14.58vw + -10px, 270px)" : "31vh"};
+          height: ${isInLobby ? "calc(37.3vh - 60px)!important" : "41.75vh"};
         }
         border-bottom:  none;
   `
       : `
       ${ChatWrapperSection}{
-        height: ${isInLobby ? "32.5vh" : "83.5vh"};
+        height: ${isInLobby ? "calc(37.3vh - 60px)!important" : "83.5vh"};
       }
-       ${MessageListContainer} {
-         height: ${isInLobby ? "clamp(130px, 14.58vw + -10px, 270px)" : "73vh"};
-       }
+      ${MessageListWrapper}{
+        height: ${isInLobby ? "100%" : "78.17vh"};
+      }
+      ${MessageListContainer}{
+        height: ${isInLobby ? "100%" : "78.17vh"};
+      }
       border-bottom:1px solid ${color.mediumGrey};
   `};
   border-left: ${({ isInMatch }) => (isInMatch ? `1px solid ${color.mediumGrey}` : "none")};
@@ -55,11 +55,12 @@ export const MenuToggleHeadingSection = styled.section`
   padding: ${margins.small4} ${margins.small4} 0px;
   gap: ${margins.small1};
   cursor: pointer;
-  width: -webkit-fill-available;
+  width: 25vw;
+  height: 5.2vh;
 `;
 
 export const MenuChildrenContainer = styled.div`
-  width: -webkit-fill-available;
+  width: 25vw;
   overflow: scroll;
   background: ${color.lightGrey};
 `;
