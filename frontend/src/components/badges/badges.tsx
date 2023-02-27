@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { LockIcon, CoolHand, Crown, text } from "../../assets";
-import { PlayerPublic } from "../../types";
+import { Action, PlayerPublic } from "../../types";
 import { GeneralText } from "../atoms";
 import { BadgeWrapper } from "./styles";
 
@@ -47,10 +47,12 @@ export const PowerUpBadge: FC = () => {
 
 interface PlayerBadgeProps {
   player: PlayerPublic;
+  lastAction: Action;
 }
 
-export const PlayerBadge: FC<PlayerBadgeProps> = ({ player }) => {
-  if (!player.actionRole) return <></>;
+export const PlayerBadge: FC<PlayerBadgeProps> = ({ player, lastAction }) => {
+  const isCallExact = lastAction === "Exact" && !player.isActive;
+  if (!player.actionRole || isCallExact) return <></>;
 
   if (player.actionRole === "loser") return <LoserBadge />;
   if (player.actionRole === "timeOut") return <TimeOutBadge />;

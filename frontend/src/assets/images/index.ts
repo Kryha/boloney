@@ -36,6 +36,8 @@ import GraveStone from "./lose-all-dice.png";
 import HealDiceCoffin from "./heal-dice-coffin.png";
 import PowerUpCards from "./power-up-cards.png";
 import TombstoneHand from "./tombstone-hand.png";
+import DiscordLogo from "./discord-logo.svg";
+import GithubLogo from "./github-logo.svg";
 
 export * from "./dice-assets";
 
@@ -78,4 +80,6 @@ export {
   HealDiceCoffin,
   PowerUpCards,
   TombstoneHand,
+  GithubLogo,
+  DiscordLogo,
 };

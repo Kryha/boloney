@@ -5,6 +5,7 @@ import { FADE_INTERVAL_MS, WORD_CHANGE_INTERVAL_MS } from "../../constants";
 import { color } from "../../design";
 
 import { Heading2 } from "../atoms";
+import { FadeTransition } from "../page-transition";
 import { AnimatedTextWrapper } from "./styles";
 
 interface Props {
@@ -36,16 +37,12 @@ export const AnimatedWaitingText: FC<Props> = ({ headingTwo, wordsToBold = [] })
   }, [wordsToAnimate.length]);
 
   return (
-    <AnimatedTextWrapper className={fade.fade}>
-      <Heading2 customColor={color.darkGrey}>
-        <Highlighter
-          className={fade.fade}
-          highlightClassName="bold"
-          searchWords={wordsToBold}
-          autoEscape
-          textToHighlight={wordsToAnimate[wordOrder]}
-        />
-      </Heading2>
+    <AnimatedTextWrapper>
+      <FadeTransition key={wordsToAnimate[wordOrder]}>
+        <Heading2 customColor={color.darkGrey}>
+          <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={wordsToAnimate[wordOrder]} />
+        </Heading2>
+      </FadeTransition>
     </AnimatedTextWrapper>
   );
 };

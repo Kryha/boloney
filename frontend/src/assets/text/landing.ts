@@ -44,4 +44,5 @@ export const landing = {
   discordLink: "https://joindiscord.com",
   letsRoll:
     "let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll!",
+  githubLink: "https://github.com/Kryha/boloney",
 };

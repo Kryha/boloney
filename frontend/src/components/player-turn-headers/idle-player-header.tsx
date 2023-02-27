@@ -34,7 +34,7 @@ export const IdlePlayerHeader: FC<IdlePlayerHeaderProps> = ({ step }) => {
           />
         )}
       </Heading2>
-      <AnimatedWaitingText headingTwo={headerData.subHeadingTitle || ""} />
+      {!!headerData.subHeadingTitle && <AnimatedWaitingText headingTwo={headerData.subHeadingTitle} />}
     </>
   );
 };

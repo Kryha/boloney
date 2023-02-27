@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { color, margins, zIndex } from "../../design";
 import { ButtonWithHelperWrapper } from "../button-with-helper/styles";
 import { Info } from "../../components/tooltip/styles";
-import { BottomButtonWrapper, Heading6, Heading1 } from "../atoms";
+import { BottomButtonWrapper, Heading6 } from "../atoms";
 import { SecondaryButtonContainer } from "../buttons/styles";
 import { TimerRow } from "../timer/styles";
 
@@ -45,7 +45,7 @@ export const TurnActionWrapper = styled.section`
     position: absolute;
     top: 0;
     left: 0;
-    z-index: ${zIndex.inFront};
+    z-index: ${zIndex.modalBackground};
   }
   ${BottomButtonWrapper} {
     ${Heading6} {

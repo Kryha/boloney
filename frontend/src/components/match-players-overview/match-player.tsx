@@ -33,6 +33,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const playerRoundData = useStore((state) => state.getPlayerRoundData(player.userId));
   const { targetPlayerId: targetPowerUpPlayerId, active: activePowerUp, result } = useStore((state) => state.powerUpState);
   const setPowerUpState = useStore((state) => state.setPowerUpState);
+  const lastAction = useStore((state) => state.lastAction);
 
   const hasPlayerLost = player.diceAmount === 0;
   const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
@@ -50,7 +51,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
       isTargetable={isTargetable}
       onClick={() => isTargetable && handleSelect()}
     >
-      <PlayerBadge player={player} />
+      <PlayerBadge player={player} lastAction={lastAction} />
 
       <MatchPlayersContainer totalPlayers={totalPlayers}>
         {hasPlayerLost ? (

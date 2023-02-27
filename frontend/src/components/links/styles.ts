@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, fontWeight } from "../../design";
-import { Heading6 } from "../atoms";
+import { Heading6, Row } from "../atoms";
 import { LinkText } from "../buttons/styles";
 
 export const GeneralLinkWrapper = styled.section`
@@ -33,3 +33,13 @@ export const GeneralLinkContainer = styled.div`
 `;
 
 export const HyperLink = styled.a``;
+
+export const LinkImage = styled.img`
+  width: auto;
+  height: clamp(1.63rem, 2.29vw + 0.25rem, 3rem);
+`;
+
+export const ImageLinkContainer = styled(Row)`
+  align-items: flex-end;
+  gap: 40px;
+`;

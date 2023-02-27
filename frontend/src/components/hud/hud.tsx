@@ -27,6 +27,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const dieColor = getDieColor(player);
   const isPlayerLastBid = lastBid?.userId === player.userId;
   const setPowerUpState = useStore((state) => state.setPowerUpState);
+  const lastAction = useStore((state) => state.lastAction);
   const { targetPlayerId: targetPlayerId, active: activePowerUp, result: result } = useStore((state) => state.powerUpState);
 
   const isTargetable = activePowerUp?.id === "7";
@@ -38,7 +39,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
 
   return (
     <PlayerOverview isActive={player.isActive}>
-      <PlayerBadge player={player} />
+      <PlayerBadge player={player} lastAction={lastAction} />
 
       <LocalPlayer isLastBid={isPlayerLastBid} onClick={() => isTargetable && handleSelect()} isTargetable={isTargetable}>
         <LocalPlayerAvatar height={measurements.localAvatarHeight} src={avatar} />

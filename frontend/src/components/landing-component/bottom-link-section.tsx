@@ -2,6 +2,7 @@ import { FC } from "react";
 import { text } from "../../assets";
 import { useObserver } from "../../hooks";
 import { GeneralLink } from "../links";
+import { SocialMediaImageLinks } from "../links/image-link";
 import { LinkContainer } from "./styles";
 
 export const BottomLinkSection: FC = () => {
@@ -15,13 +16,7 @@ export const BottomLinkSection: FC = () => {
         link={text.landing.boloneyHelpEmail}
         linkText={text.landing.boloneyHelpEmail}
       />
-      {/* TODO: enable when there is a discord link */}
-      {/* <GeneralLink
-        heading={text.landing.joinTheCommunity}
-        generalText={text.landing.headTo}
-        link={text.landing.discordLink}
-        linkText={text.landing.discord}
-      /> */}
+      <SocialMediaImageLinks />
     </LinkContainer>
   );
 };
