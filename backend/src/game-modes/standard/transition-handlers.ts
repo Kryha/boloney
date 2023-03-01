@@ -1,8 +1,8 @@
 import {
+  handleActivePlayerTurnEnds,
   calcDrawRoundCounter,
   calcStageNumber,
   getActivePlayerId,
-  getNextPlayerId,
   hidePlayersData,
   matchStageDuration,
   resetRound,
@@ -87,8 +87,7 @@ export const handleRoundSummaryTransition = transitionHandler(async (loopParams,
 
   const activePlayer = getActivePlayerId(state.players);
   if (activePlayer) {
-    const nextPlayerId = getNextPlayerId(activePlayer, state);
-    setActivePlayer(nextPlayerId, state.players);
+    handleActivePlayerTurnEnds(loopParams, activePlayer);
   }
 
   const roundSummaryTransitionPayload: RoundSummaryTransitionPayloadBackend = {

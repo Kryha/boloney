@@ -2,7 +2,6 @@ import { EMPTY_DATA } from "../../../constants";
 import {
   errors,
   getLatestBid,
-  getNextPlayerId,
   getTotalDiceWithFace,
   hidePlayersData,
   isBidHigher,
@@ -18,6 +17,7 @@ import {
   updatePlayerPublicData,
   powerUp,
   saveHistoryEvent,
+  handleActivePlayerTurnEnds,
 } from "../../../services";
 import { getPowerUp, rollDice } from "../../../toolkit-api";
 import {
@@ -57,10 +57,7 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
 
   state.bids[sender.userId] = { ...data, createdAt: Date.now() };
 
-  const nextActivePlayerId = getNextPlayerId(sender.userId, state);
-  setActivePlayer(nextActivePlayerId, state.players);
-
-  state.timerHasStarted = false;
+  const nextActivePlayerId = handleActivePlayerTurnEnds(loopParams, sender.userId);
 
   const placeBidPayload: BidPayloadBackend = state.bids;
   const playerActivePayload: PlayerActivePayloadBackend = { activePlayerId: nextActivePlayerId };

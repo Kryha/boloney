@@ -6,6 +6,7 @@ import { PowerUp } from "../../types";
 import { GeneralText, Heading2 } from "../atoms";
 import { PowerUpBadge } from "../badges";
 import { PrimaryButton } from "../buttons";
+import { RadioButton } from "../power-up-checkbox";
 import {
   ButtonWrapper,
   DescriptionText,
@@ -14,19 +15,29 @@ import {
   PowerUpImage,
   PowerUpInfoContainer,
   PowerUpInfoWrapper,
+  RadioButtonWrapper,
 } from "./styles";
 
 interface PowerUpCardProps {
   powerUp: PowerUp;
-  onClick?: (powerUp: PowerUp) => void;
+  onClickUse?: (powerUp: PowerUp) => void;
+  onClickSelect?: (powerUpIndex?: number) => void;
   isButtonDisabled?: boolean;
+  isSelected?: boolean;
+  powerUpIndex?: number;
 }
 
-export const PowerUpCard: FC<PowerUpCardProps> = ({ powerUp, onClick, isButtonDisabled: isDisabled }) => {
+export const PowerUpCard: FC<PowerUpCardProps> = ({
+  powerUp,
+  onClickSelect,
+  onClickUse,
+  isButtonDisabled: isDisabled,
+  isSelected = false,
+  powerUpIndex,
+}) => {
   const { width } = useViewport();
-
   return (
-    <PowerUpCardWrapper width={width} isPowerUpInUse={!!onClick}>
+    <PowerUpCardWrapper width={width} isPowerUpInUse={!!onClickUse} canSelectPowerUp={!!onClickSelect}>
       {isDisabled && <PowerUpBadge />}
       <PowerUpCardContainer>
         <PowerUpImage src={powerUp.cardImage} isImageLarge={powerUp.isImageLarge} />
@@ -38,10 +49,15 @@ export const PowerUpCard: FC<PowerUpCardProps> = ({ powerUp, onClick, isButtonDi
           </PowerUpInfoContainer>
         </PowerUpInfoWrapper>
       </PowerUpCardContainer>
-      {!!onClick && (
+      {!!onClickUse && (
         <ButtonWrapper>
-          <PrimaryButton disabled={isDisabled} primaryText={text.powerUps.useIt} onClick={() => onClick(powerUp)} />
+          <PrimaryButton disabled={isDisabled} primaryText={text.powerUps.useIt} onClick={() => onClickUse(powerUp)} />
         </ButtonWrapper>
+      )}
+      {!!onClickSelect && (
+        <RadioButtonWrapper>
+          <RadioButton isChecked={isSelected} isInPowerUp onSelect={() => onClickSelect(powerUpIndex)} />
+        </RadioButtonWrapper>
       )}
     </PowerUpCardWrapper>
   );

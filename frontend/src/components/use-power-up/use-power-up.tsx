@@ -10,6 +10,7 @@ import { UseGrill } from "./use-grill";
 import { UseSecondChance } from "./use-second-chance";
 import { UseMenageATrois } from "./use-menage-a-trois";
 import { UseSmokeAndMirrors } from "./use-smoke-and-mirrors";
+import { UseHypnosis } from "./use-hypnosis";
 import { UseVendetta } from "./use-vendetta";
 
 /**
@@ -39,6 +40,8 @@ export const UsePowerUp: FC = () => {
         return <UseCoup />;
       case "8":
         return <UseSmokeAndMirrors />;
+      case "9":
+        return <UseHypnosis />;
       default:
         return <Heading2>{text.newMatch.continueText}</Heading2>;
     }

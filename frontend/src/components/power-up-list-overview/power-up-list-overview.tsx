@@ -20,7 +20,7 @@ const PowerUpList: FC<PowerUpListProps> = ({ powerUps, onClick, extraDice }) => 
   return (
     <PowerUpListOverviewWrapper powerUpsAmount={powerUps.length}>
       {powerUps.map((powerUp, i) => (
-        <PowerUpCard key={i} powerUp={powerUp} onClick={onClick} isButtonDisabled={isPowerUpDisabled(powerUp.id)} />
+        <PowerUpCard key={i} powerUp={powerUp} onClickUse={onClick} isButtonDisabled={isPowerUpDisabled(powerUp.id)} />
       ))}
     </PowerUpListOverviewWrapper>
   );
@@ -41,7 +41,6 @@ export const PowerUpListUse: FC<Props> = ({ powerUpIds }) => {
   const setPowerUpState = useStore((state) => state.setPowerUpState);
   const localPlayer = useLocalPlayer();
   const replacePowerUpState = useStore((state) => state.replacePowerUpState);
-  const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
 
   const { broadcastUseImmediatePowerUp } = useMatch();
 

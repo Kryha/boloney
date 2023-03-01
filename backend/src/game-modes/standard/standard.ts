@@ -54,6 +54,7 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, 
       turnActionStep: "pickAction",
       action: "Boloney",
       historyEvents: [],
+      activePowerUp: undefined,
     };
 
     createChatGroup(nk, ctx, logger);

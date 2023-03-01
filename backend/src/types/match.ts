@@ -2,7 +2,7 @@ import { MATCH_STAGES } from "../constants";
 import { Bid } from "./bid";
 import { Die, isDieArray } from "./die";
 import { HistoryEvent } from "./history";
-import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId } from "./power-up";
+import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId, ActivePowerUp } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
 export interface MatchJoinMetadata {
@@ -204,6 +204,7 @@ export interface MatchState {
   turnActionStep: TurnActionStep;
   action: Action;
   historyEvents: HistoryEvent[];
+  activePowerUp?: ActivePowerUp;
 }
 
 export type MatchStage =

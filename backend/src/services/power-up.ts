@@ -33,7 +33,7 @@ import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
 import { cleanUUID, env, getRange, shuffleArray } from "../utils";
-import { getNextPlayerId, setActivePlayer, updatePlayerPowerUpAmount } from "./player";
+import { handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
 import { saveHistoryEvent } from "./history";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
@@ -178,17 +178,45 @@ const useSmokeAndMirrors = (loopParams: MatchLoopParams, sender: Player): UseSmo
 
   state.playerOrder = shuffleArray(state.playerOrder);
 
-  const nextActivePlayerId = getNextPlayerId(sender.userId, state);
-  setActivePlayer(nextActivePlayerId, state.players);
-
-  state.timerHasStarted = false;
+  handleActivePlayerTurnEnds(loopParams, sender.userId);
 
   return { playerOrder: state.playerOrder };
 };
 
-const useHypnosis = async (loopParams: MatchLoopParams, data: UseHypnosisFrontend): Promise<UseHypnosisBackend> => {
-  // TODO: implement
-  return { targetId: "" };
+const useHypnosis = async (
+  loopParams: MatchLoopParams,
+  sender: Player,
+  data: UseHypnosisFrontend
+): Promise<[UseHypnosisBackend, boolean]> => {
+  const { state } = loopParams;
+  const targetPlayer = state.players[data.targetId];
+
+  if (data.targetPowerUpId !== undefined) {
+    const indexOfPowerUp = targetPlayer.powerUpIds.indexOf(data.targetPowerUpId);
+
+    targetPlayer.powerUpIds.splice(indexOfPowerUp, 1);
+
+    state.players[sender.userId].powerUpIds.push(data.targetPowerUpId);
+    updatePlayerPowerUpAmount(loopParams, [sender.userId, targetPlayer.userId]);
+
+    state.activePowerUp = undefined;
+    return [{}, false];
+  } else {
+    state.activePowerUp = { powerUpId: "9", playerId: sender.userId };
+    return [{ targetId: targetPlayer.userId, powerUpIds: targetPlayer.powerUpIds }, true];
+  }
+};
+
+const isPowerUpActive = (loopParams: MatchLoopParams, powerUpId: PowerUpId) => {
+  // getting the active powerup from the state
+  const { state } = loopParams;
+
+  const activePowerUp = state.activePowerUp;
+  if (!activePowerUp) return false;
+
+  if (activePowerUp.powerUpId === powerUpId) return true;
+
+  return false;
 };
 
 const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage, sender: Player): Promise<void> => {
@@ -198,12 +226,13 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     const payload = JSON.parse(nk.binaryToString(message.data)) as UsePowerUpPayloadFrontend;
 
     const { id, data } = payload;
+    const activePowerUp = isPowerUpActive(loopParams, id);
 
-    const powerUp = sender.powerUpIds.find((powerUp) => powerUp === id);
-    if (!powerUp) throw new Error(`Player does not own a power-up with id ${id}`);
-
+    if (!activePowerUp) {
+      const powerUp = sender.powerUpIds.find((powerUp) => powerUp === id);
+      if (!powerUp) throw new Error(`Player does not own a power-up with id ${id}`);
+    }
     updatePlayerPowerUpAmount(loopParams, [sender.userId]);
-
     // TODO: investigate why keys do not get stored in staging env
     // const [key] = readUserKeys(nk, sender.userId, { collection: "Accounts", key: "keys" });
     // if (!key) throw new Error("User not found in collection");
@@ -268,14 +297,15 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
         break;
       }
       case "9": {
-        const resData = await useHypnosis(loopParams, data);
+        const [resData, shouldRemove] = await useHypnosis(loopParams, sender, data);
+        shouldRemovePowerUp = shouldRemove;
         resPayload = { id, data: resData };
         break;
       }
     }
 
     if (shouldRemovePowerUp) {
-      sender.powerUpIds.splice(sender.powerUpIds.indexOf(powerUp), 1);
+      sender.powerUpIds.splice(sender.powerUpIds.indexOf(id), 1);
       sender.powerUpsAmount--;
     }
 
@@ -298,7 +328,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
       callerName: sender.username,
       targetName: data && "targetId" in data ? state.players[data.targetId].username : undefined,
     };
-    sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, sender.userId);
+    if (!activePowerUp) sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, sender.userId);
   } catch (error) {
     logger.error("Use power-up", error);
     stopLoading(loopParams, message.sender);

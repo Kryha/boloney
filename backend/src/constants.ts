@@ -14,46 +14,44 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   drawRoundOffset: 0,
   healPowerUpAmount: 1,
   maxPowerUpAmount: 3,
-  //TODO: enable power-up 5 and 9 when implemented
-  availablePowerUps: ["1", "2", "3", "4", "5", "6", "7", "8" /*"9" */],
+  availablePowerUps: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
   powerUpProbability: [
     {
       id: "1",
-      probability: 16,
+      probability: 12,
     },
     {
       id: "2",
-      probability: 12,
+      probability: 11,
     },
     {
       id: "3",
-      probability: 12,
+      probability: 11,
     },
     {
       id: "4",
-      probability: 12,
+      probability: 11,
     },
     {
       id: "5",
-      probability: 12,
+      probability: 11,
     },
     {
       id: "6",
-      probability: 12,
+      probability: 11,
     },
     {
       id: "7",
-      probability: 12,
+      probability: 11,
     },
     {
       id: "8",
-      probability: 12,
+      probability: 11,
     },
-    //TODO: enable when implemented
-    // {
-    //   id: "9",
-    //   probability: 11,
-    // },
+    {
+      id: "9",
+      probability: 11,
+    },
   ],
 };
 

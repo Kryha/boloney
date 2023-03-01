@@ -117,10 +117,16 @@ export const useSmokeAndMirrorsBackendSchema = z.object({
 });
 export type UseSmokeAndMirrorsBackend = z.infer<typeof useSmokeAndMirrorsBackendSchema>;
 
-export const useHypnosisFrontendSchema = z.object({});
+export const useHypnosisFrontendSchema = z.object({
+  targetId: z.string(),
+  targetPowerUpId: powerUpIdSchema.optional(),
+});
 export type UseHypnosisFrontend = z.infer<typeof useHypnosisFrontendSchema>;
 
-export const useHypnosisBackendSchema = z.object({});
+export const useHypnosisBackendSchema = z.object({
+  targetId: z.string(),
+  powerUpIds: z.array(powerUpIdSchema),
+});
 export type UseHypnosisBackend = z.infer<typeof useHypnosisBackendSchema>;
 
 export const usePowerUpPayloadFrontendSchema = z.discriminatedUnion("id", [

@@ -5,6 +5,7 @@ export const RadioCheckbox = styled.input`
   -webkit-appearance: none;
   appearance: none;
   margin: 0;
+  position: relative;
   width: clamp(20px, 2.08vw + 0px, 40px);
   height: clamp(20px, 2.08vw + 0px, 40px);
   border: 1px solid ${color.mediumGrey};
@@ -64,6 +65,25 @@ export const RadioCheckbox = styled.input`
         ::after {
           background-color: ${color.grey};
         }
+      }
+    }
+  }
+`;
+
+// TODO: Make this more responsive instead of using absolute values.
+export const PowerupCheckbox = styled(RadioCheckbox)`
+  width: 40px;
+  height: 40px;
+  ::after {
+    width: 20px;
+    height: 20px;
+    margin: 8px;
+  }
+  :checked {
+    ::after {
+      ::after {
+        width: 20px;
+        height: 20px;
       }
     }
   }

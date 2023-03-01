@@ -2,19 +2,19 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { useStore } from "../../store";
-import { PowerUpId, UsePowerUpPayloadBackend } from "../../types";
-import { getDieColor, getPowerUpData } from "../../util";
+import { UsePowerUpPayloadBackend } from "../../types";
+import { getDieColor } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { MenageATroisResult } from "./menage-a-trois-result";
 import { SecondChanceResult } from "./second-chance-result";
 import { GrillResult } from "./grill-result";
 import { DoubleUpResult } from "./double-up-result";
-import { PowerUpResult } from "./power-up-result";
 import { SmokeAndMirrorsResult } from "./smoke-and-mirrors-result";
 import { BirdsEyeResult } from "./birds-eye-result";
 import { useLocalPlayer } from "../../service";
 import { ErrorView } from "../error-view";
+import { HypnosisResult } from "./hypnosis-result";
 import { VendettaResult } from "./vendetta-result";
 import { FadeTransition } from "../page-transition";
 
@@ -58,10 +58,7 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
         // TODO: see how to show this properly, since the turn is being changed
         return <SmokeAndMirrorsResult />;
       case "9": {
-        // TODO: extract from payload after power-ups get implemented
-        const powerUpIds: PowerUpId[] = ["1", "2"];
-        const powerUpData = getPowerUpData(powerUpIds);
-        return <PowerUpResult id={result.id} data={powerUpData} />;
+        return <HypnosisResult data={result.data} id={result.id} handleDone={handleDone} />;
       }
       default:
         return <></>;
@@ -76,7 +73,7 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
   return (
     <BottomButtonWrapper>
       <FadeTransition>{showResult()}</FadeTransition>
-      <PrimaryButton primaryText={text.general.done} onClick={handleDone} isBottomButton />
+      {result.id !== "9" && <PrimaryButton primaryText={text.general.done} onClick={handleDone} isBottomButton />}
     </BottomButtonWrapper>
   );
 };

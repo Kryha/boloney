@@ -1,12 +1,18 @@
 import { FC } from "react";
 
-import { RadioCheckbox } from "../atoms";
+import { PowerupCheckbox, RadioCheckbox } from "../atoms";
 
 interface RadioButtonProps {
   onSelect: () => void;
   isChecked: boolean;
+  isDisabled?: boolean;
+  isInPowerUp?: boolean;
 }
 
-export const RadioButton: FC<RadioButtonProps> = ({ onSelect, isChecked }) => {
-  return <RadioCheckbox type="checkbox" checked={isChecked} onChange={() => onSelect()} />;
+export const RadioButton: FC<RadioButtonProps> = ({ onSelect, isChecked, isDisabled, isInPowerUp = false }) => {
+  return isInPowerUp ? (
+    <PowerupCheckbox type="checkbox" checked={isChecked} onChange={() => onSelect()} />
+  ) : (
+    <RadioCheckbox type="checkbox" disabled={isDisabled} checked={isChecked} onChange={() => onSelect()} />
+  );
 };

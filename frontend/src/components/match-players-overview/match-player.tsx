@@ -38,7 +38,11 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const hasPlayerLost = player.diceAmount === 0;
   const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
 
-  const isTargetable = player.status !== "lost" && !!activePowerUp && !result && powerUpRequiresTarget(activePowerUp.id);
+  // TODO: make conditions more clear
+  const isHypnosisBeingUsed = activePowerUp?.id === "9" && player.powerUpsAmount > 0;
+  const isTargetable =
+    (player.status !== "lost" && !!activePowerUp && !result && powerUpRequiresTarget(activePowerUp.id) && activePowerUp?.id !== "9") ||
+    isHypnosisBeingUsed;
 
   const handleSelect = () => {
     setPowerUpState({ targetPlayerId: player.userId });

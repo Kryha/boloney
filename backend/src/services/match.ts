@@ -20,7 +20,7 @@ import {
 } from "../types";
 import { randomInt } from "../utils";
 import { errors, handleError, parseError } from "./error";
-import { getActivePlayerId, getNextPlayerId, handlePlayerLostMatch, hidePlayersData, isMatchEnded, setActivePlayer } from "./player";
+import { handleActivePlayerTurnEnds, getActivePlayerId, handlePlayerLostMatch, hidePlayersData, isMatchEnded } from "./player";
 import { getSecondsFromTicks } from "./timer";
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
@@ -125,7 +125,9 @@ export const handlePlayerLeftDuringMatch = (loopParams: MatchLoopParams, senderI
   }
 
   let activePlayerId = getActivePlayerId(loopParams.state.players);
-  if (activePlayerId === senderId) setActivePlayer(getNextPlayerId(activePlayerId, loopParams.state), loopParams.state.players);
+
+  if (activePlayerId === senderId) handleActivePlayerTurnEnds(loopParams, activePlayerId);
+
   activePlayerId = getActivePlayerId(loopParams.state.players);
   loopParams.state.matchStage = "getPowerUpStage";
 

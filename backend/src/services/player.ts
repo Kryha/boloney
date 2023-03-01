@@ -102,8 +102,19 @@ export const handlePlayerLostRound = (loopParams: MatchLoopParams, playerId: str
 export const setActivePlayer = (activePlayerId: string, players: Record<string, Player>): string => {
   resetActivePlayer(players);
   players[activePlayerId].isActive = true;
-
   return activePlayerId;
+};
+
+export const handleActivePlayerTurnEnds = (loopParams: MatchLoopParams, currentPlayerId: string) => {
+  const { state } = loopParams;
+
+  const nextActivePlayerId = getNextPlayerId(currentPlayerId, state);
+  setActivePlayer(nextActivePlayerId, state.players);
+
+  state.timerHasStarted = false;
+  state.activePowerUp = undefined;
+
+  return nextActivePlayerId;
 };
 
 export const resetActivePlayer = (players: Record<string, Player>): void => {

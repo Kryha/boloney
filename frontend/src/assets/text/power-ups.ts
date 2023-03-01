@@ -15,4 +15,5 @@ export const powerUps = {
   feelThePower: "feel the Power",
   playingSecondChance: "we all deserve a second chance. Select any amount of dice and re-roll them.",
   whoIsGoingToGetIt: "who's gonna get it?",
+  getPowerUp: "get power-up",
 };

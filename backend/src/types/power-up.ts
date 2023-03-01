@@ -66,6 +66,11 @@ export const isPowerUpTriggeredImmediately = (powerUpId: PowerUpId) => {
   return immediate.includes(powerUpId);
 };
 
+export interface ActivePowerUp {
+  powerUpId: PowerUpId;
+  playerId: string;
+}
+
 export interface ProbabilityRange {
   id: string;
   from: number;
@@ -148,84 +153,88 @@ export type UseSmokeAndMirrorsBackend = {
   playerOrder: string[];
 };
 
-export interface UseHypnosisFrontend { }
+export interface UseHypnosisFrontend {
+  targetId: string;
+  targetPowerUpId?: PowerUpId;
+}
 
 export interface UseHypnosisBackend {
-  targetId: string;
+  targetId?: string;
+  powerUpIds?: PowerUpId[];
 }
 
 export type UsePowerUpPayloadFrontend =
   | {
-    id: "1";
-    data: UseGrillFrontend;
-  }
+      id: "1";
+      data: UseGrillFrontend;
+    }
   | {
-    id: "2";
-    data: UseBirdsEyeFrontend;
-  }
+      id: "2";
+      data: UseBirdsEyeFrontend;
+    }
   | {
-    id: "3";
-    data: UseMenageFrontend;
-  }
+      id: "3";
+      data: UseMenageFrontend;
+    }
   | {
-    id: "4";
-    data: UseDoubleUpFrontend;
-  }
+      id: "4";
+      data: UseDoubleUpFrontend;
+    }
   | {
-    id: "5";
-    data: UseVendettaFrontend;
-  }
+      id: "5";
+      data: UseVendettaFrontend;
+    }
   | {
-    id: "6";
-    data: UseSecondChanceFrontend;
-  }
+      id: "6";
+      data: UseSecondChanceFrontend;
+    }
   | {
-    id: "7";
-    data: UseCoupFrontend;
-  }
+      id: "7";
+      data: UseCoupFrontend;
+    }
   | {
-    id: "8";
-    data: UseSmokeAndMirrorsFrontend;
-  }
+      id: "8";
+      data: UseSmokeAndMirrorsFrontend;
+    }
   | {
-    id: "9";
-    data: UseHypnosisFrontend;
-  };
+      id: "9";
+      data: UseHypnosisFrontend;
+    };
 
 export type UsePowerUpPayloadBackend =
   | {
-    id: "1";
-    data: UseGrillBackend;
-  }
+      id: "1";
+      data: UseGrillBackend;
+    }
   | {
-    id: "2";
-    data: UseBirdsEyeBackend;
-  }
+      id: "2";
+      data: UseBirdsEyeBackend;
+    }
   | {
-    id: "3";
-    data: UseMenageBackend;
-  }
+      id: "3";
+      data: UseMenageBackend;
+    }
   | {
-    id: "4";
-    data: UseDoubleUpBackend;
-  }
+      id: "4";
+      data: UseDoubleUpBackend;
+    }
   | {
-    id: "5";
-    data: UseVendettaBackend;
-  }
+      id: "5";
+      data: UseVendettaBackend;
+    }
   | {
-    id: "6";
-    data: UseSecondChanceBackend;
-  }
+      id: "6";
+      data: UseSecondChanceBackend;
+    }
   | {
-    id: "7";
-    data: UseCoupBackend;
-  }
+      id: "7";
+      data: UseCoupBackend;
+    }
   | {
-    id: "8";
-    data: UseSmokeAndMirrorsBackend;
-  }
+      id: "8";
+      data: UseSmokeAndMirrorsBackend;
+    }
   | {
-    id: "9";
-    data: UseHypnosisBackend;
-  };
+      id: "9";
+      data: UseHypnosisBackend;
+    };

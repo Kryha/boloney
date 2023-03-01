@@ -5,9 +5,11 @@ import { PowerUpSpreadContainer, PowerUpPileContainer, EmptyPowerUpCard } from "
 
 interface PowerUpPileProps {
   data: PowerUp[];
+  selectedPowerUp?: number;
+  onClick?: (powerUpIndex?: number) => void;
 }
 
-export const PowerUpPile: FC<PowerUpPileProps> = ({ data }) => {
+export const PowerUpPile: FC<PowerUpPileProps> = ({ data, selectedPowerUp, onClick }) => {
   const [displayPowerUps, setDisplayPowerUps] = useState(false);
 
   useEffect(() => {
@@ -21,7 +23,13 @@ export const PowerUpPile: FC<PowerUpPileProps> = ({ data }) => {
       {displayPowerUps ? (
         <PowerUpSpreadContainer>
           {data.map((powerUp, index) => (
-            <PowerUpCard powerUp={powerUp} key={index} />
+            <PowerUpCard
+              powerUp={powerUp}
+              key={index}
+              powerUpIndex={index}
+              isSelected={selectedPowerUp === index}
+              onClickSelect={onClick}
+            />
           ))}
         </PowerUpSpreadContainer>
       ) : (

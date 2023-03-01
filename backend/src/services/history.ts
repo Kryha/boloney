@@ -85,6 +85,7 @@ const savePowerUpHistoryEvent = (state: MatchState, senderId: string, payload: U
     case "8":
       break;
     case "9":
+      if (!payload.data.targetId) return;
       action.targetPlayerName = state.players[payload.data.targetId].username;
       break;
   }

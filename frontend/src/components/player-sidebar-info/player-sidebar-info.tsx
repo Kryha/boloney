@@ -12,7 +12,6 @@ interface PlayerSidebarInfoProps {
   totalPlayers: number;
   hasRadioButton?: boolean;
   isChecked?: boolean;
-
   onSelect: () => void;
 }
 
@@ -27,7 +26,7 @@ export const PlayerSidebarInfo: FC<PlayerSidebarInfoProps> = ({
   return (
     <PlayerSidebarInfoContainer isLastBid={lastBid?.userId === player.userId} isTotalPlayers={totalPlayers === MAX_PLAYER_SIDEBAR_AMOUNT}>
       {!!lastBid && <PlayerLastBid lastBid={lastBid} player={player} />}
-      {hasRadioButton && <RadioButton onSelect={onSelect} isChecked={isChecked} />}
+      {hasRadioButton && <RadioButton isDisabled={hasRadioButton} onSelect={onSelect} isChecked={isChecked} />}
     </PlayerSidebarInfoContainer>
   );
 };

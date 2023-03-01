@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, Heading6 } from "../atoms";
+import { avatarHeight, Heading6, RadioCheckbox } from "../atoms";
 import { DiceContainer, PlayerInfoContainer } from "../match-players-overview/styles";
 
 interface PlayerOverviewProps {
@@ -49,6 +49,9 @@ export const LocalPlayer = styled.div<LocalPlayerProps>`
   align-items: flex-start;
   justify-content: center;
   ${(isTargetable) => isTargetable && "cursor: pointer;"}
+  ${RadioCheckbox} {
+    margin-left: 10vw;
+  }
   ${DiceContainer} {
     display: flex;
     flex-direction: column;
