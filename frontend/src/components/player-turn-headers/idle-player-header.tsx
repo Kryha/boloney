@@ -8,7 +8,8 @@ import { TurnActionStep } from "../../types";
 import { Heading2 } from "../atoms";
 import { ErrorView } from "../error-view";
 import { Timer } from "../timer";
-import { AnimatedWaitingText } from "../waiting-text";
+import { FadeTransition } from "../page-transition";
+import { color } from "../../design";
 
 interface IdlePlayerHeaderProps {
   step?: TurnActionStep;
@@ -34,7 +35,11 @@ export const IdlePlayerHeader: FC<IdlePlayerHeaderProps> = ({ step }) => {
           />
         )}
       </Heading2>
-      {!!headerData.subHeadingTitle && <AnimatedWaitingText headingTwo={headerData.subHeadingTitle} />}
+      {!!headerData.subHeadingTitle && (
+        <FadeTransition key={headerData.subHeadingTitle}>
+          <Heading2 customColor={color.darkGrey}>{headerData.subHeadingTitle}</Heading2>
+        </FadeTransition>
+      )}
     </>
   );
 };

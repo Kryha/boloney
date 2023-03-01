@@ -62,7 +62,6 @@ export * from "./landing-component";
 export * from "./image-containers";
 export * from "./landing-side-bar";
 export * from "./content-loader";
-export * from "./waiting-text";
 export * from "./match-heading";
 export * from "./history";
 export * from "./page-transition";

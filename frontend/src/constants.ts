@@ -145,7 +145,6 @@ export const BOLONEY_HELPER_WIDTH = 426;
 export const EXACT_HELPER_WIDTH = 368;
 
 export const FADE_INTERVAL_MS = 4000;
-export const WORD_CHANGE_INTERVAL_MS = FADE_INTERVAL_MS * 2;
 
 export const OPEN_LINK_IN_NEW_TAB = "_blank";
 

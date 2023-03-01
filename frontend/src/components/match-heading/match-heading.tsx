@@ -2,7 +2,7 @@ import { FC } from "react";
 import Highlighter from "react-highlight-words";
 import { Heading1, Heading2 } from "../atoms";
 import { color } from "../../design";
-import { AnimatedWaitingText } from "../waiting-text";
+import { FadeTransition } from "../page-transition";
 
 interface Props {
   headingOne: string;
@@ -16,7 +16,11 @@ export const MatchHeading: FC<Props> = ({ headingOne, headingTwo, wordsToBold = 
     <>
       <Heading1>{headingOne}</Heading1>
       {isAnimated ? (
-        <AnimatedWaitingText headingTwo={headingTwo} wordsToBold={wordsToBold} />
+        <FadeTransition key={headingTwo}>
+          <Heading2 customColor={color.darkGrey}>
+            <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={headingTwo} />
+          </Heading2>
+        </FadeTransition>
       ) : (
         <Heading2 customColor={color.darkGrey}>
           <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={headingTwo} />
