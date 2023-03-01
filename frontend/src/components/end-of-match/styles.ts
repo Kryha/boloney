@@ -90,4 +90,5 @@ export const Description = styled(Paragraph)`
 // TODO: Improve the way styling is handled
 export const MatchStatsButtonWrapper = styled(PrimaryButtonWrapper)`
   bottom: 0vh;
+  position: absolute;
 `;
