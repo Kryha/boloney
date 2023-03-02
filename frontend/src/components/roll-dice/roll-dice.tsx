@@ -13,6 +13,7 @@ import { RollingDice } from "../dice-animation";
 import { MatchHeading } from "../match-heading";
 import { TimeStamp } from "../history/history-atoms/styles";
 import { FadeTransition } from "../page-transition";
+import { Timer } from "../timer";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -51,6 +52,7 @@ export const RollDice: FC = () => {
 
   return (
     <FadeTransition>
+      <Timer title={text.powerUps.settingItUp} />
       <BottomButtonWrapper>
         <TimeStamp title={text.powerUps.settingItUp} />
         <MatchHeading

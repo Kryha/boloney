@@ -17,6 +17,7 @@ import {
   updatePlayerPublicData,
   powerUp,
   saveHistoryEvent,
+  matchStageDuration,
   handleActivePlayerTurnEnds,
 } from "../../../services";
 import { getPowerUp, rollDice } from "../../../toolkit-api";
@@ -60,7 +61,10 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
   const nextActivePlayerId = handleActivePlayerTurnEnds(loopParams, sender.userId);
 
   const placeBidPayload: BidPayloadBackend = state.bids;
-  const playerActivePayload: PlayerActivePayloadBackend = { activePlayerId: nextActivePlayerId };
+  const playerActivePayload: PlayerActivePayloadBackend = {
+    activePlayerId: nextActivePlayerId,
+    remainingStageTime: matchStageDuration.playerTurnLoopStage,
+  };
 
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify(playerActivePayload));

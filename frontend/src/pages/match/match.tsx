@@ -243,6 +243,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           const parsed = playerActivePayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
           setActivePlayer(parsed.data.activePlayerId);
+          setTimerTimeInSeconds(parsed.data.remainingStageTime);
           break;
         }
         case MatchOpCode.PLAYER_LEFT: {

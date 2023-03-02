@@ -79,4 +79,5 @@ export interface PlayerOrderShufflePayloadBackend {
 
 export interface PlayerActivePayloadBackend {
   activePlayerId: string;
+  remainingStageTime: number;
 }

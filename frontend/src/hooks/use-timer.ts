@@ -10,6 +10,7 @@ const padTo2Digits = (num: number) => {
 
 export const useTimer = () => {
   const initialTimerTime = useStore((state) => state.timerTimeInSeconds);
+  const setTimer = useStore((state) => state.setTimerTimeInSeconds);
 
   const [count, { startCountdown, stopCountdown, resetCountdown }] = useCountdown({
     countStart: initialTimerTime,
@@ -26,6 +27,10 @@ export const useTimer = () => {
   useEffect(() => {
     startCountdown();
   }, [startCountdown, initialTimerTime]);
+
+  useEffect(() => {
+    setTimer(count);
+  }, [count, setTimer]);
 
   return {
     time,

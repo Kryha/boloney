@@ -74,6 +74,7 @@ export type PlayerOrderShufflePayloadBackend = z.infer<typeof playerOrderShuffle
 
 export const playerActivePayloadBackendSchema = z.object({
   activePlayerId: playerIdSchema,
+  remainingStageTime: z.number(),
 });
 export type PlayerActivePayloadBackend = z.infer<typeof playerActivePayloadBackendSchema>;
 

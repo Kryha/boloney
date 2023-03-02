@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { text } from "../../assets";
 import { useTimer } from "../../hooks";
 import { GeneralText, Heading6 } from "../atoms";
 import { Divider, TimerRow } from "./styles";

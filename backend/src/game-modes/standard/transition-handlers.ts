@@ -41,7 +41,7 @@ export const handleLobbyTransition = transitionHandler(({ state, dispatcher }, n
     remainingStageTime: matchStageDuration[nextStage],
   };
   const playerOrderShufflePayload: PlayerOrderShufflePayloadBackend = { playerOrder: state.playerOrder };
-  const playerActivePayload: PlayerActivePayloadBackend = { activePlayerId };
+  const playerActivePayload: PlayerActivePayloadBackend = { activePlayerId, remainingStageTime: matchStageDuration.getPowerUpStage };
 
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ORDER_SHUFFLE, JSON.stringify(playerOrderShufflePayload));
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify(playerActivePayload));

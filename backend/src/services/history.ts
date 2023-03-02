@@ -114,7 +114,7 @@ const saveRoundEndHistoryEvent = (state: MatchState) => {
 
   if (userTimeout) {
     const roundResults = createTimeOutHistoryEvent(roundEnd, userTimeout, roundStats);
-    saveHistoryEvent(state, roundResults);
+    state.historyEvents.push(roundResults);
   } else if (state.action === "Exact") {
     const roundResults = createExactHistoryEvent(roundEnd, winner, loser, roundStats);
     if (roundResults) state.historyEvents.push(roundResults);
