@@ -6,7 +6,7 @@ import { PrimaryButtonWrapper } from "../buttons/styles";
 
 export const EndOfMatchWrapper = styled.section`
   width: 100%;
-
+  padding-bottom: 60px;
   ${PrimaryButtonWrapper} {
     position: sticky;
     bottom: 0;
@@ -90,5 +90,5 @@ export const Description = styled(Paragraph)`
 // TODO: Improve the way styling is handled
 export const MatchStatsButtonWrapper = styled(PrimaryButtonWrapper)`
   bottom: 0vh;
-  position: absolute;
+  position: fixed;
 `;
