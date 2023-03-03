@@ -11,11 +11,12 @@ interface PowerUpListProps {
   powerUps: PowerUp[];
   onClick?: (powerUp: PowerUp) => void;
   extraDice?: number;
+  isOverview?: boolean;
 }
 
-const PowerUpList: FC<PowerUpListProps> = ({ powerUps, onClick, extraDice }) => {
+const PowerUpList: FC<PowerUpListProps> = ({ powerUps, onClick, extraDice, isOverview }) => {
   const isPowerUpDisabled = (powerUpId: PowerUpId) => {
-    return extraDice !== 0 && powerUpId === "3";
+    return !isOverview && extraDice !== 0 && powerUpId === "3";
   };
   return (
     <PowerUpListOverviewWrapper powerUpsAmount={powerUps.length}>
@@ -33,7 +34,7 @@ interface Props {
 export const PowerUpListOverview: FC<Props> = ({ powerUpIds }) => {
   const powerUps = getPowerUpData(powerUpIds);
 
-  return <PowerUpList powerUps={powerUps} />;
+  return <PowerUpList powerUps={powerUps} isOverview />;
 };
 
 export const PowerUpListUse: FC<Props> = ({ powerUpIds }) => {
