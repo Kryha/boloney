@@ -22,13 +22,12 @@ export const MenuToggle: FC<MenuToggleProps> = ({ closeMenuItem, isToggled, titl
   return (
     <MenuToggleSection
       isMenuOpen={isChatToggled && isHistoryToggled}
-      onClick={() => closeMenuItem()}
       isToggled={isToggled}
       isInMatch={isInMatch}
       isChat={isChat}
       isInLobby={isInLobby}
     >
-      <MenuToggleHeadingSection>
+      <MenuToggleHeadingSection onClick={() => closeMenuItem()}>
         <Heading4>{title}</Heading4>
         <Close />
       </MenuToggleHeadingSection>
