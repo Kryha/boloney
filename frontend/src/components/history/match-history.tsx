@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { HistoryEvent, PlayerPublic } from "../../types";
+import { BottomScroller } from "../bottom-scroller";
 import { HistoryBadgeBid } from "./history-atoms/history-badge";
 import { HistoryEndOfRound } from "./history-atoms/history-end-of-round";
 import { HistoryAction } from "./history-atoms/history-info";
@@ -47,6 +48,7 @@ export const MatchHistoryComponent: FC<Props> = ({ historyEvents, players, local
       {historyEvents.map((historyEvent, index) => (
         <HistoryListItem historyEvent={historyEvent} key={index} players={players} localPlayer={localPlayer} />
       ))}
+      <BottomScroller list={historyEvents} />
     </>
   );
 };
