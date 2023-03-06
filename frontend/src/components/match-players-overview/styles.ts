@@ -217,6 +217,8 @@ export const DeadPlayerName = styled(PlayerName)`
 `;
 
 export const MatchStateContainer = styled(PlayerNameContainer)`
+  position: relative;
+  z-index: ${zIndex.inFront};
   align-items: flex-end;
 `;
 

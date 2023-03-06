@@ -36,3 +36,14 @@ export const DiceIconWrapper = styled(Row)`
     }
   }
 `;
+
+export const ExtraDiceInfo = styled(GeneralText)`
+  mark {
+    margin-left: 2px;
+  }
+`;
+export const ExtraInfoSum = styled(GeneralText)`
+  mark {
+    margin-left: 4px;
+  }
+`;
