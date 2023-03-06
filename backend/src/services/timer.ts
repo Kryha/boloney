@@ -39,7 +39,7 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
     case "playerTurnLoopStage": {
       if (!activePlayerId) return;
       handlePlayerLostRound(loopParams, activePlayerId, true);
-      saveHistoryEvent(state, { eventType: "roundResults" });
+      saveHistoryEvent(state, { eventType: "roundResults", roundEndAction: "lostByTimeOut" });
 
       setAllPlayersReady(state);
 

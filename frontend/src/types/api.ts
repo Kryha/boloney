@@ -47,13 +47,13 @@ export const roundSummaryTransitionPayloadBackendSchema = z.object({
 });
 export type RoundSummaryTransitionPayloadBackend = z.infer<typeof roundSummaryTransitionPayloadBackendSchema>;
 
-// TODO: rename with "schema" in the end and define type as well
-export const playerLeftPayloadBackend = z.object({
+export const playerLeftPayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),
   playerOrder: z.array(z.string()),
-  stage: matchStageSchema,
-  leaderboard: z.array(playerRankedSchema).optional(),
+  playerLeftId: playerIdSchema,
+  round: z.number(),
 });
+export type PlayerLeftPayloadbackend = z.infer<typeof playerLeftPayloadBackendSchema>;
 
 export const playerGetPowerUpsPayloadBackendSchema = z.array(powerUpIdSchema);
 export type PlayerGetPowerUpsPayloadBackend = z.infer<typeof playerGetPowerUpsPayloadBackendSchema>;
@@ -61,6 +61,7 @@ export type PlayerGetPowerUpsPayloadBackend = z.infer<typeof playerGetPowerUpsPa
 export const stageTransitionPayloadBackendSchema = z.object({
   matchStage: matchStageSchema,
   remainingStageTime: z.number().optional(),
+  round: z.number(),
 });
 export type StageTransitionPayloadBackend = z.infer<typeof stageTransitionPayloadBackendSchema>;
 

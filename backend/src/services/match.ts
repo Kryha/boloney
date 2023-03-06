@@ -1,7 +1,9 @@
 import { EMPTY_DATA, MATCH_STAGES, MAX_INACTIVE_TICKS } from "../constants";
+import { getPowerUp } from "../toolkit-api";
 import {
   Action,
   AvatarId,
+  isPowerUpId,
   LogicHandler,
   MatchLoopParams,
   MatchOpCode,
@@ -11,8 +13,10 @@ import {
   MessageHandler,
   NotificationOpCode,
   Player,
+  PlayerGetPowerUpsPayloadBackend,
   PlayerJoinedPayloadBackend,
   PlayerLeftPayloadBackend,
+  RoundSummaryTransitionPayloadBackend,
   StageLogicCallback,
   StageTransitionCallback,
   StageTransitionPayloadBackend,
@@ -20,8 +24,17 @@ import {
 } from "../types";
 import { randomInt } from "../utils";
 import { errors, handleError, parseError } from "./error";
-import { handleActivePlayerTurnEnds, getActivePlayerId, handlePlayerLostMatch, hidePlayersData, isMatchEnded } from "./player";
-import { getSecondsFromTicks } from "./timer";
+import { saveHistoryEvent } from "./history";
+import {
+  clearPlayerState,
+  getActivePlayerId,
+  handleActivePlayerTurnEnds,
+  handlePlayerLostMatch,
+  hidePlayersData,
+  isMatchEnded,
+  updatePlayerPowerUpAmount,
+} from "./player";
+import { getSecondsFromTicks, matchStageDuration } from "./timer";
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
   const messageSender = state.players[message.sender.userId];
@@ -97,7 +110,7 @@ export const updateEmptyTicks = (state: MatchState, messages: nkruntime.MatchMes
 // TODO: Add payload to the message for correctly rendering the end of match stage when match inactive
 export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.MatchDispatcher): boolean => {
   if (state.emptyTicks > MAX_INACTIVE_TICKS) {
-    const payload: StageTransitionPayloadBackend = { matchStage: "endOfMatchStage" };
+    const payload: StageTransitionPayloadBackend = { matchStage: "endOfMatchStage", round: state.round };
     dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(payload));
     return true;
   }
@@ -105,50 +118,43 @@ export const handleInactiveMatch = (state: MatchState, dispatcher: nkruntime.Mat
 };
 
 export const handlePlayerLeftDuringMatch = (loopParams: MatchLoopParams, senderId: string) => {
-  const player = loopParams.state.players[senderId];
+  const { state, dispatcher } = loopParams;
+  const player = state.players[senderId];
 
+  if (player.status === "lost") return;
+
+  saveHistoryEvent(state, { eventType: "roundResults", senderId: senderId, roundEndAction: "leftMatch" });
   handlePlayerLostMatch(loopParams, player, NotificationOpCode.PLAYER_LEFT);
-  player.diceValue = [];
-  player.diceAmount = 0;
-  resetRound(loopParams);
 
-  if (isMatchEnded(loopParams.state.players)) {
-    loopParams.state.matchStage = "endOfMatchStage";
-    const payloadMatchEnded: PlayerLeftPayloadBackend = {
-      players: hidePlayersData(loopParams.state.players),
-      playerOrder: loopParams.state.playerOrder,
-      leaderboard: loopParams.state.leaderboard,
-      stage: loopParams.state.matchStage,
-    };
-    loopParams.dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payloadMatchEnded));
-    return;
-  }
-
-  let activePlayerId = getActivePlayerId(loopParams.state.players);
-
-  if (activePlayerId === senderId) handleActivePlayerTurnEnds(loopParams, activePlayerId);
-
-  activePlayerId = getActivePlayerId(loopParams.state.players);
-  loopParams.state.matchStage = "getPowerUpStage";
-
-  const payloadMatchContinues: PlayerLeftPayloadBackend = {
-    players: hidePlayersData(loopParams.state.players),
-    playerOrder: loopParams.state.playerOrder,
-    leaderboard: loopParams.state.leaderboard,
-    stage: loopParams.state.matchStage,
-  };
-  loopParams.dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payloadMatchContinues));
-};
-
-export const handlePlayerLeftDuringLobby = (state: MatchState, sender: string, dispatcher: nkruntime.MatchDispatcher) => {
-  state.playerOrder = state.playerOrder.slice().filter((value) => state.players[value].userId !== sender);
-  delete state.players[sender];
   const payload: PlayerLeftPayloadBackend = {
     players: hidePlayersData(state.players),
     playerOrder: state.playerOrder,
-    stage: state.matchStage,
+    playerLeftId: senderId,
+    round: state.round,
   };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payload));
+
+  state.players[senderId] = clearPlayerState(player);
+
+  if (isMatchEnded(state.players)) {
+    state.matchStage = "endOfMatchStage";
+  } else {
+    state.matchStage = "rollDiceStage";
+  }
+  handleRoundEnding(loopParams, state.matchStage);
+};
+
+export const handlePlayerLeftDuringLobby = (state: MatchState, senderId: string, dispatcher: nkruntime.MatchDispatcher) => {
+  state.playerOrder = state.playerOrder.filter((value) => state.players[value].userId !== senderId);
+  delete state.players[senderId];
+  const payload: PlayerLeftPayloadBackend = {
+    players: hidePlayersData(state.players),
+    playerLeftId: senderId,
+    playerOrder: state.playerOrder,
+    round: 0,
+  };
+  dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payload));
+  updatePlayersState(state, dispatcher);
 };
 
 export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, sender: nkruntime.Presence, error?: nkruntime.Error | string) => {
@@ -199,6 +205,7 @@ export const calcDrawRoundCounter = (stageNumber: number, drawRoundOffset: numbe
 
 export const resetRound = ({ state }: MatchLoopParams) => {
   state.bids = {};
+  state.playersReady = [];
 
   Object.values(state.players).forEach((player) => {
     const playerRef = state.players[player.userId];
@@ -212,6 +219,7 @@ export const resetRound = ({ state }: MatchLoopParams) => {
     playerRef.diceValue = [];
     playerRef.actionRole = undefined;
     playerRef.isTarget = false;
+    playerRef.isReady = false;
   });
 };
 
@@ -227,11 +235,12 @@ export const updatePlayersState = (state: MatchState, dispatcher: nkruntime.Matc
     Object.values(state.presences).map(async (presence) => {
       const player = state.players[presence.userId];
       const turnActionStep = state.matchStage === "roundSummaryStage" ? "results" : state.turnActionStep;
+
       const payload: PlayerJoinedPayloadBackend = {
         matchState: {
+          matchStage: state.matchStage,
           players: hiddenPlayersData,
           playerOrder: state.playerOrder,
-          matchStage: state.matchStage,
           powerUpIds: player.powerUpIds,
           matchSettings: state.settings,
           leaderboard: state.leaderboard,
@@ -247,6 +256,7 @@ export const updatePlayersState = (state: MatchState, dispatcher: nkruntime.Matc
         },
         remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
       };
+
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
     })
   );
@@ -256,4 +266,63 @@ export const totalDiceInMatch = (playersRecord: Record<string, Player>) => {
   const players = Object.values(playersRecord);
   const totalDice = players.reduce((total, player) => total + player.diceAmount, 0);
   return totalDice;
+};
+
+// TODO: discuss on how to improve integration with the corresponding transition handler
+export const handleRoundEnding = (loopParams: MatchLoopParams, nextStage: MatchStage) => {
+  const { dispatcher, state } = loopParams;
+
+  state.timerHasStarted = false;
+  resetRound(loopParams);
+
+  const playersList = Object.values(state.players);
+
+  // update round and round counter
+  const totalDice = playersList.reduce((total, player) => total + player.diceAmount, 0);
+  state.stageNumber = calcStageNumber(totalDice, state.settings.stageNumberDivisor);
+
+  if (state.drawRoundCounter <= 0) {
+    // re-calculate round counter after it reaches 0
+    state.drawRoundCounter = calcDrawRoundCounter(state.stageNumber, state.settings.drawRoundOffset);
+  } else if (state.drawRoundCounter === 1) {
+    state.drawRoundCounter--;
+
+    // give each player a new power-up when the counter reaches 0
+    playersList.forEach((player) => {
+      if (player.status === "lost" || player.powerUpIds.length >= state.settings.maxPowerUpAmount) return;
+
+      const powerUpId = getPowerUp(loopParams);
+      if (isPowerUpId(powerUpId)) player.powerUpIds.push(powerUpId);
+      updatePlayerPowerUpAmount(loopParams, [player.userId]);
+
+      const payload: PlayerGetPowerUpsPayloadBackend = player.powerUpIds;
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_GET_POWERUPS, JSON.stringify(payload), [state.presences[player.userId]]);
+    });
+  } else {
+    state.drawRoundCounter--;
+  }
+
+  state.round++;
+
+  const activePlayer = getActivePlayerId(state.players);
+  if (activePlayer) {
+    handleActivePlayerTurnEnds(loopParams, activePlayer);
+  }
+
+  const roundSummaryTransitionPayload: RoundSummaryTransitionPayloadBackend = {
+    leaderboard: state.leaderboard,
+    round: state.round,
+    drawRoundCounter: state.drawRoundCounter,
+    players: hidePlayersData(state.players),
+    stageNumber: state.stageNumber,
+  };
+  const stageTransitionPayload: StageTransitionPayloadBackend = {
+    matchStage: nextStage,
+    remainingStageTime: matchStageDuration[nextStage],
+    round: state.round,
+  };
+  saveHistoryEvent(state, { eventType: "roundStart" });
+
+  dispatcher.broadcastMessage(MatchOpCode.ROUND_SUMMARY_TRANSITION, JSON.stringify(roundSummaryTransitionPayload));
+  dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(stageTransitionPayload));
 };

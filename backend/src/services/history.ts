@@ -11,6 +11,8 @@ import {
   UsePowerUpPayloadBackend,
   HistoryRoundPlayer,
   SaveHistoryPayload,
+  PlayerPublic,
+  HistoryRoundEndAction,
 } from "../types";
 import { totalDiceInMatch } from "./match";
 import { getPlayerWithRole } from "./player";
@@ -28,7 +30,9 @@ export const saveHistoryEvent = (state: MatchState, saveHistoryPayload: SaveHist
       else savePowerUpHistoryEvent(state, saveHistoryPayload.senderId, saveHistoryPayload.powerUpPayload);
       break;
     case "roundResults":
-      saveRoundEndHistoryEvent(state);
+      if (saveHistoryPayload.roundEndAction) {
+        saveRoundEndHistoryEvent(saveHistoryPayload.roundEndAction, state, saveHistoryPayload.senderId);
+      }
       break;
     case "roundStart":
       saveRoundStartHistoryEvent(state);
@@ -93,10 +97,10 @@ const savePowerUpHistoryEvent = (state: MatchState, senderId: string, payload: U
   state.historyEvents.push(action);
 };
 
-const saveRoundEndHistoryEvent = (state: MatchState) => {
+const saveRoundEndHistoryEvent = (roundEndAction: HistoryRoundEndAction, state: MatchState, playerLeftId?: string) => {
   const roundEnd: HistoryRoundEnd = {
     roundNumber: state.round,
-    actionName: state.action,
+    actionName: roundEndAction,
     createdAt: Date.now(),
   };
   const winner = getPlayerWithRole(state, "winner");
@@ -111,22 +115,33 @@ const saveRoundEndHistoryEvent = (state: MatchState) => {
     };
     return playerStats;
   });
+  const isWinner = winner ? true : false;
+  const activePlayer = isWinner ? winner : loser;
 
-  if (userTimeout) {
-    const roundResults = createTimeOutHistoryEvent(roundEnd, userTimeout, roundStats);
-    state.historyEvents.push(roundResults);
-  } else if (state.action === "Exact") {
-    const roundResults = createExactHistoryEvent(roundEnd, winner, loser, roundStats);
-    if (roundResults) state.historyEvents.push(roundResults);
-  } else {
-    if (!winner || !loser) return;
-
-    const roundResults = createBoloneyHistoryEvent(roundEnd, winner, loser, roundStats);
-    state.historyEvents.push(roundResults);
+  switch (roundEndAction) {
+    case "leftMatch":
+      if (!playerLeftId) break;
+      state.historyEvents.push(createPlayerLeftHistoryEvent(state.players[playerLeftId], roundEnd, roundStats));
+      break;
+    case "lostByTimeOut":
+      if (!userTimeout) break;
+      state.historyEvents.push(createTimeOutHistoryEvent(roundEnd, userTimeout, roundStats));
+      break;
+    case "exact":
+      if (!activePlayer) return;
+      state.historyEvents.push(createExactHistoryEvent(roundEnd, activePlayer, isWinner, roundStats));
+      break;
+    case "boloney":
+      if (!winner || !loser) break;
+      state.historyEvents.push(createBoloneyHistoryEvent(roundEnd, winner, loser, roundStats));
+      break;
   }
 };
 
 const saveRoundStartHistoryEvent = (state: MatchState) => {
+  const historyLength = state.historyEvents.length;
+  if (historyLength > 0 && state.historyEvents[historyLength - 1].eventType === "roundStart") return;
+
   const totalDice = totalDiceInMatch(state.players);
   const roundStart: HistoryRoundStart = {
     eventType: "roundStart",
@@ -175,28 +190,30 @@ const createBoloneyHistoryEvent = (
 
 const createExactHistoryEvent = (
   roundEnd: HistoryRoundEnd,
-  winner: Player | undefined,
-  loser: Player | undefined,
+  activePlayer: Player,
+  isWinner: boolean,
   roundStats: HistoryPlayerStats[]
-): HistoryRoundResults | undefined => {
-  const playerActive = winner ? winner : loser;
-  if (!playerActive) return;
-
-  const roundWinner: HistoryRoundPlayer = {
+): HistoryRoundResults => {
+  const roundActivePlayer: HistoryRoundPlayer = {
     playerStats: {
-      userId: playerActive.userId,
-      diceAmount: playerActive.diceAmount,
-      powerUpsAmount: playerActive.powerUpsAmount,
+      userId: activePlayer.userId,
+      diceAmount: activePlayer.diceAmount,
+      powerUpsAmount: activePlayer.powerUpsAmount,
     },
-    isWinner: winner ? true : false,
+    isWinner: isWinner,
   };
 
   const roundResults: HistoryRoundResults = {
     eventType: "roundResults",
     roundEnd: roundEnd,
-    roundWinner: roundWinner,
     roundStats: roundStats,
   };
+
+  if (isWinner) {
+    roundResults.roundWinner = roundActivePlayer;
+  } else {
+    roundResults.roundLoser = roundActivePlayer;
+  }
 
   return roundResults;
 };
@@ -218,9 +235,31 @@ const createTimeOutHistoryEvent = (
   const roundResults: HistoryRoundResults = {
     eventType: "roundResults",
     roundEnd,
-    roundWinner: roundLoser,
+    roundLoser: roundLoser,
     roundStats,
   };
 
   return roundResults;
+};
+
+const createPlayerLeftHistoryEvent = (
+  playerLeft: PlayerPublic,
+  roundEnd: HistoryRoundEnd,
+  roundStats: HistoryPlayerStats[]
+): HistoryRoundResults => {
+  const roundLoser: HistoryRoundPlayer = {
+    playerStats: {
+      userId: playerLeft.userId,
+      diceAmount: playerLeft.diceAmount,
+      powerUpsAmount: playerLeft.powerUpsAmount,
+    },
+    isWinner: false,
+  };
+
+  return {
+    eventType: "roundResults",
+    roundEnd: roundEnd,
+    roundLoser: roundLoser,
+    roundStats: roundStats,
+  };
 };

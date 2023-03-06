@@ -137,6 +137,8 @@ export const updatePlayerPublicData = (loopParams: MatchLoopParams, playerIds: s
   const { state } = loopParams;
 
   playerIds.forEach((playerId) => {
+    if (state.players[playerId].status === "lost") return;
+
     const player = state.players[playerId];
 
     player.diceAmount = player.diceValue.length;
@@ -148,6 +150,8 @@ export const updatePlayerPowerUpAmount = (loopParams: MatchLoopParams, playerIds
   const { state } = loopParams;
 
   playerIds.forEach((playerId) => {
+    if (state.players[playerId].status === "lost") return;
+
     const player = state.players[playerId];
 
     player.powerUpsAmount = player.powerUpIds.length;
@@ -212,4 +216,16 @@ export const isBidHigher = (previousHighest: Bid, newHighest: BidPayloadFrontend
   const isHigherFace = previousHighest.face < newHighest.face;
 
   return isHigherAmount || isHigherFace;
+};
+
+export const clearPlayerState = (player: Player): Player => {
+  const newPlayer: Player = {
+    ...player,
+    diceValue: [],
+    powerUpIds: [],
+    diceAmount: 0,
+    powerUpsAmount: 0,
+  };
+
+  return newPlayer;
 };

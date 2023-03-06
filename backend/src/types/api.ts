@@ -60,8 +60,8 @@ export interface RoundSummaryTransitionPayloadBackend {
 export interface PlayerLeftPayloadBackend {
   players: Record<string, PlayerPublic>;
   playerOrder: string[];
-  stage: MatchStage;
-  leaderboard?: PlayerPublic[];
+  playerLeftId: string;
+  round: number;
 }
 
 export type PlayerGetPowerUpsPayloadBackend = PowerUpId[];
@@ -69,6 +69,7 @@ export type PlayerGetPowerUpsPayloadBackend = PowerUpId[];
 export interface StageTransitionPayloadBackend {
   matchStage: MatchStage;
   remainingStageTime?: number;
+  round: number;
 }
 
 export type PlayerReadyPayloadBackend = Record<string, PlayerPublic>;

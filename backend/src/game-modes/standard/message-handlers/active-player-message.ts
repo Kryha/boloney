@@ -107,7 +107,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
 
   setAction("Boloney", state);
   stopLoading(loopParams, message.sender);
-  saveHistoryEvent(state, { eventType: "roundResults" });
+  saveHistoryEvent(state, { eventType: "roundResults", roundEndAction: "boloney" });
 });
 
 const handlePlayerCallExact = messageHandler(async (loopParams, message, sender) => {
@@ -164,7 +164,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
 
   setAction("Exact", state);
   stopLoading(loopParams, message.sender);
-  saveHistoryEvent(state, { eventType: "roundResults" });
+  saveHistoryEvent(state, { eventType: "roundResults", roundEndAction: "exact" });
 });
 
 const handlePlayerCallHealDice = messageHandler(async (loopParams, message, sender) => {

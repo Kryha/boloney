@@ -37,6 +37,7 @@ import { ReactComponent as ArrowButton } from "./arrow-button.svg";
 import { ReactComponent as LockIcon } from "./lock.svg";
 import { ReactComponent as RefreshIcon } from "./refresh.svg";
 import { ReactComponent as WhiteDiceIcon } from "./white-dice.svg";
+import { ReactComponent as DeadCoffinIcon } from "./dead-coffin.svg";
 import { ReactComponent as BlueLock } from "./blue-lock.svg";
 
 export {
@@ -81,4 +82,5 @@ export {
   LockIcon,
   RefreshIcon,
   WhiteDiceIcon,
+  DeadCoffinIcon,
 };

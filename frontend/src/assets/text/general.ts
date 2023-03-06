@@ -15,6 +15,7 @@ export const general = {
   rules: "rules",
   menu: "menu",
   info: "info",
+  playerLeft: "player left",
   connected: "connected",
   waiting: "waiting",
   waitingForTheOthersToBeReady: "waiting for the others to be ready...",

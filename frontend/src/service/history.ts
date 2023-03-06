@@ -1,5 +1,4 @@
 import {
-  Action,
   ActionRole,
   BidWithUserId,
   HistoryEvent,
@@ -8,10 +7,10 @@ import {
   HistoryRoundEnd,
   HistoryRoundResults,
   HistoryRoundStart,
-  RoundSummaryTransitionPayloadBackend,
   HistoryPlayerStats,
   BidPayloadBackend,
   HistoryRoundPlayer,
+  HistoryRoundEndAction,
 } from "../types";
 
 export const getHistoryEvent = (payload: MatchHistoryUpdateBackendPayload): HistoryEvent | undefined => {
@@ -41,9 +40,10 @@ const getBidHistoryEvent = (payload: BidPayloadBackend): HistoryEvent | undefine
 };
 
 export const getRoundEndHistoryEvent = (
-  action: Action | undefined,
+  action: HistoryRoundEndAction | undefined,
   players: Record<string, PlayerPublic>,
-  round: number
+  round: number,
+  playerLeft?: PlayerPublic
 ): HistoryRoundResults | undefined => {
   if (!action) return;
 
@@ -65,7 +65,12 @@ export const getRoundEndHistoryEvent = (
     return playerStats;
   });
 
-  if (action === "Exact") {
+  if (action === "leftMatch") {
+    if (!playerLeft) return;
+    return getPlayerLeftMatchHistoryEvent(playerLeft, roundEnd, roundStats);
+  }
+
+  if (action === "exact") {
     const isWinner = !!winner;
     const playerActive = isWinner ? winner : loser;
     if (!playerActive) return;
@@ -82,13 +87,18 @@ export const getRoundEndHistoryEvent = (
   return getRoundEndBoloneyHistoryEvent(winner, loser, players, roundEnd, roundStats);
 };
 
-export const getRoundStartHistoryEvent = (roundSummary: RoundSummaryTransitionPayloadBackend): HistoryRoundStart => {
+export const getRoundStartHistoryEvent = (
+  round: number,
+  players: Record<string, PlayerPublic>,
+  stageNumber: number,
+  drawRoundCounter: number
+): HistoryRoundStart => {
   const roundStart: HistoryRoundStart = {
     eventType: "roundStart",
-    roundNumber: roundSummary.round,
-    totalDiceAmount: Object.values(roundSummary.players).reduce((sum, player) => sum + player.diceAmount, 0),
-    stageNumber: roundSummary.stageNumber,
-    roundsUntillDrawRound: roundSummary.drawRoundCounter,
+    roundNumber: round,
+    totalDiceAmount: Object.values(players).reduce((sum, player) => sum + player.diceAmount, 0),
+    stageNumber: stageNumber,
+    roundsUntillDrawRound: drawRoundCounter,
   };
   return roundStart;
 };
@@ -108,7 +118,7 @@ const getRoundEndExactHistoryEvent = (
   roundEnd: HistoryRoundEnd,
   roundStats: HistoryPlayerStats[]
 ): HistoryRoundResults => {
-  const roundWinner: HistoryRoundPlayer = {
+  const roundActivePlayer: HistoryRoundPlayer = {
     playerStats: {
       userId: playerActive.userId,
       diceAmount: players[playerActive.userId].diceAmount,
@@ -117,12 +127,19 @@ const getRoundEndExactHistoryEvent = (
     isWinner: isWinner,
   };
 
-  return {
+  const roundEndResult: HistoryRoundResults = {
     eventType: "roundResults",
     roundEnd: roundEnd,
-    roundWinner: roundWinner,
     roundStats: roundStats,
   };
+
+  if (isWinner) {
+    roundEndResult.roundWinner = roundActivePlayer;
+  } else {
+    roundEndResult.roundLoser = roundActivePlayer;
+  }
+
+  return roundEndResult;
 };
 
 const getRoundEndTimeOutHistoryEvent = (
@@ -131,6 +148,7 @@ const getRoundEndTimeOutHistoryEvent = (
   roundEnd: HistoryRoundEnd,
   roundStats: HistoryPlayerStats[]
 ): HistoryRoundResults => {
+  roundEnd.actionName = "lostByTimeOut";
   const roundWinner: HistoryRoundPlayer = {
     playerStats: {
       userId: userTimeout.userId,
@@ -181,4 +199,27 @@ const getRoundEndBoloneyHistoryEvent = (
     roundStats: roundStats,
   };
   return roundResults;
+};
+
+const getPlayerLeftMatchHistoryEvent = (
+  playerLeft: PlayerPublic,
+  roundEnd: HistoryRoundEnd,
+  roundStats: HistoryPlayerStats[]
+): HistoryRoundResults => {
+  roundEnd.actionName = "leftMatch";
+  const roundLoser: HistoryRoundPlayer = {
+    playerStats: {
+      userId: playerLeft.userId,
+      diceAmount: playerLeft.diceAmount,
+      powerUpsAmount: playerLeft.powerUpsAmount,
+    },
+    isWinner: false,
+  };
+
+  return {
+    eventType: "roundResults",
+    roundEnd: roundEnd,
+    roundLoser: roundLoser,
+    roundStats: roundStats,
+  };
 };

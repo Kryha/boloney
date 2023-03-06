@@ -11,9 +11,26 @@ import { HistoryBadgeWrapper, HistoryBadgeContainer, HistoryDivider, TimerRow, E
 export interface Props {
   endOfRound: HistoryRoundResults;
   players: Record<string, PlayerPublic>;
+  localPlayer: PlayerPublic;
 }
 
-export const HistoryEndOfRound: FC<Props> = ({ endOfRound, players }) => {
+export const HistoryEndOfRound: FC<Props> = ({ endOfRound, players, localPlayer }) => {
+  const isLocalPlayer = endOfRound.roundWinner?.playerStats.userId === localPlayer.userId;
+  let actionName: string;
+
+  switch (endOfRound.roundEnd.actionName) {
+    case "boloney":
+    case "exact":
+      actionName = endOfRound.roundEnd.actionName;
+      break;
+    case "lostByTimeOut":
+      actionName = text.history.lostByTimeout;
+      break;
+    case "leftMatch":
+      actionName = text.history.playerLeft;
+      break;
+  }
+
   return (
     <HistoryBadgeWrapper customBackground={color.offWhite}>
       <HistoryBadgeContainer isHeader>
@@ -24,17 +41,27 @@ export const HistoryEndOfRound: FC<Props> = ({ endOfRound, players }) => {
         <HistoryActionTitle
           headingOne={text.history.action}
           headingOneColor={color.mediumGrey}
-          headingTwo={endOfRound.roundEnd.actionName}
+          headingTwo={actionName}
           headingTwoColor={color.black}
         />
       </HistoryBadgeContainer>
       {endOfRound.roundWinner && <HistoryDivider />}
       {endOfRound.roundWinner && (
-        <HistoryOutcome outcome={endOfRound.roundWinner} player={players[endOfRound.roundWinner.playerStats.userId]} />
+        <HistoryOutcome
+          outcome={endOfRound.roundWinner}
+          player={players[endOfRound.roundWinner.playerStats.userId]}
+          isLocalPlayer={isLocalPlayer}
+          actionName={endOfRound.roundEnd.actionName}
+        />
       )}
       {endOfRound.roundLoser && <HistoryDivider />}
       {endOfRound.roundLoser && (
-        <HistoryOutcome outcome={endOfRound.roundLoser} player={players[endOfRound.roundLoser.playerStats.userId]} />
+        <HistoryOutcome
+          outcome={endOfRound.roundLoser}
+          player={players[endOfRound.roundLoser.playerStats.userId]}
+          isLocalPlayer={isLocalPlayer}
+          actionName={endOfRound.roundEnd.actionName}
+        />
       )}
       <HistoryDivider />
       <EndOfRoundHistoryListWrapper>

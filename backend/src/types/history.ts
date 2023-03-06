@@ -7,10 +7,13 @@ export type HistoryBidAction = BidWithUserId & { eventType: "bidAction" };
 
 type EventType = "bidAction" | "playerAction" | "roundResults" | "roundStart";
 
+export type HistoryRoundEndAction = "boloney" | "exact" | "lostByTimeOut" | "leftMatch";
+
 export type SaveHistoryPayload = {
   eventType: EventType;
   senderId?: string;
   powerUpPayload?: UsePowerUpPayloadBackend;
+  roundEndAction?: HistoryRoundEndAction;
 };
 
 export interface HistoryPlayerAction {
@@ -40,7 +43,7 @@ export interface HistoryRoundStart {
 
 export interface HistoryRoundEnd {
   roundNumber: number;
-  actionName: string;
+  actionName: HistoryRoundEndAction;
   createdAt: number;
 }
 

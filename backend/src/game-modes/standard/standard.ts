@@ -4,12 +4,12 @@ import {
   getAvailableAvatar,
   handleError,
   handleInactiveMatch,
-  setLosersAsReady,
   updateEmptyTicks,
   createChatGroup,
   calcStageNumber,
   calcDrawRoundCounter,
   updatePlayersState,
+  setLosersAsReady,
 } from "../../services";
 import { MatchState, isMatchSettings, isMatchJoinMetadata, MatchLoopParams } from "../../types";
 import { handleStage } from "./stage-handlers";

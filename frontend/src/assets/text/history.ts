@@ -8,4 +8,6 @@ export const history = {
   target: "target",
   outcomeSmokeAndMirrors: "player order reshuffled",
   outcomeSecondChance: "re-roll any amount",
+  lostByTimeout: "lost by timeout",
+  playerLeft: "player left",
 };

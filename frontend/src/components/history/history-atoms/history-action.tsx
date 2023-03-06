@@ -1,10 +1,10 @@
 import { FC, ReactNode } from "react";
 import { text } from "../../../assets";
 import { color, margins } from "../../../design";
-import { HistoryRoundPlayer, PlayerPublic } from "../../../types";
+import { HistoryRoundEndAction, HistoryRoundPlayer, PlayerPublic } from "../../../types";
 import { getDieColor } from "../../../util";
 import { GeneralText } from "../../atoms";
-import { WinnerBadge, LoserBadge } from "../../badges";
+import { WinnerBadge, LoserBadge, PlayerDeadBadge } from "../../badges";
 import { Die } from "../../die";
 import { PowerUpIcon } from "../../icons";
 import { DiceIconWrapper, Lightning } from "../../icons/styles";
@@ -57,20 +57,30 @@ export const HistoryActionTitle: FC<Props> = ({
 };
 
 interface OutcomeProps {
-  outcome?: HistoryRoundPlayer;
+  outcome: HistoryRoundPlayer;
   player: PlayerPublic;
+  isLocalPlayer: boolean;
+  actionName: HistoryRoundEndAction;
 }
 
-export const HistoryOutcome: FC<OutcomeProps> = ({ outcome, player }) => {
-  const amountResult = outcome?.isWinner
-    ? text.param.xAmount(outcome.playerStats.diceAmount)
-    : text.param.endOfTurnResult(outcome?.playerStats.diceAmount);
+export const HistoryOutcome: FC<OutcomeProps> = ({ outcome, player, isLocalPlayer, actionName }) => {
+  const amountResult =
+    outcome.isWinner || actionName === "leftMatch"
+      ? text.param.xAmount(outcome.playerStats.diceAmount)
+      : text.param.endOfTurnResult(outcome?.playerStats.diceAmount);
   const faceColor = getDieColor(player);
+  const isPlayerDead = player.status === "lost" && actionName === "leftMatch";
+
+  const getPlayerBadge = () => {
+    if (isPlayerDead) return <PlayerDeadBadge />;
+    if (outcome?.isWinner) return <WinnerBadge />;
+    return <LoserBadge />;
+  };
 
   return (
     <HistoryBadgeWrapper customBackground={color.greyWithOpacity}>
       <HistoryBadgeContainer isHeader>
-        <Username>{text.param.usernameTitle(player.username, outcome?.isWinner)}</Username>
+        <Username>{text.param.usernameTitle(player.username, isLocalPlayer)}</Username>
         <MatchStateContainer>
           <DiceIconWrapper>
             <Die size={margins.small4} faceColor={faceColor} />
@@ -79,7 +89,7 @@ export const HistoryOutcome: FC<OutcomeProps> = ({ outcome, player }) => {
           <PowerUpIcon powerUpAmount={outcome?.playerStats.powerUpsAmount || 0} />
         </MatchStateContainer>
       </HistoryBadgeContainer>
-      {outcome?.isWinner ? <WinnerBadge /> : <LoserBadge />}
+      {getPlayerBadge()}
     </HistoryBadgeWrapper>
   );
 };

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { LockIcon, CoolHand, Crown, text } from "../../assets";
+import { LockIcon, CoolHand, Crown, text, DeadCoffinIcon } from "../../assets";
 import { Action, PlayerPublic } from "../../types";
 import { GeneralText } from "../atoms";
 import { BadgeWrapper } from "./styles";
@@ -28,6 +28,15 @@ const TimeOutBadge = () => {
     <BadgeWrapper>
       <CoolHand />
       <GeneralText>{text.playerTurn.outOfTime}</GeneralText>
+    </BadgeWrapper>
+  );
+};
+
+export const PlayerDeadBadge = () => {
+  return (
+    <BadgeWrapper>
+      <DeadCoffinIcon />
+      <GeneralText>{text.match.dead}</GeneralText>
     </BadgeWrapper>
   );
 };

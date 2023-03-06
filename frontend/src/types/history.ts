@@ -6,6 +6,10 @@ export const historyBidActionPayloadBackendSchema = bidWithUserIdSchema.merge(z.
 
 export type HistoryBidAction = z.infer<typeof historyBidActionPayloadBackendSchema>;
 
+export const historyRoundEndActionSchema = z.enum(["boloney", "exact", "lostByTimeOut", "leftMatch"]);
+
+export type HistoryRoundEndAction = z.infer<typeof historyRoundEndActionSchema>;
+
 export const historyPlayerActionPayloadBackendSchema = z.object({
   eventType: z.literal("playerAction"),
   activePlayerName: z.string(),
@@ -37,7 +41,7 @@ export type HistoryRoundStart = z.infer<typeof historyRoundStartPayloadBackendSc
 
 export const historyRoundEndPayloadBackendSchema = z.object({
   roundNumber: z.number(),
-  actionName: z.string(),
+  actionName: historyRoundEndActionSchema,
   createdAt: z.number(),
 });
 

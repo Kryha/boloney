@@ -158,6 +158,7 @@ export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (s
 
           playerRef.actionRole = undefined;
           playerRef.isTarget = false;
+          playerRef.isReady = false;
         });
       })
     ),

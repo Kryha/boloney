@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { text } from "../../assets/text";
 import { color } from "../../design";
+import { useLocalPlayer } from "../../service";
 
 import { useLayoutStore } from "../../service/layout-config";
 import { useStore } from "../../store";
@@ -13,12 +14,15 @@ export const History: FC = () => {
   const toggleHistory = useLayoutStore((state) => state.toggleHistory);
   const historyEvents = useStore((state) => state.historyEvents);
   const players = useStore((state) => state.players);
+  const localPlayer = useLocalPlayer();
+
+  if (!localPlayer) return <></>;
 
   return (
     <MenuToggle closeMenuItem={toggleHistory} isToggled={isHistoryToggled} title={text.general.history}>
       <HistoryWrapperSection>
         {historyEvents.length ? (
-          <MatchHistoryComponent historyEvents={historyEvents} players={players} />
+          <MatchHistoryComponent historyEvents={historyEvents} players={players} localPlayer={localPlayer} />
         ) : (
           <EmptyHistoryTitle customColor={color.darkGrey}>{text.history.whenTheGameStarts}</EmptyHistoryTitle>
         )}

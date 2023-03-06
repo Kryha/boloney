@@ -14,6 +14,7 @@ export const match = {
   addYourBid: "add your bid",
   takeAction: "take action",
   or: "or...",
+  dead: "dead",
   powerUp: "power-up",
   healDice: "heal a die",
   bid: "bid",

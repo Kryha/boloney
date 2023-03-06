@@ -8,14 +8,16 @@ import { RoundBadge } from "./history-atoms/round-badge";
 interface Props {
   historyEvents: HistoryEvent[];
   players: Record<string, PlayerPublic>;
+  localPlayer: PlayerPublic;
 }
 
 interface HistoryListProps {
   historyEvent: HistoryEvent;
   players: Record<string, PlayerPublic>;
+  localPlayer: PlayerPublic;
 }
 
-export const HistoryListItem: FC<HistoryListProps> = ({ historyEvent, players }) => {
+export const HistoryListItem: FC<HistoryListProps> = ({ historyEvent, players, localPlayer }) => {
   const historyView = () => {
     switch (historyEvent.eventType) {
       case "bidAction":
@@ -30,19 +32,20 @@ export const HistoryListItem: FC<HistoryListProps> = ({ historyEvent, players })
       case "roundStart":
         return <RoundBadge roundStart={historyEvent} />;
       case "roundResults":
-        return <HistoryEndOfRound endOfRound={historyEvent} players={players} />;
+        return <HistoryEndOfRound endOfRound={historyEvent} players={players} localPlayer={localPlayer} />;
     }
   };
   return <>{historyView()}</>;
 };
 
-export const MatchHistoryComponent: FC<Props> = ({ historyEvents, players }) => {
+// TODO: This component is redundant and it can be refactored
+export const MatchHistoryComponent: FC<Props> = ({ historyEvents, players, localPlayer }) => {
   if (!historyEvents) return <></>;
 
   return (
     <>
       {historyEvents.map((historyEvent, index) => (
-        <HistoryListItem historyEvent={historyEvent} key={index} players={players} />
+        <HistoryListItem historyEvent={historyEvent} key={index} players={players} localPlayer={localPlayer} />
       ))}
     </>
   );

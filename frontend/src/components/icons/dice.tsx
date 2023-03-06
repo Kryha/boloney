@@ -4,7 +4,7 @@ import { text } from "../../assets";
 import { color, margins } from "../../design";
 import { GeneralText } from "../atoms";
 import { Die } from "../die";
-import { DiceIconWrapper, ExtraDiceInfo, ExtraInfo, ExtraInfoSum } from "./styles";
+import { DiceIconWrapper, ExtraDiceInfo, ExtraInfoSum } from "./styles";
 
 interface DiceUpProps {
   diceAmount: number;

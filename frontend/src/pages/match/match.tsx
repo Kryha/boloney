@@ -28,7 +28,7 @@ import {
   bidPayloadBackendSchema,
   boloneyPayloadBackendSchema,
   exactPayloadBackendSchema,
-  playerLeftPayloadBackend,
+  playerLeftPayloadBackendSchema,
   roundSummaryTransitionPayloadBackendSchema,
   playerGetPowerUpsPayloadBackendSchema,
   playerReadyPayloadBackendSchema,
@@ -37,7 +37,6 @@ import {
   usePowerUpPayloadBackendSchema,
   UsePowerUpPayloadBackend,
   MatchHistoryUpdateBackendPayload,
-  RoundSummaryTransitionPayloadBackend,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -89,6 +88,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const historyEvents = useStore((state) => state.historyEvents);
   const round = useStore((state) => state.round);
   const players = useStore((state) => state.players);
+  const stageNumber = useStore((state) => state.stageNumber);
+  const drawRoundCounter = useStore((state) => state.drawRoundCounter);
 
   const joinMatchDone = useJoinMatch(matchId);
   const joinChatDone = useChatHistory(joinMatchDone);
@@ -142,8 +143,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
       if (newEvent) addHistoryEvent(newEvent);
     };
 
-    const handleRoundEndHistoryEvent = (roundSummary: RoundSummaryTransitionPayloadBackend) => {
-      const roundStart = getRoundStartHistoryEvent(roundSummary);
+    const handleRoundStartHistoryEvent = (payloadRound: number) => {
+      const roundStart = getRoundStartHistoryEvent(payloadRound, players, stageNumber, drawRoundCounter);
       addHistoryEvent(roundStart);
     };
 
@@ -163,7 +164,10 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           const parsed = stageTransitionPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
 
-          if (parsed.data.matchStage === "rollDiceStage") resetRound();
+          if (parsed.data.matchStage === "rollDiceStage") {
+            resetRound();
+            handleRoundStartHistoryEvent(parsed.data.round);
+          }
           setTimerTimeInSeconds(parsed.data.remainingStageTime || 0);
           setMatchStage(parsed.data.matchStage);
           setPlayerReady(false);
@@ -215,7 +219,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
           setLastAction("Boloney");
           setPlayers(parsed.data.players);
-          const roundEnd = getRoundEndHistoryEvent("Boloney", parsed.data.players, round);
+          const roundEnd = getRoundEndHistoryEvent("boloney", parsed.data.players, round);
           if (roundEnd) addHistoryEvent(roundEnd);
           break;
         }
@@ -235,7 +239,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
           setLastAction("Exact");
           setPlayers(parsed.data.players);
-          const roundEnd = getRoundEndHistoryEvent("Exact", parsed.data.players, round);
+          const roundEnd = getRoundEndHistoryEvent("exact", parsed.data.players, round);
           if (roundEnd) addHistoryEvent(roundEnd);
           break;
         }
@@ -247,17 +251,17 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           break;
         }
         case MatchOpCode.PLAYER_LEFT: {
-          const parsed = playerLeftPayloadBackend.safeParse(data);
+          const parsed = playerLeftPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
 
-          setPlayers(parsed.data.players);
-          setPlayerOrder(parsed.data.playerOrder);
-          setMatchStage(parsed.data.stage);
+          const roundEnd = getRoundEndHistoryEvent(
+            "leftMatch",
+            parsed.data.players,
+            parsed.data.round,
+            parsed.data.players[parsed.data.playerLeftId]
+          );
+          if (roundEnd) addHistoryEvent(roundEnd);
 
-          const activePlayer = Object.values(parsed.data.players).find((player) => player.isActive === true);
-          if (activePlayer) setActivePlayer(activePlayer.userId);
-          //TODO: leaderboards could be updated somewhere else.
-          if (parsed.data.leaderboard) setLeaderboard(parsed.data.leaderboard);
           break;
         }
         case MatchOpCode.PLAYER_HEAL_DICE: {
@@ -271,12 +275,11 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
         case MatchOpCode.ROUND_SUMMARY_TRANSITION: {
           const parsed = roundSummaryTransitionPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
+
           setPlayers(parsed.data.players);
           setLeaderboard(parsed.data.leaderboard);
           setRound(parsed.data.round);
           setStageNumberAndCounter(parsed.data.stageNumber, parsed.data.drawRoundCounter);
-
-          handleRoundEndHistoryEvent(parsed.data);
           break;
         }
         case MatchOpCode.USE_POWER_UP: {
@@ -295,6 +298,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   }, [
     addHistoryEvent,
     clearHistory,
+    drawRoundCounter,
     historyEvents,
     players,
     powerUpState,
@@ -323,6 +327,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     setStageNumberAndCounter,
     setTimerTimeInSeconds,
     setTurnActionStep,
+    stageNumber,
   ]);
 
   if (isLoading || isJoining) return <Loading />;

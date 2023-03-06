@@ -35,7 +35,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const setPowerUpState = useStore((state) => state.setPowerUpState);
   const lastAction = useStore((state) => state.lastAction);
 
-  const hasPlayerLost = player.diceAmount === 0;
+  const hasPlayerLost = player.status === "lost";
   const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
 
   // TODO: make conditions more clear
