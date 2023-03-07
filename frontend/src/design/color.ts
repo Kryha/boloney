@@ -9,7 +9,7 @@ export const color = {
   lightGrey: "#DDDDD9",
   mediumGrey: "#B6B4B2",
   grey: "#D4D4D1",
-  darkGrey: "#989898",
+  darkGrey: "#898989",
   white: "#EEEEEA",
   powderedWhite: "#EAEAE5",
   offWhite: "#EEEAE9",

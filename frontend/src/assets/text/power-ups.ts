@@ -16,4 +16,6 @@ export const powerUps = {
   playingSecondChance: "we all deserve a second chance. Select any amount of dice and re-roll them.",
   whoIsGoingToGetIt: "who's gonna get it?",
   getPowerUp: "get power-up",
+  grillExample: "example: Player asks “Do you have three 6s?”. Opponent must answer “Yes” or “No”",
+  birdsEyeViewExample: "example: Opponent has a 2, a 3 and a 6. They must answer with “11”.",
 };

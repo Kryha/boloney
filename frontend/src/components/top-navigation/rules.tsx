@@ -3,10 +3,10 @@ import { FC } from "react";
 import { text } from "../../assets";
 import { InfoIcon } from "../../assets/icons";
 import { BULLET_POINT } from "../../constants";
+import { color } from "../../design";
 import { useStore } from "../../store";
 import { ColorSpan, ListSection, Paragraph } from "../atoms";
 import { LeadingZeroList } from "../leading-zero-list";
-import { OverlayWrapper } from "../overlay-wrapper";
 import { Dropdown } from "./dropdown";
 import {
   ParagraphBulletPoint,
@@ -193,7 +193,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
                 </>
               }
             />
-            <RulesSectionTitle customColor="darkGrey">{text.rules.noteTitle}</RulesSectionTitle>
+            <RulesSectionTitle customColor={color.darkGrey}>{text.rules.noteTitle}</RulesSectionTitle>
             <ColorSpan customColor="darkGrey">{text.rules.noteParagraph}</ColorSpan>
           </ListSection>
         </RulesSection>

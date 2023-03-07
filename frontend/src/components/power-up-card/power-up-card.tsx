@@ -3,12 +3,14 @@ import { text } from "../../assets";
 import { color } from "../../design";
 import { useViewport } from "../../hooks";
 import { PowerUp } from "../../types";
-import { GeneralText, Heading2 } from "../atoms";
+import { getDescriptionExample } from "../../util";
+import { Heading2 } from "../atoms";
 import { PowerUpBadge } from "../badges";
 import { PrimaryButton } from "../buttons";
 import { RadioButton } from "../power-up-checkbox";
 import {
   ButtonWrapper,
+  DescriptionExample,
   DescriptionText,
   PowerUpCardContainer,
   PowerUpCardWrapper,
@@ -36,6 +38,8 @@ export const PowerUpCard: FC<PowerUpCardProps> = ({
   powerUpIndex,
 }) => {
   const { width } = useViewport();
+  const descriptionExample = getDescriptionExample(powerUp);
+
   return (
     <PowerUpCardWrapper width={width} isPowerUpInUse={!!onClickUse} canSelectPowerUp={!!onClickSelect}>
       {isDisabled && <PowerUpBadge />}
@@ -45,7 +49,7 @@ export const PowerUpCard: FC<PowerUpCardProps> = ({
           <PowerUpInfoContainer>
             <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>
             <DescriptionText>{powerUp.longDescription}</DescriptionText>
-            <GeneralText>{text.param.zeroAmount(powerUp.id)}</GeneralText>
+            {descriptionExample && <DescriptionExample>{descriptionExample}</DescriptionExample>}
           </PowerUpInfoContainer>
         </PowerUpInfoWrapper>
       </PowerUpCardContainer>

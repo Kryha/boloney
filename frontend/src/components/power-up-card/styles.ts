@@ -28,6 +28,10 @@ export const DescriptionText = styled(GeneralText)`
   width: clamp(141px, 14.48vw + 2px, 280px);
 `;
 
+export const DescriptionExample = styled(DescriptionText)`
+  color: ${color.darkGrey};
+`;
+
 export const SeeDetailsText = styled(GeneralTextUnderlined)`
   width: clamp(141px, 14.48vw + 2px, 280px);
 `;
@@ -69,6 +73,9 @@ export const PowerUpCardWrapper = styled.div<PowerUpProps>`
   cursor: pointer;
   :not(:hover) {
     ${DescriptionText} {
+      display: none;
+    }
+    ${DescriptionExample} {
       display: none;
     }
     ${PrimaryButtonWrapper} {

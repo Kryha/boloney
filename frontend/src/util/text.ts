@@ -1,3 +1,6 @@
+import { text } from "../assets";
+import { PowerUp } from "../types";
+
 export const countNumber = (n: number): string => {
   switch (n) {
     case 1:
@@ -21,4 +24,12 @@ export const capitalize = (text: string): string => text.charAt(0).toUpperCase()
 export const getRandomMessage = (randomMessages: string[]): string => {
   const randomIndex = Math.floor(Math.random() * randomMessages.length);
   return randomMessages[randomIndex];
+};
+
+export const getDescriptionExample = (powerUp: PowerUp): string | undefined => {
+  if (powerUp.id === "1") {
+    return text.powerUps.grillExample;
+  } else if (powerUp.id === "2") {
+    return text.powerUps.birdsEyeViewExample;
+  }
 };

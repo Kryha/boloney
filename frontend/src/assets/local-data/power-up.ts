@@ -7,8 +7,7 @@ export const POWER_UP_DATA: Record<PowerUpId, PowerUp> = {
     id: "1",
     name: "grill",
     shortDescription: "ask an opponent if they have x of y die faces.",
-    longDescription:
-      "ask an opponent if they have exactly X number of dice with face value Y. Example: Player asks “Do you have three 6s?”. Opponent must answer “Yes” or “No”",
+    longDescription: "ask an opponent if they have exactly X number of dice with face value Y.",
     cardImage: Grill,
     isImageLarge: true,
   },
@@ -16,8 +15,7 @@ export const POWER_UP_DATA: Record<PowerUpId, PowerUp> = {
     id: "2",
     name: "bird's Eye View",
     shortDescription: "ask target opponent what the sum of their dice are.",
-    longDescription:
-      "ask an opponent the sum of the face values of their dice. Example: Opponent has a 2, a 3 and a 6. They must answer with “11”.",
+    longDescription: "ask an opponent the sum of the face values of their dice.",
     cardImage: GuardTower,
     isImageLarge: false,
   },

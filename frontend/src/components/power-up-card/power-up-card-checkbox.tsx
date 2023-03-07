@@ -2,10 +2,12 @@ import { FC, useState } from "react";
 import { text } from "../../assets";
 import { color } from "../../design";
 import { PowerUp, PowerUpId } from "../../types";
+import { getDescriptionExample } from "../../util";
 import { Heading2 } from "../atoms";
 import { Checkbox } from "../checkbox";
 import {
   CheckboxArea,
+  DescriptionExample,
   DescriptionText,
   PowerUpCardWrapperCheckbox,
   PowerUpImageSmall,
@@ -38,13 +40,18 @@ export const PowerUpCardCheckbox: FC<PowerUpCardCheckboxProps> = ({
     toggleCheckBox(powerUpKey, powerUp.id);
   };
 
+  const descriptionExample = getDescriptionExample(powerUp);
+
   return (
     <PowerUpCardWrapperCheckbox>
       <PowerUpImageSmall src={powerUp.cardImage} />
       <PowerUpInfoContainerCheckbox>
         <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>
         {isDescriptionVisible ? (
-          <DescriptionText onClick={handleDescriptionClick}>{powerUp.longDescription}</DescriptionText>
+          <>
+            <DescriptionText onClick={handleDescriptionClick}>{powerUp.longDescription}</DescriptionText>
+            {descriptionExample && <DescriptionExample>{descriptionExample}</DescriptionExample>}
+          </>
         ) : (
           <SeeDetailsText onClick={handleDescriptionClick}>{text.powerUps.seeDetails}</SeeDetailsText>
         )}
