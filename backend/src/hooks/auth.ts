@@ -2,7 +2,7 @@ import sha256 from "crypto-js/sha256";
 
 import { errors, handleError, handleHttpResponse, profanityFilter } from "../services";
 import { AccountKeys, AfterAuthHookHandler, BeforeAuthHookHandler, CollectionInteractionRead, CollectionInteractionWrite } from "../types";
-import { tkUrl } from "../utils";
+import { env, tkUrl } from "../utils";
 
 export const beforeHookHandler: BeforeAuthHookHandler = (cb) => (ctx, logger, nk, data) => {
   try {
@@ -51,6 +51,8 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, _logger, nk, da
 });
 
 export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data, _request) => {
+  if (!env(ctx).ZK_ENABLED) return;
+
   const payload = { collection: "Accounts", key: "keys" };
 
   // if keys are already stored, skip their creation
