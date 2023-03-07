@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import { text } from "../../assets";
-import { useLatestBid, useLocalPlayer, useMatch } from "../../service";
-import { getDieColor } from "../../util";
+import { useLatestBid, useLocalPlayer, useMatch, useTotalDiceInMatch } from "../../service";
+import { getDieColor, getMinFaceValue } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { ErrorView } from "../error-view";
@@ -29,6 +29,15 @@ export const DiceSelector: FC<DiceSelectorProps> = ({ lastBid, player, disabled,
   const diceAmount = usePlaceBidFormState((state) => state.diceAmount);
   const faceValue = usePlaceBidFormState((state) => state.faceValue);
   const resetBidState = usePlaceBidFormState((state) => state.resetBidState);
+  const setFaceValue = usePlaceBidFormState((state) => state.setFaceValue);
+  const totalDice = useTotalDiceInMatch();
+
+  useEffect(() => {
+    if (!faceValue) {
+      const minimumFaceValue = getMinFaceValue(lastBid, totalDice);
+      setFaceValue(minimumFaceValue);
+    }
+  }, [faceValue, lastBid, setFaceValue, totalDice]);
 
   const isBidSet = diceAmount && faceValue;
 
