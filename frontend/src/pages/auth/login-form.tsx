@@ -79,7 +79,7 @@ export const LoginForm: FC = () => {
           <SignOrJoinContainer width={width} height={height}>
             <Paragraph>{text.authForm.iDontHaveAnAccountYet}</Paragraph>
             <Link onClick={() => navigate(routes.createAccount)} primaryText={text.authForm.here} />
-            <PrimaryButton type="submit" primaryText={text.authForm.signIn} />
+            <PrimaryButton buttonType="submit" primaryText={text.authForm.signIn} />
           </SignOrJoinContainer>
         </FormContainer>
       </form>

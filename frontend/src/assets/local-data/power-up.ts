@@ -1,7 +1,6 @@
 import { Coup, DoubleUp, Grill, GuardTower, Hypnosis, MenageATrois, SecondChance, SmokeAndMirrors, Vendetta } from "../images";
 import { PowerUp, PowerUpId } from "../../types";
 
-// TODO: Update descriptions
 export const POWER_UP_DATA: Record<PowerUpId, PowerUp> = {
   "1": {
     id: "1",

@@ -36,7 +36,6 @@ export const handleStage: StageHandlers = {
    * TODO: currently the match terminates after the creator leaves the end of match page
    * TODO: see if there is away to keep it alive while the other players are in the match
    */
-  // TODO: Add broadcast to inform the client when player has left the match
   endOfMatchStage: (loopParams) => handleMatchStage(loopParams, handleReadyMessage, handleEmptyLogic),
 
   // TODO: Add garbage collection logic to end the match

@@ -107,7 +107,7 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
             {isLoading && <Heading6>{text.newMatch.loading}</Heading6>}
             {isError && <Heading6>{text.newMatch.error}</Heading6>}
             <ButtonContainer>
-              <PrimaryButton type="submit" primaryText={text.newMatch.continueText} disabled={isPowerUpError} />
+              <PrimaryButton buttonType="submit" primaryText={text.newMatch.continueText} disabled={isPowerUpError} />
             </ButtonContainer>
           </FormContainer>
         </form>

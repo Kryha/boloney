@@ -22,7 +22,6 @@ import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles
 import { useStore } from "../../store";
 import { useAuthenticateUser } from "../../service";
 
-// TODO: make a form component
 export const CreateAccountForm: FC = () => {
   const { authenticateUser } = useAuthenticateUser();
   const navigate = useNavigate();
@@ -98,7 +97,7 @@ export const CreateAccountForm: FC = () => {
           <SignOrJoinContainer width={width} height={height}>
             <Paragraph>{text.authForm.iAlreadyHaveAnAccount}</Paragraph>
             <Link onClick={() => navigate(routes.login)} primaryText={text.authForm.here} />
-            <PrimaryButton type="submit" primaryText={text.authForm.join} />
+            <PrimaryButton buttonType="submit" primaryText={text.authForm.join} />
           </SignOrJoinContainer>
         </FormContainer>
       </form>

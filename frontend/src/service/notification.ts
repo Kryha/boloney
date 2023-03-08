@@ -87,7 +87,6 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
 
   switch (matchOpcode) {
     case NotificationOpCode.BOLONEY: {
-      //TODO: Change image to figma design
       const data: NotificationContent = {
         id: notification.id,
         img: CallBoloney,
@@ -121,7 +120,6 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
       if (!parsedNotificationContent.success) return defaultUnknownError;
 
       const { activePlayerName } = parsedNotificationContent.data;
-      //TODO: Change image to figma design
       return {
         id: notification.id,
         img: CallExact,

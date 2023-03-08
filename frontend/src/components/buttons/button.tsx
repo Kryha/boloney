@@ -28,8 +28,7 @@ interface ButtonProps {
   primaryText?: string;
   secondaryText?: string;
   isOpen?: boolean;
-  // TODO: to rename this prop as it's a keyword so better not use it
-  type?: "button" | "submit" | "reset";
+  buttonType?: "button" | "submit" | "reset";
   tooltipTitle?: string;
   tooltipInfo?: string;
   tooltipInfoPosition?: InfoPosition;
@@ -48,7 +47,7 @@ export const PrimaryButton: FC<ButtonProps> = ({
   onClick,
   primaryText,
   secondaryText,
-  type = "button",
+  buttonType = "button",
   width,
   isLoading,
   isBottomButton,
@@ -76,13 +75,13 @@ export const PrimaryButton: FC<ButtonProps> = ({
     <PrimaryButtonWrapper onClick={() => handleClick()} disabled={disabled} ref={ref}>
       <PrimaryButtonContainer disabled={disabled} width={width} isLoading={loading}>
         <InitialButtonView>
-          <PrimaryButtonBase type={type} disabled={disabled} isLoading={loading}>
+          <PrimaryButtonBase type={buttonType} disabled={disabled} isLoading={loading}>
             <PrimaryButtonText>{primaryText}</PrimaryButtonText>
             {loading && <ContentLoader loading={loading} />}
           </PrimaryButtonBase>
         </InitialButtonView>
         <SecondaryView className="box">
-          <PrimaryButtonBase type={type} backgroundColor={color.black} disabled={disabled} isLoading={loading}>
+          <PrimaryButtonBase type={buttonType} backgroundColor={color.black} disabled={disabled} isLoading={loading}>
             <PrimaryButtonText customColor={color.white}>{secondaryText ? secondaryText : primaryText}</PrimaryButtonText>
           </PrimaryButtonBase>
         </SecondaryView>

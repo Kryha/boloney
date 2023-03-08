@@ -223,7 +223,6 @@ export const resetRound = ({ state }: MatchLoopParams) => {
   });
 };
 
-// TODO: Remove after checking reload on Match Summary
 export const setAction = (action: Action, state: MatchState) => {
   state.action = action;
 };

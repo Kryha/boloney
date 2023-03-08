@@ -1,4 +1,3 @@
-// TODO: update file with with different actions
 import { PlayerPublic, TurnAction, TurnActionStep } from "../../types";
 import { getNumberWithOrdinal, getRandomMessage } from "../../util";
 import { text } from "../text";

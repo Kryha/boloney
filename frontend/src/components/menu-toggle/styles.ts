@@ -12,6 +12,7 @@ interface LayoutProps {
   isInLobby: boolean;
 }
 
+// TODO: Refactor for dryness
 export const MenuToggleSection = styled.section<LayoutProps>`
   display: flex;
   flex-direction: column;
@@ -20,7 +21,6 @@ export const MenuToggleSection = styled.section<LayoutProps>`
   height: ${({ isMenuOpen }): string => (isMenuOpen ? "47.25vh" : "89vh")};
   width: 25vw;
   border-top: ${({ isChat }): string => (isChat ? "none" : `1px solid ${color.mediumGrey}`)};
-  // TODO: Refactor for dryness
   ${({ isMenuOpen, isChat, isInLobby }): string =>
     isMenuOpen && isChat
       ? `

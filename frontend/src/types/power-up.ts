@@ -35,9 +35,6 @@ export const powerUpSchema = z.object({
 });
 export type PowerUp = z.infer<typeof powerUpSchema>;
 
-// USE_POWER_UP API payloads
-// TODO: define all types
-
 export const useGrillFrontendSchema = z.object({
   targetId: z.string(),
   face: z.number().min(1).max(6),

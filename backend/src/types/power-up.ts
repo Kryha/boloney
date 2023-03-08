@@ -79,9 +79,6 @@ export interface ProbabilityRange {
 
 export type ProbabilityRanges = ProbabilityRange[];
 
-// USE_POWER_UP API payloads
-// TODO: define all types
-
 export interface UseGrillFrontend {
   targetId: string;
   face: number;
