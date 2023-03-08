@@ -1,5 +1,3 @@
-import sha256 from "crypto-js/sha256";
-
 import { errors, handleError, handleHttpResponse, profanityFilter } from "../services";
 import { AccountKeys, AfterAuthHookHandler, BeforeAuthHookHandler, CollectionInteractionRead, CollectionInteractionWrite } from "../types";
 import { env, tkUrl } from "../utils";
@@ -44,7 +42,7 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, _logger, nk, da
 
   if (profanityFilter.isProfane(username)) throw errors.usernameContainsProfanity;
 
-  const encryptedKey = String(sha256(password + username));
+  const encryptedKey = String(nk.sha256Hash(password + username));
   data.account.id = encryptedKey;
 
   return data;
