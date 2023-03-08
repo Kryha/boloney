@@ -62,7 +62,7 @@ export const useBirdsEyeBackendSchema = z.object({
 });
 export type UseBirdsEyeBackend = z.infer<typeof useBirdsEyeBackendSchema>;
 
-export const useMenageFrontendSchema = z.object({});
+export const useMenageFrontendSchema = z.record(z.never());
 export type UseMenageFrontend = z.infer<typeof useMenageFrontendSchema>;
 
 export const useMenageBackendSchema = z.object({
@@ -70,7 +70,7 @@ export const useMenageBackendSchema = z.object({
 });
 export type UseMenageBackend = z.infer<typeof useMenageBackendSchema>;
 
-export const useDoubleUpFrontendSchema = z.object({});
+export const useDoubleUpFrontendSchema = z.record(z.never());
 export type UseDoubleUpFrontend = z.infer<typeof useDoubleUpFrontendSchema>;
 
 export const useDoubleUpBackendSchema = z.object({
@@ -100,7 +100,9 @@ export const useSecondChanceBackendSchema = z.object({
 });
 export type UseSecondChanceBackend = z.infer<typeof useSecondChanceBackendSchema>;
 
-export const useCoupFrontendSchema = z.object({});
+export const useCoupFrontendSchema = z.object({
+  targetId: z.string(),
+});
 export type UseCoupFrontend = z.infer<typeof useCoupFrontendSchema>;
 
 export const useCoupBackendSchema = z.object({
@@ -109,7 +111,7 @@ export const useCoupBackendSchema = z.object({
 });
 export type UseCoupBackend = z.infer<typeof useCoupBackendSchema>;
 
-export const useSmokeAndMirrorsFrontendSchema = z.object({});
+export const useSmokeAndMirrorsFrontendSchema = z.record(z.never());
 export type UseSmokeAndMirrorsFrontend = z.infer<typeof useSmokeAndMirrorsFrontendSchema>;
 
 export const useSmokeAndMirrorsBackendSchema = z.object({

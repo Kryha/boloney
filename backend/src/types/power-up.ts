@@ -102,17 +102,13 @@ export interface UseBirdsEyeBackend {
   sum: number;
 }
 
-export type UseMenageFrontend = {
-  // keep empty
-};
+export type UseMenageFrontend = Record<string, never>;
 
 export interface UseMenageBackend {
   newRolledDice: Die[];
 }
 
-export type UseDoubleUpFrontend = {
-  //Keep Empty
-};
+export type UseDoubleUpFrontend = Record<string, never>;
 
 export interface UseDoubleUpBackend {
   powerUpIds: PowerUpId[];
@@ -145,9 +141,7 @@ export interface UseCoupBackend {
   targetId: string;
 }
 
-export type UseSmokeAndMirrorsFrontend = {
-  // keep empty
-};
+export type UseSmokeAndMirrorsFrontend = Record<string, never>;
 
 export type UseSmokeAndMirrorsBackend = {
   playerOrder: string[];
