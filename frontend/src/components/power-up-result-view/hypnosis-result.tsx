@@ -34,7 +34,7 @@ export const HypnosisResult: FC<HypnosisResultProps> = ({ data, id, handleDone }
   return (
     <BottomButtonWrapper>
       <PowerUpResultText id={id} receivedPowerUps={powerUpData.length} />
-      <PowerUpPile data={powerUpData} selectedPowerUp={selectedPowerUp} onClick={handlePowerUpSelect} />
+      <PowerUpPile data={powerUpData} selectedPowerUp={selectedPowerUp} onClick={handlePowerUpSelect} disableId />
       <PrimaryButton primaryText={text.powerUps.getPowerUp} onClick={() => handlePowerUpSteal()} />
     </BottomButtonWrapper>
   );

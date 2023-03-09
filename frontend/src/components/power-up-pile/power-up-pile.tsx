@@ -7,9 +7,10 @@ interface PowerUpPileProps {
   data: PowerUp[];
   selectedPowerUp?: number;
   onClick?: (powerUpIndex?: number) => void;
+  disableId?: boolean;
 }
 
-export const PowerUpPile: FC<PowerUpPileProps> = ({ data, selectedPowerUp, onClick }) => {
+export const PowerUpPile: FC<PowerUpPileProps> = ({ data, selectedPowerUp, onClick, disableId }) => {
   const [displayPowerUps, setDisplayPowerUps] = useState(false);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ export const PowerUpPile: FC<PowerUpPileProps> = ({ data, selectedPowerUp, onCli
               powerUpIndex={index}
               isSelected={selectedPowerUp === index}
               onClickSelect={onClick}
+              disableId={disableId}
             />
           ))}
         </PowerUpSpreadContainer>
