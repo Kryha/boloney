@@ -19,6 +19,7 @@ import {
   saveHistoryEvent,
   matchStageDuration,
   handleActivePlayerTurnEnds,
+  getDiceValues,
 } from "../../../services";
 import { getPowerUp, rollDice } from "../../../toolkit-api";
 import {
@@ -102,7 +103,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
 
   setAllPlayersReady(state);
 
-  const payload: BoloneyPayloadBackend = { players: hidePlayersData(state.players) };
+  const payload: BoloneyPayloadBackend = { players: hidePlayersData(state.players), diceValue: getDiceValues(state.players) };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify(payload));
 
   setAction("Boloney", state);
@@ -159,7 +160,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
 
   setAllPlayersReady(state);
 
-  const payload: ExactPayloadBackend = { players: hidePlayersData(state.players) };
+  const payload: ExactPayloadBackend = { players: hidePlayersData(state.players), diceValue: getDiceValues(state.players) };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify(payload));
 
   setAction("Exact", state);

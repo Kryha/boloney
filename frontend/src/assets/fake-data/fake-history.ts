@@ -24,12 +24,12 @@ export const fakeHistory: HistoryEvent[] = [
     eventType: "roundResults",
 
     roundEnd: { roundNumber: 1, actionName: "boloney", createdAt: Date.now() },
-    roundWinner: { playerStats: { userId: "ryan", diceAmount: 1, powerUpsAmount: 2 }, isWinner: true },
-    roundLoser: { playerStats: { userId: "drew", diceAmount: 1, powerUpsAmount: 2 }, isWinner: false },
+    roundWinner: { playerStats: { userId: "ryan", diceAmount: 1, powerUpsAmount: 2, diceValue: [] }, isWinner: true },
+    roundLoser: { playerStats: { userId: "drew", diceAmount: 1, powerUpsAmount: 2, diceValue: [] }, isWinner: false },
     roundStats: [
-      { userId: "ryan", diceAmount: 1, powerUpsAmount: 2 },
-      { userId: "drew", diceAmount: 1, powerUpsAmount: 2 },
-      { userId: "drew", diceAmount: 1, powerUpsAmount: 2 },
+      { userId: "ryan", diceAmount: 1, powerUpsAmount: 2, diceValue: [] },
+      { userId: "drew", diceAmount: 1, powerUpsAmount: 2, diceValue: [] },
+      { userId: "drew", diceAmount: 1, powerUpsAmount: 2, diceValue: [] },
     ],
   },
 ];

@@ -49,7 +49,10 @@ export const param = {
   endOfRoundOrdinal: (round: string | number) => `end ${round} round`,
   usernameTitle: (username?: string, isLocalPlayer?: boolean) => (isLocalPlayer ? `${username} (you)` : `${username}`),
   endOfTurnResult: (amount?: number | string) => (amount ? `-1 = x${amount}` : "= x0"),
-  diceAmount: (amount: number) => (amount > 1 ? `(dice x${amount} +` : `(die x${amount} +`),
+  diceAmount: (amount: number) => (amount > 1 ? `(dice x${amount}` : `(die x${amount}`),
+  diceWithoutAmount: (amount: number) => (amount > 1 ? "(dice " : "(die "),
   formatTime: (hour: number, minutes: number) => `${hour}:${minutes < 10 ? `0${minutes}` : minutes}`,
   time: (hour: string, minutes: string) => `-${hour}:${minutes}`,
+  diceValues: (diceValues?: number[]) => (diceValues ? ` : [${diceValues.toString()}]  ` : " : []  "),
+  playerDice: (amount: number, diceValues?: number[]) => param.diceWithoutAmount(amount) + param.diceValues(diceValues),
 };

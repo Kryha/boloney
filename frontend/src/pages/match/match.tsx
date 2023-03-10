@@ -217,16 +217,18 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
         case MatchOpCode.PLAYER_CALL_BOLONEY: {
           const parsed = boloneyPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
+
           setLastAction("Boloney");
           setPlayers(parsed.data.players);
-          const roundEnd = getRoundEndHistoryEvent("boloney", parsed.data.players, round);
+          const roundEnd = getRoundEndHistoryEvent("boloney", parsed.data.players, parsed.data.diceValue, round);
           if (roundEnd) addHistoryEvent(roundEnd);
           break;
         }
         case MatchOpCode.PLAYER_LOST_BY_TIMEOUT: {
           const parsed = boloneyPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
-          const roundEnd = getRoundEndHistoryEvent("lostByTimeOut", parsed.data.players, round);
+
+          const roundEnd = getRoundEndHistoryEvent("lostByTimeOut", parsed.data.players, parsed.data.diceValue, round);
           if (roundEnd) addHistoryEvent(roundEnd);
           setLastAction("lostByTimeOut");
           setPlayers(parsed.data.players);
@@ -237,9 +239,10 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
         case MatchOpCode.PLAYER_CALL_EXACT: {
           const parsed = exactPayloadBackendSchema.safeParse(data);
           if (!parsed.success) return;
+
           setLastAction("Exact");
           setPlayers(parsed.data.players);
-          const roundEnd = getRoundEndHistoryEvent("exact", parsed.data.players, round);
+          const roundEnd = getRoundEndHistoryEvent("exact", parsed.data.players, parsed.data.diceValue, round);
           if (roundEnd) addHistoryEvent(roundEnd);
           break;
         }
@@ -257,6 +260,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           const roundEnd = getRoundEndHistoryEvent(
             "leftMatch",
             parsed.data.players,
+            parsed.data.diceValue,
             parsed.data.round,
             parsed.data.players[parsed.data.playerLeftId]
           );

@@ -107,11 +107,12 @@ const saveRoundEndHistoryEvent = (roundEndAction: HistoryRoundEndAction, state: 
   const loser = getPlayerWithRole(state, "loser");
   const userTimeout = getPlayerWithRole(state, "timeOut");
 
-  const roundStats = Object.values(state.players).map((player) => {
+  const roundStats: HistoryPlayerStats[] = Object.values(state.players).map((player) => {
     const playerStats = {
       userId: player.userId,
       diceAmount: player.diceAmount,
       powerUpsAmount: player.powerUpsAmount,
+      diceValue: player.diceValue,
     };
     return playerStats;
   });
@@ -164,6 +165,7 @@ const createBoloneyHistoryEvent = (
       userId: loser.userId,
       diceAmount: loser.diceAmount,
       powerUpsAmount: loser.powerUpsAmount,
+      diceValue: [],
     },
     isWinner: false,
   };
@@ -173,6 +175,7 @@ const createBoloneyHistoryEvent = (
       userId: winner.userId,
       diceAmount: winner.diceAmount,
       powerUpsAmount: winner.powerUpsAmount,
+      diceValue: [],
     },
     isWinner: true,
   };
@@ -199,6 +202,7 @@ const createExactHistoryEvent = (
       userId: activePlayer.userId,
       diceAmount: activePlayer.diceAmount,
       powerUpsAmount: activePlayer.powerUpsAmount,
+      diceValue: [],
     },
     isWinner: isWinner,
   };
@@ -228,6 +232,7 @@ const createTimeOutHistoryEvent = (
       userId: userTimeout.userId,
       diceAmount: userTimeout.diceAmount,
       powerUpsAmount: userTimeout.powerUpsAmount,
+      diceValue: [],
     },
     isWinner: false,
   };
@@ -252,6 +257,7 @@ const createPlayerLeftHistoryEvent = (
       userId: playerLeft.userId,
       diceAmount: playerLeft.diceAmount,
       powerUpsAmount: playerLeft.powerUpsAmount,
+      diceValue: [],
     },
     isWinner: false,
   };

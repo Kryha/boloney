@@ -97,14 +97,15 @@ export const HistoryOutcome: FC<OutcomeProps> = ({ outcome, player, isLocalPlaye
 interface EndOfRoundHistoryListProps {
   playerName: string;
   diceAmount: number;
+  diceValues?: number[];
   powerUpAmount: number;
 }
 
-export const EndOfRoundHistoryList: FC<EndOfRoundHistoryListProps> = ({ playerName, diceAmount, powerUpAmount }) => {
+export const EndOfRoundHistoryList: FC<EndOfRoundHistoryListProps> = ({ playerName, diceAmount, powerUpAmount, diceValues }) => {
   return (
     <EndOfRoundRow>
       <Username>{playerName}</Username>
-      <GeneralText customColor={color.mediumGrey}>{text.param.diceAmount(diceAmount)}</GeneralText>
+      <GeneralText customColor={color.mediumGrey}>{text.param.playerDice(diceAmount, diceValues)}</GeneralText>
       <PowerUpIcon powerUpAmount={powerUpAmount} />
       <GeneralText customColor={color.mediumGrey}>{text.history.closingBracket}</GeneralText>
     </EndOfRoundRow>

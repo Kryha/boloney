@@ -28,6 +28,7 @@ import { saveHistoryEvent } from "./history";
 import {
   clearPlayerState,
   getActivePlayerId,
+  getDiceValues,
   handleActivePlayerTurnEnds,
   handlePlayerLostMatch,
   hidePlayersData,
@@ -131,6 +132,7 @@ export const handlePlayerLeftDuringMatch = (loopParams: MatchLoopParams, senderI
     playerOrder: state.playerOrder,
     playerLeftId: senderId,
     round: state.round,
+    diceValue: getDiceValues(state.players),
   };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payload));
 
@@ -152,6 +154,7 @@ export const handlePlayerLeftDuringLobby = (state: MatchState, senderId: string,
     playerLeftId: senderId,
     playerOrder: state.playerOrder,
     round: 0,
+    diceValue: getDiceValues(state.players),
   };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_LEFT, JSON.stringify(payload));
   updatePlayersState(state, dispatcher);

@@ -13,6 +13,7 @@ import {
   RollDicePayload,
   MatchOpCode,
   ActionRole,
+  Die,
 } from "../types";
 import { totalDiceInMatch } from "./match";
 import { sendMatchNotification } from "./notification";
@@ -169,6 +170,12 @@ export const hidePlayersData = (players: Record<string, Player>): Record<string,
   return Object.entries(players).reduce((processed, [key, player]) => {
     return { ...processed, [key]: hidePlayerData(player) };
   }, {} as Record<string, PlayerPublic>);
+};
+
+export const getDiceValues = (players: Record<string, Player>): Record<string, Die[]> => {
+  return Object.entries(players).reduce((processed, [key, player]) => {
+    return { ...processed, [key]: player.diceValue };
+  }, {} as Record<string, Die[]>);
 };
 
 export const getTotalDiceWithFace = (players: Record<string, Player>, face: number) =>

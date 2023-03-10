@@ -1,4 +1,5 @@
 import { BidWithUserId } from "./bid";
+import { Die } from "./die";
 import { PowerUpId, UsePowerUpPayloadBackend } from "./power-up";
 
 export type HistoryEvent = HistoryRoundStart | HistoryBidAction | HistoryPlayerAction | HistoryRoundResults;
@@ -56,4 +57,5 @@ export interface HistoryPlayerStats {
   userId: string;
   diceAmount: number;
   powerUpsAmount: number;
+  diceValue: Die[];
 }

@@ -2,7 +2,7 @@ import { TICK_RATE } from "../constants";
 import { MatchLoopParams, MatchOpCode, MatchStage, PlayerLostByTimeOutPayloadBackend } from "../types";
 import { saveHistoryEvent } from "./history";
 import { setAction } from "./match";
-import { getActivePlayerId, handlePlayerLostRound, hidePlayersData, rollDiceForPlayer, setAllPlayersReady } from "./player";
+import { getActivePlayerId, getDiceValues, handlePlayerLostRound, hidePlayersData, rollDiceForPlayer, setAllPlayersReady } from "./player";
 
 export const getTicksFromSeconds = (timeInSec: number) => {
   return timeInSec * TICK_RATE;
@@ -43,7 +43,10 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
 
       setAllPlayersReady(state);
 
-      const payload: PlayerLostByTimeOutPayloadBackend = { players: hidePlayersData(state.players) };
+      const payload: PlayerLostByTimeOutPayloadBackend = {
+        players: hidePlayersData(state.players),
+        diceValue: getDiceValues(state.players),
+      };
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_LOST_BY_TIMEOUT, JSON.stringify(payload));
       setAction("lostByTimeOut", state);
 

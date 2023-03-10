@@ -11,6 +11,7 @@ import {
   BidPayloadBackend,
   HistoryRoundPlayer,
   HistoryRoundEndAction,
+  Die,
 } from "../types";
 
 export const getHistoryEvent = (payload: MatchHistoryUpdateBackendPayload): HistoryEvent | undefined => {
@@ -42,6 +43,7 @@ const getBidHistoryEvent = (payload: BidPayloadBackend): HistoryEvent | undefine
 export const getRoundEndHistoryEvent = (
   action: HistoryRoundEndAction | undefined,
   players: Record<string, PlayerPublic>,
+  diceValues: Record<string, Die[]>,
   round: number,
   playerLeft?: PlayerPublic
 ): HistoryRoundResults | undefined => {
@@ -57,10 +59,11 @@ export const getRoundEndHistoryEvent = (
   const userTimeout = findPlayerWithRole(players, "timeOut");
 
   const roundStats = Object.values(players).map((player) => {
-    const playerStats = {
+    const playerStats: HistoryPlayerStats = {
       userId: player.userId,
       diceAmount: player.diceAmount,
       powerUpsAmount: player.powerUpsAmount,
+      diceValue: diceValues[player.userId],
     };
     return playerStats;
   });
@@ -123,6 +126,7 @@ const getRoundEndExactHistoryEvent = (
       userId: playerActive.userId,
       diceAmount: players[playerActive.userId].diceAmount,
       powerUpsAmount: players[playerActive.userId].powerUpsAmount,
+      diceValue: [],
     },
     isWinner: isWinner,
   };
@@ -154,6 +158,7 @@ const getRoundEndTimeOutHistoryEvent = (
       userId: userTimeout.userId,
       diceAmount: players[userTimeout.userId].diceAmount,
       powerUpsAmount: players[userTimeout.userId].powerUpsAmount,
+      diceValue: [],
     },
     isWinner: false,
   };
@@ -178,6 +183,7 @@ const getRoundEndBoloneyHistoryEvent = (
       userId: winner.userId,
       diceAmount: players[winner.userId].diceAmount,
       powerUpsAmount: players[winner.userId].powerUpsAmount,
+      diceValue: [],
     },
     isWinner: true,
   };
@@ -187,6 +193,7 @@ const getRoundEndBoloneyHistoryEvent = (
       userId: loser.userId,
       diceAmount: players[loser.userId].diceAmount,
       powerUpsAmount: players[loser.userId].powerUpsAmount,
+      diceValue: [],
     },
     isWinner: false,
   };
@@ -212,6 +219,7 @@ const getPlayerLeftMatchHistoryEvent = (
       userId: playerLeft.userId,
       diceAmount: playerLeft.diceAmount,
       powerUpsAmount: playerLeft.powerUpsAmount,
+      diceValue: [],
     },
     isWinner: false,
   };

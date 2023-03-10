@@ -2,7 +2,7 @@ import { FC } from "react";
 import { text } from "../../../assets";
 import { color } from "../../../design";
 
-import { HistoryRoundResults, PlayerPublic } from "../../../types";
+import { HistoryPlayerStats, HistoryRoundResults, PlayerPublic } from "../../../types";
 import { getNumberWithOrdinal, parseTimeFormat } from "../../../util";
 import { Heading6 } from "../../atoms";
 import { EndOfRoundHistoryList, HistoryActionTitle, HistoryOutcome } from "./history-action";
@@ -30,6 +30,10 @@ export const HistoryEndOfRound: FC<Props> = ({ endOfRound, players, localPlayer 
       actionName = text.history.playerLeft;
       break;
   }
+
+  const getDiceValues = (stats: HistoryPlayerStats) => {
+    return stats.diceValue?.map((dice) => dice.rolledValue).sort((a, b) => a - b);
+  };
 
   return (
     <HistoryBadgeWrapper customBackground={color.offWhite}>
@@ -72,6 +76,7 @@ export const HistoryEndOfRound: FC<Props> = ({ endOfRound, players, localPlayer 
               diceAmount={stats.diceAmount}
               powerUpAmount={stats.powerUpsAmount}
               key={index}
+              diceValues={getDiceValues(stats)}
             />
             <HistoryDivider />
           </>

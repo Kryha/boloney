@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { bidWithUserIdSchema } from "./bid";
+import { dieSchema } from "./die";
 import { powerUpIdSchema } from "./power-up";
 
 export const historyBidActionPayloadBackendSchema = bidWithUserIdSchema.merge(z.object({ eventType: z.literal("bidAction") }));
@@ -25,6 +26,7 @@ export const historyPlayerStatsPayloadBackendSchema = z.object({
   userId: z.string(),
   diceAmount: z.number(),
   powerUpsAmount: z.number(),
+  diceValue: z.array(dieSchema),
 });
 
 export type HistoryPlayerStats = z.infer<typeof historyPlayerStatsPayloadBackendSchema>;

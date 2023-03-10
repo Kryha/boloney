@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { bidPayloadBackendSchema } from "./bid";
+import { dieSchema } from "./die";
 import { NkError } from "./error";
 import { matchStageSchema, matchStateSchema, playerIdSchema, playerPublicSchema, playerRankedSchema } from "./match";
 import { powerUpIdSchema } from "./power-up";
@@ -14,11 +15,13 @@ export type PlayerJoinedPayloadBackend = z.infer<typeof playerJoinedPayloadBacke
 
 export const boloneyPayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),
+  diceValue: z.record(z.array(dieSchema)),
 });
 export type BoloneyPayloadBackend = z.infer<typeof boloneyPayloadBackendSchema>;
 
 export const exactPayloadBackendSchema = z.object({
   players: z.record(playerPublicSchema),
+  diceValue: z.record(z.array(dieSchema)),
 });
 export type ExactPayloadBackend = z.infer<typeof exactPayloadBackendSchema>;
 
@@ -52,6 +55,7 @@ export const playerLeftPayloadBackendSchema = z.object({
   playerOrder: z.array(z.string()),
   playerLeftId: playerIdSchema,
   round: z.number(),
+  diceValue: z.record(z.array(dieSchema)),
 });
 export type PlayerLeftPayloadbackend = z.infer<typeof playerLeftPayloadBackendSchema>;
 

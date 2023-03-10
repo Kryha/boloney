@@ -27,13 +27,16 @@ export interface PlayerJoinedPayloadBackend {
 
 export interface BoloneyPayloadBackend {
   players: Record<string, PlayerPublic>;
+  diceValue: Record<string, Die[]>;
 }
 
 export interface ExactPayloadBackend {
   players: Record<string, PlayerPublic>;
+  diceValue: Record<string, Die[]>;
 }
 export interface PlayerLostByTimeOutPayloadBackend {
   players: Record<string, PlayerPublic>;
+  diceValue: Record<string, Die[]>;
 }
 
 export interface HealDicePayloadBackend {
@@ -62,6 +65,7 @@ export interface PlayerLeftPayloadBackend {
   playerOrder: string[];
   playerLeftId: string;
   round: number;
+  diceValue: Record<string, Die[]>;
 }
 
 export type PlayerGetPowerUpsPayloadBackend = PowerUpId[];
