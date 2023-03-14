@@ -29,4 +29,4 @@ spec:
             - name: DB_URI
               value: postgres:$(DB_PASSWORD)@postgres.$(POD_NAMESPACE).svc.cluster.local:5432/nakama
             - name: ZK_ENABLED
-              value: "false"
+              value: "true"

@@ -12,6 +12,7 @@ import {
   Heading6,
   GoBackButton,
   FadeTransition,
+  ToggleSwitch,
 } from "../../components";
 import { createMatch } from "../../service";
 import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
@@ -101,11 +102,21 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
 
             <PowerUpsField />
 
+            <ToggleSwitch
+              register={register}
+              title={text.newMatch.zkEnabledTitle}
+              description={text.newMatch.zkEnabledDescription}
+              tooltipDescription={text.newMatch.zkEnabledTooltipDescription}
+              descriptionTitle={text.newMatch.zkEnabledDescriptionTitle}
+              infoPosition="bottom"
+            />
+
             <BottomContainer>
               <Paragraph>{text.newMatch.bottomDesc}</Paragraph>
             </BottomContainer>
             {isLoading && <Heading6>{text.newMatch.loading}</Heading6>}
             {isError && <Heading6>{text.newMatch.error}</Heading6>}
+
             <ButtonContainer>
               <PrimaryButton buttonType="submit" primaryText={text.newMatch.continueText} disabled={isPowerUpError} />
             </ButtonContainer>

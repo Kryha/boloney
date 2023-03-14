@@ -32,7 +32,7 @@ import {
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
-import { cleanUUID, env, getRange, shuffleArray } from "../utils";
+import { cleanUUID, getRange, shuffleArray, isZkEnabled } from "../utils";
 import { handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
 import { saveHistoryEvent } from "./history";
 
@@ -55,7 +55,7 @@ const useBirdsEye = (loopParams: MatchLoopParams, data: UseBirdsEyeFrontend, pow
 
   let sum: number;
 
-  if (env(ctx).ZK_ENABLED) {
+  if (isZkEnabled(state, ctx)) {
     const diceData: DiceDataToolkit = {
       dice_1: 0,
       dice_2: 0,

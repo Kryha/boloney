@@ -30,6 +30,5 @@ spec:
               value: postgres:$(DB_PASSWORD)@postgres.$(POD_NAMESPACE).svc.cluster.local:5432/nakama
             - name: TOOLKIT_BASE_URL
               value: https://zk-gaming-tk.staging.kryha.dev
-              # TODO: enable ZK once toolkit is deployed on VM
             - name: ZK_ENABLED
-              value: "false"
+              value: "true"

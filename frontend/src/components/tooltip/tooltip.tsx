@@ -11,7 +11,7 @@ interface TooltipProps {
 }
 
 export const Tooltip: FC<TooltipProps> = ({ title, info, infoPosition, isButtonWithHelper, zIndex }) => {
-  if (!title || !info) return <></>;
+  if (!title && !info) return <></>;
 
   return (
     <ButtonInfoWrap>

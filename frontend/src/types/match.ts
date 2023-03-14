@@ -120,6 +120,7 @@ export const matchSettingsSchema = z.object({
   stageNumberDivisor: z.number(),
   drawRoundOffset: z.number(),
   powerUpProbability: z.array(powerUpProbabilitySchema),
+  zkEnabled: z.boolean(),
 });
 export type MatchSettings = z.infer<typeof matchSettingsSchema>;
 
@@ -161,6 +162,7 @@ export const matchFormSettingsSchema = z.object({
   stageNumberDivisor: z.number().or(z.string().transform((val) => Number(val))),
   drawRoundOffset: z.number().or(z.string().transform((val) => Number(val))),
   powerUpProbability: z.array(powerUpProbabilitySchema),
+  zkEnabled: z.boolean(),
 });
 
 export type MatchFormSettings = z.infer<typeof matchFormSettingsSchema>;

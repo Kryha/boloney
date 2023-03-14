@@ -116,6 +116,7 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
     },
   ],
   availablePowerUps: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+  zkEnabled: false,
 };
 
 export const COPIED_TEXT_TIMEOUT = 2500;

@@ -8,7 +8,6 @@ import { Description, DescriptionContainer, Lightning, PercentageInput, Percenta
 import { PowerUp } from "../../types";
 
 interface PowerUpsInfo {
-  isUsingSwitchIcon?: boolean;
   powerUp: PowerUp;
   isChecked: boolean;
   isError: boolean;
@@ -16,7 +15,7 @@ interface PowerUpsInfo {
   setProbability: (probability: number) => void;
 }
 
-export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isChecked, isError, probability, setProbability }) => {
+export const PowerUpInfo: FC<PowerUpsInfo> = ({ powerUp, isChecked, isError, probability, setProbability }) => {
   const updateProbability = (formValue: string) => {
     const parsed = Number(formValue);
 
@@ -34,7 +33,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ isUsingSwitchIcon, powerUp, isCh
   return (
     <>
       <PowerUpComponent powerUp={powerUp} />
-      <DescriptionContainer removeLeftBorder={isUsingSwitchIcon}>
+      <DescriptionContainer>
         <GeneralContentWrapper>
           <Row>
             <Lightning />

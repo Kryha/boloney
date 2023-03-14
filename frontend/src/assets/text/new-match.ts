@@ -29,4 +29,9 @@ export const newMatch = {
   drawRoundOffset: "draw round offset",
   initialPowerUpAmount: "power-ups initial amount",
   maxPowerUpAmount: "power-Up max",
+  zkEnabledTitle: "enable Zero-Knowledge logic",
+  zkEnabledTooltipDescription:
+    "this will make the game server generate zk records at the beginning of the match and compute RNG operations based on a commit & reveal mechanism to provide verifiable random computations.",
+  zkEnabledDescription: "ZK logic will be used for rolling dice and drawing power ups.",
+  zkEnabledDescriptionTitle: "Zero-knowledge interactions",
 };

@@ -32,4 +32,4 @@ spec:
             - name: TOOLKIT_BASE_URL
               value: https://zk-gaming-tk.staging.kryha.dev
             - name: ZK_ENABLED
-              value: "false"
+              value: "true"

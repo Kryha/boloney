@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { CloseIcon, LightningIcon, ToggleSwitchOffIcon, ToggleSwitchOnIcon } from "../../assets";
+import { CloseIcon, LightningIcon } from "../../assets";
 import { color, fontWeight, margins } from "../../design";
 import { GeneralText, Paragraph, GeneralContentWrapper, Heading6, Row, BaseInput } from "../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
@@ -22,13 +22,6 @@ export const Lightning = styled(LightningIcon)`
   margin-top: 3px;
 `;
 
-export const ToggleSwitchOn = styled(ToggleSwitchOnIcon)`
-  width: 60px;
-`;
-export const ToggleSwitchOff = styled(ToggleSwitchOffIcon)`
-  width: 60px;
-`;
-
 export const CheckContainer = styled.div`
   width: 40px;
   height: 40px;
@@ -44,11 +37,7 @@ export const CheckWrapper = styled.div`
   cursor: pointer;
 `;
 
-interface DescriptionContainerProps {
-  removeLeftBorder?: boolean;
-}
-
-export const DescriptionContainer = styled.div<DescriptionContainerProps>`
+export const DescriptionContainer = styled.div`
   flex: 11;
 
   padding: ${margins.small2} 0px ${margins.small2} ${margins.small2};
@@ -63,7 +52,6 @@ export const DescriptionContainer = styled.div<DescriptionContainerProps>`
 
 interface CheckboxContainerProps {
   isTop?: boolean;
-  addHover?: boolean;
   isChecked?: boolean;
 }
 
@@ -78,7 +66,6 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
     background: ${color.white};
     ${CheckContainer} {
       background: ${({ isChecked }) => (isChecked ? color.white : "transparent")};
-      background: ${({ addHover }) => (addHover ? "transparent" : color.white)};
     }
   }
   ${PowerUpWrapper} {

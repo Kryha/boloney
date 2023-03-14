@@ -13,7 +13,7 @@ import {
   UseBirdsEyeBodyToolkit,
   UseBirdsEyeResToolkit,
 } from "../types";
-import { env, httpRequest, randomInt, tkUrl } from "../utils";
+import { httpRequest, isZkEnabled, randomInt, tkUrl } from "../utils";
 
 export const getAvailablePowerUps = (powerUpsProbability: PowerUpProbability[]): PowerUpProbability[] => {
   const availablePowerUps = powerUpsProbability.filter((powerUp) => powerUp.probability !== 0);
@@ -57,7 +57,7 @@ export const getPowerUp = (loopParams: MatchLoopParams): PowerUpId | undefined =
   const probabilityRange = generateProbabilityRange(availablePowerUps);
   let id: PowerUpId | undefined = undefined;
 
-  if (env(ctx).ZK_ENABLED) {
+  if (isZkEnabled(state, ctx)) {
     // Generate Random Number 1-100
     // TODO: For now mock the seed, eventually get it from the combined hashes
     const mockRn = randomInt(1, 999999999999999);

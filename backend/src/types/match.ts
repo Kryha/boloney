@@ -161,6 +161,7 @@ export interface MatchSettings {
   stageNumberDivisor: number;
   drawRoundOffset: number;
   powerUpProbability: PowerUpProbability[];
+  zkEnabled: boolean;
 }
 
 export const isMatchSettings = (value: unknown): value is MatchSettings => {
@@ -175,6 +176,7 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     assertedVal.stageNumberDivisor !== undefined &&
     assertedVal.drawRoundOffset !== undefined &&
     assertedVal.powerUpProbability !== undefined &&
+    assertedVal.zkEnabled !== undefined &&
     isNumber(assertedVal.players) &&
     isNumber(assertedVal.dicePerPlayer) &&
     isNumber(assertedVal.initialPowerUpAmount) &&
@@ -182,7 +184,8 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     isNumber(assertedVal.healPowerUpAmount) &&
     isNumber(assertedVal.stageNumberDivisor) &&
     isNumber(assertedVal.drawRoundOffset) &&
-    isPowerUpProbabilityArray(assertedVal.powerUpProbability)
+    isPowerUpProbabilityArray(assertedVal.powerUpProbability) &&
+    isBoolean(assertedVal.zkEnabled)
   );
 };
 

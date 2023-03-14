@@ -22,4 +22,5 @@ export const fakeMatchSettings: MatchSettings = {
     { id: "8", probability: 0.1 },
     { id: "9", probability: 0.1 },
   ],
+  zkEnabled: false,
 };

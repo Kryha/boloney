@@ -53,6 +53,7 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
       probability: 11,
     },
   ],
+  zkEnabled: false,
 };
 
 export const PRIVATE_KEY_LENGTH = 58;
