@@ -51,7 +51,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
       </LocalPlayer>
 
       <DiceOverview dice={playerDice} dieColor={dieColor} extraDice={player.extraDice} />
-      <PowerUpOverview powerUpIds={powerUpIds} />
+      <PowerUpOverview powerUpIds={powerUpIds} isInHud />
     </PlayerOverview>
   );
 };

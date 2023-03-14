@@ -8,9 +8,10 @@ import { PowerUpList } from "./power-up-list";
 
 interface PowerUpOverviewProps {
   powerUpIds?: PowerUpId[];
+  isInHud?: boolean;
 }
 
-export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUpIds }) => {
+export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUpIds, isInHud }) => {
   const { height } = useViewport();
 
   if (!powerUpIds || !powerUpIds.length) return <></>;
@@ -19,7 +20,7 @@ export const PowerUpOverview: FC<PowerUpOverviewProps> = ({ powerUpIds }) => {
     <PowerUpOverviewWrapper>
       <PowerUpOverviewContainer height={height}>
         <PowerUpIcon powerUpAmount={powerUpIds.length} />
-        <PowerUpList powerUpIds={powerUpIds} />
+        <PowerUpList powerUpIds={powerUpIds} isInHud={isInHud} />
       </PowerUpOverviewContainer>
     </PowerUpOverviewWrapper>
   );

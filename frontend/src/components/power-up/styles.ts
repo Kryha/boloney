@@ -1,11 +1,15 @@
 import styled from "@emotion/styled";
 
-import { color, margins, zIndex } from "../../design";
+import { color, zIndex } from "../../design";
 
-export const PowerUpWrapper = styled.div`
+interface PowerUpWrapperProps {
+  isInHud?: boolean;
+}
+
+export const PowerUpWrapper = styled.div<PowerUpWrapperProps>`
   box-sizing: border-box;
-  width: clamp(30px, 1.56vw + 15px, 45px);
-  height: clamp(40px, 2.08vw + 20px, 60px);
+  width: ${({ isInHud }) => (isInHud ? "clamp(30px, 2.22vw + 15px, 67px)" : "clamp(30px, 1.56vw + 15px, 45px)")};
+  height: ${({ isInHud }) => (isInHud ? "clamp(40px, 2.98vw + 20px, 90px)" : "clamp(40px, 2.08vw + 20px, 60px)")};
   background: ${color.white};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 4px;

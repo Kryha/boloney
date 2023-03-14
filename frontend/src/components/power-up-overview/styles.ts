@@ -12,7 +12,7 @@ export const PowerUpOverviewWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
-  margin-left: ${margins.large0};
+  margin-left: ${margins.small1};
 `;
 
 interface ViewportProps {

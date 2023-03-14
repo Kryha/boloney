@@ -14,9 +14,10 @@ import { PowerUpOverview, YourPowerUpContainer } from "./styles";
 
 interface PowerUpListProps {
   powerUpIds: PowerUpId[];
+  isInHud?: boolean;
 }
 
-export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
+export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds, isInHud }) => {
   const showModal = useStore((state) => state.showModal);
   const isPowerUpDisabled = useArePowerUpsDisabled();
 
@@ -32,7 +33,13 @@ export const PowerUpList: FC<PowerUpListProps> = ({ powerUpIds }) => {
     <YourPowerUpContainer>
       {powerUpIds.slice(0, initialPowerUpsShown).map((powerUpId, i) => (
         //! Don't use powerUpId as key since we allow for duplicate power-ups
-        <PowerUpComponent key={i} powerUp={getPowerUp(powerUpId)} showPowerUps={toggleShowModal} isPowerUpDisabled={isPowerUpDisabled} />
+        <PowerUpComponent
+          key={i}
+          powerUp={getPowerUp(powerUpId)}
+          showPowerUps={toggleShowModal}
+          isPowerUpDisabled={isPowerUpDisabled}
+          isInHud={isInHud}
+        />
       ))}
       {powerUpIds.length > initialPowerUpsShown && (
         <PowerUpWrapper onClick={() => toggleShowModal()}>

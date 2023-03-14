@@ -8,9 +8,10 @@ interface PowerUpComponentProps {
   powerUp?: PowerUp;
   showPowerUps?: () => void;
   isPowerUpDisabled?: boolean;
+  isInHud?: boolean;
 }
 
-export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp, showPowerUps, isPowerUpDisabled = false }) => {
+export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp, showPowerUps, isPowerUpDisabled = false, isInHud = false }) => {
   if (!powerUp) return <></>;
 
   const isSmokeAnMirrorsPowerUp = powerUp.id === "8";
@@ -18,7 +19,7 @@ export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp, showPower
 
   return (
     <PowerUpContainer>
-      <PowerUpWrapper onClick={() => showPowerUps && showPowerUps()}>
+      <PowerUpWrapper onClick={() => showPowerUps && showPowerUps()} isInHud={isInHud}>
         <PowerUpCardImage
           src={powerUp.cardImage}
           alt={powerUp.name}
