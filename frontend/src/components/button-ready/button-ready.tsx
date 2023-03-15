@@ -1,6 +1,7 @@
 import { FC } from "react";
 
-import { text } from "../../assets";
+import { buttonPress, text } from "../../assets";
+import { usePlaySound } from "../../hooks";
 import { useLocalPlayer, useMatch } from "../../service";
 import { useStore } from "../../store";
 import { PrimaryButton } from "../buttons";
@@ -14,10 +15,12 @@ export const ButtonReady: FC = () => {
 
   const isPlayerReady = useStore((state) => state.isPlayerReady);
   const setPlayerReady = useStore((state) => state.setPlayerReady);
+  const playSound = usePlaySound();
 
   const handleClick = () => {
     setPlayerReady(true);
     broadcastPlayerReady();
+    playSound(buttonPress);
   };
 
   return (

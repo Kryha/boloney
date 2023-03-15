@@ -15,6 +15,7 @@ export const general = {
   rules: "rules",
   menu: "menu",
   info: "info",
+  sound: "sound",
   playerLeft: "player left",
   connected: "connected",
   waiting: "waiting",
@@ -47,6 +48,8 @@ export const general = {
   toolTipHealTitle: "heal a dice",
   toolTipPowerUpInfo:
     "power-ups boost your turn, letting you gain more information from other players and make smarter calls to increase your odds of winning. Each power-up affects the match and its players differently. Multiple power-ups can be used per turn, and using a power-up doesn’t end your turn. This is the amount of power-ups each player gets at the beginning of the match.",
+  toolTipSoundTitle: "mute game sound",
+  toolTipSoundInfo: "mute or unmute the sound of the game",
   toolTipPowerUpTitle: "power-ups",
   toolTipPlayerTitle: "players",
   toolTipPlayerInfo: "multiplayer game, max. 7 players per match.",

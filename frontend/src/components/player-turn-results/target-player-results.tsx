@@ -1,5 +1,6 @@
-import { FC } from "react";
-import { ResultData } from "../../assets";
+import { FC, useEffect } from "react";
+import { losingSound, ResultData } from "../../assets";
+import { usePlaySound } from "../../hooks";
 import { BottomButtonWrapper } from "../atoms";
 import { ButtonReady } from "../button-ready";
 import { ActivePlayerImage, ActivePlayerResultWrapper } from "./styles";
@@ -14,6 +15,12 @@ interface IdleTargetPlayerResults {
 
 export const TargetPlayerResult: FC<IdleTargetPlayerResults> = ({ playerData, isWinner, isBoloney }) => {
   const actionImgMargin = getActiveMargin(isBoloney, isWinner, false);
+  const playSound = usePlaySound();
+
+  useEffect(() => {
+    if (!isWinner) playSound(losingSound);
+  }, [playSound, isWinner]);
+
   return (
     <ActivePlayerResultWrapper>
       <BottomButtonWrapper>

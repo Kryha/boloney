@@ -5,9 +5,11 @@ import { MatchSettings } from "../../types";
 import { GeneralText, Heading6 } from "../atoms";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import { InfoPosition, Tooltip } from "../tooltip";
+import { SoundToggle } from "../sound-toggle";
 import { MatchInfoDescription, MatchInfoHeader, MatchInfoOverview, RaisedHand, Round } from "./styles";
 
-type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | undefined;
+type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | "sound" | undefined;
+
 interface MatchInfoProps {
   matchSettingsType: MatchInfoSettings;
   title: string;
@@ -40,6 +42,8 @@ const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: MatchSett
       );
     case "healAction":
       return <PowerUpIcon powerUpAmount={matchSettings.healPowerUpAmount} />;
+    case "sound":
+      return <SoundToggle />;
   }
 };
 

@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useCountdown } from "usehooks-ts";
-import { text } from "../assets";
-import { MILLISECONDS } from "../constants";
+import { timerSound, text } from "../assets";
+import { MILLISECONDS, SOUND_TIMER_TRIGGERS } from "../constants";
+import { useLocalPlayer } from "../service";
 import { useStore } from "../store";
+import { usePlaySound } from "./use-sound";
 
 const padTo2Digits = (num: number) => {
   return num.toString().padStart(2, "0");
@@ -11,6 +13,8 @@ const padTo2Digits = (num: number) => {
 export const useTimer = () => {
   const initialTimerTime = useStore((state) => state.timerTimeInSeconds);
   const setTimer = useStore((state) => state.setTimerTimeInSeconds);
+  const localPlayer = useLocalPlayer();
+  const playSound = usePlaySound();
 
   const [count, { startCountdown, stopCountdown, resetCountdown }] = useCountdown({
     countStart: initialTimerTime,
@@ -31,6 +35,16 @@ export const useTimer = () => {
   useEffect(() => {
     setTimer(count);
   }, [count, setTimer]);
+
+  // checks if the timer is less than 1 and if the local player is active
+  useEffect(() => {
+    if (minutes < 1 && localPlayer?.isActive) {
+      // checks if the amount of secons are present in the trigger array
+      if (SOUND_TIMER_TRIGGERS.includes(seconds)) {
+        playSound(timerSound);
+      }
+    }
+  }, [minutes, seconds, playSound, localPlayer]);
 
   return {
     time,

@@ -1,8 +1,9 @@
-import { FC } from "react";
-import { text, ResultData } from "../../assets";
+import { FC, useEffect } from "react";
+import { losingSound, timerDone, text, ResultData } from "../../assets";
 import { FADE_TRANSITION_DURATION } from "../../constants";
 
 import { color } from "../../design";
+import { usePlaySound } from "../../hooks";
 
 import { ActionRole } from "../../types";
 import { BottomButtonWrapper, Heading1, Heading2 } from "../atoms";
@@ -22,8 +23,13 @@ interface ActivePlayerResult {
 export const ActivePlayerResults: FC<ActivePlayerResult> = ({ actionRole, isWinner, playerData, isBoloney }) => {
   const actionImg = isWinner ? playerData.winnerImg : playerData.loserImg;
   const actionImgMargin = getActiveMargin(isBoloney, isWinner, false);
-
+  const playSound = usePlaySound();
   const isTimeOut = actionRole === "timeOut";
+
+  useEffect(() => {
+    if (isTimeOut) playSound(timerDone);
+    if (actionRole === "loser") playSound(losingSound);
+  }, [isTimeOut, playSound, isWinner, actionRole]);
 
   return (
     <ActivePlayerResultWrapper>

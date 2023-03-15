@@ -84,9 +84,9 @@ export const msecToSec = (n: number): number => {
 // Duration is in seconds
 export const matchStageDuration: Record<MatchStage, number> = {
   lobbyStage: 0, // Stage does not have a timer
-  getPowerUpStage: 1800,
-  rollDiceStage: 1800,
-  playerTurnLoopStage: 1800,
+  getPowerUpStage: 120,
+  rollDiceStage: 120,
+  playerTurnLoopStage: 60,
   roundSummaryStage: 180,
   endOfMatchStage: 0, // Stage does not have a timer
   terminateMatchStage: 0, // Stage does not have a timer

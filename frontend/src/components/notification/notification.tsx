@@ -1,5 +1,7 @@
 import { FC, useCallback, useEffect } from "react";
+import { notificationSound } from "../../assets";
 import { NOTIFICATION_VISIBILITY_TIME } from "../../constants";
+import { usePlaySound } from "../../hooks";
 import { useNotificationListener, useDeleteNotification } from "../../service";
 import { useStore } from "../../store";
 
@@ -9,6 +11,7 @@ export const MatchNotification: FC = () => {
   const { notifications } = useNotificationListener();
   const { deleteNotification } = useDeleteNotification();
   const isBottomButtonVisible = useStore((state) => state.isBottomButtonVisible);
+  const playSound = usePlaySound();
 
   const notificationData = notifications.at(0);
 
@@ -22,9 +25,10 @@ export const MatchNotification: FC = () => {
       const timer = setTimeout(() => {
         closeNotification();
       }, NOTIFICATION_VISIBILITY_TIME);
+      playSound(notificationSound);
       return () => clearTimeout(timer);
     }
-  }, [closeNotification, notificationData]);
+  }, [closeNotification, notificationData, playSound]);
 
   if (!notificationData) return <></>;
 

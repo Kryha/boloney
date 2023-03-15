@@ -13,6 +13,8 @@ export interface UISlice {
   timerTimeInSeconds: number;
   isSidebarVisible: boolean;
   isBottomButtonVisible: boolean;
+  isSoundEnabled: boolean;
+  masterVolume: number;
 
   setModalComponentChildren: (component: OverlayComponent) => void;
   closeModal: () => void;
@@ -26,6 +28,8 @@ export interface UISlice {
   setIsSidebarVisible: (isVisible: boolean) => void;
   setShufflingPlayers: (isShuffling: boolean) => void;
   setBottomButtonVisible: (isVisible: boolean) => void;
+  setSoundEnabled: (isSoundEnabled: boolean) => void;
+  setMasterVolume: (masterVolume: number) => void;
 }
 
 export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
@@ -40,6 +44,8 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   timerTimeInSeconds: 0,
   isSidebarVisible: false,
   isBottomButtonVisible: false,
+  isSoundEnabled: true,
+  masterVolume: 0.5,
 
   setModalComponentChildren: (component: OverlayComponent) => set(() => ({ modalComponentChildren: component })),
   closeModal: () =>
@@ -86,4 +92,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   setIsSidebarVisible: (isVisible: boolean) => set(() => ({ isSidebarVisible: isVisible })),
   setShufflingPlayers: (isShufflingPlayers) => set(() => ({ isShufflingPlayers: isShufflingPlayers })),
   setBottomButtonVisible: (isVisible: boolean) => set(() => ({ isBottomButtonVisible: isVisible })),
+  setSoundEnabled: (isSoundEnabled: boolean) => set(() => ({ isSoundEnabled: isSoundEnabled })),
+  setMasterVolume: (masterVolume: number) => set(() => ({ masterVolume: masterVolume })),
 });

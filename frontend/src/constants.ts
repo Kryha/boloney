@@ -63,6 +63,8 @@ export const ADDRESS_PREFIX = "aleo1";
 export const POWER_UP_DEFAULT_VIEW = 6;
 export const POWER_UP_DEFAULT_VIEW_SMALL = 5;
 
+export const SOUND_TIMER_TRIGGERS = [10, 6, 5, 4, 3, 2, 1];
+
 // TODO: change the time
 export const DECISION_MAKING_TIME_IN_SECONDS = 100;
 

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { RaisedHandIcon, RoundIcon } from "../../assets";
 import { color, margins } from "../../design";
 import { GeneralText, Row } from "../atoms";
+import { CheckboxContainer, CheckContainer, DescriptionContainer } from "../checkbox/styles";
 import { Lightning } from "../icons/styles";
 import { ButtonInfoWrap } from "../tooltip/styles";
 
