@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { MINIMUM_POWER_UP_WIDTH_VIEW } from "../../constants";
 import { color, margins } from "../../design";
 
-import { GeneralText, GeneralTextUnderlined, Heading2, RadioCheckbox } from "../atoms";
+import { fadeIn, fadeOut, GeneralText, GeneralTextUnderlined, Heading2, RadioCheckbox } from "../atoms";
 import { CheckboxContainer } from "../checkbox/styles";
 import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 
@@ -83,11 +83,14 @@ export const PowerUpCardWrapper = styled.div<PowerUpProps>`
     }
   }
   :hover {
-    ${GeneralText} {
-      display: none;
+    ${DescriptionText}, ${DescriptionExample}, ${Heading2} {
+      opacity: 0;
+      animation: ${fadeIn} 0.4s 0.5s forwards;
     }
     ${PowerUpImage} {
-      display: none;
+      animation: ${fadeOut};
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
     }
     ${PowerUpInfoContainer} {
       bottom: ${({ isPowerUpInUse, canSelectPowerUp }) => (isPowerUpInUse || canSelectPowerUp ? "76px" : margins.small5)};
