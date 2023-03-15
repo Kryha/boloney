@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { opacity } from "../../design";
 import { ViewProps } from "../../types";
 import { fadeUp, GeneralText, Heading3 } from "../atoms";
 
@@ -22,7 +23,7 @@ export const NumberedParagraphContainer = styled.div<Props>`
   flex-direction: column;
   align-items: flex-start;
   padding: 20px 0px 0px;
-  opacity: 0;
+  opacity: ${opacity.hidden};
   padding-bottom: 40px;
 
   ${({ isVisible }) =>

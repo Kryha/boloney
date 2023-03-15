@@ -25,7 +25,7 @@ export const Message = styled.div<MessageProps>`
   padding: 10px;
   gap: 6px;
   border-radius: 8px;
-  background: ${({ isLocalUser }): string => (isLocalUser ? color.grey : color.white)};
+  background: ${({ isLocalUser }): string => (isLocalUser ? color.grey : color.cloudWhite)};
   width: fit-content;
   max-width: 23.5vw;
   ${GeneralMessageText} {

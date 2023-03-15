@@ -11,7 +11,7 @@ export const ToastWrapper = styled.section`
   position: absolute;
   width: clamp(541.2px, 57.23vw + -8.2px, 1090.6px);
   height: clamp(114.18px, 12.07vw + -1.73px, 230.09px);
-  background: ${color.white};
+  background: ${color.cloudWhite};
   box-shadow: 0px 2px ${margins.small1} rgba(0, 0, 0, 0.2);
   border-radius: ${margins.small2};
   z-index: ${zIndex.inFront};
@@ -40,7 +40,7 @@ export const ToastDescriptionContainer = styled.div`
   height: 100%;
   .bold {
     font-weight: bold;
-    background-color: transparent;
+    background-color: ${color.transparent};
     color: ${color.black};
   }
 `;
@@ -64,7 +64,7 @@ export const MultipleToast = styled.div`
   height: 14px;
   left: clamp(8px, 1.02vw + 3.91px, 17px);
   top: -14px;
-  background: ${color.white};
+  background: ${color.cloudWhite};
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px 10px 0px 0px;
   z-index: 1;

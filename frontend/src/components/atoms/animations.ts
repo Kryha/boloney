@@ -1,5 +1,5 @@
 import { keyframes } from "@emotion/react";
-import { color, zIndex } from "../../design";
+import { color, opacity, zIndex } from "../../design";
 
 // Hands
 export const float = keyframes`
@@ -14,11 +14,11 @@ export const float = keyframes`
 export const shadowAnimation = (smallWidth: number, largeWidth: number) => keyframes`
   50% {
     margin: 0px ${largeWidth}vw 0px ${smallWidth}vw;
-    opacity: 0.7;
+    opacity: ${opacity.shadow};
   }
   100% {
     margin: 0px 0px 0px 0px;
-    opacity: 0.1;
+    opacity:  ${opacity.transparent};
   }
 `;
 
@@ -32,27 +32,27 @@ export const ellipsis = keyframes`
 // Tooltip
 export const tooltipAnimation = keyframes`
   from {
-    opacity: 0;
+    opacity:  ${opacity.hidden};
   }
 
   to {
-    opacity: 1;
+    opacity:  ${opacity.visible};
   }
 `;
 
 // General
 export const fadeIn = keyframes`
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% { opacity:  ${opacity.hidden}; }
+  100% { opacity:  ${opacity.visible}; }
 `;
 
 export const fadeInPop = keyframes`
   0% {
-    opacity: 0;
+    opacity: ${opacity.hidden};
     transform: translate(0, 20px) rotate(0deg) scale(0.4);
   }
   100% {
-    opacity: 1;
+    opacity: ${opacity.visible};
     transform: translate(0, 0) rotate(0deg) scale(1);
   }
 `;
@@ -60,7 +60,7 @@ export const fadeInPop = keyframes`
 export const fadeOutScale = keyframes`
   100% {
     -webkit-transform: scale(0.4);
-    opacity: 0;
+    opacity: ${opacity.visible};
   }
 `;
 
@@ -145,22 +145,22 @@ export const shuffle = (percentages: string[]) => keyframes`
 
 export const fadeUp = keyframes`
   0% {
-    opacity: 0;
+    opacity: ${opacity.hidden};
     transform: translate3d(0, 1rem, 0);
   }
   75% {
-    opacity: 0.75;
+    opacity: ${opacity.shadow};
     transform: translate3d(0, 0, 0);
   }
   100% {
-    opacity: 1;
+    opacity: ${opacity.visible};
     transform: translate3d(0, 0, 0);
   }
 `;
 
 export const fadeOut = keyframes`
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% { opacity: ${opacity.visible}; }
+  100% { opacity: ${opacity.visible}; }
 `;
 
 export const ticker = keyframes`
@@ -178,11 +178,11 @@ export const ticker = keyframes`
 
 export const slideUpFromBottom = keyframes`
   0% {
-    opacity: 0;
+    opacity: ${opacity.hidden};
     transform: translate(0, 20px) rotate(0deg) scale(0.6);
   }
   100% {
-    opacity: 1;
+    opacity: ${opacity.visible};
     transform: translate(0, 0) rotate(0deg) scale(1);
   }
 `;

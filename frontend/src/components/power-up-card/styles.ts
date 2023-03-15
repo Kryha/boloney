@@ -122,7 +122,7 @@ export const PowerUpCardContainer = styled.div`
   width: clamp(171px, 17.5vw + 3px, 339px);
   height: 42.87vh;
   min-height: 330px;
-  background: ${color.white};
+  background: ${color.cloudWhite};
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: ${margins.small2};
   position: relative;
@@ -159,7 +159,7 @@ export const PowerUpCardWrapperCheckbox = styled.div`
   width: clamp(171px, 17.5vw + 3px, 339px);
   height: 42.87vh;
   min-height: 330px;
-  background: ${color.white};
+  background: ${color.cloudWhite};
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: ${margins.small2};
   overflow: scroll;

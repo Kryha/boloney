@@ -47,7 +47,7 @@ export const DataWrapper = styled.div<DataWrapperProps>`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background: ${({ isWinner }) => (isWinner ? color.white : "transparent")};
+  background: ${({ isWinner }) => (isWinner ? color.cloudWhite : color.transparent)};
 `;
 
 export const LeaderboardStanding = styled(Heading2)`

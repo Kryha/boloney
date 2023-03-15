@@ -53,7 +53,7 @@ export const TooltipContent = styled.div<TooltipProps>`
   left: 40px;
   padding: ${margins.small4};
   color: ${color.black};
-  background: ${color.white};
+  background: ${color.cloudWhite};
   box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.1);
   min-width: clamp(400px, 10.42vw + 300px, 500px);
   box-sizing: border-box;

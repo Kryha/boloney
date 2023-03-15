@@ -20,7 +20,7 @@ export const PlayerSidebarInfoContainer = styled.div<SidebarInfoContainerProps>`
   top: 0;
   width: 2.7vw;
   height: 100%;
-  background: ${({ isLastBid }) => (isLastBid ? color.grey : "transparent")};
+  background: ${({ isLastBid }) => (isLastBid ? color.grey : color.transparent)};
   z-index: ${zIndex.behind};
   justify-content: center;
   ${RadioCheckbox} {
@@ -41,7 +41,7 @@ export const PlayerSidebarInfoContainer = styled.div<SidebarInfoContainerProps>`
         }
       `
       : `
-        background: transparent;
+        background: ${color.transparent};
         ${DiceContainer} {
           display: none;
         }

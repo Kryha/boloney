@@ -102,11 +102,11 @@ export const FieldSet = styled.fieldset<InputContainerProps>`
   flex: 1;
   width: 100%;
   border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
+  border-left: 1px solid ${color.transparent};
+  border-right: 1px solid ${color.transparent};
   max-height: 83px;
   :hover {
-    background: ${color.white};
+    background: ${color.cloudWhite};
   }
   :active {
     border: 1px solid ${color.black} !important;

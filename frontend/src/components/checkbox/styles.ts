@@ -61,11 +61,11 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   margin-right: -3px;
   cursor: pointer;
   border-top: ${({ isTop }) => (isTop ? `1px solid ${color.mediumGrey}` : "0px")};
-  background: ${({ isChecked }) => (isChecked ? color.white : "transparent")};
+  background: ${({ isChecked }) => (isChecked ? color.cloudWhite : color.transparent)};
   :hover {
-    background: ${color.white};
+    background: ${color.cloudWhite};
     ${CheckContainer} {
-      background: ${({ isChecked }) => (isChecked ? color.white : "transparent")};
+      background: ${({ isChecked }) => (isChecked ? color.cloudWhite : color.transparent)};
     }
   }
   ${PowerUpWrapper} {

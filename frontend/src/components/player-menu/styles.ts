@@ -19,7 +19,7 @@ export const PlayerMenuContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 25vw;
-  background: transparent;
+  background: ${color.transparent};
 `;
 
 interface LayoutProps {
@@ -34,7 +34,7 @@ export const MenuSection = styled.section<LayoutProps>`
   gap: ${margins.small2};
   width: 25vw;
   height: 7.198vh;
-  background: transparent;
+  background: ${color.transparent};
   border-right: 1px solid ${color.mediumGrey};
 `;
 

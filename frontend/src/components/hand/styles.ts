@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import { float, shadowAnimation } from "../atoms/animations";
-import { color } from "../../design";
+import { color, opacity } from "../../design";
 import { FLOATING_ANIMATION_SPEED } from "../../constants";
 
 export const HandWrapper = styled.div`
@@ -27,7 +27,7 @@ export const Shadow = styled.div<ShadowProps>`
   position: relative;
   height: 16px;
   background: ${color.mediumGrey};
-  opacity: 0.1;
+  opacity: ${opacity.transparent};
   border-radius: 100%;
   margin: 0px 0px 0px 0px;
   top: 70px;

@@ -10,7 +10,7 @@ export const BadgeWrapper = styled.div`
   padding-left: ${margins.small1};
   padding-top: ${margins.small0};
   padding-bottom: ${margins.small0};
-  background-color: ${color.pureWhite};
+  background-color: ${color.white};
   position: absolute;
   z-index: ${zIndex.inFront};
 `;

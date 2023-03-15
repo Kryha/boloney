@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { WhiteDiceIcon } from "../../assets";
-import { color, zIndex } from "../../design";
+import { color, opacity, zIndex } from "../../design";
 import { fadeOut, slideUpFromBottom } from "../atoms";
 import { ButtonContainer } from "../buttons/styles";
 import { Hand, HandContainer, HandWrapper, ImageWrapper, Paint } from "../hand/styles";
@@ -80,31 +80,31 @@ export const SidebarWrapper = styled.div<Props>`
           }
           ${HandWrapper}:nth-of-type(1) {
             animation-delay: 2.2s;
-            opacity: 0;
+            opacity: ${opacity.hidden};
           }
           ${HandWrapper}:nth-of-type(2) {
             animation-delay: 1.8s;
-            opacity: 0;
+            opacity: ${opacity.hidden};
           }
           ${HandWrapper}:nth-of-type(3) {
             animation-delay: 1.4s;
-            opacity: 0;
+            opacity: ${opacity.hidden};
           }
           ${HandWrapper}:nth-of-type(4) {
             animation-delay: 1.1s;
-            opacity: 0;
+            opacity: ${opacity.hidden};
           }
           ${HandWrapper}:nth-of-type(5) {
             animation-delay: 0.8s;
-            opacity: 0;
+            opacity: ${opacity.hidden};
           }
           ${HandWrapper}:nth-of-type(6) {
             animation-delay: 0.4s;
-            opacity: 0;
+            opacity: ${opacity.hidden};
           }
           ${HandWrapper}:nth-of-type(7) {
             animation-delay: 0s;
-            opacity: 0;
+            opacity: ${opacity.hidden};
           }
         `
       : css`

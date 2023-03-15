@@ -16,7 +16,7 @@ export const LandingFooterWrapper = styled.section`
     -webkit-animation-duration: 30s;
     animation-duration: 30s;
     :hover {
-      color: ${color.white};
+      color: ${color.cloudWhite};
       animation-play-state: paused;
     }
   }

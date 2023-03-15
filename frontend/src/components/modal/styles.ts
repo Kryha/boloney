@@ -16,7 +16,7 @@ export const ChildrenWrapper = styled.div<ChildrenWrapperProps>`
   gap: ${margins.small4};
   box-shadow: ${({ hasContainer }) => (hasContainer ? "0px 2px 19px rgba(0, 0, 0, 0.28)" : "none")};
   border-radius: 10px;
-  background: ${({ hasContainer }) => (hasContainer ? color.white : "transparent")};
+  background: ${({ hasContainer }) => (hasContainer ? color.cloudWhite : color.transparent)};
   width: clamp(920px, 87.5vw + 80px, 1760px);
   height: 85.6vh;
   position: fixed;

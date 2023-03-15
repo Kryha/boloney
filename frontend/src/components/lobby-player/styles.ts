@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { color } from "../../design";
+import { color, opacity } from "../../design";
 import { HandWrapper } from "../hand/styles";
 
 interface LobbyPlayerProps {
@@ -20,7 +20,7 @@ export const LobbyPlayerWrapper = styled.div<LobbyPlayerProps>`
   }
   ${HandWrapper} {
     margin-top: 2.813em;
-    opacity: ${({ isWaiting }) => (isWaiting ? "0.4" : "1")};
+    opacity: ${({ isWaiting }) => (isWaiting ? opacity.background : opacity.visible)};
     filter: ${({ isWaiting }) => (isWaiting ? "blur(1.2px)" : "blur(0)")};
     height: 35.19vh;
   }

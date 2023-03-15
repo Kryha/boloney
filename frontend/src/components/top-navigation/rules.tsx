@@ -194,7 +194,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
               }
             />
             <RulesSectionTitle customColor={color.darkGrey}>{text.rules.noteTitle}</RulesSectionTitle>
-            <ColorSpan customColor="darkGrey">{text.rules.noteParagraph}</ColorSpan>
+            <ColorSpan customColor={color.darkGrey}>{text.rules.noteParagraph}</ColorSpan>
           </ListSection>
         </RulesSection>
       </RulesContainer>

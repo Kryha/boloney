@@ -41,7 +41,7 @@ export const Heading2 = styled.h2<TextProps>`
   }
   .bold {
     color: ${color.black};
-    background-color: transparent;
+    background-color: ${color.transparent};
   }
 `;
 
@@ -118,7 +118,7 @@ export const GeneralText = styled.h3<TextProps>`
   color: ${({ customColor }): string => customColor || color.black};
   .bold {
     color: ${color.black};
-    background-color: transparent;
+    background-color: ${color.transparent};
     font-weight: ${fontWeight.bold};
     font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
     line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
@@ -171,12 +171,8 @@ export const UnorderedListItems = styled.li`
   -webkit-user-select: none;
 `;
 
-interface ColorSpanProps {
-  customColor: keyof typeof color;
-}
-
-export const ColorSpan = styled.span<ColorSpanProps>`
-  color: ${({ customColor }) => color[customColor]};
+export const ColorSpan = styled.span<TextProps>`
+  color: ${({ customColor }): string => customColor || color.black};
   font-weight: ${fontWeight.regular};
 `;
 

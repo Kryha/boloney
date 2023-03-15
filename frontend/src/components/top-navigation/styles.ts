@@ -54,7 +54,7 @@ interface ButtonContainerProps {
 export const ButtonContainer = styled.div<ButtonContainerProps>`
   ${({ isActive }) =>
     isActive
-      ? `  background: ${color.white};
+      ? `  background: ${color.cloudWhite};
           box-shadow: 0px 0px 28px rgb(0 0 0 / 10%);
         `
       : `background: ${color.lightGrey};`};
@@ -90,7 +90,7 @@ export const MenuContainer = styled.div<MenuProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  background: ${color.white};
+  background: ${color.cloudWhite};
   box-shadow: 0px 0px 28px rgb(0 0 0 / 10%);
   ${({ location }) =>
     location === "default"
@@ -112,7 +112,7 @@ export const MenuContainer = styled.div<MenuProps>`
 
 export const RulesContainer = styled.div`
   position: absolute;
-  background: ${color.white};
+  background: ${color.cloudWhite};
   box-shadow: 0px 0px 28px rgb(0 0 0 / 10%);
   width: 25vw;
   right: 0;

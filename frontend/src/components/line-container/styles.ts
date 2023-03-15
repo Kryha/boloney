@@ -44,7 +44,7 @@ export const HorizontalLineContainer = styled.div<ViewProps>`
   flex-direction: column;
   gap: ${({ width }) => (width < MEDIUM_VIEWPORT_WIDTH ? "clamp(21px, 2.81vw + -6px, 48px)" : "clamp(21px, 2.08vw + 1px, 41px)")};
   width: 100%;
-  background: linear-gradient(to right, ${color.mediumGrey} 1px, transparent 1px);
+  background: linear-gradient(to right, ${color.mediumGrey} 1px, ${color.transparent} 1px);
   background-size: clamp(2.38rem, 1.15vw + 1.69rem, 3.06rem);
 `;
 
@@ -72,7 +72,7 @@ export const HorizontalLineContainerTwo = styled.div<ViewProps>`
   flex-direction: column;
   gap: ${({ width }) => (width < MEDIUM_VIEWPORT_WIDTH ? "clamp(21px, 2.81vw + -6px, 48px)" : "clamp(21px, 2.08vw + 1px, 41px)")};
   width: 100%;
-  background: linear-gradient(to right, ${color.mediumGrey} 1px, transparent 1px);
+  background: linear-gradient(to right, ${color.mediumGrey} 1px, ${color.transparent} 1px);
   background-size: clamp(2.38rem, 1.15vw + 1.69rem, 3.06rem);
   gap: 28px;
   height: 15vh;

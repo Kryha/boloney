@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { BoloneyLogoIcon } from "../../assets";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
-import { color, fontWeight, zIndex } from "../../design";
+import { color, fontWeight, opacity, zIndex } from "../../design";
 import { ViewProps } from "../../types";
 import { fadeUp, Heading0, Heading2 } from "../atoms";
 import { LinkText } from "../buttons/styles";
@@ -29,7 +29,7 @@ export const AppName = styled(BoloneyLogoIcon)`
   left: 0;
   right: 0;
   text-align: center;
-  opacity: 0;
+  opacity: ${opacity.hidden};
   animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
   transform: translate3d(0, 1rem, 0);
 `;
@@ -60,7 +60,7 @@ export const BottomHeading = styled.div`
   left: 12.5vw;
   bottom: 60px;
   padding: 60px 40px;
-  opacity: 0;
+  opacity: ${opacity.hidden};
   animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
   transform: translate3d(0, 1rem, 0);
   ${GeneralLinkWrapper} {
@@ -87,7 +87,7 @@ export const LandingBottomHeading = styled(Heading2)`
   }
   .bold {
     color: ${color.black};
-    background-color: transparent;
+    background-color: ${color.transparent};
   }
 `;
 
@@ -105,7 +105,7 @@ export const LandingLink = styled.a`
   }
   .bold {
     color: ${color.black};
-    background-color: transparent;
+    background-color: ${color.transparent};
   }
   cursor: pointer;
   &:after {
@@ -132,7 +132,7 @@ export const LandingImage = styled.img<ImageProps>`
   position: absolute;
   z-index: ${zIndex.background};
   pointer-events: none;
-  opacity: 0;
+  opacity: ${opacity.hidden};
   animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
   transform: translate3d(0, 1rem, 0);
 `;
@@ -151,7 +151,7 @@ export const LandingComponentContainer = styled.div<ViewProps>`
 `;
 
 export const TopLandingWrapper = styled.div<Props>`
-  opacity: 0;
+  opacity: ${opacity.hidden};
   ${({ isVisible }) =>
     isVisible
       ? css`

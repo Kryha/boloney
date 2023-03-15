@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { opacity } from "../../design";
 
 import { UnorderedListItems } from "../atoms";
 import { DieWrapper } from "../die/styles";
@@ -113,7 +114,7 @@ export const ControlButton = styled.div<ButtonProps>`
   align-content: center;
   transform: rotate(${({ downButton }): string => (downButton ? "-180deg" : "0")});
   cursor: ${({ disabled }): string => (disabled ? "arrow" : "pointer")};
-  opacity: ${({ disabled }): string => (disabled ? "0" : "1")};
+  opacity: ${({ disabled }): string => (disabled ? opacity.hidden : opacity.visible)};
 `;
 
 export const NumberList = styled.ul`
@@ -131,7 +132,7 @@ export interface ItemProps {
   isEmpty?: boolean;
 }
 
-export const Number = styled(UnorderedListItems) <ItemProps>`
+export const Number = styled(UnorderedListItems)<ItemProps>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -139,7 +140,7 @@ export const Number = styled(UnorderedListItems) <ItemProps>`
   width: 60px;
   height: 60px;
 
-  opacity: ${({ isDisabled }): string => (isDisabled ? "0.2" : "1")};
+  opacity: ${({ isDisabled }): string => (isDisabled ? opacity.transparent : opacity.visible)};
   ${({ isCurrent }): string =>
     isCurrent
       ? ` font-size: 140px;

@@ -48,7 +48,7 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
       {isWinner && <WinnerBadge />}
 
       <DataWrapper isWinner={isWinner}>
-        <LeaderboardStanding customColor={color.pureWhite}>{prefixDigit(rank)}</LeaderboardStanding>
+        <LeaderboardStanding customColor={color.white}>{prefixDigit(rank)}</LeaderboardStanding>
         <LeaderboardAvatar>
           <PlayerAvatar alt={player.username} src={avatar} />
         </LeaderboardAvatar>

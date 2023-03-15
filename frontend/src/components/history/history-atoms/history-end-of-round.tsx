@@ -36,7 +36,7 @@ export const HistoryEndOfRound: FC<Props> = ({ endOfRound, players, localPlayer 
   };
 
   return (
-    <HistoryBadgeWrapper customBackground={color.offWhite}>
+    <HistoryBadgeWrapper customBackground={color.cloudWhite}>
       <HistoryBadgeContainer isHeader>
         <TimerRow>
           <Heading6>{text.param.endOfRoundOrdinal(getNumberWithOrdinal(endOfRound.roundEnd.roundNumber))}</Heading6>

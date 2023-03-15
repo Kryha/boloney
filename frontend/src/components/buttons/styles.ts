@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, LeftArrowIcon, RightArrowIcon } from "../../assets/icons";
-import { color, fontSize, fontWeight, margins } from "../../design";
+import { color, fontSize, fontWeight, margins, opacity } from "../../design";
 import { zIndex } from "../../design/z-index";
 import { SecondaryButtonBase } from "../atoms";
 
@@ -14,16 +14,6 @@ interface ButtonProps {
 interface TextProps {
   customColor?: string;
 }
-
-export const Ellipse = styled.div`
-  position: absolute;
-  background: ${color.pureWhite};
-  z-index: ${zIndex.background};
-  width: 770px;
-  height: 96px;
-  border-radius: 50%;
-  top: ${margins.medium0};
-`;
 
 export const PrimaryArrow = styled(RightArrowIcon)`
   width: 30px;
@@ -67,7 +57,7 @@ export const InitialButtonView = styled.span`
 
 export const SecondaryView = styled.span`
   left: 0;
-  opacity: 0;
+  opacity: ${opacity.hidden};
   position: absolute;
   height: 60px;
   top: 0;
@@ -92,7 +82,7 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
         :hover {
           width: ${width ? `${width}px` : "fit-content"};
           ${SecondaryView} {
-            opacity: 1;
+            opacity: ${opacity.visible};
             transition: opacity 0.4s, white 0.4s, transform 0.4s;
             visibility: visible;
           }

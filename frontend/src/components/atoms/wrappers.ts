@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, fontWeight, margins, zIndex } from "../../design";
+import { color, fontWeight, margins, opacity, zIndex } from "../../design";
 import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 import { FormHeadingText, GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, IntroText, Paragraph } from "./text";
 
@@ -35,7 +35,7 @@ export const OverlayContainer = styled.div`
 `;
 
 export const OverlayTransparent = styled.div`
-  opacity: 0.6;
+  opacity: ${opacity.overlay};
   background: ${color.lightGrey};
   height: 100vh;
   width: 100vw;

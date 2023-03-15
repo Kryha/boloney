@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
-import { color, margins } from "../../design";
+import { color, margins, opacity } from "../../design";
 import { fadeIn, fadeInPop, slideUp } from "../atoms";
 import { GeneralText } from "../atoms/text";
 import { Lightning } from "../icons/styles";
@@ -25,7 +25,7 @@ export const PowerUpOverviewContainer = styled.div<ViewportProps>`
   gap: ${({ height }) => height > SMALL_VIEWPORT_HEIGHT && margins.small2};
   width: 31.25vw;
   height: 7.198vh;
-  background: transparent;
+  background: ${color.transparent};
   margin-top: ${margins.small5};
   ${GeneralText} {
     color: ${color.black};
@@ -58,31 +58,31 @@ export const YourPowerUpContainer = styled.div`
   }
   ${PowerUpWrapper}:nth-of-type(1) {
     animation-delay: 0.7s;
-    opacity: 0;
+    opacity: ${opacity.hidden};
   }
   ${PowerUpWrapper}:nth-of-type(2) {
     animation-delay: 0.9s;
-    opacity: 0;
+    opacity: ${opacity.hidden};
   }
   ${PowerUpWrapper}:nth-of-type(3) {
     animation-delay: 1.1s;
-    opacity: 0;
+    opacity: ${opacity.hidden};
   }
   ${PowerUpWrapper}:nth-of-type(4) {
     animation-delay: 1.3s;
-    opacity: 0;
+    opacity: ${opacity.hidden};
   }
   ${PowerUpWrapper}:nth-of-type(5) {
     animation-delay: 1.5s;
-    opacity: 0;
+    opacity: ${opacity.hidden};
   }
   ${PowerUpWrapper}:nth-of-type(6) {
     animation-delay: 1.7s;
-    opacity: 0;
+    opacity: ${opacity.hidden};
   }
   ${PowerUpWrapper}:nth-of-type(7) {
     animation-delay: 1.9s;
-    opacity: 0;
+    opacity: ${opacity.hidden};
   }
 `;
 

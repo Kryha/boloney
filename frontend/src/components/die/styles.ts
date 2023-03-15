@@ -27,12 +27,12 @@ export const DieWrapper = styled.div<FaceProps>`
       isDiceHidden
         ? `
         path {
-          fill: ${pipColor || color.pureWhite};
+          fill: ${pipColor || color.white};
         }
         `
         : `
         rect {
-          fill: ${pipColor || color.pureWhite};
+          fill: ${pipColor || color.white};
         }
     `};
   }

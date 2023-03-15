@@ -21,7 +21,7 @@ export const RevealedPowerUpsContainer = styled.div`
 
 export const PowerUpContainer = styled.div`
   box-sizing: border-box;
-  background: ${color.white};
+  background: ${color.cloudWhite};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   overflow: hidden;

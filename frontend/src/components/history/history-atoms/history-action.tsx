@@ -78,7 +78,7 @@ export const HistoryOutcome: FC<OutcomeProps> = ({ outcome, player, isLocalPlaye
   };
 
   return (
-    <HistoryBadgeWrapper customBackground={color.greyWithOpacity}>
+    <HistoryBadgeWrapper customBackground={color.opaqueGrey}>
       <HistoryBadgeContainer isHeader>
         <Username>{text.param.usernameTitle(player.username, isLocalPlayer)}</Username>
         <MatchStateContainer>

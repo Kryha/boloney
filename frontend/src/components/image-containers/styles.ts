@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { MEDIUM_VIEWPORT_WIDTH } from "../../constants";
+import { opacity } from "../../design";
 import { fadeUp } from "../atoms";
 
 interface ImageContainerBoxProps {
@@ -21,7 +22,7 @@ export const ImageContainerWrapper = styled.section<Props>`
   align-items: flex-start;
   padding: 20px 40px;
   gap: 10px;
-  opacity: 0;
+  opacity: ${opacity.hidden};
   ${({ isVisible }) =>
     isVisible
       ? css`

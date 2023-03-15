@@ -11,7 +11,7 @@ export const BaseInput = styled.input`
   letter-spacing: -0.01em;
   text-transform: lowercase;
   color: ${color.black};
-  background-color: transparent;
+  background-color: ${color.transparent};
   width: 100%;
   -moz-appearance: textfield;
   border-radius: 0px;
@@ -57,7 +57,7 @@ export const BaseSelect = styled.select`
   line-height: 24px;
   letter-spacing: -0.01em;
   color: ${color.black};
-  background-color: transparent;
+  background-color: ${color.transparent};
   width: 100%;
   -moz-appearance: textfield;
   &::-webkit-outer-spin-button,
@@ -108,7 +108,7 @@ export const ChatInput = styled(BaseInput)`
   -webkit-border-radius: 0px;
   width: 23.75vw;
   height: 44px;
-  background: ${color.white};
+  background: ${color.cloudWhite};
   &::placeholder {
     font-family: ibm-plex-mono;
     font-weight: ${fontWeight.light};

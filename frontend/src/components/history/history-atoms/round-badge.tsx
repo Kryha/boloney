@@ -14,7 +14,7 @@ interface Props {
 
 export const RoundBadge: FC<Props> = ({ roundStart }) => {
   return (
-    <HistoryBadgeWrapper customBackground={color.offWhite}>
+    <HistoryBadgeWrapper customBackground={color.cloudWhite}>
       <HistoryBadgeContainer isHeader>
         <Heading6>{text.param.roundWithOrdinal(getNumberWithOrdinal(roundStart.roundNumber))}</Heading6>
         <HistoryStats

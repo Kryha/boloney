@@ -57,7 +57,7 @@ interface MatchPlayersProps {
 export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
   padding: 0px;
   width: 12.5vw;
-  background: ${({ isActive, customColor }): string => (isActive ? customColor || color.white : color.lightGrey)};
+  background: ${({ isActive, customColor }): string => (isActive ? customColor || color.cloudWhite : color.lightGrey)};
   height: ${({ hasPlayerLost }): string => (hasPlayerLost ? "100px" : `${GAME_PLAYER_HEIGHT}vh`)};
   position: relative;
   border-bottom: 1px solid ${color.mediumGrey};
@@ -65,9 +65,9 @@ export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
     z-index: ${zIndex.inFront};
   }
   :hover {
-    background: ${({ isTargetable }): string => (isTargetable ? color.white : "")};
+    background: ${({ isTargetable }): string => (isTargetable ? color.cloudWhite : "")};
     ${PlayerSidebarInfoContainer} {
-      background: ${({ isTargetable }): string => (isTargetable ? color.white : "")};
+      background: ${({ isTargetable }): string => (isTargetable ? color.cloudWhite : "")};
     }
   }
 `;
@@ -150,7 +150,7 @@ export const PlayerColor = styled.div<PlayersColorProps>`
   border-radius: 100px;
   min-width: ${margins.small4};
   min-height: ${margins.small4};
-  background: ${({ customColor }): string => customColor || color.white};
+  background: ${({ customColor }): string => customColor || color.cloudWhite};
 `;
 
 export const PlayerNameContainer = styled.span`

@@ -6,7 +6,7 @@ import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper, LinkText, Right
 import { DescriptionContainer, CheckboxContainer as CheckboxWrapper } from "../../components/checkbox/styles";
 import { InputContainer } from "../../components/inputs/styles";
 import { TooltipContent } from "../../components/tooltip/styles";
-import { color, fontWeight, margins, zIndex } from "../../design";
+import { color, fontWeight, margins, opacity, zIndex } from "../../design";
 
 export const NewMatchContainer = styled.section``;
 
@@ -101,7 +101,7 @@ export const LinkCopied = styled.div<CopyProps>`
   box-shadow: 0px 0px ${margins.small6} rgba(0, 0, 0, 0.1);
   border-radius: 100px;
   position: absolute;
-  opacity: 0;
+  opacity: ${opacity.hidden};
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -122,7 +122,7 @@ export const CopyLink = styled.div<CopyProps>`
     isCopied
       ? `
         ${LinkCopied} {
-          opacity: 1;
+          opacity: ${opacity.visible};
           top: -40px;
         }
       `
