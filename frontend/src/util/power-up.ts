@@ -1,5 +1,5 @@
 import { POWER_UP_DATA } from "../assets";
-import { PowerUp, PowerUpId } from "../types";
+import { PlayerPublic, PowerUp, PowerUpId } from "../types";
 
 export const getPowerUp = (powerUpId?: PowerUpId): PowerUp | undefined => {
   if (!powerUpId) return;
@@ -20,4 +20,8 @@ export const powerUpRequiresTarget = (powerUpId: PowerUpId): boolean => {
 export const isPowerUpTriggeredImmediately = (powerUpId: PowerUpId) => {
   const immediate: PowerUpId[] = ["3", "4", "6", "8"];
   return immediate.includes(powerUpId);
+};
+
+export const powerupCanNotBeUsedOnPlayer = (targetPlayer: PlayerPublic, powerUpId?: PowerUpId): boolean => {
+  return powerUpId === "9" && targetPlayer.powerUpsAmount < 1;
 };

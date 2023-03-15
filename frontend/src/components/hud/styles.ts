@@ -48,9 +48,10 @@ export const LocalPlayer = styled.div<LocalPlayerProps>`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  ${(isTargetable) => isTargetable && "cursor: pointer;"}
   ${RadioCheckbox} {
     margin-left: 10vw;
+    margin-bottom: -6vh;
+    position: absolute;
   }
   ${DiceContainer} {
     display: flex;

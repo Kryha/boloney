@@ -30,8 +30,11 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const lastAction = useStore((state) => state.lastAction);
   const { targetPlayerId: targetPlayerId, active: activePowerUp, result: result } = useStore((state) => state.powerUpState);
 
+  if (!localPlayer) return <></>;
+
   const isTargetable = activePowerUp?.id === "7";
   const playerDice = result && result.id === "6" ? filterDice(result.data.newRolledDice, dice) : dice;
+  const isDisabled = localPlayer.powerUpsAmount <= 1 && activePowerUp?.id === "7";
 
   const handleSelect = () => {
     setPowerUpState({ targetPlayerId: player.userId });
@@ -43,10 +46,10 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
 
       <LocalPlayer isLastBid={isPlayerLastBid} onClick={() => isTargetable && handleSelect()} isTargetable={isTargetable}>
         <LocalPlayerAvatar height={measurements.localAvatarHeight} src={avatar} />
-        {isTargetable && <RadioButton onSelect={handleSelect} isChecked={targetPlayerId === player.userId} />}
+        {isTargetable && <RadioButton onSelect={handleSelect} isDisabled={isDisabled} isChecked={targetPlayerId === player.userId} />}
         {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
         <LocalPlayerInfoContainer>
-          <PlayerNameContainer>{localPlayer?.username}</PlayerNameContainer>
+          <PlayerNameContainer>{localPlayer.username}</PlayerNameContainer>
         </LocalPlayerInfoContainer>
       </LocalPlayer>
 

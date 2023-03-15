@@ -19,7 +19,7 @@ import { PlayerMatchState } from "./match-player-info";
 import { PlayerBadge } from "../badges";
 import { PlayerSidebarInfo } from "../player-sidebar-info";
 import { useStore } from "../../store";
-import { powerUpRequiresTarget } from "../../util";
+import { powerupCanNotBeUsedOnPlayer, powerUpRequiresTarget } from "../../util";
 import { useLatestBid } from "../../service";
 
 interface MatchPlayerProps {
@@ -39,10 +39,8 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
 
   // TODO: make conditions more clear
-  const isHypnosisBeingUsed = activePowerUp?.id === "9" && player.powerUpsAmount > 0;
-  const isTargetable =
-    (player.status !== "lost" && !!activePowerUp && !result && powerUpRequiresTarget(activePowerUp.id) && activePowerUp?.id !== "9") ||
-    isHypnosisBeingUsed;
+  const isTargetable = player.status !== "lost" && !!activePowerUp && !result && powerUpRequiresTarget(activePowerUp.id);
+  const isDisabled = powerupCanNotBeUsedOnPlayer(player, activePowerUp?.id);
 
   const handleSelect = () => {
     setPowerUpState({ targetPlayerId: player.userId });
@@ -65,7 +63,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
           </PlayerAvatarContainer>
         ) : (
           <>
-            <PlayerAvatarContainer>
+            <PlayerAvatarContainer isTargetable={isTargetable}>
               <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
             </PlayerAvatarContainer>
             <PlayerInfoContainer>
@@ -82,6 +80,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
         lastBid={lastBid}
         totalPlayers={totalPlayers}
         hasRadioButton={isTargetable}
+        isDisabled={isDisabled}
         isChecked={player.userId === targetPowerUpPlayerId}
         onSelect={handleSelect}
       />

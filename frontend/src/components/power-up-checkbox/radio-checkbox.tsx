@@ -9,7 +9,7 @@ interface RadioButtonProps {
   isInPowerUp?: boolean;
 }
 
-export const RadioButton: FC<RadioButtonProps> = ({ onSelect, isChecked, isDisabled, isInPowerUp = false }) => {
+export const RadioButton: FC<RadioButtonProps> = ({ onSelect, isChecked, isDisabled = false, isInPowerUp = false }) => {
   return isInPowerUp ? (
     <PowerupCheckbox type="checkbox" checked={isChecked} onChange={() => onSelect()} />
   ) : (

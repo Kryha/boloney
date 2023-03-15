@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+
 import {
   playerOnePercentages,
   playerTwoPercentages,
@@ -59,7 +60,6 @@ export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
   background: ${({ isActive, customColor }): string => (isActive ? customColor || color.white : color.lightGrey)};
   height: ${({ hasPlayerLost }): string => (hasPlayerLost ? "100px" : `${GAME_PLAYER_HEIGHT}vh`)};
   position: relative;
-  ${(isTargetable) => isTargetable && "cursor: pointer;"}
   border-bottom: 1px solid ${color.mediumGrey};
   ${BadgeWrapper} {
     z-index: ${zIndex.inFront};
@@ -169,6 +169,7 @@ interface AvatarProps {
 
 interface PlayersAvatarProps {
   isWinner?: boolean;
+  isTargetable?: boolean;
 }
 
 export const PlayerAvatarContainer = styled.div<PlayersAvatarProps>`
@@ -176,6 +177,7 @@ export const PlayerAvatarContainer = styled.div<PlayersAvatarProps>`
   align-items: center;
   justify-content: center;
   display: flex;
+  cursor: ${({ isTargetable }): string => (isTargetable ? "pointer" : "defualt")};
   ${({ isWinner }): string =>
     isWinner
       ? ""
