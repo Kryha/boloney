@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { opacity } from "../../design";
+import { breakpoints, color, FontProps, opacity } from "../../design";
+import { Heading1 } from "../atoms";
 
-import { UnorderedListItems } from "../atoms";
 import { DieWrapper } from "../die/styles";
 
 export const selectorDieSize = {
@@ -129,44 +129,24 @@ export const NumberList = styled.ul`
 export interface ItemProps {
   isCurrent: boolean;
   isDisabled: boolean;
-  isEmpty?: boolean;
+  height: FontProps;
 }
 
-export const Number = styled(UnorderedListItems)<ItemProps>`
+export const Number = styled(Heading1)<ItemProps>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-shrink: 0;
-  width: 60px;
-  height: 60px;
+  height: ${({ height }): string => height.md};
+  margin-bottom: 20px;
+
+  @media (max-width: ${breakpoints.md}) {
+    height: ${({ height }): string => height.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    height: ${({ height }): string => height.lg};
+  }
 
   opacity: ${({ isDisabled }): string => (isDisabled ? opacity.transparent : opacity.visible)};
-  ${({ isCurrent }): string =>
-    isCurrent
-      ? ` font-size: 140px;
-          line-height: 140px;
-          width: 130px;
-          height:140px;
-          margin-left: 55px;
-          `
-      : `
-      font-size: 22px;
-      line-height: 26px;`};
-  ${({ isEmpty, isCurrent }): string => (isEmpty || isCurrent ? "" : "&::before{content:'x';}")};
-`;
-
-export const ShowX = styled.span`
-  font-size: 140px;
-  line-height: 140px;
-  width: 25px;
-  height: 140px;
-  position: relative;
-  top: 120px;
-  left: 15px;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  &::before {
-    content: "x";
-  }
+  ${({ isCurrent }): string => (isCurrent ? "" : `color: ${color.darkGrey};`)};
 `;

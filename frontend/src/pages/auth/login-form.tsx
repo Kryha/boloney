@@ -4,16 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
 import {
-  Heading1,
-  Heading4,
-  Paragraph,
   BaseInput,
   FormContainer,
   Link,
   PrimaryButton,
   GeneralContentWrapper,
   InputLegend,
+  Heading1,
+  Heading4,
+  BodyText,
 } from "../../components";
+import { fontSizes } from "../../design";
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, isNkError } from "../../types";
 import { routes } from "../../navigation";
@@ -77,8 +78,13 @@ export const LoginForm: FC = () => {
             </InputLegend>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
-            <Paragraph>{text.authForm.iDontHaveAnAccountYet}</Paragraph>
-            <Link onClick={() => navigate(routes.createAccount)} primaryText={text.authForm.here} />
+            <BodyText>{text.authForm.iDontHaveAnAccountYet}</BodyText>
+            <Link
+              transformText="none"
+              fontSize={fontSizes.body}
+              onClick={() => navigate(routes.createAccount)}
+              primaryText={text.authForm.here}
+            />
             <PrimaryButton buttonType="submit" primaryText={text.authForm.signIn} />
           </SignOrJoinContainer>
         </FormContainer>

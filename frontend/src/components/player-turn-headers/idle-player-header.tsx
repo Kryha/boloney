@@ -5,11 +5,11 @@ import { idlePlayerTurnData } from "../../assets";
 import { useActivePlayer } from "../../service";
 import { useStore } from "../../store";
 import { TurnActionStep } from "../../types";
-import { Heading2 } from "../atoms";
 import { ErrorView } from "../error-view";
 import { Timer } from "../timer";
 import { FadeTransition } from "../page-transition";
 import { color } from "../../design";
+import { Heading2 } from "../atoms";
 
 interface IdlePlayerHeaderProps {
   step?: TurnActionStep;

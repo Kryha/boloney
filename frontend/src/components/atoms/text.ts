@@ -1,195 +1,338 @@
 import styled from "@emotion/styled";
 
-import { color, fontWeight } from "../../design";
+import { fonts, FontProps, fontSizes, fontWeights, lineHeights, TransformText, color, breakpoints } from "../../design";
 
 interface TextProps {
   customColor?: string;
+  fontWeight?: string;
+  transformText?: TransformText;
+  fontSize?: FontProps;
+  lineHeight?: FontProps;
+  isDecorated?: boolean;
 }
+/*
+  Here you can find the typography of the application. We will have all texts in rem, and define them with a fluid size. The minimum viewport is 960 and max is 3840
+  The text is used for the following uses:
+  - InfoDisplay: Birds eye view number display, and in the landing page for big text
+  - LandingDisplay: Landing page for big text
+  - Heading1: Action screens (when you are wrong or right for power ups, exact and boloney), Match settings, homepage, match creation and confirmation, landing page, place bid, when you’re dead, login and sign up and when time has run out.
+  - Heading2: Headings within the match, on power up card names, on the end of match headings, Landing initial text information
+  - Heading3: Landing info titles, Landing links, Landing descriptions,
+  - Heading4: History and chat titles, place bid numbers, sign in or login text, create match confirmation title, player names in the lobby
+  - Heading5: Player names
+  - Heading6: Headings, titles and subtitles
+  - GeneralText: General text information and paragraphs throughout the app
+  - PrimaryButtonText: Primary button
+  - BodyText: Rules set information
+  - TooltipText: Tool tip links, Tool tips information
+  - PlayerInfo: Chat usernames, history usernames, history general text, history last bid
+  - TimeStamp: History Time stamp
+*/
 
-export const Heading0 = styled.h1<TextProps>`
-  font-family: "itc-clearface-regular";
-  font-weight: ${fontWeight.regular};
-  font-size: clamp(11.63rem, 11.88vw + 4.5rem, 18.75rem);
-  line-height: clamp(10.5rem, 11.67vw + 3.5rem, 17.5rem);
-  letter-spacing: -0.02em;
+export const InfoDisplay = styled.h1<TextProps>`
+  font-family: ${fonts.secondary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
+  font-size: ${fontSizes.infoDisplay.md};
+  line-height: ${lineHeights.infoDisplay.md};
   color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.lg}) {
+    font-size: ${fontSizes.infoDisplay.sm};
+    line-height: ${lineHeights.infoDisplay.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.infoDisplay.lg};
+    line-height: ${lineHeights.infoDisplay.lg};
+  }
+
   :first-letter {
-    text-transform: capitalize;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
+  }
+`;
+
+export const LandingDisplay = styled(InfoDisplay)<TextProps>`
+  line-height: ${lineHeights.landingDisplay.md};
+
+  @media (max-width: ${breakpoints.lg}) {
+    line-height: ${lineHeights.landingDisplay.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    line-height: ${lineHeights.landingDisplay.lg};
   }
 `;
 
 export const Heading1 = styled.h1<TextProps>`
-  font-family: "itc-clearface-regular";
-  font-weight: ${fontWeight.regular};
-  font-size: clamp(5.63rem, 7vw + -1.25rem, 9rem);
-  line-height: clamp(4.5rem, 4.05vw + 2.07rem, 6.93rem);
+  font-family: ${fonts.secondary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
+  font-size: ${({ fontSize }): string => (fontSize ? fontSize.md : fontSizes.heading1.md)};
+  line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.md : lineHeights.heading1.md)};
   letter-spacing: -0.02em;
   color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.heading1.sm};
+    line-height: ${lineHeights.heading1.sm};
+    font-size: ${({ fontSize }): string => (fontSize ? fontSize.sm : fontSizes.heading1.sm)};
+    line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.sm : lineHeights.heading1.sm)};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${({ fontSize }): string => (fontSize ? fontSize.lg : fontSizes.heading1.lg)};
+    line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.lg : lineHeights.heading1.lg)};
+  }
+
   :first-letter {
-    text-transform: capitalize;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
 `;
 
 export const Heading2 = styled.h2<TextProps>`
-  font-family: "itc-clearface-regular";
-  font-weight: ${fontWeight.regular};
-  font-size: clamp(1.88rem, 3.13vw + 0rem, 3.75rem);
-  line-height: clamp(2.25rem, 2.71vw + 0.63rem, 3.88rem);
+  font-family: ${fonts.secondary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
+  font-size: ${fontSizes.heading2.md};
+  line-height: ${lineHeights.heading2.md};
   color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.heading2.sm};
+    line-height: ${lineHeights.heading2.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.heading2.lg};
+    line-height: ${lineHeights.heading2.lg};
+  }
+
   :first-letter {
-    text-transform: capitalize;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
   .bold {
     color: ${color.black};
-    background-color: ${color.transparent};
+    background-color: transparent;
   }
 `;
 
 export const Heading3 = styled.h3<TextProps>`
-  font-family: "itc-clearface-regular";
-  font-weight: ${fontWeight.regular};
-  font-size: clamp(1.5rem, 2.29vw + 0.13rem, 2.88rem);
-  line-height: clamp(1.63rem, 2.29vw + 0.25rem, 3rem);
+  font-family: ${fonts.secondary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
+  font-size: ${fontSizes.heading3.md};
+  line-height: ${lineHeights.heading3.md};
   color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.heading3.sm};
+    line-height: ${lineHeights.heading3.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.heading3.lg};
+    line-height: ${lineHeights.heading3.lg};
+  }
+
   :first-letter {
-    text-transform: capitalize;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
 `;
 
 export const Heading4 = styled.h4<TextProps>`
-  font-family: "itc-clearface-regular";
-  font-weight: ${fontWeight.regular};
-  font-size: clamp(1.25rem, 0.83vw + 0.75rem, 1.75rem);
-  line-height: clamp(1.38rem, 1.04vw + 0.75rem, 2rem);
+  font-family: ${fonts.secondary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
+  font-size: ${fontSizes.heading4.md};
+  line-height: ${lineHeights.heading4.md};
   color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.heading4.sm};
+    line-height: ${lineHeights.heading4.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.heading4.lg};
+    line-height: ${lineHeights.heading4.lg};
+  }
+
   :first-letter {
-    text-transform: capitalize;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
 `;
 
 export const Heading5 = styled.h5<TextProps>`
-  font-family: "itc-clearface-regular";
-  font-weight: ${fontWeight.regular};
-  font-size: clamp(13.12px, 0.72vw + 6.24px, 20px);
-  line-height: clamp(1.13rem, 0.63vw + 0.75rem, 1.5rem);
+  font-family: ${fonts.secondary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.bold};
+  font-size: ${fontSizes.heading5.md};
+  line-height: ${lineHeights.heading5.md};
   color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.heading5.sm};
+    line-height: ${lineHeights.heading5.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.heading5.lg};
+    line-height: ${lineHeights.heading5.lg};
+  }
+
   :first-letter {
-    text-transform: capitalize;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
 `;
 
 export const Heading6 = styled.h6<TextProps>`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.bolder};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
+  font-family: ${fonts.primary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.bolder};
+  font-size: ${fontSizes.heading6.md};
+  line-height: ${fontSizes.heading6.md};
   color: ${({ customColor }): string => customColor || color.black};
-  :first-letter {
-    text-transform: capitalize;
-  }
-`;
+  text-transform: ${({ transformText }): string => transformText || "uppercase"};
 
-export const BulletList = styled.ul<TextProps>`
-  list-style-type: circle;
-`;
-
-export const Paragraph = styled.p<TextProps>`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.light};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  letter-spacing: -0.01em;
-  color: ${({ customColor }): string => customColor || color.black};
-  :first-letter {
-    text-transform: capitalize;
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.heading6.sm};
+    line-height: ${lineHeights.heading6.sm};
   }
-  padding-right: 0.3em;
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.heading6.lg};
+    line-height: ${lineHeights.heading6.lg};
+  }
 `;
 
 export const GeneralText = styled.h3<TextProps>`
-  :first-letter {
-    text-transform: capitalize;
-  }
-  font-family: ibm-plex-mono, sans-serif;
-  font-weight: ${fontWeight.light};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
+  font-family: ${fonts.primary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.light};
+  font-size: ${({ fontSize }): string => (fontSize ? fontSize.md : fontSizes.generalText.md)};
+  line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.md : lineHeights.generalText.md)};
   letter-spacing: -0.01em;
   color: ${({ customColor }): string => customColor || color.black};
+  text-decoration-line: ${({ isDecorated }): string => (isDecorated ? "underline" : "none")};
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${({ fontSize }): string => (fontSize ? fontSize.sm : fontSizes.generalText.sm)};
+    line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.sm : lineHeights.generalText.sm)};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${({ fontSize }): string => (fontSize ? fontSize.lg : fontSizes.generalText.lg)};
+    line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.lg : lineHeights.generalText.lg)};
+  }
+
   .bold {
     color: ${color.black};
     background-color: ${color.transparent};
-    font-weight: ${fontWeight.bold};
-    font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-    line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  }
-`;
+    font-weight: ${fontWeights.bold};
+    font-size: ${fontSizes.generalText.md};
+    line-height: ${lineHeights.generalText.md};
 
-export const GeneralMessageText = styled(GeneralText)`
+    @media (max-width: ${breakpoints.md}) {
+      font-size: ${fontSizes.generalText.sm};
+      line-height: ${lineHeights.generalText.sm};
+    }
+    @media (min-width: ${breakpoints.xxl}) {
+      font-size: ${fontSizes.generalText.lg};
+      line-height: ${lineHeights.generalText.lg};
+    }
+  }
+
   :first-letter {
-    text-transform: none;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
 `;
 
-export const GeneralTextUnderlined = styled(GeneralText)`
-  text-decoration-line: underline;
+export const PrimaryButtonText = styled.h3<TextProps>`
+  font-family: ${fonts.primary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
+  font-size: ${fontSizes.primaryButton.md};
+  line-height: ${lineHeights.primaryButton.md};
+  letter-spacing: -0.02em;
+  text-transform: ${({ transformText }): string => transformText || "uppercase"};
+  max-height: 44px;
+  margin-top: -10px;
+  color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.primaryButton.sm};
+    line-height: ${lineHeights.primaryButton.sm};
+  }
+
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.primaryButton.lg};
+    line-height: ${lineHeights.primaryButton.lg};
+  }
 `;
 
-export const IntroText = styled.h3<TextProps>`
-  font-family: "itc-clearface-regular";
-  font-style: normal;
-  font-weight: ${fontWeight.regular};
-  font-size: clamp(1.63rem, 0.63vw + 1.25rem, 2rem);
-  line-height: clamp(1.88rem, 0.63vw + 1.5rem, 2.25rem);
+export const BodyText = styled.p<TextProps>`
+  font-family: ${fonts.primary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.light};
+  font-size: ${fontSizes.body.md};
+  line-height: ${lineHeights.body.md};
   color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.body.sm};
+    line-height: ${lineHeights.body.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.body.lg};
+    line-height: ${lineHeights.body.lg};
+  }
+
   :first-letter {
-    text-transform: capitalize;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
 `;
 
-export const FormHeadingText = styled.h2<TextProps>`
-  font-family: "itc-clearface-regular";
-  font-style: normal;
-  font-weight: ${fontWeight.regular};
-  font-size: clamp(2rem, 2.92vw + 0.25rem, 3.75rem);
-  line-height: clamp(2.13rem, 2.92vw + 0.38rem, 3.88rem);
+export const TooltipText = styled.h3<TextProps>`
+  font-family: ${fonts.primary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
+  font-size: ${fontSizes.toolTip.md};
+  line-height: ${lineHeights.toolTip.md};
   color: ${({ customColor }): string => customColor || color.black};
+
+  @media (max-width: ${breakpoints.lg}) {
+    font-size: ${fontSizes.toolTip.sm};
+    line-height: ${lineHeights.toolTip.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.toolTip.lg};
+    line-height: ${lineHeights.toolTip.lg};
+  }
+
   :first-letter {
-    text-transform: capitalize;
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
 `;
 
-export const UnorderedListItems = styled.li`
-  font-size: 22px;
-  line-height: 26px;
-  box-sizing: border-box;
-  list-style: none;
-  font-family: "itc-clearface-bold";
-  font-style: normal;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-`;
-
-export const ColorSpan = styled.span<TextProps>`
+export const PlayerInfoText = styled.h3<TextProps>`
+  font-family: ${fonts.primary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
+  font-size: ${fontSizes.playerInfo.md};
+  line-height: ${fontSizes.playerInfo.md};
   color: ${({ customColor }): string => customColor || color.black};
-  font-weight: ${fontWeight.regular};
+
+  @media (max-width: ${breakpoints.lg}) {
+    font-size: ${fontSizes.playerInfo.sm};
+    line-height: ${lineHeights.playerInfo.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.playerInfo.lg};
+    line-height: ${lineHeights.playerInfo.lg};
+  }
+
+  :first-letter {
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
+  }
 `;
 
-export const Bold = styled.span`
-  font-weight: bold;
-`;
+export const TimeStamp = styled.h3<TextProps>`
+  font-family: ${fonts.primary};
+  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.light};
+  font-size: ${fontSizes.timestamp.md};
+  line-height: ${lineHeights.timestamp.md};
+  color: ${({ customColor }): string => customColor || color.black};
 
-export const DefaultListItem = styled.li`
-  font-family: ibm-plex-mono, sans-serif;
-  font-weight: ${fontWeight.light};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  letter-spacing: -0.01em;
-  color: ${color.black};
-  list-style-position: outside;
-`;
+  @media (max-width: ${breakpoints.lg}) {
+    font-size: ${fontSizes.timestamp.sm};
+    line-height: ${lineHeights.timestamp.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.timestamp.lg};
+    line-height: ${lineHeights.timestamp.lg};
+  }
 
-export const BulletContainer = styled.ul`
-  padding-left: 20px;
+  :first-letter {
+    text-transform: ${({ transformText }): string => transformText || "capitalize"};
+  }
 `;

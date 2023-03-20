@@ -1,19 +1,6 @@
 import styled from "@emotion/styled";
-import { color, fontSize, fontWeight } from "../../design";
-import { Paragraph } from "../atoms";
+import { color } from "../../design";
 import { FieldSet } from "../inputs/styles";
-
-export const Description = styled(Paragraph)`
-  color: ${color.darkGrey};
-`;
-
-export const ToggleTitle = styled.p`
-  text-transform: uppercase;
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.light};
-  font-size: ${fontSize.small2}};
-  line-height: 24px;
-`;
 
 export const ToggleSwitchFieldSet = styled(FieldSet)`
   padding: revert;

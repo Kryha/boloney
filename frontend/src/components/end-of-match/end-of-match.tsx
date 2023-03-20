@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets";
 import { routes } from "../../navigation";
-import { Heading2, Heading6 } from "../atoms";
 import { PrimaryButton } from "../buttons";
 import { useLocalPlayer, useMatch } from "../../service";
 import { color } from "../../design";
+import { Heading2, Heading6 } from "../atoms";
 import { PlayerLeaderboard } from "./player-leaderboard";
 import { EndOfMatchWrapper, MatchStatsButtonWrapper, TitleSection } from "./styles";
 import { useStore } from "../../store";

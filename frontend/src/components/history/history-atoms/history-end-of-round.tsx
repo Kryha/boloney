@@ -1,12 +1,11 @@
 import { FC } from "react";
 import { text } from "../../../assets";
 import { color } from "../../../design";
-
+import { TimeStamp, Heading6 } from "../../atoms";
 import { HistoryPlayerStats, HistoryRoundResults, PlayerPublic } from "../../../types";
 import { getNumberWithOrdinal, parseTimeFormat } from "../../../util";
-import { Heading6 } from "../../atoms";
 import { EndOfRoundHistoryList, HistoryActionTitle, HistoryOutcome } from "./history-action";
-import { HistoryBadgeWrapper, HistoryBadgeContainer, HistoryDivider, TimerRow, EndOfRoundHistoryListWrapper, TimeStamp } from "./styles";
+import { HistoryBadgeWrapper, HistoryBadgeContainer, HistoryDivider, TimerRow, EndOfRoundHistoryListWrapper } from "./styles";
 
 export interface Props {
   endOfRound: HistoryRoundResults;

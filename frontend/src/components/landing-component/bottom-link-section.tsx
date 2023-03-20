@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { text } from "../../assets";
+import { color, fonts, fontSizes, fontWeights } from "../../design";
 import { useObserver } from "../../hooks";
 import { GeneralLink } from "../links";
 import { SocialMediaImageLinks } from "../links/image-link";
@@ -15,6 +16,11 @@ export const BottomLinkSection: FC = () => {
         generalText={text.landing.reachOutTo}
         link={text.landing.boloneyHelpEmail}
         linkText={text.landing.boloneyHelpEmail}
+        fontWeight={fontWeights.regular}
+        fontSize={fontSizes.heading3}
+        lineHeight={fontSizes.heading3}
+        font={fonts.secondary}
+        customColor={color.darkGrey}
       />
       <SocialMediaImageLinks />
     </LinkContainer>

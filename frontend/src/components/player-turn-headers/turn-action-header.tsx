@@ -3,11 +3,11 @@ import { activePlayerTurnData, text } from "../../assets";
 import { color } from "../../design";
 import { useLatestBid, usePlayer } from "../../service";
 import { useStore } from "../../store";
-import { Heading2 } from "../atoms";
 import { GoBackButton } from "../buttons";
 import { FadeTransition } from "../page-transition";
 import { Timer } from "../timer";
 import { TurnActionHeaderWrapper, TurnActionHeading } from "./styles";
+import { Heading2 } from "../atoms";
 
 export const TurnActionHeader = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);

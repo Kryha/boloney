@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
 
-import { GeneralText } from "../atoms/text";
 import { color, margins, opacity } from "../../design";
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { DieWrapper } from "../die/styles";
-import { fadeInPop } from "../atoms";
+import { fadeInPop, GeneralText } from "../atoms";
 
 export const DieOverviewWrapper = styled.div`
   display: flex;
@@ -27,9 +26,6 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   margin-top: ${margins.small5};
   ${GeneralText} {
     margin-left: ${margins.large1};
-    :first-letter {
-      text-transform: lowercase;
-    }
   }
 `;
 interface DiceProps {

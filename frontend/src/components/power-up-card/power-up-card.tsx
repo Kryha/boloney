@@ -4,7 +4,7 @@ import { color } from "../../design";
 import { useViewport } from "../../hooks";
 import { PowerUp } from "../../types";
 import { getDescriptionExample } from "../../util";
-import { GeneralText, Heading2 } from "../atoms";
+import { Heading2, GeneralText } from "../atoms";
 import { PowerUpBadge } from "../badges";
 import { PrimaryButton } from "../buttons";
 import { RadioButton } from "../power-up-checkbox";

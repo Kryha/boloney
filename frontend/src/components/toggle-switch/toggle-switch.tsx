@@ -1,10 +1,11 @@
 import { FC, useState } from "react";
 import { UseFormRegister } from "react-hook-form";
+import { color } from "../../design";
+import { BodyText, Heading6 } from "../atoms";
 import { MatchSettings } from "../../types";
-import { Legend, LegendContainer, LegendTitle } from "../inputs/styles";
+import { Legend, LegendContainer } from "../inputs/styles";
 import { InfoPosition, Tooltip } from "../tooltip";
 import {
-  Description,
   ToggleContent,
   ToggleSwitchButton,
   ToggleSwitchContainer,
@@ -13,7 +14,6 @@ import {
   ToggleSwitchInput,
   ToggleSwitchLabel,
   ToggleSwitchWrapper,
-  ToggleTitle,
 } from "./styles";
 
 interface Props {
@@ -43,7 +43,7 @@ export const ToggleSwitch: FC<Props> = ({
     <ToggleSwitchFieldSet isRow={false} childNode={1}>
       <Legend>
         <LegendContainer>
-          <LegendTitle>{title}</LegendTitle>
+          <Heading6>{title}</Heading6>
           <Tooltip title={tooltipTitle} info={tooltipDescription} infoPosition={infoPosition} />
         </LegendContainer>
       </Legend>
@@ -64,8 +64,8 @@ export const ToggleSwitch: FC<Props> = ({
           </ToggleSwitchLabel>
         </ToggleSwitchWrapper>
         <ToggleContent>
-          <ToggleTitle>{descriptionTitle}</ToggleTitle>
-          <Description>{description}</Description>
+          <BodyText>{descriptionTitle}</BodyText>
+          <BodyText customColor={color.darkGrey}>{description}</BodyText>
         </ToggleContent>
       </ToggleSwitchContainer>
     </ToggleSwitchFieldSet>

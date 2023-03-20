@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
-import { color, fontSize, fontWeight, margins } from "../../design";
+import { color, fontWeights, margins } from "../../design";
 import { ErrorIcon } from "../../assets/icons";
-import { BaseInput, BaseSelect, GeneralText } from "../atoms";
+import { BaseInput, BaseSelect, Heading6, GeneralText } from "../atoms";
 
 interface InputContainerProps {
   isError?: boolean;
@@ -32,21 +32,14 @@ export const InputContainer = styled.div<InputContainerProps>`
 `};
 `;
 
-export const InputLabel = styled.h3`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.bolder};
-  font-size: ${fontSize.small1};
-  line-height: 24px;
-  text-transform: uppercase;
-  color: ${color.black};
-  background: ${color.lightGrey};
-  padding: 0px ${margins.small1};
-`;
-
 export const LabelContainer = styled.div`
   position: absolute;
   left: ${margins.medium0};
   top: -13px;
+  ${Heading6} {
+    background: ${color.lightGrey};
+    padding: 0px ${margins.small1};
+  }
 `;
 
 export const Error = styled(ErrorIcon)``;
@@ -75,7 +68,7 @@ export const TextLabel = styled(GeneralText)`
     position: absolute;
     content: "% ";
     font-family: ibm-plex-mono, sans-serif;
-    font-weight: ${fontWeight.regular};
+    font-weight: ${fontWeights.regular};
     font-size: 16px;
     line-height: 24px;
     padding-left: 3px;
@@ -149,24 +142,12 @@ export const FieldSet = styled.fieldset<InputContainerProps>`
 `;
 
 export const Legend = styled.legend`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.bolder};
-  font-size: ${fontSize.small1};
-  line-height: 24px;
-  color: ${color.black};
   padding: 0px ${margins.small1};
   margin-left: ${margins.medium0};
-`;
-
-export const LegendTitle = styled.h3`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.bolder};
-  font-size: ${fontSize.small1};
-  line-height: 24px;
-  text-transform: uppercase;
 `;
 
 export const LegendContainer = styled.span`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;

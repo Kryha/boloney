@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { color, fontWeight, margins } from "../../../design";
-import { GeneralText, Heading6, Row } from "../../atoms";
+import { color, margins } from "../../../design";
+import { Row, GeneralText } from "../../atoms";
 import { BadgeWrapper } from "../../badges/styles";
 import { DieWrapper } from "../../die/styles";
 import { DiceContainer } from "../../match-players-overview/styles";
@@ -37,9 +37,6 @@ export const HistoryBadgeContainer = styled.div<HistoryContainerProps>`
   align-items: flex-start;
   padding: ${({ isHeader }): string => (isHeader ? "16px" : "0px")};
   gap: ${({ isHeader }): string => (isHeader ? "10px" : "0px")};
-  ${Heading6} {
-    text-transform: uppercase;
-  }
 `;
 
 export const HistoryDivider = styled.div`
@@ -57,9 +54,6 @@ export const HistoryStatsContainer = styled.section`
   height: 20px;
   ${GeneralText}:first-letter {
     text-transform: none;
-  }
-  ${GeneralText} {
-    color: ${color.mediumGrey};
   }
   ${Lightning} {
     path {
@@ -86,14 +80,6 @@ export const HistoryNameWrapper = styled.div`
   align-items: center;
   padding: 0px;
   gap: 8px;
-`;
-
-export const Username = styled(Heading6)`
-  font-weight: ${fontWeight.regular};
-`;
-
-export const TimeStamp = styled(Heading6)`
-  font-weight: ${fontWeight.light};
 `;
 
 export const HistoryActionWrapper = styled.div`

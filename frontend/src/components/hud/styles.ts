@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, Heading6, RadioCheckbox } from "../atoms";
+import { avatarHeight, RadioCheckbox } from "../atoms";
 import { DiceContainer, PlayerInfoContainer } from "../match-players-overview/styles";
 
 interface PlayerOverviewProps {
@@ -66,11 +66,6 @@ export const LocalPlayer = styled.div<LocalPlayerProps>`
     height: 100%;
     background: ${({ isLastBid }): string => (isLastBid ? color.grey : "transparent")};
     justify-content: center;
-    ${Heading6} {
-      :first-letter {
-        text-transform: none;
-      }
-    }
   }
 `;
 

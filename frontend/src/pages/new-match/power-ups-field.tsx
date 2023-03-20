@@ -3,6 +3,7 @@ import { FC } from "react";
 import { POWER_UP_DATA, text } from "../../assets";
 import { GeneralText, Heading6, InfoButton, Input } from "../../components";
 import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
+import { fontWeights } from "../../design";
 import { useMatchCreationFormState } from "./match-creation-form-state";
 import {
   CheckboxContainer,
@@ -56,7 +57,9 @@ export const PowerUpsField: FC = () => {
           <Heading6>{text.newMatch.total}</Heading6>
         </LightningContainer>
         <PercentageContainer>
-          <Percentage isError={isPowerUpError}>{totalProbability}</Percentage>
+          <Percentage fontWeight={fontWeights.bolder} isError={isPowerUpError}>
+            {totalProbability}
+          </Percentage>
           <GeneralText>{text.newMatch.outOfOneHundred}</GeneralText>
         </PercentageContainer>
       </TotalContainer>

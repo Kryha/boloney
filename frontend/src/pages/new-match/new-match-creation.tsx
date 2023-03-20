@@ -4,15 +4,15 @@ import { useForm } from "react-hook-form";
 import { text } from "../../assets";
 import {
   FormContainer,
-  Heading1,
-  Heading4,
   GeneralContentWrapper,
-  Paragraph,
   PrimaryButton,
-  Heading6,
   GoBackButton,
   FadeTransition,
   ToggleSwitch,
+  Heading1,
+  Heading6,
+  Heading4,
+  BodyText,
 } from "../../components";
 import { createMatch } from "../../service";
 import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
@@ -112,7 +112,7 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
             />
 
             <BottomContainer>
-              <Paragraph>{text.newMatch.bottomDesc}</Paragraph>
+              <BodyText>{text.newMatch.bottomDesc}</BodyText>
             </BottomContainer>
             {isLoading && <Heading6>{text.newMatch.loading}</Heading6>}
             {isError && <Heading6>{text.newMatch.error}</Heading6>}

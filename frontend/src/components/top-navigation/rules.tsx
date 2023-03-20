@@ -3,16 +3,15 @@ import { FC } from "react";
 import { text } from "../../assets";
 import { InfoIcon } from "../../assets/icons";
 import { BULLET_POINT } from "../../constants";
-import { color } from "../../design";
+import { color, fontWeights } from "../../design";
 import { useStore } from "../../store";
-import { ColorSpan, ListSection, Paragraph } from "../atoms";
+import { BodyText, ListSection } from "../atoms";
 import { LeadingZeroList } from "../leading-zero-list";
 import { Dropdown } from "./dropdown";
 import {
   ParagraphBulletPoint,
-  ParagraphBulletPointBold,
-  ParagraphNoMargin,
   ParagraphReducedMargin,
+  ParagraphNoMargin,
   RulesContainer,
   RulesLink,
   RulesSection,
@@ -51,7 +50,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
               text={
                 <>
                   {text.rules.basicRulesParagraphs.map((paragraph, index) => (
-                    <Paragraph key={index}>{paragraph}</Paragraph>
+                    <BodyText key={index}>{paragraph}</BodyText>
                   ))}
                 </>
               }
@@ -67,7 +66,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
               text={
                 <>
                   {text.rules.settingsParagraphs.map((paragraph, index) => (
-                    <Paragraph key={index}>{paragraph}</Paragraph>
+                    <BodyText key={index}>{paragraph}</BodyText>
                   ))}
                 </>
               }
@@ -83,7 +82,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
               text={
                 <>
                   {text.rules.roundRulesParagraphs.map((paragraph, index) => (
-                    <Paragraph key={index}>{paragraph}</Paragraph>
+                    <BodyText key={index}>{paragraph}</BodyText>
                   ))}
                 </>
               }
@@ -100,11 +99,11 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
               text={
                 <>
                   {text.rules.actionsFirstParagraphs.map((paragraph, index) => (
-                    <Paragraph key={index}>{paragraph}</Paragraph>
+                    <BodyText key={index}>{paragraph}</BodyText>
                   ))}
                   {/* TODO: FIX LINK */}
                   <RulesLink primaryText={text.rules.seeAvailablePowerUps} onClick={() => onClick && onClick()} />
-                  <Paragraph />
+                  <BodyText />
                 </>
               }
             />
@@ -113,7 +112,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
               text={
                 <>
                   {text.rules.actionsSecondParagraphs.map((paragraph, index) => (
-                    <Paragraph key={index}>{paragraph}</Paragraph>
+                    <BodyText key={index}>{paragraph}</BodyText>
                   ))}
                 </>
               }
@@ -125,7 +124,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
                   <ParagraphReducedMargin>{text.rules.actionsFifthParagraph}</ParagraphReducedMargin>
                   <ParagraphBulletPoint>{BULLET_POINT + text.rules.actionsBulletPoint1}</ParagraphBulletPoint>
                   <ParagraphBulletPoint> {BULLET_POINT + text.rules.actionsBulletPoint2}</ParagraphBulletPoint>
-                  <Paragraph>{text.rules.actionsSixthParagraph}</Paragraph>
+                  <BodyText>{text.rules.actionsSixthParagraph}</BodyText>
                 </>
               }
             />
@@ -134,18 +133,22 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
               text={
                 <>
                   {text.rules.actionsThirdParagraphs.map((paragraph, index) => (
-                    <Paragraph key={index}>{paragraph}</Paragraph>
+                    <BodyText key={index}>{paragraph}</BodyText>
                   ))}
                   <ParagraphReducedMargin>{text.rules.actionsTenthParagraph}</ParagraphReducedMargin>
-                  <ParagraphBulletPointBold>{BULLET_POINT + text.rules.actionsEleventhParagraph}</ParagraphBulletPointBold>
+                  <ParagraphReducedMargin fontWeight={fontWeights.bold}>
+                    {BULLET_POINT + text.rules.actionsEleventhParagraph}
+                  </ParagraphReducedMargin>
                   {text.rules.actionsFirstBulletPoints.map((paragraph, index) => (
                     <ParagraphBulletPoint key={index}>{BULLET_POINT + paragraph}</ParagraphBulletPoint>
                   ))}
-                  <ParagraphBulletPointBold>{BULLET_POINT + text.rules.actionsSixteenthParagraph}</ParagraphBulletPointBold>
+                  <ParagraphReducedMargin fontWeight={fontWeights.bold}>
+                    {BULLET_POINT + text.rules.actionsSixteenthParagraph}
+                  </ParagraphReducedMargin>
                   {text.rules.actionsSecondBulletPoints.map((paragraph, index) => (
                     <ParagraphBulletPoint key={index}>{BULLET_POINT + paragraph}</ParagraphBulletPoint>
                   ))}
-                  <Paragraph />
+                  <BodyText />
                 </>
               }
             />
@@ -154,13 +157,15 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
               text={
                 <>
                   {text.rules.actionsThirdParagraphs.map((paragraph, index) => (
-                    <Paragraph key={index}>{paragraph}</Paragraph>
+                    <BodyText key={index}>{paragraph}</BodyText>
                   ))}
-                  <ParagraphBulletPointBold>{text.rules.actionsTwentyFourthParagraph}</ParagraphBulletPointBold>
+                  <ParagraphReducedMargin fontWeight={fontWeights.bold}>{text.rules.actionsTwentyFourthParagraph}</ParagraphReducedMargin>
                   {text.rules.actionsThirdBulletPoints.map((paragraph, index) => (
                     <ParagraphBulletPoint key={index}>{BULLET_POINT + paragraph}</ParagraphBulletPoint>
                   ))}
-                  <ParagraphBulletPointBold>{BULLET_POINT + text.rules.actionsTwentyNinthParagraph}</ParagraphBulletPointBold>
+                  <ParagraphReducedMargin fontWeight={fontWeights.bold}>
+                    {BULLET_POINT + text.rules.actionsTwentyNinthParagraph}
+                  </ParagraphReducedMargin>
                   {text.rules.actionsFourthBulletPoints.map((paragraph, index) => (
                     <ParagraphBulletPoint key={index}>{BULLET_POINT + paragraph}</ParagraphBulletPoint>
                   ))}
@@ -180,21 +185,21 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
                   {text.rules.examplesParagraphs.map((paragraph, index) => (
                     <ParagraphNoMargin key={index}>{paragraph}</ParagraphNoMargin>
                   ))}
-                  <Paragraph>{text.rules.examplesSixthParagraph}</Paragraph>
+                  <BodyText>{text.rules.examplesSixthParagraph}</BodyText>
                   <ParagraphNoMargin>{text.rules.examplesSeventhParagraph}</ParagraphNoMargin>
                   <ParagraphNoMargin>{text.rules.examplesEighthParagraph}</ParagraphNoMargin>
-                  <Paragraph>{text.rules.examplesNinthParagraph}</Paragraph>
+                  <BodyText>{text.rules.examplesNinthParagraph}</BodyText>
                   <ParagraphNoMargin>{text.rules.examplesTenthParagraph}</ParagraphNoMargin>
                   <ParagraphNoMargin>{text.rules.examplesEleventhParagraph}</ParagraphNoMargin>
-                  <Paragraph>{text.rules.examplesTwelfthParagraph}</Paragraph>
+                  <BodyText>{text.rules.examplesTwelfthParagraph}</BodyText>
                   <ParagraphNoMargin>{text.rules.examplesThirteenthParagraph}</ParagraphNoMargin>
                   <ParagraphNoMargin>{text.rules.examplesFourteenthParagraph}</ParagraphNoMargin>
-                  <Paragraph>{text.rules.examplesFifteenthParagraph}</Paragraph>
+                  <BodyText>{text.rules.examplesFifteenthParagraph}</BodyText>
                 </>
               }
             />
             <RulesSectionTitle customColor={color.darkGrey}>{text.rules.noteTitle}</RulesSectionTitle>
-            <ColorSpan customColor={color.darkGrey}>{text.rules.noteParagraph}</ColorSpan>
+            <BodyText customColor={color.darkGrey}>{text.rules.noteParagraph}</BodyText>
           </ListSection>
         </RulesSection>
       </RulesContainer>

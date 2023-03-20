@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useState } from "react";
 import { text } from "../../assets";
-import { TooltipContent, TooltipContentWrapper, TooltipDescription, TooltipHeading, ToolTipText, TooltipWrap } from "./styles";
-import { zIndex as designZIndex } from "../../design";
+import { TooltipContent, TooltipContentWrapper, TooltipDescription, TooltipHeading, ToolTipTextWrapper, TooltipWrap } from "./styles";
+import { fontWeights, zIndex as designZIndex } from "../../design";
 
 export type InfoPosition = "top" | "bottom" | "left" | "right";
 
@@ -35,10 +35,10 @@ export const TooltipInfo: FC<TooltipInfoProps> = ({
       {active && (
         <TooltipContentWrapper zIndex={zIndex}>
           <TooltipContent className={position} isButtonWithHelper={isButtonWithHelper}>
-            <ToolTipText>
-              <TooltipHeading>{text.param.appendColon(title)}</TooltipHeading>
+            <ToolTipTextWrapper>
+              <TooltipHeading fontWeight={fontWeights.bold}>{text.param.appendColon(title)}</TooltipHeading>
               <TooltipDescription>{content}</TooltipDescription>
-            </ToolTipText>
+            </ToolTipTextWrapper>
           </TooltipContent>
         </TooltipContentWrapper>
       )}

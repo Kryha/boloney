@@ -1,18 +1,14 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+
 import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, LeftArrowIcon, RightArrowIcon } from "../../assets/icons";
-import { color, fontSize, fontWeight, margins, opacity } from "../../design";
-import { zIndex } from "../../design/z-index";
-import { SecondaryButtonBase } from "../atoms";
+import { color, margins, opacity, zIndex } from "../../design";
+import { SecondaryButtonBase, PrimaryButtonText } from "../atoms";
 
 interface ButtonProps {
   disabled?: boolean;
   width?: number;
   isLoading?: boolean;
-}
-
-interface TextProps {
-  customColor?: string;
 }
 
 export const PrimaryArrow = styled(RightArrowIcon)`
@@ -29,18 +25,6 @@ export const ArrowSection = styled.div`
   gap: 13px;
 `;
 
-export const PrimaryButtonText = styled.h3<TextProps>`
-  font-family: ibm-plex-mono;
-  font-style: normal;
-  font-weight: ${fontWeight.regular};
-  font-size: ${fontSize.medium1};
-  line-height: 44px;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  max-height: 44px;
-  margin-top: -10px;
-  color: ${({ customColor }): string => customColor || color.black};
-`;
 export const Span = styled.span`
   transform-origin: top center;
   transform-style: preserve-3d;
@@ -162,32 +146,6 @@ export const RightButtonContainer = styled.div<ButtonProps>`
   gap: 0em;
   cursor: pointer;
   justify-content: flex-end;
-`;
-
-export const LinkText = styled.h3`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.light};
-  font-size: ${fontSize.small1};
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  color: ${color.black};
-  cursor: pointer;
-  position: relative;
-  text-decoration: none;
-  display: inline-block;
-  &:after {
-    display: block;
-    content: "";
-    border-bottom: 1px solid ${color.black};
-    transform: scaleX(1);
-    transition: transform 250ms ease-in-out;
-    transform-origin: bottom left;
-  }
-  &:hover:after {
-    transform: scaleX(0);
-    transform-origin: 0 100%;
-  }
-  padding-top: 0.1em;
 `;
 
 export const LinkContainer = styled.span<ButtonProps>``;

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 
 import { LightningIcon, TimerIcon } from "../../assets/icons";
-import { color, fontWeight, margins, zIndex } from "../../design";
+import { color, margins, zIndex } from "../../design";
 import { NavigationLocation } from "../../types";
-import { GeneralText, Heading6, HorizontalDivider, Paragraph } from "../atoms";
+import { HorizontalDivider, GeneralText, Heading6, BodyText } from "../atoms";
 import { Link } from "../buttons";
 import { ButtonContainer as DropDownButtonContainer } from "../buttons/styles";
 import { DieWrapper } from "../die/styles";
@@ -37,7 +37,7 @@ export const CountdownTimer = styled.div<TimerProps>`
   :hover {
     background: ${color.darkGrey};
   }
-  ${Paragraph} {
+  ${BodyText} {
     color: ${({ isHovered }) => isHovered && `${color.mediumGrey}`};
   }
   ${Timer} {
@@ -126,7 +126,6 @@ export const RulesSection = styled.section`
 `;
 
 export const RulesSectionTitle = styled(Heading6)`
-  text-transform: uppercase;
   margin-bottom: ${margins.small1};
 `;
 
@@ -141,21 +140,17 @@ export const Lightning = styled(LightningIcon)<LightningProps>`
   height: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
 `;
 
-export const ParagraphNoMargin = styled(Paragraph)`
+export const ParagraphNoMargin = styled(BodyText)`
   margin-bottom: 0;
 `;
 
-export const ParagraphReducedMargin = styled(Paragraph)`
+export const ParagraphReducedMargin = styled(BodyText)`
   list-style-type: circle;
   margin-bottom: 0.5em;
 `;
 
 export const ParagraphBulletPoint = styled(ParagraphReducedMargin)`
   margin-left: 0.6em;
-`;
-
-export const ParagraphBulletPointBold = styled(ParagraphReducedMargin)`
-  font-weight: ${fontWeight.bold};
 `;
 
 export const MatchStateItemContainer = styled.div`

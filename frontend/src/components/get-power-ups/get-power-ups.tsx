@@ -10,7 +10,6 @@ import { useStore } from "../../store";
 import { MatchHeading } from "../match-heading";
 import { Timer } from "../timer";
 import { FadeTransition } from "../page-transition";
-import { usePlaySound } from "../../hooks/use-sound";
 
 export const GetPowerUps: FC = () => {
   const localPlayer = useLocalPlayer();

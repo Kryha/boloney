@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
-import { color, fontWeight, margins, opacity, zIndex } from "../../design";
+import { color, margins, opacity, zIndex } from "../../design";
+import { GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, BodyText } from "../atoms";
 import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
-import { FormHeadingText, GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, IntroText, Paragraph } from "./text";
 
 interface TextProps {
   customColor?: string;
@@ -64,10 +64,6 @@ export const GeneralContentWrapper = styled.div<GeneralContentWrapperProps>`
   ${Heading5} {
     margin-bottom: ${margins.small1};
   }
-  ${IntroText} {
-    margin-bottom: ${margins.medium0};
-    width: clamp(510px, 51.04vw + 20px, 1000px);
-  }
 `;
 
 export const HeadingContentWrapper = styled.div`
@@ -83,9 +79,6 @@ export const HeadingContentWrapper = styled.div`
 
 export const FormContentWrapper = styled.div`
   margin-left: ${margins.large0};
-  ${FormHeadingText} {
-    margin-bottom: ${margins.small0};
-  }
   ${GeneralText} {
     margin-left: ${margins.medium1};
     width: clamp(400px, 41.67vw + 0px, 800px);
@@ -94,15 +87,7 @@ export const FormContentWrapper = styled.div`
 `;
 
 export const ListSection = styled.section<TextProps>`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.bolder};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  color: ${({ customColor }): string => customColor || color.black};
-  :first-letter {
-    text-transform: capitalize;
-  }
-  ${Paragraph} {
+  ${BodyText} {
     margin-bottom: ${margins.medium0};
   }
   ${LinkContainer} {
@@ -126,13 +111,6 @@ export const BottomButtonWrapper = styled.section`
 `;
 
 export const NumberedListSection = styled.section`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.bolder};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  :first-letter {
-    text-transform: capitalize;
-  }
   counter-reset: css-counter 0;
   ${Heading1} {
     counter-increment: css-counter 1;

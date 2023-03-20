@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, zIndex } from "../../design";
-import { Heading6, RadioCheckbox } from "../atoms";
+import { RadioCheckbox } from "../atoms";
 import { DiceContainer } from "../match-players-overview/styles";
 
 interface SidebarInfoContainerProps {
@@ -26,11 +26,6 @@ export const PlayerSidebarInfoContainer = styled.div<SidebarInfoContainerProps>`
   ${RadioCheckbox} {
     position: absolute;
     bottom: 5px;
-  }
-  ${Heading6} {
-    :first-letter {
-      text-transform: none;
-    }
   }
   ${({ isLastBid, isTotalPlayers }) =>
     isLastBid

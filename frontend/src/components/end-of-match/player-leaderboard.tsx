@@ -1,16 +1,16 @@
 import { FC } from "react";
 
 import { avatars, text } from "../../assets";
-import { color, handProportion } from "../../design";
+import { color, fontWeights, handProportion } from "../../design";
 import { useViewport } from "../../hooks";
 import { useLocalPlayer } from "../../service";
 import { useStore } from "../../store";
 import { PlayerRanked } from "../../types";
 import { prefixDigit } from "../../util";
-import { Bold } from "../atoms";
 import { WinnerBadge } from "../badges";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import {
+  BoldDescription,
   DataWrapper,
   Description,
   DiceAndPowerUps,
@@ -58,9 +58,8 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
             <DiceIcon diceAmount={player.diceAmount} faceColor={avatarColor} />
             <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
           </DiceAndPowerUps>
-          <Description>
-            {normalDescription} <Bold>{boldDescription}</Bold>
-          </Description>
+          <Description customColor={color.darkGrey}>{normalDescription}</Description>
+          <BoldDescription fontWeight={fontWeights.bold}>{boldDescription}</BoldDescription>
         </LeaderboardDetails>
       </DataWrapper>
     </LeaderboardWrapper>

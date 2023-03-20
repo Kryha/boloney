@@ -42,7 +42,7 @@ export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
           }}
           isCopied={isLinkCopied}
         >
-          <Link primaryText={matchUrl} />
+          <Link primaryText={matchUrl} transformText="none" />
           <CopyIcon />
           <LinkCopied isCopied={isLinkCopied}>
             <GeneralText>{text.general.copied}</GeneralText>

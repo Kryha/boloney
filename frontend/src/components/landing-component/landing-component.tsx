@@ -1,9 +1,10 @@
 import { FC, useEffect } from "react";
 import { CallBoloney, HealDiceCoffin, PowerUpCards, text, TombstoneHand } from "../../assets";
 import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
+import { color, fonts, fontSizes, fontWeights, lineHeights } from "../../design";
 import { useObserver, useViewport } from "../../hooks";
 import { useStore } from "../../store";
-import { NumberedListSection } from "../atoms";
+import { NumberedListSection, LinkText } from "../atoms";
 import { ImageContainer } from "../image-containers";
 import { NumberedParagraph } from "../landing-paragraphs";
 import { BottomLinkSection } from "./bottom-link-section";
@@ -15,7 +16,6 @@ import {
   LandingComponentContainer,
   LandingComponentWrapper,
   LandingImage,
-  LandingLink,
   RightDisplaySection,
   VisibilityContainer,
 } from "./styles";
@@ -38,13 +38,29 @@ export const LandingComponent: FC = () => {
       <AppName />
       <BottomHeading>
         <LandingBottomHeading>{text.landing.theUtterlyAbsurdDice}</LandingBottomHeading>
-        <LandingLink href={text.landing.aleoLink} target={OPEN_LINK_IN_NEW_TAB}>
+        <LinkText
+          href={text.landing.aleoLink}
+          target={OPEN_LINK_IN_NEW_TAB}
+          font={fonts.secondary}
+          fontSize={fontSizes.heading2}
+          fontWeight={fontWeights.regular}
+          lineHeight={lineHeights.heading2}
+          customColor={color.black}
+        >
           {text.landing.aleo}
-        </LandingLink>
+        </LinkText>
         <LandingBottomHeading>{text.landing.by}</LandingBottomHeading>
-        <LandingLink href={text.landing.kryhaLink} target={OPEN_LINK_IN_NEW_TAB}>
+        <LinkText
+          href={text.landing.kryhaLink}
+          target={OPEN_LINK_IN_NEW_TAB}
+          font={fonts.secondary}
+          fontSize={fontSizes.heading2}
+          fontWeight={fontWeights.regular}
+          lineHeight={lineHeights.heading2}
+          customColor={color.black}
+        >
           {text.landing.kryha}
-        </LandingLink>
+        </LinkText>
       </BottomHeading>
       <LandingImage src={CallBoloney} alt="boloney" width={width} height={height} />
       <LandingComponentContainer width={width} height={height}>

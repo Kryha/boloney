@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
-import { color, margins } from "../../design";
-import { GeneralMessageText, Paragraph } from "./text";
+import { color, fontWeights, margins } from "../../design";
+import { GeneralText, PlayerInfoText } from "../atoms";
 
-export const ChatUserName = styled(Paragraph)`
+export const ChatUserName = styled(PlayerInfoText)`
   width: fit-content;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: bold;
+  font-weight: ${fontWeights.bold};
   :first-letter {
     text-transform: none;
   }
@@ -28,7 +28,7 @@ export const Message = styled.div<MessageProps>`
   background: ${({ isLocalUser }): string => (isLocalUser ? color.grey : color.cloudWhite)};
   width: fit-content;
   max-width: 23.5vw;
-  ${GeneralMessageText} {
+  ${GeneralText} {
     white-space: initial;
   }
 `;

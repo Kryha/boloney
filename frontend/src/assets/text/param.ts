@@ -1,4 +1,5 @@
 import { Action } from "../../types";
+import { capitalize } from "../../util/text";
 
 export const param = {
   yourDice: (amount: number) => `your dice (x${amount})`,
@@ -28,7 +29,7 @@ export const param = {
   youSuckAtBluffing: (username?: string) => `${username} is right, you suck at bluffing... You lose a die!`,
   congratulationsExact: (username: string) => `congratulations ${username}, you rock at calling Exact!`,
   playerIsSafe: (username: string) => `congratulations ${username}, your ass is safe!`,
-  appendColon: (text?: string) => (text ? `${text}:` : ""),
+  appendColon: (text?: string) => (text ? `${capitalize(text)}:` : ""),
   congratulationsIdlePlayerActiveWon: (username: string, action: Action) => `congratulations ${username}, you rock at calling ${action}!`,
   congratulationsIdlePlayerActiveLost: (username: string, action: Action) => `congratulations ${username}, your ass is safe ${action}!`,
   congratulationsIdlePlayer: (username: string, action: Action) => `congratulations ${username}, they are awesome at calling ${action}!`,

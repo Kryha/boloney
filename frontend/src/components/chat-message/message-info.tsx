@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ChatMessageContent } from "../../types";
-import { MessageWrapper, Message, GeneralMessageText } from "../atoms";
+import { MessageWrapper, Message, GeneralText } from "../atoms";
 import { PlayerName } from "../match-players-overview";
 
 export interface MessageAtomProps {
@@ -13,7 +13,7 @@ export const MessageInfo: FC<MessageAtomProps> = ({ message, isNameShowing = fal
     <MessageWrapper isLocalUser={message.isLocalUser} isGroupedMessage={message.isGroupedMessage}>
       <Message isLocalUser={message.isLocalUser}>
         {isNameShowing && <PlayerName name={message.name} color={message.color} />}
-        <GeneralMessageText>{message.content}</GeneralMessageText>
+        <GeneralText transformText="none">{message.content}</GeneralText>
       </Message>
     </MessageWrapper>
   );

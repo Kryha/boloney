@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 
 import { ChevronDownIcon, RightArrowIconUrl } from "../../assets";
-import { color, fontSize, fontWeight, margins } from "../../design";
+import { breakpoints, color, fonts, fontSizes, fontWeights, lineHeights, margins } from "../../design";
 
 export const BaseInput = styled.input`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.light};
-  font-size: ${fontSize.small2};
-  line-height: 24px;
+  font-family: ${fonts.primary};
+  font-weight: ${fontWeights.light};
+  font-size: ${fontSizes.body.md};
+  line-height: ${lineHeights.body.md};
   letter-spacing: -0.01em;
   text-transform: lowercase;
   color: ${color.black};
@@ -16,6 +16,21 @@ export const BaseInput = styled.input`
   -moz-appearance: textfield;
   border-radius: 0px;
   -webkit-border-radius: 0px;
+  box-sizing: border-box;
+  padding: 23px ${margins.large0};
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.body.sm};
+    line-height: ${lineHeights.body.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.body.lg};
+    line-height: ${lineHeights.body.lg};
+  }
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -25,17 +40,22 @@ export const BaseInput = styled.input`
     -webkit-background-clip: text;
   }
   &::placeholder {
-    font-family: ibm-plex-mono;
-    font-weight: ${fontWeight.light};
-    font-size: ${fontSize.small2};
-    line-height: 24px;
+    font-family: ${fonts.primary};
+    font-weight: ${fontWeights.light};
+    font-size: ${fontSizes.body.md};
+    line-height: ${lineHeights.body.md};
     letter-spacing: -0.01em;
     text-transform: uppercase;
     color: ${color.black};
+    @media (max-width: ${breakpoints.md}) {
+      font-size: ${fontSizes.body.sm};
+      line-height: ${lineHeights.body.sm};
+    }
+    @media (min-width: ${breakpoints.xxl}) {
+      font-size: ${fontSizes.body.lg};
+      line-height: ${lineHeights.body.lg};
+    }
   }
-  box-sizing: border-box;
-  padding: 23px ${margins.large0};
-  border: none;
   :focus {
     outline-width: 0px !important;
     box-shadow: none;
@@ -46,27 +66,40 @@ export const BaseInput = styled.input`
       color: ${color.darkGrey};
     }
   }
-  -webkit-appearance: none;
-  -moz-appearance: none;
 `;
 
 export const BaseSelect = styled.select`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.light};
-  font-size: ${fontSize.small1};
-  line-height: 24px;
+  font-family: ${fonts.primary};
+  font-weight: ${fontWeights.light};
+  font-size: ${fontSizes.body.md};
+  line-height: ${lineHeights.body.md};
   letter-spacing: -0.01em;
   color: ${color.black};
   background-color: ${color.transparent};
   width: 100%;
   -moz-appearance: textfield;
+  padding: 23px ${margins.large0};
+  box-sizing: border-box;
+  background-image: url(${ChevronDownIcon});
+  background-position: right ${margins.large0} center;
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.body.sm};
+    line-height: ${lineHeights.body.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.body.lg};
+    line-height: ${lineHeights.body.lg};
+  }
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-  box-sizing: border-box;
-  cursor: pointer;
-  padding: 23px ${margins.large0};
   :focus {
     outline-color: -webkit-focus-ring-color;
     outline-style: auto;
@@ -81,22 +114,19 @@ export const BaseSelect = styled.select`
     box-shadow: none;
     outline: none;
   }
-  background-image: url(${ChevronDownIcon});
-  background-position: right ${margins.large0} center;
-  background-repeat: no-repeat;
   select::-ms-expand {
     display: none;
   }
-  -webkit-appearance: none;
-  -moz-appearance: none;
 `;
 
 export const BaseOption = styled.option``;
 
 export const ChatInput = styled(BaseInput)`
   text-transform: initial;
-  font-size: ${fontSize.small1};
-  line-height: 24px;
+  font-family: ${fonts.primary};
+  font-weight: ${fontWeights.light};
+  font-size: ${fontSizes.body.md};
+  line-height: ${lineHeights.body.md};
   letter-spacing: -0.01em;
   color: ${color.black};
   display: flex;
@@ -109,12 +139,29 @@ export const ChatInput = styled(BaseInput)`
   width: 23.75vw;
   height: 44px;
   background: ${color.cloudWhite};
+  @media (max-width: ${breakpoints.md}) {
+    font-size: ${fontSizes.body.sm};
+    line-height: ${lineHeights.body.sm};
+  }
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: ${fontSizes.body.lg};
+    line-height: ${lineHeights.body.lg};
+  }
+
   &::placeholder {
-    font-family: ibm-plex-mono;
-    font-weight: ${fontWeight.light};
-    font-size: ${fontSize.small1};
-    line-height: 24px;
-    letter-spacing: -0.01em;
+    font-family: ${fonts.primary};
+    font-weight: ${fontWeights.light};
+    font-size: ${fontSizes.body.md};
+    line-height: ${lineHeights.body.md};
+
+    @media (max-width: ${breakpoints.md}) {
+      font-size: ${fontSizes.body.sm};
+      line-height: ${lineHeights.body.sm};
+    }
+    @media (min-width: ${breakpoints.xxl}) {
+      font-size: ${fontSizes.body.lg};
+      line-height: ${lineHeights.body.lg};
+    }
     color: ${color.darkGrey};
     text-transform: none;
   }

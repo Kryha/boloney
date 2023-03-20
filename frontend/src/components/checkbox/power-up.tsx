@@ -1,10 +1,10 @@
 import { FC } from "react";
 
-import { GeneralContentWrapper, Heading6, Row } from "../atoms";
+import { GeneralContentWrapper, Row, Heading6, BodyText } from "../atoms";
 import { CheckboxInput } from "../inputs";
 import { PowerUpComponent } from "../power-up";
-
-import { Description, DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
+import { color } from "../../design";
+import { DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
 import { PowerUp } from "../../types";
 
 interface PowerUpsInfo {
@@ -39,7 +39,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ powerUp, isChecked, isError, pro
             <Lightning />
             <Heading6>{powerUp.name}</Heading6>
           </Row>
-          <Description>{powerUp.shortDescription}</Description>
+          <BodyText customColor={color.darkGrey}>{powerUp.shortDescription}</BodyText>
         </GeneralContentWrapper>
       </DescriptionContainer>
       <CheckboxInput isError={isError}>

@@ -1,15 +1,15 @@
 import { FC, ReactNode } from "react";
 import { text } from "../../../assets";
-import { color, margins } from "../../../design";
+import { color, fontSizes, fontWeights, lineHeights, margins } from "../../../design";
 import { HistoryRoundEndAction, HistoryRoundPlayer, PlayerPublic } from "../../../types";
 import { getDieColor } from "../../../util";
-import { GeneralText } from "../../atoms";
 import { WinnerBadge, LoserBadge, PlayerDeadBadge } from "../../badges";
 import { Die } from "../../die";
 import { PowerUpIcon } from "../../icons";
 import { DiceIconWrapper, Lightning } from "../../icons/styles";
 import { MatchStateContainer } from "../../match-players-overview/styles";
-import { EndOfRoundRow, HistoryActionWrapper, HistoryBadgeContainer, HistoryBadgeWrapper, InfoRow, TimeStamp, Username } from "./styles";
+import { EndOfRoundRow, HistoryActionWrapper, HistoryBadgeContainer, HistoryBadgeWrapper, InfoRow } from "./styles";
+import { PlayerInfoText, GeneralText } from "../../atoms";
 
 interface Props {
   headingOne: string;
@@ -38,18 +38,28 @@ export const HistoryActionTitle: FC<Props> = ({
 
   return (
     <HistoryActionWrapper>
-      <TimeStamp customColor={headingOneColor}>{text.param.appendColon(headingOne)}</TimeStamp>
-      {!isDice && !isPowerUp && <TimeStamp customColor={headingTwoColor}>{headingTwo}</TimeStamp>}
+      <PlayerInfoText fontWeight={fontWeights.light} customColor={headingOneColor}>
+        {text.param.appendColon(headingOne)}
+      </PlayerInfoText>
+      {!isDice && !isPowerUp && (
+        <PlayerInfoText fontWeight={fontWeights.light} customColor={headingTwoColor}>
+          {headingTwo}
+        </PlayerInfoText>
+      )}
       {isDice && (
         <InfoRow>
           <Die faceColor={faceColor} isMatchHistory={true} />
-          <TimeStamp customColor={headingTwoColor}>{text.param.plusAmount(diceAmount || 0)}</TimeStamp>
+          <PlayerInfoText fontWeight={fontWeights.light} customColor={headingTwoColor}>
+            {text.param.plusAmount(diceAmount || 0)}
+          </PlayerInfoText>
         </InfoRow>
       )}
       {isPowerUp && (
         <InfoRow>
           <Lightning />
-          <TimeStamp customColor={headingTwoColor}>{textPowerUpAmount}</TimeStamp>
+          <PlayerInfoText fontWeight={fontWeights.light} customColor={headingTwoColor}>
+            {textPowerUpAmount}
+          </PlayerInfoText>
         </InfoRow>
       )}
     </HistoryActionWrapper>
@@ -80,13 +90,20 @@ export const HistoryOutcome: FC<OutcomeProps> = ({ outcome, player, isLocalPlaye
   return (
     <HistoryBadgeWrapper customBackground={color.opaqueGrey}>
       <HistoryBadgeContainer isHeader>
-        <Username>{text.param.usernameTitle(player.username, isLocalPlayer)}</Username>
+        <PlayerInfoText>{text.param.usernameTitle(player.username, isLocalPlayer)}</PlayerInfoText>
         <MatchStateContainer>
           <DiceIconWrapper>
             <Die size={margins.small4} faceColor={faceColor} />
-            <GeneralText customColor={color.darkGrey}>{amountResult}</GeneralText>
+            <PlayerInfoText fontWeight={fontWeights.light} transformText="none" customColor={color.darkGrey}>
+              {amountResult}
+            </PlayerInfoText>
           </DiceIconWrapper>
-          <PowerUpIcon powerUpAmount={outcome?.playerStats.powerUpsAmount || 0} />
+          <PowerUpIcon
+            fontSize={fontSizes.playerInfo}
+            lineHeight={lineHeights.playerInfo}
+            customColor={color.darkGrey}
+            powerUpAmount={outcome?.playerStats.powerUpsAmount || 0}
+          />
         </MatchStateContainer>
       </HistoryBadgeContainer>
       {getPlayerBadge()}
@@ -104,9 +121,9 @@ interface EndOfRoundHistoryListProps {
 export const EndOfRoundHistoryList: FC<EndOfRoundHistoryListProps> = ({ playerName, diceAmount, powerUpAmount, diceValues }) => {
   return (
     <EndOfRoundRow>
-      <Username>{playerName}</Username>
+      <PlayerInfoText>{playerName}</PlayerInfoText>
       <GeneralText customColor={color.mediumGrey}>{text.param.playerDice(diceAmount, diceValues)}</GeneralText>
-      <PowerUpIcon powerUpAmount={powerUpAmount} />
+      <PowerUpIcon powerUpAmount={powerUpAmount} customColor={color.mediumGrey} />
       <GeneralText customColor={color.mediumGrey}>{text.history.closingBracket}</GeneralText>
     </EndOfRoundRow>
   );

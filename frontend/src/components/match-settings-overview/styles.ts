@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
-import { Heading6, Paragraph, Row } from "../atoms";
+import { Row, BodyText } from "../atoms";
 import { ButtonContainer, RightButtonContainer } from "../buttons/styles";
 import { PowerUpWrapper } from "../power-up/styles";
 import { TooltipContent } from "../tooltip/styles";
@@ -8,9 +8,6 @@ import { TooltipContent } from "../tooltip/styles";
 export const MatchSettingsOverviewComponent = styled.section`
   padding: 3.75em;
   overflow-y: scroll;
-  ${Heading6} {
-    text-transform: uppercase;
-  }
   ${ButtonContainer} {
     height: fit-content;
     padding-right: 0px;
@@ -37,7 +34,7 @@ export const ChoiceContainer = styled.div`
 `;
 
 export const MatchSettingsFooter = styled.div`
-  background: linear-gradient(0deg, ${color.white} 50%, rgba(238, 234, 233, 0) 139.86%);
+  background: linear-gradient(0deg, ${color.cloudWhite} 50%, rgba(238, 238, 234, 0) 139.86%);
   border-radius: 0px 0px 10px 10px;
   height: 10vh;
   position: fixed;
@@ -54,7 +51,7 @@ export const MatchInfoButtons = styled.div`
   margin-bottom: 3.75em;
   width: clamp(768px, 60.62vw + 186px, 1350px);
 `;
-export const Percentage = styled(Paragraph)`
+export const Percentage = styled(BodyText)`
   padding: 0.625em 0px 0.625em 0.625em;
 `;
 
@@ -68,7 +65,7 @@ export const PowerUpContainer = styled.div`
   ${Row} {
     gap: ${margins.small0};
   }
-  ${Paragraph} {
+  ${BodyText} {
     padding-right: 10px;
     color: ${color.black};
   }

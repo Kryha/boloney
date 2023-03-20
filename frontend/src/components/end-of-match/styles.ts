@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, margins, screenSizes } from "../../design";
-import { Heading2, Heading4, Heading6, Paragraph } from "../atoms";
+import { Heading2, Heading4, Heading6, BodyText } from "../atoms";
 import { PrimaryButtonWrapper } from "../buttons/styles";
 
 export const EndOfMatchWrapper = styled.section`
@@ -18,7 +18,6 @@ export const TitleSection = styled.section`
   margin-left: ${margins.large0};
   margin-bottom: ${margins.large0};
   ${Heading6} {
-    text-transform: uppercase;
     margin-bottom: ${margins.small4};
   }
 `;
@@ -82,9 +81,12 @@ export const DiceAndPowerUps = styled.div<DiceAndPowerUpsProps>`
   gap: ${({ screenWidth }) => (screenWidth < screenSizes.small ? margins.small0 : margins.small3)};
 `;
 
-export const Description = styled(Paragraph)`
+export const BoldDescription = styled(BodyText)`
+  display: inline;
+`;
+
+export const Description = styled(BoldDescription)`
   margin-top: ${margins.small1};
-  color: ${color.darkGrey};
 `;
 
 // TODO: Improve the way styling is handled

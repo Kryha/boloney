@@ -3,9 +3,8 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { text } from "../../assets";
 import { routes } from "../../navigation";
-import { PrimaryButtonBase } from "../atoms";
-
-import { PrimaryButtonText, PrimaryButtonWrapper } from "../buttons/styles";
+import { PrimaryButtonBase, PrimaryButtonText } from "../atoms";
+import { PrimaryButtonWrapper } from "../buttons/styles";
 import { LandingFooterWrapper } from "./styles";
 
 interface Props {

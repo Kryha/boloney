@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins, opacity } from "../../design";
-import { fadeIn, fadeInPop, slideUp } from "../atoms";
-import { GeneralText } from "../atoms/text";
+import { fadeIn, fadeInPop, GeneralText, slideUp } from "../atoms";
 import { Lightning } from "../icons/styles";
 import { PowerUpWrapper } from "../power-up/styles";
 

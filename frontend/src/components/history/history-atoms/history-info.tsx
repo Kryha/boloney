@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { text } from "../../../assets";
 import { color } from "../../../design";
+import { PlayerInfoText, TimeStamp } from "../../atoms";
 import { HistoryPlayerAction, PlayerPublic, powerUpIdSchema } from "../../../types";
 import { getPowerUp, parseTimeFormat, getDieColor } from "../../../util";
 import { HistoryActionTitle } from "./history-action";
-import { HistoryBadgeContainer, HistoryBadgeWrapper, HistoryDivider, TimerRow, TimeStamp, Username } from "./styles";
+import { HistoryBadgeContainer, HistoryBadgeWrapper, HistoryDivider, TimerRow } from "./styles";
 
 interface Props {
   playerAction: HistoryPlayerAction;
@@ -62,7 +63,7 @@ export const HistoryAction: FC<Props> = ({ playerAction, player }) => {
       <HistoryBadgeWrapper>
         <HistoryBadgeContainer isHeader>
           <TimerRow>
-            <Username>{playerAction.activePlayerName}</Username>
+            <PlayerInfoText>{playerAction.activePlayerName}</PlayerInfoText>
             <TimeStamp customColor={color.mediumGrey}>{parseTimeFormat(playerAction.createdAt)}</TimeStamp>
           </TimerRow>
           <HistoryActionTitle

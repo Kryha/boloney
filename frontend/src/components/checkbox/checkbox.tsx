@@ -1,7 +1,8 @@
 import { FC } from "react";
-import { GeneralText, GeneralContentWrapper } from "../atoms";
 
-import { CheckboxContainer, CheckContainer, Close, Description, DescriptionContainer } from "./styles";
+import { GeneralContentWrapper, GeneralText, BodyText } from "../atoms";
+import { color } from "../../design";
+import { CheckboxContainer, CheckContainer, Close, DescriptionContainer } from "./styles";
 
 interface Props {
   title?: string;
@@ -25,7 +26,7 @@ export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck
       <DescriptionContainer>
         <GeneralContentWrapper>
           <GeneralText>{title}</GeneralText>
-          {description && <Description>{description}</Description>}
+          {description && <BodyText customColor={color.darkGrey}>{description}</BodyText>}
         </GeneralContentWrapper>
       </DescriptionContainer>
     </CheckboxContainer>

@@ -1,17 +1,9 @@
 import styled from "@emotion/styled";
 
 import { CloseIcon, LightningIcon } from "../../assets";
-import { color, fontWeight, margins } from "../../design";
-import { GeneralText, Paragraph, GeneralContentWrapper, Heading6, Row, BaseInput } from "../atoms";
+import { color, margins } from "../../design";
+import { GeneralContentWrapper, Row, BaseInput } from "../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
-
-export const Title = styled(GeneralText)`
-  text-transform: uppercase;
-`;
-
-export const Description = styled(Paragraph)`
-  color: ${color.darkGrey};
-`;
 
 export const Close = styled(CloseIcon)`
   width: 20px;
@@ -44,9 +36,6 @@ export const DescriptionContainer = styled.div`
   ${GeneralContentWrapper} {
     margin-left: ${margins.small3};
     margin-top: ${margins.small0};
-  }
-  ${Heading6} {
-    text-transform: uppercase;
   }
 `;
 
@@ -92,23 +81,6 @@ export const PercentageInputContainer = styled.div<PercentageInputProps>`
   ${PercentageInput} {
     border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
     color: ${({ isError }) => (isError ? color.red : color.black)};
-  }
-`;
-
-export const TextLabel = styled(GeneralText)`
-  display: flex;
-  width: 100%;
-  ::after {
-    position: absolute;
-    content: "%";
-    font-family: ibm-plex-mono, sans-serif;
-    font-weight: ${fontWeight.regular};
-    font-size: 16px;
-    line-height: 24px;
-    padding-left: 3px;
-    padding-right: 3px;
-    padding-top: 7px;
-    color: ${color.black};
   }
 `;
 

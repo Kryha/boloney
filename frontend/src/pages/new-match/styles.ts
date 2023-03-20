@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import { LightningIcon } from "../../assets";
 
-import { BaseInput, GeneralText, Heading4, Heading6 } from "../../components";
-import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper, LinkText, RightButtonContainer } from "../../components/buttons/styles";
+import { BaseInput, GeneralText, Heading4 } from "../../components";
+import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper, RightButtonContainer } from "../../components/buttons/styles";
 import { DescriptionContainer, CheckboxContainer as CheckboxWrapper } from "../../components/checkbox/styles";
 import { InputContainer } from "../../components/inputs/styles";
 import { TooltipContent } from "../../components/tooltip/styles";
-import { color, fontWeight, margins, opacity, zIndex } from "../../design";
+import { color, margins, opacity, zIndex } from "../../design";
 
 export const NewMatchContainer = styled.section``;
 
@@ -127,12 +127,6 @@ export const CopyLink = styled.div<CopyProps>`
         }
       `
       : ""};
-
-  ${LinkText} {
-    :first-letter {
-      text-transform: lowercase;
-    }
-  }
 `;
 
 export const InfoBox = styled.div`
@@ -183,9 +177,6 @@ export const LightningContainer = styled.div`
   align-items: center;
   padding: 0px;
   gap: ${margins.small0};
-  ${Heading6} {
-    text-transform: uppercase;
-  }
 `;
 
 interface PercentProps {
@@ -193,7 +184,6 @@ interface PercentProps {
 }
 
 export const Percentage = styled(GeneralText)<PercentProps>`
-  font-weight: ${fontWeight.bolder};
   color: ${({ isError }) => (isError ? color.red : color.black)};
 `;
 

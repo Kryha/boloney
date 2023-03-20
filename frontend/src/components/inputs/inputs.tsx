@@ -1,11 +1,10 @@
 import { FC, ReactNode } from "react";
 import { text } from "../../assets/text";
 
-import { Paragraph } from "../atoms";
+import { BodyText, Heading6 } from "../atoms";
 import { InfoPosition, Tooltip } from "../tooltip";
 import {
   InputContainer,
-  InputLabel,
   LabelContainer,
   Error,
   InputIconContainer,
@@ -13,7 +12,6 @@ import {
   FieldSet,
   Legend,
   LegendContainer,
-  LegendTitle,
   InputErrorContainer,
   CheckboxErrorContainer,
 } from "./styles";
@@ -36,13 +34,13 @@ export const Input: FC<InputProps> = ({ children, label, isError = false, errorM
   return (
     <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
       <LabelContainer>
-        <InputLabel>{label}</InputLabel>
+        <Heading6>{label}</Heading6>
       </LabelContainer>
       {children}
       {isError && (
         <InputErrorContainer>
           <Error />
-          <Paragraph>{errorMessage || text.authForm.somethingWentWrong}</Paragraph>
+          <BodyText>{errorMessage || text.authForm.somethingWentWrong}</BodyText>
         </InputErrorContainer>
       )}
     </InputContainer>
@@ -66,7 +64,7 @@ export const InputLegend: FC<InputProps> = ({
       <FieldSet isError={isError} isRow={isRow} childNode={childNode}>
         <Legend>
           <LegendContainer>
-            <LegendTitle>{label}</LegendTitle>
+            <Heading6>{label}</Heading6>
             <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={infoPosition} zIndex={zIndex} />
           </LegendContainer>
         </Legend>
@@ -75,7 +73,7 @@ export const InputLegend: FC<InputProps> = ({
       {isError && (
         <InputErrorContainer>
           <Error />
-          <Paragraph>{errorMessage || text.authForm.somethingWentWrong}</Paragraph>
+          <BodyText>{errorMessage || text.authForm.somethingWentWrong}</BodyText>
         </InputErrorContainer>
       )}
     </InputContainer>
@@ -89,7 +87,7 @@ export const CheckboxInput: FC<InputProps> = ({ children, isError = false, error
       {isError && (
         <CheckboxErrorContainer>
           <Error />
-          <Paragraph>{errorMessage || text.newMatch.invalidPercentage}</Paragraph>
+          <BodyText>{errorMessage || text.newMatch.invalidPercentage}</BodyText>
         </CheckboxErrorContainer>
       )}
     </InputIconContainer>

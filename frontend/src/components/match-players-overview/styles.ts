@@ -153,14 +153,12 @@ export const PlayerColor = styled.div<PlayersColorProps>`
   background: ${({ customColor }): string => customColor || color.cloudWhite};
 `;
 
-export const PlayerNameContainer = styled.span`
+export const PlayerNameContainer = styled(Heading5)`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: ${margins.small1};
-  font-family: itc-clearface-regular;
-  font-size: clamp(13.12px, 0.72vw + 6.24px, 20px);
-  font-weight: 500;
+  line-height: normal;
 `;
 
 interface AvatarProps {
@@ -177,7 +175,7 @@ export const PlayerAvatarContainer = styled.div<PlayersAvatarProps>`
   align-items: center;
   justify-content: center;
   display: flex;
-  cursor: ${({ isTargetable }): string => (isTargetable ? "pointer" : "defualt")};
+  cursor: ${({ isTargetable }): string => (isTargetable ? "pointer" : "default")};
   ${({ isWinner }): string =>
     isWinner
       ? ""

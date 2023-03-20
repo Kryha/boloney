@@ -55,7 +55,7 @@ export const PlayerLastBid: FC<PlayerLastBidProps> = ({ lastBid, player }) => {
 
   return (
     <DiceContainer>
-      <Heading6>{text.param.xAmount(lastBid.amount)}</Heading6>
+      <Heading6 transformText="none">{text.param.xAmount(lastBid.amount)}</Heading6>
       <Die faceColor={dieColor} value={lastBid.face} />
     </DiceContainer>
   );

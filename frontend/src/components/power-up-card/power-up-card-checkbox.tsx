@@ -53,7 +53,9 @@ export const PowerUpCardCheckbox: FC<PowerUpCardCheckboxProps> = ({
             {descriptionExample && <DescriptionExample>{descriptionExample}</DescriptionExample>}
           </>
         ) : (
-          <SeeDetailsText onClick={handleDescriptionClick}>{text.powerUps.seeDetails}</SeeDetailsText>
+          <SeeDetailsText isDecorated onClick={handleDescriptionClick}>
+            {text.powerUps.seeDetails}
+          </SeeDetailsText>
         )}
       </PowerUpInfoContainerCheckbox>
       <CheckboxArea>{disabledCheckbox && !isClicked ? <></> : <Checkbox isChecked={isClicked} toggleCheck={onClick} />}</CheckboxArea>

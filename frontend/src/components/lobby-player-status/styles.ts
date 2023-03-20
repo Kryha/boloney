@@ -1,17 +1,8 @@
 import styled from "@emotion/styled";
-import { ellipsis, Heading4 } from "../atoms";
-import { color, fontWeight, margins } from "../../design";
+import { ellipsis, GeneralText, Heading4 } from "../atoms";
+import { margins } from "../../design";
 
-export const Waiting = styled.div`
-  font-family: ibm-plex-mono;
-  font-weight: ${fontWeight.light};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  letter-spacing: -0.01em;
-  color: ${color.black};
-  :first-letter {
-    text-transform: capitalize;
-  }
+export const Waiting = styled(GeneralText)`
   &:after {
     overflow: hidden;
     display: inline-block;

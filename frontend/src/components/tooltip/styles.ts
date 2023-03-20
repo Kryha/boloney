@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { InfoIcon } from "../../assets";
-import { color, fontWeight, margins } from "../../design";
-import { GeneralText, Heading3, tooltipAnimation } from "../atoms";
+import { color, margins } from "../../design";
+import { tooltipAnimation, TooltipText, Heading3 } from "../atoms";
 
 export const TooltipWrap = styled.section`
   display: inline-block;
@@ -15,32 +15,15 @@ export const ButtonInfoWrap = styled.span`
   margin-left: ${margins.small1};
 `;
 
-export const ToolTipText = styled.span`
-  display: block;
-  font-family: ibm-plex-mono, sans-serif;
-  font-weight: ${fontWeight.light};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  letter-spacing: -0.01em;
-  color: ${color.black};
-  :first-letter {
-    text-transform: capitalize;
-  }
+export const ToolTipTextWrapper = styled.div``;
+
+export const TooltipDescription = styled(TooltipText)`
+  display: inline;
 `;
 
-export const TooltipDescription = styled(GeneralText)``;
-
-export const TooltipHeading = styled.span`
-  font-family: ibm-plex-mono, sans-serif;
-  font-weight: ${fontWeight.bold};
-  font-size: clamp(0.88rem, 0.21vw + 0.75rem, 1rem);
-  line-height: clamp(1.38rem, 0.21vw + 1.25rem, 1.5rem);
-  letter-spacing: -0.01em;
-  color: ${color.black};
+export const TooltipHeading = styled(TooltipText)`
+  display: inline;
   margin-right: 10px;
-  :first-letter {
-    text-transform: capitalize;
-  }
 `;
 
 interface TooltipProps {

@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { text } from "../../assets/text";
 import { color } from "../../design";
-import { MatchSettings } from "../../types";
 import { GeneralText, Heading6 } from "../atoms";
+import { MatchSettings } from "../../types";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import { InfoPosition, Tooltip } from "../tooltip";
 import { SoundToggle } from "../sound-toggle";

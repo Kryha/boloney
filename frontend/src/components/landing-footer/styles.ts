@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { color } from "../../design";
-import { PrimaryButtonBase, ticker } from "../atoms";
-import { PrimaryButtonText } from "../buttons/styles";
+import { PrimaryButtonBase, ticker, PrimaryButtonText } from "../atoms";
 
 export const LandingFooterWrapper = styled.section`
   position: fixed;

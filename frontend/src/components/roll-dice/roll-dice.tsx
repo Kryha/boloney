@@ -11,7 +11,6 @@ import { ButtonReady } from "../button-ready";
 import { getDieColor } from "../../util";
 import { RollingDice } from "../dice-animation";
 import { MatchHeading } from "../match-heading";
-import { TimeStamp } from "../history/history-atoms/styles";
 import { FadeTransition } from "../page-transition";
 import { Timer } from "../timer";
 
@@ -44,7 +43,6 @@ export const RollDice: FC = () => {
   if (hasRolledDice && isPlayerReady) {
     return (
       <BottomButtonWrapper>
-        <TimeStamp title={text.powerUps.waitingTime} />
         <MatchHeading headingOne={text.powerUps.timeToWait} headingTwo={text.powerUps.waitForPlayers} isAnimated />
       </BottomButtonWrapper>
     );
@@ -54,7 +52,6 @@ export const RollDice: FC = () => {
     <FadeTransition>
       <Timer title={text.powerUps.settingItUp} />
       <BottomButtonWrapper>
-        <TimeStamp title={text.powerUps.settingItUp} />
         <MatchHeading
           headingOne={text.match.getDice}
           headingTwo={text.match.findOutYourPips}

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { text } from "../../assets/text";
-import { BulletContainer, DefaultListItem, GeneralText } from "../atoms";
-import { ToolTipContent } from "./styles";
+import { GeneralText, TooltipText, DefaultListItem } from "../atoms";
+import { BulletContainer, ToolTipContent } from "./styles";
 
 export const ToolTipStageNumber: FC = () => {
   return (
@@ -11,7 +11,9 @@ export const ToolTipStageNumber: FC = () => {
       <GeneralText>{text.general.diceInPlay}</GeneralText>
       <BulletContainer>
         {text.general.toolTipStageNumberBulletList.map((item, index) => (
-          <DefaultListItem key={index}>{item}</DefaultListItem>
+          <DefaultListItem key={index}>
+            <TooltipText>{item}</TooltipText>
+          </DefaultListItem>
         ))}
       </BulletContainer>
     </ToolTipContent>

@@ -38,11 +38,6 @@ export const ToastDescriptionContainer = styled.div`
   gap: ${margins.small1};
   overflow: scroll;
   height: 100%;
-  .bold {
-    font-weight: bold;
-    background-color: ${color.transparent};
-    color: ${color.black};
-  }
 `;
 
 interface MultipleToastProps {

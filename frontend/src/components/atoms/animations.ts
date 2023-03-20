@@ -160,7 +160,7 @@ export const fadeUp = keyframes`
 
 export const fadeOut = keyframes`
   0% { opacity: ${opacity.visible}; }
-  100% { opacity: ${opacity.visible}; }
+  100% { opacity: ${opacity.hidden}; }
 `;
 
 export const ticker = keyframes`

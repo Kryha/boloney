@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { LightningIcon } from "../../assets";
 import { margins } from "../../design";
-import { GeneralContentWrapper, Heading6 } from "../atoms";
+import { GeneralContentWrapper } from "../atoms";
 
 export const DescriptionContainer = styled.div`
   flex: 11;
@@ -10,9 +10,6 @@ export const DescriptionContainer = styled.div`
   ${GeneralContentWrapper} {
     margin-left: ${margins.small3};
     margin-top: ${margins.small0};
-  }
-  ${Heading6} {
-    text-transform: uppercase;
   }
 `;
 

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { MINIMUM_POWER_UP_WIDTH_VIEW } from "../../constants";
 import { color, margins } from "../../design";
 
-import { fadeIn, fadeOut, GeneralText, GeneralTextUnderlined, Heading2, RadioCheckbox } from "../atoms";
+import { fadeIn, fadeOut, RadioCheckbox, GeneralText, Heading2 } from "../atoms";
 import { CheckboxContainer } from "../checkbox/styles";
 import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 
@@ -32,7 +32,7 @@ export const DescriptionExample = styled(DescriptionText)`
   color: ${color.darkGrey};
 `;
 
-export const SeeDetailsText = styled(GeneralTextUnderlined)`
+export const SeeDetailsText = styled(GeneralText)`
   width: clamp(141px, 14.48vw + 2px, 280px);
 `;
 

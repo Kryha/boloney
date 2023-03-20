@@ -1,8 +1,8 @@
 import { FC, ReactNode, useState, useEffect } from "react";
-import { color } from "../../design";
+import { color, FontProps, TransformText } from "../../design";
 import { useObserver } from "../../hooks";
 import { useStore } from "../../store";
-import { PrimaryButtonBase, SecondaryButtonBase } from "../atoms";
+import { PrimaryButtonBase, SecondaryButtonBase, LinkText, PrimaryButtonText } from "../atoms";
 import { ContentLoader } from "../content-loader";
 import { Tooltip, InfoPosition } from "../tooltip";
 import {
@@ -12,9 +12,7 @@ import {
   InitialButtonView,
   LeftArrow,
   LinkContainer,
-  LinkText,
   PrimaryButtonContainer,
-  PrimaryButtonText,
   PrimaryButtonWrapper,
   RightButtonContainer,
   SecondaryArrow,
@@ -36,6 +34,15 @@ interface ButtonProps {
   isLoading?: boolean;
   isBottomButton?: boolean;
   isSpinnerShown?: boolean;
+}
+
+interface LinkProps extends ButtonProps {
+  customColor?: string;
+  fontWeight?: string;
+  fontSize?: FontProps;
+  lineHeight?: FontProps;
+  font?: string;
+  transformText?: TransformText;
 }
 
 interface DropdownButtonProps extends ButtonProps {
@@ -118,9 +125,28 @@ export const ExitButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) 
   </ButtonContainer>
 );
 
-export const Link: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
+export const Link: FC<LinkProps> = ({
+  disabled,
+  onClick,
+  primaryText,
+  customColor,
+  fontWeight,
+  fontSize,
+  lineHeight,
+  font,
+  transformText,
+}) => (
   <LinkContainer onClick={() => onClick && onClick()} disabled={disabled}>
-    <LinkText>{primaryText}</LinkText>
+    <LinkText
+      customColor={customColor}
+      fontWeight={fontWeight}
+      fontSize={fontSize}
+      lineHeight={lineHeight}
+      font={font}
+      transformText={transformText}
+    >
+      {primaryText}
+    </LinkText>
   </LinkContainer>
 );
 

@@ -22,7 +22,7 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor, extraDice 
   if (!dice || !dice.length)
     return (
       <DieOverviewContainer height={height}>
-        {localPlayer ? <GeneralText>{text.param.xAmount(localPlayer.diceAmount)}</GeneralText> : <></>}
+        {localPlayer ? <GeneralText transformText="none">{text.param.xAmount(localPlayer.diceAmount)}</GeneralText> : <></>}
       </DieOverviewContainer>
     );
 
@@ -36,7 +36,7 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor, extraDice 
   return (
     <DieOverviewWrapper>
       <DieOverviewContainer height={height}>
-        <GeneralText>{text.param.xAmount(dice.length)}</GeneralText>
+        <GeneralText transformText="none">{text.param.xAmount(dice.length)}</GeneralText>
         <YourDiceContainer isRow={isRow}>
           {dice.map((die, index) => (
             <DieComponent key={index} value={die.rolledValue} faceColor={dieColor} isRow={isRow} isTemporaryDice={isTemporaryDice(index)} />

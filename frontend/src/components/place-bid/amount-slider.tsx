@@ -1,11 +1,12 @@
 import { FC, ReactElement, useEffect, useMemo, useState } from "react";
 
-import { ArrowButton } from "../../assets";
+import { ArrowButton, text } from "../../assets";
+import { fontSizes, lineHeights } from "../../design";
 import { useTotalDiceInMatch } from "../../service";
 import { Bid } from "../../types";
 
 import { usePlaceBidFormState } from "./bid-state";
-import { ControlButton, ControlButtonWrapper, NumberList, NumberSliderWrapper, Number, ShowX } from "./styles";
+import { ControlButton, ControlButtonWrapper, NumberList, NumberSliderWrapper, Number } from "./styles";
 
 //TODO: Calculate range based amount of players and available dice
 
@@ -57,13 +58,24 @@ export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
   };
 
   const getNumberList = (amount: number, index: number): ReactElement => {
+    const isCurrent = index === 2;
+    const fontDisplayed = isCurrent ? fontSizes.heading1 : fontSizes.heading4;
+    const lineHeightsDisplayed = isCurrent ? fontSizes.heading1 : fontSizes.heading4;
+
     if (amount <= 0 || amount > diceInMatch) {
-      return <Number key={index} isCurrent={false} isDisabled={true} isEmpty={true} />;
+      return <Number key={index} isCurrent={false} isDisabled={true} height={lineHeights.heading4} />;
     }
 
     return (
-      <Number key={index} isDisabled={amount < lowerBound} isCurrent={index === 2} isEmpty={false}>
-        {amount}
+      <Number
+        key={index}
+        isDisabled={amount < lowerBound}
+        isCurrent={isCurrent}
+        fontSize={fontDisplayed}
+        lineHeight={lineHeightsDisplayed}
+        height={lineHeightsDisplayed}
+      >
+        {text.param.xAmount(amount)}
       </Number>
     );
   };
@@ -78,7 +90,6 @@ export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
           <ArrowButton />
         </ControlButton>
       </ControlButtonWrapper>
-      <ShowX />
       <NumberList>{viewNumbers.map((amount, index) => getNumberList(amount, index))}</NumberList>
     </NumberSliderWrapper>
   );
