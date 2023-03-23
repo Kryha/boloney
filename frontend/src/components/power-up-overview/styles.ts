@@ -23,9 +23,9 @@ export const PowerUpOverviewContainer = styled.div<ViewportProps>`
   align-items: flex-start;
   gap: ${({ height }) => height > SMALL_VIEWPORT_HEIGHT && margins.small2};
   width: 31.25vw;
-  height: 7.198vh;
+  height: 9.198vh;
   background: ${color.transparent};
-  margin-top: ${margins.small5};
+  margin-top: 1.8vh;
   ${GeneralText} {
     color: ${color.black};
   }

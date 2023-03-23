@@ -23,7 +23,7 @@ export const DieOverviewContainer = styled.div<ViewportProps>`
   gap: ${({ height }) => (height > SMALL_VIEWPORT_HEIGHT ? margins.small2 : margins.small0)};
   width: 27.5vw;
   background: ${color.transparent};
-  margin-top: ${margins.small5};
+  margin-top: 1.8vh;
   ${GeneralText} {
     margin-left: ${margins.large1};
   }
