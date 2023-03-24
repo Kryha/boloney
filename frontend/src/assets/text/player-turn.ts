@@ -15,7 +15,7 @@ export const playerTurn = {
   loser: "loser!",
   outOfTime: "out of time!",
   playerTimeOut: "time is out!",
-  youRunOutOfTime: "you run out of time. We skip your turn and you lose a die!",
+  youRunOutOfTime: "you ran out of time. We skip your turn and you lose a die!",
   youAreRocking: "you are rocking it!",
   exact: "exact",
   callExact: "call Exact!",
