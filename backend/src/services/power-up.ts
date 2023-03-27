@@ -28,6 +28,7 @@ import {
   UseVendettaBackend,
   UseVendettaFrontend,
   isDieArray,
+  AleoKeys,
 } from "../types";
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
@@ -35,6 +36,7 @@ import { sendMatchNotification } from "./notification";
 import { cleanUUID, getRange, shuffleArray, isZkEnabled } from "../utils";
 import { handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
 import { saveHistoryEvent } from "./history";
+import { getPlayerAccount, getPlayerKeys } from "./storage";
 
 const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrillBackend => {
   const { state } = loopParams;
@@ -47,47 +49,55 @@ const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrill
   return { isCorrect, targetId: data.targetId };
 };
 
-const useBirdsEye = (loopParams: MatchLoopParams, data: UseBirdsEyeFrontend, powerUpRecord: PowerUpToolkit): UseBirdsEyeBackend => {
+const useBirdsEye = (
+  loopParams: MatchLoopParams,
+  data: UseBirdsEyeFrontend,
+  powerUpRecord: PowerUpToolkit,
+  playerKeys: AleoKeys
+): UseBirdsEyeBackend => {
   const { state, ctx } = loopParams;
   const { targetId } = data;
 
   const target = state.players[targetId];
 
-  let sum: number;
+  // let sum: number;
 
-  if (isZkEnabled(state, ctx)) {
-    const diceData: DiceDataToolkit = {
-      dice_1: 0,
-      dice_2: 0,
-      dice_3: 0,
-      dice_4: 0,
-      dice_5: 0,
-      dice_6: 0,
-      dice_7: 0,
-      dice_8: 0,
-      dice_9: 0,
-      dice_10: 0,
-    };
+  // TODO: Fix call to toolkit
+  // if (isZkEnabled(state, ctx)) {
+  //   const diceData: DiceDataToolkit = {
+  //     dice_1: 0,
+  //     dice_2: 0,
+  //     dice_3: 0,
+  //     dice_4: 0,
+  //     dice_5: 0,
+  //     dice_6: 0,
+  //     dice_7: 0,
+  //     dice_8: 0,
+  //     dice_9: 0,
+  //     dice_10: 0,
+  //   };
 
-    target.diceValue.forEach((dice, i) => {
-      const key = `dice_${i + 1}` as keyof DiceDataToolkit;
-      diceData[key] = dice.rolledValue;
-    });
+  //   target.diceValue.forEach((dice, i) => {
+  //     const key = `dice_${i + 1}` as keyof DiceDataToolkit;
+  //     diceData[key] = dice.rolledValue;
+  //   });
 
-    const res = toolkitUse.birdsEye(loopParams, powerUpRecord, diceData);
-    sum = res.sum;
-  } else {
-    sum = target.diceValue.reduce((tot, die) => tot + die.rolledValue, 0);
-  }
+  //   const res = toolkitUse.birdsEye(loopParams, powerUpRecord, diceData, playerKeys);
+  //   sum = res.sum;
+  // } else {
+  // }
+  const sum = target.diceValue.reduce((tot, die) => tot + die.rolledValue, 0);
 
   return { sum, targetId };
 };
 
 const useMenage = async (loopParams: MatchLoopParams, sender: Player): Promise<UseMenageBackend> => {
-  const { state } = loopParams;
+  const { state, nk } = loopParams;
   const activePlayer = state.players[sender.userId];
 
-  const newRolledDice = await rollDice(loopParams, MENAGE_A_TROIS_DICE_AMOUNT);
+  const { address, privateKey, viewKey } = getPlayerAccount(nk, sender.userId);
+
+  const newRolledDice = await rollDice(loopParams, MENAGE_A_TROIS_DICE_AMOUNT, { address, privateKey, viewKey });
 
   if (!isDieArray(newRolledDice)) throw new Error("Failed to roll new dice!");
 
@@ -99,13 +109,13 @@ const useMenage = async (loopParams: MatchLoopParams, sender: Player): Promise<U
 };
 
 const useDoubleUp = async (loopParams: MatchLoopParams, sender: Player): Promise<UseDoubleUpBackend> => {
-  const { state } = loopParams;
+  const { state, nk } = loopParams;
+
+  const { address, privateKey, viewKey } = getPlayerAccount(nk, sender.userId);
 
   const numberOfNewPowerUps = sender.powerUpsAmount >= state.settings.maxPowerUpAmount ? 1 : 2;
-  const newPowerUps =
-    numberOfNewPowerUps === 1
-      ? await Promise.all([getPowerUp(loopParams)])
-      : await Promise.all([getPowerUp(loopParams), getPowerUp(loopParams)]);
+
+  const newPowerUps = await Promise.all(getRange(numberOfNewPowerUps).map(() => getPowerUp(loopParams, { address, privateKey, viewKey })));
 
   if (!isPowerUpTypeArray(newPowerUps)) throw new Error("Failed to get new power-ups");
 
@@ -131,9 +141,10 @@ const useSecondChance = async (
   data: UseSecondChanceFrontend,
   sender: Player
 ): Promise<UseSecondChanceBackend> => {
-  const { state } = loopParams;
-
+  const { state, nk } = loopParams;
   const activePlayer = state.players[sender.userId];
+
+  const { address, privateKey, viewKey } = getPlayerAccount(nk, sender.userId);
 
   // Remove chosen dice from userId
   const countDie = data.diceToReroll.reduce((dieCount, die) => {
@@ -146,7 +157,7 @@ const useSecondChance = async (
   );
 
   // Reroll the amount of dice chosen
-  const newRolledDice = await rollDice(loopParams, data.diceToReroll.length);
+  const newRolledDice = await rollDice(loopParams, data.diceToReroll.length, { address, privateKey, viewKey });
 
   if (!isDieArray(newRolledDice)) throw new Error("Failed to roll new dice!");
 
@@ -158,12 +169,15 @@ const useSecondChance = async (
 };
 
 const useCoup = async (loopParams: MatchLoopParams, data: UseCoupFrontend, isSelfTarget: boolean): Promise<UseCoupBackend> => {
-  const { state } = loopParams;
+  const { state, nk } = loopParams;
+
+  const { address, privateKey, viewKey } = getPlayerAccount(nk, data.targetId);
 
   const powerUpsAmount = isSelfTarget ? state.players[data.targetId].powerUpsAmount - 1 : state.players[data.targetId].powerUpsAmount;
 
-  const newPowerUps = await Promise.all(getRange(powerUpsAmount).map(async () => getPowerUp(loopParams)));
+  const newPowerUps = await Promise.all(getRange(powerUpsAmount).map(async () => getPowerUp(loopParams, { address, privateKey, viewKey })));
   if (!isPowerUpTypeArray(newPowerUps)) throw new Error("Failed to get new power-ups.");
+
   state.players[data.targetId].powerUpIds = newPowerUps;
   state.players[data.targetId].powerUpsAmount = newPowerUps.length;
 
@@ -221,6 +235,7 @@ const isPowerUpActive = (loopParams: MatchLoopParams, powerUpId: PowerUpId) => {
 
 const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage, sender: Player): Promise<void> => {
   const { state, dispatcher, nk, ctx, logger } = loopParams;
+
   try {
     // TODO: use type predicates instead of assertion
     const payload = JSON.parse(nk.binaryToString(message.data)) as UsePowerUpPayloadFrontend;
@@ -259,7 +274,8 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
         break;
       }
       case "2": {
-        const resData = useBirdsEye(loopParams, data, powerUpRecord);
+        const playerKeys = getPlayerKeys(nk, sender.userId);
+        const resData = useBirdsEye(loopParams, data, powerUpRecord, playerKeys);
         resPayload = { id, data: resData };
         break;
       }
@@ -330,7 +346,7 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
     };
     if (!activePowerUp) sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, sender.userId);
   } catch (error) {
-    logger.error("Use power-up", error);
+    logger.error("Use power-up error: " + JSON.stringify(error, null, 2));
     stopLoading(loopParams, message.sender);
   }
 };

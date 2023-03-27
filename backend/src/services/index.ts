@@ -7,3 +7,4 @@ export * from "./notification";
 export * from "./chat";
 export * from "./power-up";
 export * from "./history";
+export * from "./storage";

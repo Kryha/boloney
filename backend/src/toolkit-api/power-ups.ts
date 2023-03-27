@@ -1,4 +1,6 @@
 import {
+  AleoAccount,
+  AleoKeys,
   DiceDataToolkit,
   isBirdsEyeResToolkit,
   isPowerUpId,
@@ -49,9 +51,10 @@ export const getPowerUpIdFromProbability = (randomNumber: number, probabilityRan
   return id;
 };
 
-export const getPowerUp = (loopParams: MatchLoopParams): PowerUpId | undefined => {
+export const getPowerUp = (loopParams: MatchLoopParams, playerAccount: AleoAccount): PowerUpId | undefined => {
   const { nk, state, ctx } = loopParams;
   const { powerUpProbability } = state.settings;
+  const { address, privateKey, viewKey } = playerAccount;
 
   const availablePowerUps = getAvailablePowerUps(powerUpProbability);
   const probabilityRange = generateProbabilityRange(availablePowerUps);
@@ -64,7 +67,7 @@ export const getPowerUp = (loopParams: MatchLoopParams): PowerUpId | undefined =
     const randomSeed = mockRn;
 
     const url = tkUrl(ctx, "/random/number");
-    const body: RandomNumberBodyToolkit = { seed: randomSeed, min: 1, max: 100 };
+    const body: RandomNumberBodyToolkit = { seed: randomSeed, min: 1, max: 100, owner: address, privateKey, viewKey };
 
     // TODO: Return a PowerUpRecord and extract ID
     const res = httpRequest(nk, url, "post", body);
@@ -83,20 +86,27 @@ export const getPowerUp = (loopParams: MatchLoopParams): PowerUpId | undefined =
   return id;
 };
 
-export const destroyPoweUp = async (state: MatchState, selectedPowerUps: PowerUpId[]) => {
+export const destroyPoweUp = async (_state: MatchState, _selectedPowerUps: PowerUpId[]) => {
   //TODO Implement
 };
 
-const useBirdsEye = (loopParams: MatchLoopParams, powerUp: PowerUpToolkit, diceData: DiceDataToolkit): UseBirdsEyeResToolkit => {
+const useBirdsEye = (
+  loopParams: MatchLoopParams,
+  powerUp: PowerUpToolkit,
+  diceData: DiceDataToolkit,
+  playerKeys: AleoKeys
+): UseBirdsEyeResToolkit => {
   const { nk, ctx } = loopParams;
+  const { viewKey, privateKey } = playerKeys;
 
   const url = tkUrl(ctx, "/power-ups/2");
 
-  const body: UseBirdsEyeBodyToolkit = { powerUp, diceData };
+  const body: UseBirdsEyeBodyToolkit = { powerUp, diceData, viewKey, privateKey };
+  loopParams.logger.debug("useBirdsEye Body " + JSON.stringify(body, null, 2));
 
   const res = httpRequest(nk, url, "post", body);
-
   const parsed = JSON.parse(res.body);
+  loopParams.logger.debug("useBirdsEye Response " + parsed);
 
   if (!isBirdsEyeResToolkit(parsed)) throw new Error(res.body);
 

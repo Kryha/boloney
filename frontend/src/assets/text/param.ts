@@ -38,7 +38,7 @@ export const param = {
   activeWasRightExact: (username: string) => `${username} was on the money!`,
   activeWasWrongExact: (username: string) => `${username} thought they had it… but no such luck!`,
   idleBoloney: (winner: string, loser: string) => `${winner} outsmarted ${loser}.`,
-  choosePlayer: (powerUp: string) => `choose the player you want to play ${powerUp} against. Yikes.`,
+  choosePlayer: (powerUp: string) => `choose the player you want to play ${powerUp} against.`,
   targetsPowerUps: (username: string) => `${username}'s power-ups`,
   healDice: (healDiceAmount: string) => `select x${healDiceAmount} power-ups you want to exchange!`,
   sumOfDice: (sum: number) => `=${sum}`,

@@ -20,6 +20,7 @@ import {
   matchStageDuration,
   handleActivePlayerTurnEnds,
   getDiceValues,
+  getPlayerAccount,
 } from "../../../services";
 import { getPowerUp, rollDice } from "../../../toolkit-api";
 import {
@@ -112,7 +113,7 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
 });
 
 const handlePlayerCallExact = messageHandler(async (loopParams, message, sender) => {
-  const { logger, state, dispatcher } = loopParams;
+  const { logger, state, dispatcher, nk } = loopParams;
 
   logger.info(sender.username, "called Exact");
 
@@ -145,9 +146,11 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
     const totalAfterReceive = currentPowerUpAmount + state.stageNumber;
     const amountToReceive = totalAfterReceive > maxPowerUpAmount ? maxPowerUpAmount - currentPowerUpAmount : state.stageNumber;
 
+    const playerAccount = getPlayerAccount(nk, winner.userId);
+
     await Promise.all(
       range(amountToReceive - 1).map(async () => {
-        const powerUpId = getPowerUp(loopParams);
+        const powerUpId = getPowerUp(loopParams, playerAccount);
         if (isPowerUpId(powerUpId)) winner.powerUpIds.push(powerUpId);
       })
     );
@@ -171,8 +174,6 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
 const handlePlayerCallHealDice = messageHandler(async (loopParams, message, sender) => {
   const { nk, logger, state, dispatcher } = loopParams;
 
-  logger.info(sender.username, "called Heal dice");
-
   const data = JSON.parse(nk.binaryToString(message.data));
 
   if (!isHealDicePayloadFrontend(data)) throw errors.invalidPayload;
@@ -182,10 +183,9 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
 
   // Remote calls to zk gaming toolkit
   try {
-    // create die record
+    const { address, privateKey, viewKey } = getPlayerAccount(nk, sender.userId);
 
-    // roll the die
-    const newRolledDice = await rollDice(loopParams, 1);
+    const newRolledDice = await rollDice(loopParams, 1, { address, privateKey, viewKey });
 
     if (!newRolledDice) throw Error("Rolling dice has failed");
 

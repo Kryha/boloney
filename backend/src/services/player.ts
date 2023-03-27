@@ -17,6 +17,7 @@ import {
 } from "../types";
 import { totalDiceInMatch } from "./match";
 import { sendMatchNotification } from "./notification";
+import { getPlayerAccount } from "./storage";
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
   if (state.playersReady.includes(userId)) return;
@@ -68,14 +69,16 @@ export const getFilteredPlayerIds = (players: Record<string, Player>, playerId: 
 };
 
 export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: string) => {
-  const { state, dispatcher } = loopParams;
+  const { state, dispatcher, nk } = loopParams;
   const player = state.players[playerId];
 
-  //!! Setting the hasRolledDice variable to true before the dice are rolled prevent the users ability to spam !!
+  // Set hasRolledDice to true before the dice roll to prevent users spamming calls
   player.hasRolledDice = true;
 
   try {
-    const diceValue = await rollDice(loopParams, player.diceAmount);
+    const { address, privateKey, viewKey } = getPlayerAccount(nk, playerId);
+
+    const diceValue = await rollDice(loopParams, player.diceAmount, { address, privateKey, viewKey });
 
     if (!diceValue) throw Error("Rolling dice has failed");
 

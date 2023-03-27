@@ -1,4 +1,4 @@
-import { AccountKeys, CustomError, ErrorKind, isBasicError, isCustomError, isNkError, isString, StatusCodes } from "../types";
+import { AleoAccount, CustomError, ErrorKind, isBasicError, isCustomError, isNkError, isString, StatusCodes } from "../types";
 
 export const errorText: Record<ErrorKind, string> = {
   usernameAlreadyExists: "Username already exists",
@@ -97,7 +97,8 @@ export const handleError = (error: unknown, logger: nkruntime.Logger, code = nkr
   return parsed;
 };
 
-export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntime.Logger): AccountKeys => {
+// TODO: update return type to be more generic
+export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntime.Logger): AleoAccount => {
   const resKind = Math.floor(res.code / 100);
   if (resKind === 2) return JSON.parse(res.body);
   const nakamaCode = mapHttpCodeToNakama(res.code);

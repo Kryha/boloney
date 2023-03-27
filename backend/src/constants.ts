@@ -56,8 +56,8 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   zkEnabled: false,
 };
 
-export const PRIVATE_KEY_LENGTH = 58;
-export const VIEW_KEY_LENGTH = 56;
+export const PRIVATE_KEY_LENGTH = 59;
+export const VIEW_KEY_LENGTH = 53;
 export const ADDRESS_LENGTH = 63;
 
 export const PRIVATE_KEY_PREFIX = "APrivateKey1";
@@ -82,3 +82,10 @@ export const MAX_INACTIVE_TICKS = 500;
 export const EMPTY_DATA = JSON.stringify({});
 
 export const MENAGE_A_TROIS_DICE_AMOUNT = 3;
+
+export const STORAGE_ACCOUNT_COLLECTION = "accounts";
+export const STORAGE_ADDRESS_KEY = "aleo-address";
+export const STORAGE_KEYS_KEY = "aleo-keys";
+
+export const STORAGE_MATCH_DATA_COLLECTION = "match-data";
+export const STORAGE_HASH_CHAIN_KEY = "hash-chain";

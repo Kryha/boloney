@@ -1,6 +1,7 @@
-import { errors, handleError, handleHttpResponse, profanityFilter } from "../services";
-import { AccountKeys, AfterAuthHookHandler, BeforeAuthHookHandler, CollectionInteractionRead, CollectionInteractionWrite } from "../types";
-import { env, tkUrl } from "../utils";
+import { errors, handleError, profanityFilter, getPlayerAddress, savePlayerAddress, savePlayerKeys } from "../services";
+import { createAleoAccount } from "../toolkit-api/account";
+import { AfterAuthHookHandler, BeforeAuthHookHandler, isAddress } from "../types";
+import { env } from "../utils";
 
 export const beforeHookHandler: BeforeAuthHookHandler = (cb) => (ctx, logger, nk, data) => {
   try {
@@ -51,55 +52,20 @@ export const beforeAuthenticateCustom = beforeHookHandler((_ctx, _logger, nk, da
 export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data, _request) => {
   if (!env(ctx).ZK_ENABLED) return;
 
-  const payload = { collection: "Accounts", key: "keys" };
+  if (accountExist(nk, logger, ctx.userId)) return;
 
-  // if keys are already stored, skip their creation
-  const storedKeys = readUserKeys(nk, ctx.userId, payload);
-  if (storedKeys.length) return;
+  const { address, privateKey, viewKey } = createAleoAccount(ctx, logger, nk);
 
-  // call the toolkit to generate some new keys and store them in the database
-  const newKeys = getNewKeysFromToolkit(ctx, logger, nk);
-  const newKeyPayload = {
-    ...payload,
-    value: { viewKey: newKeys.viewKey, privateKey: newKeys.privateKey, address: newKeys.address },
-  };
-  storeNewKeysInCollection(nk, ctx, newKeyPayload);
+  savePlayerAddress(nk, ctx.userId, address);
+  savePlayerKeys(nk, ctx.userId, { privateKey, viewKey });
 });
 
-export const readUserKeys = (nk: nkruntime.Nakama, userId: string, payload: CollectionInteractionRead) => {
-  const existingKeys = nk.storageRead([
-    {
-      key: payload.key,
-      collection: payload.collection,
-      userId,
-    },
-  ]);
-  return existingKeys;
-};
-
-export const getNewKeysFromToolkit = (ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkruntime.Nakama): AccountKeys => {
-  const url = tkUrl(ctx, "/account/create");
-  const res = nk.httpRequest(url, "post", undefined, undefined, 60000);
-  return handleHttpResponse(res, logger);
-};
-
-export const storeNewKeysInCollection = (nk: nkruntime.Nakama, ctx: nkruntime.Context, payload: CollectionInteractionWrite) => {
-  const payloadRequest: nkruntime.StorageWriteRequest = {
-    collection: payload.collection,
-    key: payload.key,
-    userId: ctx.userId,
-    value: { address: payload.value.address, viewKey: payload.value.viewKey },
-    permissionRead: 1,
-    permissionWrite: 0,
-  };
-  const payloadPrivateKeyRequest: nkruntime.StorageWriteRequest = {
-    collection: payload.collection,
-    key: "privateKey",
-    userId: ctx.userId,
-    value: { privateKey: payload.value.privateKey },
-    permissionRead: 1,
-    permissionWrite: 0,
-  };
-
-  nk.storageWrite([payloadRequest, payloadPrivateKeyRequest]);
+const accountExist = (nk: nkruntime.Nakama, logger: nkruntime.Logger, userId: string): boolean => {
+  try {
+    const existingAddress = getPlayerAddress(nk, userId);
+    return isAddress(existingAddress);
+  } catch (error) {
+    logger.info("Createing new Aleo account for player " + userId);
+    return false;
+  }
 };

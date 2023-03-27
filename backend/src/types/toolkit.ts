@@ -1,10 +1,24 @@
 import { PowerUpId } from "./power-up";
 import { isNumber } from "./primitive";
 
+export interface AleoKeys {
+  privateKey: string;
+  viewKey: string;
+}
+
+export interface HashChainData {
+  hashChain: string[];
+  seed: number;
+  matchId: string;
+}
+
 export interface RandomNumberBodyToolkit {
   seed: number;
   min: number;
   max: number;
+  owner: string;
+  privateKey: string;
+  viewKey: string;
 }
 
 export interface RandomNumberResToolkit {
@@ -41,6 +55,8 @@ export interface DiceDataToolkit {
 export interface UseBirdsEyeBodyToolkit {
   powerUp: PowerUpToolkit;
   diceData: DiceDataToolkit;
+  viewKey: string;
+  privateKey: string;
 }
 
 export interface UseBirdsEyeResToolkit {

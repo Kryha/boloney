@@ -1,36 +1,33 @@
 import { ADDRESS_LENGTH, ADDRESS_PREFIX, PRIVATE_KEY_LENGTH, PRIVATE_KEY_PREFIX, VIEW_KEY_LENGTH, VIEW_KEY_PREFIX } from "../constants";
-import { isString } from "./primitive";
 
-export interface AccountKeys {
+export interface AleoAccount {
+  address: string;
   privateKey: string;
   viewKey: string;
-  address: string;
 }
 
-const isPrivateKey = (value: string): boolean => {
+export const isPrivateKey = (value: string): boolean => {
   return value.length === PRIVATE_KEY_LENGTH && value.startsWith(PRIVATE_KEY_PREFIX);
 };
 
-const isViewKey = (value: string): boolean => {
+export const isViewKey = (value: string): boolean => {
   return value.length === VIEW_KEY_LENGTH && value.startsWith(VIEW_KEY_PREFIX);
 };
 
-const isAddress = (value: string): boolean => {
+export const isAddress = (value: string): boolean => {
   return value.length === ADDRESS_LENGTH && value.startsWith(ADDRESS_PREFIX);
 };
 
-export const isAccountKeys = (value: unknown): value is AccountKeys => {
-  const assertedVal = value as AccountKeys;
+export const isAleoAccount = (value: unknown): value is AleoAccount => {
+  const assertedVal = value as AleoAccount;
+  const { address, privateKey, viewKey } = assertedVal;
 
   return (
-    assertedVal.address !== undefined &&
-    assertedVal.viewKey !== undefined &&
-    assertedVal.privateKey !== undefined &&
-    isString(assertedVal.address) &&
-    isString(assertedVal.viewKey) &&
-    isString(assertedVal.privateKey) &&
-    isPrivateKey(assertedVal.privateKey) &&
-    isViewKey(assertedVal.viewKey) &&
-    isAddress(assertedVal.address)
+    viewKey !== undefined &&
+    privateKey !== undefined &&
+    address !== undefined &&
+    isAddress(address) &&
+    isPrivateKey(privateKey) &&
+    isViewKey(viewKey)
   );
 };

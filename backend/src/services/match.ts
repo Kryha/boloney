@@ -35,6 +35,7 @@ import {
   isMatchEnded,
   updatePlayerPowerUpAmount,
 } from "./player";
+import { getPlayerAccount } from "./storage";
 import { getSecondsFromTicks, matchStageDuration } from "./timer";
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
@@ -272,7 +273,7 @@ export const totalDiceInMatch = (playersRecord: Record<string, Player>) => {
 
 // TODO: discuss on how to improve integration with the corresponding transition handler
 export const handleRoundEnding = (loopParams: MatchLoopParams, nextStage: MatchStage) => {
-  const { dispatcher, state } = loopParams;
+  const { dispatcher, state, nk } = loopParams;
 
   state.timerHasStarted = false;
   resetRound(loopParams);
@@ -293,7 +294,9 @@ export const handleRoundEnding = (loopParams: MatchLoopParams, nextStage: MatchS
     playersList.forEach((player) => {
       if (player.status === "lost" || player.powerUpIds.length >= state.settings.maxPowerUpAmount) return;
 
-      const powerUpId = getPowerUp(loopParams);
+      const { address, viewKey, privateKey } = getPlayerAccount(nk, player.userId);
+
+      const powerUpId = getPowerUp(loopParams, { address, viewKey, privateKey });
       if (isPowerUpId(powerUpId)) player.powerUpIds.push(powerUpId);
       updatePlayerPowerUpAmount(loopParams, [player.userId]);
 
