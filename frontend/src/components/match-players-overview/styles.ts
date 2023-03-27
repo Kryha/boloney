@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import {
@@ -8,9 +9,10 @@ import {
   playerFivePercentages,
   playerSixPercentages,
 } from "../../assets";
+import { FLOATING_ANIMATION_SPEED } from "../../constants";
 
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, Heading5, shuffle } from "../atoms";
+import { avatarHeight, float, Heading5, shuffle } from "../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
@@ -25,11 +27,23 @@ export const DiceCrownWrapper = styled.div`
   justify-content: center;
 `;
 
-export const DiceCrownImg = styled.img`
+interface Props {
+  speed?: number;
+}
+
+export const DiceCrownImg = styled.img<Props>`
   width: 300%;
   height: auto;
   object-fit: cover;
   flex-shrink: 0;
+  position: relative;
+  top: 0px;
+
+  animation: ${({ speed }) => {
+    return css`
+      ${float} ease ${speed || FLOATING_ANIMATION_SPEED}s infinite;
+    `;
+  }};
 `;
 
 export const MatchWinnerWrapper = styled.div`

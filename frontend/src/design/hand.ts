@@ -16,7 +16,7 @@ import {
   GraveStone,
 } from "../assets";
 
-interface HandProps {
+export interface HandProps {
   width: string;
   height: string;
   shadowSmallWidth: number;
