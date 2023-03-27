@@ -15,3 +15,5 @@ export const breakpoints = {
   xl: "1440px",
   xxl: "2700px",
 };
+
+export const SIDEBAR_HEIGHT = 89;

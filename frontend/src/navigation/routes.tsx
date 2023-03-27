@@ -9,6 +9,8 @@ import { Login, CreateAccount } from "../pages/auth";
 import { Landing, NewMatch, Home, MatchRoute } from "../pages";
 import { useRefreshAuth } from "../service";
 import { useIsAuthenticating, useSession } from "../store";
+import { Test } from "../pages/test/test";
+import { DEV_ENVIRONMENT } from "../constants";
 
 const AppRoutes: FC = () => {
   const isAuthenticating = useIsAuthenticating();
@@ -21,6 +23,8 @@ const AppRoutes: FC = () => {
   return (
     <Routes>
       <Route path={routes.root} element={<Landing />} />
+
+      {DEV_ENVIRONMENT && <Route path="/test" element={<Test />} />}
 
       {session ? (
         <>

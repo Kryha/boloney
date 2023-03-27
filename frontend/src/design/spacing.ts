@@ -13,3 +13,13 @@ export const margins = {
   large2: "4.0625em", // 65px
   large3: "5em", // 80px
 };
+
+export const radius = {
+  none: "0px",
+  xs: "4px",
+  sm: "8px",
+  md: "10px",
+  lg: "16px",
+  xl: "25px",
+  xxl: "100px",
+};
