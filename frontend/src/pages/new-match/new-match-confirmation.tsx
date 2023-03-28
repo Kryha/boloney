@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CopyIcon, text } from "../../assets";
 import { Heading1, Heading4, Heading6, NewMatchHands, Link, PrimaryButton, GeneralText, FadeTransition } from "../../components";
 import { COPIED_TEXT_TIMEOUT } from "../../constants";
+import { fontSizes, lineHeights } from "../../design";
 import { routes } from "../../navigation";
 import { parseMatchUrl } from "../../util";
 import { CopyLink, GoToLobbyButton, LinkCopied, NewMatchConfirmationContainer } from "./styles";
@@ -42,7 +43,7 @@ export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
           }}
           isCopied={isLinkCopied}
         >
-          <Link primaryText={matchUrl} transformText="none" />
+          <Link primaryText={matchUrl} transformText="none" fontSize={fontSizes.generalText} lineHeight={lineHeights.generalText} />
           <CopyIcon />
           <LinkCopied isCopied={isLinkCopied}>
             <GeneralText>{text.general.copied}</GeneralText>

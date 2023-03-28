@@ -36,14 +36,12 @@ export const InitialButtonView = styled.span`
   transform: translate3d(0, 100%, 0);
   transition: opacity 0.4s, black 0.4s, transform 0.4s;
   visibility: visible;
-  height: 60px;
 `;
 
 export const SecondaryView = styled.span`
   left: 0;
   opacity: ${opacity.hidden};
   position: absolute;
-  height: 60px;
   top: 0;
   transform: rotateX(-90deg) translate3d(0, 50%, 0);
   transform-origin: bottom center;

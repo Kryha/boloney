@@ -238,7 +238,7 @@ export const PrimaryButtonText = styled.h3<TextProps>`
   line-height: ${lineHeights.primaryButton.md};
   letter-spacing: -0.02em;
   text-transform: ${({ transformText }): string => transformText || "uppercase"};
-  max-height: 44px;
+
   margin-top: -10px;
   color: ${({ customColor }): string => customColor || color.black};
 

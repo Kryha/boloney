@@ -97,7 +97,7 @@ export const FieldSet = styled.fieldset<InputContainerProps>`
   border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
   border-left: 1px solid ${color.transparent};
   border-right: 1px solid ${color.transparent};
-  max-height: 83px;
+
   :hover {
     background: ${color.cloudWhite};
   }
