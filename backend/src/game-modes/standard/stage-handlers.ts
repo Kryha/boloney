@@ -26,7 +26,7 @@ export const handleStage: StageHandlers = {
   /*
    * In the turn loop players won't indicate that they are ready.
    * We'll move to the next stage only when the conditions are met.
-   * Next stage transition will be trigger by a "round ending" action (exact, boloney)
+   * Next stage transition will be triggered by a "round ending" action (exact, boloney, timeout)
    */
   playerTurnLoopStage: (loopParams) => handleMatchStage(loopParams, handlePlayerTurnMessage, handleLogicWithTimer, handleBasicTransition),
 

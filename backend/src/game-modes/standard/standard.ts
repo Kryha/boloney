@@ -116,6 +116,9 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
         actionRole: undefined,
         isTarget: false,
         extraDice: 0,
+        rngDiceCounter: 0,
+        seed: 0,
+        hashChain: [],
         arePowerUpsDisabled: false,
       };
       state.playerOrder.push(presence.userId);

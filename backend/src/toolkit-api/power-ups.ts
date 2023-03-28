@@ -1,3 +1,4 @@
+import { HASH_MAX_RANGE } from "../constants";
 import {
   AleoAccount,
   AleoKeys,
@@ -63,7 +64,7 @@ export const getPowerUp = (loopParams: MatchLoopParams, playerAccount: AleoAccou
   if (isZkEnabled(state, ctx)) {
     // Generate Random Number 1-100
     // TODO: For now mock the seed, eventually get it from the combined hashes
-    const mockRn = randomInt(1, 999999999999999);
+    const mockRn = randomInt(1, HASH_MAX_RANGE);
     const randomSeed = mockRn;
 
     const url = tkUrl(ctx, "/random/number");

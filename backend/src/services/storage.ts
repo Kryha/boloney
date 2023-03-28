@@ -6,7 +6,7 @@ import {
   STORAGE_KEYS_KEY,
   STORAGE_MATCH_DATA_COLLECTION,
 } from "../constants";
-import { HashChainData, AleoKeys, isViewKey, isPrivateKey, AleoAccount } from "../types";
+import { HashChainData, AleoKeys, isViewKey, isPrivateKey, AleoAccount, isHashChainData } from "../types";
 
 export const savePlayerAddress = (nk: nkruntime.Nakama, playerId: string, address: string): void => {
   const writeRequest: nkruntime.StorageWriteRequest[] = [
@@ -70,14 +70,12 @@ export const getPlayerAccount = (nk: nkruntime.Nakama, playerId: string): AleoAc
 };
 
 export const savePlayerHashChainData = (nk: nkruntime.Nakama, playerId: string, hashChainData: HashChainData): void => {
-  const { hashChain, seed, matchId } = hashChainData;
-
   const writeRequest: nkruntime.StorageWriteRequest[] = [
     {
       collection: STORAGE_MATCH_DATA_COLLECTION,
       key: STORAGE_HASH_CHAIN_KEY,
       userId: playerId,
-      value: { hashChain, seed, matchId },
+      value: hashChainData,
       permissionRead: 1,
       permissionWrite: 0,
     },
@@ -86,12 +84,13 @@ export const savePlayerHashChainData = (nk: nkruntime.Nakama, playerId: string, 
   nk.storageWrite(writeRequest);
 };
 
+// Currenlty Unused
 export const getPlayerHashChainData = (nk: nkruntime.Nakama, playerId: string): HashChainData => {
   const readRequest = [{ collection: STORAGE_MATCH_DATA_COLLECTION, key: STORAGE_HASH_CHAIN_KEY, userId: playerId }];
   const response = nk.storageRead(readRequest);
 
-  // TODO: Validate response
-  const { hashChain, seed, matchId } = response[0].value;
+  const hashChainData = response[0].value;
+  if (!isHashChainData(hashChainData)) throw new Error("Invalid response from storage while fetching player hash-chain");
 
-  return { hashChain, seed, matchId };
+  return hashChainData;
 };

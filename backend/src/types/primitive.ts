@@ -8,10 +8,6 @@ export const isBoolean = (value: unknown): value is boolean => typeof value === 
 export const isObject = (value: unknown): value is object => typeof value === "object";
 
 export const isStringArray = (value: unknown): value is string[] => {
-  if (!value) return false;
-  if (!(value instanceof Array)) return false;
-
-  const areValid = value.reduce((valid, v) => valid && isString(v), true);
-
-  return areValid;
+  if (!value || !(value instanceof Array)) return false;
+  return value.every((element: string) => isString(element));
 };

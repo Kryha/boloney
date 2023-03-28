@@ -1,16 +1,12 @@
-import { AleoAccount, Die, isDieArray, isRandomNumberResToolkit, MatchLoopParams, RandomNumberBodyToolkit } from "../types";
-import { getRange, httpRequest, randomInt, tkUrl, isZkEnabled } from "../utils";
+import { Die, isDieArray, isRandomNumberResToolkit, MatchLoopParams, Player, RandomNumberBodyToolkit, AleoAccount } from "../types";
+import { getNumericHash, getRange, httpRequest, randomInt, tkUrl, isZkEnabled } from "../utils";
 
-const requestRoll = async (loopParams: MatchLoopParams, playerAccount: AleoAccount): Promise<number | undefined> => {
+const requestRoll = async (loopParams: MatchLoopParams, seed: number, playerAccount: AleoAccount): Promise<number | undefined> => {
   const { nk, ctx } = loopParams;
   const { address, privateKey, viewKey } = playerAccount;
 
-  // TODO: For now mock the seed, eventually get it from the combined hashes
-  const mockRn = randomInt(1, 9999);
-  const randomSeed = mockRn;
-
   const url = tkUrl(ctx, "/random/number");
-  const body: RandomNumberBodyToolkit = { seed: randomSeed, min: 1, max: 6, owner: address, privateKey, viewKey };
+  const body: RandomNumberBodyToolkit = { seed, min: 1, max: 6, owner: address, privateKey, viewKey };
 
   // TODO: Return DiceRecord when available
   const res = httpRequest(nk, url, "post", body);
@@ -26,25 +22,49 @@ const localRoll = async (): Promise<number | undefined> => {
   return value;
 };
 
-// TODO: Add spinner until response arrive
-export const rollDice = async (loopParams: MatchLoopParams, diceAmount: number, playerAccount: AleoAccount): Promise<Die[] | undefined> => {
+/**
+ *
+ * @description Roll dice gathers the hashes from other players and the seed from the player and requests a roll from the toolkit
+ */
+export const rollDice = async (
+  loopParams: MatchLoopParams,
+  diceAmount: number,
+  player: Player,
+  playerAccount: AleoAccount
+): Promise<Die[] | undefined> => {
   const { state, ctx } = loopParams;
 
-  const value = await Promise.all(
-    getRange(diceAmount).map(() => {
+  const diceResponse = await Promise.all(
+    getRange(diceAmount).map((_value, index) => {
       if (isZkEnabled(state, ctx)) {
-        return requestRoll(loopParams, playerAccount);
+        const currentRngCounter = player.rngDiceCounter + index;
+
+        // Get hashes from other players according to current RNG counter
+        const hashList = Object.values(state.players)
+          .filter((statePlayer) => statePlayer.userId !== player.userId)
+          .map((player) => player.hashChain[currentRngCounter]);
+
+        // Include own seed hash
+        hashList.push(String(player.seed));
+
+        const seedHash = getNumericHash(hashList);
+
+        const diceRoll = requestRoll(loopParams, seedHash, playerAccount);
+
+        return diceRoll;
       } else {
         return localRoll();
       }
     })
   );
 
-  const dice = value.map((die) => ({
+  const dice = diceResponse.map((die) => ({
     rolledValue: die,
   }));
 
   if (!isDieArray(dice)) return;
+
+  player.rngDiceCounter = player.rngDiceCounter + diceAmount;
 
   return dice;
 };

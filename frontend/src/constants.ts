@@ -4,6 +4,7 @@ export const DEV_ENVIRONMENT = import.meta.env.DEV;
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "backend.localhost";
 export const API_URL = import.meta.env.VITE_API_URL || "api.localhost";
 export const API_PORT = import.meta.env.VITE_API_PORT || "80";
+export const API_TIMEOUT = import.meta.env.VITE_API_TIMEOUT || "10000";
 export const SERVER_KEY = "defaultkey";
 
 export const SMALL_VIEWPORT_HEIGHT = 800;

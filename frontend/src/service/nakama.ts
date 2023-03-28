@@ -1,10 +1,10 @@
 import { Client, Session } from "@heroiclabs/nakama-js";
 
-import { API_PORT, API_URL, SERVER_KEY, USE_SSL } from "../constants";
+import { API_PORT, API_URL, SERVER_KEY, USE_SSL, API_TIMEOUT } from "../constants";
 import { getAuthToken, getRefreshToken, removeAuthToken, removeRefreshToken, setAuthToken, setRefreshToken } from "../util";
 
 class NakamaService {
-  client = new Client(SERVER_KEY, API_URL, API_PORT, USE_SSL);
+  client = new Client(SERVER_KEY, API_URL, API_PORT, USE_SSL, API_TIMEOUT);
   socket = this.client.createSocket(USE_SSL);
 
   private async joinSession(session: Session): Promise<Session> {

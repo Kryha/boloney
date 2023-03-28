@@ -1,4 +1,4 @@
-import { matchStageDuration, setActivePlayer, transitionHandler, handleRoundEnding } from "../../services";
+import { setActivePlayer, transitionHandler, matchStageDuration, handleRoundEnding, setPlayerHashChain } from "../../services";
 import { MatchOpCode, PlayerActivePayloadBackend, PlayerOrderShufflePayloadBackend, StageTransitionPayloadBackend } from "../../types";
 import { shuffleArray } from "../../utils";
 
@@ -13,8 +13,12 @@ export const handleBasicTransition = transitionHandler(({ state, dispatcher }, n
   dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(payload));
 });
 
-export const handleLobbyTransition = transitionHandler(({ state, dispatcher }, nextStage) => {
+export const handleLobbyTransition = transitionHandler(async (loopParams, nextStage) => {
+  const { state, dispatcher } = loopParams;
   state.playerOrder = shuffleArray(state.playerOrder);
+
+  // Generate and Store Hash Chain on Match State for each player
+  await Promise.all(state.playerOrder.map((userId) => setPlayerHashChain(loopParams, userId)));
 
   const activePlayerId = state.playerOrder[0];
   setActivePlayer(activePlayerId, state.players);

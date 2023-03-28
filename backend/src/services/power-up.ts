@@ -2,7 +2,7 @@ import { EMPTY_DATA, MENAGE_A_TROIS_DICE_AMOUNT } from "../constants";
 import { getPowerUp, rollDice, toolkitUse } from "../toolkit-api";
 import {
   isPowerUpTypeArray,
-  DiceDataToolkit,
+  // DiceDataToolkit,
   MatchLoopParams,
   MatchOpCode,
   NotificationContentUsePowerUp,
@@ -33,7 +33,12 @@ import {
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
-import { cleanUUID, getRange, shuffleArray, isZkEnabled } from "../utils";
+import {
+  cleanUUID,
+  getRange,
+  shuffleArray,
+  // , isZkEnabled
+} from "../utils";
 import { handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
 import { saveHistoryEvent } from "./history";
 import { getPlayerAccount, getPlayerKeys } from "./storage";
@@ -95,9 +100,9 @@ const useMenage = async (loopParams: MatchLoopParams, sender: Player): Promise<U
   const { state, nk } = loopParams;
   const activePlayer = state.players[sender.userId];
 
-  const { address, privateKey, viewKey } = getPlayerAccount(nk, sender.userId);
+  const playerAccount = getPlayerAccount(nk, sender.userId);
 
-  const newRolledDice = await rollDice(loopParams, MENAGE_A_TROIS_DICE_AMOUNT, { address, privateKey, viewKey });
+  const newRolledDice = await rollDice(loopParams, MENAGE_A_TROIS_DICE_AMOUNT, activePlayer, playerAccount);
 
   if (!isDieArray(newRolledDice)) throw new Error("Failed to roll new dice!");
 
@@ -144,7 +149,7 @@ const useSecondChance = async (
   const { state, nk } = loopParams;
   const activePlayer = state.players[sender.userId];
 
-  const { address, privateKey, viewKey } = getPlayerAccount(nk, sender.userId);
+  const playerAccount = getPlayerAccount(nk, sender.userId);
 
   // Remove chosen dice from userId
   const countDie = data.diceToReroll.reduce((dieCount, die) => {
@@ -157,14 +162,13 @@ const useSecondChance = async (
   );
 
   // Reroll the amount of dice chosen
-  const newRolledDice = await rollDice(loopParams, data.diceToReroll.length, { address, privateKey, viewKey });
+  const newRolledDice = await rollDice(loopParams, data.diceToReroll.length, activePlayer, playerAccount);
 
   if (!isDieArray(newRolledDice)) throw new Error("Failed to roll new dice!");
 
   // Add new rolled dice to the players stage
   activePlayer.diceValue = [...activePlayer.diceValue, ...newRolledDice];
 
-  // return the new rolled dice
   return { newRolledDice: newRolledDice };
 };
 

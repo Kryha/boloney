@@ -45,16 +45,23 @@ export const isActionRole = (value: unknown): value is ActionRole => {
 export interface PlayerPrivate {
   diceValue: Die[];
   powerUpIds: PowerUpId[];
+  seed: number;
+  hashChain: string[];
 }
 
 export const isPlayerPrivate = (value: unknown): value is PlayerPrivate => {
   const assertedVal = value as PlayerPrivate;
+  const { diceValue, powerUpIds, seed, hashChain } = assertedVal;
 
   return (
-    assertedVal.diceValue !== undefined &&
-    assertedVal.powerUpIds !== undefined &&
-    isDieArray(assertedVal.diceValue) &&
-    isStringArray(assertedVal.powerUpIds)
+    diceValue !== undefined &&
+    powerUpIds !== undefined &&
+    seed !== undefined &&
+    hashChain !== undefined &&
+    isDieArray(diceValue) &&
+    isStringArray(powerUpIds) &&
+    isNumber(seed) &&
+    isStringArray(hashChain)
   );
 };
 
@@ -69,48 +76,73 @@ export interface PlayerPublic {
   avatarId: AvatarId;
   diceAmount: number;
   powerUpsAmount: number;
-  isConnected: boolean;
-  isReady: boolean;
   hasInitialPowerUps: boolean;
-  isActive: boolean;
-  hasRolledDice: boolean;
   status: PlayerStatus;
   actionRole: ActionRole;
-  isTarget: boolean;
   extraDice: number;
+  rngDiceCounter: number;
   arePowerUpsDisabled: boolean;
+  hasRolledDice: boolean;
+  isConnected: boolean;
+  isReady: boolean;
+  isActive: boolean;
+  isTarget: boolean;
 }
 
 export const isPlayerPublic = (value: unknown): value is PlayerPublic => {
   const assertedVal = value as PlayerPublic;
+  const {
+    userId,
+    username,
+    avatarId,
+    diceAmount,
+    powerUpsAmount,
+    isConnected,
+    isReady,
+    hasInitialPowerUps,
+    isActive,
+    hasRolledDice,
+    status,
+    actionRole,
+    isTarget,
+    extraDice,
+    rngDiceCounter,
+    arePowerUpsDisabled,
+  } = assertedVal;
 
   return (
-    assertedVal.userId !== undefined &&
-    assertedVal.username !== undefined &&
-    assertedVal.avatarId !== undefined &&
-    assertedVal.diceAmount !== undefined &&
-    assertedVal.powerUpsAmount !== undefined &&
-    assertedVal.isConnected !== undefined &&
-    assertedVal.isReady !== undefined &&
-    assertedVal.hasInitialPowerUps !== undefined &&
-    assertedVal.hasRolledDice !== undefined &&
-    assertedVal.status !== undefined &&
-    assertedVal.actionRole !== undefined &&
-    assertedVal.isTarget !== undefined &&
-    assertedVal.arePowerUpsDisabled !== undefined &&
-    isString(assertedVal.userId) &&
-    isString(assertedVal.username) &&
-    isAvatarId(assertedVal.avatarId) &&
-    isNumber(assertedVal.diceAmount) &&
-    isNumber(assertedVal.powerUpsAmount) &&
-    isBoolean(assertedVal.isConnected) &&
-    isBoolean(assertedVal.isReady) &&
-    isBoolean(assertedVal.hasInitialPowerUps) &&
-    isBoolean(assertedVal.hasRolledDice) &&
-    isPlayerStatus(assertedVal.status) &&
-    isActionRole(assertedVal.actionRole) &&
-    isBoolean(assertedVal.isTarget) &&
-    isBoolean(assertedVal.arePowerUpsDisabled)
+    userId !== undefined &&
+    username !== undefined &&
+    avatarId !== undefined &&
+    diceAmount !== undefined &&
+    powerUpsAmount !== undefined &&
+    status !== undefined &&
+    actionRole !== undefined &&
+    extraDice !== undefined &&
+    rngDiceCounter !== undefined &&
+    hasRolledDice !== undefined &&
+    hasInitialPowerUps !== undefined &&
+    arePowerUpsDisabled !== undefined &&
+    isConnected !== undefined &&
+    isReady !== undefined &&
+    isTarget !== undefined &&
+    isActive !== undefined &&
+    isString(userId) &&
+    isString(username) &&
+    isAvatarId(avatarId) &&
+    isPlayerStatus(status) &&
+    isActionRole(actionRole) &&
+    isNumber(diceAmount) &&
+    isNumber(powerUpsAmount) &&
+    isNumber(extraDice) &&
+    isNumber(rngDiceCounter) &&
+    isBoolean(isConnected) &&
+    isBoolean(isReady) &&
+    isBoolean(hasInitialPowerUps) &&
+    isBoolean(hasRolledDice) &&
+    isBoolean(isTarget) &&
+    isBoolean(arePowerUpsDisabled) &&
+    isBoolean(isActive)
   );
 };
 

@@ -6,12 +6,6 @@ export interface AleoKeys {
   viewKey: string;
 }
 
-export interface HashChainData {
-  hashChain: string[];
-  seed: number;
-  matchId: string;
-}
-
 export interface RandomNumberBodyToolkit {
   seed: number;
   min: number;

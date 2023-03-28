@@ -77,15 +77,17 @@ export const MATCH_STAGES: readonly MatchStage[] = [
 
 //TODO: get variable from envirement variables
 export const TICK_RATE = 1;
-export const MAX_INACTIVE_TICKS = 500;
+export const MAX_INACTIVE_TICKS = 1000;
 
 export const EMPTY_DATA = JSON.stringify({});
 
 export const MENAGE_A_TROIS_DICE_AMOUNT = 3;
 
+export const HASH_MAX_RANGE = 999999;
+export const HASH_CHAIN_LENGTH = 32;
+
 export const STORAGE_ACCOUNT_COLLECTION = "accounts";
 export const STORAGE_ADDRESS_KEY = "aleo-address";
 export const STORAGE_KEYS_KEY = "aleo-keys";
-
 export const STORAGE_MATCH_DATA_COLLECTION = "match-data";
 export const STORAGE_HASH_CHAIN_KEY = "hash-chain";

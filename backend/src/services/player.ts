@@ -78,7 +78,7 @@ export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: s
   try {
     const { address, privateKey, viewKey } = getPlayerAccount(nk, playerId);
 
-    const diceValue = await rollDice(loopParams, player.diceAmount, { address, privateKey, viewKey });
+    const diceValue = await rollDice(loopParams, player.diceAmount, player, { address, privateKey, viewKey });
 
     if (!diceValue) throw Error("Rolling dice has failed");
 
@@ -163,8 +163,7 @@ export const updatePlayerPowerUpAmount = (loopParams: MatchLoopParams, playerIds
 };
 
 export const hidePlayerData = (player: Player): PlayerPublic => {
-  const copy = Object.assign({}, player); // making a hard copy of the object
-  const { diceValue: _, powerUpIds: __, ...publicData } = copy;
+  const { diceValue: _, powerUpIds: __, hashChain: ___, ...publicData } = player;
 
   return publicData;
 };

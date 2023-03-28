@@ -10,14 +10,18 @@ import { MatchOpCode, PlayerReadyPayloadBackend } from "../../../types";
 import { handleActivePlayerMessages } from "./active-player-message";
 
 export const handleLobbyMessage = messageHandler((loopParams, message, sender) => {
+  const { state, dispatcher } = loopParams;
+  const { userId } = sender;
+
   if (message.opCode === MatchOpCode.PLAYER_READY) {
-    attemptSetPlayerReady(loopParams.state, sender.userId);
-    const payload: PlayerReadyPayloadBackend = hidePlayersData(loopParams.state.players);
-    loopParams.dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(payload));
+    attemptSetPlayerReady(state, userId);
+
+    const payload: PlayerReadyPayloadBackend = hidePlayersData(state.players);
+    dispatcher.broadcastMessage(MatchOpCode.PLAYER_READY, JSON.stringify(payload));
   }
 
   if (message.opCode === MatchOpCode.PLAYER_LEFT) {
-    handlePlayerLeftDuringLobby(loopParams.state, sender.userId, loopParams.dispatcher);
+    handlePlayerLeftDuringLobby(state, sender.userId, dispatcher);
   }
 });
 

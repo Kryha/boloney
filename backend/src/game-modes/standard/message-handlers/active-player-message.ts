@@ -173,6 +173,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
 
 const handlePlayerCallHealDice = messageHandler(async (loopParams, message, sender) => {
   const { nk, logger, state, dispatcher } = loopParams;
+  const player = state.players[sender.userId];
 
   const data = JSON.parse(nk.binaryToString(message.data));
 
@@ -183,9 +184,9 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
 
   // Remote calls to zk gaming toolkit
   try {
-    const { address, privateKey, viewKey } = getPlayerAccount(nk, sender.userId);
+    const playerAccount = getPlayerAccount(nk, sender.userId);
 
-    const newRolledDice = await rollDice(loopParams, 1, { address, privateKey, viewKey });
+    const newRolledDice = await rollDice(loopParams, 1, player, playerAccount);
 
     if (!newRolledDice) throw Error("Rolling dice has failed");
 
