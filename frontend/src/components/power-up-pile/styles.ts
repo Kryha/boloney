@@ -43,9 +43,11 @@ export const PowerUpSpreadContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  flex-wrap: wrap;
   padding: 0px;
-  gap: 30px;
+  gap: 8px;
   margin-top: 30px;
+  margin-bottom: 65px;
   ${PowerUpCardWrapper} {
     -webkit-animation-name: ${slideRight};
     -webkit-animation-timing-function: cubic-bezier(0.4, -0.38, 1, 1.92);

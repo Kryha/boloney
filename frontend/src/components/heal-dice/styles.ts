@@ -13,4 +13,5 @@ export const PowerUpSelectionWrapper = styled.div`
   flex-wrap: wrap;
   gap: 8px;
   flex-wrap: wrap;
+  padding-bottom: 65px;
 `;
