@@ -1,0 +1,21 @@
+<svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_5705_102452)">
+<circle cx="23" cy="23" r="23" fill="#DFBBA6"/>
+<ellipse cx="24" cy="12.5" rx="5" ry="4.5" fill="white"/>
+<ellipse cx="17" cy="28.5" rx="6" ry="5.5" fill="white"/>
+<ellipse cx="31.5" cy="26" rx="2.5" ry="3" fill="white"/>
+<mask id="mask0_5705_102452" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="46" height="46">
+<circle cx="23" cy="23" r="23" fill="#DDDDD9"/>
+</mask>
+<g mask="url(#mask0_5705_102452)">
+<ellipse cx="2.94857" cy="8.72355" rx="3.82327" ry="4.36945" transform="rotate(-35.7448 2.94857 8.72355)" fill="#EEEEEA"/>
+<ellipse cx="9.49228" cy="4.35068" rx="5.49123" ry="6.40643" transform="rotate(-35.7448 9.49228 4.35068)" fill="#EEEEEA"/>
+<ellipse cx="16.8744" cy="-1.39622" rx="5.69125" ry="6.50429" transform="rotate(-35.7448 16.8744 -1.39622)" fill="#EEEEEA"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_5705_102452">
+<rect width="46" height="46" fill="white"/>
+</clipPath>
+</defs>
+</svg>

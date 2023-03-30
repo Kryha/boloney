@@ -15,6 +15,8 @@ export interface UISlice {
   isBottomButtonVisible: boolean;
   isSoundEnabled: boolean;
   masterVolume: number;
+  cookieConsent: boolean;
+  askedForConsent: boolean;
 
   setModalComponentChildren: (component: OverlayComponent) => void;
   closeModal: () => void;
@@ -30,6 +32,8 @@ export interface UISlice {
   setBottomButtonVisible: (isVisible: boolean) => void;
   setSoundEnabled: (isSoundEnabled: boolean) => void;
   setMasterVolume: (masterVolume: number) => void;
+  setCookieConsent: (consent: boolean) => void;
+  setAskedForConsent: (consent: boolean) => void;
 }
 
 export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
@@ -46,6 +50,8 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   isBottomButtonVisible: false,
   isSoundEnabled: true,
   masterVolume: 0.5,
+  cookieConsent: false,
+  askedForConsent: false,
 
   setModalComponentChildren: (component: OverlayComponent) => set(() => ({ modalComponentChildren: component })),
   closeModal: () =>
@@ -94,4 +100,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   setBottomButtonVisible: (isVisible: boolean) => set(() => ({ isBottomButtonVisible: isVisible })),
   setSoundEnabled: (isSoundEnabled: boolean) => set(() => ({ isSoundEnabled: isSoundEnabled })),
   setMasterVolume: (masterVolume: number) => set(() => ({ masterVolume: masterVolume })),
+  setCookieConsent: (consent: boolean) => set(() => ({ cookieConsent: consent })),
+  setAskedForConsent: (consent: boolean) => set(() => ({ askedForConsent: consent })),
 });

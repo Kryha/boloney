@@ -103,6 +103,15 @@ export const SecondaryButtonContainer = styled.div<ButtonProps>`
   }
 `;
 
+export const TertiaryButtonContainer = styled.div<ButtonProps>`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  :hover {
+    background-color: ${color.lightGrey};
+  }
+`;
+
 export const CloseButton = styled(CloseIcon)`
   margin-top: 4px;
   width: 20px;

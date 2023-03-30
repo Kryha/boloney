@@ -18,6 +18,7 @@ import {
   SecondaryArrow,
   SecondaryButtonContainer,
   SecondaryView,
+  TertiaryButtonContainer,
 } from "./styles";
 
 interface ButtonProps {
@@ -102,6 +103,12 @@ export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryTex
     <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
     <SecondaryArrow />
   </SecondaryButtonContainer>
+);
+
+export const TertiaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
+  <TertiaryButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
+    <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
+  </TertiaryButtonContainer>
 );
 
 export const DropdownButton: FC<DropdownButtonProps> = ({ disabled, onClick, primaryText, isOpen, icon }) => (

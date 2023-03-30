@@ -17,6 +17,7 @@ build:
           VITE_API_URL: api.boloney.io
           VITE_USE_SSL: true
           VITE_API_PORT: "443"
+          VITE_GA_TRACKING_ID: "G-8MLWBJTD89"
     - image: eu.gcr.io/web3-335312/aleo/boloney-production/backend
       docker:
         dockerfile: Dockerfile.backend

@@ -4,11 +4,11 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import { routes } from "./route-names";
-import { MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
+import { CookieBanner, MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
 import { Login, CreateAccount } from "../pages/auth";
 import { Landing, NewMatch, Home, MatchRoute } from "../pages";
 import { useRefreshAuth } from "../service";
-import { useIsAuthenticating, useSession } from "../store";
+import { useIsAuthenticating, useSession, useStore } from "../store";
 import { Test } from "../pages/test/test";
 import { DEV_ENVIRONMENT } from "../constants";
 
@@ -46,9 +46,11 @@ const AppRoutes: FC = () => {
 
 export const RoutesWrapper: FC = () => {
   const navigate = useNavigate();
+  const askedForConsent = useStore((state) => state.askedForConsent);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
+      {!askedForConsent && <CookieBanner />}
       <AnimatePresence mode="wait">
         <MainContainer>
           <AppRoutes />

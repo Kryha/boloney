@@ -37,6 +37,7 @@ import { ReactComponent as RefreshIcon } from "./refresh.svg";
 import { ReactComponent as WhiteDiceIcon } from "./white-dice.svg";
 import { ReactComponent as DeadCoffinIcon } from "./dead-coffin.svg";
 import { ReactComponent as BlueLock } from "./blue-lock.svg";
+import CookieIcon from "./cookie.svg";
 
 export {
   PlusIcon,
@@ -79,4 +80,5 @@ export {
   RefreshIcon,
   WhiteDiceIcon,
   DeadCoffinIcon,
+  CookieIcon,
 };
