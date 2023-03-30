@@ -1,102 +1,7 @@
 import { createMock } from "ts-auto-mock";
-// import { On, method, Method } from "ts-auto-mock/extension";
 
 import { CustomError } from "../types";
-import { afterHookHandler, beforeHookHandler } from "./auth";
-
-// describe("After authentication hook", () => {
-//   let mockNk: nkruntime.Nakama;
-//   let mockCtx: nkruntime.Context;
-//   let mockLogger: nkruntime.Logger;
-//   let mockSession: nkruntime.Session;
-//   let mockAuthenticateCustomRequest: nkruntime.AuthenticateCustomRequest;
-//   let mockStorageReadRequest: nkruntime.StorageReadRequest;
-//   let mockStorageWriteAck: nkruntime.StorageWriteAck;
-//   let mockAccountKeys: AccountKeys;
-
-//   let mockHttpRequest: Method<nkruntime.Nakama["httpRequest"]>;
-//   let mockStorageRead: Method<nkruntime.Nakama["storageRead"]>;
-//   let mockStorageWrite: Method<nkruntime.Nakama["storageWrite"]>;
-//   let mockLoggerInfo: Method<nkruntime.Logger["error"]>;
-
-//   beforeEach(() => {
-//     mockNk = createMock<nkruntime.Nakama>();
-//     mockCtx = createMock<nkruntime.Context>({ userId: "mock-user" });
-//     mockLogger = createMock<nkruntime.Logger>();
-//     mockSession = createMock<nkruntime.Session>();
-//     mockAuthenticateCustomRequest = createMock<nkruntime.AuthenticateCustomRequest>();
-//     mockStorageReadRequest = createMock<nkruntime.StorageReadRequest>();
-//     mockStorageWriteAck = createMock<nkruntime.StorageWriteAck>();
-//     mockAccountKeys = createMock<AccountKeys>();
-
-//     mockLoggerInfo = On(mockLogger).get(
-//       method(function (mock) {
-//         return mock.info;
-//       })
-//     );
-//     mockHttpRequest = On(mockNk).get(
-//       method((mock) => {
-//         return mock.httpRequest;
-//       })
-//     );
-//     mockStorageRead = On(mockNk).get(
-//       method((mock) => {
-//         return mock.storageRead;
-//       })
-//     );
-//     mockStorageWrite = On(mockNk).get(
-//       method((mock) => {
-//         return mock.storageWrite;
-//       })
-//     );
-//   });
-
-//   // TODO: Fix this tests with new toolkit calls
-
-//   it("Should check if an account is present in a collection", () => {
-//     (mockStorageRead as jest.Mock).mockReturnValueOnce([mockStorageReadRequest]);
-
-//     const payload = { collection: "Accounts", key: "keys" };
-
-//     const res = !!readUserKeys(mockNk, mockCtx.userId, payload).length;
-
-//     expect(res).toBe(true);
-//   });
-
-//   it("Should write user keys to collection", () => {
-//     (mockStorageWrite as jest.Mock).mockReturnValueOnce([mockStorageWriteAck, mockStorageWriteAck]);
-
-//     const payload = { collection: "Accounts", key: "keys", value: { ...mockAccountKeys } };
-
-//     const res = storeNewKeysInCollection(mockNk, mockCtx, payload);
-
-//     expect(res).toBe(true);
-//   });
-
-//   it("Should call the toolkit", () => {
-//     const httpResponse: nkruntime.HttpResponse = {
-//       code: 200,
-//       headers: ["application/json"],
-//       body: JSON.stringify(mockAccountKeys),
-//     };
-
-//     (mockHttpRequest as jest.Mock).mockReturnValueOnce(httpResponse);
-
-//     const res = getNewKeysFromToolkit(mockCtx, mockLogger, mockNk);
-
-//     expect(res).toEqual(mockAccountKeys);
-//   });
-
-//   it("Should check if a user already exists", () => {
-//     (mockStorageRead as jest.Mock).mockReturnValueOnce([mockStorageReadRequest]);
-
-//     const expectedInfo = "User already has keys";
-
-//     afterAuthenticateCustom(mockCtx, mockLogger, mockNk, mockSession, mockAuthenticateCustomRequest);
-
-//     expect(mockLoggerInfo).toBeCalledWith(expectedInfo);
-//   });
-// });
+import { accountExist, afterHookHandler, beforeAuthenticateCustom, beforeHookHandler } from "./auth";
 
 describe("Functions that require mocked input data", () => {
   let mockLogger: nkruntime.Logger;
@@ -161,6 +66,47 @@ describe("Functions that require mocked input data", () => {
         });
       const callback = afterHookHandler(mockCallBack);
       expect(() => callback(mockCtx, mockLogger, mockNk, mockSession, authCustom)).toThrow(customError);
+    });
+  });
+
+  describe("beforeAuthenticateCustom function", () => {
+    it("Should return the AuthenticateCustomRequest parameter", () => {
+      mockNk.usersGetUsername = jest.fn().mockImplementation((_smh: string[]) => "");
+      mockNk.sha256Hash = jest.fn().mockImplementation((_smh: string) => authCustom.account?.id);
+      const authCustomCopy = { ...authCustom };
+      const res = beforeAuthenticateCustom(mockCtx, mockLogger, mockNk, authCustom);
+      expect(res).toEqual(authCustomCopy);
+    });
+  });
+
+  describe("beforeAuthenticateCustom function", () => {
+    it("Should return the modified AuthenticateCustomRequest parameter", () => {
+      mockNk.usersGetUsername = jest.fn().mockImplementation((_smh: string[]) => "");
+      mockNk.sha256Hash = jest.fn().mockImplementation((_smh: string) => "hashedPassword");
+      const authCustomCopy = { ...authCustom };
+      const res = beforeAuthenticateCustom(mockCtx, mockLogger, mockNk, authCustom);
+      expect(res).not.toEqual(authCustomCopy);
+    });
+  });
+
+  describe("accountExists function", () => {
+    it("Should return false", () => {
+      mockNk.storageRead = jest.fn().mockImplementation((_smh: unknown) => undefined);
+      const res = accountExist(mockNk, mockLogger, authCustom.username || "");
+      expect(res).toEqual(false);
+    });
+
+    it("Should return true", () => {
+      const storageReadResponse = [
+        {
+          value: {
+            address: "aleo1" + "0".repeat(58),
+          },
+        },
+      ];
+      mockNk.storageRead = jest.fn().mockImplementation((_smh: unknown) => storageReadResponse);
+      const res = accountExist(mockNk, mockLogger, authCustom.username || "");
+      expect(res).toEqual(true);
     });
   });
 });

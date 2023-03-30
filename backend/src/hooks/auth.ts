@@ -60,12 +60,12 @@ export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data,
   savePlayerKeys(nk, ctx.userId, { privateKey, viewKey });
 });
 
-const accountExist = (nk: nkruntime.Nakama, logger: nkruntime.Logger, userId: string): boolean => {
+export const accountExist = (nk: nkruntime.Nakama, logger: nkruntime.Logger, userId: string): boolean => {
   try {
     const existingAddress = getPlayerAddress(nk, userId);
     return isAddress(existingAddress);
   } catch (error) {
-    logger.info("Createing new Aleo account for player " + userId);
+    logger.info("Creating new Aleo account for player " + userId);
     return false;
   }
 };

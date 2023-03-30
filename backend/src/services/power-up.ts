@@ -2,7 +2,6 @@ import { EMPTY_DATA, MENAGE_A_TROIS_DICE_AMOUNT } from "../constants";
 import { getPowerUp, rollDice, toolkitUse } from "../toolkit-api";
 import {
   isPowerUpTypeArray,
-  // DiceDataToolkit,
   MatchLoopParams,
   MatchOpCode,
   NotificationContentUsePowerUp,
@@ -33,12 +32,7 @@ import {
 import { stopLoading, updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
-import {
-  cleanUUID,
-  getRange,
-  shuffleArray,
-  // , isZkEnabled
-} from "../utils";
+import { cleanUUID, getRange, shuffleArray } from "../utils";
 import { handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
 import { saveHistoryEvent } from "./history";
 import { getPlayerAccount, getPlayerKeys } from "./storage";
@@ -57,10 +51,10 @@ const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrill
 const useBirdsEye = (
   loopParams: MatchLoopParams,
   data: UseBirdsEyeFrontend,
-  powerUpRecord: PowerUpToolkit,
-  playerKeys: AleoKeys
+  _powerUpRecord: PowerUpToolkit,
+  _playerKeys: AleoKeys
 ): UseBirdsEyeBackend => {
-  const { state, ctx } = loopParams;
+  const { state } = loopParams;
   const { targetId } = data;
 
   const target = state.players[targetId];
