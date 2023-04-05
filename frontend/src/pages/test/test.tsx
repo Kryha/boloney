@@ -2,6 +2,20 @@
 
 import { FC } from "react";
 import {
+  CallBoloney,
+  CallExact,
+  DiscordLogo,
+  GithubLogo,
+  Hand,
+  HookHand,
+  LobsterHand,
+  PlasticHand,
+  SausageHand,
+  SkeletonHand,
+  text,
+} from "../../assets";
+import { fakePlayers } from "../../assets/fake-data";
+import {
   PopUpBlock,
   PopUp,
   Card,
@@ -20,23 +34,189 @@ import {
   PlayerMenuBlock,
   PlayerMenuBox,
   BaseInput,
+  FluidImage,
+  GeneralText,
+  Heading2,
+  CenteredImage,
+  avatarHeight,
+  Heading3,
+  MediaImage,
+  MatchPlayersOverview,
+  TopNavigation,
+  HUDPlayerBox,
 } from "../../components";
-import { BaseRow } from "../../components/atoms/grid";
+import { BaseColumn, BaseRow } from "../../components/atoms/grid";
+import { MainContentContainer } from "../../components/match-layout/styles";
+import { PlayerMenu } from "../../components/player-menu";
+import { color, images, layoutHeight, lineHeights, spacing } from "../../design";
+import { getPowerUp } from "../../util";
+import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout, PowerUpCard } from "./styles";
 
 export const Test: FC = () => {
+  const powerUp1 = getPowerUp("1");
+  const powerUp2 = getPowerUp("2");
+  const powerUp3 = getPowerUp("3");
+  const powerUp4 = getPowerUp("4");
+  const powerUp5 = getPowerUp("5");
+  const powerUp6 = getPowerUp("6");
+  const powerUp7 = getPowerUp("7");
+  const powerUp8 = getPowerUp("8");
+  const powerUp9 = getPowerUp("9");
+
+  if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
+
   return (
     <div style={{ padding: "50px", background: "lightBlue" }}>
       <PopUpBlock>{"multiple notifications"}</PopUpBlock>
       <br />
-      <PopUp>{"notification"}</PopUp>
+      <PopUp>
+        <FluidImage src={CallExact} height={images.fluid} width={images.auto} />
+      </PopUp>
       <br />
-      <Card>{"large power up card"}</Card>
+      <BaseRow gap={spacing.s}>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp1.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp1.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp1.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp2.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp2.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp2.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp3.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp3.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp3.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+      </BaseRow>
       <br />
-      <Card isSmall>{"small power up card"}</Card>
+      <BaseRow gap={spacing.s}>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp4.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp4.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp4.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp5.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp5.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp5.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp6.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp6.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp6.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+      </BaseRow>
+      <br />
+      <BaseRow gap={spacing.s}>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp7.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp7.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp7.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp8.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp8.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp8.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+        <PowerUpCard>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp9.cardImage} />
+            <BaseColumn alignItems="start">
+              <Heading2 customcolor={color.mediumGrey}>{powerUp9.name}</Heading2>
+              <GeneralText>{text.param.zeroAmount(powerUp9.id)}</GeneralText>
+            </BaseColumn>
+          </AlignColumn>
+        </PowerUpCard>
+      </BaseRow>
+      <br />
+      <BaseRow gap={spacing.s}>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp1.cardImage} />
+          </AlignColumn>
+        </Card>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp2.cardImage} />
+          </AlignColumn>
+        </Card>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp3.cardImage} />
+          </AlignColumn>
+        </Card>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp4.cardImage} />
+          </AlignColumn>
+        </Card>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp5.cardImage} />
+          </AlignColumn>
+        </Card>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp6.cardImage} />
+          </AlignColumn>
+        </Card>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp7.cardImage} />
+          </AlignColumn>
+        </Card>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp8.cardImage} />
+          </AlignColumn>
+        </Card>
+        <Card isSmall>
+          <AlignColumn justifyContent="center">
+            <CenteredImage src={powerUp9.cardImage} />
+          </AlignColumn>
+        </Card>
+      </BaseRow>
+
       <br />
       <br />
       <Card isSmall isEmpty>
-        {"smaller power-up card"}
+        <BaseRow alignItems="center">
+          <GeneralText>{"+4"}</GeneralText>
+        </BaseRow>
       </Card>
       <br />
       <br />
@@ -61,13 +241,142 @@ export const Test: FC = () => {
       <br />
       <h1>layouts</h1>
       <br />
-      <Sidebar>{"sidebar"}</Sidebar>
+      <h2>side bar</h2>
+      <BaseRow gap={spacing.s}>
+        <Sidebar>
+          <PlayerBox>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[0]} width={images.auto} src={HookHand} />
+            </AlignColumn>
+          </PlayerBox>
+        </Sidebar>
+        <Sidebar>
+          <PlayerBox divisors={2}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[1]} width={images.auto} src={LobsterHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={2}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[1]} width={images.auto} src={HookHand} />
+            </AlignColumn>
+          </PlayerBox>
+        </Sidebar>
+        <Sidebar>
+          <PlayerBox divisors={3}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[2]} width={images.auto} src={LobsterHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={3}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[2]} width={images.auto} src={HookHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={3}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[2]} width={images.auto} src={SausageHand} />
+            </AlignColumn>
+          </PlayerBox>
+        </Sidebar>
+        <Sidebar>
+          <PlayerBox divisors={4}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[3]} width={images.auto} src={LobsterHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={4}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[3]} width={images.auto} src={HookHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={4}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[3]} width={images.auto} src={SausageHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={4}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[3]} width={images.auto} src={PlasticHand} />
+            </AlignColumn>
+          </PlayerBox>
+        </Sidebar>
+        <Sidebar>
+          <PlayerBox divisors={5}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[4]} width={images.auto} src={LobsterHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={5}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[4]} width={images.auto} src={HookHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={5}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[4]} width={images.auto} src={SausageHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={5}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[4]} width={images.auto} src={PlasticHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={5}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[4]} width={images.auto} src={SkeletonHand} />
+            </AlignColumn>
+          </PlayerBox>
+        </Sidebar>
+        <Sidebar>
+          <PlayerBox divisors={6}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[5]} width={images.auto} src={LobsterHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={6}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[5]} width={images.auto} src={HookHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={6}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[5]} width={images.auto} src={SausageHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={6}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[5]} width={images.auto} src={PlasticHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={6}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[5]} width={images.auto} src={SkeletonHand} />
+            </AlignColumn>
+          </PlayerBox>
+          <PlayerBox divisors={6}>
+            <AlignColumn justifyContent="center">
+              <CenteredImage height={avatarHeight[5]} width={images.auto} src={Hand} />
+            </AlignColumn>
+          </PlayerBox>
+        </Sidebar>
+      </BaseRow>
       <br />
       <Sidebar hover enabled>
         {"sidebar hover"}
       </Sidebar>
       <br />
       <Sidebar active>{"sidebar active"}</Sidebar>
+      <br />
+      <br />
+      <h1>hud player</h1>
+      <br />
+      <HUDPlayerBox>
+        <AlignColumn justifyContent="center">
+          <CenteredImage height={layoutHeight.md} width={images.auto} src={SausageHand} />
+        </AlignColumn>
+      </HUDPlayerBox>
+      <br />
       <br />
       <HUDBlock>{"hud"}</HUDBlock>
       <br />
@@ -101,13 +410,52 @@ export const Test: FC = () => {
       <br />
       <PlayerMenuBlock open>{"chat / history when one is open"}</PlayerMenuBlock>
       <br />
+      <h1>landing info</h1>
+      <br />
+      <BackgroundRow>
+        <FluidImage width={images.thumbnail} minWidth={images.thumbnail} src={CallBoloney} />
+        <HalfColumn alignSelf="center">
+          <Heading3>{"Best bluffer wins"}</Heading3>
+          <GeneralText>
+            {
+              "Boloney! is a game of dice and bluffing. To win, bluff the best about the total value of dice on the table to outsmart your opponents."
+            }
+          </GeneralText>
+        </HalfColumn>
+      </BackgroundRow>
+      <br />
+      <br />
+      <h1>social images</h1>
+      <br />
+      <br />
+      <BaseRow gap={spacing.md}>
+        <MediaImage width={images.auto} mediaSize={lineHeights.heading2} src={DiscordLogo} />
+        <MediaImage width={images.auto} mediaSize={lineHeights.heading2} src={GithubLogo} />
+      </BaseRow>
+      <br />
+      <br />
+      <h1>match layout image</h1>
+      <br />
+      <h2>only look at the image in the center, i.e the 3 dice on a balancing beam</h2>
+      <br />
+      <Layout>
+        <TopNavigation location="match" />
+        <MatchPlayersOverview playerOrder={fakePlayers} />
+        <BottomHud />
+        <PlayerMenu />
+        <MainContentContainer isInMatch isStageWithHUD>
+          <FluidImage src={CallExact} height={images.auto} width={images.picture} />
+        </MainContentContainer>
+      </Layout>
+      <br />
+      <br />
       <h1>row</h1>
       <br />
-      <BaseRow>
-        <div style={{ background: "white", width: "100%" }}>
+      <BaseRow gap={spacing.md}>
+        <div style={{ background: "white", width: images.fluid }}>
           <BaseInput placeholder="hello" />
         </div>
-        <div style={{ background: "white", width: "100%" }}>
+        <div style={{ background: "white", width: images.fluid }}>
           <BaseInput placeholder="goodbye" />
         </div>
       </BaseRow>

@@ -28,7 +28,7 @@ const LayoutBase = styled.div<Props>`
 
 export const Sidebar = styled(LayoutBase)`
   width: ${layoutWidth.sm};
-  height: ${({ divisors }): string => (divisors ? `${getSidebarHeight(divisors)}vh` : layoutHeight.xl)};
+  height: ${layoutHeight.xl};
 `;
 
 export const HUDBlock = styled(LayoutBase)``;
@@ -37,7 +37,13 @@ export const PlayerInformationBlock = styled(LayoutBase)`
   width: ${layoutWidth.lg};
 `;
 
+// Sidebar player
 export const PlayerBox = styled(LayoutBase)`
+  width: ${layoutWidth.sm};
+  height: ${({ divisors }): string => (divisors ? `${getSidebarHeight(divisors)}vh` : layoutHeight.xl)};
+`;
+
+export const HUDPlayerBox = styled(HUDBlock)`
   width: ${layoutWidth.sm};
 `;
 

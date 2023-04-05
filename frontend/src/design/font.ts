@@ -30,7 +30,7 @@ export const fontSizes = {
   heading2: {
     sm: "clamp(1.25rem, 2.86vw + 0.54rem, 2.25rem)",
     md: "clamp(1.88rem, 3.13vw + 0rem, 3.75rem)",
-    lg: "clamp(3.75rem, 4.26vw + -1.36rem, 8.75rem)",
+    lg: "clamp(3.75rem, 4.39vw + -3.65rem, 6.88rem)",
   },
   heading3: {
     sm: "clamp(1rem, 1.43vw + 0.64rem, 1.5rem)",
@@ -105,7 +105,7 @@ export const lineHeights = {
   heading2: {
     sm: "clamp(1.5rem, 2.85vw + 0.79rem, 2.5rem)",
     md: "clamp(2.25rem, 2.71vw + 0.63rem, 3.88rem)",
-    lg: "clamp(4rem, 4.26vw + -1.11rem, 9rem)",
+    lg: "clamp(4rem, 4.39vw + -3.4rem, 7.13rem)",
   },
   heading3: {
     sm: "clamp(1.5rem, 2.85vw + 0.79rem, 2.5rem)",

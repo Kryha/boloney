@@ -7,3 +7,4 @@ export * from "./measurements";
 export * from "./opacity";
 export * from "./shadow";
 export * from "./layout";
+export * from "./images";
