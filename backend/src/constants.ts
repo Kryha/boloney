@@ -75,11 +75,38 @@ export const MATCH_STAGES: readonly MatchStage[] = [
   "terminateMatchStage",
 ];
 
+export const TOOLKIT_ENDPOINTS = {
+  account: {
+    create: "/account/create",
+  },
+  match: {
+    create: "/boloney/create-match",
+    createMatchSummary: "/boloney/create-match-summary",
+  },
+  dice: {
+    create: "/dice/create",
+    burn: "/dice/burn",
+    increment: "/dice/increment",
+    decrement: "/dice/decrement",
+  },
+  powerUps: {
+    create: "/power-ups/create",
+    burn: "/power-ups/burn",
+    transfer: "/power-ups/transfer",
+    useBirdsEye: "/power-ups/2",
+  },
+  random: {
+    number: "/random/number",
+    hashChain: "/random/hash-chain-record",
+  },
+};
+
 //TODO: get variable from envirement variables
 export const TICK_RATE = 1;
 export const MAX_INACTIVE_TICKS = 1000;
+export const GRACE_SECONDS = 2;
 
-export const EMPTY_DATA = JSON.stringify({});
+export const EMPTY_DATA = "{}";
 
 export const MENAGE_A_TROIS_DICE_AMOUNT = 3;
 
@@ -91,3 +118,5 @@ export const STORAGE_ADDRESS_KEY = "aleo-address";
 export const STORAGE_KEYS_KEY = "aleo-keys";
 export const STORAGE_MATCH_DATA_COLLECTION = "match-data";
 export const STORAGE_HASH_CHAIN_KEY = "hash-chain";
+
+export const MAX_TOOLKIT_REQUESTS_ATTEMPTS = 3;

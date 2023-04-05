@@ -1,4 +1,4 @@
-import { errors, handleError, profanityFilter, getPlayerAddress, savePlayerAddress, savePlayerKeys } from "../services";
+import { errors, handleError, profanityFilter, savePlayerAddress, savePlayerKeys, getPlayerAddress } from "../services";
 import { createAleoAccount } from "../toolkit-api/account";
 import { AfterAuthHookHandler, BeforeAuthHookHandler, isAddress } from "../types";
 import { env } from "../utils";

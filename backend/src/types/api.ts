@@ -1,7 +1,7 @@
 import { BidPayloadBackend } from "./bid";
 import { Die } from "./die";
 import { HistoryEvent } from "./history";
-import { Action, MatchSettings, MatchStage, PlayerPublic, PlayerRanked, TurnActionStep } from "./match";
+import { Action, MatchOpCode, MatchSettings, MatchStage, PlayerPublic, PlayerRanked, TurnActionStep } from "./match";
 import { PowerUpId, isPowerUpTypeArray } from "./power-up";
 
 export interface PlayerJoinedPayloadBackend {
@@ -85,4 +85,10 @@ export interface PlayerOrderShufflePayloadBackend {
 export interface PlayerActivePayloadBackend {
   activePlayerId: string;
   remainingStageTime: number;
+}
+
+export interface ErrorPayloadBackend {
+  opCode: MatchOpCode;
+  httpCode: number;
+  message: string;
 }

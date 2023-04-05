@@ -13,7 +13,6 @@ import {
   stopLoading,
   handlePlayerLostRound,
   setAction,
-  handleError,
   updatePlayerPublicData,
   powerUp,
   saveHistoryEvent,
@@ -172,7 +171,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
 });
 
 const handlePlayerCallHealDice = messageHandler(async (loopParams, message, sender) => {
-  const { nk, logger, state, dispatcher } = loopParams;
+  const { nk, state, dispatcher } = loopParams;
   const player = state.players[sender.userId];
 
   const data = JSON.parse(nk.binaryToString(message.data));
@@ -183,25 +182,18 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
   if (sender.powerUpIds.length < data.selectedPowerUps.length) throw errors.invalidPayload;
 
   // Remote calls to zk gaming toolkit
-  try {
-    const playerAccount = getPlayerAccount(nk, sender.userId);
+  const playerAccount = getPlayerAccount(nk, sender.userId);
 
-    const newRolledDice = await rollDice(loopParams, 1, player, playerAccount);
+  const newRolledDice = await rollDice(loopParams, 1, player, playerAccount);
 
-    if (!newRolledDice) throw Error("Rolling dice has failed");
+  state.players[sender.userId].diceValue.push(newRolledDice[0]);
 
-    state.players[sender.userId].diceValue.push(newRolledDice[0]);
+  // removes the powerUpIds from the state and toolkit
+  const updatedPowerUps = await powerUp.handleDeletePowerUps(loopParams, data.selectedPowerUps, sender.userId);
+  state.players[sender.userId].powerUpIds = updatedPowerUps;
 
-    // removes the powerUpIds from the state and toolkit
-    const updatedPowerUps = await powerUp.handleDeletePowerUps(loopParams, data.selectedPowerUps, sender.userId);
-    state.players[sender.userId].powerUpIds = updatedPowerUps;
-
-    // update playerPublic data for other player to see the results
-    updatePlayerPublicData(loopParams, [sender.userId]);
-  } catch (error) {
-    // TODO revert changes to the state
-    throw handleError(error, logger);
-  }
+  // update playerPublic data for other player to see the results
+  updatePlayerPublicData(loopParams, [sender.userId]);
 
   //Healing dice is not a turn ending action
   const notificationContent: NotificationContentHealDice = {

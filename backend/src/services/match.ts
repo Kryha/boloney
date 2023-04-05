@@ -3,6 +3,8 @@ import { getPowerUp } from "../toolkit-api";
 import {
   Action,
   AvatarId,
+  ErrorPayloadBackend,
+  isHttpError,
   isPowerUpId,
   LogicHandler,
   MatchLoopParams,
@@ -11,6 +13,7 @@ import {
   MatchState,
   MessageCallback,
   MessageHandler,
+  NotificationContentError,
   NotificationOpCode,
   Player,
   PlayerGetPowerUpsPayloadBackend,
@@ -25,6 +28,7 @@ import {
 import { randomInt } from "../utils";
 import { errors, handleError, parseError } from "./error";
 import { saveHistoryEvent } from "./history";
+import { sendMatchNotification } from "./notification";
 import {
   clearPlayerState,
   getActivePlayerId,
@@ -165,33 +169,62 @@ export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, sender: nkr
   if (error) {
     const parsedError = parseError(error);
     logger.error("WS error:", parsedError);
-    dispatcher.broadcastMessage(MatchOpCode.ERROR, JSON.stringify(parsedError));
+
+    const payload: ErrorPayloadBackend = {
+      message: parsedError.message,
+      httpCode: parsedError.code,
+      opCode: MatchOpCode.ERROR,
+    };
+    dispatcher.broadcastMessage(MatchOpCode.ERROR, JSON.stringify(payload));
   }
   dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [sender]);
 };
 
-export const messageHandler: MessageHandler = (callback) => (loopParams, message, sender) => {
+export const messageHandler: MessageHandler = (callback) => async (loopParams, message, sender) => {
+  const { logger } = loopParams;
   try {
-    callback(loopParams, message, sender);
+    await callback(loopParams, message, sender);
   } catch (error) {
-    const parsedError = parseError(error);
-    stopLoading(loopParams, message.sender, parsedError);
+    // TODO: Handle unknown errors as well.
+    if (isHttpError(error)) {
+      handleToolkitErrorSideEffects(loopParams, message.opCode, sender);
+      logger.error("Toolkit error while performing action ", message.opCode, error);
+    } else {
+      const parsedError = parseError(error);
+      stopLoading(loopParams, message.sender, parsedError);
+    }
   }
 };
 
 export const logicHandler: LogicHandler = (callback) => async (loopParams) => {
+  const { logger, state } = loopParams;
   try {
     await callback(loopParams);
   } catch (error) {
-    handleError(error, loopParams.logger);
+    // TODO: Handle unknown errors using the same handler.
+    if (isHttpError(error)) {
+      const opCode = error.opCode ?? getOpCodeFromStage(state.matchStage);
+      handleToolkitErrorSideEffects(loopParams, opCode);
+      logger.error("Toolkit error while performing action ", opCode, error);
+    } else {
+      handleError(error, logger);
+    }
   }
 };
 
-export const transitionHandler: TransitionHandler = (callback) => (loopParams, nextStage) => {
+export const transitionHandler: TransitionHandler = (callback) => async (loopParams, nextStage) => {
+  const { logger, state } = loopParams;
   try {
-    callback(loopParams, nextStage);
+    await callback(loopParams, nextStage);
   } catch (error) {
-    handleError(error, loopParams.logger);
+    // TODO: Handle unknown errors using the same handler.
+    if (isHttpError(error)) {
+      const opCode = error.opCode ?? getOpCodeFromStage(state.matchStage);
+      handleToolkitErrorSideEffects(loopParams, opCode);
+      logger.error("Toolkit error while performing action ", opCode, error);
+    } else {
+      handleError(error, logger);
+    }
   }
 };
 
@@ -330,4 +363,40 @@ export const handleRoundEnding = (loopParams: MatchLoopParams, nextStage: MatchS
 
   dispatcher.broadcastMessage(MatchOpCode.ROUND_SUMMARY_TRANSITION, JSON.stringify(roundSummaryTransitionPayload));
   dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(stageTransitionPayload));
+};
+
+// TODO: Add rollback logic for the rest of the cases.
+const handleToolkitErrorSideEffects = (loopParams: MatchLoopParams, matchOpCode: MatchOpCode, sender?: Player) => {
+  const { state, dispatcher, logger, ctx } = loopParams;
+  const errorContent: NotificationContentError = {
+    errorMessage: "zkDefaultError",
+  };
+  sendMatchNotification(loopParams, NotificationOpCode.ERROR, errorContent);
+
+  switch (matchOpCode) {
+    case MatchOpCode.PLAYER_GET_POWERUPS:
+      state.matchStage = "endOfMatchStage";
+      updatePlayersState(state, dispatcher);
+      logger.info("Terminating match due to Toolkit Error", ctx.matchId);
+      break;
+    case MatchOpCode.ROLL_DICE:
+      if (!sender) throw "Couldn't roll back, sender is undefined";
+      state.players[sender.userId].hasRolledDice = false;
+      break;
+    default:
+      break;
+  }
+};
+
+const getOpCodeFromStage = (stage: MatchStage): MatchOpCode => {
+  switch (stage) {
+    case "roundSummaryStage":
+      return MatchOpCode.ROUND_SUMMARY_TRANSITION;
+    case "getPowerUpStage":
+      return MatchOpCode.PLAYER_GET_POWERUPS;
+    case "lobbyStage":
+      return MatchOpCode.STAGE_TRANSITION;
+    default:
+      throw new Error(`Invalid stage: ${stage}`);
+  }
 };

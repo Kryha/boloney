@@ -1,8 +1,9 @@
-import { HASH_MAX_RANGE } from "../constants";
+import { TOOLKIT_ENDPOINTS, HASH_MAX_RANGE } from "../constants";
 import {
   AleoAccount,
   AleoKeys,
   DiceDataToolkit,
+  httpError,
   isBirdsEyeResToolkit,
   isPowerUpId,
   isRandomNumberResToolkit,
@@ -16,7 +17,8 @@ import {
   UseBirdsEyeBodyToolkit,
   UseBirdsEyeResToolkit,
 } from "../types";
-import { httpRequest, isZkEnabled, randomInt, tkUrl } from "../utils";
+import { isZkEnabled, randomInt, tkUrl } from "../utils";
+import { handleToolkitRequest } from "./request-handler";
 
 export const getAvailablePowerUps = (powerUpsProbability: PowerUpProbability[]): PowerUpProbability[] => {
   const availablePowerUps = powerUpsProbability.filter((powerUp) => powerUp.probability !== 0);
@@ -53,7 +55,7 @@ export const getPowerUpIdFromProbability = (randomNumber: number, probabilityRan
 };
 
 export const getPowerUp = (loopParams: MatchLoopParams, playerAccount: AleoAccount): PowerUpId | undefined => {
-  const { nk, state, ctx } = loopParams;
+  const { state, ctx, nk, logger } = loopParams;
   const { powerUpProbability } = state.settings;
   const { address, privateKey, viewKey } = playerAccount;
 
@@ -67,14 +69,14 @@ export const getPowerUp = (loopParams: MatchLoopParams, playerAccount: AleoAccou
     const mockRn = randomInt(1, HASH_MAX_RANGE);
     const randomSeed = mockRn;
 
-    const url = tkUrl(ctx, "/random/number");
+    const url = tkUrl(ctx, TOOLKIT_ENDPOINTS.random.number);
     const body: RandomNumberBodyToolkit = { seed: randomSeed, min: 1, max: 100, owner: address, privateKey, viewKey };
 
     // TODO: Return a PowerUpRecord and extract ID
-    const res = httpRequest(nk, url, "post", body);
+    const res = handleToolkitRequest(url, "post", body, nk, logger);
     const parsedBody = JSON.parse(res.body);
 
-    if (!isRandomNumberResToolkit(parsedBody)) throw new Error(res.body);
+    if (!isRandomNumberResToolkit(parsedBody)) throw httpError(res.code, res.body);
 
     // Use random number to get PowerUpId based on given probabilities
     id = getPowerUpIdFromProbability(parsedBody.randomNumber, probabilityRange);
@@ -97,19 +99,20 @@ const useBirdsEye = (
   diceData: DiceDataToolkit,
   playerKeys: AleoKeys
 ): UseBirdsEyeResToolkit => {
-  const { nk, ctx } = loopParams;
+  const { ctx, nk, logger } = loopParams;
   const { viewKey, privateKey } = playerKeys;
 
-  const url = tkUrl(ctx, "/power-ups/2");
+  const url = tkUrl(ctx, TOOLKIT_ENDPOINTS.powerUps.useBirdsEye);
 
   const body: UseBirdsEyeBodyToolkit = { powerUp, diceData, viewKey, privateKey };
   loopParams.logger.debug("useBirdsEye Body " + JSON.stringify(body, null, 2));
 
-  const res = httpRequest(nk, url, "post", body);
+  const res = handleToolkitRequest(url, "post", body, nk, logger);
+
   const parsed = JSON.parse(res.body);
   loopParams.logger.debug("useBirdsEye Response " + parsed);
 
-  if (!isBirdsEyeResToolkit(parsed)) throw new Error(res.body);
+  if (!isBirdsEyeResToolkit(parsed)) throw httpError(res.code, res.body);
 
   return parsed;
 };

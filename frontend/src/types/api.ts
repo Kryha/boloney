@@ -2,7 +2,7 @@ import { z } from "zod";
 import { bidPayloadBackendSchema } from "./bid";
 import { dieSchema } from "./die";
 import { NkError } from "./error";
-import { matchStageSchema, matchStateSchema, playerIdSchema, playerPublicSchema, playerRankedSchema } from "./match";
+import { matchOpCodeSchema, matchStageSchema, matchStateSchema, playerIdSchema, playerPublicSchema, playerRankedSchema } from "./match";
 import { powerUpIdSchema } from "./power-up";
 
 export type NkResponse<T = void> = NkError | T;
@@ -89,3 +89,10 @@ export const matchHistoryUpdateBackendPayloadSchema = z.discriminatedUnion("id",
 ]);
 
 export type MatchHistoryUpdateBackendPayload = z.infer<typeof matchHistoryUpdateBackendPayloadSchema>;
+
+export const errorPayloadBackendSchema = z.object({
+  message: z.string(),
+  httpCode: z.number(),
+  opCode: matchOpCodeSchema,
+});
+export type ErrorPayloadBackend = z.infer<typeof errorPayloadBackendSchema>;

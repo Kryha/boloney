@@ -1,4 +1,6 @@
+import { isMatchOpCode, MatchOpCode } from "./match";
 import { isNumber, isString } from "./primitive";
+import { StatusCodes } from "./status-codes";
 
 export type ErrorKind =
   | "usernameAlreadyExists"
@@ -17,6 +19,42 @@ export interface BasicError {
 export interface CustomError extends nkruntime.Error {
   name: string;
 }
+
+export interface HttpError {
+  httpCode: StatusCodes;
+  message: string;
+  opCode?: MatchOpCode;
+}
+
+export const httpError = (httpCode: StatusCodes, message: string): HttpError => {
+  return { httpCode, message };
+};
+
+export const isInternalServerError = (code: StatusCodes): boolean => {
+  return code >= 500 && code < 600;
+};
+
+export const isBadRequestError = (code: StatusCodes): boolean => {
+  return code >= 400 && code < 500;
+};
+
+export const isErrorStatusCode = (code: unknown): code is StatusCodes => {
+  const assertedVal = code as StatusCodes;
+
+  return isNumber(assertedVal) && (isInternalServerError(assertedVal) || isBadRequestError(assertedVal));
+};
+
+export const isHttpError = (error: unknown): error is HttpError => {
+  const assertedVal = error as HttpError;
+
+  return (
+    assertedVal.httpCode !== undefined &&
+    isErrorStatusCode(assertedVal.httpCode) &&
+    assertedVal.message !== undefined &&
+    isString(assertedVal.message) &&
+    (assertedVal.opCode === undefined || isMatchOpCode(assertedVal.opCode))
+  );
+};
 
 export const isBasicError = (error: unknown): error is BasicError => {
   const assertedVal = error as BasicError;

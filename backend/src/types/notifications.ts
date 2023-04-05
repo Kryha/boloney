@@ -56,19 +56,13 @@ export const isNotificationContentHealDice = (value: unknown): value is Notifica
 };
 
 export interface NotificationContentError {
-  activePlayerName: string;
   errorMessage: string;
 }
 
 export const isNotificationContentError = (value: unknown): value is NotificationContentError => {
   const assertedVal = value as NotificationContentError;
 
-  return (
-    assertedVal.activePlayerName !== undefined &&
-    assertedVal.errorMessage !== undefined &&
-    isString(assertedVal.activePlayerName) &&
-    isString(assertedVal.errorMessage)
-  );
+  return assertedVal.errorMessage !== undefined && isString(assertedVal.errorMessage);
 };
 
 export interface NotificationContentUsePowerUp {

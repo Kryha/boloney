@@ -37,6 +37,7 @@ import {
   usePowerUpPayloadBackendSchema,
   UsePowerUpPayloadBackend,
   MatchHistoryUpdateBackendPayload,
+  errorPayloadBackendSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
 
@@ -295,7 +296,10 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           break;
         }
         case MatchOpCode.ERROR: {
-          console.error("MESSAGE ERROR: ", data);
+          //TODO: some garbage collection might be needed here
+          const parsedData = errorPayloadBackendSchema.safeParse(data);
+          console.error("MESSAGE ERROR: ", parsedData);
+          break;
         }
       }
     };

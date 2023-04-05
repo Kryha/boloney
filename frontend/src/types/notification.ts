@@ -38,7 +38,6 @@ export const notificationCallBoloneySchema = z.object({
 export type NotificationCallBoloney = z.infer<typeof notificationCallBoloneySchema>;
 
 export const notificationErrorSchema = z.object({
-  activePlayerName: z.string(),
   errorMessage: z.string(),
 });
 export type NotificationError = z.infer<typeof notificationErrorSchema>;

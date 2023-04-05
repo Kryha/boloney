@@ -20,6 +20,7 @@ export const error = {
   powerUpDataRequired: "power-up data required",
   powerUpNotImplemented: "power-up not implemented",
   noDiceAvailable: "player has no dice available",
+  zkSomethingWentWrong: "something went wrong, zero-knowledge features are not available at this time.",
 
   required: (valueName: string): string => `${valueName} required`,
 };

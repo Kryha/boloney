@@ -75,22 +75,15 @@ export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: s
   // Set hasRolledDice to true before the dice roll to prevent users spamming calls
   player.hasRolledDice = true;
 
-  try {
-    const { address, privateKey, viewKey } = getPlayerAccount(nk, playerId);
+  const { address, privateKey, viewKey } = getPlayerAccount(nk, playerId);
 
-    const diceValue = await rollDice(loopParams, player.diceAmount, player, { address, privateKey, viewKey });
+  const diceValue = await rollDice(loopParams, player.diceAmount, player, { address, privateKey, viewKey });
 
-    if (!diceValue) throw Error("Rolling dice has failed");
+  player.diceValue = diceValue;
 
-    player.diceValue = diceValue;
-
-    const payload: RollDicePayload = { diceValue };
-    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [state.presences[playerId]]);
-    dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [state.presences[playerId]]);
-  } catch (error) {
-    player.hasRolledDice = false;
-    throw error;
-  }
+  const payload: RollDicePayload = { diceValue };
+  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [state.presences[playerId]]);
+  dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [state.presences[playerId]]);
 };
 
 export const handlePlayerLostRound = (loopParams: MatchLoopParams, playerId: string, isTimeOut: boolean) => {

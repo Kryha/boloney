@@ -163,12 +163,15 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
 
       if (!parsedNotificationContent.success) return defaultUnknownError;
 
+      // TODO: When adding other errors, create a getErrorDescription()
       const { errorMessage } = parsedNotificationContent.data;
+      const description = errorMessage === "zkDefaultError" ? text.error.zkSomethingWentWrong : errorMessage;
+
       return {
         id: notification.id,
         img: CallBoloney,
         title: text.error.somethingWentWrong,
-        description: errorMessage,
+        description,
         boldText: [],
       };
     }
