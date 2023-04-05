@@ -38,7 +38,7 @@ interface ButtonProps {
 }
 
 interface LinkProps extends ButtonProps {
-  customColor?: string;
+  customcolor?: string;
   fontWeight?: string;
   fontSize?: FontProps;
   lineHeight?: FontProps;
@@ -90,7 +90,7 @@ export const PrimaryButton: FC<ButtonProps> = ({
         </InitialButtonView>
         <SecondaryView className="box">
           <PrimaryButtonBase type={buttonType} backgroundColor={color.black} disabled={disabled} isLoading={loading}>
-            <PrimaryButtonText customColor={color.white}>{secondaryText ? secondaryText : primaryText}</PrimaryButtonText>
+            <PrimaryButtonText customcolor={color.white}>{secondaryText ? secondaryText : primaryText}</PrimaryButtonText>
           </PrimaryButtonBase>
         </SecondaryView>
       </PrimaryButtonContainer>
@@ -136,7 +136,7 @@ export const Link: FC<LinkProps> = ({
   disabled,
   onClick,
   primaryText,
-  customColor,
+  customcolor,
   fontWeight,
   fontSize,
   lineHeight,
@@ -145,7 +145,7 @@ export const Link: FC<LinkProps> = ({
 }) => (
   <LinkContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <LinkText
-      customColor={customColor}
+      customcolor={customcolor}
       fontWeight={fontWeight}
       fontSize={fontSize}
       lineHeight={lineHeight}

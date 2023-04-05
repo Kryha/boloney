@@ -12,15 +12,15 @@ const diceProportions = {
 
 interface FloatingDiceProps {
   speed: number;
-  customColor: string;
+  customcolor: string;
 }
 
-export const FloatingDice: FC<FloatingDiceProps> = ({ speed, customColor }) => {
+export const FloatingDice: FC<FloatingDiceProps> = ({ speed, customcolor }) => {
   return (
     <HandWrapper>
       <ImageWrapper width={diceProportions.width} height={diceProportions.height} isInLobby>
         <HandContainer width={diceProportions.width} height={diceProportions.height} speed={speed} isInLobby>
-          <WhiteDice customColor={customColor} />
+          <WhiteDice customcolor={customcolor} />
         </HandContainer>
         <Shadow smallWidth={diceProportions.shadowSmallWidth} largeWidth={diceProportions.shadowLargeWidth} speed={speed} />
       </ImageWrapper>

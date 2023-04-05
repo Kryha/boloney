@@ -39,7 +39,7 @@ export const HistoryEndOfRound: FC<Props> = ({ endOfRound, players, localPlayer 
       <HistoryBadgeContainer isHeader>
         <TimerRow>
           <Heading6>{text.param.endOfRoundOrdinal(getNumberWithOrdinal(endOfRound.roundEnd.roundNumber))}</Heading6>
-          <TimeStamp customColor={color.mediumGrey}>{parseTimeFormat(endOfRound.roundEnd.createdAt)}</TimeStamp>
+          <TimeStamp customcolor={color.mediumGrey}>{parseTimeFormat(endOfRound.roundEnd.createdAt)}</TimeStamp>
         </TimerRow>
         <HistoryActionTitle
           headingOne={text.history.action}

@@ -13,13 +13,13 @@ interface Props extends LinkProps {
   heading?: string;
 }
 
-export const EmailLink: FC<Props> = ({ linkText, customColor, fontWeight, fontSize, lineHeight, font, transformText }) => {
+export const EmailLink: FC<Props> = ({ linkText, customcolor, fontWeight, fontSize, lineHeight, font, transformText }) => {
   // TODO: make a function for this string
   return (
     <HyperLink href={`mailto:${linkText}`}>
       <Link
         primaryText={linkText}
-        customColor={customColor}
+        customcolor={customcolor}
         fontWeight={fontWeight}
         fontSize={fontSize}
         lineHeight={lineHeight}
@@ -30,12 +30,12 @@ export const EmailLink: FC<Props> = ({ linkText, customColor, fontWeight, fontSi
   );
 };
 
-export const WebsiteLink: FC<Props> = ({ linkText, link, customColor, fontWeight, fontSize, lineHeight, font, transformText }) => {
+export const WebsiteLink: FC<Props> = ({ linkText, link, customcolor, fontWeight, fontSize, lineHeight, font, transformText }) => {
   return (
     <HyperLink href={link} target={OPEN_LINK_IN_NEW_TAB}>
       <Link
         primaryText={linkText}
-        customColor={customColor}
+        customcolor={customcolor}
         fontWeight={fontWeight}
         fontSize={fontSize}
         lineHeight={lineHeight}
@@ -52,7 +52,7 @@ export const GeneralLink: FC<Props> = ({
   generalText = "",
   linkText = "",
   heading = "",
-  customColor,
+  customcolor,
   fontWeight,
   fontSize,
   lineHeight,
@@ -63,7 +63,7 @@ export const GeneralLink: FC<Props> = ({
     <WebsiteLink
       link={link}
       linkText={linkText}
-      customColor={customColor}
+      customcolor={customcolor}
       fontWeight={fontWeight}
       fontSize={fontSize}
       lineHeight={lineHeight}
@@ -74,7 +74,7 @@ export const GeneralLink: FC<Props> = ({
     <EmailLink
       link={link}
       linkText={linkText}
-      customColor={customColor}
+      customcolor={customcolor}
       fontWeight={fontWeight}
       fontSize={fontSize}
       lineHeight={lineHeight}
@@ -86,7 +86,7 @@ export const GeneralLink: FC<Props> = ({
     <GeneralLinkWrapper>
       <Heading6>{heading}</Heading6>
       <GeneralLinkContainer>
-        <Heading3 customColor={color.darkGrey}>{generalText}</Heading3>
+        <Heading3 customcolor={color.darkGrey}>{generalText}</Heading3>
         {component}
       </GeneralLinkContainer>
     </GeneralLinkWrapper>

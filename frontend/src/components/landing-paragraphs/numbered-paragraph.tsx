@@ -15,10 +15,10 @@ export const NumberedParagraph: FC<ParagraphProps> = ({ heading, paragraph }) =>
 
   return (
     <NumberedParagraphContainer ref={ref} isVisible={isVisible}>
-      <Heading1 customColor={color.cloudWhite} />
+      <Heading1 customcolor={color.cloudWhite} />
       <ParagraphContainer width={width} height={height}>
         <Heading6>{heading}</Heading6>
-        <Heading3 customColor={color.darkGrey}>{paragraph}</Heading3>
+        <Heading3 customcolor={color.darkGrey}>{paragraph}</Heading3>
       </ParagraphContainer>
     </NumberedParagraphContainer>
   );

@@ -38,7 +38,7 @@ export const TurnActionHeader = () => {
           <Timer title={timerTitle} />
         )}
         <Heading2>{headerData.headingTitle}</Heading2>
-        <Heading2 customColor={color.darkGrey}>
+        <Heading2 customcolor={color.darkGrey}>
           <Highlighter
             highlightClassName="bold"
             searchWords={[player?.username || ""]}

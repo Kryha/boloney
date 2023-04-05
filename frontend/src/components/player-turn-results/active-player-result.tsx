@@ -38,7 +38,7 @@ export const ActivePlayerResults: FC<ActivePlayerResult> = ({ actionRole, isWinn
           <>
             <FadeTransition>
               <Heading1>{text.playerTurn.playerTimeOut}</Heading1>
-              <Heading2 customColor={color.darkGrey}>{text.playerTurn.youRunOutOfTime}</Heading2>
+              <Heading2 customcolor={color.darkGrey}>{text.playerTurn.youRunOutOfTime}</Heading2>
             </FadeTransition>
             <FadeTransition delay={FADE_TRANSITION_DURATION}>
               <ActivePlayerImage src={playerData.loserImg} alt={playerData.name} isBoloney={isBoloney} actionImgMargin={actionImgMargin} />

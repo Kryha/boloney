@@ -20,7 +20,7 @@ export const BottomLinkSection: FC = () => {
         fontSize={fontSizes.heading3}
         lineHeight={fontSizes.heading3}
         font={fonts.secondary}
-        customColor={color.darkGrey}
+        customcolor={color.darkGrey}
       />
       <SocialMediaImageLinks />
     </LinkContainer>

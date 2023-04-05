@@ -45,7 +45,7 @@ export const LandingComponent: FC = () => {
           fontSize={fontSizes.heading2}
           fontWeight={fontWeights.regular}
           lineHeight={lineHeights.heading2}
-          customColor={color.black}
+          customcolor={color.black}
         >
           {text.landing.aleo}
         </LinkText>
@@ -57,7 +57,7 @@ export const LandingComponent: FC = () => {
           fontSize={fontSizes.heading2}
           fontWeight={fontWeights.regular}
           lineHeight={lineHeights.heading2}
-          customColor={color.black}
+          customcolor={color.black}
         >
           {text.landing.kryha}
         </LinkText>

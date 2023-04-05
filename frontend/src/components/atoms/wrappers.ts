@@ -5,7 +5,7 @@ import { GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6
 import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 
 interface TextProps {
-  customColor?: string;
+  customcolor?: string;
 }
 
 export const PageTitleWrapper = styled.div`

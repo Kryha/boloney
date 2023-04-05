@@ -26,7 +26,7 @@ export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck
       <DescriptionContainer>
         <GeneralContentWrapper>
           <GeneralText>{title}</GeneralText>
-          {description && <BodyText customColor={color.darkGrey}>{description}</BodyText>}
+          {description && <BodyText customcolor={color.darkGrey}>{description}</BodyText>}
         </GeneralContentWrapper>
       </DescriptionContainer>
     </CheckboxContainer>

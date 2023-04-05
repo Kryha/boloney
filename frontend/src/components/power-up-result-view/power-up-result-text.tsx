@@ -21,7 +21,7 @@ export const PowerUpResultText: FC<PowerUpResultTextProps> = ({ id, receivedPowe
   return (
     <TextInfoContainer>
       <Heading2>{info.heading1}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{info.heading2}</Heading2>
+      <Heading2 customcolor={color.darkGrey}>{info.heading2}</Heading2>
     </TextInfoContainer>
   );
 };

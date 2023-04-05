@@ -48,7 +48,7 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
       {isWinner && <WinnerBadge />}
 
       <DataWrapper isWinner={isWinner}>
-        <LeaderboardStanding customColor={color.white}>{prefixDigit(rank)}</LeaderboardStanding>
+        <LeaderboardStanding customcolor={color.white}>{prefixDigit(rank)}</LeaderboardStanding>
         <LeaderboardAvatar>
           <PlayerAvatar alt={player.username} src={avatar} />
         </LeaderboardAvatar>
@@ -58,7 +58,7 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
             <DiceIcon diceAmount={player.diceAmount} faceColor={avatarColor} />
             <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
           </DiceAndPowerUps>
-          <Description customColor={color.darkGrey}>{normalDescription}</Description>
+          <Description customcolor={color.darkGrey}>{normalDescription}</Description>
           <BoldDescription fontWeight={fontWeights.bold}>{boldDescription}</BoldDescription>
         </LeaderboardDetails>
       </DataWrapper>

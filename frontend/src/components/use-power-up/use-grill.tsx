@@ -22,7 +22,7 @@ const PlaceGrillBet: FC<PlaceGrillBetProps> = ({ onSubmit, player }) => {
     <>
       <FadeTransition>
         <Heading2>{text.match.makeYourClaim}</Heading2>
-        <Heading2 customColor={color.darkGrey}>{text.playerTurn.whatsYourGuess}</Heading2>
+        <Heading2 customcolor={color.darkGrey}>{text.playerTurn.whatsYourGuess}</Heading2>
       </FadeTransition>
       <FadeTransition delay={FADE_TRANSITION_DURATION} key="grill-bet">
         <DiceSelector onClick={onSubmit} player={player} primaryText={text.match.goForIt} secondaryText={text.match.goForIt} />

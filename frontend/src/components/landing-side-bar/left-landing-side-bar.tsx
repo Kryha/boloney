@@ -13,7 +13,7 @@ export const LeftLandingSideBar: FC<LandingSideBarProps> = ({ isSidebarVisible }
       <SidebarWrapper isSidebarVisible={isSidebarVisible}>
         <ColumnGroup isDice>
           {landingDice.map((dice, index) => (
-            <FloatingDice key={index} speed={dice.speed} customColor={dice.color} />
+            <FloatingDice key={index} speed={dice.speed} customcolor={dice.color} />
           ))}
         </ColumnGroup>
       </SidebarWrapper>

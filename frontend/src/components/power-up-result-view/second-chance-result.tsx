@@ -14,7 +14,7 @@ export const SecondChanceResult: FC<SecondChanceResultProps> = ({ data: result, 
   return (
     <>
       <Heading2>{text.powerUps.feelThePower}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{text.powerUps.playingSecondChance} </Heading2>
+      <Heading2 customcolor={color.darkGrey}>{text.powerUps.playingSecondChance} </Heading2>
       <RollingDice dice={result.newRolledDice} dieColor={dieColor} />
     </>
   );

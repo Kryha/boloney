@@ -16,7 +16,7 @@ interface PlayerNameProps {
 export const PlayerName: FC<PlayerNameProps> = ({ name, color }) => {
   return (
     <PlayerNameContainer>
-      <PlayerColor customColor={color} />
+      <PlayerColor customcolor={color} />
       <ChatUserName>{name}</ChatUserName>
     </PlayerNameContainer>
   );

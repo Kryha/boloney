@@ -13,25 +13,25 @@ interface PowerUpProps {
   powerUpDisabled?: boolean;
   fontSize?: FontProps;
   lineHeight?: FontProps;
-  customColor?: string;
+  customcolor?: string;
 }
 
 export const PowerUpIcon: FC<PowerUpProps> = ({
   powerUpAmount,
   powerUpIds,
   powerUpDisabled = false,
-  customColor,
+  customcolor,
   fontSize,
   lineHeight,
 }) => {
-  const powerUpColor = customColor || color.darkGrey;
+  const powerUpColor = customcolor || color.darkGrey;
 
   if (powerUpIds?.length) return <RevealedPowerUps powerUpIds={powerUpIds} />;
 
   return (
     <PowerUpIconWrapper>
-      <Lightning customColor={powerUpColor} />
-      <GeneralText transformText="none" fontSize={fontSize} lineHeight={lineHeight} customColor={powerUpColor}>
+      <Lightning customcolor={powerUpColor} />
+      <GeneralText transformText="none" fontSize={fontSize} lineHeight={lineHeight} customcolor={powerUpColor}>
         {text.param.xAmount(powerUpAmount)}
       </GeneralText>
       {powerUpDisabled && <LockIcon />}

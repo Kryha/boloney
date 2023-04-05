@@ -19,7 +19,7 @@ export const MatchSettingsOverview: FC = () => {
 
   return (
     <MatchSettingsOverviewComponent>
-      <Heading1 customColor={color.mediumGrey}>{text.match.matchSettings}</Heading1>
+      <Heading1 customcolor={color.mediumGrey}>{text.match.matchSettings}</Heading1>
       <MatchInfoButtons>
         <MatchInfo title={text.match.players} matchSettingsType="players" matchSettings={matchSettings} />
         <MatchInfo title={text.match.dice} matchSettingsType="dice" matchSettings={matchSettings} />

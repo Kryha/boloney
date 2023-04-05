@@ -33,7 +33,7 @@ export const IdlePlayerResult: FC<IdlePlayerResultPayload> = ({ player, lastActi
           {isTimeOut ? (
             <>
               <Heading1>{text.playerTurn.playerTimeOut}</Heading1>
-              <Heading2 customColor={color.darkGrey}>
+              <Heading2 customcolor={color.darkGrey}>
                 <Highlighter
                   highlightClassName="bold"
                   searchWords={[player.username]}
@@ -45,7 +45,7 @@ export const IdlePlayerResult: FC<IdlePlayerResultPayload> = ({ player, lastActi
           ) : (
             <>
               <Heading1>{text.playerTurn.roundEnded}</Heading1>
-              <Heading2 customColor={color.darkGrey}>
+              <Heading2 customcolor={color.darkGrey}>
                 <Highlighter
                   highlightClassName="bold"
                   searchWords={[player.username, loser?.username || ""]}

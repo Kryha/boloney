@@ -14,7 +14,7 @@ export const MenageATroisResult: FC<MenageATroisResultProps> = ({ data: result, 
   return (
     <>
       <Heading2>{text.playerTurn.feelThePower}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{text.powerUps.playMenageATrois}</Heading2>
+      <Heading2 customcolor={color.darkGrey}>{text.powerUps.playMenageATrois}</Heading2>
       <RollingDice dice={result.newRolledDice} dieColor={dieColor} />
     </>
   );

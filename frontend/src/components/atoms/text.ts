@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { fonts, FontProps, fontSizes, fontWeights, lineHeights, TransformText, color, breakpoints } from "../../design";
 
 interface TextProps {
-  customColor?: string;
+  customcolor?: string;
   fontWeight?: string;
   transformText?: TransformText;
   fontSize?: FontProps;
@@ -34,7 +34,7 @@ export const InfoDisplay = styled.h1<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
   font-size: ${fontSizes.infoDisplay.md};
   line-height: ${lineHeights.infoDisplay.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.lg}) {
     font-size: ${fontSizes.infoDisplay.sm};
@@ -67,7 +67,7 @@ export const Heading1 = styled.h1<TextProps>`
   font-size: ${({ fontSize }): string => (fontSize ? fontSize.md : fontSizes.heading1.md)};
   line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.md : lineHeights.heading1.md)};
   letter-spacing: -0.02em;
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.heading1.sm};
@@ -90,7 +90,7 @@ export const Heading2 = styled.h2<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
   font-size: ${fontSizes.heading2.md};
   line-height: ${lineHeights.heading2.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.heading2.sm};
@@ -115,7 +115,7 @@ export const Heading3 = styled.h3<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
   font-size: ${fontSizes.heading3.md};
   line-height: ${lineHeights.heading3.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.heading3.sm};
@@ -136,7 +136,7 @@ export const Heading4 = styled.h4<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
   font-size: ${fontSizes.heading4.md};
   line-height: ${lineHeights.heading4.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.heading4.sm};
@@ -157,7 +157,7 @@ export const Heading5 = styled.h5<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.bold};
   font-size: ${fontSizes.heading5.md};
   line-height: ${lineHeights.heading5.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.heading5.sm};
@@ -178,7 +178,7 @@ export const Heading6 = styled.h6<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.bolder};
   font-size: ${fontSizes.heading6.md};
   line-height: ${fontSizes.heading6.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
   text-transform: ${({ transformText }): string => transformText || "uppercase"};
 
   @media (max-width: ${breakpoints.md}) {
@@ -197,7 +197,7 @@ export const GeneralText = styled.h3<TextProps>`
   font-size: ${({ fontSize }): string => (fontSize ? fontSize.md : fontSizes.generalText.md)};
   line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.md : lineHeights.generalText.md)};
   letter-spacing: -0.01em;
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
   text-decoration-line: ${({ isDecorated }): string => (isDecorated ? "underline" : "none")};
 
   @media (max-width: ${breakpoints.md}) {
@@ -240,7 +240,7 @@ export const PrimaryButtonText = styled.h3<TextProps>`
   text-transform: ${({ transformText }): string => transformText || "uppercase"};
 
   margin-top: -10px;
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.primaryButton.sm};
@@ -258,7 +258,7 @@ export const BodyText = styled.p<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.light};
   font-size: ${fontSizes.body.md};
   line-height: ${lineHeights.body.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.body.sm};
@@ -279,7 +279,7 @@ export const TooltipText = styled.h3<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
   font-size: ${fontSizes.toolTip.md};
   line-height: ${lineHeights.toolTip.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.lg}) {
     font-size: ${fontSizes.toolTip.sm};
@@ -300,7 +300,7 @@ export const PlayerInfoText = styled.h3<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
   font-size: ${fontSizes.playerInfo.md};
   line-height: ${fontSizes.playerInfo.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.lg}) {
     font-size: ${fontSizes.playerInfo.sm};
@@ -321,7 +321,7 @@ export const TimeStamp = styled.h3<TextProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.light};
   font-size: ${fontSizes.timestamp.md};
   line-height: ${lineHeights.timestamp.md};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.lg}) {
     font-size: ${fontSizes.timestamp.sm};

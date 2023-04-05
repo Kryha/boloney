@@ -21,7 +21,7 @@ export const PowerUpDescription: FC<PowerUpDescriptionProps> = ({ powerUp, hasLi
             {hasLightningIcon && <Lightning />}
             <Heading6>{powerUp.name}</Heading6>
           </Row>
-          <BodyText customColor={color.darkGrey}>{powerUp.shortDescription}</BodyText>
+          <BodyText customcolor={color.darkGrey}>{powerUp.shortDescription}</BodyText>
         </GeneralContentWrapper>
       </DescriptionContainer>
     </>

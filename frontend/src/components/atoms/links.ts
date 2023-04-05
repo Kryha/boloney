@@ -4,7 +4,7 @@ import { fonts, fontSizes, FontProps, fontWeights, lineHeights, TransformText } 
 import { breakpoints } from "../../design/measurements";
 
 export interface LinkProps {
-  customColor?: string;
+  customcolor?: string;
   fontWeight?: string;
   fontSize?: FontProps;
   lineHeight?: FontProps;
@@ -21,7 +21,7 @@ export const LinkText = styled.a<LinkProps>`
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.light};
   font-size: ${({ fontSize }): string => (fontSize ? fontSize.md : fontSizes.tiny)};
   line-height: ${({ lineHeight }): string => (lineHeight ? lineHeight.md : lineHeights.small)};
-  color: ${({ customColor }): string => customColor || color.black};
+  color: ${({ customcolor }): string => customcolor || color.black};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${({ fontSize }): string => (fontSize ? fontSize.sm : fontSizes.tiny)};
@@ -36,14 +36,14 @@ export const LinkText = styled.a<LinkProps>`
     text-transform: ${({ transformText }): string => transformText || "capitalize"};
   }
   .bold {
-    color: ${({ customColor }): string => customColor || color.black};
+    color: ${({ customcolor }): string => customcolor || color.black};
     background-color: transparent;
   }
   cursor: pointer;
   &:after {
     display: block;
     content: "";
-    border-bottom: 1px solid ${({ customColor }): string => customColor || color.black};
+    border-bottom: 1px solid ${({ customcolor }): string => customcolor || color.black};
     transform: scaleX(1);
     transition: transform 250ms ease-in-out;
     transform-origin: bottom left;

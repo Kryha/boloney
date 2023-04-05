@@ -24,7 +24,7 @@ export const History: FC = () => {
         {historyEvents.length ? (
           <MatchHistoryComponent historyEvents={historyEvents} players={players} localPlayer={localPlayer} />
         ) : (
-          <EmptyHistoryTitle customColor={color.darkGrey}>{text.history.whenTheGameStarts}</EmptyHistoryTitle>
+          <EmptyHistoryTitle customcolor={color.darkGrey}>{text.history.whenTheGameStarts}</EmptyHistoryTitle>
         )}
       </HistoryWrapperSection>
     </MenuToggle>

@@ -46,7 +46,7 @@ export const PowerUpCardCheckbox: FC<PowerUpCardCheckboxProps> = ({
     <PowerUpCardWrapperCheckbox>
       <PowerUpImageSmall src={powerUp.cardImage} />
       <PowerUpInfoContainerCheckbox>
-        <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>
+        <Heading2 customcolor={color.mediumGrey}>{powerUp.name}</Heading2>
         {isDescriptionVisible ? (
           <>
             <DescriptionText onClick={handleDescriptionClick}>{powerUp.longDescription}</DescriptionText>

@@ -64,7 +64,7 @@ export const HistoryAction: FC<Props> = ({ playerAction, player }) => {
         <HistoryBadgeContainer isHeader>
           <TimerRow>
             <PlayerInfoText>{playerAction.activePlayerName}</PlayerInfoText>
-            <TimeStamp customColor={color.mediumGrey}>{parseTimeFormat(playerAction.createdAt)}</TimeStamp>
+            <TimeStamp customcolor={color.mediumGrey}>{parseTimeFormat(playerAction.createdAt)}</TimeStamp>
           </TimerRow>
           <HistoryActionTitle
             headingOne={headingOne}

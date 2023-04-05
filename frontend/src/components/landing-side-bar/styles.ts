@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface DiceProps {
-  customColor: string;
+  customcolor: string;
 }
 
 export const LandingSideBarWrapper = styled.section`
@@ -121,6 +121,6 @@ export const WhiteDice = styled(WhiteDiceIcon)<DiceProps>`
   height: 30vh;
   width: 14.81vw;
   ellipse {
-    fill: ${({ customColor }) => `${customColor}`};
+    fill: ${({ customcolor }) => `${customcolor}`};
   }
 `;

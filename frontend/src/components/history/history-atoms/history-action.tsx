@@ -38,18 +38,18 @@ export const HistoryActionTitle: FC<Props> = ({
 
   return (
     <HistoryActionWrapper>
-      <PlayerInfoText fontWeight={fontWeights.light} customColor={headingOneColor}>
+      <PlayerInfoText fontWeight={fontWeights.light} customcolor={headingOneColor}>
         {text.param.appendColon(headingOne)}
       </PlayerInfoText>
       {!isDice && !isPowerUp && (
-        <PlayerInfoText fontWeight={fontWeights.light} customColor={headingTwoColor}>
+        <PlayerInfoText fontWeight={fontWeights.light} customcolor={headingTwoColor}>
           {headingTwo}
         </PlayerInfoText>
       )}
       {isDice && (
         <InfoRow>
           <Die faceColor={faceColor} isMatchHistory={true} />
-          <PlayerInfoText fontWeight={fontWeights.light} customColor={headingTwoColor}>
+          <PlayerInfoText fontWeight={fontWeights.light} customcolor={headingTwoColor}>
             {text.param.plusAmount(diceAmount || 0)}
           </PlayerInfoText>
         </InfoRow>
@@ -57,7 +57,7 @@ export const HistoryActionTitle: FC<Props> = ({
       {isPowerUp && (
         <InfoRow>
           <Lightning />
-          <PlayerInfoText fontWeight={fontWeights.light} customColor={headingTwoColor}>
+          <PlayerInfoText fontWeight={fontWeights.light} customcolor={headingTwoColor}>
             {textPowerUpAmount}
           </PlayerInfoText>
         </InfoRow>
@@ -94,14 +94,14 @@ export const HistoryOutcome: FC<OutcomeProps> = ({ outcome, player, isLocalPlaye
         <MatchStateContainer>
           <DiceIconWrapper>
             <Die size={margins.small4} faceColor={faceColor} />
-            <PlayerInfoText fontWeight={fontWeights.light} transformText="none" customColor={color.darkGrey}>
+            <PlayerInfoText fontWeight={fontWeights.light} transformText="none" customcolor={color.darkGrey}>
               {amountResult}
             </PlayerInfoText>
           </DiceIconWrapper>
           <PowerUpIcon
             fontSize={fontSizes.playerInfo}
             lineHeight={lineHeights.playerInfo}
-            customColor={color.darkGrey}
+            customcolor={color.darkGrey}
             powerUpAmount={outcome?.playerStats.powerUpsAmount || 0}
           />
         </MatchStateContainer>
@@ -122,9 +122,9 @@ export const EndOfRoundHistoryList: FC<EndOfRoundHistoryListProps> = ({ playerNa
   return (
     <EndOfRoundRow>
       <PlayerInfoText>{playerName}</PlayerInfoText>
-      <GeneralText customColor={color.mediumGrey}>{text.param.playerDice(diceAmount, diceValues)}</GeneralText>
-      <PowerUpIcon powerUpAmount={powerUpAmount} customColor={color.mediumGrey} />
-      <GeneralText customColor={color.mediumGrey}>{text.history.closingBracket}</GeneralText>
+      <GeneralText customcolor={color.mediumGrey}>{text.param.playerDice(diceAmount, diceValues)}</GeneralText>
+      <PowerUpIcon powerUpAmount={powerUpAmount} customcolor={color.mediumGrey} />
+      <GeneralText customcolor={color.mediumGrey}>{text.history.closingBracket}</GeneralText>
     </EndOfRoundRow>
   );
 };

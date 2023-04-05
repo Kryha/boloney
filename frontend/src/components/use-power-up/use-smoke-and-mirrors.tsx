@@ -8,7 +8,7 @@ export const UseSmokeAndMirrors: FC = () => {
   return (
     <FadeTransition>
       <Heading2>{text.playerTurn.feelThePower}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{text.powerUps.playingSmokeAndMirrors}</Heading2>
+      <Heading2 customcolor={color.darkGrey}>{text.powerUps.playingSmokeAndMirrors}</Heading2>
     </FadeTransition>
   );
 };

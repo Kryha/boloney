@@ -15,11 +15,11 @@ export const LargeHeadingSection: FC<Props> = ({ firstText, secondText, lastText
 
   return (
     <LargeHeadingWrapper ref={ref} isVisible={isVisible}>
-      <LandingDisplay customColor={color.mediumGrey}>{firstText}</LandingDisplay>
+      <LandingDisplay customcolor={color.mediumGrey}>{firstText}</LandingDisplay>
       <RightDisplaySection>
-        <LandingHeading customColor={color.mediumGrey}>{secondText}</LandingHeading>
+        <LandingHeading customcolor={color.mediumGrey}>{secondText}</LandingHeading>
       </RightDisplaySection>
-      <LandingHeading customColor={color.mediumGrey}>{lastText}</LandingHeading>
+      <LandingHeading customcolor={color.mediumGrey}>{lastText}</LandingHeading>
     </LargeHeadingWrapper>
   );
 };

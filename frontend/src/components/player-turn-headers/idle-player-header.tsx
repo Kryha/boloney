@@ -37,7 +37,7 @@ export const IdlePlayerHeader: FC<IdlePlayerHeaderProps> = ({ step }) => {
       </Heading2>
       {!!headerData.subHeadingTitle && (
         <FadeTransition key={headerData.subHeadingTitle}>
-          <Heading2 customColor={color.darkGrey}>{headerData.subHeadingTitle}</Heading2>
+          <Heading2 customcolor={color.darkGrey}>{headerData.subHeadingTitle}</Heading2>
         </FadeTransition>
       )}
     </>

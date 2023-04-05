@@ -15,7 +15,7 @@ export const GrillResult: FC<Props> = ({ isCorrect }) => {
   return (
     <>
       <Heading2>{heading1}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{heading2}</Heading2>
+      <Heading2 customcolor={color.darkGrey}>{heading2}</Heading2>
     </>
   );
 };

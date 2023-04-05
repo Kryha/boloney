@@ -39,7 +39,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ powerUp, isChecked, isError, pro
             <Lightning />
             <Heading6>{powerUp.name}</Heading6>
           </Row>
-          <BodyText customColor={color.darkGrey}>{powerUp.shortDescription}</BodyText>
+          <BodyText customcolor={color.darkGrey}>{powerUp.shortDescription}</BodyText>
         </GeneralContentWrapper>
       </DescriptionContainer>
       <CheckboxInput isError={isError}>

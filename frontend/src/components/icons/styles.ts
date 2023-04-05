@@ -5,7 +5,7 @@ import { color, margins } from "../../design";
 import { Row, GeneralText } from "../atoms";
 
 interface IconProps {
-  customColor?: string;
+  customcolor?: string;
 }
 
 export const Lightning = styled(LightningIcon)<IconProps>`
@@ -13,7 +13,7 @@ export const Lightning = styled(LightningIcon)<IconProps>`
   height: 1em;
   margin-top: 3px;
   path {
-    stroke: ${({ customColor }): string => customColor || color.darkGrey};
+    stroke: ${({ customcolor }): string => customcolor || color.darkGrey};
   }
 `;
 

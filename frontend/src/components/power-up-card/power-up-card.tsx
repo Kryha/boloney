@@ -49,7 +49,7 @@ export const PowerUpCard: FC<PowerUpCardProps> = ({
         <PowerUpImage src={powerUp.cardImage} isImageLarge={powerUp.isImageLarge} />
         <PowerUpInfoWrapper>
           <PowerUpInfoContainer>
-            <Heading2 customColor={color.mediumGrey}>{powerUp.name}</Heading2>
+            <Heading2 customcolor={color.mediumGrey}>{powerUp.name}</Heading2>
             <DescriptionText>{powerUp.longDescription}</DescriptionText>
             {!disableId && <GeneralText>{text.param.zeroAmount(powerUp.id)}</GeneralText>}
             {descriptionExample && <DescriptionExample>{descriptionExample}</DescriptionExample>}

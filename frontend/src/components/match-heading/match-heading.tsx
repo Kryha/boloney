@@ -17,12 +17,12 @@ export const MatchHeading: FC<Props> = ({ headingOne, headingTwo, wordsToBold = 
       <Heading1>{headingOne}</Heading1>
       {isAnimated ? (
         <FadeTransition key={headingTwo}>
-          <Heading2 customColor={color.darkGrey}>
+          <Heading2 customcolor={color.darkGrey}>
             <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={headingTwo} />
           </Heading2>
         </FadeTransition>
       ) : (
-        <Heading2 customColor={color.darkGrey}>
+        <Heading2 customcolor={color.darkGrey}>
           <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={headingTwo} />
         </Heading2>
       )}

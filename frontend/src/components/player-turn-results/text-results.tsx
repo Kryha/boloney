@@ -17,7 +17,7 @@ export const ActivePlayerTextResults: FC<TextResultsProps> = ({ data, isWinner }
       {isWinner ? (
         <>
           <Heading1>{data.activeWinner.headingTitle}</Heading1>
-          <Heading2 customColor={color.darkGrey}>
+          <Heading2 customcolor={color.darkGrey}>
             <Highlighter
               highlightClassName="bold"
               searchWords={[data.playerName]}
@@ -29,7 +29,7 @@ export const ActivePlayerTextResults: FC<TextResultsProps> = ({ data, isWinner }
       ) : (
         <>
           <Heading1>{data.activeLoser.headingTitle}</Heading1>
-          <Heading2 customColor={color.darkGrey}>
+          <Heading2 customcolor={color.darkGrey}>
             <Highlighter
               highlightClassName="bold"
               searchWords={[data.playerName]}
@@ -49,12 +49,12 @@ export const TargetPlayerTextResults: FC<TextResultsProps> = ({ data, isWinner }
       {isWinner ? (
         <>
           <Heading1>{data.targetWinner.headingTitle}</Heading1>
-          <Heading2 customColor={color.darkGrey}>{data.targetWinner.subHeadingTitle}</Heading2>
+          <Heading2 customcolor={color.darkGrey}>{data.targetWinner.subHeadingTitle}</Heading2>
         </>
       ) : (
         <>
           <Heading1>{data.targetLoser.headingTitle}</Heading1>
-          <Heading2 customColor={color.darkGrey}>
+          <Heading2 customcolor={color.darkGrey}>
             <Highlighter
               highlightClassName="bold"
               searchWords={[data.playerName]}
@@ -72,7 +72,7 @@ export const PlayerLostTextResults: FC<TextResultsProps> = ({ data }) => {
   return (
     <TextResultWrapper>
       <Heading1>{data.lostAllDice.headingTitle}</Heading1>
-      <Heading2 customColor={color.darkGrey}>{data.lostAllDice.subHeadingTitle}</Heading2>
+      <Heading2 customcolor={color.darkGrey}>{data.lostAllDice.subHeadingTitle}</Heading2>
     </TextResultWrapper>
   );
 };

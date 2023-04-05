@@ -65,7 +65,7 @@ export const ToggleSwitch: FC<Props> = ({
         </ToggleSwitchWrapper>
         <ToggleContent>
           <BodyText>{descriptionTitle}</BodyText>
-          <BodyText customColor={color.darkGrey}>{description}</BodyText>
+          <BodyText customcolor={color.darkGrey}>{description}</BodyText>
         </ToggleContent>
       </ToggleSwitchContainer>
     </ToggleSwitchFieldSet>

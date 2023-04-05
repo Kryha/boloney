@@ -49,7 +49,7 @@ export const EndOfMatch: FC = () => {
         <TitleSection>
           <Heading6>{text.endOfMatch.endOfMatch}</Heading6>
           <Heading2>{headingText()}</Heading2>
-          <Heading2 customColor={color.darkGrey}>{headingDescription()}</Heading2>
+          <Heading2 customcolor={color.darkGrey}>{headingDescription()}</Heading2>
         </TitleSection>
 
         {leaderboard.map((player, i) => (

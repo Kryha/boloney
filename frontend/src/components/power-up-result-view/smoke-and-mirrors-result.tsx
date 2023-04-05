@@ -6,7 +6,7 @@ export const SmokeAndMirrorsResult = () => {
   return (
     <>
       <Heading2>{text.powerUps.spreadShockwaves}</Heading2>
-      <Heading2 customColor={color.darkGrey}>{text.powerUps.playingSmokeAndMirrors}</Heading2>
+      <Heading2 customcolor={color.darkGrey}>{text.powerUps.playingSmokeAndMirrors}</Heading2>
     </>
   );
 };

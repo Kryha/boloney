@@ -40,7 +40,7 @@ export const UseSecondChance: FC = () => {
       <SecondChanceWrapper>
         <FadeTransition>
           <Heading2>{text.powerUps.feelThePower}</Heading2>
-          <Heading2 customColor={color.darkGrey}>{text.powerUps.playingSecondChance} </Heading2>
+          <Heading2 customcolor={color.darkGrey}>{text.powerUps.playingSecondChance} </Heading2>
         </FadeTransition>
         <FadeTransition delay={FADE_TRANSITION_DURATION} animationKey="local-dice-roll">
           <DieWrapper>

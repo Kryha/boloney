@@ -16,13 +16,13 @@ export interface StatsProps {
 export const HistoryStats: FC<StatsProps> = ({ totalDice, stageNumber, powerUpsAmount, drawRoundCounter }) => {
   return (
     <HistoryStatsContainer>
-      <DiceIcon customColor={color.mediumGrey} diceAmount={totalDice} faceColor={color.white} pipColor={color.black} />
+      <DiceIcon customcolor={color.mediumGrey} diceAmount={totalDice} faceColor={color.white} pipColor={color.black} />
       <HistoryVerticalDivider />
-      <GeneralText transformText="none" customColor={color.mediumGrey}>
+      <GeneralText transformText="none" customcolor={color.mediumGrey}>
         {text.param.stageNumber(stageNumber)}
       </GeneralText>
       <HistoryVerticalDivider />
-      <MatchStateItemDrawRound customColor={color.mediumGrey} powerUpsAmount={powerUpsAmount} drawRoundCounter={drawRoundCounter} />
+      <MatchStateItemDrawRound customcolor={color.mediumGrey} powerUpsAmount={powerUpsAmount} drawRoundCounter={drawRoundCounter} />
     </HistoryStatsContainer>
   );
 };

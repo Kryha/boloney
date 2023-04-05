@@ -17,7 +17,7 @@ export const HistoryName: FC<HistoryNameProps> = ({ username, time }) => {
   return (
     <HistoryNameWrapper>
       <PlayerInfoText fontWeight={fontWeights.regular}>{username}</PlayerInfoText>
-      <TimeStamp fontWeight={fontWeights.light} customColor={color.mediumGrey}>
+      <TimeStamp fontWeight={fontWeights.light} customcolor={color.mediumGrey}>
         {text.param.timerHeader(time)}
       </TimeStamp>
     </HistoryNameWrapper>
@@ -38,7 +38,7 @@ export const HistoryBadgeBid: FC<HistoryBidBadgeProps> = ({ historyBid }) => {
       <HistoryContentWrapper>
         <HistoryBadgeContainer isHeader>
           <HistoryName username={player.username} time={parseTimeFormat(historyBid.createdAt)} />
-          <PlayerInfoText fontWeight={fontWeights.light} customColor={color.mediumGrey}>
+          <PlayerInfoText fontWeight={fontWeights.light} customcolor={color.mediumGrey}>
             {text.history.bid}
           </PlayerInfoText>
         </HistoryBadgeContainer>
