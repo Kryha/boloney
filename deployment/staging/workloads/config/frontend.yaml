@@ -10,4 +10,5 @@ spec:
     spec:
       containers:
         - name: frontend
+          imagePullPolicy: Always
           image: eu.gcr.io/web3-335312/aleo/boloney-staging/frontend:latest

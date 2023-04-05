@@ -7,12 +7,11 @@ build:
     sha256: {}
   local:
     concurrency: 0
-    push: true
   artifacts:
-    - image: localhost:5000/aleo/boloney/frontend
+    - image: frontend
       docker:
         dockerfile: Dockerfile.frontend
-    - image: localhost:5000/aleo/boloney/backend
+    - image: backend
       docker:
         dockerfile: Dockerfile.backend
 manifests:

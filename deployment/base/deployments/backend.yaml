@@ -13,7 +13,6 @@ spec:
     spec:
       containers:
         - name: backend
-          imagePullPolicy: Always
           resources:
             requests:
               cpu: 470m
@@ -34,7 +33,7 @@ spec:
               value: "BACKEND"
       initContainers:
         - name: init-mydb
-          image: busybox:1.28
+          image: busybox:latest
           command:
             ["sh", "-c", "until nslookup postgres.$(POD_NAMESPACE).svc.cluster.local; do echo waiting for mydb; sleep 2; done; sleep 10"]
           env:
