@@ -13,6 +13,7 @@ build:
       docker:
         dockerfile: Dockerfile.frontend
         buildArgs:
+          VITE_ENV_MODE: staging
           VITE_BACKEND_URL: backend.boloney.staging.kryha.dev
           VITE_API_URL: api.boloney.staging.kryha.dev
           VITE_USE_SSL: true

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import ReactGA from "react-ga4";
-import { GA_TRACKING_ID } from "../constants";
+import { ENV_MODE, GA_TRACKING_ID } from "../constants";
 import { useStore } from "../store";
 
 interface AnalyticsEvent {
@@ -20,7 +20,7 @@ export const useSetAnalyticsConsent = () => {
   const setAskedForConsent = useStore((state) => state.setAskedForConsent);
 
   return (hasConsent: boolean) => {
-    if (import.meta.env.MODE !== "production") {
+    if (ENV_MODE !== "production") {
       setCookieConsent(hasConsent);
       setAskedForConsent(true);
       return;
@@ -39,7 +39,7 @@ export const useInitAnalytics = () => {
   const setAskedForConsent = useStore((state) => state.setAskedForConsent);
 
   useEffect(() => {
-    if (import.meta.env.MODE !== "production") {
+    if (ENV_MODE !== "production") {
       return;
     }
     const cookienames = ["_ga", "_gid", "_gat"];

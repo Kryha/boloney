@@ -21,12 +21,14 @@ import { routes } from "../../navigation";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 import { useStore } from "../../store";
 import { useAuthenticateUser } from "../../service";
+import { ENV_MODE } from "../../constants";
 
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuthenticateUser();
   const navigate = useNavigate();
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const { width, height } = useViewport();
+
   const {
     register,
     handleSubmit,
@@ -78,13 +80,17 @@ export const LoginForm: FC = () => {
             </InputLegend>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
-            <BodyText>{text.authForm.iDontHaveAnAccountYet}</BodyText>
-            <Link
-              transformText="none"
-              fontSize={fontSizes.body}
-              onClick={() => navigate(routes.createAccount)}
-              primaryText={text.authForm.here}
-            />
+            {ENV_MODE !== "production" && (
+              <>
+                <BodyText>{text.authForm.iDontHaveAnAccountYet}</BodyText>
+                <Link
+                  transformText="none"
+                  fontSize={fontSizes.body}
+                  onClick={() => navigate(routes.createAccount)}
+                  primaryText={text.authForm.here}
+                />
+              </>
+            )}
             <PrimaryButton buttonType="submit" primaryText={text.authForm.signIn} />
           </SignOrJoinContainer>
         </FormContainer>

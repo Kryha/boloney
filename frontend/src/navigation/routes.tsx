@@ -10,7 +10,7 @@ import { Landing, NewMatch, Home, MatchRoute } from "../pages";
 import { useRefreshAuth } from "../service";
 import { useIsAuthenticating, useSession, useStore } from "../store";
 import { Test } from "../pages/test/test";
-import { DEV_ENVIRONMENT } from "../constants";
+import {ENV_MODE} from "../constants";
 
 const AppRoutes: FC = () => {
   const isAuthenticating = useIsAuthenticating();
@@ -19,12 +19,12 @@ const AppRoutes: FC = () => {
   useRefreshAuth();
 
   if (isAuthenticating) return <Loading />;
-
+  
   return (
     <Routes>
       <Route path={routes.root} element={<Landing />} />
 
-      {DEV_ENVIRONMENT && <Route path="/test" element={<Test />} />}
+      {ENV_MODE === "development" && <Route path="/test" element={<Test />} />}
 
       {session ? (
         <>
@@ -35,7 +35,7 @@ const AppRoutes: FC = () => {
       ) : (
         <>
           <Route path={routes.login} element={<Login />} />
-          <Route path={routes.createAccount} element={<CreateAccount />} />
+          {ENV_MODE !== "production" && <Route path={routes.createAccount} element={<CreateAccount />} />}
         </>
       )}
 
