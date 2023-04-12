@@ -2,7 +2,9 @@ import { FC } from "react";
 
 import { DisabledPowerUpsIconWrapper, PowerUpCardImage, PowerUpContainer, PowerUpWrapper } from "./styles";
 import { PowerUp } from "../../types";
-import { BlueLock } from "../../assets";
+import { BaseIcon } from "../atoms";
+import { BlueLockSVG } from "../../assets";
+import { iconSize, radius } from "../../design";
 
 interface PowerUpComponentProps {
   powerUp?: PowerUp;
@@ -29,7 +31,7 @@ export const PowerUpComponent: FC<PowerUpComponentProps> = ({ powerUp, showPower
       </PowerUpWrapper>
       {isPowerUpDisabled && (
         <DisabledPowerUpsIconWrapper>
-          <BlueLock />
+          <BaseIcon src={<BlueLockSVG />} radius={radius.xxs} width={iconSize.sm} height={iconSize.sm} />
         </DisabledPowerUpsIconWrapper>
       )}
     </PowerUpContainer>

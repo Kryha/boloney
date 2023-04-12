@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import { BoloneyLogoIcon } from "../../assets";
-import { HorizontalDivider } from "../../components";
+import { BaseIcon, HorizontalDivider } from "../../components";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
 import { ViewProps } from "../../types";
@@ -121,9 +120,7 @@ export const WaitingText = styled.h3`
   }
 `;
 
-export const AppName = styled(BoloneyLogoIcon)`
-  width: 72.2vw;
-  height: auto;
+export const AppNameIcon = styled(BaseIcon)`
   margin-top: 3vh;
 `;
 

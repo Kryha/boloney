@@ -1,16 +1,16 @@
 import { FC, useEffect } from "react";
-import { CallBoloney, HealDiceCoffin, PowerUpCards, text, TombstoneHand } from "../../assets";
+import { BoloneyLogoIconSVG, CallBoloney, HealDiceCoffin, PowerUpCards, text, TombstoneHand } from "../../assets";
 import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
-import { color, fonts, fontSizes, fontWeights, lineHeights } from "../../design";
+import { color, fonts, fontSizes, fontWeights, iconSize, lineHeights } from "../../design";
 import { useObserver, useViewport } from "../../hooks";
 import { useStore } from "../../store";
-import { NumberedListSection, LinkText } from "../atoms";
+import { NumberedListSection, LinkText, BaseIcon } from "../atoms";
 import { ImageContainer } from "../image-containers";
 import { NumberedParagraph } from "../landing-paragraphs";
 import { BottomLinkSection } from "./bottom-link-section";
 import { LargeHeadingSection } from "./large-heading-section";
 import {
-  AppName,
+  AppNameContainer,
   BottomHeading,
   LandingBottomHeading,
   LandingComponentContainer,
@@ -35,7 +35,9 @@ export const LandingComponent: FC = () => {
 
   return (
     <LandingComponentWrapper>
-      <AppName />
+      <AppNameContainer>
+        <BaseIcon src={<BoloneyLogoIconSVG />} iconColor={color.peach} width={iconSize.xxxl} height={iconSize.auto} />
+      </AppNameContainer>
       <BottomHeading>
         <LandingBottomHeading>{text.landing.theUtterlyAbsurdDice}</LandingBottomHeading>
         <LinkText

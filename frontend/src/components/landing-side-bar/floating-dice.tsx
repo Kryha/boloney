@@ -1,7 +1,9 @@
 import { FC } from "react";
+import { WhiteDiceIconSVG } from "../../assets";
+import { color, iconSize } from "../../design";
+import { BaseIcon } from "../atoms";
 
 import { HandContainer, HandWrapper, ImageWrapper, Shadow } from "../hand/styles";
-import { WhiteDice } from "./styles";
 
 const diceProportions = {
   width: "clamp(90px, 11.46vw + -20px, 200px)",
@@ -20,7 +22,7 @@ export const FloatingDice: FC<FloatingDiceProps> = ({ speed, customcolor }) => {
     <HandWrapper>
       <ImageWrapper width={diceProportions.width} height={diceProportions.height} isInLobby>
         <HandContainer width={diceProportions.width} height={diceProportions.height} speed={speed} isInLobby>
-          <WhiteDice customcolor={customcolor} />
+          <BaseIcon src={<WhiteDiceIconSVG />} pipColor={customcolor} width={iconSize.xl} height={iconSize.auto} iconColor={color.white} />
         </HandContainer>
         <Shadow smallWidth={diceProportions.shadowSmallWidth} largeWidth={diceProportions.shadowLargeWidth} speed={speed} />
       </ImageWrapper>

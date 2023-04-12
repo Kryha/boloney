@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { CloseIcon } from "../../assets/icons";
 import { color, margins } from "../../design";
 import { MessageListContainer, MessageListWrapper } from "../chat-message/styles";
 import { ChatWrapperSection } from "../chat/styles";
@@ -44,8 +43,6 @@ export const MenuToggleSection = styled.section<LayoutProps>`
   border-left: ${({ isInMatch }) => (isInMatch ? `1px solid ${color.mediumGrey}` : "none")};
   display: ${({ isToggled }) => !isToggled && "none"};
 `;
-
-export const Close = styled(CloseIcon)``;
 
 export const MenuToggleHeadingSection = styled.section`
   display: flex;

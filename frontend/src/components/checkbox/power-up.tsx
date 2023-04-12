@@ -1,11 +1,13 @@
 import { FC } from "react";
 
-import { GeneralContentWrapper, Row, Heading6, BodyText } from "../atoms";
+import { GeneralContentWrapper, Row, Heading6, BodyText, BaseIcon } from "../atoms";
 import { CheckboxInput } from "../inputs";
 import { PowerUpComponent } from "../power-up";
 import { color } from "../../design";
-import { DescriptionContainer, Lightning, PercentageInput, PercentageInputContainer } from "./styles";
+import { DescriptionContainer, PercentageInput, PercentageInputContainer } from "./styles";
 import { PowerUp } from "../../types";
+import { LightningIconSVG } from "../../assets";
+import { LightningContainer } from "../../pages/new-match/styles";
 
 interface PowerUpsInfo {
   powerUp: PowerUp;
@@ -36,7 +38,9 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ powerUp, isChecked, isError, pro
       <DescriptionContainer>
         <GeneralContentWrapper>
           <Row>
-            <Lightning />
+            <LightningContainer>
+              <BaseIcon src={<LightningIconSVG />} iconColor={color.transparent} strokeColor={color.black} />
+            </LightningContainer>
             <Heading6>{powerUp.name}</Heading6>
           </Row>
           <BodyText customcolor={color.darkGrey}>{powerUp.shortDescription}</BodyText>

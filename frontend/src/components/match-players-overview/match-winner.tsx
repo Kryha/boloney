@@ -4,7 +4,7 @@ import { avatars, DiceCrown } from "../../assets";
 import { handProportion } from "../../design";
 import { PlayerPublic } from "../../types";
 import { Hand } from "../hand";
-import { DiceIconWrapper } from "../icons/styles";
+import { DiceIconWrapper } from "../icons";
 import { DiceCrownImg, MatchWinnerWrapper } from "./styles";
 
 interface Props {

@@ -55,8 +55,8 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
         <LeaderboardDetails>
           <Username>{localPlayer && text.endOfMatch.username(player.username, player.userId, localPlayer.userId)}</Username>
           <DiceAndPowerUps screenWidth={width}>
-            <DiceIcon diceAmount={player.diceAmount} faceColor={avatarColor} />
-            <PowerUpIcon powerUpAmount={player.powerUpsAmount} />
+            <DiceIcon diceAmount={player.diceAmount} iconColor={avatarColor} />
+            <PowerUpIcon powerUpAmount={player.powerUpsAmount} strokeColor={color.darkGrey} />
           </DiceAndPowerUps>
           <Description customcolor={color.darkGrey}>{normalDescription}</Description>
           <BoldDescription fontWeight={fontWeights.bold}>{boldDescription}</BoldDescription>

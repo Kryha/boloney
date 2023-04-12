@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { ChevronDownIcon, RightArrowIconUrl } from "../../assets";
+import { ChevronDownIconSVG, RightArrowIconSVG } from "../../assets";
 import { breakpoints, color, fonts, fontSizes, fontWeights, lineHeights, margins } from "../../design";
 
 export const BaseInput = styled.input`
@@ -80,7 +80,7 @@ export const BaseSelect = styled.select`
   -moz-appearance: textfield;
   padding: 23px ${margins.large0};
   box-sizing: border-box;
-  background-image: url(${ChevronDownIcon});
+  background-image: url(${ChevronDownIconSVG}});
   background-position: right ${margins.large0} center;
   background-repeat: no-repeat;
   -webkit-appearance: none;
@@ -181,13 +181,13 @@ export const ChatInput = styled(BaseInput)`
     outline-width: 0px !important;
     outline-width: 0px !important;
     box-shadow: none;
-    background-image: url(${RightArrowIconUrl});
+    background-image: url(${RightArrowIconSVG});
     background-position: right 12px bottom 70%;
     background-repeat: no-repeat;
     border: 1px solid ${color.black} !important;
   }
   :active {
-    background-image: url(${RightArrowIconUrl});
+    background-image: url(${RightArrowIconSVG});
     background-position: right 12px bottom 70%;
     background-repeat: no-repeat;
   }

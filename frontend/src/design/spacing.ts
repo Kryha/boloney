@@ -42,10 +42,11 @@ export const spacing = {
 
 export const radius = {
   none: "0px",
-  xs: "4px",
-  sm: "8px",
-  md: "10px",
-  lg: "16px",
-  xl: "25px",
-  xxl: "100px",
+  xxs: "clamp(2px, 0.1vw + 1px, 3px)", // 2px
+  xs: "clamp(3px, 0.24vw + 0.67px, 10px)", // 4px
+  sm: "clamp(6px, 0.21vw + 4px, 12px)", // 8px
+  md: "clamp(8px, 0.24vw + 5.67px, 15px)", // 10px
+  lg: "clamp(12px, 0.28vw + 9.33px, 20px)", // 16px
+  xl: "clamp(22px, 0.21vw + 20px, 28px)", // 25px
+  xxl: "clamp(94px, -2.78vw + 120.67px, 14px)", // 100px
 };

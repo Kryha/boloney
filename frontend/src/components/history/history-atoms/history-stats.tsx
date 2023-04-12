@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { text } from "../../../assets";
-import { color } from "../../../design";
+import { color, shadows } from "../../../design";
 import { GeneralText } from "../../atoms";
 import { DiceIcon } from "../../icons";
 import { MatchStateItemDrawRound } from "../../top-navigation/match-state/match-stats-item-draw-round";
@@ -16,7 +16,7 @@ export interface StatsProps {
 export const HistoryStats: FC<StatsProps> = ({ totalDice, stageNumber, powerUpsAmount, drawRoundCounter }) => {
   return (
     <HistoryStatsContainer>
-      <DiceIcon customcolor={color.mediumGrey} diceAmount={totalDice} faceColor={color.white} pipColor={color.black} />
+      <DiceIcon customcolor={color.mediumGrey} diceAmount={totalDice} iconColor={color.white} pipColor={color.black} shadow={shadows.xs} />
       <HistoryVerticalDivider />
       <GeneralText transformText="none" customcolor={color.mediumGrey}>
         {text.param.stageNumber(stageNumber)}

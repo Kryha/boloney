@@ -1,13 +1,15 @@
 import styled from "@emotion/styled";
 
-import { LightningIcon, TimerIcon } from "../../assets/icons";
 import { color, margins, zIndex } from "../../design";
 import { NavigationLocation } from "../../types";
-import { HorizontalDivider, GeneralText, Heading6, BodyText } from "../atoms";
+import { HorizontalDivider, GeneralText, Heading6, BodyText, BaseIcon } from "../atoms";
 import { Link } from "../buttons";
 import { ButtonContainer as DropDownButtonContainer } from "../buttons/styles";
-import { DieWrapper } from "../die/styles";
-import { DiceIconWrapper } from "../icons/styles";
+import { DiceIconWrapper, LightningIcon } from "../icons";
+
+export const EllipsisIcon = styled(BaseIcon)`
+  margin-top: 5px;
+`;
 
 export const TopNavigationSection = styled.section`
   display: flex;
@@ -16,10 +18,6 @@ export const TopNavigationSection = styled.section`
   justify-content: flex-end;
   position: absolute;
   z-index: ${zIndex.modalBackground};
-`;
-
-export const Timer = styled(TimerIcon)`
-  margin-top: 2px;
 `;
 
 interface TimerProps {
@@ -39,11 +37,6 @@ export const CountdownTimer = styled.div<TimerProps>`
   }
   ${BodyText} {
     color: ${({ isHovered }) => isHovered && `${color.mediumGrey}`};
-  }
-  ${Timer} {
-    path {
-      fill: ${({ isHovered }) => isHovered && `${color.mediumGrey}`};
-    }
   }
 `;
 
@@ -131,15 +124,6 @@ export const RulesSectionTitle = styled(Heading6)`
 
 export const RulesLink = styled(Link)``;
 
-interface LightningProps {
-  size: string;
-}
-
-export const Lightning = styled(LightningIcon)<LightningProps>`
-  width: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
-  height: ${({ size }): string => size || "clamp(32.97px, 2.82vw + 5.94px, 60px)"};
-`;
-
 export const ParagraphNoMargin = styled(BodyText)`
   margin-bottom: 0;
 `;
@@ -187,10 +171,7 @@ export const MatchStatsContainer = styled.div`
   ${GeneralText} {
     color: ${color.black};
   }
-  ${DieWrapper} {
-    height: 1em;
-  }
-  ${Lightning} {
+  ${LightningIcon} {
     margin-top: 0.125em;
   }
 `;

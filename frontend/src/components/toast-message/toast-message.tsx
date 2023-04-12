@@ -1,8 +1,9 @@
 import { FC } from "react";
 import Highlighter from "react-highlight-words";
+import { CloseIconSVG } from "../../assets";
 
 import { GeneralText, Heading6 } from "../atoms";
-import { CloseButton, ToastDescriptionContainer, ToastImage, ToastWrapper, MultipleToast, MultipleToastWrapper } from "./styles";
+import { CloseIcon, ToastDescriptionContainer, ToastImage, ToastWrapper, MultipleToast, MultipleToastWrapper } from "./styles";
 
 interface ToastMessageProps {
   closeToast: () => void;
@@ -34,7 +35,7 @@ export const ToastMessage: FC<ToastMessageProps> = ({
             <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={description} />
           </GeneralText>
         </ToastDescriptionContainer>
-        <CloseButton onClick={() => closeToast()} />
+        <CloseIcon src={<CloseIconSVG />} cursor onClick={() => closeToast()} />
       </ToastWrapper>
     </MultipleToastWrapper>
   );

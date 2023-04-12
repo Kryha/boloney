@@ -2,10 +2,9 @@ import styled from "@emotion/styled";
 
 import { color, margins, zIndex } from "../../design";
 import { ButtonWithHelperWrapper } from "../button-with-helper/styles";
-import { Info } from "../../components/tooltip/styles";
-import { BottomButtonWrapper, Heading6 } from "../atoms";
+import { BaseIconWrapper, BottomButtonWrapper, Heading6 } from "../atoms";
 import { SecondaryButtonContainer } from "../buttons/styles";
-import { TimerRow } from "../timer/styles";
+import { TimerRow } from "../timer";
 
 export const ActivePlayerWrapper = styled.section``;
 
@@ -14,7 +13,7 @@ export const ActivePlayerContainer = styled.section`
   ${ButtonWithHelperWrapper} {
     margin-left: -${margins.large0};
   }
-  ${Info} {
+  ${BaseIconWrapper} {
     margin-top: -7px;
     g {
       path {

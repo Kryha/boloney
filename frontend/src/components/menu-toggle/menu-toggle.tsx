@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
-import { Heading4 } from "../atoms/text";
 
-import { Close, MenuChildrenContainer, MenuToggleHeadingSection, MenuToggleSection } from "./styles";
-import { useLayoutStore } from "../../service/layout-config";
-import { useIsInMatch } from "../../service";
+import { MenuChildrenContainer, MenuToggleHeadingSection, MenuToggleSection } from "./styles";
+import { useIsInMatch, useLayoutStore } from "../../service";
+import { CloseIconSVG } from "../../assets";
+import { BaseIcon, Heading4 } from "../atoms";
 
 interface MenuToggleProps {
   closeMenuItem: () => void;
@@ -29,7 +29,7 @@ export const MenuToggle: FC<MenuToggleProps> = ({ closeMenuItem, isToggled, titl
     >
       <MenuToggleHeadingSection onClick={() => closeMenuItem()}>
         <Heading4>{title}</Heading4>
-        <Close />
+        <BaseIcon src={<CloseIconSVG />} />
       </MenuToggleHeadingSection>
       <MenuChildrenContainer>{children}</MenuChildrenContainer>
     </MenuToggleSection>

@@ -1,10 +1,10 @@
+import { FC, useEffect } from "react";
 import { gsap } from "gsap";
+
 import { LoadingTextContainer, SausageContainer, SausageSection } from "./styles";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-
 import { sausageAnimate } from "../atoms";
-import { SausageLoader, text } from "../../assets";
-import { FC, useEffect } from "react";
+import { SausageLoaderSVG, text } from "../../assets";
 
 interface Props {
   hasLoadingText?: boolean;
@@ -35,7 +35,7 @@ export const SausageSpinner: FC<Props> = ({ hasLoadingText = false }) => {
   return (
     <SausageSection>
       <SausageContainer>
-        <SausageLoader />
+        <SausageLoaderSVG />
         {hasLoadingText && <LoadingTextContainer>{text.general.loading}</LoadingTextContainer>}
       </SausageContainer>
     </SausageSection>

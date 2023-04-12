@@ -1,20 +1,11 @@
 import { FC } from "react";
 
-import { POWER_UP_DATA, text } from "../../assets";
-import { GeneralText, Heading6, InfoButton, Input } from "../../components";
+import { LightningIconSVG, POWER_UP_DATA, text } from "../../assets";
+import { BaseIcon, GeneralText, Heading6, InfoButton, Input } from "../../components";
 import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
-import { fontWeights } from "../../design";
+import { color, fontWeights } from "../../design";
 import { useMatchCreationFormState } from "./match-creation-form-state";
-import {
-  CheckboxContainer,
-  FieldContainer,
-  InfoBox,
-  LightningContainer,
-  LightningNewMatch,
-  Percentage,
-  PercentageContainer,
-  TotalContainer,
-} from "./styles";
+import { CheckboxContainer, FieldContainer, InfoBox, LightningContainer, Percentage, PercentageContainer, TotalContainer } from "./styles";
 
 export const PowerUpsField: FC = () => {
   const availablePowerUps = useMatchCreationFormState((state) => state.availablePowerUps);
@@ -53,7 +44,7 @@ export const PowerUpsField: FC = () => {
       </Input>
       <TotalContainer>
         <LightningContainer>
-          <LightningNewMatch />
+          <BaseIcon src={<LightningIconSVG />} strokeColor={color.black} iconColor={color.transparent} />
           <Heading6>{text.newMatch.total}</Heading6>
         </LightningContainer>
         <PercentageContainer>

@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
-import { text } from "../../assets";
+import { BoloneyLogoIconSVG, text } from "../../assets";
+import { color, iconSize } from "../../design";
 import { useViewport } from "../../hooks/use-viewport";
 import { PrimaryButton } from "../buttons";
 import { Chat } from "../chat";
@@ -13,9 +14,9 @@ import {
   NameContainer,
   LineWrap,
   NameWrapper,
-  AppName,
   WaitingWrapper,
   HorizontalLineContainerTwo,
+  AppNameIcon,
 } from "./styles";
 
 interface LineContainerProps {
@@ -49,7 +50,7 @@ export const LineContainer: FC<LineContainerProps> = ({ children, isPlayerReady,
         </HorizontalContainer>
         <NameWrapper>
           <NameContainer>
-            <AppName />
+            <AppNameIcon src={<BoloneyLogoIconSVG />} iconColor={color.peach} width={iconSize.xxl} height={iconSize.auto} />
           </NameContainer>
           <Chat isInLobby />
         </NameWrapper>

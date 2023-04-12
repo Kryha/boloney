@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 
-import { PlusIcon } from "../../assets/icons";
 import { color, margins, zIndex } from "../../design";
 
 export const PlayerMenuWrapper = styled.section`
@@ -53,8 +52,6 @@ export const HistorySection = styled(MenuSection)<LayoutProps>`
   border-bottom: 1px solid ${color.mediumGrey};
   border-left: ${({ isInMatch }) => (isInMatch ? `1px solid ${color.mediumGrey}` : "none")};
 `;
-
-export const Plus = styled(PlusIcon)``;
 
 export const TitleContainer = styled.div`
   display: flex;

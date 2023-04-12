@@ -1,17 +1,15 @@
 import styled from "@emotion/styled";
-import { TextBoloneyLogoIcon } from "../../assets";
 import { margins } from "../../design";
+import { BaseIcon } from "../atoms";
 
 export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: ${margins.small5};
+  margin: ${margins.small5} ${margins.small2};
 `;
 
-export const TextLogo = styled(TextBoloneyLogoIcon)`
-  width: 90%;
-  height: 100%;
+export const TextLogoIcon = styled(BaseIcon)`
   margin-left: ${margins.small5};
   margin-right: ${margins.small5};
 `;

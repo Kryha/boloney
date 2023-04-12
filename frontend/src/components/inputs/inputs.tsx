@@ -1,12 +1,12 @@
 import { FC, ReactNode } from "react";
+import { ErrorIconSVG } from "../../assets";
 import { text } from "../../assets/text";
 
-import { BodyText, Heading6 } from "../atoms";
+import { BaseIcon, BodyText, Heading6 } from "../atoms";
 import { InfoPosition, Tooltip } from "../tooltip";
 import {
   InputContainer,
   LabelContainer,
-  Error,
   InputIconContainer,
   TextLabel,
   FieldSet,
@@ -39,7 +39,7 @@ export const Input: FC<InputProps> = ({ children, label, isError = false, errorM
       {children}
       {isError && (
         <InputErrorContainer>
-          <Error />
+          <BaseIcon src={<ErrorIconSVG />} />
           <BodyText>{errorMessage || text.authForm.somethingWentWrong}</BodyText>
         </InputErrorContainer>
       )}
@@ -72,7 +72,7 @@ export const InputLegend: FC<InputProps> = ({
       </FieldSet>
       {isError && (
         <InputErrorContainer>
-          <Error />
+          <BaseIcon src={<ErrorIconSVG />} />
           <BodyText>{errorMessage || text.authForm.somethingWentWrong}</BodyText>
         </InputErrorContainer>
       )}
@@ -86,7 +86,7 @@ export const CheckboxInput: FC<InputProps> = ({ children, isError = false, error
       <TextLabel>{children}</TextLabel>
       {isError && (
         <CheckboxErrorContainer>
-          <Error />
+          <BaseIcon src={<ErrorIconSVG />} />
           <BodyText>{errorMessage || text.newMatch.invalidPercentage}</BodyText>
         </CheckboxErrorContainer>
       )}

@@ -2,9 +2,7 @@ import styled from "@emotion/styled";
 import { color, margins } from "../../../design";
 import { Row, GeneralText } from "../../atoms";
 import { BadgeWrapper } from "../../badges/styles";
-import { DieWrapper } from "../../die/styles";
 import { DiceContainer } from "../../match-players-overview/styles";
-import { Lightning } from "../../top-navigation/styles";
 
 interface HistoryBadgeProps {
   customBackground?: string;
@@ -54,16 +52,6 @@ export const HistoryStatsContainer = styled.section`
   height: 20px;
   ${GeneralText}:first-letter {
     text-transform: none;
-  }
-  ${Lightning} {
-    path {
-      stroke: ${color.mediumGrey};
-    }
-  }
-  ${DieWrapper} {
-    > svg {
-      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2), 0px 0px 20px rgba(0, 0, 0, 0.1);
-    }
   }
 `;
 
@@ -128,18 +116,8 @@ export const EndOfRoundRow = styled(Row)`
   ${GeneralText} {
     color: ${color.mediumGrey};
   }
-  ${Lightning} {
-    path {
-      stroke: ${color.mediumGrey};
-    }
-  }
 `;
 
 export const InfoRow = styled(Row)`
   gap: 4px;
-  ${Lightning} {
-    path {
-      stroke: ${color.mediumGrey};
-    }
-  }
 `;

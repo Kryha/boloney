@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 import { color, fontWeights, margins } from "../../design";
-import { ErrorIcon } from "../../assets/icons";
 import { BaseInput, BaseSelect, Heading6, GeneralText } from "../atoms";
 
 interface InputContainerProps {
@@ -41,8 +40,6 @@ export const LabelContainer = styled.div`
     padding: 0px ${margins.small1};
   }
 `;
-
-export const Error = styled(ErrorIcon)``;
 
 export const CheckboxErrorContainer = styled.div`
   display: flex;

@@ -74,4 +74,8 @@ export const HandContainer = styled.div<HandContainerProps>`
 export const ImageWrapper = styled.div<HandContainerProps>`
   width: ${({ width }): string => width || "clamp(240px, 25vw + 0px, 480px"};
   height: ${({ height, isInLobby }): string => (isInLobby ? "100%" : height || "clamp(383.76px, 39.98vw + -0.01px, 767.53px)")};
+  ${HandContainer} {
+    align-items: center;
+    display: flex;
+  }
 `;

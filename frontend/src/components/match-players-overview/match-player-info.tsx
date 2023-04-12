@@ -7,6 +7,7 @@ import { getDieColor } from "../../util";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import { PlayerNameContainer, PlayerColor, MatchStateContainer, DiceContainer } from "./styles";
 import { text } from "../../assets";
+import { color, iconSize } from "../../design";
 
 interface PlayerNameProps {
   name: string;
@@ -33,11 +34,12 @@ export const PlayerMatchState: FC<PlayerMatchStateProps> = ({ player, playerRoun
 
   return (
     <MatchStateContainer>
-      <DiceIcon diceAmount={player.diceAmount} faceColor={dieColor} diceSum={playerRoundData?.diceSum} extraDice={player.extraDice} />
+      <DiceIcon diceAmount={player.diceAmount} iconColor={dieColor} diceSum={playerRoundData?.diceSum} extraDice={player.extraDice} />
       <PowerUpIcon
         powerUpAmount={player.powerUpsAmount}
         powerUpIds={playerRoundData?.powerUps}
         powerUpDisabled={player.arePowerUpsDisabled}
+        strokeColor={color.darkGrey}
       />
     </MatchStateContainer>
   );
@@ -56,7 +58,7 @@ export const PlayerLastBid: FC<PlayerLastBidProps> = ({ lastBid, player }) => {
   return (
     <DiceContainer>
       <Heading6 transformText="none">{text.param.xAmount(lastBid.amount)}</Heading6>
-      <Die faceColor={dieColor} value={lastBid.face} />
+      <Die iconColor={dieColor} value={lastBid.face} size={iconSize.xs} />
     </DiceContainer>
   );
 };

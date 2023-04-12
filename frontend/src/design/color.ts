@@ -17,4 +17,5 @@ export const color = {
   cloudWhite: "#EEEEEA",
   white: "#FFFFFF",
   transparent: "transparent",
+  peach: "#C49F8F",
 };

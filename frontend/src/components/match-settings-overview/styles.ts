@@ -14,6 +14,7 @@ export const MatchSettingsOverviewComponent = styled.section`
   }
   ${RightButtonContainer} {
     width: clamp(768px, 60.62vw + 186px, 1350px);
+    align-items: center;
     ${TooltipContent} {
       &.right {
         left: -32vw;

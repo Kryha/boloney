@@ -1,6 +1,16 @@
 import styled from "@emotion/styled";
 
-import { breakpoints, FontProps, images, lineHeights } from "../../design";
+import {
+  breakpoints,
+  color,
+  FontProps,
+  iconSize,
+  images,
+  lineHeights,
+  radius as borderRadius,
+  shadows,
+  zIndex as customZIndex,
+} from "../../design";
 
 export const avatarHeight = ["50vh", "30vh", "15vh", "9vh", "8vh", "6vh"];
 
@@ -15,11 +25,26 @@ interface MediaProps extends Props {
   mediaSize?: FontProps;
 }
 
+export interface IconProps {
+  width?: string;
+  height?: string;
+  iconColor?: string;
+  strokeColor?: string;
+  cursor?: boolean;
+  radius?: string;
+  shadow?: string;
+  zIndex?: string;
+  disabled?: boolean;
+  disabledColor?: string;
+  pipColor?: string;
+}
+
 export const FluidImage = styled.img<Props>`
   min-width: ${({ maxWidth }): string => maxWidth ?? images.auto};
   max-width: ${({ minWidth }): string => minWidth ?? images.fluid};
   width: ${({ width }): string => width ?? images.fluid};
   height: ${({ height }): string => height ?? images.auto};
+  user-select: none;
 `;
 
 export const CenteredImage = styled.img<Props>`
@@ -28,6 +53,7 @@ export const CenteredImage = styled.img<Props>`
   height: ${({ height }): string => height ?? images.auto};
   object-fit: contain;
   margin: auto;
+  user-select: none;
 `;
 
 export const MediaImage = styled(FluidImage)<MediaProps>`
@@ -38,5 +64,22 @@ export const MediaImage = styled(FluidImage)<MediaProps>`
   }
   @media (min-width: ${breakpoints.xxl}) {
     height: ${({ mediaSize }): string => (mediaSize ? mediaSize.lg : lineHeights.heading2.lg)};
+  }
+`;
+
+export const IconImage = styled.img<IconProps>`
+  height: ${({ height }) => height ?? iconSize.xxs};
+  width: ${({ width }) => width ?? iconSize.xxs};
+  border-radius: ${({ radius }) => radius ?? borderRadius.none};
+  box-shadow: ${({ shadow }) => shadow ?? shadows.none};
+  z-index: ${({ zIndex }) => zIndex ?? customZIndex.behind};
+  user-select: none;
+  background: ${({ iconColor, disabled, disabledColor }): string => (disabled ? disabledColor || color.mediumGrey : iconColor || "none")};
+
+  stroke: ${({ iconColor, disabled, disabledColor }): string =>
+    disabled ? disabledColor || color.mediumGrey : iconColor || color.darkGrey};
+
+  :hover {
+    cursor: ${({ cursor }): string => (cursor ? "pointer" : "default")};
   }
 `;

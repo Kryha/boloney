@@ -133,8 +133,6 @@ export const MAX_DICE_VIEW_AMOUNT = 6;
 export const MAX_POWER_UP_VIEW_AMOUNT = 5;
 export const MINIMUM_POWER_UP_WIDTH_VIEW = 1045;
 
-export const LARGE_DIE_SIZE = "clamp(27px, 2.81vw + 0px, 54px)";
-
 export const MATCH_STATS_DICE_VALUE = 2;
 
 //TODO: fix styled.ul for bullet points in rule set...

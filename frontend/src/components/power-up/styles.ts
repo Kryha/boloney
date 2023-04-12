@@ -34,18 +34,13 @@ export const PowerUpCardImage = styled.img<PowerUpProps>`
 `;
 
 export const DisabledPowerUpsIconWrapper = styled.div`
-  position: relative;
-  height: clamp(18px, 2.08vw + -2px, 38px);
-  bottom: 10px;
+  position: absolute;
+  bottom: -10px;
   z-index: ${zIndex.onTop};
-  > svg {
-    width: clamp(18px, 2.08vw + -2px, 28px);
-    height: clamp(18px, 2.08vw + -2px, 28px);
-    border-radius: clamp(2px, 0.1vw + 1px, 3px);
-  }
 `;
 
 export const PowerUpContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

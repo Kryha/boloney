@@ -1,10 +1,11 @@
 import { FC } from "react";
+import { PlusIconSVG } from "../../assets";
 
 import { text } from "../../assets/text";
 import { useIsInMatch } from "../../service";
 import { useLayoutStore } from "../../service/layout-config";
-import { Heading4 } from "../atoms/text";
-import { ChatSection, Plus, TitleContainer, HistorySection } from "./styles";
+import { BaseIcon, Heading4 } from "../atoms";
+import { ChatSection, TitleContainer, HistorySection } from "./styles";
 
 export const ToggleMenu: FC = () => {
   const isChatToggled = useLayoutStore((state) => state.isChatToggled);
@@ -18,13 +19,13 @@ export const ToggleMenu: FC = () => {
       <HistorySection onClick={() => toggleHistory()} isToggled={isHistoryToggled} isInMatch={isInMatch}>
         <TitleContainer>
           <Heading4>{text.general.history}</Heading4>
-          <Plus />
+          <BaseIcon src={<PlusIconSVG />} />
         </TitleContainer>
       </HistorySection>
       <ChatSection onClick={() => toggleChat()} isToggled={isChatToggled} isInMatch={isInMatch}>
         <TitleContainer>
           <Heading4>{text.general.chat}</Heading4>
-          <Plus />
+          <BaseIcon src={<PlusIconSVG />} />
         </TitleContainer>
       </ChatSection>
     </>

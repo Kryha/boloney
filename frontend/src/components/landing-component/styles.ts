@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { BoloneyLogoIcon } from "../../assets";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { opacity, zIndex } from "../../design";
 import { ViewProps } from "../../types";
@@ -16,9 +15,7 @@ interface ImageProps {
   height: number;
 }
 
-export const AppName = styled(BoloneyLogoIcon)`
-  width: 94.4vw;
-  height: auto;
+export const AppNameContainer = styled.div`
   margin-top: 8.5vh;
   align-items: center;
   display: flex;

@@ -1,64 +1,82 @@
 import { FC } from "react";
 import {
-  DiceFiveIcon,
-  DiceFourIcon,
-  DiceHiddenIcon,
-  DiceOneIcon,
-  DiceSixIcon,
-  DiceThreeIcon,
-  DiceTwoIcon,
-  RefreshIcon,
+  DiceFiveIconSVG,
+  DiceFourIconSVG,
+  DiceHiddenIconSVG,
+  DiceOneIconSVG,
+  DiceSixIconSVG,
+  DiceThreeIconSVG,
+  DiceTwoIconSVG,
+  RefreshIconSVG,
 } from "../../assets";
-import { LARGE_DIE_SIZE } from "../../constants";
+import { color, iconSize, radius as borderRadius } from "../../design";
+import { BaseIcon, DiceIcon, DiceIconProps } from "../atoms";
 
 import { DiceContainer, DieWrapper, TemporaryDieIconWrapper } from "./styles";
 
+// The size of the die has equal width and height.
 interface DieProps {
   value?: number;
   size?: string;
-  faceColor?: string;
-  pipColor?: string;
   isRow?: boolean;
   isTemporaryDice?: boolean;
   isMatchSettings?: boolean;
   isMatchHistory?: boolean;
+  iconColor?: string;
+  cursor?: boolean;
+  radius?: string;
+  shadow?: string;
+  pipColor?: string;
 }
 
-export const findDieFace = (value?: number) => {
+export const findDieFace = (value?: number, diceIcon?: DiceIconProps) => {
   switch (value) {
     case 1:
-      return <DiceOneIcon />;
+      return <DiceIcon src={<DiceOneIconSVG />} {...diceIcon} />;
     case 2:
-      return <DiceTwoIcon />;
+      return <DiceIcon src={<DiceTwoIconSVG />} {...diceIcon} />;
     case 3:
-      return <DiceThreeIcon />;
+      return <DiceIcon src={<DiceThreeIconSVG />} {...diceIcon} />;
     case 4:
-      return <DiceFourIcon />;
+      return <DiceIcon src={<DiceFourIconSVG />} {...diceIcon} />;
     case 5:
-      return <DiceFiveIcon />;
+      return <DiceIcon src={<DiceFiveIconSVG />} {...diceIcon} />;
     case 6:
-      return <DiceSixIcon />;
+      return <DiceIcon src={<DiceSixIconSVG />} {...diceIcon} />;
     default:
-      return <DiceHiddenIcon />;
+      return <DiceIcon src={<DiceHiddenIconSVG />} {...diceIcon} />;
   }
 };
 
-export const Die: FC<DieProps> = ({ value, faceColor, size, pipColor, isRow, isTemporaryDice, isMatchSettings, isMatchHistory }) => {
-  const diceSize = isRow ? LARGE_DIE_SIZE : size;
+export const Die: FC<DieProps> = ({ value, iconColor, size, pipColor, isRow, isTemporaryDice, shadow, cursor, radius }) => {
+  const diceSize = isRow ? iconSize.md : size;
 
   return (
     <DiceContainer>
-      <DieWrapper
-        faceColor={faceColor}
-        size={diceSize}
-        pipColor={pipColor}
-        isDiceHidden={!value}
-        isMatchSettings={isMatchSettings}
-        isMatchHistory={isMatchHistory}
-      >
-        {findDieFace(value)}
+      <DieWrapper>
+        {findDieFace(value, {
+          width: diceSize,
+          height: diceSize,
+          iconColor: iconColor,
+          pipColor: pipColor,
+          shadow: shadow,
+          cursor: cursor,
+          radius: radius,
+          isDiceHidden: !value,
+        })}
       </DieWrapper>
-      <TemporaryDieIconWrapper isRow={isRow}>{isTemporaryDice && <RefreshIcon />}</TemporaryDieIconWrapper>
+      <TemporaryDieIconWrapper isRow={isRow}>
+        {isTemporaryDice && (
+          <BaseIcon
+            src={<RefreshIconSVG />}
+            strokeColor={color.darkGrey}
+            iconColor={color.cloudWhite}
+            radius={borderRadius.xs}
+            width={iconSize.sm}
+            height={iconSize.sm}
+          />
+        )}
+      </TemporaryDieIconWrapper>
     </DiceContainer>
   );
 };

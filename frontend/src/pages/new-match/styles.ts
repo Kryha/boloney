@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import { LightningIcon } from "../../assets";
-
 import { BaseInput, GeneralText, Heading4 } from "../../components";
 import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper, RightButtonContainer } from "../../components/buttons/styles";
 import { DescriptionContainer, CheckboxContainer as CheckboxWrapper } from "../../components/checkbox/styles";
@@ -165,10 +163,6 @@ export const TotalContainer = styled.section`
   position: sticky;
   bottom: 0;
   background-color: ${color.lightGrey};
-`;
-
-export const LightningNewMatch = styled(LightningIcon)`
-  margin-top: 3px;
 `;
 
 export const LightningContainer = styled.div`

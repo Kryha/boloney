@@ -1,10 +1,11 @@
 import { FC } from "react";
+import { LightningIconSVG } from "../../assets";
 import { color } from "../../design";
 import { PowerUp } from "../../types";
-import { GeneralContentWrapper, Row, Heading6, BodyText } from "../atoms";
+import { GeneralContentWrapper, Row, Heading6, BodyText, BaseIcon } from "../atoms";
 import { ErrorView } from "../error-view";
 import { PowerUpComponent } from "../power-up/power-up";
-import { DescriptionContainer, Lightning } from "./styles";
+import { DescriptionContainer } from "./styles";
 
 interface PowerUpDescriptionProps {
   powerUp?: PowerUp;
@@ -18,7 +19,7 @@ export const PowerUpDescription: FC<PowerUpDescriptionProps> = ({ powerUp, hasLi
       <DescriptionContainer>
         <GeneralContentWrapper>
           <Row>
-            {hasLightningIcon && <Lightning />}
+            {hasLightningIcon && <BaseIcon src={<LightningIconSVG />} strokeColor={color.mediumGrey} />}
             <Heading6>{powerUp.name}</Heading6>
           </Row>
           <BodyText customcolor={color.darkGrey}>{powerUp.shortDescription}</BodyText>

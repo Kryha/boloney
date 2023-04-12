@@ -1,3 +1,5 @@
+export * from "./icons";
+export * from "./icon-wrappers";
 export * from "./text";
 export * from "./images";
 export * from "./button";

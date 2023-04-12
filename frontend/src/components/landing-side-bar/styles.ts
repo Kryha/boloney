@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { WhiteDiceIcon } from "../../assets";
 import { color, opacity, zIndex } from "../../design";
 import { fadeOut, slideUpFromBottom } from "../atoms";
 import { ButtonContainer } from "../buttons/styles";
@@ -9,10 +8,6 @@ import { Hand, HandContainer, HandWrapper, ImageWrapper, Paint } from "../hand/s
 interface Props {
   isDice?: boolean;
   isSidebarVisible?: boolean;
-}
-
-interface DiceProps {
-  customcolor: string;
 }
 
 export const LandingSideBarWrapper = styled.section`
@@ -115,12 +110,4 @@ export const SidebarWrapper = styled.div<Props>`
 
 export const SidebarContainer = styled.div`
   padding-top: 5.5vh;
-`;
-
-export const WhiteDice = styled(WhiteDiceIcon)<DiceProps>`
-  height: 30vh;
-  width: 14.81vw;
-  ellipse {
-    fill: ${({ customcolor }) => `${customcolor}`};
-  }
 `;

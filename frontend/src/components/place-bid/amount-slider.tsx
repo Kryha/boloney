@@ -1,9 +1,10 @@
 import { FC, ReactElement, useEffect, useMemo, useState } from "react";
 
-import { ArrowButton, text } from "../../assets";
-import { fontSizes, lineHeights } from "../../design";
+import { ArrowButtonSVG, text } from "../../assets";
+import { color, fontSizes, iconSize, lineHeights } from "../../design";
 import { useTotalDiceInMatch } from "../../service";
 import { Bid } from "../../types";
+import { BaseIcon } from "../atoms";
 
 import { usePlaceBidFormState } from "./bid-state";
 import { ControlButton, ControlButtonWrapper, NumberList, NumberSliderWrapper, Number } from "./styles";
@@ -84,10 +85,23 @@ export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
     <NumberSliderWrapper>
       <ControlButtonWrapper>
         <ControlButton disabled={diceAmount === lowerBound} onClick={() => handleClick(-1)}>
-          <ArrowButton />
+          <BaseIcon
+            src={<ArrowButtonSVG />}
+            strokeColor={color.black}
+            width={iconSize.lg}
+            height={iconSize.lg}
+            iconColor={color.transparent}
+          />
         </ControlButton>
         <ControlButton disabled={diceAmount === upperBound} downButton onClick={() => handleClick(1)}>
-          <ArrowButton />
+          <BaseIcon
+            src={<ArrowButtonSVG />}
+            strokeColor={color.black}
+            width={iconSize.lg}
+            height={iconSize.lg}
+            iconColor={color.transparent}
+            cursor
+          />
         </ControlButton>
       </ControlButtonWrapper>
       <NumberList>{viewNumbers.map((amount, index) => getNumberList(amount, index))}</NumberList>

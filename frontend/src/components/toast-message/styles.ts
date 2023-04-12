@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { CloseIcon } from "../../assets";
 import { color, margins, zIndex } from "../../design";
+import { BaseIcon } from "../atoms";
 
 export const ToastWrapper = styled.section`
   display: flex;
@@ -23,8 +23,7 @@ export const ToastImage = styled.img`
   height: auto;
 `;
 
-export const CloseButton = styled(CloseIcon)`
-  cursor: pointer;
+export const CloseIcon = styled(BaseIcon)`
   position: absolute;
   right: ${margins.small5};
 `;

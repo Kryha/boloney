@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { CheckboxContainer, CheckContainer, DescriptionContainer } from "../checkbox/styles";
 
 export const SoundToggleWrapper = styled.div`
+  margin-top: 4px;
   ${CheckboxContainer} {
     width: 10vw;
   }
@@ -10,4 +11,5 @@ export const SoundToggleWrapper = styled.div`
   }
   ${DescriptionContainer} {
     padding: 0;
+  }
 `;

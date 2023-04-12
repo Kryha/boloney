@@ -16,7 +16,7 @@ import { avatarHeight, float, Heading5, shuffle } from "../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
-import { DiceIconWrapper } from "../icons/styles";
+import { DiceIconWrapper } from "../icons";
 import { PlayerSidebarInfoContainer } from "../player-sidebar-info/styles";
 
 const GAME_PLAYER_HEIGHT = 89;

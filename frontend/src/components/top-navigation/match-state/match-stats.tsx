@@ -17,7 +17,7 @@ export const MatchStats: FC = () => {
 
   return (
     <MatchStatsContainer>
-      <DiceIcon diceAmount={totalDice} faceColor={color.white} pipColor={color.black} />
+      <DiceIcon diceAmount={totalDice} iconColor={color.white} pipColor={color.black} />
       <MatchStateVerticalDivider />
       <MatchStateItemStage phaseNumber={stageNumber} />
       <MatchStateVerticalDivider />

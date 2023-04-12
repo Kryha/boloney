@@ -6,6 +6,7 @@ import { usePlaceBidFormState } from "./bid-state";
 import { Bid } from "../../types";
 import { ARRAY_OF_POSABLE_DIE_FACES as ARRAY_OF_POSABLE_DIE_FACES } from "../../constants";
 import { useTotalDiceInMatch } from "../../service";
+import { radius } from "../../design";
 
 interface DiceFaceProps {
   lastBid?: Bid;
@@ -37,7 +38,12 @@ export const DiceFaces: FC<DiceFaceProps> = ({ lastBid, dieColor }) => {
     <DiceContainer>
       {ARRAY_OF_POSABLE_DIE_FACES.map((die, index) => (
         <Die key={index} disabled={isDisabled(die)} isSelected={faceValue === die} onClick={() => handleClick(die)}>
-          <DieComponent faceColor={dieColor} value={die} size={faceValue === die ? selectorDieSize.selected : selectorDieSize.idle} />
+          <DieComponent
+            iconColor={dieColor}
+            value={die}
+            size={faceValue === die ? selectorDieSize.selected : selectorDieSize.idle}
+            radius={radius.sm}
+          />
         </Die>
       ))}
     </DiceContainer>

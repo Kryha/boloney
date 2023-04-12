@@ -1,16 +1,10 @@
 import styled from "@emotion/styled";
 
-import { CloseIcon, LightningIcon } from "../../assets";
 import { color, margins } from "../../design";
 import { GeneralContentWrapper, Row, BaseInput } from "../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
 
-export const Close = styled(CloseIcon)`
-  width: 20px;
-`;
-
-export const Lightning = styled(LightningIcon)`
-  width: 20px;
+export const LightningIconContainer = styled.div`
   margin-top: 3px;
 `;
 

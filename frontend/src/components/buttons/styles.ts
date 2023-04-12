@@ -1,21 +1,14 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
-import { CloseIcon, EllipsisIcon, ExitIcon, InfoIcon, LeftArrowIcon, RightArrowIcon } from "../../assets/icons";
-import { color, margins, opacity, zIndex } from "../../design";
-import { SecondaryButtonBase, PrimaryButtonText } from "../atoms";
+import { color, margins, opacity } from "../../design";
+import { SecondaryButtonBase, PrimaryButtonText, BaseIcon, BaseIconWrapper } from "../atoms";
 
 interface ButtonProps {
   disabled?: boolean;
   width?: number;
   isLoading?: boolean;
 }
-
-export const PrimaryArrow = styled(RightArrowIcon)`
-  width: 30px;
-  height: 15px;
-  z-index: ${zIndex.normal};
-`;
 
 export const ArrowSection = styled.div`
   display: flex;
@@ -80,7 +73,7 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
 
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
   cursor: ${({ disabled }) => !disabled && "pointer"};
-  ${PrimaryArrow} {
+  ${BaseIconWrapper} {
     path {
       fill: ${({ disabled, isLoading }): string => (disabled || isLoading ? `${color.darkGrey}` : `${color.black}`)};
     }
@@ -88,15 +81,11 @@ export const PrimaryButtonWrapper = styled.div<ButtonProps>`
   cursor: ${({ isLoading }) => !isLoading && "pointer"};
 `;
 
-export const SecondaryArrow = styled(RightArrowIcon)``;
-
-export const LeftArrow = styled(LeftArrowIcon)``;
-
 export const SecondaryButtonContainer = styled.div<ButtonProps>`
   display: flex;
   align-items: center;
   padding: 10px;
-  ${SecondaryArrow} {
+  ${BaseIconWrapper} {
     path {
       fill: ${({ disabled }): string => (disabled ? `${color.darkGrey}` : `${color.black}`)};
     }
@@ -112,21 +101,17 @@ export const TertiaryButtonContainer = styled.div<ButtonProps>`
   }
 `;
 
-export const CloseButton = styled(CloseIcon)`
+export const CloseIcon = styled(BaseIcon)`
   margin-top: 4px;
-  width: 20px;
 `;
 
-export const Ellipsis = styled(EllipsisIcon)`
+export const EllipsisIcon = styled(BaseIcon)`
   margin-top: 5px;
-  width: 20px;
 `;
 
-export const Exit = styled(ExitIcon)`
+export const ExitIcon = styled(BaseIcon)`
   margin-top: 2px;
 `;
-
-export const Info = styled(InfoIcon)``;
 
 export const ButtonContainer = styled.div<ButtonProps>`
   display: flex;
@@ -145,7 +130,7 @@ export const ButtonContainer = styled.div<ButtonProps>`
 export const RightButtonContainer = styled.div<ButtonProps>`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   gap: ${margins.small1};
   ${SecondaryButtonBase} {
     padding: 0px;

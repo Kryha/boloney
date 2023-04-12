@@ -56,7 +56,7 @@ export const HistoryAction: FC<Props> = ({ playerAction, player }) => {
     actionName = text.playerTurn.healDice;
   }
   const headingTwoDetails = playerAction.targetPlayerName ? playerAction.targetPlayerName : outcome;
-  const faceColor = player && getDieColor(player);
+  const iconColor = player && getDieColor(player);
 
   return (
     <>
@@ -81,7 +81,7 @@ export const HistoryAction: FC<Props> = ({ playerAction, player }) => {
             isPowerUp={isPowerUp}
             powerUpAmount={powerUpAmount}
             diceAmount={diceAmount}
-            faceColor={faceColor}
+            iconColor={iconColor}
           />
         </HistoryBadgeContainer>
       </HistoryBadgeWrapper>

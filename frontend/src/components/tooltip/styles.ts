@@ -1,15 +1,8 @@
 import styled from "@emotion/styled";
-import { InfoIcon } from "../../assets";
 import { color, margins } from "../../design";
 import { tooltipAnimation, TooltipText, Heading3 } from "../atoms";
 
-export const TooltipWrap = styled.section`
-  display: inline-block;
-  position: relative;
-  margin-top: 0.2em;
-`;
-
-export const Info = styled(InfoIcon)``;
+export const TooltipWrap = styled.section``;
 
 export const ButtonInfoWrap = styled.span`
   margin-left: ${margins.small1};

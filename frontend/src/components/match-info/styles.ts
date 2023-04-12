@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
-import { RaisedHandIcon, RoundIcon } from "../../assets";
 import { color, margins } from "../../design";
-import { Row, GeneralText } from "../atoms";
-import { Lightning } from "../icons/styles";
-import { ButtonInfoWrap } from "../tooltip/styles";
+import { Row, GeneralText, BaseIconWrapper } from "../atoms";
+import { DiceIconWrapper } from "../icons";
+import { ButtonInfoWrap } from "../tooltip";
 
 export const MatchInfoOverview = styled.section`
   display: flex;
@@ -15,34 +14,32 @@ export const MatchInfoOverview = styled.section`
 
 export const MatchInfoHeader = styled(Row)`
   gap: 6px;
+  align-items: center;
   ${ButtonInfoWrap} {
     margin-left: 0px;
     max-height: 23px;
   }
 `;
 
-export const RaisedHand = styled(RaisedHandIcon)``;
-
-export const Round = styled(RoundIcon)``;
-
 export const MatchInfoDescription = styled(Row)`
   gap: 5px;
-  height: 23px;
+  min-height: 23px;
+  align-items: center;
+  justify-content: center;
   ${GeneralText} {
     color: ${color.black};
     :first-letter {
       text-transform: none;
     }
   }
-  ${Lightning} {
-    path {
-      stroke: ${color.black};
-    }
-  }
-  ${RaisedHand} {
+  ${BaseIconWrapper} {
     margin-top: 4px;
   }
-  ${Round} {
-    margin-top: 3px;
+  ${DiceIconWrapper} {
+    margin-top: 4px;
   }
+`;
+
+export const HandImageWrapper = styled(MatchInfoDescription)`
+  margin-top: 4px;
 `;

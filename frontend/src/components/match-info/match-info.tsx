@@ -1,12 +1,13 @@
 import { FC } from "react";
 import { text } from "../../assets/text";
 import { color } from "../../design";
-import { GeneralText, Heading6 } from "../atoms";
+import { BaseIcon, GeneralText, Heading6, IconImage } from "../atoms";
 import { MatchSettings } from "../../types";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import { InfoPosition, Tooltip } from "../tooltip";
 import { SoundToggle } from "../sound-toggle";
-import { MatchInfoDescription, MatchInfoHeader, MatchInfoOverview, RaisedHand, Round } from "./styles";
+import { HandImageWrapper, MatchInfoDescription, MatchInfoHeader, MatchInfoOverview } from "./styles";
+import { RaisedHandIconSVG, RoundIconSVG } from "../../assets";
 
 type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | "sound" | undefined;
 
@@ -24,24 +25,24 @@ const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: MatchSett
   switch (matchSettingsType) {
     case "players":
       return (
-        <>
-          <RaisedHand />
+        <HandImageWrapper>
+          <IconImage src={RaisedHandIconSVG} />
           <GeneralText>{text.param.xAmount(matchSettings.players)}</GeneralText>
-        </>
+        </HandImageWrapper>
       );
     case "dice":
-      return <DiceIcon diceAmount={matchSettings.dicePerPlayer} faceColor={color.white} pipColor={color.black} isMatchSettings />;
+      return <DiceIcon diceAmount={matchSettings.dicePerPlayer} iconColor={color.white} pipColor={color.black} isMatchSettings />;
     case "powerUps":
-      return <PowerUpIcon powerUpAmount={matchSettings.initialPowerUpAmount} />;
+      return <PowerUpIcon powerUpAmount={matchSettings.initialPowerUpAmount} strokeColor={color.black} />;
     case "drawRoundOffset":
       return (
         <>
-          <Round />
+          <BaseIcon src={<RoundIconSVG />} />
           <GeneralText>{text.param.xRounds(matchSettings.drawRoundOffset)}</GeneralText>
         </>
       );
     case "healAction":
-      return <PowerUpIcon powerUpAmount={matchSettings.healPowerUpAmount} />;
+      return <PowerUpIcon powerUpAmount={matchSettings.healPowerUpAmount} strokeColor={color.black} />;
     case "sound":
       return <SoundToggle />;
   }

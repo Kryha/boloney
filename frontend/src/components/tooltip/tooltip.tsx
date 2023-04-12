@@ -1,5 +1,7 @@
 import { FC, ReactNode } from "react";
-import { ButtonInfoWrap, Info } from "./styles";
+import { InfoIconSVG } from "../../assets";
+import { BaseIcon } from "../atoms";
+import { ButtonInfoWrap } from "./styles";
 import { InfoPosition, TooltipInfo } from "./tooltip-info";
 
 interface TooltipProps {
@@ -16,7 +18,7 @@ export const Tooltip: FC<TooltipProps> = ({ title, info, infoPosition, isButtonW
   return (
     <ButtonInfoWrap>
       <TooltipInfo title={title} content={info} position={infoPosition} isButtonWithHelper={isButtonWithHelper} zIndex={zIndex}>
-        <Info />
+        <BaseIcon src={<InfoIconSVG />} cursor />
       </TooltipInfo>
     </ButtonInfoWrap>
   );

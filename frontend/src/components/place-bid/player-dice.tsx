@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { radius } from "../../design";
 import { Die } from "../../types";
 import { Die as DieComponent } from "../die";
 import { Die as DieWrapper, PlayerDiceContainer, selectorDieSize } from "./styles";
@@ -15,8 +16,9 @@ export const PlayerDiceSelector: FC<PlayerDiceSelectorProps> = ({ playerDice, ha
       {playerDice.map((die, index) => (
         <DieWrapper key={index} isSelected={selectedDice.includes(index)} onClick={() => handleClick(index)}>
           <DieComponent
-            faceColor={dieColor}
+            iconColor={dieColor}
             value={die.rolledValue}
+            radius={radius.sm}
             size={selectedDice.includes(index) ? selectorDieSize.selected : selectorDieSize.idle}
           />
         </DieWrapper>

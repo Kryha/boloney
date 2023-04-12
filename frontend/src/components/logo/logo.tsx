@@ -1,9 +1,11 @@
-import { LogoContainer, TextLogo } from "./styles";
+import { TextBoloneyLogoIconSVG } from "../../assets";
+import { iconSize } from "../../design";
+import { LogoContainer, TextLogoIcon } from "./styles";
 
 export const Logo = () => {
   return (
     <LogoContainer>
-      <TextLogo />
+      <TextLogoIcon src={<TextBoloneyLogoIconSVG />} width={iconSize.fluid} height={iconSize.auto} />
     </LogoContainer>
   );
 };

@@ -1,10 +1,17 @@
 import { FC } from "react";
-import { CookieIcon, text } from "../../assets";
+import { CloseIconSVG, CookieIconSVG, text } from "../../assets";
 import { useSetAnalyticsConsent } from "../../hooks";
-import { GeneralText, Heading6 } from "../atoms";
+import { BaseIcon, GeneralText, Heading6 } from "../atoms";
 import { TertiaryButton } from "../buttons";
-import { CloseButton } from "../buttons/styles";
-import { CookieAcceptButton, CookieBannerButtons, CookieBannerContent, CookieBannerText, CookieBannerWrapper, CookieImage } from "./styles";
+import {
+  CloseIconWrapper,
+  CookieAcceptButton,
+  CookieBannerButtons,
+  CookieBannerContent,
+  CookieBannerText,
+  CookieBannerWrapper,
+  CookieImage,
+} from "./styles";
 
 export const CookieBanner: FC = () => {
   const setAnalyticsConsent = useSetAnalyticsConsent();
@@ -12,12 +19,14 @@ export const CookieBanner: FC = () => {
   return (
     <CookieBannerWrapper>
       <CookieBannerContent>
-        <CookieImage src={CookieIcon} />
+        <CookieImage src={CookieIconSVG} />
         <CookieBannerText>
           <Heading6>{text.general.cookieBannerTitle}</Heading6>
           <GeneralText>{text.general.cookieBannerText}</GeneralText>
         </CookieBannerText>
-        <CloseButton onClick={() => setAnalyticsConsent(false)} />
+        <CloseIconWrapper onClick={() => setAnalyticsConsent(false)}>
+          <BaseIcon src={<CloseIconSVG />} cursor />
+        </CloseIconWrapper>
       </CookieBannerContent>
       <CookieBannerButtons>
         <TertiaryButton primaryText={text.general.cookieReject} onClick={() => setAnalyticsConsent(false)} />

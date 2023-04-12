@@ -7,6 +7,6 @@ export const TimerRow = styled(Row)`
   margin-bottom: ${margins.small4};
 `;
 
-export const Divider = styled(VerticalDivider)`
+export const TimerDivider = styled(VerticalDivider)`
   height: 24px;
 `;

@@ -31,9 +31,6 @@ export const PlayerDiceContainer = styled.div`
   max-width: clamp(240px, 25vw + 0px, 480px);
   ${DieWrapper} {
     min-height: clamp(66px, 6.98vw + -1px, 133px);
-    > svg {
-      border-radius: 8px;
-    }
   }
 `;
 
@@ -45,9 +42,6 @@ export const DiceContainer = styled.div`
   max-width: clamp(240px, 25vw + 0px, 480px);
   ${DieWrapper} {
     min-height: clamp(66px, 6.98vw + -1px, 133px);
-    > svg {
-      border-radius: 8px;
-    }
   }
   bottom: 1vh;
 `;

@@ -1,84 +1,71 @@
-import { ReactComponent as PlusIcon } from "./plus.svg";
-import { ReactComponent as TimerIcon } from "./timer.svg";
-import { ReactComponent as ExitIcon } from "./exit.svg";
-import RightArrowIconUrl, { ReactComponent as RightArrowIcon } from "./right-arrow.svg";
-import { ReactComponent as LeftArrowIcon } from "./left-arrow.svg";
-import { ReactComponent as CloseIcon } from "./close.svg";
-import { ReactComponent as HourglassIcon } from "./hourglass.svg";
-import { ReactComponent as SunglassFaceIcon } from "./sunglass-face.svg";
-import { ReactComponent as TrophyIcon } from "./trophy.svg";
-import { ReactComponent as WinkFaceIcon } from "./wink-face.svg";
-import { ReactComponent as EllipsisIcon } from "./ellipsis.svg";
-import { ReactComponent as InfoIcon } from "./info.svg";
-import { ReactComponent as ErrorIcon } from "./error.svg";
-import { ReactComponent as SettingsIcon } from "./settings.svg";
-import { ReactComponent as LogoutIcon } from "./logout.svg";
-import { ReactComponent as CopyIcon } from "./copy.svg";
-import ChevronDownIcon from "./chevron-down.svg";
-import { ReactComponent as DiceOneIcon } from "./dice-one.svg";
-import { ReactComponent as DiceTwoIcon } from "./dice-two.svg";
-import { ReactComponent as DiceThreeIcon } from "./dice-three.svg";
-import { ReactComponent as DiceFourIcon } from "./dice-four.svg";
-import { ReactComponent as DiceFiveIcon } from "./dice-five.svg";
-import { ReactComponent as DiceSixIcon } from "./dice-six.svg";
-import { ReactComponent as LightningIcon } from "./lightning.svg";
-import { ReactComponent as BoloneyIcon } from "./boloney.svg";
-import { ReactComponent as DiceHiddenIcon } from "./dice-hidden.svg";
-import { ReactComponent as SausageLoader } from "./sausage-loader.svg";
-import { ReactComponent as TextBoloneyLogoIcon } from "./text-boloney.svg";
-import { ReactComponent as RaisedHandIcon } from "./raised-hand.svg";
-import { ReactComponent as RoundIcon } from "./round.svg";
-import { ReactComponent as BoloneyLogoIcon } from "./boloney-logo.svg";
-import { ReactComponent as Crown } from "./crown.svg";
-import { ReactComponent as CoolHand } from "./cool-hand.svg";
-import { ReactComponent as ArrowButton } from "./arrow-button.svg";
-import { ReactComponent as LockIcon } from "./lock.svg";
-import { ReactComponent as RefreshIcon } from "./refresh.svg";
-import { ReactComponent as WhiteDiceIcon } from "./white-dice.svg";
-import { ReactComponent as DeadCoffinIcon } from "./dead-coffin.svg";
-import { ReactComponent as BlueLock } from "./blue-lock.svg";
-import CookieIcon from "./cookie.svg";
+import { ReactComponent as EllipsisIconSVG } from "./ellipsis.svg";
+import { ReactComponent as CloseIconSVG } from "./close.svg";
+import { ReactComponent as ExitIconSVG } from "./exit.svg";
+import { ReactComponent as InfoIconSVG } from "./info.svg";
+import { ReactComponent as LeftArrowIconSVG } from "./left-arrow.svg";
+import { ReactComponent as ArrowButtonSVG } from "./arrow-button.svg";
+import { ReactComponent as PlusIconSVG } from "./plus.svg";
+import { ReactComponent as ErrorIconSVG } from "./error.svg";
+import { ReactComponent as SettingsIconSVG } from "./settings.svg";
+import { ReactComponent as LogoutIconSVG } from "./logout.svg";
+import { ReactComponent as CopyIconSVG } from "./copy.svg";
+import { ReactComponent as DiceOneIconSVG } from "./dice-one.svg";
+import { ReactComponent as DiceTwoIconSVG } from "./dice-two.svg";
+import { ReactComponent as DiceThreeIconSVG } from "./dice-three.svg";
+import { ReactComponent as DiceFourIconSVG } from "./dice-four.svg";
+import { ReactComponent as DiceFiveIconSVG } from "./dice-five.svg";
+import { ReactComponent as DiceSixIconSVG } from "./dice-six.svg";
+import { ReactComponent as DiceHiddenIconSVG } from "./dice-hidden.svg";
+import { ReactComponent as LightningIconSVG } from "./lightning.svg";
+import { ReactComponent as SausageLoaderSVG } from "./sausage-loader.svg";
+import { ReactComponent as TextBoloneyLogoIconSVG } from "./text-boloney.svg";
+import { ReactComponent as RoundIconSVG } from "./round.svg";
+import { ReactComponent as BoloneyLogoIconSVG } from "./boloney-logo.svg";
+import { ReactComponent as CrownSVG } from "./crown.svg";
+import { ReactComponent as CoolHandSVG } from "./cool-hand.svg";
+import { ReactComponent as LockIconSVG } from "./lock.svg";
+import { ReactComponent as RefreshIconSVG } from "./refresh.svg";
+import { ReactComponent as WhiteDiceIconSVG } from "./white-dice.svg";
+import { ReactComponent as DeadCoffinIconSVG } from "./dead-coffin.svg";
+import { ReactComponent as BlueLockSVG } from "./blue-lock.svg";
+import RightArrowIconSVG from "./right-arrow.svg";
+import CookieIconSVG from "./cookie.svg";
+import ChevronDownIconSVG from "./chevron-down.svg";
+import RaisedHandIconSVG from "./raised-hand.svg";
 
 export {
-  PlusIcon,
-  TimerIcon,
-  BlueLock,
-  ExitIcon,
-  RightArrowIcon,
-  RightArrowIconUrl,
-  LeftArrowIcon,
-  CloseIcon,
-  HourglassIcon,
-  SunglassFaceIcon,
-  TrophyIcon,
-  WinkFaceIcon,
-  EllipsisIcon,
-  InfoIcon,
-  ErrorIcon,
-  SettingsIcon,
-  LogoutIcon,
-  CopyIcon,
-  ChevronDownIcon,
-  DiceOneIcon,
-  DiceTwoIcon,
-  DiceThreeIcon,
-  DiceFourIcon,
-  DiceFiveIcon,
-  DiceSixIcon,
-  LightningIcon,
-  BoloneyIcon,
-  DiceHiddenIcon,
-  SausageLoader,
-  TextBoloneyLogoIcon,
-  RaisedHandIcon,
-  RoundIcon,
-  BoloneyLogoIcon,
-  Crown,
-  CoolHand,
-  ArrowButton,
-  LockIcon,
-  RefreshIcon,
-  WhiteDiceIcon,
-  DeadCoffinIcon,
-  CookieIcon,
+  ChevronDownIconSVG,
+  LeftArrowIconSVG,
+  EllipsisIconSVG,
+  ArrowButtonSVG,
+  CloseIconSVG,
+  ExitIconSVG,
+  InfoIconSVG,
+  PlusIconSVG,
+  ErrorIconSVG,
+  SettingsIconSVG,
+  LogoutIconSVG,
+  CopyIconSVG,
+  DiceOneIconSVG,
+  DiceTwoIconSVG,
+  DiceThreeIconSVG,
+  DiceFourIconSVG,
+  DiceFiveIconSVG,
+  DiceSixIconSVG,
+  LightningIconSVG,
+  DiceHiddenIconSVG,
+  SausageLoaderSVG,
+  TextBoloneyLogoIconSVG,
+  RaisedHandIconSVG,
+  RoundIconSVG,
+  BoloneyLogoIconSVG,
+  CrownSVG,
+  CoolHandSVG,
+  LockIconSVG,
+  RefreshIconSVG,
+  WhiteDiceIconSVG,
+  DeadCoffinIconSVG,
+  BlueLockSVG,
+  RightArrowIconSVG,
+  CookieIconSVG,
 };

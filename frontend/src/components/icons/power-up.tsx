@@ -1,11 +1,12 @@
 import { FC } from "react";
 
-import { LockIcon, text } from "../../assets";
+import { LightningIconSVG, LockIconSVG, text } from "../../assets";
 import { color, FontProps } from "../../design";
-import { GeneralText } from "../atoms";
+import { BaseIcon, GeneralText } from "../atoms";
 import { PowerUpId } from "../../types";
 import { RevealedPowerUps } from "../revealed-power-ups";
-import { Lightning, PowerUpIconWrapper } from "./styles";
+import { PowerUpIconWrapper } from "./styles";
+import { LightningContainer } from "../../pages/new-match/styles";
 
 interface PowerUpProps {
   powerUpAmount: number;
@@ -13,28 +14,30 @@ interface PowerUpProps {
   powerUpDisabled?: boolean;
   fontSize?: FontProps;
   lineHeight?: FontProps;
-  customcolor?: string;
+  strokeColor?: string;
 }
 
 export const PowerUpIcon: FC<PowerUpProps> = ({
   powerUpAmount,
   powerUpIds,
   powerUpDisabled = false,
-  customcolor,
+  strokeColor,
   fontSize,
   lineHeight,
 }) => {
-  const powerUpColor = customcolor || color.darkGrey;
+  const powerUpColor = strokeColor || color.darkGrey;
 
   if (powerUpIds?.length) return <RevealedPowerUps powerUpIds={powerUpIds} />;
 
   return (
     <PowerUpIconWrapper>
-      <Lightning customcolor={powerUpColor} />
+      <LightningContainer>
+        <BaseIcon src={<LightningIconSVG />} iconColor={color.transparent} strokeColor={strokeColor} />
+      </LightningContainer>
       <GeneralText transformText="none" fontSize={fontSize} lineHeight={lineHeight} customcolor={powerUpColor}>
         {text.param.xAmount(powerUpAmount)}
       </GeneralText>
-      {powerUpDisabled && <LockIcon />}
+      {powerUpDisabled && <BaseIcon src={<LockIconSVG />} />}
     </PowerUpIconWrapper>
   );
 };

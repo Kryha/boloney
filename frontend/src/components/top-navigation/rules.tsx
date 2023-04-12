@@ -1,11 +1,10 @@
 import { FC } from "react";
 
-import { text } from "../../assets";
-import { InfoIcon } from "../../assets/icons";
+import { text, InfoIconSVG } from "../../assets";
 import { BULLET_POINT } from "../../constants";
 import { color, fontWeights } from "../../design";
 import { useStore } from "../../store";
-import { BodyText, ListSection } from "../atoms";
+import { BaseIcon, BodyText, ListSection } from "../atoms";
 import { LeadingZeroList } from "../leading-zero-list";
 import { Dropdown } from "./dropdown";
 import {
@@ -38,7 +37,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
       isActive={isActive}
       expand={() => setActiveDropdown("rules")}
       buttonText={text.general.rules}
-      buttonIcon={<InfoIcon />}
+      buttonIcon={<BaseIcon src={<InfoIconSVG />} cursor />}
     >
       <RulesContainer>
         {/* basic */}

@@ -8,6 +8,7 @@ import { useViewport } from "../../hooks";
 import { Die } from "../../types";
 import { MAX_DICE_VIEW_AMOUNT } from "../../constants";
 import { useLocalPlayer } from "../../service";
+import { iconSize } from "../../design";
 
 interface DiceOverviewProps {
   dice?: Die[];
@@ -39,7 +40,14 @@ export const DiceOverview: FC<DiceOverviewProps> = ({ dice, dieColor, extraDice 
         <GeneralText transformText="none">{text.param.xAmount(dice.length)}</GeneralText>
         <YourDiceContainer isRow={isRow}>
           {dice.map((die, index) => (
-            <DieComponent key={index} value={die.rolledValue} faceColor={dieColor} isRow={isRow} isTemporaryDice={isTemporaryDice(index)} />
+            <DieComponent
+              key={index}
+              value={die.rolledValue}
+              iconColor={dieColor}
+              isRow={isRow}
+              isTemporaryDice={isTemporaryDice(index)}
+              size={iconSize.md}
+            />
           ))}
         </YourDiceContainer>
       </DieOverviewContainer>

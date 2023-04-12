@@ -1,20 +1,10 @@
 import styled from "@emotion/styled";
 
-import { LightningIcon } from "../../assets";
-import { color, margins } from "../../design";
-import { Row, GeneralText } from "../atoms";
+import { margins } from "../../design";
+import { Row, GeneralText, BaseIconWrapper } from "../atoms";
 
-interface IconProps {
-  customcolor?: string;
-}
-
-export const Lightning = styled(LightningIcon)<IconProps>`
-  width: auto;
-  height: 1em;
+export const LightningIcon = styled(BaseIconWrapper)`
   margin-top: 3px;
-  path {
-    stroke: ${({ customcolor }): string => customcolor || color.darkGrey};
-  }
 `;
 
 export const PowerUpIconWrapper = styled(Row)`

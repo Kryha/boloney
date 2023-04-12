@@ -1,8 +1,10 @@
 import { FC } from "react";
 
 import { PowerUpInfo } from "./power-up";
-import { CheckboxContainer, CheckContainer, CheckWrapper, Close } from "./styles";
+import { CheckboxContainer, CheckContainer, CheckWrapper } from "./styles";
 import { PowerUp } from "../../types";
+import { BaseIcon } from "../atoms";
+import { CloseIconSVG } from "../../assets";
 
 interface Props {
   isTop?: boolean;
@@ -16,7 +18,7 @@ interface Props {
 
 export const PowerUpCheckbox: FC<Props> = ({ isChecked, toggleCheck, isTop, powerUp, isError, probability, setProbability }) => {
   const check = () => {
-    if (isChecked) return <Close />;
+    if (isChecked) return <BaseIcon src={<CloseIconSVG />} />;
     return <></>;
   };
 

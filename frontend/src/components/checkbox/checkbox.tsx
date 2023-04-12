@@ -1,8 +1,9 @@
 import { FC } from "react";
 
-import { GeneralContentWrapper, GeneralText, BodyText } from "../atoms";
+import { GeneralContentWrapper, GeneralText, BodyText, BaseIcon } from "../atoms";
 import { color } from "../../design";
-import { CheckboxContainer, CheckContainer, Close, DescriptionContainer } from "./styles";
+import { CheckboxContainer, CheckContainer, DescriptionContainer } from "./styles";
+import { CloseIconSVG } from "../../assets";
 
 interface Props {
   title?: string;
@@ -16,7 +17,7 @@ interface Props {
 
 export const Checkbox: FC<Props> = ({ title, description, isChecked, toggleCheck, isTop }) => {
   const check = () => {
-    if (isChecked) return <Close />;
+    if (isChecked) return <BaseIcon src={<CloseIconSVG />} />;
     return <></>;
   };
 

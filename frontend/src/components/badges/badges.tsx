@@ -1,14 +1,14 @@
 import { FC } from "react";
 
-import { LockIcon, CoolHand, Crown, text, DeadCoffinIcon } from "../../assets";
+import { text, CrownSVG, CoolHandSVG, LockIconSVG, DeadCoffinIconSVG } from "../../assets";
 import { Action, PlayerPublic } from "../../types";
-import { GeneralText } from "../atoms";
+import { BaseIcon, GeneralText } from "../atoms";
 import { BadgeWrapper } from "./styles";
 
 export const WinnerBadge = () => {
   return (
     <BadgeWrapper>
-      <Crown />
+      <BaseIcon src={<CrownSVG />} />
       <GeneralText>{text.playerTurn.winner}</GeneralText>
     </BadgeWrapper>
   );
@@ -17,7 +17,7 @@ export const WinnerBadge = () => {
 export const LoserBadge = () => {
   return (
     <BadgeWrapper>
-      <CoolHand />
+      <BaseIcon src={<CoolHandSVG />} />
       <GeneralText>{text.playerTurn.loser}</GeneralText>
     </BadgeWrapper>
   );
@@ -26,7 +26,7 @@ export const LoserBadge = () => {
 const TimeOutBadge = () => {
   return (
     <BadgeWrapper>
-      <CoolHand />
+      <BaseIcon src={<CoolHandSVG />} />
       <GeneralText>{text.playerTurn.outOfTime}</GeneralText>
     </BadgeWrapper>
   );
@@ -35,7 +35,7 @@ const TimeOutBadge = () => {
 export const PlayerDeadBadge = () => {
   return (
     <BadgeWrapper>
-      <DeadCoffinIcon />
+      <BaseIcon src={<DeadCoffinIconSVG />} />
       <GeneralText>{text.match.dead}</GeneralText>
     </BadgeWrapper>
   );
@@ -44,7 +44,7 @@ export const PlayerDeadBadge = () => {
 const PowerUpNotAvailable = () => {
   return (
     <BadgeWrapper>
-      <LockIcon />
+      <BaseIcon src={<LockIconSVG />} />
       <GeneralText>{text.playerTurn.availableNextRound}</GeneralText>
     </BadgeWrapper>
   );

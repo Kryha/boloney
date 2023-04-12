@@ -1,16 +1,15 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { text, SettingsIcon, LogoutIcon, ExitIcon } from "../../assets";
+import { text, EllipsisIconSVG, ExitIconSVG, SettingsIconSVG, LogoutIconSVG } from "../../assets";
 import { routes } from "../../navigation";
 import { useLogout, useMatch } from "../../service";
 import { useSession, useStore } from "../../store";
 import { isNkError, NavigationLocation } from "../../types";
-import { HorizontalDivider } from "../atoms";
+import { BaseIcon, HorizontalDivider } from "../atoms";
 import { DropdownButton } from "../buttons";
-import { Ellipsis } from "../buttons/styles";
 import { Dropdown } from "./dropdown";
-import { MenuContainer } from "./styles";
+import { EllipsisIcon, MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
 
 interface MenuDropdownProps {
@@ -52,8 +51,21 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
   };
 
   if (location === "landing") {
-    if (session) return <DropdownButton onClick={() => handleLogout()} primaryText={text.general.logout} icon={<LogoutIcon />} />;
-    return <DropdownButton primaryText={text.general.login} icon={<SettingsIcon />} onClick={() => navigate(routes.login)} />;
+    if (session)
+      return (
+        <DropdownButton
+          onClick={() => handleLogout()}
+          primaryText={text.general.logout}
+          icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
+        />
+      );
+    return (
+      <DropdownButton
+        primaryText={text.general.login}
+        icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
+        onClick={() => navigate(routes.login)}
+      />
+    );
   }
 
   return (
@@ -62,22 +74,34 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       isActive={isActive}
       expand={() => setActiveDropdown("menu")}
       buttonText={text.general.menu}
-      buttonIcon={<Ellipsis />}
+      buttonIcon={<EllipsisIcon src={<EllipsisIconSVG />} cursor />}
     >
       <MenuContainer location={location}>
         {location && location !== "default" && (
-          <DropdownButton primaryText={text.general.matchSettings} icon={<SettingsIcon />} onClick={() => handleSettings()} />
+          <DropdownButton
+            primaryText={text.general.matchSettings}
+            icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
+            onClick={() => handleSettings()}
+          />
         )}
         {!!session && (
           <>
             <HorizontalDivider />
-            <DropdownButton onClick={() => handleLogout()} primaryText={text.general.logout} icon={<LogoutIcon />} />
+            <DropdownButton
+              onClick={() => handleLogout()}
+              primaryText={text.general.logout}
+              icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
+            />
           </>
         )}
         {location && location !== "default" && (
           <>
             <HorizontalDivider />
-            <DropdownButton onClick={() => leaveMatch()} primaryText={text.general.leaveMatch} icon={<ExitIcon />} />
+            <DropdownButton
+              onClick={() => leaveMatch()}
+              primaryText={text.general.leaveMatch}
+              icon={<BaseIcon src={<ExitIconSVG />} cursor />}
+            />
           </>
         )}
       </MenuContainer>

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useTimer } from "../../hooks";
 import { GeneralText, Heading6 } from "../atoms";
-import { Divider, TimerRow } from "./styles";
+import { TimerDivider, TimerRow } from "./styles";
 
 interface TimerProps {
   title?: string;
@@ -15,7 +15,7 @@ export const Timer: FC<TimerProps> = ({ title }) => {
       <GeneralText>{time}</GeneralText>
       {title && (
         <>
-          <Divider />
+          <TimerDivider />
           <Heading6>{title}</Heading6>
         </>
       )}

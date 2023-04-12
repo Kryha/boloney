@@ -1,21 +1,20 @@
 import { FC, ReactNode, useState, useEffect } from "react";
+import { ArrowButtonSVG, CloseIconSVG, ExitIconSVG, LeftArrowIconSVG } from "../../assets";
 import { color, FontProps, TransformText } from "../../design";
 import { useObserver } from "../../hooks";
 import { useStore } from "../../store";
-import { PrimaryButtonBase, SecondaryButtonBase, LinkText, PrimaryButtonText } from "../atoms";
+import { PrimaryButtonBase, SecondaryButtonBase, LinkText, PrimaryButtonText, BaseIcon } from "../atoms";
 import { ContentLoader } from "../content-loader";
 import { Tooltip, InfoPosition } from "../tooltip";
 import {
   ButtonContainer,
-  CloseButton,
-  Exit,
+  CloseIcon,
+  ExitIcon,
   InitialButtonView,
-  LeftArrow,
   LinkContainer,
   PrimaryButtonContainer,
   PrimaryButtonWrapper,
   RightButtonContainer,
-  SecondaryArrow,
   SecondaryButtonContainer,
   SecondaryView,
   TertiaryButtonContainer,
@@ -101,7 +100,7 @@ export const PrimaryButton: FC<ButtonProps> = ({
 export const SecondaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
   <SecondaryButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
-    <SecondaryArrow />
+    <BaseIcon src={<ArrowButtonSVG />} />
   </SecondaryButtonContainer>
 );
 
@@ -114,7 +113,7 @@ export const TertiaryButton: FC<ButtonProps> = ({ disabled, onClick, primaryText
 export const DropdownButton: FC<DropdownButtonProps> = ({ disabled, onClick, primaryText, isOpen, icon }) => (
   <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
-    {isOpen ? <CloseButton /> : icon}
+    {isOpen ? <CloseIcon src={<CloseIconSVG />} cursor /> : icon}
   </ButtonContainer>
 );
 
@@ -128,7 +127,7 @@ export const InfoButton: FC<ButtonProps> = ({ disabled, onClick, primaryText, to
 export const ExitButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
   <ButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
     <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
-    <Exit />
+    <ExitIcon src={<ExitIconSVG />} />
   </ButtonContainer>
 );
 
@@ -159,7 +158,7 @@ export const Link: FC<LinkProps> = ({
 
 export const GoBackButton: FC<ButtonProps> = ({ disabled, onClick, primaryText }) => (
   <SecondaryButtonContainer onClick={() => onClick && onClick()} disabled={disabled}>
-    <LeftArrow />
+    <BaseIcon src={<LeftArrowIconSVG />} cursor />
     <SecondaryButtonBase disabled={disabled}>{primaryText}</SecondaryButtonBase>
   </SecondaryButtonContainer>
 );
