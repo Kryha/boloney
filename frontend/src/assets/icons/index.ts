@@ -1,15 +1,16 @@
-import { ReactComponent as EllipsisIconSVG } from "./ellipsis.svg";
-import { ReactComponent as CloseIconSVG } from "./close.svg";
-import { ReactComponent as ExitIconSVG } from "./exit.svg";
-import { ReactComponent as InfoIconSVG } from "./info.svg";
-import { ReactComponent as LeftArrowIconSVG } from "./left-arrow.svg";
-import { ReactComponent as ArrowButtonSVG } from "./arrow-button.svg";
 import { ReactComponent as PlusIconSVG } from "./plus.svg";
+import { ReactComponent as ExitIconSVG } from "./exit.svg";
+import RightArrowIconUrl, { ReactComponent as RightArrowIconSVG } from "./right-arrow.svg";
+import { ReactComponent as LeftArrowIconSVG } from "./left-arrow.svg";
+import { ReactComponent as CloseIconSVG } from "./close.svg";
+import { ReactComponent as EllipsisIconSVG } from "./ellipsis.svg";
+import { ReactComponent as InfoIconSVG } from "./info.svg";
 import { ReactComponent as ErrorIconSVG } from "./error.svg";
 import { ReactComponent as SettingsIconSVG } from "./settings.svg";
 import { ReactComponent as LogoutIconSVG } from "./logout.svg";
 import { ReactComponent as CopyIconSVG } from "./copy.svg";
 import { ReactComponent as DiceOneIconSVG } from "./dice-one.svg";
+import { ReactComponent as ArrowButtonSVG } from "./arrow-button.svg";
 import { ReactComponent as DiceTwoIconSVG } from "./dice-two.svg";
 import { ReactComponent as DiceThreeIconSVG } from "./dice-three.svg";
 import { ReactComponent as DiceFourIconSVG } from "./dice-four.svg";
@@ -28,10 +29,11 @@ import { ReactComponent as RefreshIconSVG } from "./refresh.svg";
 import { ReactComponent as WhiteDiceIconSVG } from "./white-dice.svg";
 import { ReactComponent as DeadCoffinIconSVG } from "./dead-coffin.svg";
 import { ReactComponent as BlueLockSVG } from "./blue-lock.svg";
-import RightArrowIconSVG from "./right-arrow.svg";
 import CookieIconSVG from "./cookie.svg";
 import ChevronDownIconSVG from "./chevron-down.svg";
 import RaisedHandIconSVG from "./raised-hand.svg";
+import CrossIconSVG from "./cross.svg";
+import PercentageIconSVG from "./percentage.svg";
 
 export {
   ChevronDownIconSVG,
@@ -68,4 +70,7 @@ export {
   BlueLockSVG,
   RightArrowIconSVG,
   CookieIconSVG,
+  CrossIconSVG,
+  RightArrowIconUrl,
+  PercentageIconSVG,
 };

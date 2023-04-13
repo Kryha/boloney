@@ -63,7 +63,7 @@ export const PowerUpCard: FC<PowerUpCardProps> = ({
       )}
       {!!onClickSelect && (
         <RadioButtonWrapper>
-          <RadioButton isChecked={isSelected} isInPowerUp onSelect={() => onClickSelect(powerUpIndex)} />
+          <RadioButton isChecked={isSelected} onSelect={() => onClickSelect(powerUpIndex)} />
         </RadioButtonWrapper>
       )}
     </PowerUpCardWrapper>

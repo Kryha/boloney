@@ -1,6 +1,6 @@
 // TODO: delete this file when done testing
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   CallBoloney,
   CallExact,
@@ -44,12 +44,23 @@ import {
   MatchPlayersOverview,
   TopNavigation,
   HUDPlayerBox,
+  InputLegend,
+  BaseSelect,
+  BaseOption,
+  PercentageInput,
+  ChatInput,
+  CheckboxBox,
+  RadioInput,
+  SwitchWrapper,
+  SwitchInput,
+  Slider,
 } from "../../components";
 import { BaseColumn, BaseRow } from "../../components/atoms/grid";
 import { MainContentContainer } from "../../components/match-layout/styles";
 import { PlayerMenu } from "../../components/player-menu";
+import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET } from "../../constants";
 import { color, images, layoutHeight, lineHeights, spacing } from "../../design";
-import { getPowerUp } from "../../util";
+import { getPowerUp, range } from "../../util";
 import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout, PowerUpCard } from "./styles";
 
 export const Test: FC = () => {
@@ -62,7 +73,7 @@ export const Test: FC = () => {
   const powerUp7 = getPowerUp("7");
   const powerUp8 = getPowerUp("8");
   const powerUp9 = getPowerUp("9");
-
+  const [isChecked, setChecked] = useState(false);
   if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
 
   return (
@@ -210,7 +221,6 @@ export const Test: FC = () => {
           </AlignColumn>
         </Card>
       </BaseRow>
-
       <br />
       <br />
       <Card isSmall isEmpty>
@@ -459,6 +469,132 @@ export const Test: FC = () => {
           <BaseInput placeholder="goodbye" />
         </div>
       </BaseRow>
+      <br />
+      <br />
+      <h1>Note the first two inputs have no left and right border that is fine</h1>
+      the default state is a medium grey border and focused (typing) black border. On hover there is a white background
+      <br />
+      <br />
+      <br />
+      <InputLegend label="default and typing">
+        <BaseInput type="text" placeholder="default" />
+      </InputLegend>
+      <br />
+      <br />
+      <InputLegend label="error" isError>
+        <BaseInput type="text" placeholder="error" />
+      </InputLegend>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <InputLegend label="disabled" disabled>
+        <BaseInput type="text" placeholder="disabled" disabled />
+      </InputLegend>
+      <br />
+      <br />
+      <h1>Note the first two inputs have no left and right border that is fine</h1>
+      the default state is a medium grey border and focused black border. On hover there is a white background
+      <br />
+      <br />
+      <br />
+      <InputLegend label="default">
+        <BaseSelect>
+          {range(MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET).map((n) => (
+            <BaseOption key={n} value={n}>
+              {n}
+            </BaseOption>
+          ))}
+        </BaseSelect>
+      </InputLegend>
+      <br />
+      <br />
+      <InputLegend label="error" isError>
+        <BaseSelect>
+          {range(MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET).map((n) => (
+            <BaseOption key={n} value={n}>
+              {n}
+            </BaseOption>
+          ))}
+        </BaseSelect>
+      </InputLegend>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <InputLegend label="disabled" disabled>
+        <BaseSelect disabled>
+          {range(MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET).map((n) => (
+            <BaseOption key={n} value={n}>
+              {n}
+            </BaseOption>
+          ))}
+        </BaseSelect>
+      </InputLegend>
+      <br />
+      <br />
+      percerntage input
+      <PercentageInput />
+      <br />
+      <br />
+      error
+      <PercentageInput error />
+      <br />
+      <br />
+      disabled
+      <PercentageInput disabled />
+      <br />
+      <br />
+      chat input
+      <ChatInput />
+      <br />
+      <br />
+      error
+      <ChatInput error />
+      <br />
+      <br />
+      disabled
+      <ChatInput disabled />
+      <br />
+      <br />
+      checkboxes with hover
+      <br />
+      <br />
+      <CheckboxBox type="checkbox" />
+      <br />
+      <br />
+      disabled
+      <CheckboxBox disabled type="checkbox" />
+      <br />
+      <br />
+      radio boxes with hover
+      <br />
+      <br />
+      <RadioInput type="radio" />
+      <br />
+      <br />
+      disabled
+      <RadioInput disabled type="radio" />
+      <br />
+      <br />
+      toggle
+      <br />
+      <br />
+      <SwitchWrapper onClick={() => setChecked(!isChecked)}>
+        <SwitchInput type="checkbox" checked={isChecked} />
+        <Slider className="slider" />
+      </SwitchWrapper>
+      <br />
+      <br />
+      disabled
+      <SwitchWrapper>
+        <SwitchInput type="checkbox" />
+        <Slider className="slider" disabled />
+      </SwitchWrapper>
     </div>
   );
 };

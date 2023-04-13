@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { color, zIndex } from "../../design";
-import { RadioCheckbox } from "../atoms";
+import { color, wrapperSize, zIndex } from "../../design";
+import { RadioInput } from "../atoms";
 import { DiceContainer } from "../match-players-overview/styles";
 
 interface SidebarInfoContainerProps {
@@ -18,12 +18,12 @@ export const PlayerSidebarInfoContainer = styled.div<SidebarInfoContainerProps>`
   position: absolute;
   right: 0;
   top: 0;
-  width: 2.7vw;
+  width: ${wrapperSize.md};
   height: 100%;
   background: ${({ isLastBid }) => (isLastBid ? color.grey : color.transparent)};
   z-index: ${zIndex.behind};
   justify-content: center;
-  ${RadioCheckbox} {
+  ${RadioInput} {
     position: absolute;
     bottom: 5px;
   }

@@ -1,20 +1,10 @@
 import { FC, useState } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { color } from "../../design";
-import { BodyText, Heading6 } from "../atoms";
+import { BodyText, GeneralRow, Heading6, Legend, Slider, SwitchInput, SwitchWrapper } from "../atoms";
 import { MatchSettings } from "../../types";
-import { Legend, LegendContainer } from "../inputs/styles";
 import { InfoPosition, Tooltip } from "../tooltip";
-import {
-  ToggleContent,
-  ToggleSwitchButton,
-  ToggleSwitchContainer,
-  ToggleSwitchFieldSet,
-  ToggleSwitchInner,
-  ToggleSwitchInput,
-  ToggleSwitchLabel,
-  ToggleSwitchWrapper,
-} from "./styles";
+import { ToggleContent, ToggleSwitchContainer, ToggleSwitchFieldSet } from "./styles";
 
 interface Props {
   title?: string;
@@ -42,27 +32,17 @@ export const ToggleSwitch: FC<Props> = ({
   return (
     <ToggleSwitchFieldSet isRow={false} childNode={1}>
       <Legend>
-        <LegendContainer>
+        <GeneralRow alignItems="center">
           <Heading6>{title}</Heading6>
           <Tooltip title={tooltipTitle} info={tooltipDescription} infoPosition={infoPosition} />
-        </LegendContainer>
+        </GeneralRow>
       </Legend>
 
       <ToggleSwitchContainer>
-        <ToggleSwitchWrapper>
-          <ToggleSwitchInput
-            id="zk-toggle"
-            type="checkbox"
-            checked={isChecked}
-            onClick={() => setIsChecked(!isChecked)}
-            disabled={disabled}
-            {...register("zkEnabled")}
-          />
-          <ToggleSwitchLabel htmlFor="zk-toggle" tabIndex={disabled ? -1 : 1}>
-            <ToggleSwitchInner />
-            <ToggleSwitchButton />
-          </ToggleSwitchLabel>
-        </ToggleSwitchWrapper>
+        <SwitchWrapper onClick={() => setIsChecked(!isChecked)}>
+          <SwitchInput id="zk-toggle" type="checkbox" checked={isChecked} {...register("zkEnabled")} />
+          <Slider className="slider" disabled={disabled} />
+        </SwitchWrapper>
         <ToggleContent>
           <BodyText>{descriptionTitle}</BodyText>
           <BodyText customcolor={color.darkGrey}>{description}</BodyText>

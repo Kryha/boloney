@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { text } from "../../assets";
+import { inputWidth } from "../../design";
 import { useStore } from "../../store";
 import { Checkbox } from "../checkbox";
 import { SoundToggleWrapper } from "./styles";
@@ -14,7 +15,12 @@ export const SoundToggle: FC = () => {
 
   return (
     <SoundToggleWrapper>
-      <Checkbox isChecked={isSoundEnabled} toggleCheck={handleCheck} description={text.param.soundOnOrOff(isSoundEnabled)} />
+      <Checkbox
+        isChecked={isSoundEnabled}
+        toggleCheck={handleCheck}
+        description={text.param.soundOnOrOff(isSoundEnabled)}
+        size={inputWidth.xs}
+      />
     </SoundToggleWrapper>
   );
 };

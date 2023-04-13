@@ -1,10 +1,10 @@
 import { FC } from "react";
 
-import { GeneralContentWrapper, Row, Heading6, BodyText, BaseIcon } from "../atoms";
+import { GeneralContentWrapper, Row, Heading6, BodyText, PercentageInput, BaseIcon } from "../atoms";
 import { CheckboxInput } from "../inputs";
 import { PowerUpComponent } from "../power-up";
 import { color } from "../../design";
-import { DescriptionContainer, PercentageInput, PercentageInputContainer } from "./styles";
+import { DescriptionContainer, PercentageInputContainer } from "./styles";
 import { PowerUp } from "../../types";
 import { LightningIconSVG } from "../../assets";
 import { LightningContainer } from "../../pages/new-match/styles";
@@ -47,13 +47,14 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ powerUp, isChecked, isError, pro
         </GeneralContentWrapper>
       </DescriptionContainer>
       <CheckboxInput isError={isError}>
-        <PercentageInputContainer onClick={(e) => e.stopPropagation()} isError={isError}>
+        <PercentageInputContainer onClick={(e) => e.stopPropagation()}>
           <PercentageInput
             type="text"
             disabled={!isChecked}
             placeholder="0"
             value={probability === 0 ? "" : probability}
             onChange={(e) => updateProbability(e.target.value)}
+            error={isError}
           />
         </PercentageInputContainer>
       </CheckboxInput>

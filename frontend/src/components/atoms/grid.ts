@@ -32,3 +32,7 @@ export const BaseRow = styled(BaseColumn)<Props>`
     gap: ${spacing.md};
   }
 `;
+
+export const GeneralRow = styled(BaseColumn)<Props>`
+  flex-direction: row;
+`;

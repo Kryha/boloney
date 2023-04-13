@@ -32,7 +32,7 @@ export const spacing = {
   xxs: "clamp(0.13rem, calc(0.08rem + 0.17vw), 0.50rem)", // 3-5px
   xs: "clamp(0.13rem, calc(0.06rem + 0.26vw), 0.69rem)", // 8-11px
   s: "clamp(0.50rem, calc(0.33rem + 0.70vw), 2.00rem)", // 13-16px
-  sm: "clamp(0.94rem, calc(0.80rem + 0.55vw), 2.13rem)", // 20-24px
+  sm: "clamp(0.94rem, 0.87vw + 0.42rem, 2.5rem)", // 20-24px
   ms: "clamp(1.25rem, calc(0.94rem + 1.25vw), 3.94rem)", // 30px
   md: "clamp(1.94rem, calc(1.65rem + 1.16vw), 4.44rem)", // 40px
   lg: "clamp(2.19rem, calc(1.83rem + 1.42vw), 5.25rem)", // 50px

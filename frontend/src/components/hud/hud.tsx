@@ -12,7 +12,7 @@ import { PlayerLastBid } from "../match-players-overview";
 import { PlayerNameContainer } from "../match-players-overview/styles";
 import { RadioButton } from "../power-up-checkbox";
 import { PowerUpOverview } from "../power-up-overview";
-import { LocalPlayer, LocalPlayerAvatar, LocalPlayerInfoContainer, PlayerOverview } from "./styles";
+import { LocalPlayer, LocalPlayerAvatar, LocalPlayerInfoContainer, PlayerOverview, RadioButtonContainer } from "./styles";
 
 interface HUDProps {
   dice?: Die[];
@@ -46,7 +46,11 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
 
       <LocalPlayer isLastBid={isPlayerLastBid} onClick={() => isTargetable && handleSelect()} isTargetable={isTargetable}>
         <LocalPlayerAvatar height={measurements.localAvatarHeight} src={avatar} />
-        {isTargetable && <RadioButton onSelect={handleSelect} isDisabled={isDisabled} isChecked={targetPlayerId === player.userId} />}
+        {isTargetable && (
+          <RadioButtonContainer>
+            <RadioButton onSelect={handleSelect} isDisabled={isDisabled} isChecked={targetPlayerId === player.userId} />
+          </RadioButtonContainer>
+        )}
         {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
         <LocalPlayerInfoContainer>
           <PlayerNameContainer>{localPlayer.username}</PlayerNameContainer>

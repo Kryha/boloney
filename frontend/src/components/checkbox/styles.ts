@@ -1,20 +1,11 @@
 import styled from "@emotion/styled";
 
 import { color, margins } from "../../design";
-import { GeneralContentWrapper, Row, BaseInput } from "../atoms";
+import { GeneralContentWrapper, Row } from "../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
 
 export const LightningIconContainer = styled.div`
   margin-top: 3px;
-`;
-
-export const CheckContainer = styled.div`
-  width: 40px;
-  height: 40px;
-  border: 1px solid ${color.mediumGrey};
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const CheckWrapper = styled.div`
@@ -47,9 +38,6 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   background: ${({ isChecked }) => (isChecked ? color.cloudWhite : color.transparent)};
   :hover {
     background: ${color.cloudWhite};
-    ${CheckContainer} {
-      background: ${({ isChecked }) => (isChecked ? color.cloudWhite : color.transparent)};
-    }
   }
   ${PowerUpWrapper} {
     margin-top: ${margins.small5};
@@ -60,23 +48,7 @@ export const CheckboxContainer = styled.div<CheckboxContainerProps>`
   }
 `;
 
-interface PercentageInputProps {
-  isError?: boolean;
-}
-
-export const PercentageInput = styled(BaseInput)`
-  width: 80px;
-  height: 40px;
-  border: 1px solid ${color.mediumGrey};
-  padding: ${margins.small2} ${margins.small6} ${margins.small2} ${margins.small2};
-`;
-
-export const PercentageInputContainer = styled.div<PercentageInputProps>`
-  ${PercentageInput} {
-    border: 1px solid ${({ isError }) => (isError ? color.red : color.mediumGrey)};
-    color: ${({ isError }) => (isError ? color.red : color.black)};
-  }
-`;
+export const PercentageInputContainer = styled.div``;
 
 export const InputIconContainer = styled.div`
   margin-top: ${margins.small6};

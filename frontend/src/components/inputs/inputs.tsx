@@ -2,15 +2,13 @@ import { FC, ReactNode } from "react";
 import { ErrorIconSVG } from "../../assets";
 import { text } from "../../assets/text";
 
-import { BaseIcon, BodyText, Heading6 } from "../atoms";
+import { BodyText, FieldSet, Heading6, Legend, BaseIcon } from "../atoms";
 import { InfoPosition, Tooltip } from "../tooltip";
 import {
   InputContainer,
   LabelContainer,
   InputIconContainer,
   TextLabel,
-  FieldSet,
-  Legend,
   LegendContainer,
   InputErrorContainer,
   CheckboxErrorContainer,
@@ -28,11 +26,12 @@ interface InputProps {
   tooltipTitle?: string;
   infoPosition?: InfoPosition;
   zIndex?: number;
+  disabled?: boolean;
 }
 
 export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
   return (
-    <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
+    <InputContainer isRow={isRow} childNode={childNode}>
       <LabelContainer>
         <Heading6>{label}</Heading6>
       </LabelContainer>
@@ -58,10 +57,11 @@ export const InputLegend: FC<InputProps> = ({
   tooltipTitle,
   infoPosition,
   zIndex,
+  disabled,
 }) => {
   return (
-    <InputContainer isError={isError} isRow={isRow} childNode={childNode}>
-      <FieldSet isError={isError} isRow={isRow} childNode={childNode}>
+    <InputContainer isRow={isRow} childNode={childNode}>
+      <FieldSet isError={isError} isRow={isRow} childNode={childNode} disabled={disabled}>
         <Legend>
           <LegendContainer>
             <Heading6>{label}</Heading6>

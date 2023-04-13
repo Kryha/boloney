@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { MINIMUM_POWER_UP_WIDTH_VIEW } from "../../constants";
-import { color, margins } from "../../design";
+import { color, margins, zIndex } from "../../design";
 
-import { fadeIn, fadeOut, RadioCheckbox, GeneralText, Heading2 } from "../atoms";
+import { fadeIn, fadeOut, GeneralText, Heading2, RadioInput } from "../atoms";
 import { CheckboxContainer } from "../checkbox/styles";
 import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 
@@ -64,7 +64,7 @@ export const PowerUpCardWrapper = styled.div<PowerUpProps>`
   ${PrimaryButtonWrapper} {
     margin-left: ${({ width }) => (width <= MINIMUM_POWER_UP_WIDTH_VIEW ? "-7px" : "0px")};
   }
-  ${RadioCheckbox} {
+  ${RadioInput} {
     margin-left: ${({ width }) => (width <= MINIMUM_POWER_UP_WIDTH_VIEW ? "-7px" : "0px")};
   }
   ${PowerUpInfoContainer} {
@@ -111,6 +111,8 @@ export const RadioButtonWrapper = styled.div`
   width: clamp(171px, 17.5vw + 3px, 339px);
   margin-top: -60px;
   margin-left: 16px;
+  position: absolute;
+  z-index: ${zIndex.inFront};
 `;
 
 export const PowerUpCardContainer = styled.div`
@@ -133,7 +135,7 @@ export const PowerUpCardContainer = styled.div`
     left: 0;
     bottom: 0;
   }
-  ${RadioCheckbox} {
+  ${RadioInput} {
     position: absolute;
     left: 0;
     bottom: 0;

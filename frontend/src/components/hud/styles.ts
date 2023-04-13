@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { color, margins, zIndex } from "../../design";
-import { avatarHeight, RadioCheckbox } from "../atoms";
+import { color, margins, spacing, wrapperSize, zIndex } from "../../design";
+import { avatarHeight, RadioInput } from "../atoms";
 import { DiceContainer, PlayerInfoContainer } from "../match-players-overview/styles";
 
 interface PlayerOverviewProps {
@@ -48,9 +48,9 @@ export const LocalPlayer = styled.div<LocalPlayerProps>`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  ${RadioCheckbox} {
-    margin-left: 10vw;
-    margin-bottom: -6vh;
+  ${RadioInput} {
+    right: ${spacing.xs};
+    bottom: ${spacing.xs};
     position: absolute;
   }
   ${DiceContainer} {
@@ -78,4 +78,11 @@ export const PlayerAvatar = styled.img<AvatarProps>`
   object-fit: contain;
   margin-top: ${margins.small2};
   width: 100%;
+`;
+
+export const RadioButtonContainer = styled.div`
+  width: ${wrapperSize.md};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
