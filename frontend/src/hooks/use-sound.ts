@@ -1,5 +1,5 @@
 import { useStore } from "../store";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const audioContext = new AudioContext();
 
@@ -22,17 +22,20 @@ export const useChangeVolume = () => {
 export const usePlaySound = () => {
   const isSoundEnabled = useStore((state) => state.isSoundEnabled);
 
-  const playSound = async (audioFile: string) => {
-    if (!isSoundEnabled) return;
-    const response = await fetch(audioFile);
-    const soundBuffer = await response.arrayBuffer();
-    const soundAudioBuffer = await audioContext.decodeAudioData(soundBuffer);
+  const playSound = useCallback(
+    async (audioFile: string) => {
+      if (!isSoundEnabled) return;
+      const response = await fetch(audioFile);
+      const soundBuffer = await response.arrayBuffer();
+      const soundAudioBuffer = await audioContext.decodeAudioData(soundBuffer);
 
-    const soundSource = audioContext.createBufferSource();
-    soundSource.buffer = soundAudioBuffer;
+      const soundSource = audioContext.createBufferSource();
+      soundSource.buffer = soundAudioBuffer;
 
-    soundSource.connect(audioContext.destination);
-    soundSource.start();
-  };
+      soundSource.connect(audioContext.destination);
+      soundSource.start();
+    },
+    [isSoundEnabled]
+  );
   return playSound;
 };

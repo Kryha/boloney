@@ -8,7 +8,7 @@ import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
 import { PlayerMenu } from "../player-menu";
-import { useArrangedPlayers, useIsInMatch, useLocalPlayer } from "../../service";
+import { useArrangedPlayers, useIsInMatch, useLocalPlayer, useNotificationListener } from "../../service";
 import { MatchNotification } from "../notification";
 
 interface MatchLayoutProps {
@@ -22,6 +22,10 @@ export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
   const isInMatch = useIsInMatch();
+  const { notifications } = useNotificationListener();
+
+  const notification = notifications.at(0);
+
   const location = isInMatch ? "match" : "default";
 
   if (!localPlayer) return <ErrorView />;
@@ -38,7 +42,7 @@ export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
 
       <MainContentContainer isStageWithHUD={isStageWithHUD(matchStage)} isInMatch={isInMatch}>
         <ContentContainer>{children}</ContentContainer>
-        <MatchNotification />
+        {notification && <MatchNotification notification={notification} isMultipleMessage={notifications.length > 1} />}
       </MainContentContainer>
     </>
   );

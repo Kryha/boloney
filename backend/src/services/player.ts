@@ -62,9 +62,12 @@ export const getOtherPresences = (currentPlayerId: string, presences: Record<str
     .map((presenceRecord) => presenceRecord[1]);
 };
 
-export const getFilteredPlayerIds = (players: Record<string, Player>, playerId: string): string[] => {
+/*
+ * Filters out the specified player ids.
+ */
+export const getFilteredPlayerIds = (players: Record<string, Player>, playerIds: string[]): string[] => {
   return Object.values(players)
-    .filter((player) => player.userId !== playerId)
+    .filter((player) => !playerIds.includes(player.userId))
     .map((player) => player.userId);
 };
 
@@ -197,7 +200,8 @@ export const handlePlayerLostMatch = (loopParams: MatchLoopParams, loser: Player
   const notificationContent: NotificationContentPlayerLost = {
     activePlayerName: loser.username,
   };
-  sendMatchNotification(loopParams, opCode, notificationContent, loser.userId);
+  const receiversIds = getFilteredPlayerIds(state.players, [loser.userId]);
+  sendMatchNotification(loopParams, opCode, notificationContent, receiversIds);
 };
 
 export const getLatestBid = (bids: Record<string, Bid>): BidWithUserId | undefined =>

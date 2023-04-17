@@ -337,12 +337,17 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
 
     dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [senderPresence]);
 
-    const notificationPayload: NotificationContentUsePowerUp = {
-      id,
-      callerName: sender.username,
-      targetName: data && "targetId" in data ? state.players[data.targetId].username : undefined,
-    };
-    if (!activePowerUp) sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, sender.userId);
+    const isTargetDataPresent = data && "targetId" in data;
+
+    if (!activePowerUp && isTargetDataPresent) {
+      const notificationPayload: NotificationContentUsePowerUp = {
+        id,
+        callerName: sender.username,
+        targetName: isTargetDataPresent ? state.players[data.targetId].username : undefined,
+      };
+      const receiversIds = [data.targetId];
+      sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, { receiversIds });
+    }
   } catch (error) {
     logger.error("Use power-up error: " + JSON.stringify(error, null, 2));
     stopLoading(loopParams, message.sender);

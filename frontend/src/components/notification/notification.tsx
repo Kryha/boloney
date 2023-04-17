@@ -1,45 +1,43 @@
-import { FC, useCallback, useEffect } from "react";
+import { FC, useEffect } from "react";
+
 import { notificationSound } from "../../assets";
 import { NOTIFICATION_VISIBILITY_TIME } from "../../constants";
 import { usePlaySound } from "../../hooks";
-import { useNotificationListener, useDeleteNotification } from "../../service";
+import { useDeleteNotification } from "../../service";
 import { useStore } from "../../store";
-
+import { NotificationContent } from "../../types";
 import { ToastMessage } from "../toast-message";
 
-export const MatchNotification: FC = () => {
-  const { notifications } = useNotificationListener();
+interface MatchNotificationProps {
+  notification: NotificationContent;
+  isMultipleMessage: boolean;
+}
+
+export const MatchNotification: FC<MatchNotificationProps> = ({ notification, isMultipleMessage }) => {
   const { deleteNotification } = useDeleteNotification();
   const isBottomButtonVisible = useStore((state) => state.isBottomButtonVisible);
+
   const playSound = usePlaySound();
 
-  const notificationData = notifications.at(0);
-
-  const closeNotification = useCallback(() => {
-    const notification = notifications.at(0);
-    if (notification) deleteNotification([notification.id]);
-  }, [deleteNotification, notifications]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      deleteNotification([notification.id]);
+    }, NOTIFICATION_VISIBILITY_TIME);
+    return () => clearTimeout(timer);
+  }, [deleteNotification, notification]);
 
   useEffect(() => {
-    if (notificationData) {
-      const timer = setTimeout(() => {
-        closeNotification();
-      }, NOTIFICATION_VISIBILITY_TIME);
-      playSound(notificationSound);
-      return () => clearTimeout(timer);
-    }
-  }, [closeNotification, notificationData, playSound]);
-
-  if (!notificationData) return <></>;
+    playSound(notificationSound);
+  }, [playSound]);
 
   return (
     <ToastMessage
-      img={notificationData.img}
-      title={notificationData.title}
-      description={notificationData.description}
-      isMultipleMessage={notifications.length > 1}
-      closeToast={closeNotification}
-      wordsToBold={notificationData.boldText}
+      img={notification.img}
+      title={notification.title}
+      description={notification.description}
+      isMultipleMessage={isMultipleMessage}
+      closeToast={() => deleteNotification([notification.id])}
+      wordsToBold={notification.boldText}
       isButtonVisible={isBottomButtonVisible}
     />
   );

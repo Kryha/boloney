@@ -20,6 +20,7 @@ import {
   handleActivePlayerTurnEnds,
   getDiceValues,
   getPlayerAccount,
+  getFilteredPlayerIds,
 } from "../../../services";
 import { getPowerUp, rollDice } from "../../../toolkit-api";
 import {
@@ -88,7 +89,8 @@ const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => 
     activePlayerName: state.presences[sender.userId].username,
     targetPlayerName: state.presences[bid.userId].username,
   };
-  sendMatchNotification(loopParams, NotificationOpCode.BOLONEY, notificationContent, sender.userId);
+  const receiversIds = getFilteredPlayerIds(state.players, [sender.userId, bid.userId]);
+  sendMatchNotification(loopParams, NotificationOpCode.BOLONEY, notificationContent, receiversIds);
 
   const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
@@ -125,7 +127,8 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
     activePlayerName: state.presences[sender.userId].username,
   };
 
-  sendMatchNotification(loopParams, NotificationOpCode.EXACT, notificationContent, sender.userId);
+  const receiversIds = getFilteredPlayerIds(state.players, [sender.userId, bid.userId]);
+  sendMatchNotification(loopParams, NotificationOpCode.EXACT, notificationContent, receiversIds);
 
   const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
@@ -200,7 +203,8 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
     activePlayerName: sender.username,
   };
 
-  sendMatchNotification(loopParams, NotificationOpCode.HEAL_DICE, notificationContent, sender.userId);
+  const receiversIds = getFilteredPlayerIds(state.players, [sender.userId]);
+  sendMatchNotification(loopParams, NotificationOpCode.HEAL_DICE, notificationContent, receiversIds);
 
   const payloadDice: RollDicePayload = {
     diceValue: sender.diceValue,
