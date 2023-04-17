@@ -88,6 +88,7 @@ export const SecondaryButtonBase = styled.button<Props>`
   align-items: center;
   justify-content: ${({ justifyContent }): string => justifyContent ?? "center"};
   cursor: pointer;
+  min-width: fit-content;
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.body.sm};
