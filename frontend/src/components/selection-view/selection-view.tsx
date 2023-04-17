@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { avatars, text } from "../../assets";
 import { color } from "../../design";
+import { PrimaryButton } from "../../molecules";
 import { usePlayer } from "../../service";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
-import { PrimaryButton } from "../buttons";
 import { ErrorView } from "../error-view";
 import { Hand } from "../hand";
 import { FadeTransition } from "../page-transition";
@@ -40,7 +40,7 @@ export const SelectionView: FC<SelectionViewProps> = ({ powerUpName, userId, onC
         <Heading2 customcolor={color.darkGrey}>{text.param.choosePlayer(powerUpName)}</Heading2>
       </FadeTransition>
       {userId && <SelectionHand userId={userId} />}
-      {onClick && <PrimaryButton primaryText={text.match.goForIt} onClick={() => onClick()} isBottomButton />}
+      {onClick && <PrimaryButton primaryText={text.match.goForIt} onClick={() => onClick()} />}
     </BottomButtonWrapper>
   );
 };

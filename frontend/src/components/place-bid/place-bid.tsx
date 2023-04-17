@@ -4,7 +4,6 @@ import { text } from "../../assets";
 import { useLatestBid, useLocalPlayer, useMatch, useTotalDiceInMatch } from "../../service";
 import { getDieColor, getMinFaceValue } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
-import { PrimaryButton } from "../buttons";
 import { ErrorView } from "../error-view";
 import { usePlaceBidFormState } from "./bid-state";
 import { DiceFaces } from "./dice-faces";
@@ -13,6 +12,7 @@ import { AmountContainer, DiceSelectorContainer, DiceSelectorWrapper, FaceContai
 import { Bid, Player } from "../../types";
 import { FadeTransition } from "../page-transition";
 import { FADE_TRANSITION_DURATION } from "../../constants";
+import { PrimaryButton } from "../../molecules";
 
 // TODO: declare these components in 2 different files
 
@@ -65,7 +65,6 @@ export const DiceSelector: FC<DiceSelectorProps> = ({ lastBid, player, disabled,
           primaryText={primaryText}
           secondaryText={secondaryText}
           onClick={handleClick}
-          isBottomButton
         />
       </BottomButtonWrapper>
     </DiceSelectorWrapper>

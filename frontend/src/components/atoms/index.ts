@@ -17,5 +17,6 @@ export * from "./modal";
 export * from "./layout";
 export * from "./lines";
 export * from "./grid";
+export * from "./button-wrappers";
 export * from "./fieldset";
 export * from "./selectors";

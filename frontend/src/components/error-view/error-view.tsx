@@ -5,8 +5,9 @@ import { ButtonContainer, ErrorContainer, InformationContainer } from "./styles"
 import { text } from "../../assets/text";
 import { routes } from "../../navigation";
 import { GO_BACK } from "../../constants";
-import { PrimaryButton, SecondaryButton } from "../buttons";
 import { Heading2, BodyText } from "../atoms";
+import { PrimaryButton, TertiaryButton } from "../../molecules";
+import { LeftArrowIconSVG } from "../../assets";
 
 interface ErrorViewProps {
   headingText?: string;
@@ -31,7 +32,12 @@ export const ErrorView: FC<ErrorViewProps> = ({ redirectRoute, headingText, navi
         <Heading2>{headingText || text.error.pageNotFound}</Heading2>
         <BodyText>{descriptionText || text.error.sorrySomethingWentWrong}</BodyText>
         <ButtonContainer>
-          <SecondaryButton onClick={() => navigate(GO_BACK)} primaryText={text.error.goBack} />
+          <TertiaryButton
+            text={text.general.goBack}
+            onClick={() => navigate(GO_BACK)}
+            icon={<LeftArrowIconSVG />}
+            iconPosition="row-reverse"
+          />
           <PrimaryButton onClick={() => handleButtonClick()} primaryText={text.error.goHome || navigationText} />
         </ButtonContainer>
       </InformationContainer>

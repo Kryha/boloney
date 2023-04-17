@@ -2,9 +2,9 @@ import { Session } from "@heroiclabs/nakama-js";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { text } from "../../assets";
+import { PrimaryButtonWrapper } from "../../molecules";
 import { routes } from "../../navigation";
-import { PrimaryButtonBase, PrimaryButtonText } from "../atoms";
-import { PrimaryButtonWrapper } from "../buttons/styles";
+import { PrimaryButtonBase } from "../atoms";
 import { LandingFooterWrapper } from "./styles";
 
 interface Props {
@@ -18,9 +18,7 @@ export const LandingFooter: FC<Props> = ({ session }) => {
   return (
     <LandingFooterWrapper>
       <PrimaryButtonWrapper onClick={() => navigate(route)}>
-        <PrimaryButtonBase type="button">
-          <PrimaryButtonText>{text.landing.letsRoll}</PrimaryButtonText>
-        </PrimaryButtonBase>
+        <PrimaryButtonBase type="button">{text.landing.letsRoll}</PrimaryButtonBase>
       </PrimaryButtonWrapper>
     </LandingFooterWrapper>
   );

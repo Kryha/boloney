@@ -16,6 +16,7 @@ export const color = {
   red: "#FC0E0E",
   cloudWhite: "#EEEEEA",
   white: "#FFFFFF",
+  translucentGrey: "rgba(255, 255, 255, 0.2)",
   transparent: "transparent",
   peach: "#C49F8F",
 };

@@ -142,11 +142,11 @@ export const MAX_PLAYER_SIDEBAR_AMOUNT = 6;
 export const MAX_SIDEBAR_POWER_UPS_SHOWN = 2;
 export const MIN_SIDEBAR_POWER_UPS_SHOWN = 1;
 
-export const POWER_UP_HELPER_WIDTH = 426;
-export const HEAL_DICE_HELPER_WIDTH = 455;
-export const BID_HELPER_WIDTH = 455;
-export const BOLONEY_HELPER_WIDTH = 426;
-export const EXACT_HELPER_WIDTH = 368;
+export const POWER_UP_HELPER_WIDTH = "clamp(341px, 11.81vw + 227.67px, 681px)";
+export const HEAL_DICE_HELPER_WIDTH = "clamp(364px, 12.6vw + 243px, 727px)";
+export const BID_HELPER_WIDTH = "clamp(364px, 12.6vw + 243px, 727px)";
+export const BOLONEY_HELPER_WIDTH = "clamp(341px, 11.77vw + 228px, 680px)";
+export const EXACT_HELPER_WIDTH = "clamp(295px, 10.17vw + 197.33px, 588px)";
 
 export const FADE_INTERVAL_MS = 4000;
 

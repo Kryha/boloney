@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
 import { color } from "../../design";
+import { Link } from "../../molecules";
 import { Heading3, Heading6, LinkProps } from "../atoms";
-import { Link } from "../buttons";
 import { GeneralLinkContainer, GeneralLinkWrapper, HyperLink } from "./styles";
 
 interface Props extends LinkProps {
@@ -18,7 +18,7 @@ export const EmailLink: FC<Props> = ({ linkText, customcolor, fontWeight, fontSi
   return (
     <HyperLink href={`mailto:${linkText}`}>
       <Link
-        primaryText={linkText}
+        text={linkText}
         customcolor={customcolor}
         fontWeight={fontWeight}
         fontSize={fontSize}
@@ -34,7 +34,7 @@ export const WebsiteLink: FC<Props> = ({ linkText, link, customcolor, fontWeight
   return (
     <HyperLink href={link} target={OPEN_LINK_IN_NEW_TAB}>
       <Link
-        primaryText={linkText}
+        text={linkText}
         customcolor={customcolor}
         fontWeight={fontWeight}
         fontSize={fontSize}

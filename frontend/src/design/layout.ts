@@ -27,6 +27,7 @@ export const containerHeight = {
 };
 
 export const layoutWidth = {
+  none: "0px",
   sm: "12.5vw",
   md: "25vw",
   lg: "62.5vw",

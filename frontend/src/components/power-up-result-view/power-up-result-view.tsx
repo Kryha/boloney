@@ -5,7 +5,6 @@ import { useStore } from "../../store";
 import { UsePowerUpPayloadBackend } from "../../types";
 import { getDieColor } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
-import { PrimaryButton } from "../buttons";
 import { MenageATroisResult } from "./menage-a-trois-result";
 import { SecondChanceResult } from "./second-chance-result";
 import { GrillResult } from "./grill-result";
@@ -17,6 +16,7 @@ import { ErrorView } from "../error-view";
 import { HypnosisResult } from "./hypnosis-result";
 import { VendettaResult } from "./vendetta-result";
 import { FadeTransition } from "../page-transition";
+import { PrimaryButton } from "../../molecules";
 
 interface Props {
   result: UsePowerUpPayloadBackend;
@@ -73,7 +73,7 @@ export const PowerUpResultView: FC<Props> = ({ result }) => {
   return (
     <BottomButtonWrapper>
       <FadeTransition>{showResult()}</FadeTransition>
-      {result.id !== "9" && <PrimaryButton primaryText={text.general.done} onClick={handleDone} isBottomButton />}
+      {result.id !== "9" && <PrimaryButton primaryText={text.general.done} onClick={handleDone} />}
     </BottomButtonWrapper>
   );
 };

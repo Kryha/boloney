@@ -22,9 +22,10 @@ interface Props {
   setHover?: (hover: boolean) => void;
   isActive: boolean;
   setActiveDropdown: (dropdown: ActiveDropdown) => void;
+  isInMatch?: boolean;
 }
 
-export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown }) => {
+export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown, isInMatch }) => {
   const showModal = useStore((state) => state.showModal);
 
   const onClick = () => {
@@ -38,6 +39,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
       expand={() => setActiveDropdown("rules")}
       buttonText={text.general.rules}
       buttonIcon={<BaseIcon src={<InfoIconSVG />} cursor />}
+      isInMatch={isInMatch}
     >
       <RulesContainer>
         {/* basic */}
@@ -100,8 +102,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
                   {text.rules.actionsFirstParagraphs.map((paragraph, index) => (
                     <BodyText key={index}>{paragraph}</BodyText>
                   ))}
-                  {/* TODO: FIX LINK */}
-                  <RulesLink primaryText={text.rules.seeAvailablePowerUps} onClick={() => onClick && onClick()} />
+                  <RulesLink text={text.rules.seeAvailablePowerUps} onClick={() => onClick && onClick()} />
                   <BodyText />
                 </>
               }

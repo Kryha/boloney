@@ -1,12 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { text } from "../../assets";
+import { LeftArrowIconSVG, text } from "../../assets";
 import {
   FormContainer,
   GeneralContentWrapper,
-  PrimaryButton,
-  GoBackButton,
   FadeTransition,
   ToggleSwitch,
   Heading1,
@@ -27,6 +25,8 @@ import { DEFAULT_MATCH_SETTINGS, MIN_POWERUPS_PER_PLAYER } from "../../constants
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../navigation";
 import { StartingNumberDivisor } from "./starting-number-divisor";
+import { PrimaryButton, TertiaryButton } from "../../molecules";
+import { buttonSize } from "../../design";
 
 interface Props {
   setMatchId: (id: string) => void;
@@ -84,7 +84,13 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
   return (
     <FadeTransition>
       <NewMatchContainer>
-        <GoBackButton primaryText={text.playerTurn.back} onClick={handleGoBack} />
+        <TertiaryButton
+          text={text.playerTurn.back}
+          onClick={handleGoBack}
+          icon={<LeftArrowIconSVG />}
+          iconPosition="row-reverse"
+          padding={buttonSize.md}
+        />
         <GeneralContentWrapper>
           <Heading1>{text.newMatch.newMatch}</Heading1>
           <Heading4>{text.newMatch.newMatchDescriptionFirstSentence}</Heading4>

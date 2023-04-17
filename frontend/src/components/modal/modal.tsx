@@ -1,9 +1,10 @@
 import { FC, ReactNode } from "react";
 
-import { ChildrenWrapper, CloseButton, CloseButtonWrapper, CloseWrapper, ModalWrapper, CloseIconWrapper } from "./styles";
+import { ChildrenWrapper, CloseWrapper, ModalWrapper } from "./styles";
 import { useStore } from "../../store";
 import { CloseIconSVG, text } from "../../assets";
-import { BaseIcon, GeneralText } from "../atoms";
+import { BaseIcon } from "../atoms";
+import { TertiaryButton } from "../../molecules";
 
 interface ModalProps {
   children: ReactNode;
@@ -29,14 +30,7 @@ export const Modal: FC<ModalProps> = ({ hasContainer = true, children, isModalBu
     <ModalWrapper isModalVisible={isModalVisible}>
       {isModalButtonVisible && (
         <CloseWrapper>
-          <CloseButton onClick={() => close()}>
-            <CloseButtonWrapper>
-              <GeneralText>{text.general.close}</GeneralText>
-              <CloseIconWrapper>
-                <BaseIcon src={<CloseIconSVG />} />
-              </CloseIconWrapper>
-            </CloseButtonWrapper>
-          </CloseButton>
+          <TertiaryButton text={text.general.close} icon={<BaseIcon src={<CloseIconSVG />} />} onClick={() => close()} />
         </CloseWrapper>
       )}
       <ChildrenWrapper hasContainer={hasContainer}>{children}</ChildrenWrapper>

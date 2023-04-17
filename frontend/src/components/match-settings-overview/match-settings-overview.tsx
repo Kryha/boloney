@@ -1,13 +1,14 @@
 import { FC } from "react";
 import { text } from "../../assets";
-import { color } from "../../design";
+import { buttonSize, color } from "../../design";
+import { TertiaryButton } from "../../molecules";
 import { useStore } from "../../store";
 import { getPowerUp } from "../../util";
-import { Heading1, Heading6 } from "../atoms";
-import { InfoButton } from "../buttons";
+import { BaseRow, Heading1, Heading6 } from "../atoms";
 import { ErrorView } from "../error-view";
 import { MatchInfo } from "../match-info";
 import { PowerUpDescription } from "../power-up-description";
+import { Tooltip } from "../tooltip";
 import { MatchInfoButtons, MatchSettingsFooter, MatchSettingsOverviewComponent, Percentage, PowerUpContainer } from "./styles";
 
 export const MatchSettingsOverview: FC = () => {
@@ -60,12 +61,13 @@ export const MatchSettingsOverview: FC = () => {
         />
       </MatchInfoButtons>
       <Heading6>{text.match.powerUpTypeOnTheTable}</Heading6>
-      <InfoButton
-        primaryText={text.newMatch.chance}
-        tooltipInfo={text.general.toolTipPowerUpTypeInfo}
-        tooltipTitle={text.general.toolTipPowerUpTypeTitle}
-        tooltipInfoPosition="right"
-      />
+      <BaseRow justifyContent="flex-end">
+        <TertiaryButton
+          text={text.newMatch.chance}
+          icon={<Tooltip title={text.general.toolTipPowerUpTypeTitle} info={text.general.toolTipPowerUpTypeInfo} infoPosition="right" />}
+          padding={buttonSize.xl}
+        />
+      </BaseRow>
       {powerUpProbabilities.map((powerUp) => (
         <PowerUpContainer key={powerUp.id}>
           <PowerUpDescription powerUp={getPowerUp(powerUp.id)} />

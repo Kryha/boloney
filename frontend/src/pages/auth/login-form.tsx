@@ -3,17 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
-import {
-  BaseInput,
-  FormContainer,
-  Link,
-  PrimaryButton,
-  GeneralContentWrapper,
-  InputLegend,
-  Heading1,
-  Heading4,
-  BodyText,
-} from "../../components";
+import { BaseInput, FormContainer, GeneralContentWrapper, InputLegend, Heading1, Heading4, BodyText } from "../../components";
 import { fontSizes } from "../../design";
 import { useViewport } from "../../hooks/use-viewport";
 import { AuthFields, isNkError } from "../../types";
@@ -22,6 +12,7 @@ import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles
 import { useStore } from "../../store";
 import { useAuthenticateUser } from "../../service";
 import { ENV_MODE } from "../../constants";
+import { Link, PrimaryButton } from "../../molecules";
 
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuthenticateUser();
@@ -87,7 +78,7 @@ export const LoginForm: FC = () => {
                   transformText="none"
                   fontSize={fontSizes.body}
                   onClick={() => navigate(routes.createAccount)}
-                  primaryText={text.authForm.here}
+                  text={text.authForm.here}
                 />
               </>
             )}

@@ -1,4 +1,8 @@
 export const newMatch = {
+  // Inline text remove capitalization
+  chance: "Chance",
+
+  // Normal text
   newMatch: "create a new match",
   newMatchDescriptionFirstSentence: "choose the settings for your new match.",
   newMatchDescriptionSecondSentence: "be wise, be sneaky, be benevolent. The power’s in your hands.",
@@ -23,7 +27,6 @@ export const newMatch = {
   invalidPercentage: "match to 100%",
   healDie: "heal die",
   startingNumberDivisor: "starting number divisor",
-  chance: "chance",
   total: "total",
   outOfOneHundred: "/100 %",
   drawRoundOffset: "draw round offset",

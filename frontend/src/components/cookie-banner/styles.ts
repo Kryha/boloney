@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import { color, shadows, zIndex } from "../../design";
-import { GeneralText, SecondaryButtonBase } from "../atoms";
-import { TertiaryButton } from "../buttons";
-import { TertiaryButtonContainer } from "../buttons/styles";
+import { GeneralText } from "../atoms";
 
 // TODO: implement Atoms for cookie banner
 export const CloseIconWrapper = styled.div`
@@ -15,7 +13,7 @@ export const CookieBannerWrapper = styled.div`
   justify-content: space-between;
   width: 44.24vw;
   height: 20vh;
-  background-color: ${color.cloudGrey};
+  background-color: ${color.cloudWhite};
   position: absolute;
   left: 30vw;
   top: 2.5vh;
@@ -46,13 +44,6 @@ export const CookieImage = styled.img`
   height: clamp(30px, 2.43vw + 6.67px, 100px);
 `;
 
-export const CookieAcceptButton = styled(TertiaryButton)`
-  ${TertiaryButtonContainer} {
-    border: 1px solid ${color.black};
-    width: 150px;
-  }
-`;
-
 export const CookieBannerButtons = styled.div`
   display: flex;
   flex-direction: row;
@@ -60,7 +51,4 @@ export const CookieBannerButtons = styled.div`
   align-content: space-around;
   flex-wrap: nowrap;
   gap: 10px;
-  ${SecondaryButtonBase} {
-    width: 150px;
-  }
 `;

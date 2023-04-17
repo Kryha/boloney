@@ -2,16 +2,10 @@ import styled from "@emotion/styled";
 
 import { color, margins, screenSizes } from "../../design";
 import { Heading2, Heading4, Heading6, BodyText } from "../atoms";
-import { PrimaryButtonWrapper } from "../buttons/styles";
 
 export const EndOfMatchWrapper = styled.section`
   width: 100%;
   padding-bottom: 60px;
-  ${PrimaryButtonWrapper} {
-    position: sticky;
-    bottom: 0;
-    left: 1px;
-  }
 `;
 
 export const TitleSection = styled.section`
@@ -87,10 +81,4 @@ export const BoldDescription = styled(BodyText)`
 
 export const Description = styled(BoldDescription)`
   margin-top: ${margins.small1};
-`;
-
-// TODO: Improve the way styling is handled
-export const MatchStatsButtonWrapper = styled(PrimaryButtonWrapper)`
-  bottom: 0vh;
-  position: fixed;
 `;

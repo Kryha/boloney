@@ -2,11 +2,11 @@ import { FC } from "react";
 import { text } from "../../assets";
 import { color } from "../../design";
 import { useViewport } from "../../hooks";
+import { PrimaryButton } from "../../molecules";
 import { PowerUp } from "../../types";
 import { getDescriptionExample } from "../../util";
 import { Heading2, GeneralText } from "../atoms";
 import { PowerUpBadge } from "../badges";
-import { PrimaryButton } from "../buttons";
 import { RadioButton } from "../power-up-checkbox";
 import {
   ButtonWrapper,

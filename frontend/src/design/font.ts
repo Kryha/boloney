@@ -12,8 +12,8 @@ export const fontSizes = {
   small: "16px",
   large: "60px",
   primaryButton: {
-    sm: "30px",
-    md: "50px",
+    sm: "clamp(1.88rem, 1.79vw + 1.43rem, 2.5rem)",
+    md: "clamp(2.5rem, 1.04vw + 1.88rem, 3.13rem)",
     lg: "clamp(3.13rem, 1.56vw + 1.25rem, 5rem)",
   },
 
@@ -80,11 +80,11 @@ export const fontSizes = {
 };
 
 export const lineHeights = {
-  small: "24px",
+  small: "34px",
   medium: "44px",
   primaryButton: {
-    sm: "24px",
-    md: "44px",
+    sm: "clamp(1.5rem, 1.04vw + 0.88rem, 2.13rem)",
+    md: "clamp(2.13rem, 1.04vw + 1.5rem, 2.75rem)",
     lg: "clamp(3.38rem, 1.56vw + 1.5rem, 5.25rem)",
   },
   infoDisplay: {

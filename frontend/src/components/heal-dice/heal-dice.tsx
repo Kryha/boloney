@@ -5,13 +5,13 @@ import { useStore } from "../../store";
 import { PowerUpId } from "../../types";
 import { HealDicePowerUpSelection } from "./types";
 import { BottomButtonWrapper } from "../atoms";
-import { PrimaryButton } from "../buttons";
 import { ErrorView } from "../error-view";
 import { HealDiceWrapper, PowerUpSelectionWrapper } from "./styles";
 import { PowerUpCardCheckbox } from "../power-up-card/power-up-card-checkbox";
 import { getPowerUpData } from "../../util";
 import { FadeTransition } from "../page-transition";
 import { FADE_TRANSITION_DURATION } from "../../constants";
+import { PrimaryButton } from "../../molecules";
 
 export const HealDice: FC = () => {
   const playerPowerUps = useStore((state) => state.powerUpIds);
@@ -73,7 +73,7 @@ export const HealDice: FC = () => {
         </PowerUpSelectionWrapper>
         <BottomButtonWrapper>
           {reachedMaxSelectedPowerUps && (
-            <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} isBottomButton />
+            <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => handleHealDice()} />
           )}
         </BottomButtonWrapper>
       </HealDiceWrapper>

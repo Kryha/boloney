@@ -39,16 +39,11 @@ export const ToastDescriptionContainer = styled.div`
   height: 100%;
 `;
 
-interface MultipleToastProps {
-  isButtonVisible?: boolean;
-}
-
-export const MultipleToastWrapper = styled.section<MultipleToastProps>`
+export const MultipleToastWrapper = styled.section`
   position: absolute;
   width: clamp(541.2px, 57.23vw + -8.2px, 1090.6px);
   height: clamp(114.18px, 12.07vw + -1.73px, 230.09px);
-  bottom: ${({ isButtonVisible }) => (isButtonVisible ? "5em" : "2vh")};
-
+  bottom: 10vh;
   left: ${margins.small5};
 `;
 

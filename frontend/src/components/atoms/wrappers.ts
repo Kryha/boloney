@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 import { color, margins, opacity, zIndex } from "../../design";
+import { LinkContainer } from "../../molecules";
 import { GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, BodyText } from "../atoms";
-import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 
 interface TextProps {
   customcolor?: string;
@@ -98,16 +98,6 @@ export const ListSection = styled.section<TextProps>`
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-export const BottomButtonWrapper = styled.section`
-  ${PrimaryButtonWrapper} {
-    position: fixed;
-    bottom: 11vh;
-    left: 12.5vw;
-    margin-left: 1px;
-    z-index: ${zIndex.modal};
-  }
 `;
 
 export const NumberedListSection = styled.section`

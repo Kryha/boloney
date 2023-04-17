@@ -10,15 +10,16 @@ interface TooltipProps {
   infoPosition?: InfoPosition;
   isButtonWithHelper?: boolean;
   zIndex?: number;
+  iconColor?: string;
 }
 
-export const Tooltip: FC<TooltipProps> = ({ title, info, infoPosition, isButtonWithHelper, zIndex }) => {
+export const Tooltip: FC<TooltipProps> = ({ title, info, infoPosition, isButtonWithHelper, zIndex, iconColor }) => {
   if (!title && !info) return <></>;
 
   return (
     <ButtonInfoWrap>
       <TooltipInfo title={title} content={info} position={infoPosition} isButtonWithHelper={isButtonWithHelper} zIndex={zIndex}>
-        <BaseIcon src={<InfoIconSVG />} cursor />
+        <BaseIcon src={<InfoIconSVG />} cursor iconColor={iconColor} />
       </TooltipInfo>
     </ButtonInfoWrap>
   );

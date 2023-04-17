@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
 
-import { color, margins, zIndex } from "../../design";
+import { color, layoutHeight, margins, zIndex } from "../../design";
+import { Link } from "../../molecules";
 import { NavigationLocation } from "../../types";
-import { HorizontalDivider, GeneralText, Heading6, BodyText, BaseIcon } from "../atoms";
-import { Link } from "../buttons";
-import { ButtonContainer as DropDownButtonContainer } from "../buttons/styles";
+import { HorizontalDivider, GeneralText, Heading6, BodyText, BaseIcon, TertiaryButtonBase } from "../atoms";
 import { DiceIconWrapper, LightningIcon } from "../icons";
 
 export const EllipsisIcon = styled(BaseIcon)`
@@ -42,6 +41,7 @@ export const CountdownTimer = styled.div<TimerProps>`
 
 interface ButtonContainerProps {
   isActive?: boolean;
+  isInMatch?: boolean;
 }
 
 export const ButtonContainer = styled.div<ButtonContainerProps>`
@@ -53,11 +53,10 @@ export const ButtonContainer = styled.div<ButtonContainerProps>`
       : `background: ${color.lightGrey};`};
 
   z-index: ${({ isActive }) => (isActive ? zIndex.onTop : zIndex.behind)};
-  ${DropDownButtonContainer} {
-    height: 5.5vh;
+  ${TertiaryButtonBase} {
+    max-height: ${({ isInMatch }) => (isInMatch ? layoutHeight.sm : "auto")};
   }
 `;
-
 export const DropdownWrapper = styled.div`
   display: flex;
   flex-direction: column;

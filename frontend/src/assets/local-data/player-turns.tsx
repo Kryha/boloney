@@ -33,7 +33,7 @@ const proceedActions = (action: TurnAction, lastActivePlayerName: string): Playe
     case "boloney":
       return {
         timerTitle: text.playerTurn.boloney,
-        headingTitle: text.playerTurn.callBoloney,
+        headingTitle: text.playerTurn.smellABluff,
         subHeadingTitle: text.param.areYouSureYouWantToCallBoloney(lastActivePlayerName),
       };
 
@@ -69,7 +69,7 @@ const evaluateResults = {
     subHeadingTitle: "",
   },
   boloney: {
-    timerTitle: text.match.callBoloney,
+    timerTitle: text.playerTurn.callBoloney,
     headingTitle: text.playerTurn.letsSeeWhoIsRight,
     subHeadingTitle: getRandomMessage(text.playerTurn.randomMessages),
   },

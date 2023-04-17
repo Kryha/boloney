@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets";
 import { routes } from "../../navigation";
-import { PrimaryButton } from "../buttons";
 import { useLocalPlayer, useMatch } from "../../service";
-import { color } from "../../design";
-import { Heading2, Heading6 } from "../atoms";
+import { color, layoutWidth } from "../../design";
+import { BottomButtonWrapper, Heading2, Heading6 } from "../atoms";
 import { PlayerLeaderboard } from "./player-leaderboard";
-import { EndOfMatchWrapper, MatchStatsButtonWrapper, TitleSection } from "./styles";
+import { EndOfMatchWrapper, TitleSection } from "./styles";
 import { useStore } from "../../store";
 import { FadeTransition } from "../page-transition";
 import { MULTIPLE_FADE_TRANSITION_DURATION } from "../../constants";
+import { PrimaryButton } from "../../molecules";
 
 export const EndOfMatch: FC = () => {
   const navigate = useNavigate();
@@ -58,9 +58,9 @@ export const EndOfMatch: FC = () => {
           </FadeTransition>
         ))}
 
-        <MatchStatsButtonWrapper>
+        <BottomButtonWrapper bottomPosition={layoutWidth.none} leftPosition={layoutWidth.sm}>
           <PrimaryButton primaryText={text.match.homePage} onClick={() => handleNewMatch()} />
-        </MatchStatsButtonWrapper>
+        </BottomButtonWrapper>
       </EndOfMatchWrapper>
     </FadeTransition>
   );

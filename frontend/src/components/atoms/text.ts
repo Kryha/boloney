@@ -231,28 +231,6 @@ export const GeneralText = styled.h3<TextProps>`
   }
 `;
 
-export const PrimaryButtonText = styled.h3<TextProps>`
-  font-family: ${fonts.primary};
-  font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.regular};
-  font-size: ${fontSizes.primaryButton.md};
-  line-height: ${lineHeights.primaryButton.md};
-  letter-spacing: -0.02em;
-  text-transform: ${({ transformText }): string => transformText || "uppercase"};
-
-  margin-top: -10px;
-  color: ${({ customcolor }): string => customcolor || color.black};
-
-  @media (max-width: ${breakpoints.md}) {
-    font-size: ${fontSizes.primaryButton.sm};
-    line-height: ${lineHeights.primaryButton.sm};
-  }
-
-  @media (min-width: ${breakpoints.xxl}) {
-    font-size: ${fontSizes.primaryButton.lg};
-    line-height: ${lineHeights.primaryButton.lg};
-  }
-`;
-
 export const BodyText = styled.p<TextProps>`
   font-family: ${fonts.primary};
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.light};

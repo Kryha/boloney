@@ -1,7 +1,11 @@
 export const playerTurn = {
-  back: "back",
+  // Inline text remove capitalization
+  back: "Back",
+
+  // Normal text
+  callBoloney: "call boloney",
   boloney: "boloney!",
-  callBoloney: "smell a bluff?",
+  smellABluff: "smell a bluff?",
   continueWithAction: "continue",
   letsSeeWhoIsRight: "let's see who is right...",
   youHaveWon: "you've won!",

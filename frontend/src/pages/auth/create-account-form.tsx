@@ -3,17 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
-import {
-  BaseInput,
-  FormContainer,
-  Link,
-  PrimaryButton,
-  GeneralContentWrapper,
-  InputLegend,
-  Heading1,
-  Heading4,
-  BodyText,
-} from "../../components";
+import { BaseInput, FormContainer, GeneralContentWrapper, InputLegend, Heading1, Heading4, BodyText } from "../../components";
 import { fontSizes } from "../../design";
 import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";
@@ -22,6 +12,7 @@ import { routes } from "../../navigation";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 import { useStore } from "../../store";
 import { useAuthenticateUser } from "../../service";
+import { Link, PrimaryButton } from "../../molecules";
 
 export const CreateAccountForm: FC = () => {
   const { authenticateUser } = useAuthenticateUser();
@@ -97,7 +88,7 @@ export const CreateAccountForm: FC = () => {
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
             <BodyText>{text.authForm.iAlreadyHaveAnAccount}</BodyText>
-            <Link transformText="none" fontSize={fontSizes.body} onClick={() => navigate(routes.login)} primaryText={text.authForm.here} />
+            <Link transformText="none" fontSize={fontSizes.body} onClick={() => navigate(routes.login)} text={text.authForm.here} />
             <PrimaryButton buttonType="submit" primaryText={text.authForm.join} />
           </SignOrJoinContainer>
         </FormContainer>

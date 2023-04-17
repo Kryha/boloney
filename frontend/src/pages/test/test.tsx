@@ -8,9 +8,12 @@ import {
   GithubLogo,
   Hand,
   HookHand,
+  LeftArrowIconSVG,
   LobsterHand,
   PlasticHand,
+  RightArrowIconSVG,
   SausageHand,
+  SettingsIconSVG,
   SkeletonHand,
   text,
 } from "../../assets";
@@ -54,12 +57,19 @@ import {
   SwitchWrapper,
   SwitchInput,
   Slider,
+  BaseIcon,
+  SecondaryButtonBase,
+  TertiaryButtonBase,
+  EndOfMatch,
+  PrimaryButtonWithHelper,
 } from "../../components";
 import { BaseColumn, BaseRow } from "../../components/atoms/grid";
 import { MainContentContainer } from "../../components/match-layout/styles";
 import { PlayerMenu } from "../../components/player-menu";
+import { PickAction } from "../../components/player-turns/pick-action";
 import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET } from "../../constants";
-import { color, images, layoutHeight, lineHeights, spacing } from "../../design";
+import { buttonSize, color, images, layoutHeight, lineHeights, spacing } from "../../design";
+import { TertiaryButton, SecondaryButton, PrimaryButton } from "../../molecules";
 import { getPowerUp, range } from "../../util";
 import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout, PowerUpCard } from "./styles";
 
@@ -469,6 +479,109 @@ export const Test: FC = () => {
           <BaseInput placeholder="goodbye" />
         </div>
       </BaseRow>
+      <br />
+      <br />
+      <br />
+      <h1>Tertiary buttons</h1>
+      <br />
+      <br />
+      button with hover
+      <br />
+      <br />
+      <TertiaryButtonBase>tertiary buttons</TertiaryButtonBase>
+      <br />
+      <br />
+      button with icon right
+      <br />
+      <br />
+      <TertiaryButton text="tertiary button" icon={<BaseIcon src={<RightArrowIconSVG />} />} />
+      <br />
+      <br />
+      button with icon left
+      <br />
+      <br />
+      <TertiaryButton text="tertiary button" icon={<BaseIcon src={<LeftArrowIconSVG />} />} iconPosition="row-reverse" />
+      <br />
+      <br />
+      disabled
+      <br />
+      <br />
+      <TertiaryButtonBase disabled>tertiary buttons</TertiaryButtonBase>
+      <br />
+      <br />
+      button with icon left disabled
+      <br />
+      <br />
+      <TertiaryButton text="tertiary button" icon={<BaseIcon src={<LeftArrowIconSVG />} />} iconPosition="row-reverse" disabled />
+      <br />
+      <br />
+      <TertiaryButton text="match settings" icon={<BaseIcon src={<SettingsIconSVG />} />} padding={buttonSize.sm} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <h1>Secondary buttons</h1>
+      <br />
+      <br />
+      button with hover
+      <br />
+      <br />
+      <SecondaryButtonBase>secondary buttons</SecondaryButtonBase>
+      <br />
+      <br />
+      button with icon right
+      <br />
+      <br />
+      <SecondaryButton text="secondary button" icon={<BaseIcon src={<RightArrowIconSVG />} />} />
+      <br />
+      <br />
+      button with icon left
+      <br />
+      <br />
+      <SecondaryButton text="secondary button" icon={<BaseIcon src={<LeftArrowIconSVG />} />} iconPosition="row-reverse" />
+      <br />
+      <br />
+      disabled
+      <br />
+      <br />
+      <SecondaryButtonBase disabled>secondary buttons</SecondaryButtonBase>
+      <br />
+      <br />
+      button with icon left disabled
+      <br />
+      <br />
+      <SecondaryButton text="secondary button" icon={<BaseIcon src={<LeftArrowIconSVG />} />} iconPosition="row-reverse" disabled />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <h1>Primary buttons</h1>
+      <br />
+      <br />
+      button with hover
+      <br />
+      <br />
+      <PrimaryButton primaryText="Primary buttons" secondaryText="hover button" />
+      <br />
+      <br />
+      <br />
+      disabled
+      <br />
+      <br />
+      <PrimaryButton primaryText="Primary buttons" secondaryText="hover button" disabled />
+      <br />
+      <br />
+      loading
+      <br />
+      <br />
+      <PrimaryButton primaryText="Primary buttons" secondaryText="hover button" loading />
+      <br />
+      <br />
+      <PickAction />
+      <br />
       <br />
       <br />
       <h1>Note the first two inputs have no left and right border that is fine</h1>

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import { margins } from "../../design";
-import { Heading6 } from "../atoms";
-import { SecondaryButtonContainer } from "../buttons/styles";
+import { margins, zIndex } from "../../design";
+import { Heading6, TertiaryButtonBase } from "../atoms";
 
 export const TurnActionHeading = styled(Heading6)`
   padding-top: ${margins.medium0};
@@ -12,8 +11,11 @@ interface TurnActionHeaderProps {
 }
 
 export const TurnActionHeaderWrapper = styled.section<TurnActionHeaderProps>`
-  ${SecondaryButtonContainer} {
+  ${TertiaryButtonBase} {
     display: ${({ isBackButtonVisible }) => (isBackButtonVisible ? "flex" : "none")};
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    z-index: ${zIndex.modalBackground};
   }
-  user-select: none;
 `;

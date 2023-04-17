@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
-import { BaseInput, GeneralText, Heading4 } from "../../components";
-import { PrimaryButtonWrapper, ButtonContainer as ButtonWrapper, RightButtonContainer } from "../../components/buttons/styles";
-import { DescriptionContainer, CheckboxContainer as CheckboxWrapper } from "../../components/checkbox/styles";
-import { InputContainer } from "../../components/inputs/styles";
-import { TooltipContent } from "../../components/tooltip/styles";
+import {
+  BaseInput,
+  GeneralText,
+  Heading4,
+  InputContainer,
+  DescriptionContainer,
+  CheckboxContainer as CheckboxWrapper,
+} from "../../components";
 import { color, margins, opacity, zIndex } from "../../design";
 
 export const NewMatchContainer = styled.section``;
@@ -26,12 +29,6 @@ export const PlayersDiceContainer = styled.section<Props>`
 
 export const FieldContainer = styled.section`
   margin-top: ${margins.medium1};
-  ${RightButtonContainer} {
-    ${TooltipContent} {
-      max-width: 20vw;
-      min-width: 20vw;
-    }
-  }
 `;
 
 export const CheckboxContainer = styled.section`
@@ -78,12 +75,7 @@ export const NewMatchConfirmationContainer = styled.section`
   z-index: ${zIndex.normal};
 `;
 
-export const GoToLobbyButton = styled.div`
-  ${PrimaryButtonWrapper} {
-    z-index: ${zIndex.normal};
-    position: relative;
-  }
-`;
+export const GoToLobbyButton = styled.div``;
 
 interface CopyProps {
   isCopied: boolean;
@@ -132,14 +124,6 @@ export const InfoBox = styled.div`
   width: 100%;
   ${GeneralText} {
     margin: ${margins.small3} ${margins.large0} ${margins.small5} ${margins.large0};
-  }
-  ${ButtonWrapper} {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-content: center;
-    align-items: center;
   }
 `;
 

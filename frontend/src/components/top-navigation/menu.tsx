@@ -2,12 +2,13 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { text, EllipsisIconSVG, ExitIconSVG, SettingsIconSVG, LogoutIconSVG } from "../../assets";
+import { buttonSize } from "../../design";
+import { TertiaryButton } from "../../molecules";
 import { routes } from "../../navigation";
 import { useLogout, useMatch } from "../../service";
 import { useSession, useStore } from "../../store";
 import { isNkError, NavigationLocation } from "../../types";
 import { BaseIcon, HorizontalDivider } from "../atoms";
-import { DropdownButton } from "../buttons";
 import { Dropdown } from "./dropdown";
 import { EllipsisIcon, MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";
@@ -53,17 +54,20 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
   if (location === "landing") {
     if (session)
       return (
-        <DropdownButton
+        <TertiaryButton
           onClick={() => handleLogout()}
-          primaryText={text.general.logout}
+          text={text.general.logout}
           icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
+          active={isActive}
+          padding={buttonSize.md}
         />
       );
     return (
-      <DropdownButton
-        primaryText={text.general.login}
+      <TertiaryButton
+        text={text.general.login}
         icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
         onClick={() => navigate(routes.login)}
+        padding={buttonSize.md}
       />
     );
   }
@@ -75,32 +79,41 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       expand={() => setActiveDropdown("menu")}
       buttonText={text.general.menu}
       buttonIcon={<EllipsisIcon src={<EllipsisIconSVG />} cursor />}
+      isInMatch={location === "match"}
     >
       <MenuContainer location={location}>
         {location && location !== "default" && (
-          <DropdownButton
-            primaryText={text.general.matchSettings}
+          <TertiaryButton
+            text={text.general.matchSettings}
             icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
             onClick={() => handleSettings()}
+            active={isActive}
+            justifyContent="flex-end"
           />
         )}
         {!!session && (
           <>
             <HorizontalDivider />
-            <DropdownButton
+            <TertiaryButton
               onClick={() => handleLogout()}
-              primaryText={text.general.logout}
+              text={text.general.logout}
               icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
+              active={isActive}
+              width={buttonSize.fluid}
+              justifyContent="flex-end"
             />
           </>
         )}
         {location && location !== "default" && (
           <>
             <HorizontalDivider />
-            <DropdownButton
+            <TertiaryButton
               onClick={() => leaveMatch()}
-              primaryText={text.general.leaveMatch}
+              text={text.general.leaveMatch}
               icon={<BaseIcon src={<ExitIconSVG />} cursor />}
+              active={isActive}
+              width={buttonSize.fluid}
+              justifyContent="flex-end"
             />
           </>
         )}

@@ -1,26 +1,11 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
 import { Row, BodyText } from "../atoms";
-import { ButtonContainer, RightButtonContainer } from "../buttons/styles";
 import { PowerUpWrapper } from "../power-up/styles";
-import { TooltipContent } from "../tooltip/styles";
 
 export const MatchSettingsOverviewComponent = styled.section`
   padding: 3.75em;
   overflow-y: scroll;
-  ${ButtonContainer} {
-    height: fit-content;
-    padding-right: 0px;
-  }
-  ${RightButtonContainer} {
-    width: clamp(768px, 60.62vw + 186px, 1350px);
-    align-items: center;
-    ${TooltipContent} {
-      &.right {
-        left: -32vw;
-      }
-    }
-  }
 `;
 
 export const ChoiceContainer = styled.div`

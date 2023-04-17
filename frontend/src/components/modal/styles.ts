@@ -52,27 +52,6 @@ export const ModalWrapper = styled.section<ModalProps>`
   }
 `;
 
-export const CloseIconWrapper = styled.div`
-  ${BaseIconWrapper} {
-    display: flex;
-    align-items: center;
-    align-self: center;
-  }
-`;
-
-export const CloseButton = styled.div`
-  padding: ${margins.small4} 26px ${margins.small5} ${margins.medium0};
-  cursor: pointer;
-`;
-
-export const CloseButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: ${margins.small1};
-`;
-
 export const CloseWrapper = styled.div`
   display: flex;
   flex-direction: row;

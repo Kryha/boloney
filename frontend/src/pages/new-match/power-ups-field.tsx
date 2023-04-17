@@ -1,9 +1,10 @@
 import { FC } from "react";
 
 import { LightningIconSVG, POWER_UP_DATA, text } from "../../assets";
-import { BaseIcon, GeneralText, Heading6, InfoButton, Input } from "../../components";
+import { BaseIcon, BaseRow, GeneralText, Heading6, Input, Tooltip } from "../../components";
 import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
-import { color, fontWeights } from "../../design";
+import { buttonSize, color, fontWeights } from "../../design";
+import { TertiaryButton } from "../../molecules";
 import { useMatchCreationFormState } from "./match-creation-form-state";
 import { CheckboxContainer, FieldContainer, InfoBox, LightningContainer, Percentage, PercentageContainer, TotalContainer } from "./styles";
 
@@ -20,12 +21,15 @@ export const PowerUpsField: FC = () => {
       <Input label={text.newMatch.whichPowerUps}>
         <InfoBox>
           <GeneralText>{text.newMatch.powerUpDesc}</GeneralText>
-          {/* TODO: add pop up info */}
-          <InfoButton
-            primaryText={text.newMatch.chance}
-            tooltipTitle={text.general.toolTipPowerUpTypeTitle}
-            tooltipInfo={text.general.toolTipPowerUpTypeInfo}
-          />
+          <BaseRow justifyContent="flex-end">
+            <TertiaryButton
+              text={text.newMatch.chance}
+              icon={
+                <Tooltip title={text.general.toolTipPowerUpTypeTitle} info={text.general.toolTipPowerUpTypeInfo} infoPosition="right" />
+              }
+              padding={buttonSize.md}
+            />
+          </BaseRow>
         </InfoBox>
         <CheckboxContainer>
           {Object.values(POWER_UP_DATA).map((powerUp, index) => (

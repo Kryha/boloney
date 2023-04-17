@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { PrimaryButton } from "../buttons";
+import { color } from "../../design";
+import { PrimaryButton } from "../../molecules";
 import { Tooltip } from "../tooltip";
 import { InfoPosition } from "../tooltip/tooltip-info";
 import { ButtonWithHelperWrapper } from "./styles";
@@ -12,7 +13,7 @@ interface PrimaryButtonWithHelperProps {
   onClick?: () => void;
   primaryText?: string;
   secondaryText?: string;
-  width?: number;
+  width?: string;
   isLoading?: boolean;
 }
 
@@ -35,9 +36,9 @@ export const PrimaryButtonWithHelper: FC<PrimaryButtonWithHelperProps> = ({
         disabled={disabled}
         onClick={onClick}
         width={width}
-        isLoading={isLoading}
+        loading={isLoading}
       />
-      <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={tooltipInfoPosition} isButtonWithHelper />
+      <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={tooltipInfoPosition} isButtonWithHelper iconColor={color.darkGrey} />
     </ButtonWithHelperWrapper>
   );
 };

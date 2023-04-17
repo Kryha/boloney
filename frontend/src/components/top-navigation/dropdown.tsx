@@ -1,12 +1,13 @@
 import { FC, ReactNode } from "react";
+import { buttonSize } from "../../design";
+import { TertiaryButton } from "../../molecules";
 
-import { DropdownButton } from "../buttons";
 import { ChildrenContainer, ButtonContainer, DropdownWrapper } from "./styles";
 
 interface Props {
   children: ReactNode;
   isActive: boolean;
-
+  isInMatch?: boolean;
   buttonIcon: ReactNode;
   buttonText: string;
 
@@ -14,7 +15,7 @@ interface Props {
   setHover?: (hover: boolean) => void;
 }
 
-export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, buttonText, buttonIcon }) => {
+export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, buttonText, buttonIcon, isInMatch }) => {
   return (
     <DropdownWrapper>
       <ButtonContainer
@@ -22,8 +23,9 @@ export const Dropdown: FC<Props> = ({ setHover, isActive, expand, children, butt
         onClick={() => expand()}
         onMouseEnter={() => setHover && setHover(true)}
         onMouseLeave={() => setHover && setHover(false)}
+        isInMatch={isInMatch}
       >
-        <DropdownButton primaryText={buttonText} isOpen={isActive} icon={buttonIcon} />
+        <TertiaryButton text={buttonText} icon={buttonIcon} padding={buttonSize.md} />
       </ButtonContainer>
       <ChildrenContainer isHidden={!isActive}>{children}</ChildrenContainer>
     </DropdownWrapper>

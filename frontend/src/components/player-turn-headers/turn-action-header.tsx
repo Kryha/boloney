@@ -1,13 +1,13 @@
 import Highlighter from "react-highlight-words";
-import { activePlayerTurnData, text } from "../../assets";
-import { color } from "../../design";
+import { activePlayerTurnData, LeftArrowIconSVG, text } from "../../assets";
+import { buttonSize, color } from "../../design";
 import { useLatestBid, usePlayer } from "../../service";
 import { useStore } from "../../store";
-import { GoBackButton } from "../buttons";
 import { FadeTransition } from "../page-transition";
 import { Timer } from "../timer";
 import { TurnActionHeaderWrapper, TurnActionHeading } from "./styles";
 import { Heading2 } from "../atoms";
+import { TertiaryButton } from "../../molecules";
 
 export const TurnActionHeader = () => {
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
@@ -31,7 +31,13 @@ export const TurnActionHeader = () => {
   return (
     <FadeTransition animationKey={timerTitle}>
       <TurnActionHeaderWrapper isBackButtonVisible={turnActionStep === "proceedWithAction"}>
-        <GoBackButton primaryText={text.playerTurn.back} onClick={handleGoBack} />
+        <TertiaryButton
+          text={text.playerTurn.back}
+          onClick={handleGoBack}
+          icon={<LeftArrowIconSVG />}
+          iconPosition="row-reverse"
+          padding={buttonSize.md}
+        />
         {turnActionStep === "evaluateWinner" ? (
           <TurnActionHeading>{headerData.timerTitle}</TurnActionHeading>
         ) : (

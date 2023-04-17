@@ -1,17 +1,10 @@
 import { FC } from "react";
 import { CloseIconSVG, CookieIconSVG, text } from "../../assets";
 import { useSetAnalyticsConsent } from "../../hooks";
+import { SecondaryButton, TertiaryButton } from "../../molecules";
 import { BaseIcon, GeneralText, Heading6 } from "../atoms";
-import { TertiaryButton } from "../buttons";
-import {
-  CloseIconWrapper,
-  CookieAcceptButton,
-  CookieBannerButtons,
-  CookieBannerContent,
-  CookieBannerText,
-  CookieBannerWrapper,
-  CookieImage,
-} from "./styles";
+
+import { CloseIconWrapper, CookieBannerButtons, CookieBannerContent, CookieBannerText, CookieBannerWrapper, CookieImage } from "./styles";
 
 export const CookieBanner: FC = () => {
   const setAnalyticsConsent = useSetAnalyticsConsent();
@@ -29,8 +22,8 @@ export const CookieBanner: FC = () => {
         </CloseIconWrapper>
       </CookieBannerContent>
       <CookieBannerButtons>
-        <TertiaryButton primaryText={text.general.cookieReject} onClick={() => setAnalyticsConsent(false)} />
-        <CookieAcceptButton primaryText={text.general.cookieAccept} onClick={() => setAnalyticsConsent(true)} />
+        <TertiaryButton text={text.general.cookieReject} onClick={() => setAnalyticsConsent(false)} />
+        <SecondaryButton text={text.general.cookieAccept} onClick={() => setAnalyticsConsent(true)} />
       </CookieBannerButtons>
     </CookieBannerWrapper>
   );

@@ -4,7 +4,6 @@ import { text } from "../../assets";
 import { BottomButtonWrapper } from "../atoms";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
-import { PrimaryButton } from "../buttons";
 import { useLocalPlayer, useMatch } from "../../service";
 import { MatchOpCode } from "../../types";
 import { ButtonReady } from "../button-ready";
@@ -13,6 +12,7 @@ import { RollingDice } from "../dice-animation";
 import { MatchHeading } from "../match-heading";
 import { FadeTransition } from "../page-transition";
 import { Timer } from "../timer";
+import { PrimaryButton } from "../../molecules";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -37,7 +37,7 @@ export const RollDice: FC = () => {
   const button = () => {
     if (localPlayer.status === "lost") return <></>;
     if (hasRolledDice) return <ButtonReady />;
-    return <PrimaryButton primaryText={text.general.rollIt} onClick={() => handleClick()} isBottomButton />;
+    return <PrimaryButton primaryText={text.general.rollIt} onClick={() => handleClick()} />;
   };
 
   if (hasRolledDice && isPlayerReady) {

@@ -43,6 +43,7 @@ export const DiceFaces: FC<DiceFaceProps> = ({ lastBid, dieColor }) => {
             value={die}
             size={faceValue === die ? selectorDieSize.selected : selectorDieSize.idle}
             radius={radius.sm}
+            cursor
           />
         </Die>
       ))}

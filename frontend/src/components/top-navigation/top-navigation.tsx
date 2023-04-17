@@ -7,6 +7,7 @@ import { VerticalDivider } from "../atoms";
 import { MatchStats } from "./match-state/match-stats";
 import { useOnClickOutside } from "usehooks-ts";
 import { NavigationLocation } from "../../types";
+import { containerHeight } from "../../design";
 
 interface Props {
   location?: NavigationLocation;
@@ -35,8 +36,12 @@ export const TopNavigation: FC<Props> = ({ location }) => {
   return (
     <TopNavigationSection ref={ref}>
       {location === "match" && <MatchStats />}
-      <RulesDropdown isActive={activeDropdown === "rules" && isComponentVisible} setActiveDropdown={handleDropdownClick} />
-      <VerticalDivider />
+      <RulesDropdown
+        isActive={activeDropdown === "rules" && isComponentVisible}
+        setActiveDropdown={handleDropdownClick}
+        isInMatch={location === "match"}
+      />
+      <VerticalDivider height={containerHeight.fluid} />
       <MenuDropdown
         isActive={activeDropdown === "menu" && isComponentVisible}
         setActiveDropdown={handleDropdownClick}

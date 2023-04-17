@@ -2,9 +2,10 @@ import { FC, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { CopyIconSVG, text } from "../../assets";
-import { Heading1, Heading4, Heading6, NewMatchHands, Link, PrimaryButton, GeneralText, FadeTransition, BaseIcon } from "../../components";
+import { Heading1, Heading4, Heading6, NewMatchHands, GeneralText, FadeTransition, BaseIcon } from "../../components";
 import { COPIED_TEXT_TIMEOUT } from "../../constants";
 import { fontSizes, lineHeights } from "../../design";
+import { Link, PrimaryButton } from "../../molecules";
 import { routes } from "../../navigation";
 import { parseMatchUrl } from "../../util";
 import { CopyLink, GoToLobbyButton, LinkCopied, NewMatchConfirmationContainer } from "./styles";
@@ -43,7 +44,7 @@ export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
           }}
           isCopied={isLinkCopied}
         >
-          <Link primaryText={matchUrl} transformText="none" fontSize={fontSizes.generalText} lineHeight={lineHeights.generalText} />
+          <Link text={matchUrl} transformText="none" fontSize={fontSizes.generalText} lineHeight={lineHeights.generalText} />
           <BaseIcon src={<CopyIconSVG />} />
           <LinkCopied isCopied={isLinkCopied}>
             <GeneralText>{text.general.copied}</GeneralText>

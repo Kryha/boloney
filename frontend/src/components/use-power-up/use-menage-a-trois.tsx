@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { text } from "../../assets";
+import { PrimaryButton } from "../../molecules";
 import { BottomButtonWrapper, Heading2 } from "../atoms";
-import { PrimaryButton } from "../buttons";
 import { FadeTransition } from "../page-transition";
 
 export const UseMenageATrois: FC = () => {
@@ -10,7 +10,7 @@ export const UseMenageATrois: FC = () => {
       <FadeTransition>
         <Heading2>{text.match.rollingYourDice}</Heading2>
       </FadeTransition>
-      <PrimaryButton primaryText="Rolling dice" isSpinnerShown={true} />
+      <PrimaryButton primaryText={text.general.rollingDice} loading />
     </BottomButtonWrapper>
   );
 };

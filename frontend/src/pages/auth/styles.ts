@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 
-import { LinkContainer, PrimaryButtonContainer } from "../../components/buttons/styles";
-import { InputContainer } from "../../components/inputs/styles";
+import { InputContainer } from "../../components";
 import { SMALL_VIEWPORT_WIDTH } from "../../constants";
 import { color, margins } from "../../design";
+import { LinkContainer, PrimaryButtonContainer } from "../../molecules";
 import { ViewProps } from "../../types";
 
 export const AuthContainer = styled.div`

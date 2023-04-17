@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import { BoloneyLogoIconSVG, text } from "../../assets";
 import { color, iconSize } from "../../design";
 import { useViewport } from "../../hooks/use-viewport";
-import { PrimaryButton } from "../buttons";
+import { PrimaryButton } from "../../molecules";
 import { Chat } from "../chat";
 import {
   ChildrenWrapper,

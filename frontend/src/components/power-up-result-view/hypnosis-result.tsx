@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 import { text } from "../../assets";
+import { PrimaryButton } from "../../molecules";
 import { useMatch } from "../../service";
 import { PowerUpId, UseHypnosisBackend } from "../../types";
 import { getPowerUpData } from "../../util";
 import { BottomButtonWrapper } from "../atoms";
-import { PrimaryButton } from "../buttons";
 import { PowerUpPile } from "../power-up-pile";
 import { PowerUpResultText } from "./power-up-result-text";
 

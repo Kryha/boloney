@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { text } from "../../assets";
+import { PrimaryButton } from "../../molecules";
 import { useMatch } from "../../service";
 import { useStore } from "../../store";
 import { BottomButtonWrapper } from "../atoms";
-import { PrimaryButton } from "../buttons";
 import { ActionImage, CallActionWrapper } from "./styles";
 
 interface CallActionProps {
@@ -26,7 +26,7 @@ export const CallAction: FC<CallActionProps> = ({ isCallBoloney = false, image, 
     <CallActionWrapper>
       <BottomButtonWrapper>
         <ActionImage src={image} alt={alt} isCallBoloney={isCallBoloney} />
-        <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => takeAction()} isBottomButton />
+        <PrimaryButton primaryText={text.playerTurn.continueWithAction} onClick={() => takeAction()} />
       </BottomButtonWrapper>
     </CallActionWrapper>
   );

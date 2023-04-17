@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { MINIMUM_POWER_UP_WIDTH_VIEW } from "../../constants";
 import { color, margins, zIndex } from "../../design";
+import { LinkContainer, PrimaryButtonWrapper } from "../../molecules";
 
 import { fadeIn, fadeOut, GeneralText, Heading2, RadioInput } from "../atoms";
 import { CheckboxContainer } from "../checkbox/styles";
-import { LinkContainer, PrimaryButtonWrapper } from "../buttons/styles";
 
 interface PowerUpImageProps {
   isImageLarge: boolean;
@@ -104,6 +104,8 @@ export const ButtonWrapper = styled.div`
   overflow: hidden;
   width: clamp(171px, 17.5vw + 3px, 339px);
   margin-top: -60px;
+  bottom: 0;
+  position: absolute;
 `;
 
 export const RadioButtonWrapper = styled.div`

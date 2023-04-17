@@ -4,7 +4,6 @@ import { notificationSound } from "../../assets";
 import { NOTIFICATION_VISIBILITY_TIME } from "../../constants";
 import { usePlaySound } from "../../hooks";
 import { useDeleteNotification } from "../../service";
-import { useStore } from "../../store";
 import { NotificationContent } from "../../types";
 import { ToastMessage } from "../toast-message";
 
@@ -15,7 +14,6 @@ interface MatchNotificationProps {
 
 export const MatchNotification: FC<MatchNotificationProps> = ({ notification, isMultipleMessage }) => {
   const { deleteNotification } = useDeleteNotification();
-  const isBottomButtonVisible = useStore((state) => state.isBottomButtonVisible);
 
   const playSound = usePlaySound();
 
@@ -38,7 +36,6 @@ export const MatchNotification: FC<MatchNotificationProps> = ({ notification, is
       isMultipleMessage={isMultipleMessage}
       closeToast={() => deleteNotification([notification.id])}
       wordsToBold={notification.boldText}
-      isButtonVisible={isBottomButtonVisible}
     />
   );
 };

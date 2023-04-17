@@ -1,16 +1,9 @@
 import styled from "@emotion/styled";
-import { margins, zIndex } from "../../design";
+import { margins } from "../../design";
 import { BottomButtonWrapper, Heading1, Heading6 } from "../atoms";
-import { SecondaryButtonContainer } from "../buttons/styles";
 
 export const CallBoloneyWrapper = styled.section`
   margin-top: -${margins.large0};
-  ${SecondaryButtonContainer} {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: ${zIndex.inFront};
-  }
   ${BottomButtonWrapper} {
     ${Heading6} {
       margin-bottom: ${margins.small4};
