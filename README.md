@@ -6,7 +6,7 @@ An online multiplayer game showcasing the potential of Aleo's Zero Knowledge Pro
 
 Before running the application, make sure to install the following software:
 
-- [Node.js](https://nodejs.org/en)
+- [Node.js](https://nodejs.org/en) version 18.16.0 LTS
 - [Yarn](https://yarnpkg.com/getting-started/install)
 - [Docker](https://docs.docker.com/engine/install/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
