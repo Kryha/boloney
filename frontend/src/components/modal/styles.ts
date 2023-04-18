@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { color, margins, zIndex } from "../../design";
-import { BaseIconWrapper } from "../atoms";
 import { SausageSection } from "../spinner/styles";
 import { TopNavigationSection } from "../top-navigation/styles";
 

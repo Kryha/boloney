@@ -1,6 +1,6 @@
 import { text } from "../../assets";
 import { color } from "../../design";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 
 export const SmokeAndMirrorsResult = () => {
   return (

@@ -5,7 +5,7 @@ import { useStore } from "../../store";
 import { OverlayContent } from "./overlay-content";
 import { Modal } from "../modal";
 import { OverlayWrapperSection } from "./styles";
-import { OverlayTransparent, OverlayContainer } from "../atoms";
+import { OverlayTransparent, OverlayContainer } from "../../atoms";
 
 export const OverlayWrapper: FC = () => {
   const ref = useRef(null);

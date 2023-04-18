@@ -4,7 +4,7 @@ import { text } from "../../assets";
 import { useStore } from "../../store";
 import { UsePowerUpPayloadBackend } from "../../types";
 import { getDieColor } from "../../util";
-import { BottomButtonWrapper } from "../atoms";
+import { BottomButtonWrapper } from "../../atoms";
 import { MenageATroisResult } from "./menage-a-trois-result";
 import { SecondChanceResult } from "./second-chance-result";
 import { GrillResult } from "./grill-result";

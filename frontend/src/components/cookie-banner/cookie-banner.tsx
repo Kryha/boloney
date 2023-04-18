@@ -2,7 +2,7 @@ import { FC } from "react";
 import { CloseIconSVG, CookieIconSVG, text } from "../../assets";
 import { useSetAnalyticsConsent } from "../../hooks";
 import { SecondaryButton, TertiaryButton } from "../../molecules";
-import { BaseIcon, GeneralText, Heading6 } from "../atoms";
+import { BaseIcon, GeneralText, Heading6 } from "../../atoms";
 
 import { CloseIconWrapper, CookieBannerButtons, CookieBannerContent, CookieBannerText, CookieBannerWrapper, CookieImage } from "./styles";
 

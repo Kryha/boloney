@@ -6,7 +6,7 @@ import { color } from "../../design";
 import { usePlaySound } from "../../hooks";
 
 import { ActionRole } from "../../types";
-import { BottomButtonWrapper, Heading1, Heading2 } from "../atoms";
+import { BottomButtonWrapper, Heading1, Heading2 } from "../../atoms";
 import { ButtonReady } from "../button-ready";
 import { FadeTransition } from "../page-transition";
 import { ActivePlayerImage, ActivePlayerResultWrapper } from "./styles";

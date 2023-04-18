@@ -4,7 +4,7 @@ import { color } from "../../design";
 import { usePlayer } from "../../service";
 import { useStore } from "../../store";
 import { PowerUpId } from "../../types";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 import { TextInfoContainer } from "./styles";
 
 interface PowerUpResultTextProps {

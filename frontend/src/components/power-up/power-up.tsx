@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { DisabledPowerUpsIconWrapper, PowerUpCardImage, PowerUpContainer, PowerUpWrapper } from "./styles";
 import { PowerUp } from "../../types";
-import { BaseIcon } from "../atoms";
+import { BaseIcon } from "../../atoms";
 import { BlueLockSVG } from "../../assets";
 import { iconSize, radius } from "../../design";
 

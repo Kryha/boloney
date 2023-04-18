@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTimer } from "../../hooks";
-import { GeneralText, Heading6 } from "../atoms";
+import { GeneralText, Heading6 } from "../../atoms";
 import { TimerDivider, TimerRow } from "./styles";
 
 interface TimerProps {

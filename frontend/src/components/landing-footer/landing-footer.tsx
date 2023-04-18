@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { text } from "../../assets";
 import { PrimaryButtonWrapper } from "../../molecules";
 import { routes } from "../../navigation";
-import { PrimaryButtonBase } from "../atoms";
+import { PrimaryButtonBase } from "../../atoms";
 import { LandingFooterWrapper } from "./styles";
 
 interface Props {

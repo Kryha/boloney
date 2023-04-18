@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { color, layoutHeight, margins, zIndex } from "../../design";
 import { Link } from "../../molecules";
 import { NavigationLocation } from "../../types";
-import { HorizontalDivider, GeneralText, Heading6, BodyText, BaseIcon, TertiaryButtonBase } from "../atoms";
+import { HorizontalDivider, GeneralText, Heading6, BodyText, BaseIcon, TertiaryButtonBase } from "../../atoms";
 import { DiceIconWrapper, LightningIcon } from "../icons";
 
 export const EllipsisIcon = styled(BaseIcon)`

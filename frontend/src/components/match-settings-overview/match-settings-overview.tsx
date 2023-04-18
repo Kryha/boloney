@@ -4,7 +4,7 @@ import { buttonSize, color } from "../../design";
 import { TertiaryButton } from "../../molecules";
 import { useStore } from "../../store";
 import { getPowerUp } from "../../util";
-import { BaseRow, Heading1, Heading6 } from "../atoms";
+import { BaseRow, Heading1, Heading6 } from "../../atoms";
 import { ErrorView } from "../error-view";
 import { MatchInfo } from "../match-info";
 import { PowerUpDescription } from "../power-up-description";

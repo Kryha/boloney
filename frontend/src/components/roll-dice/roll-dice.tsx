@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { text } from "../../assets";
-import { BottomButtonWrapper } from "../atoms";
+import { BottomButtonWrapper } from "../../atoms";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { useLocalPlayer, useMatch } from "../../service";

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { text } from "../../assets/text";
 import { color } from "../../design";
-import { BaseIcon, GeneralText, Heading6, IconImage } from "../atoms";
+import { BaseIcon, GeneralText, Heading6, IconImage } from "../../atoms";
 import { MatchSettings } from "../../types";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import { InfoPosition, Tooltip } from "../tooltip";

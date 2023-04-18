@@ -5,7 +5,7 @@ import { text } from "../../assets";
 import { routes } from "../../navigation";
 import { useLocalPlayer, useMatch } from "../../service";
 import { color, layoutWidth } from "../../design";
-import { BottomButtonWrapper, Heading2, Heading6 } from "../atoms";
+import { BottomButtonWrapper, Heading2, Heading6 } from "../../atoms";
 import { PlayerLeaderboard } from "./player-leaderboard";
 import { EndOfMatchWrapper, TitleSection } from "./styles";
 import { useStore } from "../../store";

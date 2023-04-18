@@ -6,7 +6,6 @@ import {
   EndOfMatch,
   EndOfRound,
   MatchLayout,
-  GeneralContentWrapper,
   GetPowerUps,
   PlayerTurns,
   RollDice,
@@ -15,6 +14,7 @@ import {
   Loading,
   FadeTransition,
 } from "../../components";
+import { GeneralContentWrapper } from "../../atoms";
 import { nakama, getRoundEndHistoryEvent, useChatHistory, useJoinMatch, getRoundStartHistoryEvent, getHistoryEvent } from "../../service";
 import { useSession, useStore } from "../../store";
 import {

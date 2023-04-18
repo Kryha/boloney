@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { color } from "../../design";
-import { LandingDisplay } from "../atoms";
+import { LandingDisplay } from "../../atoms";
 import { useObserver } from "../../hooks";
 import { LandingHeading, LargeHeadingWrapper, RightDisplaySection } from "./styles";
 

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { color, fontWeights, margins } from "../../design";
-import { GeneralText, PlayerInfoText } from "../atoms";
+import { color, fontWeights, margins } from "../design";
+import { GeneralText, PlayerInfoText } from "./text";
 
 export const ChatUserName = styled(PlayerInfoText)`
   width: fit-content;

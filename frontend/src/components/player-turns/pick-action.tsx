@@ -16,7 +16,7 @@ import {
 import { useArePowerUpsDisabled, useLatestBid, useTotalDiceInMatch } from "../../service";
 import { useStore } from "../../store";
 import { TurnAction } from "../../types";
-import { GeneralText } from "../atoms";
+import { GeneralText } from "../../atoms";
 import { PrimaryButtonWithHelper } from "../button-with-helper";
 import { FadeTransition } from "../page-transition";
 import { ActivePlayerWrapper, ActivePlayerContainer, PowerUpButtonContainer, ActionButtonContainer } from "./styles";

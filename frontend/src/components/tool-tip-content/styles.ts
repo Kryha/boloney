@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { TooltipText } from "../atoms";
+import { TooltipText } from "../../atoms";
 
 export const ToolTipContent = styled(TooltipText)``;
 

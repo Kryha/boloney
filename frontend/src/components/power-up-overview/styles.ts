@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins, opacity } from "../../design";
-import { fadeIn, fadeInPop, GeneralText, slideUp } from "../atoms";
-import { LightningIcon } from "../icons";
+import { fadeIn, fadeInPop, GeneralText, slideUp } from "../../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
 
 export const PowerUpOverviewWrapper = styled.div`

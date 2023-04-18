@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { text } from "../../assets";
 
-import { Heading4, BodyText } from "../atoms";
+import { Heading4, BodyText } from "../../atoms";
 import { LobbyPlayerStatusWrapper, Waiting } from "./styles";
 
 interface LobbyPlayerStatusProps {

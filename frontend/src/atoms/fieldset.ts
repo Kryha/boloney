@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, inputWidth } from "../../design";
+import { color, inputWidth } from "../design";
 import { BaseInput, BaseSelect } from "./input";
 
 interface Props {

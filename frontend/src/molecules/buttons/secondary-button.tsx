@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
-import { IconPosition, InfoPosition, SecondaryButtonBase } from "../../components";
+import { InfoPosition } from "../../components";
+import { IconPosition, SecondaryButtonBase } from "../../atoms";
 
 export type JustifyContent =
   | "center"

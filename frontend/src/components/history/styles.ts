@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { BodyText } from "../atoms";
+import { BodyText } from "../../atoms";
 
 export const HistoryWrapperSection = styled.section``;
 

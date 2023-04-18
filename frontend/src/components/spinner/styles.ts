@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ellipsis } from "../atoms";
+import { ellipsis } from "../../atoms";
 import { Waiting } from "../lobby-player-status/styles";
 
 export const SausageSection = styled.section``;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { margins } from "../../design";
-import { BottomButtonWrapper, Heading1, Heading6 } from "../atoms";
+import { BottomButtonWrapper, Heading1, Heading6 } from "../../atoms";
 
 export const CallBoloneyWrapper = styled.section`
   margin-top: -${margins.large0};

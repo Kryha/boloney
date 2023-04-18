@@ -3,7 +3,7 @@ import { MINIMUM_POWER_UP_WIDTH_VIEW } from "../../constants";
 import { color, margins, zIndex } from "../../design";
 import { LinkContainer, PrimaryButtonWrapper } from "../../molecules";
 
-import { fadeIn, fadeOut, GeneralText, Heading2, RadioInput } from "../atoms";
+import { fadeIn, fadeOut, GeneralText, Heading2, RadioInput } from "../../atoms";
 import { CheckboxContainer } from "../checkbox/styles";
 
 interface PowerUpImageProps {

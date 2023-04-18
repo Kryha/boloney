@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, margins, zIndex } from "../../design";
-import { BaseIcon } from "../atoms";
+import { BaseIcon } from "../../atoms";
 
 export const ToastWrapper = styled.section`
   display: flex;

@@ -4,7 +4,7 @@ import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
 import { color, fonts, fontSizes, fontWeights, iconSize, lineHeights } from "../../design";
 import { useObserver, useViewport } from "../../hooks";
 import { useStore } from "../../store";
-import { NumberedListSection, LinkText, BaseIcon } from "../atoms";
+import { NumberedListSection, LinkText, BaseIcon } from "../../atoms";
 import { ImageContainer } from "../image-containers";
 import { NumberedParagraph } from "../landing-paragraphs";
 import { BottomLinkSection } from "./bottom-link-section";

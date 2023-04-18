@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { text } from "../../../assets";
 import { color, shadows } from "../../../design";
-import { GeneralText } from "../../atoms";
+import { GeneralText } from "../../../atoms";
 import { DiceIcon } from "../../icons";
 import { MatchStateItemDrawRound } from "../../top-navigation/match-state/match-stats-item-draw-round";
 import { HistoryStatsContainer, HistoryVerticalDivider } from "./styles";

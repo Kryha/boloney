@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { color } from "../../design";
 import { useObserver, useViewport } from "../../hooks";
-import { Heading1, Heading3, Heading6 } from "../atoms";
+import { Heading1, Heading3, Heading6 } from "../../atoms";
 import { NumberedParagraphContainer, ParagraphContainer } from "./styles";
 
 export interface ParagraphProps {

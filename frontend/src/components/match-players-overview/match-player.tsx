@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { avatarHeight } from "../atoms";
+import { avatarHeight } from "../../atoms";
 import {
   MatchPlayersWrapper,
   PlayerNameContainer,

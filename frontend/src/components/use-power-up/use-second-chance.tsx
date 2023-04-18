@@ -7,7 +7,7 @@ import { useLocalPlayer, useMatch } from "../../service";
 import { useStore } from "../../store";
 import { Die } from "../../types";
 import { getDieColor } from "../../util";
-import { BottomButtonWrapper, Heading2 } from "../atoms";
+import { BottomButtonWrapper, Heading2 } from "../../atoms";
 import { ErrorView } from "../error-view";
 import { FadeTransition } from "../page-transition";
 import { PlayerDiceSelector } from "../place-bid/player-dice";

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { param } from "../../../assets/text/param";
 import { text } from "../../../assets";
-import { GeneralText } from "../../atoms";
+import { GeneralText } from "../../../atoms";
 import { MatchStateItemContainer } from "../styles";
 
 interface PropItem {

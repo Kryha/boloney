@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, margins } from "../../design";
-import { GeneralContentWrapper, Row } from "../atoms";
+import { GeneralContentWrapper, Row } from "../../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
 
 export const LightningIconContainer = styled.div`

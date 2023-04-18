@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { GeneralContentWrapper, GeneralText, BodyText, CheckboxBox } from "../atoms";
+import { GeneralContentWrapper, GeneralText, BodyText, CheckboxBox } from "../../atoms";
 import { color } from "../../design";
 import { CheckboxContainer, DescriptionContainer } from "./styles";
 

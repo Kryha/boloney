@@ -10,7 +10,7 @@ import {
   RefreshIconSVG,
 } from "../../assets";
 import { color, iconSize, radius as borderRadius } from "../../design";
-import { BaseIcon, DiceIcon, DiceIconProps } from "../atoms";
+import { BaseIcon, DiceIcon, DiceIconProps } from "../../atoms";
 
 import { DiceContainer, DieWrapper, TemporaryDieIconWrapper } from "./styles";
 

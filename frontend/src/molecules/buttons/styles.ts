@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, opacity } from "../../design";
-import { BaseIconWrapper } from "../../components";
+import { BaseIconWrapper } from "../../atoms";
 
 interface ButtonProps {
   disabled?: boolean;

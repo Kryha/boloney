@@ -2,7 +2,7 @@ import { FC } from "react";
 import { text } from "../../assets";
 import { PowerUpId } from "../../types";
 import { getPowerUp } from "../../util";
-import { GeneralText } from "../atoms";
+import { GeneralText } from "../../atoms";
 import { PowerUpComponent } from "../power-up";
 import { PowerUpContainer } from "./styles";
 

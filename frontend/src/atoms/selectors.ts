@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { color, inputWidth, spacing, wrapperSize } from "../../design";
+import { color, inputWidth, spacing, wrapperSize } from "../design";
 
 interface Props {
   width?: string;

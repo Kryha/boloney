@@ -5,7 +5,7 @@ import { ButtonContainer, ErrorContainer, InformationContainer } from "./styles"
 import { text } from "../../assets/text";
 import { routes } from "../../navigation";
 import { GO_BACK } from "../../constants";
-import { Heading2, BodyText } from "../atoms";
+import { Heading2, BodyText } from "../../atoms";
 import { PrimaryButton, TertiaryButton } from "../../molecules";
 import { LeftArrowIconSVG } from "../../assets";
 

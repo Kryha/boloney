@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
-import { Row, GeneralText, BaseIconWrapper } from "../atoms";
+import { Row, GeneralText, BaseIconWrapper } from "../../atoms";
 import { DiceIconWrapper } from "../icons";
 import { ButtonInfoWrap } from "../tooltip";
 

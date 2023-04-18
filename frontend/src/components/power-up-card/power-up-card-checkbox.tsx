@@ -3,7 +3,7 @@ import { text } from "../../assets";
 import { color } from "../../design";
 import { PowerUp, PowerUpId } from "../../types";
 import { getDescriptionExample } from "../../util";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 import { Checkbox } from "../checkbox";
 import {
   CheckboxArea,

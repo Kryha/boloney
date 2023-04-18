@@ -2,7 +2,8 @@ import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
-import { BaseOption, BaseSelect, InputLegend } from "../../components";
+import { InputLegend } from "../../components";
+import { BaseOption, BaseSelect } from "../../atoms";
 import { MAX_POWERUPS_PER_PLAYER, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { zIndex } from "../../design";
 import { MatchSettings } from "../../types";

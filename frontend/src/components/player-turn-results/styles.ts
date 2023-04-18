@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { margins, zIndex } from "../../design";
-import { BottomButtonWrapper, Heading6 } from "../atoms";
+import { BottomButtonWrapper, Heading6 } from "../../atoms";
 
 export const TextResultWrapper = styled.section``;
 

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { margins } from "../../design";
-import { BaseIcon } from "../atoms";
+import { BaseIcon } from "../../atoms";
 
 export const LogoContainer = styled.div`
   display: flex;

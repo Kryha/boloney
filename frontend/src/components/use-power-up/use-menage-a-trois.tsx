@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { text } from "../../assets";
 import { PrimaryButton } from "../../molecules";
-import { BottomButtonWrapper, Heading2 } from "../atoms";
+import { BottomButtonWrapper, Heading2 } from "../../atoms";
 import { FadeTransition } from "../page-transition";
 
 export const UseMenageATrois: FC = () => {

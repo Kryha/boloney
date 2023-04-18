@@ -2,7 +2,7 @@ import { FC } from "react";
 import Highlighter from "react-highlight-words";
 import { ResultData } from "../../assets/local-data/player-result";
 import { color } from "../../design";
-import { Heading1, Heading2 } from "../atoms";
+import { Heading1, Heading2 } from "../../atoms";
 import { TextResultWrapper } from "./styles";
 
 interface TextResultsProps {

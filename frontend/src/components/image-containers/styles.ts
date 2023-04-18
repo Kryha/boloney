@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { MEDIUM_VIEWPORT_WIDTH } from "../../constants";
 import { opacity } from "../../design";
-import { fadeUp } from "../atoms";
+import { fadeUp } from "../../atoms";
 
 interface ImageContainerBoxProps {
   isImageRight: boolean;

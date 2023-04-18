@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { RadioInput } from "../atoms";
+import { RadioInput } from "../../atoms";
 
 interface RadioButtonProps {
   onSelect: () => void;

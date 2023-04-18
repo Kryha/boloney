@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { GithubLogo, text } from "../../assets";
 import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
-import { Heading6 } from "../atoms";
+import { Heading6 } from "../../atoms";
 import { GeneralLinkContainer, GeneralLinkWrapper, HyperLink, ImageLinkContainer, LinkImage } from "./styles";
 
 interface Props {

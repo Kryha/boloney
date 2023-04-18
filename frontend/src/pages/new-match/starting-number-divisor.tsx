@@ -2,7 +2,8 @@ import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
-import { BaseOption, BaseSelect, InputLegend, ToolTipStageNumber } from "../../components";
+import { InputLegend, ToolTipStageNumber } from "../../components";
+import { BaseOption, BaseSelect } from "../../atoms";
 import { MAX_STAGE_NUMBER_DIVISOR, MIN_STAGE_NUMBER_DIVISOR } from "../../constants";
 import { zIndex } from "../../design";
 import { MatchSettings } from "../../types";

@@ -4,7 +4,7 @@ import { MAX_SIDEBAR_POWER_UPS_SHOWN, MEDIUM_VIEWPORT_WIDTH, MIN_SIDEBAR_POWER_U
 import { useViewport } from "../../hooks";
 import { PowerUpId } from "../../types";
 import { getPowerUp } from "../../util";
-import { BaseIcon } from "../atoms";
+import { BaseIcon } from "../../atoms";
 import { PowerUpComponent } from "../power-up";
 import { MinimumPowerUpsShown } from "./minimum-power-ups-show";
 import { RevealedPowerUpsContainer } from "./styles";

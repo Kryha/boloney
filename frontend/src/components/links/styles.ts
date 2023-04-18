@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Row } from "../atoms";
+import { Row } from "../../atoms";
 
 export const GeneralLinkWrapper = styled.section`
   display: flex;

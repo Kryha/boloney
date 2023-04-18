@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { breakpoints, spacing } from "../../design";
+import { breakpoints, spacing } from "../design";
 
 export type AlignProps = "stretch" | "center" | "start" | "end";
 

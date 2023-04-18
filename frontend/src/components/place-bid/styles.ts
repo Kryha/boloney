@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { breakpoints, color, FontProps, opacity } from "../../design";
-import { Heading1 } from "../atoms";
+import { Heading1 } from "../../atoms";
 
 import { DieWrapper } from "../die/styles";
 

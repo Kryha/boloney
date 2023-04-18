@@ -3,7 +3,7 @@ import { FC } from "react";
 import { PowerUpInfo } from "./power-up";
 import { CheckboxContainer, CheckWrapper } from "./styles";
 import { PowerUp } from "../../types";
-import { CheckboxBox } from "../atoms";
+import { CheckboxBox } from "../../atoms";
 
 interface Props {
   isTop?: boolean;

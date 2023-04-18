@@ -3,7 +3,7 @@ import Highlighter from "react-highlight-words";
 import { text } from "../../assets";
 import { color } from "../../design";
 import { Action, PlayerPublic } from "../../types";
-import { BottomButtonWrapper, Heading1, Heading2 } from "../atoms";
+import { BottomButtonWrapper, Heading1, Heading2 } from "../../atoms";
 import { ButtonReady } from "../button-ready";
 import { TextResultWrapper } from "../player-turns/styles";
 

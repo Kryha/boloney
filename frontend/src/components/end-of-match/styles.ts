@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, margins, screenSizes } from "../../design";
-import { Heading2, Heading4, Heading6, BodyText } from "../atoms";
+import { Heading2, Heading4, Heading6, BodyText } from "../../atoms";
 
 export const EndOfMatchWrapper = styled.section`
   width: 100%;

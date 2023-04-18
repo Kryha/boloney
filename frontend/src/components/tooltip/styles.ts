@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
-import { tooltipAnimation, TooltipText, Heading3 } from "../atoms";
+import { tooltipAnimation, TooltipText, Heading3 } from "../../atoms";
 
 export const TooltipWrap = styled.section``;
 

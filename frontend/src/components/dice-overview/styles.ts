@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { color, margins, opacity } from "../../design";
 import { SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { DieWrapper } from "../die/styles";
-import { fadeInPop, GeneralText } from "../atoms";
+import { fadeInPop, GeneralText } from "../../atoms";
 
 export const DieOverviewWrapper = styled.div`
   display: flex;

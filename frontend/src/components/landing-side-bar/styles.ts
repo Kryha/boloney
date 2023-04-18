@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { opacity, zIndex } from "../../design";
-import { fadeOut, slideUpFromBottom } from "../atoms";
+import { fadeOut, slideUpFromBottom } from "../../atoms";
 import { Hand, HandContainer, HandWrapper, ImageWrapper, Paint } from "../hand/styles";
 
 interface Props {

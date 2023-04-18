@@ -3,7 +3,8 @@ import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets";
-import { FadeTransition, GeneralContentWrapper, Heading1, Heading4 } from "../../components";
+import { FadeTransition } from "../../components";
+import { GeneralContentWrapper, Heading1, Heading4 } from "../../atoms";
 import { PrimaryButton } from "../../molecules";
 
 import { routes } from "../../navigation";

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, shadows, radius, containerWidth, containerHeight } from "../../design";
+import { color, shadows, radius, containerWidth, containerHeight } from "../design";
 
 export interface BlockProps {
   disabled?: boolean;

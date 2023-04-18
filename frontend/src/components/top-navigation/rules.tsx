@@ -4,7 +4,7 @@ import { text, InfoIconSVG } from "../../assets";
 import { BULLET_POINT } from "../../constants";
 import { color, fontWeights } from "../../design";
 import { useStore } from "../../store";
-import { BaseIcon, BodyText, ListSection } from "../atoms";
+import { BaseIcon, BodyText, ListSection } from "../../atoms";
 import { LeadingZeroList } from "../leading-zero-list";
 import { Dropdown } from "./dropdown";
 import {

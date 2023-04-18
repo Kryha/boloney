@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { losingSound, ResultData } from "../../assets";
 import { usePlaySound } from "../../hooks";
-import { BottomButtonWrapper } from "../atoms";
+import { BottomButtonWrapper } from "../../atoms";
 import { ButtonReady } from "../button-ready";
 import { ActivePlayerImage, ActivePlayerResultWrapper } from "./styles";
 import { TargetPlayerTextResults } from "./text-results";

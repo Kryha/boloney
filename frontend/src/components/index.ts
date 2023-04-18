@@ -1,6 +1,5 @@
 export * from "./inputs";
 export * from "./checkbox";
-export * from "./atoms";
 export * from "./match-players-overview";
 export * from "./match-layout";
 export * from "./die";

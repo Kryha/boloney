@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { useStore } from "../../store";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 import { PowerUpResultView } from "../power-up-result-view";
 import { UseBirdsEye } from "./use-birds-eye";
 import { UseCoup } from "./use-coup";

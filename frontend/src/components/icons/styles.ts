@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { margins } from "../../design";
-import { Row, GeneralText, BaseIconWrapper } from "../atoms";
+import { Row, GeneralText, BaseIconWrapper } from "../../atoms";
 
 export const LightningIcon = styled(BaseIconWrapper)`
   margin-top: 3px;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { fonts, FontProps, fontSizes, fontWeights, lineHeights, TransformText, color, breakpoints } from "../../design";
+import { fonts, FontProps, fontSizes, fontWeights, lineHeights, TransformText, color, breakpoints } from "../design";
 
 interface TextProps {
   customcolor?: string;

@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { color } from "../../design";
-import { BodyText, GeneralRow, Heading6, Legend, Slider, SwitchInput, SwitchWrapper } from "../atoms";
+import { BodyText, GeneralRow, Heading6, Legend, Slider, SwitchInput, SwitchWrapper } from "../../atoms";
 import { MatchSettings } from "../../types";
 import { InfoPosition, Tooltip } from "../tooltip";
 import { ToggleContent, ToggleSwitchContainer, ToggleSwitchFieldSet } from "./styles";

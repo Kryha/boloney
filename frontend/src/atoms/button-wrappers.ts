@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { zIndex, layoutWidth } from "../../design";
-import { PrimaryButtonWrapper } from "../../molecules";
+import { zIndex, layoutWidth } from "../design";
+import { PrimaryButtonWrapper } from "../molecules";
 
 interface Props {
   bottomPosition?: string;

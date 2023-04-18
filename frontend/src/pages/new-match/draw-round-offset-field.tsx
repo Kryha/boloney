@@ -2,7 +2,8 @@ import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 import { text } from "../../assets";
-import { BaseOption, BaseSelect, InputLegend } from "../../components";
+import { InputLegend } from "../../components";
+import { BaseOption, BaseSelect } from "../../atoms";
 import { MAX_DRAW_ROUND_OFFSET, MAX_HEAL_POWER_UP_AMOUNT, MIN_DRAW_ROUND_OFFSET, MIN_HEAL_POWER_UP_AMOUNT } from "../../constants";
 import { zIndex } from "../../design";
 import { MatchSettings } from "../../types";

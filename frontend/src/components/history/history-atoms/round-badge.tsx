@@ -4,7 +4,7 @@ import { text } from "../../../assets";
 import { color } from "../../../design";
 import { HistoryRoundStart } from "../../../types";
 import { getNumberWithOrdinal } from "../../../util";
-import { Heading6 } from "../../atoms";
+import { Heading6 } from "../../../atoms";
 import { HistoryStats } from "./history-stats";
 import { HistoryBadgeWrapper, HistoryBadgeContainer, HistoryDivider } from "./styles";
 

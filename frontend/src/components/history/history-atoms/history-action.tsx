@@ -9,7 +9,7 @@ import { Die } from "../../die";
 import { PowerUpIcon, DiceIconWrapper } from "../../icons";
 import { MatchStateContainer } from "../../match-players-overview/styles";
 import { EndOfRoundRow, HistoryActionWrapper, HistoryBadgeContainer, HistoryBadgeWrapper, InfoRow } from "./styles";
-import { PlayerInfoText, GeneralText, BaseIcon } from "../../atoms";
+import { PlayerInfoText, GeneralText, BaseIcon } from "../../../atoms";
 import { LightningContainer } from "../../../pages/new-match/styles";
 
 interface Props {

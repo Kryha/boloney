@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { LinkText } from "../../components";
+import { LinkText } from "../../atoms";
 import { FontProps, TransformText } from "../../design";
 import { GeneralButtonProps } from "./secondary-button";
 import { LinkContainer } from "./styles";

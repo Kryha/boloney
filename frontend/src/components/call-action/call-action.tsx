@@ -3,7 +3,7 @@ import { text } from "../../assets";
 import { PrimaryButton } from "../../molecules";
 import { useMatch } from "../../service";
 import { useStore } from "../../store";
-import { BottomButtonWrapper } from "../atoms";
+import { BottomButtonWrapper } from "../../atoms";
 import { ActionImage, CallActionWrapper } from "./styles";
 
 interface CallActionProps {

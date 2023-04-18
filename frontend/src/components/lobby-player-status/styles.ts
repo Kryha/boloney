@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ellipsis, GeneralText, Heading4 } from "../atoms";
+import { ellipsis, GeneralText, Heading4 } from "../../atoms";
 import { margins } from "../../design";
 
 export const Waiting = styled(GeneralText)`

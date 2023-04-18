@@ -1,2 +1,2 @@
-export * from "./inputs";
 export { InputContainer } from "./styles";
+export * from "./inputs";

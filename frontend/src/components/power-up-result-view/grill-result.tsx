@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { text } from "../../assets";
 import { color } from "../../design";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 
 interface Props {
   isCorrect: boolean;

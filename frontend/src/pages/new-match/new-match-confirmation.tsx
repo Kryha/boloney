@@ -2,7 +2,8 @@ import { FC, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { CopyIconSVG, text } from "../../assets";
-import { Heading1, Heading4, Heading6, NewMatchHands, GeneralText, FadeTransition, BaseIcon } from "../../components";
+import { NewMatchHands, FadeTransition } from "../../components";
+import { Heading1, Heading4, Heading6, GeneralText, BaseIcon } from "../../atoms";
 import { COPIED_TEXT_TIMEOUT } from "../../constants";
 import { fontSizes, lineHeights } from "../../design";
 import { Link, PrimaryButton } from "../../molecules";

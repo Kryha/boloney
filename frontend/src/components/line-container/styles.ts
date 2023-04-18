@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { BaseIcon, HorizontalDivider } from "../../components";
+import { BaseIcon, HorizontalDivider } from "../../atoms";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { color, margins } from "../../design";
 import { PrimaryButtonWrapper } from "../../molecules";

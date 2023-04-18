@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { breakpoints, buttonSize, color, fonts, fontSizes, fontWeights, lineHeights, spacing, TransformText } from "../../design";
+import { breakpoints, buttonSize, color, fonts, fontSizes, fontWeights, lineHeights, spacing, TransformText } from "../design";
 import { BaseIconWrapper } from "./icon-wrappers";
 
 // Buttons must have capital letter for their original text
@@ -85,6 +85,7 @@ export const SecondaryButtonBase = styled.button<Props>`
   gap: ${spacing.xs};
   flex-direction: ${({ iconPosition }): string => iconPosition ?? "row"};
   width: ${({ width }): string => width ?? buttonSize.auto};
+  min-width: fit-content;
   align-items: center;
   justify-content: ${({ justifyContent }): string => justifyContent ?? "center"};
   cursor: pointer;

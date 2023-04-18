@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { LightningIconSVG, LockIconSVG, text } from "../../assets";
 import { color, FontProps } from "../../design";
-import { BaseIcon, GeneralText } from "../atoms";
+import { BaseIcon, GeneralText } from "../../atoms";
 import { PowerUpId } from "../../types";
 import { RevealedPowerUps } from "../revealed-power-ups";
 import { PowerUpIconWrapper } from "./styles";

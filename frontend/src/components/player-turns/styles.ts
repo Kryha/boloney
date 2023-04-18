@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { margins } from "../../design";
 import { ButtonWithHelperWrapper } from "../button-with-helper/styles";
-import { BottomButtonWrapper, Heading6 } from "../atoms";
+import { BottomButtonWrapper, Heading6 } from "../../atoms";
 import { TimerRow } from "../timer";
 
 export const ActivePlayerWrapper = styled.section``;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, shadows, zIndex } from "../../design";
-import { GeneralText } from "../atoms";
+import { GeneralText } from "../../atoms";
 
 // TODO: implement Atoms for cookie banner
 export const CloseIconWrapper = styled.div`

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { margins, spacing } from "../../design";
-import { ChatInput } from "../atoms";
+import { ChatInput } from "../../atoms";
 
 export const ChatWrapperSection = styled.section`
   position: relative;

@@ -3,7 +3,7 @@ import { FC, useRef, useState } from "react";
 import { TopNavigationSection } from "./styles";
 import { MenuDropdown } from "./menu";
 import { RulesDropdown } from "./rules";
-import { VerticalDivider } from "../atoms";
+import { VerticalDivider } from "../../atoms";
 import { MatchStats } from "./match-state/match-stats";
 import { useOnClickOutside } from "usehooks-ts";
 import { NavigationLocation } from "../../types";

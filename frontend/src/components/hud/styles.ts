@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, margins, spacing, wrapperSize, zIndex } from "../../design";
-import { avatarHeight, RadioInput } from "../atoms";
+import { avatarHeight, RadioInput } from "../../atoms";
 import { DiceContainer, PlayerInfoContainer } from "../match-players-overview/styles";
 
 interface PlayerOverviewProps {

@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
-import { ContentLoader, InfoPosition, PrimaryButtonBase } from "../../components";
+import { ContentLoader, InfoPosition } from "../../components";
+import { PrimaryButtonBase } from "../../atoms";
 import { color } from "../../design";
 import { PrimaryButtonWrapper, PrimaryButtonContainer, InitialButtonView, SecondaryView } from "./styles";
 

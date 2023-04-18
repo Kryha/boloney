@@ -2,7 +2,7 @@ import { FC } from "react";
 import { LightningIconSVG } from "../../assets";
 import { color } from "../../design";
 import { PowerUp } from "../../types";
-import { GeneralContentWrapper, Row, Heading6, BodyText, BaseIcon } from "../atoms";
+import { GeneralContentWrapper, Row, Heading6, BodyText, BaseIcon } from "../../atoms";
 import { ErrorView } from "../error-view";
 import { PowerUpComponent } from "../power-up/power-up";
 import { DescriptionContainer } from "./styles";

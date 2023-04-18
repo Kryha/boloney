@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { TertiaryButtonBase } from "../../components";
+import { TertiaryButtonBase } from "../../atoms";
 import { GeneralButtonProps } from "./secondary-button";
 
 export const TertiaryButton: FC<GeneralButtonProps> = ({

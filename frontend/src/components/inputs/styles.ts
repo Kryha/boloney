@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, margins } from "../../design";
-import { Heading6, GeneralText } from "../atoms";
+import { Heading6, GeneralText } from "../../atoms";
 
 interface InputContainerProps {
   isRow: boolean;

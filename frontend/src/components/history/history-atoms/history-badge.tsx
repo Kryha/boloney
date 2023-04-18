@@ -4,7 +4,7 @@ import { color, fontWeights } from "../../../design";
 import { usePlayer } from "../../../service";
 import { HistoryBidAction } from "../../../types";
 import { parseTimeFormat } from "../../../util";
-import { PlayerInfoText, TimeStamp } from "../../atoms";
+import { PlayerInfoText, TimeStamp } from "../../../atoms";
 import { PlayerLastBid } from "../../match-players-overview";
 import { HistoryBadgeContainer, HistoryBadgeWrapper, HistoryContentWrapper, HistoryDivider, HistoryNameWrapper } from "./styles";
 

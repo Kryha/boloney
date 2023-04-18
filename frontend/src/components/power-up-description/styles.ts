@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { margins } from "../../design";
-import { GeneralContentWrapper } from "../atoms";
+import { GeneralContentWrapper } from "../../atoms";
 
 export const DescriptionContainer = styled.div`
   flex: 11;

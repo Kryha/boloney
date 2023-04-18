@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { Bid, PlayerPublic, PowerUpId, PlayerRoundData } from "../../types";
-import { ChatUserName, Heading6 } from "../atoms";
+import { ChatUserName, Heading6 } from "../../atoms";
 import { Die } from "../die";
 import { getDieColor } from "../../util";
 import { DiceIcon, PowerUpIcon } from "../icons";

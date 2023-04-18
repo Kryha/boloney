@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { ChevronDownIconSVG, CrossIconSVG, PercentageIconSVG, RightArrowIconUrl } from "../../assets";
-import { breakpoints, color, fonts, fontSizes, fontWeights, lineHeights, margins, spacing, inputWidth, inputHeight } from "../../design";
+import { ChevronDownIconSVG, CrossIconSVG, PercentageIconSVG, RightArrowIconUrl } from "../assets";
+import { breakpoints, color, fonts, fontSizes, fontWeights, lineHeights, margins, spacing, inputWidth, inputHeight } from "../design";
 
 interface Props {
   width?: string;

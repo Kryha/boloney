@@ -9,7 +9,7 @@ import { ErrorView } from "../error-view";
 import { Timer } from "../timer";
 import { FadeTransition } from "../page-transition";
 import { color } from "../../design";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 
 interface IdlePlayerHeaderProps {
   step?: TurnActionStep;

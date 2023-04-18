@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { text } from "../../assets";
-import { Heading2, InfoDisplay } from "../atoms";
+import { Heading2, InfoDisplay } from "../../atoms";
 import { TextInfoContainer } from "./styles";
 
 interface Props {

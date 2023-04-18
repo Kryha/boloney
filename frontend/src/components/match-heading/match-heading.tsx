@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Highlighter from "react-highlight-words";
 import { color } from "../../design";
-import { Heading1, Heading2 } from "../atoms";
+import { Heading1, Heading2 } from "../../atoms";
 import { FadeTransition } from "../page-transition";
 
 interface Props {

@@ -44,10 +44,7 @@ import {
   avatarHeight,
   Heading3,
   MediaImage,
-  MatchPlayersOverview,
-  TopNavigation,
   HUDPlayerBox,
-  InputLegend,
   BaseSelect,
   BaseOption,
   PercentageInput,
@@ -60,10 +57,9 @@ import {
   BaseIcon,
   SecondaryButtonBase,
   TertiaryButtonBase,
-  EndOfMatch,
-  PrimaryButtonWithHelper,
-} from "../../components";
-import { BaseColumn, BaseRow } from "../../components/atoms/grid";
+} from "../../atoms";
+import { BaseColumn, BaseRow } from "../../atoms/grid";
+import { InputLegend, MatchPlayersOverview, TopNavigation } from "../../components";
 import { MainContentContainer } from "../../components/match-layout/styles";
 import { PlayerMenu } from "../../components/player-menu";
 import { PickAction } from "../../components/player-turns/pick-action";

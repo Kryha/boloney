@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { Heading6 } from "../atoms";
+import { Heading6 } from "../../atoms";
 import { LeadingZeroTextWrapper } from "./styles";
 
 interface LeadingZeroListProps {

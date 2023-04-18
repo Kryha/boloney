@@ -7,7 +7,7 @@ import { useMatch, usePlayer } from "../../service";
 import { useStore } from "../../store";
 import { Player } from "../../types";
 import { getPowerUp } from "../../util";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 import { FadeTransition } from "../page-transition";
 import { DiceSelector } from "../place-bid";
 import { SelectionView } from "../selection-view";

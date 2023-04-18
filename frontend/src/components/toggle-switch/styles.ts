@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { FieldSet } from "../atoms";
+import { FieldSet } from "../../atoms";
 
 export const ToggleSwitchFieldSet = styled(FieldSet)`
   padding: revert;

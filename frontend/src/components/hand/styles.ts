@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { float, shadowAnimation } from "../atoms/animations";
+import { float, shadowAnimation } from "../../atoms";
 import { color, opacity } from "../../design";
 import { FLOATING_ANIMATION_SPEED } from "../../constants";
 

@@ -3,7 +3,7 @@ import { getResultData } from "../../assets";
 
 import { usePlayerWithRole, useLocalPlayer, useActivePlayer } from "../../service";
 import { useStore } from "../../store";
-import { GeneralContentWrapper } from "../atoms";
+import { GeneralContentWrapper } from "../../atoms";
 import { ErrorView } from "../error-view";
 import { FadeTransition } from "../page-transition";
 import { TurnActionHeader, IdlePlayerHeader } from "../player-turn-headers";

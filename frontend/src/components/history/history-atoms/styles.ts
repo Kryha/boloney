@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../../design";
-import { Row, GeneralText } from "../../atoms";
+import { Row, GeneralText } from "../../../atoms";
 import { BadgeWrapper } from "../../badges/styles";
 import { DiceContainer } from "../../match-players-overview/styles";
 

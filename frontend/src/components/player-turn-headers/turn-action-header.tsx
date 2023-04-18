@@ -6,7 +6,7 @@ import { useStore } from "../../store";
 import { FadeTransition } from "../page-transition";
 import { Timer } from "../timer";
 import { TurnActionHeaderWrapper, TurnActionHeading } from "./styles";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 import { TertiaryButton } from "../../molecules";
 
 export const TurnActionHeader = () => {

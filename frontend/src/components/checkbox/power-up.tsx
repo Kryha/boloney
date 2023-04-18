@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { GeneralContentWrapper, Row, Heading6, BodyText, PercentageInput, BaseIcon } from "../atoms";
+import { GeneralContentWrapper, Row, Heading6, BodyText, PercentageInput, BaseIcon } from "../../atoms";
 import { CheckboxInput } from "../inputs";
 import { PowerUpComponent } from "../power-up";
 import { color } from "../../design";

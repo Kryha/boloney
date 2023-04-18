@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 
 import { LoadingTextContainer, SausageContainer, SausageSection } from "./styles";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import { sausageAnimate } from "../atoms";
+import { sausageAnimate } from "../../atoms";
 import { SausageLoaderSVG, text } from "../../assets";
 
 interface Props {

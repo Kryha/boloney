@@ -12,7 +12,7 @@ import {
 import { FLOATING_ANIMATION_SPEED } from "../../constants";
 
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, float, Heading5, shuffle } from "../atoms";
+import { avatarHeight, float, Heading5, shuffle } from "../../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, layoutHeight } from "../../design";
+import { color, layoutHeight } from "../design";
 
 interface Props {
   height?: string;

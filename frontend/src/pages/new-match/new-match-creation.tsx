@@ -2,16 +2,8 @@ import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { LeftArrowIconSVG, text } from "../../assets";
-import {
-  FormContainer,
-  GeneralContentWrapper,
-  FadeTransition,
-  ToggleSwitch,
-  Heading1,
-  Heading6,
-  Heading4,
-  BodyText,
-} from "../../components";
+import { FadeTransition, ToggleSwitch } from "../../components";
+import { FormContainer, GeneralContentWrapper, Heading1, Heading6, Heading4, BodyText } from "../../atoms";
 import { createMatch } from "../../service";
 import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
 import { useMatchCreationFormState } from "./match-creation-form-state";

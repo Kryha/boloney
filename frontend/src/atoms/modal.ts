@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { containerWidth, containerHeight, shadows } from "../../design";
+import { containerWidth, containerHeight, shadows } from "../design";
 import { BaseBlock } from "./block";
 
 /**

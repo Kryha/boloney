@@ -4,7 +4,7 @@ import { LightningIconSVG, text } from "../../../assets";
 import { param } from "../../../assets/text/param";
 import { color } from "../../../design";
 import { LightningContainer } from "../../../pages/new-match/styles";
-import { BaseIcon, GeneralText } from "../../atoms";
+import { BaseIcon, GeneralText } from "../../../atoms";
 import { MatchStateItemContainer } from "../styles";
 
 interface PropItem {

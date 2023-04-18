@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
-import { color, margins, opacity, zIndex } from "../../design";
-import { LinkContainer } from "../../molecules";
-import { GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, BodyText } from "../atoms";
+import { color, margins, opacity, zIndex } from "../design";
+import { LinkContainer } from "../molecules";
+import { GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, BodyText } from "./text";
 
 interface TextProps {
   customcolor?: string;

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useChat, useLayoutStore } from "../../service";
 import { ChatMessageContent } from "../../types";
-import { ChatMessageListContainer } from "../atoms";
+import { ChatMessageListContainer } from "../../atoms";
 import { MessageInfo } from "./message-info";
 import { MessageListContainer, MessageListWrapper, MessageWindowContainer } from "./styles";
 

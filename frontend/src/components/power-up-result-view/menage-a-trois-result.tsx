@@ -2,7 +2,7 @@ import { FC } from "react";
 import { text } from "../../assets";
 import { color } from "../../design";
 import { AvatarColor, UseMenageBackend } from "../../types";
-import { Heading2 } from "../atoms";
+import { Heading2 } from "../../atoms";
 import { RollingDice } from "../dice-animation";
 
 interface MenageATroisResultProps {

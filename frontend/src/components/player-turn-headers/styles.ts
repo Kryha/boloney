@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { margins, zIndex } from "../../design";
-import { Heading6, TertiaryButtonBase } from "../atoms";
+import { Heading6, TertiaryButtonBase } from "../../atoms";
 
 export const TurnActionHeading = styled(Heading6)`
   padding-top: ${margins.medium0};

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ChatMessageContent } from "../../types";
-import { MessageWrapper, Message, GeneralText } from "../atoms";
+import { MessageWrapper, Message, GeneralText } from "../../atoms";
 import { PlayerName } from "../match-players-overview";
 
 export interface MessageAtomProps {

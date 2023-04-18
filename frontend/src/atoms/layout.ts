@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { color, layoutHeight, layoutWidth } from "../../design";
-import { getSidebarHeight } from "../../util";
+import { color, layoutHeight, layoutWidth } from "../design";
+import { getSidebarHeight } from "../util";
 
 interface Props {
   active?: boolean;

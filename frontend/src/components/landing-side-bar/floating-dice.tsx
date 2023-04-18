@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { WhiteDiceIconSVG } from "../../assets";
 import { color, iconSize } from "../../design";
-import { BaseIcon } from "../atoms";
+import { BaseIcon } from "../../atoms";
 
 import { HandContainer, HandWrapper, ImageWrapper, Shadow } from "../hand/styles";
 

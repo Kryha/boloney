@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { opacity } from "../../design";
 import { ViewProps } from "../../types";
-import { fadeUp, GeneralText, Heading3 } from "../atoms";
+import { fadeUp, GeneralText, Heading3 } from "../../atoms";
 
 export const ParagraphContainer = styled.div<ViewProps>`
   display: flex;

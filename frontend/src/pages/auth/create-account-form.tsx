@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
-import { BaseInput, FormContainer, GeneralContentWrapper, InputLegend, Heading1, Heading4, BodyText } from "../../components";
+import { InputLegend } from "../../components";
+import { BaseInput, FormContainer, GeneralContentWrapper, Heading1, Heading4, BodyText } from "../../atoms";
 import { fontSizes } from "../../design";
 import { MINIMUM_PASSWORD_LENGTH, MINIMUM_USERNAME_LENGTH } from "../../constants";
 import { useViewport } from "../../hooks/use-viewport";

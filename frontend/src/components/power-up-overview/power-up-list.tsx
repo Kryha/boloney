@@ -6,7 +6,7 @@ import { useArePowerUpsDisabled } from "../../service";
 import { useStore } from "../../store";
 import { PowerUpId } from "../../types";
 import { getPowerUp } from "../../util";
-import { GeneralText } from "../atoms/text";
+import { GeneralText } from "../../atoms";
 import { PowerUpComponent } from "../power-up";
 
 import { PowerUpWrapper } from "../power-up/styles";

@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { text, CrownSVG, CoolHandSVG, LockIconSVG, DeadCoffinIconSVG } from "../../assets";
 import { Action, PlayerPublic } from "../../types";
-import { BaseIcon, GeneralText } from "../atoms";
+import { BaseIcon, GeneralText } from "../../atoms";
 import { BadgeWrapper } from "./styles";
 
 export const WinnerBadge = () => {

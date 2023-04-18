@@ -3,7 +3,7 @@ import { FC, ReactNode } from "react";
 import { MenuChildrenContainer, MenuToggleHeadingSection, MenuToggleSection } from "./styles";
 import { useIsInMatch, useLayoutStore } from "../../service";
 import { CloseIconSVG } from "../../assets";
-import { BaseIcon, Heading4 } from "../atoms";
+import { BaseIcon, Heading4 } from "../../atoms";
 
 interface MenuToggleProps {
   closeMenuItem: () => void;

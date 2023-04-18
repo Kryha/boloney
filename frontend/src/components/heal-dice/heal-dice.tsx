@@ -4,7 +4,7 @@ import { useMatch } from "../../service";
 import { useStore } from "../../store";
 import { PowerUpId } from "../../types";
 import { HealDicePowerUpSelection } from "./types";
-import { BottomButtonWrapper } from "../atoms";
+import { BottomButtonWrapper } from "../../atoms";
 import { ErrorView } from "../error-view";
 import { HealDiceWrapper, PowerUpSelectionWrapper } from "./styles";
 import { PowerUpCardCheckbox } from "../power-up-card/power-up-card-checkbox";

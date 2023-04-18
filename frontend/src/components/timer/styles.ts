@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { margins } from "../../design";
-import { Row, VerticalDivider } from "../atoms";
+import { Row, VerticalDivider } from "../../atoms";
 
 export const TimerRow = styled(Row)`
   gap: ${margins.small4};

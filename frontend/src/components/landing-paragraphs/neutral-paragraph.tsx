@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { GeneralText, Heading3 } from "../atoms";
+import { GeneralText, Heading3 } from "../../atoms";
 import { ParagraphProps } from "./numbered-paragraph";
 import { NeutralContainer } from "./styles";
 

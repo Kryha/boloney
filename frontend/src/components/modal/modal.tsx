@@ -3,7 +3,7 @@ import { FC, ReactNode } from "react";
 import { ChildrenWrapper, CloseWrapper, ModalWrapper } from "./styles";
 import { useStore } from "../../store";
 import { CloseIconSVG, text } from "../../assets";
-import { BaseIcon } from "../atoms";
+import { BaseIcon } from "../../atoms";
 import { TertiaryButton } from "../../molecules";
 
 interface ModalProps {

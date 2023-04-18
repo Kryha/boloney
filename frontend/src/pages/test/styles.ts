@@ -1,7 +1,7 @@
 // TODO: delete file
 
 import styled from "@emotion/styled";
-import { Card, BaseColumn, BaseRow, HUDBlock } from "../../components";
+import { Card, BaseColumn, BaseRow, HUDBlock } from "../../atoms";
 import { spacing, color } from "../../design";
 
 export const PowerUpCard = styled(Card)`

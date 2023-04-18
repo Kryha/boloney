@@ -2,7 +2,7 @@ import { FC } from "react";
 import Highlighter from "react-highlight-words";
 import { CloseIconSVG } from "../../assets";
 
-import { GeneralText, Heading6 } from "../atoms";
+import { GeneralText, Heading6 } from "../../atoms";
 import { CloseIcon, ToastDescriptionContainer, ToastImage, ToastWrapper, MultipleToast, MultipleToastWrapper } from "./styles";
 
 interface ToastMessageProps {

@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { useLocalPlayer } from "../../service";
 import { text } from "../../assets";
-import { BottomButtonWrapper } from "../atoms";
+import { BottomButtonWrapper } from "../../atoms";
 import { ErrorView } from "../error-view";
 import { ButtonReady } from "../button-ready";
 import { useEffectOnce } from "usehooks-ts";

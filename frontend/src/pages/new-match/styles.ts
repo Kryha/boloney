@@ -1,12 +1,6 @@
 import styled from "@emotion/styled";
-import {
-  BaseInput,
-  GeneralText,
-  Heading4,
-  InputContainer,
-  DescriptionContainer,
-  CheckboxContainer as CheckboxWrapper,
-} from "../../components";
+import { InputContainer, DescriptionContainer, CheckboxContainer as CheckboxWrapper } from "../../components";
+import { BaseInput, GeneralText, Heading4 } from "../../atoms";
 import { color, margins, opacity, zIndex } from "../../design";
 
 export const NewMatchContainer = styled.section``;

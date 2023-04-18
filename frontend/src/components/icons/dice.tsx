@@ -2,7 +2,7 @@ import { FC } from "react";
 import Highlighter from "react-highlight-words";
 import { text } from "../../assets";
 import { color, iconSize } from "../../design";
-import { DiceIconProps, GeneralText } from "../atoms";
+import { DiceIconProps, GeneralText } from "../../atoms";
 import { Die } from "../die";
 import { DiceIconWrapper, ExtraDiceInfo, ExtraInfoSum } from "./styles";
 

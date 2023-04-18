@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { text } from "../../assets/text";
-import { GeneralText, TooltipText, DefaultListItem } from "../atoms";
+import { GeneralText, TooltipText, DefaultListItem } from "../../atoms";
 import { BulletContainer, ToolTipContent } from "./styles";
 
 export const ToolTipStageNumber: FC = () => {

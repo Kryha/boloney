@@ -4,7 +4,7 @@ import { ArrowButtonSVG, text } from "../../assets";
 import { color, fontSizes, iconSize, lineHeights } from "../../design";
 import { useTotalDiceInMatch } from "../../service";
 import { Bid } from "../../types";
-import { BaseIcon } from "../atoms";
+import { BaseIcon } from "../../atoms";
 
 import { usePlaceBidFormState } from "./bid-state";
 import { ControlButton, ControlButtonWrapper, NumberList, NumberSliderWrapper, Number } from "./styles";

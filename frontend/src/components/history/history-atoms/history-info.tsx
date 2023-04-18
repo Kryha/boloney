@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { text } from "../../../assets";
 import { color } from "../../../design";
-import { PlayerInfoText, TimeStamp } from "../../atoms";
+import { PlayerInfoText, TimeStamp } from "../../../atoms";
 import { HistoryPlayerAction, PlayerPublic, powerUpIdSchema } from "../../../types";
 import { getPowerUp, parseTimeFormat, getDieColor } from "../../../util";
 import { HistoryActionTitle } from "./history-action";

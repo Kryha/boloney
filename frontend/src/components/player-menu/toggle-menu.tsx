@@ -4,7 +4,7 @@ import { PlusIconSVG } from "../../assets";
 import { text } from "../../assets/text";
 import { useIsInMatch } from "../../service";
 import { useLayoutStore } from "../../service/layout-config";
-import { BaseIcon, Heading4 } from "../atoms";
+import { BaseIcon, Heading4 } from "../../atoms";
 import { ChatSection, TitleContainer, HistorySection } from "./styles";
 
 export const ToggleMenu: FC = () => {

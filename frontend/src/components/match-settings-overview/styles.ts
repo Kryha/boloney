@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../design";
-import { Row, BodyText } from "../atoms";
+import { Row, BodyText } from "../../atoms";
 import { PowerUpWrapper } from "../power-up/styles";
 
 export const MatchSettingsOverviewComponent = styled.section`

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { color, zIndex } from "../../design";
-import { fadeIn, slideRight } from "../atoms";
+import { fadeIn, slideRight } from "../../atoms";
 import { PowerUpCardWrapper } from "../power-up-card/styles";
 
 export const PowerUpPileContainer = styled.section`

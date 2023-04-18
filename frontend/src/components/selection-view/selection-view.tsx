@@ -3,7 +3,7 @@ import { avatars, text } from "../../assets";
 import { color } from "../../design";
 import { PrimaryButton } from "../../molecules";
 import { usePlayer } from "../../service";
-import { BottomButtonWrapper, Heading2 } from "../atoms";
+import { BottomButtonWrapper, Heading2 } from "../../atoms";
 import { ErrorView } from "../error-view";
 import { Hand } from "../hand";
 import { FadeTransition } from "../page-transition";

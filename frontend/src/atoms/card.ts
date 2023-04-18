@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { breakpoints, color, containerHeight, containerWidth, maxHeight, radius, shadows } from "../../design";
-import { switchStyle } from "../../util";
+import { breakpoints, color, containerHeight, containerWidth, maxHeight, radius, shadows } from "../design";
+import { switchStyle } from "../util";
 import { BlockProps } from "./block";
 
 interface CardProps extends BlockProps {

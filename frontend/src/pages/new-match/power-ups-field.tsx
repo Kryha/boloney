@@ -1,7 +1,8 @@
 import { FC } from "react";
 
 import { LightningIconSVG, POWER_UP_DATA, text } from "../../assets";
-import { BaseIcon, BaseRow, GeneralText, Heading6, Input, Tooltip } from "../../components";
+import { Input, Tooltip } from "../../components";
+import { BaseIcon, BaseRow, GeneralText, Heading6 } from "../../atoms";
 import { PowerUpCheckbox } from "../../components/checkbox/power-up-checkbox";
 import { buttonSize, color, fontWeights } from "../../design";
 import { TertiaryButton } from "../../molecules";

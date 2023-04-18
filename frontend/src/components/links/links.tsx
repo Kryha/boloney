@@ -2,7 +2,7 @@ import { FC } from "react";
 import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
 import { color } from "../../design";
 import { Link } from "../../molecules";
-import { Heading3, Heading6, LinkProps } from "../atoms";
+import { Heading3, Heading6, LinkProps } from "../../atoms";
 import { GeneralLinkContainer, GeneralLinkWrapper, HyperLink } from "./styles";
 
 interface Props extends LinkProps {

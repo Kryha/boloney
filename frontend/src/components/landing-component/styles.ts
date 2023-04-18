@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
 import { opacity, zIndex } from "../../design";
 import { ViewProps } from "../../types";
-import { fadeUp, InfoDisplay, Heading2 } from "../atoms";
+import { fadeUp, InfoDisplay, Heading2 } from "../../atoms";
 import { GeneralLinkWrapper } from "../links/styles";
 
 interface Props {

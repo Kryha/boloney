@@ -3,7 +3,7 @@ import { FC, useEffect } from "react";
 import { text } from "../../assets";
 import { useLatestBid, useLocalPlayer, useMatch, useTotalDiceInMatch } from "../../service";
 import { getDieColor, getMinFaceValue } from "../../util";
-import { BottomButtonWrapper } from "../atoms";
+import { BottomButtonWrapper } from "../../atoms";
 import { ErrorView } from "../error-view";
 import { usePlaceBidFormState } from "./bid-state";
 import { DiceFaces } from "./dice-faces";

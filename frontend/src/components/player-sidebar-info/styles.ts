@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, wrapperSize, zIndex } from "../../design";
-import { RadioInput } from "../atoms";
+import { RadioInput } from "../../atoms";
 import { DiceContainer } from "../match-players-overview/styles";
 
 interface SidebarInfoContainerProps {

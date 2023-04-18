@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import { ErrorIconSVG } from "../../assets";
 import { text } from "../../assets/text";
 
-import { BodyText, FieldSet, Heading6, Legend, BaseIcon } from "../atoms";
+import { BodyText, FieldSet, Heading6, Legend, BaseIcon } from "../../atoms";
 import { InfoPosition, Tooltip } from "../tooltip";
 import {
   InputContainer,

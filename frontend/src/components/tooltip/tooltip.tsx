@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { InfoIconSVG } from "../../assets";
-import { BaseIcon } from "../atoms";
+import { BaseIcon } from "../../atoms";
 import { ButtonInfoWrap } from "./styles";
 import { InfoPosition, TooltipInfo } from "./tooltip-info";
 

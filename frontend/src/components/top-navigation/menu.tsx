@@ -8,7 +8,7 @@ import { routes } from "../../navigation";
 import { useLogout, useMatch } from "../../service";
 import { useSession, useStore } from "../../store";
 import { isNkError, NavigationLocation } from "../../types";
-import { BaseIcon, HorizontalDivider } from "../atoms";
+import { BaseIcon, HorizontalDivider } from "../../atoms";
 import { Dropdown } from "./dropdown";
 import { EllipsisIcon, MenuContainer } from "./styles";
 import { ActiveDropdown } from "./top-navigation";

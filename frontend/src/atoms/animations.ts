@@ -1,5 +1,5 @@
 import { keyframes } from "@emotion/react";
-import { color, opacity, zIndex } from "../../design";
+import { color, opacity, zIndex } from "../design";
 
 // Hands
 export const float = keyframes`
