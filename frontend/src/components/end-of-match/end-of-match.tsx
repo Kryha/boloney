@@ -21,6 +21,8 @@ export const EndOfMatch: FC = () => {
 
   const localPlayer = useLocalPlayer();
 
+  const isDraw = !leaderboard.at(0);
+
   const [isLocalWinner, isLocalLoser] = (() => {
     const winner = leaderboard.at(0);
     const secondPlayer = leaderboard.at(1);
@@ -43,13 +45,20 @@ export const EndOfMatch: FC = () => {
     return text.endOfMatch.youLostDescription;
   };
 
+  // TODO: change placeholder for draw view once we have the design
   return (
     <FadeTransition>
       <EndOfMatchWrapper>
         <TitleSection>
           <Heading6>{text.endOfMatch.endOfMatch}</Heading6>
-          <Heading2>{headingText()}</Heading2>
-          <Heading2 customcolor={color.darkGrey}>{headingDescription()}</Heading2>
+          {isDraw ? (
+            <Heading2>{text.endOfMatch.drawTitle}</Heading2>
+          ) : (
+            <>
+              <Heading2>{headingText()}</Heading2>
+              <Heading2 customcolor={color.darkGrey}>{headingDescription()}</Heading2>
+            </>
+          )}
         </TitleSection>
 
         {leaderboard.map((player, i) => (

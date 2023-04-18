@@ -1,6 +1,6 @@
 import { HASH_CHAIN_LENGTH, HASH_MAX_RANGE, TOOLKIT_ENDPOINTS } from "../constants";
-import { AleoAccount, HashChainRequestBody, HashChainResponseBody, httpError, isHashChainResponseBody, MatchLoopParams } from "../types";
-import { isZkEnabled, randomInt, tkUrl } from "../utils";
+import { AleoAccount, HashChainRequestBody, HashChainResponseBody, isHashChainResponseBody, MatchLoopParams } from "../types";
+import { httpError, isZkEnabled, randomInt, tkUrl } from "../utils";
 import { handleToolkitRequest } from "./request-handler";
 
 const requestHashChain = async (

@@ -1,9 +1,8 @@
-import { TOOLKIT_ENDPOINTS, HASH_MAX_RANGE } from "../constants";
+import { HASH_MAX_RANGE, TOOLKIT_ENDPOINTS } from "../constants";
 import {
   AleoAccount,
   AleoKeys,
   DiceDataToolkit,
-  httpError,
   isBirdsEyeResToolkit,
   isPowerUpId,
   isRandomNumberResToolkit,
@@ -17,7 +16,7 @@ import {
   UseBirdsEyeBodyToolkit,
   UseBirdsEyeResToolkit,
 } from "../types";
-import { isZkEnabled, randomInt, tkUrl } from "../utils";
+import { httpError, isZkEnabled, randomInt, tkUrl } from "../utils";
 import { handleToolkitRequest } from "./request-handler";
 
 export const getAvailablePowerUps = (powerUpsProbability: PowerUpProbability[]): PowerUpProbability[] => {
@@ -55,7 +54,7 @@ export const getPowerUpIdFromProbability = (randomNumber: number, probabilityRan
 };
 
 export const getPowerUp = (loopParams: MatchLoopParams, playerAccount: AleoAccount): PowerUpId | undefined => {
-  const { state, ctx, nk, logger } = loopParams;
+  const { nk, state, ctx, logger } = loopParams;
   const { powerUpProbability } = state.settings;
   const { address, privateKey, viewKey } = playerAccount;
 
@@ -99,18 +98,16 @@ const useBirdsEye = (
   diceData: DiceDataToolkit,
   playerKeys: AleoKeys
 ): UseBirdsEyeResToolkit => {
-  const { ctx, nk, logger } = loopParams;
+  const { nk, ctx, logger } = loopParams;
   const { viewKey, privateKey } = playerKeys;
 
   const url = tkUrl(ctx, TOOLKIT_ENDPOINTS.powerUps.useBirdsEye);
 
   const body: UseBirdsEyeBodyToolkit = { powerUp, diceData, viewKey, privateKey };
-  loopParams.logger.debug("useBirdsEye Body " + JSON.stringify(body, null, 2));
 
   const res = handleToolkitRequest(url, "post", body, nk, logger);
 
   const parsed = JSON.parse(res.body);
-  loopParams.logger.debug("useBirdsEye Response " + parsed);
 
   if (!isBirdsEyeResToolkit(parsed)) throw httpError(res.code, res.body);
 

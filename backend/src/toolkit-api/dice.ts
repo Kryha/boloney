@@ -1,6 +1,6 @@
 import { TOOLKIT_ENDPOINTS } from "../constants";
-import { Die, isRandomNumberResToolkit, MatchLoopParams, Player, RandomNumberBodyToolkit, AleoAccount, httpError } from "../types";
-import { getNumericHash, getRange, randomInt, tkUrl, isZkEnabled } from "../utils";
+import { Die, isRandomNumberResToolkit, MatchLoopParams, Player, RandomNumberBodyToolkit, AleoAccount } from "../types";
+import { getNumericHash, getRange, randomInt, tkUrl, isZkEnabled, httpError } from "../utils";
 import { handleToolkitRequest } from "./request-handler";
 
 const requestRoll = async (loopParams: MatchLoopParams, seed: number, playerAccount: AleoAccount): Promise<number> => {

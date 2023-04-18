@@ -34,6 +34,8 @@ export const CreateAccountForm: FC = () => {
     const CONTAINS_PROFANITY = "Username contains profanity";
     const MIN_LENGTH = "minLength";
     const REQUIRED = "required";
+    const INTERNAL = "internalError";
+
     switch (errors.username?.type) {
       case ALREADY_EXISTS:
         return text.authForm.errorMessages.usernameAlreadyTaken;
@@ -43,6 +45,8 @@ export const CreateAccountForm: FC = () => {
         return text.authForm.errorMessages.usernameMinimum;
       case REQUIRED:
         return text.authForm.errorMessages.usernameRequired;
+      case INTERNAL:
+        return text.authForm.errorMessages.internal;
       default:
         return "";
     }

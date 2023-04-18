@@ -44,7 +44,7 @@ import {
 } from "../../../types";
 import { range } from "../../../utils";
 
-const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
+const handlePlayerPlaceBid = messageHandler(async (loopParams, message, sender) => {
   const { logger, nk, state, dispatcher } = loopParams;
 
   logger.info(sender.username, "placed Bid");
@@ -75,7 +75,7 @@ const handlePlayerPlaceBid = messageHandler((loopParams, message, sender) => {
   saveHistoryEvent(state, { eventType: "bidAction", senderId: sender.userId });
 });
 
-const handlePlayerCallBoloney = messageHandler((loopParams, message, sender) => {
+const handlePlayerCallBoloney = messageHandler(async (loopParams, message, sender) => {
   const { logger, state, dispatcher } = loopParams;
 
   logger.info(sender.username, "called Boloney");
@@ -188,7 +188,6 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
   const playerAccount = getPlayerAccount(nk, sender.userId);
 
   const newRolledDice = await rollDice(loopParams, 1, player, playerAccount);
-
   state.players[sender.userId].diceValue.push(newRolledDice[0]);
 
   // removes the powerUpIds from the state and toolkit
@@ -225,7 +224,7 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
   saveHistoryEvent(state, { eventType: "playerAction", senderId: sender.userId });
 });
 
-export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => {
+export const handleActivePlayerMessages = async (message: nkruntime.MatchMessage, sender: Player, loopParams: MatchLoopParams) => {
   const { logger } = loopParams;
   switch (message.opCode) {
     case MatchOpCode.PLAYER_PLACE_BID:
@@ -235,13 +234,13 @@ export const handleActivePlayerMessages = (message: nkruntime.MatchMessage, send
       handlePlayerCallBoloney(loopParams, message, sender);
       break;
     case MatchOpCode.PLAYER_CALL_EXACT:
-      handlePlayerCallExact(loopParams, message, sender);
+      await handlePlayerCallExact(loopParams, message, sender);
       break;
     case MatchOpCode.PLAYER_HEAL_DICE:
-      handlePlayerCallHealDice(loopParams, message, sender);
+      await handlePlayerCallHealDice(loopParams, message, sender);
       break;
     case MatchOpCode.USE_POWER_UP:
-      powerUp.handlePlayerUsePowerUp(loopParams, message, sender);
+      await powerUp.handlePlayerUsePowerUp(loopParams, message, sender);
       break;
     default:
       logger.info("Unknown OP_CODE received: ", message.opCode);

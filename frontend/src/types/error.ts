@@ -26,3 +26,12 @@ export const nkErrorSchema = z.object({ code: nkCodeSchema, message: z.string() 
 export type NkError = z.infer<typeof nkErrorSchema>;
 
 export const isNkError = (value: unknown): value is NkError => nkErrorSchema.safeParse(value).success;
+
+export const errorNotificationMessageSchema = z.enum([
+  "unknownError",
+  "rollDiceError",
+  "usePowerUpError",
+  "healDiceError",
+  "invalidPayloadError",
+]);
+export type ErrorNotificationMessage = z.infer<typeof errorNotificationMessageSchema>;

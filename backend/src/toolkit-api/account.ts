@@ -1,6 +1,6 @@
 import { TOOLKIT_ENDPOINTS } from "../constants";
-import { AleoAccount, httpError, isHttpError } from "../types";
-import { tkUrl } from "../utils";
+import { AleoAccount, isHttpError } from "../types";
+import { httpError, tkUrl } from "../utils";
 import { handleToolkitRequest } from "./request-handler";
 
 export const createAleoAccount = (ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkruntime.Nakama): AleoAccount => {

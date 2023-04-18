@@ -13,7 +13,6 @@ import {
   MatchState,
   MessageCallback,
   MessageHandler,
-  NotificationContentError,
   NotificationOpCode,
   Player,
   PlayerGetPowerUpsPayloadBackend,
@@ -26,9 +25,8 @@ import {
   TransitionHandler,
 } from "../types";
 import { randomInt } from "../utils";
-import { errors, handleError, parseError } from "./error";
+import { errors, handleErrorSideEffects, handleMatchMessageError, parseError } from "./error";
 import { saveHistoryEvent } from "./history";
-import { sendMatchNotification } from "./notification";
 import {
   clearPlayerState,
   getActivePlayerId,
@@ -82,6 +80,7 @@ export const attemptStageTransition = (loopParams: MatchLoopParams, callback?: S
   state.playersReady = [];
 
   callback?.(loopParams, nextStage);
+  state.rollBackAttempts = 0;
 };
 
 const handleMessages = (loopParams: MatchLoopParams, callback: MessageCallback) => {
@@ -181,50 +180,46 @@ export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, sender: nkr
 };
 
 export const messageHandler: MessageHandler = (callback) => async (loopParams, message, sender) => {
-  const { logger } = loopParams;
+  const { state } = loopParams;
+  const deepCopy = structuredClone(state);
+
   try {
     await callback(loopParams, message, sender);
+    state.rollBackAttempts = 0;
   } catch (error) {
-    // TODO: Handle unknown errors as well.
-    if (isHttpError(error)) {
-      handleToolkitErrorSideEffects(loopParams, message.opCode, sender);
-      logger.error("Toolkit error while performing action ", message.opCode, error);
-    } else {
-      const parsedError = parseError(error);
-      stopLoading(loopParams, message.sender, parsedError);
-    }
+    handleMatchMessageError(loopParams, deepCopy, error, message, sender);
   }
 };
 
+// If the callback throws an error, the match will be terminated straight away
 export const logicHandler: LogicHandler = (callback) => async (loopParams) => {
-  const { logger, state } = loopParams;
+  const { logger, state, dispatcher } = loopParams;
+  const deepCopy = structuredClone(state);
+
   try {
     await callback(loopParams);
   } catch (error) {
-    // TODO: Handle unknown errors using the same handler.
-    if (isHttpError(error)) {
-      const opCode = error.opCode ?? getOpCodeFromStage(state.matchStage);
-      handleToolkitErrorSideEffects(loopParams, opCode);
-      logger.error("Toolkit error while performing action ", opCode, error);
-    } else {
-      handleError(error, logger);
-    }
+    let opCode = MatchOpCode.PLAYER_GET_POWERUPS;
+    // Any error which is not an HTTP error should be handled as in this case of PLAYER_GET_POWERUPS
+    if (isHttpError(error)) opCode = error.opCode ?? opCode;
+
+    handleErrorSideEffects(loopParams, deepCopy, opCode, isHttpError(error));
+    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA);
+    logger.error("Runtime error while performing internal logic" + opCode + JSON.stringify(error, null, 2));
   }
 };
 
 export const transitionHandler: TransitionHandler = (callback) => async (loopParams, nextStage) => {
-  const { logger, state } = loopParams;
+  const { dispatcher, state, logger } = loopParams;
+  const deepCopy = structuredClone(state);
+
   try {
     await callback(loopParams, nextStage);
   } catch (error) {
-    // TODO: Handle unknown errors using the same handler.
-    if (isHttpError(error)) {
-      const opCode = error.opCode ?? getOpCodeFromStage(state.matchStage);
-      handleToolkitErrorSideEffects(loopParams, opCode);
-      logger.error("Toolkit error while performing action ", opCode, error);
-    } else {
-      handleError(error, logger);
-    }
+    const opCode = getOpCodeFromStage(state.matchStage);
+    handleErrorSideEffects(loopParams, deepCopy, opCode, isHttpError(error));
+    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA);
+    logger.error("Runtime error while performing transition logic " + opCode + JSON.stringify(error, null, 2));
   }
 };
 
@@ -305,7 +300,7 @@ export const totalDiceInMatch = (playersRecord: Record<string, Player>) => {
 };
 
 // TODO: discuss on how to improve integration with the corresponding transition handler
-export const handleRoundEnding = (loopParams: MatchLoopParams, nextStage: MatchStage) => {
+export const handleRoundEnding = async (loopParams: MatchLoopParams, nextStage: MatchStage) => {
   const { dispatcher, state, nk } = loopParams;
 
   state.timerHasStarted = false;
@@ -365,29 +360,6 @@ export const handleRoundEnding = (loopParams: MatchLoopParams, nextStage: MatchS
   dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(stageTransitionPayload));
 };
 
-// TODO: Add rollback logic for the rest of the cases.
-const handleToolkitErrorSideEffects = (loopParams: MatchLoopParams, matchOpCode: MatchOpCode, sender?: Player) => {
-  const { state, dispatcher, logger, ctx } = loopParams;
-  const errorContent: NotificationContentError = {
-    errorMessage: "zkDefaultError",
-  };
-  sendMatchNotification(loopParams, NotificationOpCode.ERROR, errorContent);
-
-  switch (matchOpCode) {
-    case MatchOpCode.PLAYER_GET_POWERUPS:
-      state.matchStage = "endOfMatchStage";
-      updatePlayersState(state, dispatcher);
-      logger.info("Terminating match due to Toolkit Error", ctx.matchId);
-      break;
-    case MatchOpCode.ROLL_DICE:
-      if (!sender) throw "Couldn't roll back, sender is undefined";
-      state.players[sender.userId].hasRolledDice = false;
-      break;
-    default:
-      break;
-  }
-};
-
 const getOpCodeFromStage = (stage: MatchStage): MatchOpCode => {
   switch (stage) {
     case "roundSummaryStage":
@@ -397,6 +369,6 @@ const getOpCodeFromStage = (stage: MatchStage): MatchOpCode => {
     case "lobbyStage":
       return MatchOpCode.STAGE_TRANSITION;
     default:
-      throw new Error(`Invalid stage: ${stage}`);
+      return MatchOpCode.PLAYER_LOST_BY_TIMEOUT;
   }
 };

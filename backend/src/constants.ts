@@ -120,3 +120,6 @@ export const STORAGE_MATCH_DATA_COLLECTION = "match-data";
 export const STORAGE_HASH_CHAIN_KEY = "hash-chain";
 
 export const MAX_TOOLKIT_REQUESTS_ATTEMPTS = 3;
+export const MAX_ROLL_BACK_ATTEMPTS = 3;
+// TODO: remove this when fiexd
+export const BIRDS_EYE_DISABLED = true;

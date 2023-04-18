@@ -9,7 +9,7 @@ export const handleEmptyLogic = logicHandler(async () => {
 });
 
 export const handleLogicWithTimer = logicHandler(async (loopParams: MatchLoopParams) => {
-  handleTimeOutTicks(loopParams);
+  await handleTimeOutTicks(loopParams);
 });
 
 export const handlePowerUpLogic = logicHandler(async (loopParams: MatchLoopParams) => {
@@ -18,7 +18,7 @@ export const handlePowerUpLogic = logicHandler(async (loopParams: MatchLoopParam
   const initialPowerUpAmount = state.settings.initialPowerUpAmount;
   const range = getRange(initialPowerUpAmount);
 
-  handleTimeOutTicks(loopParams);
+  await handleTimeOutTicks(loopParams);
 
   // TODO: Store PowerUp records instead of just IDs
   await Promise.all(

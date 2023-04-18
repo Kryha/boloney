@@ -1,4 +1,4 @@
-import { EMPTY_DATA, MENAGE_A_TROIS_DICE_AMOUNT } from "../constants";
+import { BIRDS_EYE_DISABLED, EMPTY_DATA, MENAGE_A_TROIS_DICE_AMOUNT } from "../constants";
 import { getPowerUp, rollDice, toolkitUse } from "../toolkit-api";
 import {
   isPowerUpTypeArray,
@@ -28,11 +28,12 @@ import {
   UseVendettaFrontend,
   isDieArray,
   AleoKeys,
+  DiceDataToolkit,
 } from "../types";
-import { stopLoading, updatePlayersState } from "./match";
+import { updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
-import { cleanUUID, getRange, shuffleArray } from "../utils";
+import { cleanUUID, getRange, isZkEnabled, shuffleArray } from "../utils";
 import { handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
 import { saveHistoryEvent } from "./history";
 import { getPlayerAccount, getPlayerKeys } from "./storage";
@@ -51,41 +52,41 @@ const useGrill = (loopParams: MatchLoopParams, data: UseGrillFrontend): UseGrill
 const useBirdsEye = (
   loopParams: MatchLoopParams,
   data: UseBirdsEyeFrontend,
-  _powerUpRecord: PowerUpToolkit,
-  _playerKeys: AleoKeys
+  powerUpRecord: PowerUpToolkit,
+  playerKeys: AleoKeys
 ): UseBirdsEyeBackend => {
-  const { state } = loopParams;
+  const { state, ctx } = loopParams;
   const { targetId } = data;
 
   const target = state.players[targetId];
 
-  // let sum: number;
+  let sum = 0;
 
   // TODO: Fix call to toolkit
-  // if (isZkEnabled(state, ctx)) {
-  //   const diceData: DiceDataToolkit = {
-  //     dice_1: 0,
-  //     dice_2: 0,
-  //     dice_3: 0,
-  //     dice_4: 0,
-  //     dice_5: 0,
-  //     dice_6: 0,
-  //     dice_7: 0,
-  //     dice_8: 0,
-  //     dice_9: 0,
-  //     dice_10: 0,
-  //   };
+  if (isZkEnabled(state, ctx) && !BIRDS_EYE_DISABLED) {
+    const diceData: DiceDataToolkit = {
+      dice_1: 0,
+      dice_2: 0,
+      dice_3: 0,
+      dice_4: 0,
+      dice_5: 0,
+      dice_6: 0,
+      dice_7: 0,
+      dice_8: 0,
+      dice_9: 0,
+      dice_10: 0,
+    };
 
-  //   target.diceValue.forEach((dice, i) => {
-  //     const key = `dice_${i + 1}` as keyof DiceDataToolkit;
-  //     diceData[key] = dice.rolledValue;
-  //   });
+    target.diceValue.forEach((dice, i) => {
+      const key = `dice_${i + 1}` as keyof DiceDataToolkit;
+      diceData[key] = dice.rolledValue;
+    });
 
-  //   const res = toolkitUse.birdsEye(loopParams, powerUpRecord, diceData, playerKeys);
-  //   sum = res.sum;
-  // } else {
-  // }
-  const sum = target.diceValue.reduce((tot, die) => tot + die.rolledValue, 0);
+    const res = toolkitUse.birdsEye(loopParams, powerUpRecord, diceData, playerKeys);
+    sum = res.sum;
+  } else {
+    sum = target.diceValue.reduce((tot, die) => tot + die.rolledValue, 0);
+  }
 
   return { sum, targetId };
 };
@@ -232,126 +233,116 @@ const isPowerUpActive = (loopParams: MatchLoopParams, powerUpId: PowerUpId) => {
 };
 
 const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage, sender: Player): Promise<void> => {
-  const { state, dispatcher, nk, ctx, logger } = loopParams;
+  const { state, dispatcher, nk, ctx } = loopParams;
 
-  try {
-    // TODO: use type predicates instead of assertion
-    const payload = JSON.parse(nk.binaryToString(message.data)) as UsePowerUpPayloadFrontend;
+  // TODO: use type predicates instead of assertion
+  const payload = JSON.parse(nk.binaryToString(message.data)) as UsePowerUpPayloadFrontend;
 
-    const { id, data } = payload;
-    const activePowerUp = isPowerUpActive(loopParams, id);
+  const { id, data } = payload;
+  const activePowerUp = isPowerUpActive(loopParams, id);
 
-    if (!activePowerUp) {
-      const powerUp = sender.powerUpIds.find((powerUp) => powerUp === id);
-      if (!powerUp) throw new Error(`Player does not own a power-up with id ${id}`);
-    }
-    updatePlayerPowerUpAmount(loopParams, [sender.userId]);
-    // TODO: investigate why keys do not get stored in staging env
-    // const [key] = readUserKeys(nk, sender.userId, { collection: "Accounts", key: "keys" });
-    // if (!key) throw new Error("User not found in collection");
-
-    // TODO: use real record
-    // TODO: pass key.value.address as owner field after implementing proper power-up generation
-    const powerUpRecord: PowerUpToolkit = {
-      owner: "aleo1p4ye54p6n5cfdyzmy6fcs583mmwrghdxl8upeuew4w8uqmhqdqxq3e4tfl",
-      gates: 0,
-      powerUpId: id,
-      matchId: cleanUUID(ctx.matchId),
-      _nonce: "4393085214842307962009839145934641063703150241291667000462643412531900836455group",
-    };
-
-    let resPayload: UsePowerUpPayloadBackend;
-
-    let shouldRemovePowerUp = true;
-    let shouldBroadcastOnlyToSender = true;
-
-    switch (id) {
-      case "1": {
-        const resData = useGrill(loopParams, data);
-        resPayload = { id, data: resData };
-        break;
-      }
-      case "2": {
-        const playerKeys = getPlayerKeys(nk, sender.userId);
-        const resData = useBirdsEye(loopParams, data, powerUpRecord, playerKeys);
-        resPayload = { id, data: resData };
-        break;
-      }
-      case "3": {
-        const resData = await useMenage(loopParams, sender);
-        resPayload = { id, data: resData };
-        break;
-      }
-      case "4": {
-        const resData = await useDoubleUp(loopParams, sender);
-        resPayload = { id, data: resData };
-        break;
-      }
-      case "5": {
-        const resData = await useVendetta(loopParams, data);
-        resPayload = { id, data: resData };
-        break;
-      }
-      case "6": {
-        const resData = await useSecondChance(loopParams, data, sender);
-        resPayload = { id, data: resData };
-        break;
-      }
-      case "7": {
-        const isSelfTarget = sender.userId === data.targetId;
-        shouldRemovePowerUp = !isSelfTarget;
-        const resData = await useCoup(loopParams, data, isSelfTarget);
-        resPayload = { id, data: resData };
-        break;
-      }
-      case "8": {
-        const resData = useSmokeAndMirrors(loopParams, sender);
-        resPayload = { id, data: resData };
-        shouldBroadcastOnlyToSender = false;
-        break;
-      }
-      case "9": {
-        const [resData, shouldRemove] = await useHypnosis(loopParams, sender, data);
-        shouldRemovePowerUp = shouldRemove;
-        resPayload = { id, data: resData };
-        break;
-      }
-    }
-
-    if (shouldRemovePowerUp) {
-      sender.powerUpIds.splice(sender.powerUpIds.indexOf(id), 1);
-      sender.powerUpsAmount--;
-    }
-
-    const senderPresence = state.presences[sender.userId];
-
-    if (shouldBroadcastOnlyToSender) {
-      dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload), [senderPresence]);
-    } else {
-      dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload));
-    }
-
-    saveHistoryEvent(state, { eventType: "playerAction", senderId: sender.userId, powerUpPayload: resPayload });
-    updatePlayerPowerUpAmount(loopParams, [sender.userId]);
-    updatePlayersState(state, dispatcher);
-
-    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [senderPresence]);
-
-    const isTargetDataPresent = data && "targetId" in data;
-
-    if (!activePowerUp && isTargetDataPresent) {
-      const notificationPayload: NotificationContentUsePowerUp = {
-        id,
-        callerName: sender.username,
-        targetName: isTargetDataPresent ? state.players[data.targetId].username : undefined,
-      };
-      const receiversIds = [data.targetId];
-      sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, { receiversIds });
-    }
-  } catch (error) {
-    logger.error("Use power-up error: " + JSON.stringify(error, null, 2));
-    stopLoading(loopParams, message.sender);
+  if (!activePowerUp) {
+    const powerUp = sender.powerUpIds.find((powerUp) => powerUp === id);
+    if (!powerUp) throw new Error(`Player does not own a power-up with id ${id}`);
   }
+  updatePlayerPowerUpAmount(loopParams, [sender.userId]);
+  // TODO: investigate why keys do not get stored in staging env
+  // const [key] = readUserKeys(nk, sender.userId, { collection: "Accounts", key: "keys" });
+  // if (!key) throw new Error("User not found in collection");
+
+  // TODO: use real record
+  // TODO: pass key.value.address as owner field after implementing proper power-up generation
+  const powerUpRecord: PowerUpToolkit = {
+    owner: "aleo1p4ye54p6n5cfdyzmy6fcs583mmwrghdxl8upeuew4w8uqmhqdqxq3e4tfl",
+    gates: 0,
+    powerUpId: id,
+    matchId: cleanUUID(ctx.matchId),
+    _nonce: "4393085214842307962009839145934641063703150241291667000462643412531900836455group",
+  };
+
+  let resPayload: UsePowerUpPayloadBackend;
+
+  let shouldRemovePowerUp = true;
+  let shouldBroadcastOnlyToSender = true;
+
+  switch (id) {
+    case "1": {
+      const resData = useGrill(loopParams, data);
+      resPayload = { id, data: resData };
+      break;
+    }
+    case "2": {
+      const playerKeys = getPlayerKeys(nk, sender.userId);
+      const resData = useBirdsEye(loopParams, data, powerUpRecord, playerKeys);
+      resPayload = { id, data: resData };
+      break;
+    }
+    case "3": {
+      const resData = await useMenage(loopParams, sender);
+      resPayload = { id, data: resData };
+      break;
+    }
+    case "4": {
+      const resData = await useDoubleUp(loopParams, sender);
+      resPayload = { id, data: resData };
+      break;
+    }
+    case "5": {
+      const resData = await useVendetta(loopParams, data);
+      resPayload = { id, data: resData };
+      break;
+    }
+    case "6": {
+      const resData = await useSecondChance(loopParams, data, sender);
+      resPayload = { id, data: resData };
+      break;
+    }
+    case "7": {
+      const isSelfTarget = sender.userId === data.targetId;
+      shouldRemovePowerUp = !isSelfTarget;
+      const resData = await useCoup(loopParams, data, isSelfTarget);
+      resPayload = { id, data: resData };
+      break;
+    }
+    case "8": {
+      const resData = useSmokeAndMirrors(loopParams, sender);
+      resPayload = { id, data: resData };
+      shouldBroadcastOnlyToSender = false;
+      break;
+    }
+    case "9": {
+      const [resData, shouldRemove] = await useHypnosis(loopParams, sender, data);
+      shouldRemovePowerUp = shouldRemove;
+      resPayload = { id, data: resData };
+      break;
+    }
+  }
+
+  if (shouldRemovePowerUp) {
+    sender.powerUpIds.splice(sender.powerUpIds.indexOf(id), 1);
+    sender.powerUpsAmount--;
+  }
+
+  const senderPresence = state.presences[sender.userId];
+
+  if (shouldBroadcastOnlyToSender) {
+    dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload), [senderPresence]);
+  } else {
+    dispatcher.broadcastMessage(MatchOpCode.USE_POWER_UP, JSON.stringify(resPayload));
+  }
+
+  saveHistoryEvent(state, { eventType: "playerAction", senderId: sender.userId, powerUpPayload: resPayload });
+  updatePlayerPowerUpAmount(loopParams, [sender.userId]);
+  updatePlayersState(state, dispatcher);
+
+  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [senderPresence]);
+
+  const notificationPayload: NotificationContentUsePowerUp = {
+    id,
+    callerName: sender.username,
+    targetName: data && "targetId" in data ? state.players[data.targetId].username : undefined,
+  };
+  if (!activePowerUp) sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, [sender.userId]);
 };
 
 const deletePowerUps = async (loopParams: MatchLoopParams, selectedPowerUps: PowerUpId[], targetPlayer: string): Promise<PowerUpId[]> => {

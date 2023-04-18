@@ -2,7 +2,7 @@ import { setActivePlayer, transitionHandler, matchStageDuration, handleRoundEndi
 import { MatchOpCode, PlayerActivePayloadBackend, PlayerOrderShufflePayloadBackend, StageTransitionPayloadBackend } from "../../types";
 import { shuffleArray } from "../../utils";
 
-export const handleBasicTransition = transitionHandler(({ state, dispatcher }, nextStage) => {
+export const handleBasicTransition = transitionHandler(async ({ state, dispatcher }, nextStage) => {
   state.timerHasStarted = false;
 
   const payload: StageTransitionPayloadBackend = {

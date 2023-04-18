@@ -9,7 +9,7 @@ import {
 import { MatchOpCode, PlayerReadyPayloadBackend } from "../../../types";
 import { handleActivePlayerMessages } from "./active-player-message";
 
-export const handleLobbyMessage = messageHandler((loopParams, message, sender) => {
+export const handleLobbyMessage = messageHandler(async (loopParams, message, sender) => {
   const { state, dispatcher } = loopParams;
   const { userId } = sender;
 
@@ -25,7 +25,7 @@ export const handleLobbyMessage = messageHandler((loopParams, message, sender) =
   }
 });
 
-export const handlePowerUpMessage = messageHandler((loopParams, message, sender) => {
+export const handlePowerUpMessage = messageHandler(async (loopParams, message, sender) => {
   const { state } = loopParams;
 
   if (message.opCode === MatchOpCode.PLAYER_READY) {
@@ -59,11 +59,11 @@ export const handleRollDiceMessage = messageHandler(async (loopParams, message, 
   }
 });
 
-export const handlePlayerTurnMessage = messageHandler((loopParams, message, sender) => {
+export const handlePlayerTurnMessage = messageHandler(async (loopParams, message, sender) => {
   const { state } = loopParams;
 
   if (state.players[sender.userId].isActive) {
-    handleActivePlayerMessages(message, sender, loopParams);
+    await handleActivePlayerMessages(message, sender, loopParams);
   }
 
   if (message.opCode === MatchOpCode.PLAYER_READY) {
@@ -75,7 +75,7 @@ export const handlePlayerTurnMessage = messageHandler((loopParams, message, send
   }
 });
 
-export const handleReadyMessage = messageHandler((loopParams, message, sender) => {
+export const handleReadyMessage = messageHandler(async (loopParams, message, sender) => {
   const { state } = loopParams;
 
   if (message.opCode === MatchOpCode.PLAYER_READY) {

@@ -240,6 +240,7 @@ export interface MatchState {
   action: Action;
   historyEvents: HistoryEvent[];
   activePowerUp?: ActivePowerUp;
+  rollBackAttempts: number;
 }
 
 export type MatchStage =

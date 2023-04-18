@@ -1,4 +1,25 @@
-import { AleoAccount, CustomError, ErrorKind, isBasicError, isCustomError, isNkError, isString, StatusCodes } from "../types";
+import { MAX_INACTIVE_TICKS, MAX_ROLL_BACK_ATTEMPTS } from "../constants";
+import {
+  AleoAccount,
+  CustomError,
+  ErrorKind,
+  ErrorNotificationMessage,
+  ErrorPayloadBackend,
+  isBasicError,
+  isCustomError,
+  isHttpError,
+  isNkError,
+  isString,
+  MatchLoopParams,
+  MatchOpCode,
+  MatchState,
+  NotificationContentError,
+  NotificationOpCode,
+  Player,
+  StatusCodes,
+} from "../types";
+import { stopLoading, updatePlayersState } from "./match";
+import { sendMatchNotification, sendNotification } from "./notification";
 
 export const errorText: Record<ErrorKind, string> = {
   usernameAlreadyExists: "Username already exists",
@@ -9,7 +30,7 @@ export const errorText: Record<ErrorKind, string> = {
   invalidPayload: "Invalid payload",
   invalidMetadata: "Invalid metadata",
   notFound: "Not found",
-  internal: "Internal error",
+  internal: "internalError",
 };
 
 export const errors: Record<ErrorKind, nkruntime.Error> = {
@@ -77,6 +98,17 @@ export const ERROR_WRITING_TO_COLLECTION: nkruntime.Error = {
   code: nkruntime.Codes.UNKNOWN,
 };
 
+export const loggerText = {
+  runtimeMessageError: "Runtime error while performing action triggered by a user message",
+  undefinedSender: "Couldn't roll back, sender is undefined",
+  terminatingMatch: "Terminating match due to internal error",
+  rollingBack: "Rolling back match state",
+};
+
+export const isPayloadInvalid = (error: unknown): boolean => {
+  return error === errors.invalidMetadata || error === errors.invalidPayload;
+};
+
 export const parseError = (error: unknown, code = nkruntime.Codes.INTERNAL): CustomError => {
   const name = "Error";
 
@@ -103,4 +135,124 @@ export const handleHttpResponse = (res: nkruntime.HttpResponse, logger: nkruntim
   if (resKind === 2) return JSON.parse(res.body);
   const nakamaCode = mapHttpCodeToNakama(res.code);
   throw handleError(res.body, logger, nakamaCode);
+};
+
+export const handleErrorSideEffects = (
+  loopParams: MatchLoopParams,
+  previousMatchState: MatchState,
+  matchOpCode: MatchOpCode,
+  isHttpError: boolean,
+  sender?: Player
+) => {
+  const { state, dispatcher, logger } = loopParams;
+  let errorMessage: ErrorNotificationMessage = "unknownError";
+
+  const payload: ErrorPayloadBackend = {
+    message: errorMessage,
+    httpCode: StatusCodes.INTERNAL_SERVER_ERROR,
+    opCode: matchOpCode,
+  };
+  dispatcher.broadcastMessage(MatchOpCode.ERROR, JSON.stringify(payload));
+
+  if (isHttpError) {
+    handleMatchTermination(loopParams);
+    return;
+  } else {
+    state.rollBackAttempts++;
+  }
+
+  switch (matchOpCode) {
+    case MatchOpCode.ROLL_DICE:
+      if (!sender) throw new Error(loggerText.undefinedSender);
+
+      if (state.rollBackAttempts < MAX_ROLL_BACK_ATTEMPTS) {
+        state.players[sender.userId].hasRolledDice = false;
+        errorMessage = "rollDiceError";
+      } else {
+        handleMatchTermination(loopParams);
+        return;
+      }
+      break;
+    case MatchOpCode.PLAYER_HEAL_DICE:
+      if (!rollbackAction(loopParams, previousMatchState)) return;
+
+      errorMessage = "healDiceError";
+      break;
+    case MatchOpCode.USE_POWER_UP:
+      if (!rollbackAction(loopParams, previousMatchState)) return;
+
+      errorMessage = "usePowerUpError";
+      break;
+    case MatchOpCode.PLAYER_GET_POWERUPS:
+    case MatchOpCode.PLAYER_LOST_BY_TIMEOUT:
+      handleMatchTermination(loopParams);
+      return;
+  }
+
+  const errorContent: NotificationContentError = {
+    errorMessage,
+  };
+  sendMatchNotification(loopParams, NotificationOpCode.ERROR, errorContent);
+  logger.info(loggerText.rollingBack + JSON.stringify(state.rollBackAttempts, null, 2));
+  updatePlayersState(state, dispatcher);
+};
+
+const rollbackAction = (loopParams: MatchLoopParams, previousMatchState: MatchState): boolean => {
+  const { state } = loopParams;
+  if (state.rollBackAttempts < MAX_ROLL_BACK_ATTEMPTS) {
+    revertMatchState(state, previousMatchState);
+    return true;
+  }
+  handleMatchTermination(loopParams);
+  return false;
+};
+
+const handleMatchTermination = (loopParams: MatchLoopParams) => {
+  const { state, dispatcher, ctx, logger } = loopParams;
+  const errorContent: NotificationContentError = {
+    errorMessage: "unknownError",
+  };
+  // Set the required stage for the client to know that the match has ended
+  state.matchStage = "endOfMatchStage";
+
+  sendMatchNotification(loopParams, NotificationOpCode.ERROR, errorContent);
+  updatePlayersState(state, dispatcher);
+  // Set the empty ticks to a value higher than the max inactive ticks to terminate the match
+  state.emptyTicks = MAX_INACTIVE_TICKS + 1;
+  logger.info(loggerText.terminatingMatch, ctx.matchId);
+};
+
+const revertMatchState = (state: MatchState, previousMatchState: MatchState) => {
+  state = { ...previousMatchState, rollBackAttempts: state.rollBackAttempts, turnActionStep: "pickAction" };
+};
+
+export const handleMatchMessageError = (
+  loopParams: MatchLoopParams,
+  deepCopy: MatchState,
+  error: unknown,
+  message: nkruntime.MatchMessage,
+  sender: Player
+) => {
+  const { logger } = loopParams;
+  let parsedError;
+
+  if (isHttpError(error) || !isPayloadInvalid(error)) {
+    handleErrorSideEffects(loopParams, deepCopy, message.opCode, isHttpError(error), sender);
+  } else {
+    parsedError = parseError(error);
+    handleInvalidPayloadError(loopParams, sender, deepCopy);
+  }
+
+  stopLoading(loopParams, message.sender, parsedError);
+  logger.error(loggerText.runtimeMessageError + message.opCode + JSON.stringify(error, null, 2));
+};
+
+const handleInvalidPayloadError = (loopParams: MatchLoopParams, sender: Player, previousMatchState: MatchState) => {
+  const { state, dispatcher, nk } = loopParams;
+  const errorContent: NotificationContentError = {
+    errorMessage: "invalidPayloadError",
+  };
+  state.players = { ...previousMatchState.players };
+  sendNotification(nk, [sender.userId], NotificationOpCode.ERROR, errorContent);
+  updatePlayersState(state, dispatcher);
 };

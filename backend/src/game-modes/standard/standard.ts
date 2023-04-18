@@ -55,6 +55,7 @@ export const matchInit: nkruntime.MatchInitFunction<MatchState> = (ctx, logger, 
       action: "Boloney",
       historyEvents: [],
       activePowerUp: undefined,
+      rollBackAttempts: 0,
     };
 
     createChatGroup(nk, ctx, logger);
@@ -155,6 +156,7 @@ export const matchLoop: nkruntime.MatchLoopFunction<MatchState> = (ctx, logger, 
     handleStage[state.matchStage](loopParams);
 
     if (state.matchStage === "terminateMatchStage") return null;
+
     return { state };
   } catch (error) {
     throw handleError(error, logger);

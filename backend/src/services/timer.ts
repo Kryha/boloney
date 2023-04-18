@@ -27,9 +27,7 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
   switch (state.matchStage) {
     case "rollDiceStage": {
       const playersWithNoDice = Object.values(state.players).filter((player) => player.hasRolledDice !== true);
-      playersWithNoDice.forEach((player) => {
-        rollDiceForPlayer(loopParams, player.userId);
-      });
+      await Promise.all(playersWithNoDice.map((player) => rollDiceForPlayer(loopParams, player.userId)));
       setAllPlayersReady(state);
       break;
     }
@@ -58,7 +56,7 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
   }
 };
 
-export const handleTimeOutTicks = (loopParams: MatchLoopParams) => {
+export const handleTimeOutTicks = async (loopParams: MatchLoopParams) => {
   const { state } = loopParams;
 
   if (!state.timerHasStarted) {
@@ -69,7 +67,7 @@ export const handleTimeOutTicks = (loopParams: MatchLoopParams) => {
   state.ticksBeforeTimeOut--;
 
   if (state.ticksBeforeTimeOut <= 0) {
-    handleOutOfTime(loopParams);
+    await handleOutOfTime(loopParams);
     state.timerHasStarted = false;
     return;
   }

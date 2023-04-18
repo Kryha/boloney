@@ -1,16 +1,16 @@
 import { MatchLoopParams, MatchStage, Player } from "./match";
 
-export type MessageCallback = (loopParams: MatchLoopParams, message: nkruntime.MatchMessage, sender: Player) => void;
+export type MessageCallback = (loopParams: MatchLoopParams, message: nkruntime.MatchMessage, sender: Player) => Promise<void>;
 export type StageLogicCallback = (loopParams: MatchLoopParams) => Promise<void>;
-export type StageTransitionCallback = (loopParams: MatchLoopParams, nextStage: MatchStage) => void;
+export type StageTransitionCallback = (loopParams: MatchLoopParams, nextStage: MatchStage) => Promise<void>;
 
-export type MessageHandler = (
-  callback: MessageCallback
-) => (loopParams: MatchLoopParams, message: nkruntime.MatchMessage, sender: Player) => void;
+export type MessageHandler = (callback: MessageCallback) => MessageCallback;
 
-export type LogicHandler = (callback: StageLogicCallback) => (loopParams: MatchLoopParams) => Promise<void>;
+export type LogicHandler = (callback: StageLogicCallback) => StageLogicCallback;
 
-export type TransitionHandler = (callback: StageTransitionCallback) => (loopParams: MatchLoopParams, nextStage: MatchStage) => void;
+export type TransitionHandler = (
+  callback: StageTransitionCallback
+) => StageTransitionCallback;
 
 export type RpcHandler = (cb: nkruntime.RpcFunction) => nkruntime.RpcFunction;
 

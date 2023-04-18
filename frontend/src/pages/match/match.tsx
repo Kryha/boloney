@@ -1,6 +1,6 @@
 import { MatchData } from "@heroiclabs/nakama-js";
 import { FC, ReactNode, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {
   EndOfMatch,
@@ -85,6 +85,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const addHistoryEvent = useStore((state) => state.addHistoryEvent);
   const setHistoryEvents = useStore((state) => state.setHistoryEvents);
   const clearHistory = useStore((state) => state.clearHistory);
+  const navigate = useNavigate();
   const powerUpState = useStore((state) => state.powerUpState);
   const historyEvents = useStore((state) => state.historyEvents);
   const round = useStore((state) => state.round);
@@ -298,6 +299,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
         case MatchOpCode.ERROR: {
           //TODO: some garbage collection might be needed here
           const parsedData = errorPayloadBackendSchema.safeParse(data);
+          //TODO: Move this logic somewhere else
+          setTurnActionStep("pickAction");
           console.error("MESSAGE ERROR: ", parsedData);
           break;
         }
@@ -308,6 +311,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     clearHistory,
     drawRoundCounter,
     historyEvents,
+    matchStage,
+    navigate,
     players,
     powerUpState,
     resetPowerUpState,

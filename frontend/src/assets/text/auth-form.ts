@@ -22,5 +22,6 @@ export const authForm = {
     usernameAlreadyTaken: "username is already taken.",
     usernameProfanity: "username contains profanity.",
     invalidCredentials: "invalid credentials.",
+    internal: "internal error. Please try again later.",
   },
 };

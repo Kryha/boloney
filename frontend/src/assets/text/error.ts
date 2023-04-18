@@ -20,7 +20,13 @@ export const error = {
   powerUpDataRequired: "power-up data required",
   powerUpNotImplemented: "power-up not implemented",
   noDiceAvailable: "player has no dice available",
-  zkSomethingWentWrong: "something went wrong, zero-knowledge features are not available at this time.",
+  // TODO: update these placeholders
+  somethingWentWrongNotification: "something went wrong, zero-knowledge features are not available at this time.",
+  invalidPayloadNotification: "invalid payload, last action could not be verified.",
+  rollDiceErrorNotification: "roll action failed, try again.",
+  usePowerUpErrorNotification: "could not apply the effects of the power-up.",
+  healDiceErrorNotification: "could not heal the dice, try again.",
+  invalidPayloadErrorNotification: "invalid payload, last action could not be performed.",
 
   required: (valueName: string): string => `${valueName} required`,
 };

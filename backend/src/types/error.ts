@@ -13,6 +13,8 @@ export type ErrorKind =
   | "notFound"
   | "internal";
 
+export type ErrorNotificationMessage = "unknownError" | "rollDiceError" | "usePowerUpError" | "healDiceError" | "invalidPayloadError";
+
 export interface BasicError {
   message: string;
 }
@@ -25,10 +27,6 @@ export interface HttpError {
   message: string;
   opCode?: MatchOpCode;
 }
-
-export const httpError = (httpCode: StatusCodes, message: string): HttpError => {
-  return { httpCode, message };
-};
 
 export const isInternalServerError = (code: StatusCodes): boolean => {
   return code >= 500 && code < 600;

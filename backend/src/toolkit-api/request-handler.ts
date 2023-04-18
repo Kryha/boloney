@@ -1,5 +1,5 @@
 import { MAX_TOOLKIT_REQUESTS_ATTEMPTS } from "../constants";
-import { MatchLoopParams, MatchOpCode, ErrorPayloadBackend, isInternalServerError, isErrorStatusCode } from "../types";
+import { isInternalServerError, isErrorStatusCode } from "../types";
 import { httpRequest } from "../utils";
 
 export const handleToolkitRequest = (
@@ -18,15 +18,10 @@ export const handleToolkitRequest = (
     attemptNumber++;
     parsedBody = JSON.parse(response.body);
 
-    if (isErrorStatusCode(response.code)) logger.error("Toolkit request attempt", attemptNumber, parsedBody.code);
+    if (isErrorStatusCode(response.code)) {
+      logger.error("Toolkit request attempt" + JSON.stringify(attemptNumber) + JSON.stringify(parsedBody.code));
+    }
   } while (isInternalServerError(response.code) && attemptNumber < MAX_TOOLKIT_REQUESTS_ATTEMPTS);
 
   return response;
-};
-
-export const broadcastErrorMessage = (loopParams: MatchLoopParams, errorPayload: ErrorPayloadBackend) => {
-  const { dispatcher, logger } = loopParams;
-
-  logger.info("Broadcasting error message", errorPayload.message);
-  dispatcher.broadcastMessage(MatchOpCode.ERROR, JSON.stringify(errorPayload));
 };

@@ -10,6 +10,7 @@ import {
   NkResponse,
   notificationHealDiceSchema,
   notificationUsePowerUpSchema,
+  errorNotificationMessageSchema,
 } from "../types";
 import { CallBoloney, CallExact, HealDiceCoffin, text } from "../assets";
 import { Notification } from "@heroiclabs/nakama-js";
@@ -163,9 +164,7 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
 
       if (!parsedNotificationContent.success) return defaultUnknownError;
 
-      // TODO: When adding other errors, create a getErrorDescription()
-      const { errorMessage } = parsedNotificationContent.data;
-      const description = errorMessage === "zkDefaultError" ? text.error.zkSomethingWentWrong : errorMessage;
+      const description = getErrorDescription(parsedNotificationContent.data.errorMessage);
 
       return {
         id: notification.id,
@@ -213,5 +212,26 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
     }
     default:
       return defaultUnknownError;
+  }
+};
+
+const getErrorDescription = (errorMessage: string) => {
+  const parsedData = errorNotificationMessageSchema.safeParse(errorMessage);
+
+  if (!parsedData.success) return text.error.somethingWentWrongNotification;
+
+  switch (parsedData.data) {
+    case "unknownError":
+      return text.error.somethingWentWrongNotification;
+    case "rollDiceError":
+      return text.error.rollDiceErrorNotification;
+    case "usePowerUpError":
+      return text.error.usePowerUpErrorNotification;
+    case "healDiceError":
+      return text.error.healDiceErrorNotification;
+    case "invalidPayloadError":
+      return text.error.invalidPayloadErrorNotification;
+    default:
+      return text.error.somethingWentWrongNotification;
   }
 };

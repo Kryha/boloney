@@ -19,6 +19,7 @@ export const endOfMatch = {
   winner: "winner!",
   you: "(you)",
   wonByTimeOut: "won on the last round due to user time out",
+  drawTitle: "draw due to internal errors",
 
   youLostTitle: (username: string) => `we have a match winner: congratulations, ${username}!`,
   callingBoldMove: (action: Action) => `calling ${action} is a bold move, old sport`,
