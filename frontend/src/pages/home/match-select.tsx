@@ -17,6 +17,7 @@ export const MatchSelect: FC = () => {
   const navigate = useNavigate();
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+  const isLoadingSpinnerVisible = useStore((state) => state.isLoadingSpinnerVisible);
   const closeModal = useStore((state) => state.closeModal);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export const MatchSelect: FC = () => {
 
           {/* TODO: abstract this button in a component, together with the useEffect and the join function */}
           <ButtonContainer>
-            <PrimaryButton primaryText={text.home.quickPlay} onClick={() => joinMatchPool()} />
+            <PrimaryButton primaryText={text.home.quickPlay} onClick={() => joinMatchPool()} loading={isLoadingSpinnerVisible} />
           </ButtonContainer>
 
           <ButtonContainer>

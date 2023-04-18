@@ -24,7 +24,7 @@ export const GetPowerUps: FC = () => {
 
   return (
     <FadeTransition>
-      <BottomButtonWrapper>
+      <BottomButtonWrapper marginLeft="1px" marginBottom="0px">
         <Timer title={text.powerUps.settingItUp} />
         <MatchHeading
           headingOne={text.powerUps.getYourPowerUps}

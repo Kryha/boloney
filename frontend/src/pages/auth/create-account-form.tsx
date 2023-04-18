@@ -18,6 +18,7 @@ export const CreateAccountForm: FC = () => {
   const { authenticateUser } = useAuthenticateUser();
   const navigate = useNavigate();
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+  const isLoadingSpinnerVisible = useStore((state) => state.isLoadingSpinnerVisible);
   const { width, height } = useViewport();
   const {
     register,
@@ -89,7 +90,7 @@ export const CreateAccountForm: FC = () => {
           <SignOrJoinContainer width={width} height={height}>
             <BodyText>{text.authForm.iAlreadyHaveAnAccount}</BodyText>
             <Link transformText="none" fontSize={fontSizes.body} onClick={() => navigate(routes.login)} text={text.authForm.here} />
-            <PrimaryButton buttonType="submit" primaryText={text.authForm.join} />
+            <PrimaryButton buttonType="submit" primaryText={text.authForm.join} loading={isLoadingSpinnerVisible} />
           </SignOrJoinContainer>
         </FormContainer>
       </form>

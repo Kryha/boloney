@@ -14,7 +14,7 @@ export const BottomButtonWrapper = styled.section<Props>`
     position: fixed;
     bottom: ${({ bottomPosition }): string => bottomPosition ?? "11vh"};
     left: ${({ leftPosition }): string => leftPosition ?? layoutWidth.sm};
-    margin-left: ${({ marginLeft }): string => marginLeft ?? "1px"};
+    margin-left: ${({ marginLeft }): string => marginLeft ?? "0px"};
     margin-bottom: ${({ marginBottom }): string => marginBottom ?? "1px"};
     z-index: ${zIndex.modal};
   }

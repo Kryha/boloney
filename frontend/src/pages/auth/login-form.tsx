@@ -18,6 +18,7 @@ export const LoginForm: FC = () => {
   const { authenticateUser } = useAuthenticateUser();
   const navigate = useNavigate();
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+  const isLoadingSpinnerVisible = useStore((state) => state.isLoadingSpinnerVisible);
   const { width, height } = useViewport();
 
   const {
@@ -82,7 +83,7 @@ export const LoginForm: FC = () => {
                 />
               </>
             )}
-            <PrimaryButton buttonType="submit" primaryText={text.authForm.signIn} />
+            <PrimaryButton buttonType="submit" primaryText={text.authForm.signIn} loading={isLoadingSpinnerVisible} />
           </SignOrJoinContainer>
         </FormContainer>
       </form>

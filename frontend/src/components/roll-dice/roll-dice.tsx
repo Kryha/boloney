@@ -18,6 +18,7 @@ export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+  const isLoadingSpinnerVisible = useStore((state) => state.isLoadingSpinnerVisible);
   const hasRolledDice = useStore((state) => state.hasRolledDice);
   const localPlayer = useLocalPlayer();
   const setPlayerReady = useStore((state) => state.setPlayerReady);
@@ -37,7 +38,7 @@ export const RollDice: FC = () => {
   const button = () => {
     if (localPlayer.status === "lost") return <></>;
     if (hasRolledDice) return <ButtonReady />;
-    return <PrimaryButton primaryText={text.general.rollIt} onClick={() => handleClick()} />;
+    return <PrimaryButton primaryText={text.general.rollIt} onClick={() => handleClick()} loading={isLoadingSpinnerVisible} />;
   };
 
   if (hasRolledDice && isPlayerReady) {
