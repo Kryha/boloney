@@ -4,7 +4,6 @@ export const history = {
   powerUp: "power-up",
   outcome: "outcome",
   action: "action",
-  closingBracket: ")",
   target: "target",
   outcomeSmokeAndMirrors: "player order reshuffled",
   outcomeSecondChance: "re-roll any amount",

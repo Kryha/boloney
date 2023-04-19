@@ -72,7 +72,6 @@ export const HistoryEndOfRound: FC<Props> = ({ endOfRound, players, localPlayer 
           <>
             <EndOfRoundHistoryList
               playerName={players[stats.userId].username}
-              diceAmount={stats.diceAmount}
               powerUpAmount={stats.powerUpsAmount}
               key={index}
               diceValues={getDiceValues(stats)}

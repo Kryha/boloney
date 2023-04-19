@@ -54,7 +54,6 @@ export const param = {
   diceWithoutAmount: (amount: number) => (amount > 1 ? "(dice " : "(die "),
   formatTime: (hour: number, minutes: number) => `${hour}:${minutes < 10 ? `0${minutes}` : minutes}`,
   time: (hour: string, minutes: string) => `-${hour}:${minutes}`,
-  diceValues: (diceValues?: number[]) => (diceValues ? ` : [${diceValues.toString()}]  ` : " : []  "),
-  playerDice: (amount: number, diceValues?: number[]) => param.diceWithoutAmount(amount) + param.diceValues(diceValues),
+  playerDice: (diceValues?: number[]) => (diceValues ? `:[${diceValues.toString()}]  ` : ":[]  "),
   soundOnOrOff: (state: boolean) => (state ? "on" : "off"),
 };

@@ -5,12 +5,12 @@ import { color, fontSizes, fontWeights, lineHeights, margins } from "../../../de
 import { HistoryRoundEndAction, HistoryRoundPlayer, PlayerPublic } from "../../../types";
 import { getDieColor } from "../../../util";
 import { WinnerBadge, LoserBadge, PlayerDeadBadge } from "../../badges";
-import { Die } from "../../die";
 import { PowerUpIcon, DiceIconWrapper } from "../../icons";
 import { MatchStateContainer } from "../../match-players-overview/styles";
 import { EndOfRoundRow, HistoryActionWrapper, HistoryBadgeContainer, HistoryBadgeWrapper, InfoRow } from "./styles";
 import { PlayerInfoText, GeneralText, BaseIcon } from "../../../atoms";
 import { LightningContainer } from "../../../pages/new-match/styles";
+import { Die } from "../../die";
 
 interface Props {
   headingOne: string;
@@ -116,18 +116,17 @@ export const HistoryOutcome: FC<OutcomeProps> = ({ outcome, player, isLocalPlaye
 
 interface EndOfRoundHistoryListProps {
   playerName: string;
-  diceAmount: number;
   diceValues?: number[];
   powerUpAmount: number;
 }
 
-export const EndOfRoundHistoryList: FC<EndOfRoundHistoryListProps> = ({ playerName, diceAmount, powerUpAmount, diceValues }) => {
+export const EndOfRoundHistoryList: FC<EndOfRoundHistoryListProps> = ({ playerName, powerUpAmount, diceValues }) => {
   return (
     <EndOfRoundRow>
       <PlayerInfoText>{playerName}</PlayerInfoText>
-      <GeneralText customcolor={color.mediumGrey}>{text.param.playerDice(diceAmount, diceValues)}</GeneralText>
-      <PowerUpIcon powerUpAmount={powerUpAmount} strokeColor={color.mediumGrey} />
-      <GeneralText customcolor={color.mediumGrey}>{text.history.closingBracket}</GeneralText>
+      <Die iconColor={color.transparent} pipColor={color.mediumGrey} borderColor={color.mediumGrey} />
+      <GeneralText customcolor={color.mediumGrey}>{text.param.playerDice(diceValues)}</GeneralText>
+      <PowerUpIcon powerUpAmount={powerUpAmount} />
     </EndOfRoundRow>
   );
 };

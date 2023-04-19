@@ -27,6 +27,7 @@ interface DieProps {
   radius?: string;
   shadow?: string;
   pipColor?: string;
+  borderColor?: string;
 }
 
 export const findDieFace = (value?: number, diceIcon?: DiceIconProps) => {
@@ -48,7 +49,7 @@ export const findDieFace = (value?: number, diceIcon?: DiceIconProps) => {
   }
 };
 
-export const Die: FC<DieProps> = ({ value, iconColor, size, pipColor, isRow, isTemporaryDice, shadow, cursor, radius }) => {
+export const Die: FC<DieProps> = ({ value, iconColor, size, pipColor, isRow, isTemporaryDice, shadow, cursor, radius, borderColor }) => {
   const diceSize = isRow ? iconSize.md : size;
 
   return (
@@ -63,6 +64,7 @@ export const Die: FC<DieProps> = ({ value, iconColor, size, pipColor, isRow, isT
           cursor: cursor,
           radius: radius,
           isDiceHidden: !value,
+          borderColor: borderColor,
         })}
       </DieWrapper>
       <TemporaryDieIconWrapper isRow={isRow}>

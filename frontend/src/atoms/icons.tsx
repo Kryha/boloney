@@ -49,6 +49,7 @@ export const DiceIcon: FC<DiceIconProps> = ({
   disabledColor,
   pipColor,
   isDiceHidden,
+  borderColor,
   onClick,
 }) => {
   return (
@@ -65,6 +66,7 @@ export const DiceIcon: FC<DiceIconProps> = ({
       disabledColor={disabledColor}
       isDiceHidden={isDiceHidden}
       onClick={onClick}
+      borderColor={borderColor}
     >
       {src}
     </DiceIconWrapper>

@@ -25,14 +25,14 @@ export const PowerUpIcon: FC<PowerUpProps> = ({
   fontSize,
   lineHeight,
 }) => {
-  const powerUpColor = strokeColor || color.darkGrey;
+  const powerUpColor = strokeColor ?? color.darkGrey;
 
   if (powerUpIds?.length) return <RevealedPowerUps powerUpIds={powerUpIds} />;
 
   return (
     <PowerUpIconWrapper>
       <LightningContainer>
-        <BaseIcon src={<LightningIconSVG />} iconColor={color.transparent} strokeColor={strokeColor} />
+        <BaseIcon src={<LightningIconSVG />} iconColor={color.transparent} strokeColor={powerUpColor} />
       </LightningContainer>
       <GeneralText transformText="none" fontSize={fontSize} lineHeight={lineHeight} customcolor={powerUpColor}>
         {text.param.xAmount(powerUpAmount)}

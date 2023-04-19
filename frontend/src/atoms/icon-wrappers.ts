@@ -10,6 +10,7 @@ export interface BaseIconProps extends IconProps {
 
 export interface DiceIconProps extends BaseIconProps {
   isDiceHidden?: boolean;
+  borderColor?: string;
 }
 
 export const BaseIconWrapper = styled.div<IconProps>`
@@ -47,6 +48,8 @@ export const DiceIconWrapper = styled(BaseIconWrapper)<DiceIconProps>`
     }
     background-color: ${({ iconColor, disabled, disabledColor }): string =>
       disabled ? disabledColor || color.mediumGrey : iconColor || color.darkBlue};
+
+    border: ${({ borderColor }): string => (borderColor ? `1px solid ${borderColor}` : "none")};
 
     ${({ isDiceHidden, pipColor }): string =>
       isDiceHidden
