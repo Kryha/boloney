@@ -1,6 +1,8 @@
 export * from "./icons";
 export * from "./icon-wrappers";
 export * from "./text";
+export * from "./grid";
+export * from "./lines";
 export * from "./images";
 export * from "./button";
 export * from "./input";
@@ -15,8 +17,6 @@ export * from "./block";
 export * from "./card";
 export * from "./modal";
 export * from "./layout";
-export * from "./lines";
-export * from "./grid";
 export * from "./button-wrappers";
 export * from "./fieldset";
 export * from "./selectors";

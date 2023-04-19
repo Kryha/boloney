@@ -7,6 +7,7 @@ export interface BlockProps {
   active?: boolean;
   backgroundColor?: string;
   activeColor?: string;
+  padding?: string;
 }
 
 /**
@@ -14,9 +15,10 @@ export interface BlockProps {
  */
 
 export const BaseBlock = styled.div<BlockProps>`
-  background-color: ${({ backgroundColor }): string => (backgroundColor ? backgroundColor : color.cloudWhite)};
+  background-color: ${({ backgroundColor }): string => backgroundColor ?? color.cloudWhite};
   box-shadow: ${shadows.md};
   border-radius: ${radius.md};
+  padding: ${({ padding }): string => padding ?? "0px"};
 `;
 
 export const Box = styled(BaseBlock)`
@@ -40,7 +42,7 @@ export const BlockBox = styled(BaseBlock)`
 export const BadgeBlock = styled(BaseBlock)`
   width: fit-content;
   border-radius: ${radius.none};
-  background-color: ${({ backgroundColor }): string => (backgroundColor ? backgroundColor : color.white)};
+  background-color: ${({ backgroundColor }): string => backgroundColor ?? color.white};
 `;
 
 export const MessageBlock = styled(BaseBlock)`

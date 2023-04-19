@@ -21,6 +21,7 @@ export const Card = styled.div<CardProps>`
   box-shadow: ${({ isSmall }): string => (isSmall ? shadows.xxl : shadows.md)};
   background-color: ${({ backgroundColor }): string => (backgroundColor ? backgroundColor : color.cloudWhite)};
   min-height: ${({ isSmall, isEmpty }): string => (isSmall ? switchStyle(containerHeight.xs, containerHeight.sm, isEmpty) : maxHeight.xl)};
+  padding: ${({ padding }): string => padding ?? "0px"};
 
   @media screen and (min-device-width: ${breakpoints.xl}) and (max-device-width: ${breakpoints.xxl}) {
     min-height: ${({ isSmall, isEmpty }): string => (isSmall ? switchStyle(maxHeight.xs, maxHeight.sm, isEmpty) : maxHeight.xl)};

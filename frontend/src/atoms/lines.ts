@@ -5,6 +5,7 @@ import { color, layoutHeight } from "../design";
 interface Props {
   height?: string;
   width?: string;
+  customcolor?: string;
 }
 
 /**
@@ -12,10 +13,10 @@ interface Props {
  */
 
 export const VerticalDivider = styled.div<Props>`
-  height: ${({ height }): string => (height ? height : layoutHeight.sm)};
+  height: ${({ height }): string => height ?? layoutHeight.sm};
   max-width: 1px;
   min-width: 1px;
-  background: ${color.mediumGrey};
+  background: ${({ customcolor }): string => customcolor ?? color.mediumGrey};
 `;
 
 export const HorizontalDivider = styled.div<Props>`
@@ -23,5 +24,5 @@ export const HorizontalDivider = styled.div<Props>`
   max-height: 1px;
   width: 100%;
   width: ${({ width }): string => (width ? width : "100%")};
-  background: ${color.mediumGrey};
+  background: ${({ customcolor }): string => customcolor ?? color.mediumGrey};
 `;

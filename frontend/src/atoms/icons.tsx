@@ -15,6 +15,7 @@ export const BaseIcon: FC<BaseIconProps> = ({
   strokeColor,
   onClick,
   pipColor,
+  display,
 }) => {
   return (
     <BaseIconWrapper
@@ -30,6 +31,7 @@ export const BaseIcon: FC<BaseIconProps> = ({
       disabledColor={disabledColor}
       strokeColor={strokeColor}
       onClick={onClick}
+      display={display}
     >
       {src}
     </BaseIconWrapper>

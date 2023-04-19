@@ -8,7 +8,9 @@ import {
   GithubLogo,
   Hand,
   HookHand,
+  InfoIconSVG,
   LeftArrowIconSVG,
+  LightningIconSVG,
   LobsterHand,
   PlasticHand,
   RightArrowIconSVG,
@@ -18,10 +20,14 @@ import {
   text,
 } from "../../assets";
 import { fakePlayers } from "../../assets/fake-data";
+import { InputLegend, MatchPlayersOverview, TopNavigation } from "../../components";
 import {
+  BaseIcon,
+  SecondaryButtonBase,
+  TertiaryButtonBase,
+  BaseRow,
   PopUpBlock,
   PopUp,
-  Card,
   BlockBox,
   BadgeBlock,
   MessageBlock,
@@ -39,7 +45,6 @@ import {
   BaseInput,
   FluidImage,
   GeneralText,
-  Heading2,
   CenteredImage,
   avatarHeight,
   Heading3,
@@ -54,20 +59,31 @@ import {
   SwitchWrapper,
   SwitchInput,
   Slider,
-  BaseIcon,
-  SecondaryButtonBase,
-  TertiaryButtonBase,
+  Card,
 } from "../../atoms";
-import { BaseColumn, BaseRow } from "../../atoms/grid";
-import { InputLegend, MatchPlayersOverview, TopNavigation } from "../../components";
 import { MainContentContainer } from "../../components/match-layout/styles";
 import { PlayerMenu } from "../../components/player-menu";
 import { PickAction } from "../../components/player-turns/pick-action";
 import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET } from "../../constants";
-import { buttonSize, color, images, layoutHeight, lineHeights, spacing } from "../../design";
-import { TertiaryButton, SecondaryButton, PrimaryButton } from "../../molecules";
+import { color, buttonSize, fonts, fontSizes, fontWeights, images, layoutHeight, lineHeights, spacing } from "../../design";
+import {
+  PowerUpText,
+  TextWithLink,
+  TimerHeader,
+  TooltipContent,
+  TertiaryButton,
+  SecondaryButton,
+  PrimaryButton,
+  ColumnHeading,
+  RowHeadingIcon,
+  NotificationHeading,
+  ParagraphDescription,
+  LargeInfoHeading,
+  NumberedDescriptionText,
+  NumberedSection,
+} from "../../molecules";
 import { getPowerUp, range } from "../../util";
-import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout, PowerUpCard } from "./styles";
+import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout } from "./styles";
 
 export const Test: FC = () => {
   const powerUp1 = getPowerUp("1");
@@ -91,94 +107,78 @@ export const Test: FC = () => {
       </PopUp>
       <br />
       <BaseRow gap={spacing.s}>
-        <PowerUpCard>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp1.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp1.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp1.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp1.name} description={text.param.zeroAmount(powerUp2.id)} />
           </AlignColumn>
-        </PowerUpCard>
-        <PowerUpCard>
+        </Card>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp2.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp2.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp2.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp2.name} description={text.param.zeroAmount(powerUp2.id)} />
           </AlignColumn>
-        </PowerUpCard>
-        <PowerUpCard>
+        </Card>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp3.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp3.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp3.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp3.name} description={text.param.zeroAmount(powerUp3.id)} />
           </AlignColumn>
-        </PowerUpCard>
+        </Card>
       </BaseRow>
       <br />
       <BaseRow gap={spacing.s}>
-        <PowerUpCard>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp4.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp4.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp4.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp4.name} description={text.param.zeroAmount(powerUp4.id)} />
           </AlignColumn>
-        </PowerUpCard>
-        <PowerUpCard>
+        </Card>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp5.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp5.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp5.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp5.name} description={text.param.zeroAmount(powerUp5.id)} />
           </AlignColumn>
-        </PowerUpCard>
-        <PowerUpCard>
+        </Card>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp6.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp6.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp6.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp6.name} description={text.param.zeroAmount(powerUp6.id)} />
           </AlignColumn>
-        </PowerUpCard>
+        </Card>
       </BaseRow>
       <br />
       <BaseRow gap={spacing.s}>
-        <PowerUpCard>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp7.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp7.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp7.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp7.name} description={text.param.zeroAmount(powerUp7.id)} />
           </AlignColumn>
-        </PowerUpCard>
-        <PowerUpCard>
+        </Card>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp8.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp8.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp8.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp8.name} description={text.param.zeroAmount(powerUp8.id)} />
           </AlignColumn>
-        </PowerUpCard>
-        <PowerUpCard>
+        </Card>
+        <Card padding={spacing.s}>
           <AlignColumn justifyContent="center">
             <CenteredImage src={powerUp9.cardImage} />
-            <BaseColumn alignItems="start">
-              <Heading2 customcolor={color.mediumGrey}>{powerUp9.name}</Heading2>
-              <GeneralText>{text.param.zeroAmount(powerUp9.id)}</GeneralText>
-            </BaseColumn>
+            <PowerUpText headingColor={color.mediumGrey} heading={powerUp9.name} description={text.param.zeroAmount(powerUp9.id)} />
           </AlignColumn>
-        </PowerUpCard>
+        </Card>
       </BaseRow>
+      <br />
+      <br />
+      Power up hover text
+      <br />
+      <br />
+      <Card padding={spacing.s}>
+        <AlignColumn justifyContent="flex-end">
+          <PowerUpText headingColor={color.mediumGrey} heading={powerUp9.name} description={powerUp9.shortDescription} gap={spacing.xs} />
+        </AlignColumn>
+      </Card>
+      <br />
       <br />
       <BaseRow gap={spacing.s}>
         <Card isSmall>
@@ -237,6 +237,180 @@ export const Test: FC = () => {
       <br />
       <br />
       <br />
+      <br />
+      <br />
+      <TextWithLink
+        text="reach out to"
+        href="/friend"
+        linkText="boloney"
+        fontSize={fontSizes.heading3}
+        lineHeight={lineHeights.heading3}
+        fontWeight={fontWeights.regular}
+        font={fonts.secondary}
+        gap={spacing.xs}
+      />
+      <br />
+      <br />
+      <br />
+      timer heading
+      <br />
+      <br />
+      <TimerHeader time="0.10" heading="call boloney" gap={spacing.s} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <TooltipBlock padding={spacing.s}>
+        <TooltipContent
+          heading={"Call Exact:"}
+          description={
+            "If the amount of dice on the table that match the bid’s face value exactly matches the last player’s bid, then the Exact call is correct and the calling player receives a number of power-ups depending on the number of dice in play and the number of rounds played. If it doesn’t exactly match, the calling player loses a die."
+          }
+        />
+      </TooltipBlock>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <RowHeadingIcon heading="Draw Round Offset" icon={<BaseIcon src={<InfoIconSVG />} display="flex" />} gap={spacing.xs} />
+      <br />
+      <br />
+      <br />
+      <ColumnHeading
+        heading="The total sum of the dice is..."
+        subheading="29"
+        gap={spacing.xs}
+        subheadingFontSize={fontSizes.infoDisplay}
+        subheadingLineHeight={lineHeights.infoDisplay}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <NotificationHeading
+        heading="grill!"
+        subheading="it is being used towards you! Wait and see the result of this bold move..."
+        gap={spacing.xs}
+        headingFontSize={fontSizes.heading6}
+        headingLineHeight={lineHeights.heading6}
+        headingTransformation="uppercase"
+        subheadingFontSize={fontSizes.body}
+        subheadingLineHeight={lineHeights.body}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <ColumnHeading
+        heading="time is out!"
+        subheading="You run out of time. We skip your turn and you lose a dice!"
+        gap={spacing.xs}
+        headingFontSize={fontSizes.heading1}
+        headingLineHeight={lineHeights.heading1}
+        subheadingColor={color.darkGrey}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <ColumnHeading
+        heading="i'm back, baby!"
+        subheading="choose 5 power-ups to exchange for 1 sweet, sweet die. Get it back!"
+        gap={spacing.xs}
+        subheadingColor={color.darkGrey}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <ColumnHeading
+        heading="match created!"
+        subheading="Your match is ready to go! Share it with your friends using the link below."
+        gap={spacing.md}
+        headingFontSize={fontSizes.heading1}
+        headingLineHeight={lineHeights.heading1}
+        subheadingFontSize={fontSizes.heading4}
+        subheadingLineHeight={lineHeights.heading4}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <RowHeadingIcon
+        heading="bird's Eye View"
+        icon={<BaseIcon src={<LightningIconSVG />} iconColor={color.transparent} strokeColor={color.black} />}
+        iconPosition="row-reverse"
+        justifyContent="flex-end"
+        gap={spacing.xxs}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <ParagraphDescription
+        heading="glory awaits!"
+        subheading="master the mindgames to be the last player left with dice and claim the winner’s crown."
+        gap={spacing.xs}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <LargeInfoHeading heading="lets" headingColor={color.mediumGrey} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <LargeInfoHeading heading="rule the" justifyContent="flex-end" headingTransformation="lowercase" headingColor={color.mediumGrey} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <NumberedSection>
+        <NumberedDescriptionText
+          numberColor={color.cloudWhite}
+          subheadingColor={color.mediumGrey}
+          heading="Built on Aleo"
+          subheading="Behind Boloney!’s tech lies the zero-knowledge gaming toolkit developed by Kryha on Aleo. This toolkit uses zero-knowledge proofs (ZKPs) to allow players to prove that their statements are valid without revealing the statements themselves, keeping the hidden elements of their game strategy for their eyes only. For private, secure on-chain gaming, without the fun-squashing giveaways!"
+        />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <NumberedDescriptionText
+          numberColor={color.cloudWhite}
+          subheadingColor={color.mediumGrey}
+          heading="Built on Aleo"
+          subheading="Behind Boloney!’s tech lies the zero-knowledge gaming toolkit developed by Kryha on Aleo. This toolkit uses zero-knowledge proofs (ZKPs) to allow players to prove that their statements are valid without revealing the statements themselves, keeping the hidden elements of their game strategy for their eyes only. For private, secure on-chain gaming, without the fun-squashing giveaways!"
+        />
+      </NumberedSection>
+      <br />
+      <br />
+      <br />
       <Box>{"checkbox box default"}</Box>
       <br />
       <Box active>{"checkbox box active"}</Box>
@@ -246,8 +420,6 @@ export const Test: FC = () => {
       <BadgeBlock>{"winner"}</BadgeBlock>
       <br />
       <MessageBlock>{"message"}</MessageBlock>
-      <br />
-      <TooltipBlock>{"tooltip"}</TooltipBlock>
       <br />
       <InformationBlock>{"info"}</InformationBlock>
       <br />

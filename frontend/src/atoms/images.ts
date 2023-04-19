@@ -14,6 +14,8 @@ import {
 
 export const avatarHeight = ["50vh", "30vh", "15vh", "9vh", "8vh", "6vh"];
 
+export type DisplayProps = "block" | "inline" | "inline-block" | "flex" | "inline-flex" | "grid" | "inline-grid" | "table";
+
 interface Props {
   width?: string;
   height?: string;
@@ -37,6 +39,7 @@ export interface IconProps {
   disabled?: boolean;
   disabledColor?: string;
   pipColor?: string;
+  display?: DisplayProps;
 }
 
 export const FluidImage = styled.img<Props>`
