@@ -34,6 +34,32 @@ export const LocalPlayerAvatar = styled.img<AvatarProps>`
   width: 100%;
 `;
 
+interface LocalAvatarWrapperProps {
+  isTargetable: boolean;
+  height?: string;
+}
+
+export const Paint = styled.img``;
+
+export const LocalAvatarWrapper = styled.div<LocalAvatarWrapperProps>`
+  height: ${({ height }): string => height || `${avatarHeight[5]}`};
+  top: 0px;
+  cursor: ${({ isTargetable }): string => (isTargetable ? "pointer" : "default")};
+  display: flex;
+  justify-content: center;
+  ${LocalPlayerAvatar} {
+    position: absolute;
+    pointer-events: none;
+    margin-left: 0px;
+  }
+  ${Paint} {
+    position: absolute;
+    pointer-events: none;
+    margin-left: 0px;
+    height: 7vh;
+  }
+`;
+
 export const LocalPlayerInfoContainer = styled(PlayerInfoContainer)`
   padding-bottom: 0.5vh;
   left: 0.425em;
@@ -46,7 +72,7 @@ export const LocalPlayer = styled.div<LocalPlayerProps>`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   ${RadioInput} {
     right: ${spacing.xs};

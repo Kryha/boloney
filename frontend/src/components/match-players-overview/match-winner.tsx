@@ -21,7 +21,7 @@ export const MatchWinner: FC<Props> = ({ player }) => {
       <DiceIconWrapper>
         <DiceCrownImg src={DiceCrown} speed={speed} />
       </DiceIconWrapper>
-      <Hand avatarName={avatars[player.avatarId].name} isInLobby />
+      <Hand avatarName={avatars[player.avatarId].name} />
     </MatchWinnerWrapper>
   );
 };

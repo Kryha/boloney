@@ -4,7 +4,6 @@ import { avatarHeight } from "../../atoms";
 import {
   MatchPlayersWrapper,
   PlayerNameContainer,
-  PlayerAvatar,
   PlayerName as Name,
   PlayerAvatarContainer,
   PlayerInfoContainer,
@@ -21,6 +20,7 @@ import { PlayerSidebarInfo } from "../player-sidebar-info";
 import { useStore } from "../../store";
 import { powerupCanNotBeUsedOnPlayer, powerUpRequiresTarget } from "../../util";
 import { useLatestBid } from "../../service";
+import { Hand } from "../hand";
 
 interface MatchPlayerProps {
   totalPlayers: number;
@@ -63,9 +63,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
           </PlayerAvatarContainer>
         ) : (
           <>
-            <PlayerAvatarContainer isTargetable={isTargetable}>
-              <PlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
-            </PlayerAvatarContainer>
+            <Hand avatarName={avatar} isTargetable={isTargetable} isAnimationDisabled />
             <PlayerInfoContainer>
               <PlayerNameContainer>
                 <Name>{player.username}</Name>

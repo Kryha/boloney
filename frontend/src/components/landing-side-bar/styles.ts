@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { opacity, zIndex } from "../../design";
+import { HandImage, HandContainer, HandWrapper, HandImageWrapper, HandPaint } from "../hand/";
 import { fadeOut, slideUpFromBottom } from "../../atoms";
-import { Hand, HandContainer, HandWrapper, ImageWrapper, Paint } from "../hand/styles";
 
 interface Props {
   isDice?: boolean;
@@ -23,7 +23,7 @@ export const ColumnGroup = styled.div<Props>`
   justify-content: center;
   align-items: center;
   padding: 0px 0px 30px;
-  ${ImageWrapper} {
+  ${HandImageWrapper} {
     height: 30vh;
     width: 14.81vw;
   }
@@ -33,11 +33,11 @@ export const ColumnGroup = styled.div<Props>`
     width: 14.81vw;
   }
 
-  ${Hand} {
+  ${HandImage} {
     width: auto !important;
     height: 100% !important;
   }
-  ${Paint} {
+  ${HandPaint} {
     width: auto !important;
     height: 100% !important;
   }

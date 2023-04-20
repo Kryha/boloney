@@ -12,7 +12,15 @@ import { PlayerLastBid } from "../match-players-overview";
 import { PlayerNameContainer } from "../match-players-overview/styles";
 import { RadioButton } from "../power-up-checkbox";
 import { PowerUpOverview } from "../power-up-overview";
-import { LocalPlayer, LocalPlayerAvatar, LocalPlayerInfoContainer, PlayerOverview, RadioButtonContainer } from "./styles";
+import {
+  LocalAvatarWrapper,
+  LocalPlayer,
+  LocalPlayerAvatar,
+  LocalPlayerInfoContainer,
+  Paint,
+  PlayerOverview,
+  RadioButtonContainer,
+} from "./styles";
 
 interface HUDProps {
   dice?: Die[];
@@ -29,6 +37,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const setPowerUpState = useStore((state) => state.setPowerUpState);
   const lastAction = useStore((state) => state.lastAction);
   const { targetPlayerId: targetPlayerId, active: activePowerUp, result: result } = useStore((state) => state.powerUpState);
+  const hand = handProportion(avatars[player.avatarId].name);
 
   if (!localPlayer) return <></>;
 
@@ -45,7 +54,10 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
       <PlayerBadge player={player} lastAction={lastAction} />
 
       <LocalPlayer isLastBid={isPlayerLastBid} onClick={() => isTargetable && handleSelect()} isTargetable={isTargetable}>
-        <LocalPlayerAvatar height={measurements.localAvatarHeight} src={avatar} />
+        <LocalAvatarWrapper isTargetable={isTargetable} height={measurements.localAvatarHeight}>
+          <LocalPlayerAvatar height={measurements.localAvatarHeight} src={avatar} />
+          <Paint src={hand.paint} alt={avatar} />
+        </LocalAvatarWrapper>
         {isTargetable && (
           <RadioButtonContainer>
             <RadioButton onSelect={handleSelect} isDisabled={isDisabled} isChecked={targetPlayerId === player.userId} />

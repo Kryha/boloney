@@ -8,13 +8,13 @@ export const NewMatchHands = () => {
   return (
     <NewMatchHandsContainer>
       <NewMatchHandsWrapper width={width} height={height}>
-        <Hand avatarName="plastic" isInLobby />
-        <Hand avatarName="hook" isInLobby />
-        <Hand avatarName="scooper" isInLobby />
-        <Hand avatarName="hand" isInLobby />
-        <Hand avatarName="skeleton" isInLobby />
-        <Hand avatarName="sausage" isInLobby />
-        <Hand avatarName="lobster" isInLobby />
+        <Hand avatarName="plastic" />
+        <Hand avatarName="hook" />
+        <Hand avatarName="scooper" />
+        <Hand avatarName="hand" />
+        <Hand avatarName="skeleton" />
+        <Hand avatarName="sausage" />
+        <Hand avatarName="lobster" />
       </NewMatchHandsWrapper>
     </NewMatchHandsContainer>
   );

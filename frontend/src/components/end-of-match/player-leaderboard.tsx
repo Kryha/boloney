@@ -1,24 +1,23 @@
 import { FC } from "react";
 
 import { avatars, text } from "../../assets";
-import { color, fontWeights, handProportion } from "../../design";
+import { color, fontWeights, handSizeLeaderboard } from "../../design";
 import { useViewport } from "../../hooks";
 import { useLocalPlayer } from "../../service";
 import { useStore } from "../../store";
 import { PlayerRanked } from "../../types";
 import { prefixDigit } from "../../util";
 import { WinnerBadge } from "../badges";
+import { Hand } from "../hand";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import {
   BoldDescription,
   DataWrapper,
   Description,
   DiceAndPowerUps,
-  LeaderboardAvatar,
   LeaderboardDetails,
   LeaderboardStanding,
   LeaderboardWrapper,
-  PlayerAvatar,
   Username,
 } from "./styles";
 
@@ -31,7 +30,6 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
   const localPlayer = useLocalPlayer();
   const { width } = useViewport();
   const lastAction = useStore((state) => state.lastAction);
-  const { avatar } = handProportion(avatars[player.avatarId].name);
   const avatarColor = avatars[player.avatarId].color;
   const isWinner = rank === 1;
   const isSecond = rank === 2;
@@ -49,9 +47,13 @@ export const PlayerLeaderboard: FC<Props> = ({ player, rank }) => {
 
       <DataWrapper isWinner={isWinner}>
         <LeaderboardStanding customcolor={color.white}>{prefixDigit(rank)}</LeaderboardStanding>
-        <LeaderboardAvatar>
-          <PlayerAvatar alt={player.username} src={avatar} />
-        </LeaderboardAvatar>
+        <Hand
+          avatarName={avatars[player.avatarId].name}
+          isAnimationDisabled
+          height={handSizeLeaderboard.height}
+          width={handSizeLeaderboard.width}
+          isLeaderboard
+        />
         <LeaderboardDetails>
           <Username>{localPlayer && text.endOfMatch.username(player.username, player.userId, localPlayer.userId)}</Username>
           <DiceAndPowerUps screenWidth={width}>

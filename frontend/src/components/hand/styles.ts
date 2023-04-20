@@ -5,17 +5,37 @@ import { float, shadowAnimation } from "../../atoms";
 import { color, opacity } from "../../design";
 import { FLOATING_ANIMATION_SPEED } from "../../constants";
 
-export const HandWrapper = styled.div`
+interface WrapperProps {
+  isTargetable?: boolean;
+}
+
+export const HandWrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  cursor: ${({ isTargetable }): string => (isTargetable ? "pointer" : "default")};
 `;
 
-export const Hand = styled.img``;
+export const HandImage = styled.img`
+  object-fit: contain;
+`;
 
 export const Paint = styled.img``;
+
+export const PaintWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  margin-left: 0px;
+`;
 
 interface ShadowProps {
   smallWidth: number;
@@ -39,32 +59,35 @@ export const Shadow = styled.div<ShadowProps>`
 `;
 
 interface HandContainerProps {
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
   speed?: number;
-  isInLobby: boolean;
+  isAnimationDisabled?: boolean;
+  isLeaderboard?: boolean;
 }
 
 export const HandContainer = styled.div<HandContainerProps>`
   position: relative;
   width: ${({ width }): string => width || "clamp(240px, 25vw + 0px, 480px"};
-  height: clamp(130px, 15.63vw + -20px, 280px);
+  height: ${({ height }) => height ?? "clamp(130px, 15.63vw + -20px, 280px)"};
   top: 0px;
-  ${Hand} {
-    width: 100%;
+  ${HandImage} {
+    width: ${({ isLeaderboard }) => (isLeaderboard ? "60%" : "100%")};
     height: auto;
     position: absolute;
     pointer-events: none;
     margin-left: 0px;
   }
   ${Paint} {
-    width: 100%;
+    width: ${({ isLeaderboard }) => (isLeaderboard ? "60%" : "100%")};
     height: auto;
     position: absolute;
     pointer-events: none;
     margin-left: 0px;
   }
-  animation: ${({ speed }) => {
+  animation: ${({ speed, isAnimationDisabled }) => {
+    if (isAnimationDisabled) return;
+
     return css`
       ${float} ease ${speed || FLOATING_ANIMATION_SPEED}s infinite;
     `;
@@ -73,7 +96,7 @@ export const HandContainer = styled.div<HandContainerProps>`
 
 export const ImageWrapper = styled.div<HandContainerProps>`
   width: ${({ width }): string => width || "clamp(240px, 25vw + 0px, 480px"};
-  height: ${({ height, isInLobby }): string => (isInLobby ? "100%" : height || "clamp(383.76px, 39.98vw + -0.01px, 767.53px)")};
+  height: ${({ height }): string => height ?? "100%"};
   ${HandContainer} {
     align-items: center;
     display: flex;

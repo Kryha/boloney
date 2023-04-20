@@ -120,3 +120,8 @@ export const handProportion = (avatarName: string): HandProps => {
       };
   }
 };
+
+export const handSizeLeaderboard = {
+  height: "6.5rem",
+  width: "6.5rem",
+};

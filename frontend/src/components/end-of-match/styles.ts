@@ -48,16 +48,6 @@ export const LeaderboardStanding = styled(Heading2)`
   margin-right: 0.3em;
 `;
 
-export const LeaderboardAvatar = styled.div`
-  width: 6.25em;
-  height: 6.25em;
-`;
-
-export const PlayerAvatar = styled.img`
-  object-fit: contain;
-  width: 80%;
-`;
-
 export const LeaderboardDetails = styled.div``;
 
 export const Username = styled(Heading4)``;

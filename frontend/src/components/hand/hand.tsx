@@ -1,25 +1,36 @@
 import { FC } from "react";
 
-import { handProportion } from "../../design/hand";
-import { HandContainer, HandWrapper, Hand as HandImg, Shadow, Paint, ImageWrapper } from "./styles";
+import { handProportion } from "../../design";
+import { HandContainer, HandWrapper, HandImage, Shadow, Paint, ImageWrapper } from "./styles";
 
 interface HandProps {
   avatarName: string;
   name?: string;
-  isInLobby?: boolean;
+  isAnimationDisabled?: boolean;
+  isLeaderboard?: boolean;
+  isTargetable?: boolean;
+  height?: string;
+  width?: string;
 }
 
-export const Hand: FC<HandProps> = ({ avatarName, name, isInLobby = false }) => {
+export const Hand: FC<HandProps> = ({ avatarName, name, isAnimationDisabled = false, isTargetable, height, width, isLeaderboard }) => {
   const hand = handProportion(avatarName);
+  const handWidth = width ?? hand.width;
 
   return (
-    <HandWrapper>
-      <ImageWrapper width={hand.width} height={hand.height} isInLobby={isInLobby}>
-        <HandContainer width={hand.width} height={hand.height} speed={hand.speed} isInLobby={isInLobby}>
-          <HandImg src={hand.avatar} alt={name} />
+    <HandWrapper isTargetable={isTargetable}>
+      <ImageWrapper width={handWidth} height={height}>
+        <HandContainer
+          width={handWidth}
+          height={height}
+          speed={hand.speed}
+          isAnimationDisabled={isAnimationDisabled}
+          isLeaderboard={isLeaderboard}
+        >
+          <HandImage src={hand.avatar} alt={name} />
           <Paint src={hand.paint} alt={name} />
         </HandContainer>
-        <Shadow smallWidth={hand.shadowSmallWidth} largeWidth={hand.shadowLargeWidth} speed={hand.speed} />
+        {!isAnimationDisabled && <Shadow smallWidth={hand.shadowSmallWidth} largeWidth={hand.shadowLargeWidth} speed={hand.speed} />}
       </ImageWrapper>
     </HandWrapper>
   );

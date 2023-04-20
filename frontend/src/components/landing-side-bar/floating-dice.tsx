@@ -20,8 +20,8 @@ interface FloatingDiceProps {
 export const FloatingDice: FC<FloatingDiceProps> = ({ speed, customcolor }) => {
   return (
     <HandWrapper>
-      <ImageWrapper width={diceProportions.width} height={diceProportions.height} isInLobby>
-        <HandContainer width={diceProportions.width} height={diceProportions.height} speed={speed} isInLobby>
+      <ImageWrapper width={diceProportions.width}>
+        <HandContainer width={diceProportions.width} speed={speed}>
           <BaseIcon src={<WhiteDiceIconSVG />} pipColor={customcolor} width={iconSize.xl} height={iconSize.auto} iconColor={color.white} />
         </HandContainer>
         <Shadow smallWidth={diceProportions.shadowSmallWidth} largeWidth={diceProportions.shadowLargeWidth} speed={speed} />
