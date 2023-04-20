@@ -17,8 +17,9 @@ export const powerUpRequiresTarget = (powerUpId: PowerUpId): boolean => {
   return idsWithTarget.includes(powerUpId);
 };
 
+// Don't add Second Chance here !!!
 export const isPowerUpTriggeredImmediately = (powerUpId: PowerUpId) => {
-  const immediate: PowerUpId[] = ["3", "4", "6", "8"];
+  const immediate: PowerUpId[] = ["3", "4", "8"];
   return immediate.includes(powerUpId);
 };
 

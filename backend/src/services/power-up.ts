@@ -33,8 +33,8 @@ import {
 import { updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
-import { cleanUUID, getRange, isZkEnabled, shuffleArray } from "../utils";
-import { handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
+import { cleanUUID, getRange, isPowerUpEndingTurn, isZkEnabled, shuffleArray } from "../utils";
+import { getFilteredPlayerIds, handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
 import { saveHistoryEvent } from "./history";
 import { getPlayerAccount, getPlayerKeys } from "./storage";
 
@@ -145,6 +145,8 @@ const useSecondChance = async (
   const activePlayer = state.players[sender.userId];
 
   const playerAccount = getPlayerAccount(nk, sender.userId);
+
+  if (data.diceToReroll.length === 0) throw new Error("No dice to reroll");
 
   // Remove chosen dice from userId
   const countDie = data.diceToReroll.reduce((dieCount, die) => {
@@ -336,13 +338,23 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
   updatePlayersState(state, dispatcher);
 
   dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [senderPresence]);
+  const isTargetDataPresent = data && "targetId" in data;
 
-  const notificationPayload: NotificationContentUsePowerUp = {
-    id,
-    callerName: sender.username,
-    targetName: data && "targetId" in data ? state.players[data.targetId].username : undefined,
-  };
-  if (!activePowerUp) sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, [sender.userId]);
+  if (isTargetDataPresent) {
+    const notificationPayload: NotificationContentUsePowerUp = {
+      id,
+      callerName: sender.username,
+      targetName: state.players[data.targetId].username,
+    };
+    sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, [data.targetId]);
+  } else if (isPowerUpEndingTurn(id)) {
+    const notificationPayload: NotificationContentUsePowerUp = {
+      id,
+      callerName: sender.username,
+    };
+    const receiversIds = getFilteredPlayerIds(state.players, [sender.userId]);
+    sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, receiversIds);
+  }
 };
 
 const deletePowerUps = async (loopParams: MatchLoopParams, selectedPowerUps: PowerUpId[], targetPlayer: string): Promise<PowerUpId[]> => {

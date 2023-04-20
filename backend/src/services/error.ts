@@ -161,6 +161,8 @@ export const handleErrorSideEffects = (
     state.rollBackAttempts++;
   }
 
+  let receiversIds = Object.keys(state.players);
+
   switch (matchOpCode) {
     case MatchOpCode.ROLL_DICE:
       if (!sender) throw new Error(loggerText.undefinedSender);
@@ -174,14 +176,16 @@ export const handleErrorSideEffects = (
       }
       break;
     case MatchOpCode.PLAYER_HEAL_DICE:
-      if (!rollbackAction(loopParams, previousMatchState)) return;
+      if (!rollbackAction(loopParams, previousMatchState) || !sender) return;
 
       errorMessage = "healDiceError";
+      receiversIds = [sender.userId];
       break;
     case MatchOpCode.USE_POWER_UP:
-      if (!rollbackAction(loopParams, previousMatchState)) return;
+      if (!rollbackAction(loopParams, previousMatchState) || !sender) return;
 
       errorMessage = "usePowerUpError";
+      receiversIds = [sender.userId];
       break;
     case MatchOpCode.PLAYER_GET_POWERUPS:
     case MatchOpCode.PLAYER_LOST_BY_TIMEOUT:
@@ -192,7 +196,7 @@ export const handleErrorSideEffects = (
   const errorContent: NotificationContentError = {
     errorMessage,
   };
-  sendMatchNotification(loopParams, NotificationOpCode.ERROR, errorContent);
+  sendMatchNotification(loopParams, NotificationOpCode.ERROR, errorContent, receiversIds);
   logger.info(loggerText.rollingBack + JSON.stringify(state.rollBackAttempts, null, 2));
   updatePlayersState(state, dispatcher);
 };
