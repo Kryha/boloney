@@ -1,20 +1,6 @@
 import { FC, ReactNode } from "react";
 import { InfoPosition } from "../../components";
-import { IconPosition, SecondaryButtonBase } from "../../atoms";
-
-export type JustifyContent =
-  | "center"
-  | "start"
-  | "end"
-  | "flex-start"
-  | "flex-end"
-  | "left"
-  | "right"
-  | "normal"
-  | "space-between"
-  | "space-around"
-  | "space-evenly"
-  | "stretch";
+import { AlignContent, IconPosition, SecondaryButtonBase } from "../../atoms";
 
 export interface GeneralButtonProps {
   disabled?: boolean;
@@ -30,7 +16,9 @@ export interface GeneralButtonProps {
   padding?: string;
   active?: boolean;
   width?: string;
-  justifyContent?: JustifyContent;
+  justifyContent?: AlignContent;
+  backgroundColor?: string;
+  gap?: string;
 }
 
 export const SecondaryButton: FC<GeneralButtonProps> = ({
@@ -42,6 +30,7 @@ export const SecondaryButton: FC<GeneralButtonProps> = ({
   padding,
   active,
   justifyContent,
+  gap,
 }) => (
   <SecondaryButtonBase
     disabled={disabled}
@@ -50,6 +39,7 @@ export const SecondaryButton: FC<GeneralButtonProps> = ({
     padding={padding}
     active={active}
     justifyContent={justifyContent}
+    gap={gap}
   >
     {text} {icon}
   </SecondaryButtonBase>

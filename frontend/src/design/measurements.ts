@@ -1,4 +1,5 @@
 export const SIDEBAR_HEIGHT = 89;
+export const DESKTOP_BREAKPOINT = 960;
 
 export const measurements = {
   localAvatarHeight: "7vh",
@@ -10,9 +11,9 @@ export const screenSizes = {
 
 // TODO: change  these values when there is a mobile version
 export const breakpoints = {
-  xs: "576px", //TBD for mobile
-  sm: "700px", //TBD for mobile
-  md: "900px",
+  xs: "450px",
+  sm: "820px",
+  md: "960px",
   lg: "1100px",
   xl: "1440px",
   xxl: "2700px",

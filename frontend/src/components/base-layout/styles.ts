@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color } from "../../design";
+import { breakpoints, color } from "../../design";
 import { TopNavigationSection } from "../top-navigation/styles";
 
 interface Props {
@@ -13,6 +13,10 @@ export const BaseLayoutWrapper = styled.div<Props>`
   height: 100%;
   ${TopNavigationSection} {
     ${({ isLanding }): string => (isLanding ? "position: absolute " : "position: relative")};
+  }
+  @media (max-width: ${breakpoints.md}) {
+    height: ${({ isLanding }): string => (isLanding ? "100%" : "100dvh")};
+    overflow: hidden;
   }
 `;
 

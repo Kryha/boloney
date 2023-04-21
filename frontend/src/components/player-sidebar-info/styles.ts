@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, wrapperSize, zIndex } from "../../design";
-import { RadioInput } from "../../atoms";
-import { DiceContainer } from "../match-players-overview/styles";
+import { BaseColumn, RadioInput } from "../../atoms";
 
 interface SidebarInfoContainerProps {
   isLastBid: boolean;
@@ -31,13 +30,13 @@ export const PlayerSidebarInfoContainer = styled.div<SidebarInfoContainerProps>`
     isLastBid
       ? `
         background: ${color.grey};
-        ${DiceContainer} {
+        ${BaseColumn} {
           margin-top: ${isTotalPlayers ? "-40px" : "0px"};
         }
       `
       : `
         background: ${color.transparent};
-        ${DiceContainer} {
+        ${BaseColumn} {
           display: none;
         }
       `};

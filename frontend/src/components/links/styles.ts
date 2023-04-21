@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { Row } from "../../atoms";
+import { BaseRow, Row } from "../../atoms";
+import { breakpoints, containerWidth, spacing } from "../../design";
 
 export const GeneralLinkWrapper = styled.section`
   display: flex;
@@ -8,13 +9,20 @@ export const GeneralLinkWrapper = styled.section`
   padding: 0px;
   gap: 10px;
   width: 35vw;
+  @media (max-width: ${breakpoints.md}) {
+    width: ${containerWidth.fluid};
+    margin-top: ${spacing.s};
+  }
 `;
 
-export const GeneralLinkContainer = styled.div`
+export const GeneralLinkContainer = styled(BaseRow)`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
+  @media (max-width: ${breakpoints.md}) {
+    align-items: flex-start;
+  }
 `;
 
 export const HyperLink = styled.a``;

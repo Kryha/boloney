@@ -3,11 +3,11 @@ import { ColumnGroup, LandingSideBarWrapper, SidebarWrapper } from "./styles";
 import { FloatingDice } from "./floating-dice";
 import { landingDice } from "../../assets";
 
-export interface LandingSideBarProps {
-  isSidebarVisible: boolean;
+export interface SidebarProps {
+  isSidebarVisible?: boolean;
 }
 
-export const LeftLandingSideBar: FC<LandingSideBarProps> = ({ isSidebarVisible }) => {
+export const LeftLandingSideBar: FC<SidebarProps> = ({ isSidebarVisible }) => {
   return (
     <LandingSideBarWrapper>
       <SidebarWrapper isSidebarVisible={isSidebarVisible}>

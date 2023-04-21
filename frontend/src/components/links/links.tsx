@@ -86,7 +86,9 @@ export const GeneralLink: FC<Props> = ({
     <GeneralLinkWrapper>
       <Heading6>{heading}</Heading6>
       <GeneralLinkContainer>
-        <Heading3 customcolor={color.darkGrey}>{generalText}</Heading3>
+        <Heading3 customcolor={color.darkGrey} fontSize={fontSize} lineHeight={lineHeight}>
+          {generalText}
+        </Heading3>
         {component}
       </GeneralLinkContainer>
     </GeneralLinkWrapper>

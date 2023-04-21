@@ -60,6 +60,13 @@ import {
   SwitchInput,
   Slider,
   Card,
+  BodyText,
+  Heading1,
+  Heading2,
+  Heading4,
+  Heading5,
+  Heading6,
+  InfoDisplay,
 } from "../../atoms";
 import { MainContentContainer } from "../../components/match-layout/styles";
 import { PlayerMenu } from "../../components/player-menu";
@@ -876,6 +883,81 @@ export const Test: FC = () => {
         <SwitchInput type="checkbox" />
         <Slider className="slider" disabled />
       </SwitchWrapper>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      Mobile Text
+      <br />
+      <br />
+      <br />
+      Info display
+      <br />
+      <br />
+      <InfoDisplay>ho heading 0</InfoDisplay>
+      <br />
+      <br />
+      <br />
+      heading 1
+      <br />
+      <br />
+      <Heading1>heading1</Heading1>
+      <br />
+      <br />
+      <br />
+      <br />
+      heading 2A
+      <br />
+      <br />
+      <Heading2>heading2</Heading2>
+      <br />
+      <br />
+      <br />
+      <br />
+      heading 2B
+      <br />
+      <br />
+      <Heading2 fontSize={fontSizes.heading2B} lineHeight={lineHeights.heading2B}>
+        heading2
+      </Heading2>
+      <br />
+      <br />
+      <br />
+      <br />
+      heading 3
+      <br />
+      <br />
+      <Heading3>heading3</Heading3>
+      <br />
+      <br />
+      <br />
+      heading 4
+      <br />
+      <br />
+      <Heading4>heading4</Heading4>
+      <br />
+      <br />
+      <br />
+      heading 5
+      <br />
+      <br />
+      <Heading5>heading5</Heading5>
+      <br />
+      <br />
+      <br />
+      heading 6
+      <br />
+      <br />
+      <Heading6>heading6</Heading6>
+      <br />
+      <br />
+      <br />
+      Intro text
+      <br />
+      <br />
+      <BodyText font={fonts.secondary}>intro text</BodyText>
     </div>
   );
 };

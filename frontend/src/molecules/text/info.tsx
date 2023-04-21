@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { BaseRow, InfoDisplay } from "../../atoms";
+import { AlignContent, BaseRow, InfoDisplay } from "../../atoms";
 import { FontProps, TransformText } from "../../design";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   headingLineHeight?: FontProps;
   headingColor?: string;
   headingTransformation?: TransformText;
-  justifyContent?: string;
+  justifyContent?: AlignContent;
 }
 
 /**
@@ -21,7 +21,7 @@ interface Props {
  * @param {string} headingLineHeight- line-height for the heading text heading
  * @param {string} headingColor - color for the heading text
  * @param {string} headingTransformation - heading transformation, is it capitalized / uppercase etc
- * @param {string} justifyContent - heading position i.e left or right
+ * @param {AlignContent} justifyContent - heading position i.e left or right
  */
 
 export const LargeInfoHeading: FC<Props> = ({
@@ -35,7 +35,7 @@ export const LargeInfoHeading: FC<Props> = ({
   justifyContent,
 }) => {
   return (
-    <BaseRow justifyContent={justifyContent}>
+    <BaseRow justifyContent={justifyContent} alignItems={justifyContent}>
       <InfoDisplay
         customcolor={headingColor}
         font={headingFont}

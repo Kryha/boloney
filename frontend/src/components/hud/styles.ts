@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 import { color, margins, spacing, wrapperSize, zIndex } from "../../design";
-import { avatarHeight, RadioInput } from "../../atoms";
-import { DiceContainer, PlayerInfoContainer } from "../match-players-overview/styles";
+import { avatarHeight, BaseColumn, RadioInput } from "../../atoms";
+import { PlayerInfoContainer } from "../match-players-overview";
 
 interface PlayerOverviewProps {
   isActive: boolean;
@@ -79,7 +79,7 @@ export const LocalPlayer = styled.div<LocalPlayerProps>`
     bottom: ${spacing.xs};
     position: absolute;
   }
-  ${DiceContainer} {
+  ${BaseColumn} {
     display: flex;
     flex-direction: column;
     align-items: center;

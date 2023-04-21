@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { Heading6, IconPosition } from "../../atoms";
+import { AlignContent, Heading6, IconPosition } from "../../atoms";
 import { FontProps, fontWeights } from "../../design";
 import { FlexibleRow } from "./styles";
 
@@ -13,7 +13,7 @@ interface Props {
   gap?: string;
   icon?: ReactNode;
   iconPosition?: IconPosition;
-  justifyContent?: string;
+  justifyContent?: AlignContent;
 }
 
 /**
@@ -26,7 +26,7 @@ interface Props {
  * @param {string} headingColor - color for the heading text
  * @param {ReactNode} icon - icon for the tool tip heading
  * @param {IconPosition} iconPosition - position for the icon, i.e left or right
- * @param {IconPosition} justifyContent - for reversed icons i.e icons to the left the value must be flex-end
+ * @param {AlignContent} justifyContent - for reversed icons i.e icons to the left the value must be flex-end
  */
 
 export const RowHeadingIcon: FC<Props> = ({

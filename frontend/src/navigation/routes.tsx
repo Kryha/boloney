@@ -5,28 +5,31 @@ import { AnimatePresence } from "framer-motion";
 
 import { routes } from "./route-names";
 import { CookieBanner, MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
-import { Login, CreateAccount } from "../pages/auth";
-import { Landing, NewMatch, Home, MatchRoute } from "../pages";
+import { LandingPage, NewMatch, Home, MatchRoute, Login, CreateAccount, MobileLogin } from "../pages";
 import { useRefreshAuth } from "../service";
 import { useIsAuthenticating, useSession, useStore } from "../store";
 import { Test } from "../pages/test/test";
-import {ENV_MODE} from "../constants";
+import { ENV_MODE } from "../constants";
+import { useIsMobile } from "../hooks";
 
 const AppRoutes: FC = () => {
   const isAuthenticating = useIsAuthenticating();
   const session = useSession();
+  const isMobile = useIsMobile();
+
+  const loginComponent = isMobile ? <MobileLogin /> : <Login />;
 
   useRefreshAuth();
 
   if (isAuthenticating) return <Loading />;
-  
+
   return (
     <Routes>
-      <Route path={routes.root} element={<Landing />} />
+      <Route path={routes.root} element={<LandingPage />} />
 
       {ENV_MODE === "development" && <Route path="/test" element={<Test />} />}
 
-      {session ? (
+      {session && !isMobile ? (
         <>
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.newMatch} element={<NewMatch />} />
@@ -34,7 +37,7 @@ const AppRoutes: FC = () => {
         </>
       ) : (
         <>
-          <Route path={routes.login} element={<Login />} />
+          <Route path={routes.login} element={loginComponent} />
           {ENV_MODE !== "production" && <Route path={routes.createAccount} element={<CreateAccount />} />}
         </>
       )}

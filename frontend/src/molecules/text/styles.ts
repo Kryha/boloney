@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { VerticalDivider, BaseRow, IconPosition, TooltipText, Heading1, BaseColumn } from "../../atoms";
-import { breakpoints, containerWidth, lineHeights, spacing } from "../../design";
+import { breakpoints, containerWidth, lineHeights, mobileHeight, spacing } from "../../design";
 
 interface TooltipProps {
   gap?: string;
@@ -30,6 +30,9 @@ export const FlexibleRow = styled(BaseRow)<TooltipProps>`
 
 export const ParagraphContainer = styled.div`
   padding: ${spacing.xs} ${spacing.s};
+  @media (max-width: ${breakpoints.md}) {
+    padding: ${spacing.xs} ${spacing.md};
+  }
 `;
 
 export const NumberedSection = styled.section`
@@ -41,13 +44,30 @@ export const NumberedSection = styled.section`
     content: counter(css-counter, decimal-leading-zero) "";
   }
   width: ${containerWidth.xxl};
+  @media (max-width: ${breakpoints.md}) {
+    width: ${containerWidth.fluid};
+  }
 `;
 
 export const NumberedColumn = styled(BaseColumn)`
   padding: 0px 0px 0px ${spacing.md};
+
+  @media (max-width: ${breakpoints.md}) {
+    padding: 0px ${spacing.sm};
+  }
 `;
 
 export const NumberedParagraph = styled(BaseColumn)`
-  padding: 0px 0px ${spacing.sm} ${spacing.md};
+  padding: 0px ${spacing.md} ${spacing.sm} ${spacing.md};
   margin-top: -2vw;
+
+  @media (max-width: ${breakpoints.md}) {
+    padding: 0px ${spacing.sm} ${spacing.xs} ${spacing.sm};
+    margin-top: -${mobileHeight.sm};
+    gap: ${spacing.s};
+  }
+  @media (min-height: ${breakpoints.sm}) and (max-width: ${breakpoints.md}) {
+    margin-top: -${mobileHeight.xs};
+    gap: ${spacing.s};
+  }
 `;

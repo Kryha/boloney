@@ -18,11 +18,11 @@ export const landing = {
   paragraphThreeHeading: "the best Boloney! is the group kind",
   paragraphThree:
     "We want to shape Boloney! together, as a community. We're ready for your feedback on how to improve and evolve the game.",
-  lets: "let's rule",
+  letsRule: "let's rule",
   bestBlufferWins: "best bluffer wins",
   boloneyDescription:
     "boloney! is a game of dice and bluffing. To win, bluff the best about the total value of dice on the table to outsmart your opponents.",
-  ruleThe: "the game",
+  theGame: "the game",
   creatorsChoice: "creator's choice",
   multiplayerDescription:
     "a deep custom game editor allows players to craft the perfect game for them. Make games long or short, head-to-head or party mode, Max RNG or pure skill, bluffing or counter-play focused, forgiving of mistakes or brutally punishing of them.",
@@ -45,4 +45,7 @@ export const landing = {
   letsRoll:
     "let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll!",
   githubLink: "https://github.com/Kryha/boloney",
+  lets: "let's",
+  ruleThe: "rule the",
+  mobileGame: "game",
 };

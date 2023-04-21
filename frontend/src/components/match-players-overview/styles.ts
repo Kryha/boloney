@@ -12,12 +12,12 @@ import {
 import { FLOATING_ANIMATION_SPEED } from "../../constants";
 
 import { color, margins, zIndex } from "../../design";
-import { avatarHeight, float, Heading5, shuffle } from "../../atoms";
+import { avatarHeight, BaseColumn, float, Heading5, shuffle } from "../../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
 import { HandWrapper } from "../hand/styles";
 import { DiceIconWrapper } from "../icons";
-import { PlayerSidebarInfoContainer } from "../player-sidebar-info/styles";
+import { PlayerSidebarInfoContainer } from "../player-sidebar-info";
 
 const GAME_PLAYER_HEIGHT = 89;
 
@@ -233,7 +233,7 @@ export const DeadPlayerName = styled(PlayerName)`
 export const MatchStateContainer = styled(PlayerNameContainer)`
   position: relative;
   z-index: ${zIndex.inFront};
-  align-items: flex-end;
+  align-items: center;
 `;
 
 export const PlayerInfoContainer = styled.section`
@@ -272,7 +272,7 @@ export const MatchPlayersContainer = styled.div<PlayersContainerProps>`
   }}
 `;
 
-export const DiceContainer = styled.div`
+export const AmountDice = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -280,10 +280,6 @@ export const DiceContainer = styled.div`
   gap: 14px;
 `;
 
-export const AmountDice = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px;
+export const DiceContainer = styled(BaseColumn)`
   gap: 14px;
 `;

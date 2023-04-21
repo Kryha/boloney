@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { text, EllipsisIconSVG, ExitIconSVG, SettingsIconSVG, LogoutIconSVG } from "../../assets";
-import { buttonSize } from "../../design";
+import { buttonSize, color } from "../../design";
 import { TertiaryButton } from "../../molecules";
 import { routes } from "../../navigation";
 import { useLogout, useMatch } from "../../service";
@@ -68,6 +68,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
         icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
         onClick={() => navigate(routes.login)}
         padding={buttonSize.md}
+        backgroundColor={color.lightGrey}
       />
     );
   }

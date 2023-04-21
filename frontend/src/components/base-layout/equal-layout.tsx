@@ -6,11 +6,12 @@ interface EqualLayoutProps {
   leftSection?: ReactNode;
   mainSection?: ReactNode;
   rightSection?: ReactNode;
+  isLanding?: boolean;
 }
 
-export const EqualLayout: FC<EqualLayoutProps> = ({ leftSection, mainSection, rightSection }) => {
+export const EqualLayout: FC<EqualLayoutProps> = ({ leftSection, mainSection, rightSection, isLanding }) => {
   return (
-    <BaseLayoutWrapper isLanding>
+    <BaseLayoutWrapper isLanding={isLanding}>
       <LeftSection>{leftSection}</LeftSection>
       <EqualMainSection>{mainSection}</EqualMainSection>
       <EqualRightSection>{rightSection}</EqualRightSection>

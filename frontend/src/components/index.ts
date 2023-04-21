@@ -1,5 +1,5 @@
-export * from "./inputs";
 export * from "./checkbox";
+export * from "./inputs";
 export * from "./match-players-overview";
 export * from "./match-layout";
 export * from "./die";
@@ -66,3 +66,5 @@ export * from "./page-transition";
 export * from "./tool-tip-content";
 export * from "./toggle-switch";
 export * from "./cookie-banner";
+export * from "./landing-header";
+export * from "./desktop-switch";

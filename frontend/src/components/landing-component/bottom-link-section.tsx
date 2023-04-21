@@ -1,13 +1,21 @@
 import { FC } from "react";
 import { text } from "../../assets";
-import { color, fonts, fontSizes, fontWeights } from "../../design";
+import { color, FontProps, fonts, fontSizes, fontWeights } from "../../design";
 import { useObserver } from "../../hooks";
-import { GeneralLink } from "../links";
-import { SocialMediaImageLinks } from "../links/image-link";
+import { GeneralLink, SocialMediaImageLinks } from "../links";
 import { LinkContainer } from "./styles";
 
-export const BottomLinkSection: FC = () => {
+interface Props {
+  linkFontWeight?: string;
+  linkFontSize?: FontProps;
+  linkLineHeight?: FontProps;
+}
+
+export const BottomLinkSection: FC<Props> = ({ linkFontSize, linkFontWeight, linkLineHeight }) => {
   const { ref, isVisible } = useObserver();
+  const fontSize = linkFontSize ?? fontSizes.heading3;
+  const fontWeight = linkFontWeight ?? fontWeights.regular;
+  const lineHeight = linkLineHeight ?? fontSizes.heading3;
 
   return (
     <LinkContainer ref={ref} isVisible={isVisible}>
@@ -16,9 +24,9 @@ export const BottomLinkSection: FC = () => {
         generalText={text.landing.reachOutTo}
         link={text.landing.boloneyHelpEmail}
         linkText={text.landing.boloneyHelpEmail}
-        fontWeight={fontWeights.regular}
-        fontSize={fontSizes.heading3}
-        lineHeight={fontSizes.heading3}
+        fontWeight={fontWeight}
+        fontSize={fontSize}
+        lineHeight={lineHeight}
         font={fonts.secondary}
         customcolor={color.darkGrey}
       />

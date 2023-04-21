@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { TopNavigation } from "../top-navigation";
 import { LandingHands } from "./landing-hands";
-import { LandingSideBarProps } from "./left-landing-side-bar";
+import { SidebarProps } from "./left-landing-side-bar";
 import { ColumnGroup, LandingSideBarWrapper, SidebarContainer, SidebarWrapper } from "./styles";
 
-export const RightLandingSideBar: FC<LandingSideBarProps> = ({ isSidebarVisible }) => {
+export const RightLandingSideBar: FC<SidebarProps> = ({ isSidebarVisible }) => {
   return (
     <LandingSideBarWrapper>
       <TopNavigation location="landing" />

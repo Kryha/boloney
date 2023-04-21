@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Heading1, Heading3, Heading6 } from "../../atoms";
+import { AlignContent, Heading1, Heading3, Heading6 } from "../../atoms";
 import { FontProps, TransformText } from "../../design";
 import { NumberedColumn, NumberedParagraph } from "./styles";
 
@@ -24,7 +24,7 @@ interface Props {
   headingColor?: string;
   headingTransformation?: TransformText;
   subheadingTransformation?: TransformText;
-  justifyContent?: string;
+  justifyContent?: AlignContent;
 }
 
 /**
@@ -49,7 +49,7 @@ interface Props {
  * @param {FontProps} numberFontSize- font-size for the number heading
  * @param {string} numberLineHeight- line-height for the number heading
  * @param {string} numberColor - color for the number text
- * @param {IconPosition} justifyContent - for reversed icons i.e icons to the left the value must be flex-end
+ * @param {AlignContent} justifyContent - for reversed icons i.e icons to the left the value must be flex-end
  */
 
 export const NumberedDescriptionText: FC<Props> = ({

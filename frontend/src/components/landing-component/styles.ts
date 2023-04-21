@@ -1,9 +1,10 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+
 import { MEDIUM_VIEWPORT_WIDTH, SMALL_VIEWPORT_HEIGHT } from "../../constants";
-import { opacity, zIndex } from "../../design";
+import { breakpoints, fontSizes, lineHeights, mobileHeight, mobileWidth, opacity, spacing, zIndex } from "../../design";
 import { ViewProps } from "../../types";
-import { fadeUp, InfoDisplay, Heading2 } from "../../atoms";
+import { fadeUp, InfoDisplay, Heading2, FluidImage, GeneralRow } from "../../atoms";
 import { GeneralLinkWrapper } from "../links/styles";
 
 interface Props {
@@ -28,6 +29,7 @@ export const AppNameContainer = styled.div`
   opacity: ${opacity.hidden};
   animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
   transform: translate3d(0, 1rem, 0);
+  justify-content: center;
 `;
 
 export const BottomTextContainer = styled.div`
@@ -63,6 +65,11 @@ export const BottomHeading = styled.div`
     width: fit-content;
     display: inline-block;
   }
+  @media (max-width: ${breakpoints.md}) {
+    width: ${mobileWidth.sm};
+    top: ${mobileHeight.xxl};
+    padding: ${spacing.sm};
+  }
 `;
 
 export const LandingBottomHeading = styled(Heading2)`
@@ -82,6 +89,18 @@ export const LandingImage = styled.img<ImageProps>`
   opacity: ${opacity.hidden};
   animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
   transform: translate3d(0, 1rem, 0);
+  @media (max-width: ${breakpoints.md}) {
+    width: ${mobileWidth.xxl};
+    height: auto;
+    left: ${mobileHeight.xxs};
+    bottom: ${mobileHeight.xxxs};
+  }
+  @media (min-width: ${breakpoints.xs}) {
+    width: 100vw;
+    height: auto;
+    left: ${mobileWidth.xs};
+    bottom: ${mobileHeight.xxxs};
+  }
 `;
 
 export const RightDisplaySection = styled.div`
@@ -136,8 +155,40 @@ export const LinkContainer = styled(TopLandingWrapper)<Props>`
   padding: 0px 40px 80px;
   gap: 10px;
   justify-content: space-between;
+  @media (max-width: ${breakpoints.md}) {
+    flex-direction: column;
+    padding: 0px ${spacing.md} ${spacing.xl};
+  }
 `;
 
 export const VisibilityContainer = styled.div`
   width: 100%;
+`;
+
+export const PaintedHand = styled(GeneralRow)`
+  position: relative;
+  width: 100%;
+  height: 19vh;
+  margin: ${spacing.sm} 0px;
+  ${FluidImage} {
+    position: absolute;
+  }
+`;
+
+export const HeadingContainer = styled.div`
+  margin: ${spacing.md} ${spacing.s} ${spacing.xs};
+  @media (min-width: 700px) {
+    ${InfoDisplay} {
+      font-size: ${fontSizes.infoDisplay.sm};
+      line-height: ${lineHeights.infoDisplay.sm};
+    }
+  }
+`;
+
+export const ParagraphContainer = styled.div`
+  margin: ${spacing.md} ${spacing.s};
+`;
+
+export const ChatterHeading = styled(HeadingContainer)`
+  margin: ${spacing.xl} ${spacing.s};
 `;

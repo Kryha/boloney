@@ -12,6 +12,8 @@ export const TertiaryButton: FC<GeneralButtonProps> = ({
   active,
   width,
   justifyContent,
+  backgroundColor,
+  gap,
 }) => (
   <TertiaryButtonBase
     disabled={disabled}
@@ -21,6 +23,8 @@ export const TertiaryButton: FC<GeneralButtonProps> = ({
     active={active}
     width={width}
     justifyContent={justifyContent}
+    backgroundColor={backgroundColor}
+    gap={gap}
   >
     {text} {icon}
   </TertiaryButtonBase>

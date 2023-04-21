@@ -8,6 +8,9 @@ import { GO_BACK } from "../../constants";
 import { Heading2, BodyText } from "../../atoms";
 import { PrimaryButton, TertiaryButton } from "../../molecules";
 import { LeftArrowIconSVG } from "../../assets";
+import { useIsMobile } from "../../hooks";
+import { MobileDesktopSwitch } from "../desktop-switch";
+import { EqualLayout } from "../base-layout";
 
 interface ErrorViewProps {
   headingText?: string;
@@ -20,11 +23,14 @@ interface ErrorViewProps {
 // TODO: update component
 export const ErrorView: FC<ErrorViewProps> = ({ redirectRoute, headingText, navigationText, onButtonClick, descriptionText }) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   const handleButtonClick = () => {
     if (onButtonClick) return onButtonClick();
     navigate(redirectRoute || routes.root);
   };
+
+  if (isMobile) return <EqualLayout mainSection={<MobileDesktopSwitch onClick={() => navigate(routes.root)} />} />;
 
   return (
     <ErrorContainer>

@@ -1,13 +1,27 @@
 import styled from "@emotion/styled";
+
 import { breakpoints, spacing } from "../design";
 
-export type AlignProps = "stretch" | "center" | "start" | "end";
+export type AlignContent =
+  | "center"
+  | "start"
+  | "end"
+  | "flex-start"
+  | "flex-end"
+  | "left"
+  | "right"
+  | "normal"
+  | "space-between"
+  | "space-around"
+  | "space-evenly"
+  | "stretch";
 
 interface Props {
-  alignItems?: AlignProps;
-  justifyContent?: string;
+  alignItems?: AlignContent;
+  justifyContent?: AlignContent;
   alignSelf?: string;
   gap?: string;
+  mobileGap?: string;
 }
 
 /**
@@ -29,7 +43,7 @@ export const BaseRow = styled(BaseColumn)<Props>`
 
   @media (max-width: ${breakpoints.md}) {
     flex-direction: column;
-    gap: ${spacing.md};
+    gap: ${({ mobileGap }): string => mobileGap ?? spacing.xs};
   }
 `;
 

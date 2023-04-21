@@ -8,6 +8,7 @@ import { MatchStats } from "./match-state/match-stats";
 import { useOnClickOutside } from "usehooks-ts";
 import { NavigationLocation } from "../../types";
 import { containerHeight } from "../../design";
+import { useIsMobile } from "../../hooks";
 
 interface Props {
   location?: NavigationLocation;
@@ -19,6 +20,7 @@ export const TopNavigation: FC<Props> = ({ location }) => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
   const ref = useRef(null);
+  const isMobile = useIsMobile();
 
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
     if (activeDropdown === dropdown) {
@@ -32,6 +34,8 @@ export const TopNavigation: FC<Props> = ({ location }) => {
   useOnClickOutside(ref, () => {
     setActiveDropdown(undefined);
   });
+
+  if (isMobile) return <></>;
 
   return (
     <TopNavigationSection ref={ref}>

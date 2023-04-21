@@ -11,6 +11,7 @@ export const general = {
   login: "Log in",
   cookieAccept: "Accept cookies",
   cookieReject: "Reject cookies",
+  playNow: "Play now",
 
   // Normal text
   rollingDice: "rolling dice",
@@ -25,6 +26,9 @@ export const general = {
   playerLeft: "player left",
   connected: "connected",
   waiting: "waiting",
+  boloneyIsBestOnDesktop: "Boloney! is best enjoyed on desktop",
+  forNowThereIsNoMobileVersion: "for now, there is no mobile version of Boloney! But our developers are busy grinding and piping.",
+  pleaseSwitchToDesktop: "please switch to desktop to start playing.",
   waitingForTheOthersToBeReady: "waiting for the others to be ready...",
   appName: "Boloney",
   matchCreated: "match created!",

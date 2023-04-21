@@ -82,7 +82,7 @@ export const SecondaryButtonBase = styled.button<Props>`
   padding: ${({ padding }): string => padding ?? `${spacing.s} ${spacing.ms}`};
   text-align: center;
   display: inline-flex;
-  gap: ${spacing.xs};
+  gap: ${({ gap }): string => gap ?? spacing.xs};
   flex-direction: ${({ iconPosition }): string => iconPosition ?? "row"};
   width: ${({ width }): string => width ?? buttonSize.auto};
   min-width: fit-content;

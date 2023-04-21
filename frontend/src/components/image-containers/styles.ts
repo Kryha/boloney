@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { MEDIUM_VIEWPORT_WIDTH } from "../../constants";
 import { opacity } from "../../design";
-import { fadeUp } from "../../atoms";
+import { BaseRow, fadeUp } from "../../atoms";
 
 interface ImageContainerBoxProps {
   isImageRight: boolean;
@@ -39,11 +39,8 @@ export const ImageContainerWrapper = styled.section<Props>`
       : ""};
 `;
 
-export const ImageContainerBox = styled.section<ImageContainerBoxProps>`
-  display: flex;
+export const ImageContainerBox = styled(BaseRow)<ImageContainerBoxProps>`
   flex-direction: ${({ isImageRight }): string => (isImageRight ? "row-reverse" : "row")};
-  align-items: center;
-  padding: 0px;
   gap: 10px;
 `;
 
