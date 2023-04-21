@@ -6,14 +6,17 @@ const envSchema = z.object({
   BASE_URL: z.string(),
   PROD: z.boolean(),
   DEV: z.boolean(),
-  SSR: z.boolean(),
+  SSR: z.boolean().optional(),
   VITE_ENV: z.enum(["development", "staging", "production"]).default("development"),
   VITE_BACKEND_URL: z.string().default("backend.localhost"),
   VITE_API_URL: z.string().default("api.localhost"),
   VITE_API_PORT: z.string().default("80"),
   VITE_GA_TRACKING_ID: z.string().default("G-123456"),
   VITE_API_TIMEOUT: z.coerce.number().default(10000),
-  VITE_USE_SSL: z.string().default("false").transform((value) => value === "false" ? false : true),
+  VITE_USE_SSL: z
+    .string()
+    .default("false")
+    .transform((value) => (value === "false" ? false : true)),
 });
 
 const env = envSchema.parse(import.meta.env);
