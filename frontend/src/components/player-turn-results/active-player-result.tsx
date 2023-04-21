@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { losingSound, timerDone, text, ResultData } from "../../assets";
+import { text, ResultData } from "../../assets";
 import { FADE_TRANSITION_DURATION } from "../../constants";
 
 import { color } from "../../design";
@@ -11,7 +11,7 @@ import { ButtonReady } from "../button-ready";
 import { FadeTransition } from "../page-transition";
 import { ActivePlayerImage, ActivePlayerResultWrapper } from "./styles";
 import { ActivePlayerTextResults } from "./text-results";
-import { getActiveMargin } from "./util";
+import { getActiveMargin, getSound } from "./util";
 
 interface ActivePlayerResult {
   actionRole: ActionRole;
@@ -27,9 +27,8 @@ export const ActivePlayerResults: FC<ActivePlayerResult> = ({ actionRole, isWinn
   const isTimeOut = actionRole === "timeOut";
 
   useEffect(() => {
-    if (isTimeOut) playSound(timerDone);
-    if (actionRole === "loser") playSound(losingSound);
-  }, [isTimeOut, playSound, isWinner, actionRole]);
+    playSound(getSound(isWinner, isTimeOut));
+  }, [playSound, isWinner, isTimeOut]);
 
   return (
     <ActivePlayerResultWrapper>
