@@ -13,7 +13,7 @@ build:
       docker:
         dockerfile: Dockerfile.frontend
         buildArgs:
-          VITE_ENV_MODE: production
+          VITE_ENV: production
           VITE_BACKEND_URL: backend.boloney.io
           VITE_API_URL: api.boloney.io
           VITE_USE_SSL: true

@@ -1,11 +1,30 @@
+import { z } from "zod";
 import { MatchSettings } from "./types";
 
-export const ENV_MODE = import.meta.env.VITE_ENV_MODE || "development";
-export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "backend.localhost";
-export const API_URL = import.meta.env.VITE_API_URL || "api.localhost";
-export const API_PORT = import.meta.env.VITE_API_PORT || "80";
-export const GA_TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID;
-export const API_TIMEOUT = import.meta.env.VITE_API_TIMEOUT || "10000";
+const envSchema = z.object({
+  MODE: z.string(),
+  BASE_URL: z.string(),
+  PROD: z.boolean(),
+  DEV: z.boolean(),
+  SSR: z.boolean(),
+  VITE_ENV: z.enum(["development", "staging", "production"]).default("development"),
+  VITE_BACKEND_URL: z.string().default("backend.localhost"),
+  VITE_API_URL: z.string().default("api.localhost"),
+  VITE_API_PORT: z.string().default("80"),
+  VITE_GA_TRACKING_ID: z.string().default("G-123456"),
+  VITE_API_TIMEOUT: z.coerce.number().default(10000),
+  VITE_USE_SSL: z.string().default("false").transform((value) => value === "false" ? false : true),
+});
+
+const env = envSchema.parse(import.meta.env);
+
+export const ENV_MODE = env.VITE_ENV;
+export const BACKEND_URL = env.VITE_BACKEND_URL;
+export const API_URL = env.VITE_API_URL;
+export const API_PORT = env.VITE_API_PORT;
+export const GA_TRACKING_ID = env.VITE_GA_TRACKING_ID;
+export const API_TIMEOUT = env.VITE_API_TIMEOUT;
+export const USE_SSL = env.VITE_USE_SSL;
 
 export const SERVER_KEY = "defaultkey";
 
@@ -26,7 +45,6 @@ export const MINIMUM_USERNAME_LENGTH = 2;
 export const MINIMUM_PASSWORD_LENGTH = 8;
 export const APPEAR_ONLINE = true;
 export const CREATE_ACCOUNT = true;
-export const USE_SSL = !!import.meta.env.VITE_USE_SSL || false;
 
 export const MAX_PLAYERS = 7;
 export const MIN_PLAYERS = 2;

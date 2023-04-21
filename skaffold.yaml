@@ -11,6 +11,12 @@ build:
     - image: frontend
       docker:
         dockerfile: Dockerfile.frontend
+        buildArgs:
+          VITE_ENV: development
+          VITE_BACKEND_URL: backend.localhost
+          VITE_API_URL: api.localhost
+          VITE_USE_SSL: false
+          VITE_API_PORT: "80"
     - image: backend
       docker:
         dockerfile: Dockerfile.backend
