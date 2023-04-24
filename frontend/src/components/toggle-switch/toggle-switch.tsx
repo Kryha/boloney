@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormSetValue } from "react-hook-form";
 import { color } from "../../design";
 import { BodyText, GeneralRow, Heading6, Legend, Slider, SwitchInput, SwitchWrapper } from "../../atoms";
 import { MatchSettings } from "../../types";
@@ -14,20 +14,25 @@ interface Props {
   disabled?: boolean;
   infoPosition?: InfoPosition;
   tooltipTitle?: string;
-  register: UseFormRegister<MatchSettings>;
+  setValue: UseFormSetValue<MatchSettings>;
 }
 
 export const ToggleSwitch: FC<Props> = ({
   disabled = false,
-  register,
   title,
   description,
   descriptionTitle,
   tooltipTitle,
   tooltipDescription,
   infoPosition,
+  setValue,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
+
+  const toggle = () => {
+    setIsChecked(!isChecked);
+    setValue("zkEnabled", !isChecked);
+  };
 
   return (
     <ToggleSwitchFieldSet isRow={false} childNode={1}>
@@ -39,8 +44,8 @@ export const ToggleSwitch: FC<Props> = ({
       </Legend>
 
       <ToggleSwitchContainer>
-        <SwitchWrapper onClick={() => setIsChecked(!isChecked)}>
-          <SwitchInput id="zk-toggle" type="checkbox" checked={isChecked} {...register("zkEnabled")} />
+        <SwitchWrapper onClick={() => toggle()}>
+          <SwitchInput id="zk-toggle" type="checkbox" checked={isChecked} />
           <Slider className="slider" disabled={disabled} />
         </SwitchWrapper>
         <ToggleContent>

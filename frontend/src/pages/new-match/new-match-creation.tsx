@@ -30,6 +30,7 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { isSubmitSuccessful },
   } = useForm<MatchSettings>({
     mode: "onChange",
@@ -101,7 +102,7 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
             <PowerUpsField />
 
             <ToggleSwitch
-              register={register}
+              setValue={setValue}
               title={text.newMatch.zkEnabledTitle}
               description={text.newMatch.zkEnabledDescription}
               tooltipDescription={text.newMatch.zkEnabledTooltipDescription}
