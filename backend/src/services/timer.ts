@@ -1,8 +1,16 @@
-import { TICK_RATE } from "../constants";
+import { EMPTY_DATA, TICK_RATE } from "../constants";
 import { MatchLoopParams, MatchOpCode, MatchStage, PlayerLostByTimeOutPayloadBackend } from "../types";
 import { saveHistoryEvent } from "./history";
 import { setAction } from "./match";
-import { getActivePlayerId, getDiceValues, handlePlayerLostRound, hidePlayersData, rollDiceForPlayer, setAllPlayersReady } from "./player";
+import {
+  areAllPlayersReady,
+  getActivePlayerId,
+  getDiceValues,
+  handlePlayerLostRound,
+  hidePlayersData,
+  rollDiceForPlayer,
+  setAllPlayersReady,
+} from "./player";
 
 export const getTicksFromSeconds = (timeInSec: number) => {
   return timeInSec * TICK_RATE;
@@ -28,12 +36,8 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
     case "rollDiceStage": {
       const playersWithNoDice = Object.values(state.players).filter((player) => player.hasRolledDice !== true);
       await Promise.all(playersWithNoDice.map((player) => rollDiceForPlayer(loopParams, player.userId)));
-      setAllPlayersReady(state);
       break;
     }
-    case "getPowerUpStage":
-      setAllPlayersReady(state);
-      break;
     case "playerTurnLoopStage": {
       if (!activePlayerId) return;
       handlePlayerLostRound(loopParams, activePlayerId, true);
@@ -50,9 +54,12 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
 
       break;
     }
-    case "roundSummaryStage":
-      setAllPlayersReady(state);
-      break;
+  }
+
+  if (areAllPlayersReady(state)) {
+    state.timerHasStarted = false;
+    // Broadcast stop loading message for hiding the spinner before transitioning to the next stage
+    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA);
   }
 };
 
@@ -66,11 +73,7 @@ export const handleTimeOutTicks = async (loopParams: MatchLoopParams) => {
 
   state.ticksBeforeTimeOut--;
 
-  if (state.ticksBeforeTimeOut <= 0) {
-    await handleOutOfTime(loopParams);
-    state.timerHasStarted = false;
-    return;
-  }
+  if (state.ticksBeforeTimeOut <= 0) await handleOutOfTime(loopParams);
 };
 
 export const msecToSec = (n: number): number => {
@@ -82,10 +85,10 @@ export const msecToSec = (n: number): number => {
 // Duration is in seconds
 export const matchStageDuration: Record<MatchStage, number> = {
   lobbyStage: 0, // Stage does not have a timer
-  getPowerUpStage: 120,
-  rollDiceStage: 120,
+  getPowerUpStage: 10,
+  rollDiceStage: 10,
   playerTurnLoopStage: 60,
-  roundSummaryStage: 180,
+  roundSummaryStage: 10,
   endOfMatchStage: 0, // Stage does not have a timer
   terminateMatchStage: 0, // Stage does not have a timer
 };

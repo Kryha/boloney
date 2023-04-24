@@ -349,6 +349,7 @@ export const handleRoundEnding = async (loopParams: MatchLoopParams, nextStage: 
     players: hidePlayersData(state.players),
     stageNumber: state.stageNumber,
   };
+
   const stageTransitionPayload: StageTransitionPayloadBackend = {
     matchStage: nextStage,
     remainingStageTime: matchStageDuration[nextStage],

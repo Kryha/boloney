@@ -10,6 +10,7 @@ import { TurnActionHeader, IdlePlayerHeader } from "../player-turn-headers";
 import { ActivePlayerResults, IdlePlayerResult, TargetPlayerResult } from "../player-turn-results";
 
 import { TurnActionWrapper, IdlePlayerWrapper } from "../player-turns/styles";
+import { useClientTimer } from "../../hooks";
 
 export const EndOfRound: FC = () => {
   const lastAction = useStore((state) => state.lastAction);
@@ -22,6 +23,8 @@ export const EndOfRound: FC = () => {
   const player = loserByTimeOut ? loserByTimeOut : winner;
 
   const isActivePlayerWinner = activePlayer?.userId === winner?.userId;
+
+  useClientTimer();
 
   if (!localPlayer || !player) return <ErrorView />;
 

@@ -10,10 +10,13 @@ import { useStore } from "../../store";
 import { MatchHeading } from "../match-heading";
 import { Timer } from "../timer";
 import { FadeTransition } from "../page-transition";
+import { useClientTimer } from "../../hooks";
 
 export const GetPowerUps: FC = () => {
   const localPlayer = useLocalPlayer();
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
+
+  useClientTimer();
   // Add sound effect
 
   useEffectOnce(() => {

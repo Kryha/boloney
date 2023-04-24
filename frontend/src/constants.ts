@@ -90,6 +90,8 @@ export const POWER_UP_DEFAULT_VIEW_SMALL = 5;
 
 export const SOUND_TIMER_TRIGGERS = [10, 6, 5, 4, 3, 2, 1];
 
+export const TIMEOUT_STAGE_TRANSITION_TIME = 5000;
+
 // TODO: change the time
 export const DECISION_MAKING_TIME_IN_SECONDS = 100;
 

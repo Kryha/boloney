@@ -13,6 +13,7 @@ import { MatchHeading } from "../match-heading";
 import { FadeTransition } from "../page-transition";
 import { Timer } from "../timer";
 import { PrimaryButton } from "../../molecules";
+import { useClientTimer } from "../../hooks";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -24,6 +25,8 @@ export const RollDice: FC = () => {
   const setPlayerReady = useStore((state) => state.setPlayerReady);
   const isPlayerReady = useStore((state) => state.isPlayerReady);
   const dice = useStore((state) => state.diceValue);
+
+  const { count } = useClientTimer(hasRolledDice);
 
   if (!localPlayer) return <ErrorView />;
 
@@ -41,7 +44,8 @@ export const RollDice: FC = () => {
     return <PrimaryButton primaryText={text.general.rollIt} onClick={() => handleClick()} loading={isLoadingSpinnerVisible} />;
   };
 
-  if (hasRolledDice && isPlayerReady) {
+  // In case of timeout player shouldn't be see this view.
+  if (hasRolledDice && isPlayerReady && count !== 0) {
     return (
       <BottomButtonWrapper>
         <MatchHeading headingOne={text.powerUps.timeToWait} headingTwo={text.powerUps.waitForPlayers} isAnimated />

@@ -99,6 +99,10 @@ export const handlePlayerLostRound = (loopParams: MatchLoopParams, playerId: str
   }
 };
 
+export const areAllPlayersReady = (state: MatchState): boolean => {
+  return Object.values(state.players).every((player) => player.isReady);
+};
+
 export const setActivePlayer = (activePlayerId: string, players: Record<string, Player>): string => {
   resetActivePlayer(players);
   players[activePlayerId].isActive = true;
