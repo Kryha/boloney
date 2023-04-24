@@ -1,20 +1,12 @@
 <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_5705_102452)">
-<circle cx="23" cy="23" r="23" fill="#DFBBA6"/>
-<ellipse cx="24" cy="12.5" rx="5" ry="4.5" fill="white"/>
-<ellipse cx="17" cy="28.5" rx="6" ry="5.5" fill="white"/>
-<ellipse cx="31.5" cy="26" rx="2.5" ry="3" fill="white"/>
-<mask id="mask0_5705_102452" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="46" height="46">
-<circle cx="23" cy="23" r="23" fill="#DDDDD9"/>
-</mask>
-<g mask="url(#mask0_5705_102452)">
-<ellipse cx="2.94857" cy="8.72355" rx="3.82327" ry="4.36945" transform="rotate(-35.7448 2.94857 8.72355)" fill="#EEEEEA"/>
-<ellipse cx="9.49228" cy="4.35068" rx="5.49123" ry="6.40643" transform="rotate(-35.7448 9.49228 4.35068)" fill="#EEEEEA"/>
-<ellipse cx="16.8744" cy="-1.39622" rx="5.69125" ry="6.50429" transform="rotate(-35.7448 16.8744 -1.39622)" fill="#EEEEEA"/>
-</g>
+<g clip-path="url(#clip0_5705_101714)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.43855 14.9756C0.508375 17.4739 0 20.1776 0 23C0 35.7025 10.2975 46 23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C22.8704 0 22.7411 0.00107161 22.612 0.00320646C23.3838 2.47012 22.7175 5.09784 20.7436 6.51862C19.1728 7.64915 17.1404 7.75192 15.3204 6.98344C15.6028 9.03157 14.9082 11.0318 13.3044 12.1862C11.495 13.4885 9.03214 13.3516 7.0332 12.0471C6.99017 13.1861 6.49285 14.2419 5.57066 14.9057C4.37224 15.7683 2.77366 15.7402 1.43855 14.9756Z" fill="#DFBBA6"/>
+<ellipse cx="24" cy="14.5" rx="5" ry="4.5" fill="white"/>
+<ellipse cx="17" cy="30.5" rx="6" ry="5.5" fill="white"/>
+<ellipse cx="31.5" cy="28" rx="2.5" ry="3" fill="white"/>
 </g>
 <defs>
-<clipPath id="clip0_5705_102452">
+<clipPath id="clip0_5705_101714">
 <rect width="46" height="46" fill="white"/>
 </clipPath>
 </defs>
