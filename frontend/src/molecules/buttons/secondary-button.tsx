@@ -30,6 +30,7 @@ export const SecondaryButton: FC<GeneralButtonProps> = ({
   padding,
   active,
   justifyContent,
+  width,
   gap,
 }) => (
   <SecondaryButtonBase
@@ -39,6 +40,7 @@ export const SecondaryButton: FC<GeneralButtonProps> = ({
     padding={padding}
     active={active}
     justifyContent={justifyContent}
+    width={width}
     gap={gap}
   >
     {text} {icon}

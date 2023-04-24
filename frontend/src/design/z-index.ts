@@ -1,3 +1,4 @@
+// TODO: rename z-index
 export const zIndex = {
   behind: 0,
   background: 1,
@@ -7,4 +8,5 @@ export const zIndex = {
   overlay: 5,
   modal: 6,
   modalBackground: 7,
+  cookieBanner: 8,
 };

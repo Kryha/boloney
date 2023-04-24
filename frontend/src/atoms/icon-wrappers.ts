@@ -17,7 +17,7 @@ export const BaseIconWrapper = styled.div<IconProps>`
   width: ${({ width }) => width ?? iconSize.xxs};
   height: ${({ height }) => height ?? iconSize.xxs};
   display: ${({ display }) => display ?? "block"};
-  align-self: center;
+  align-self: ${({ alignSelf }) => alignSelf ?? "center"};
   > svg {
     height: ${({ height }) => height ?? iconSize.xxs};
     width: ${({ width }) => width ?? iconSize.xxs};
