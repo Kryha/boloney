@@ -59,10 +59,10 @@ export const CookieBannerText = styled(BaseRow)`
   width: 80%;
   flex-direction: column;
   margin-left: clamp(30px, 2.43vw + 6.67px, 100px);
-  padding-left: ${spacing.xs};
+  padding-left: ${spacing.s};
 
   ${BodyText} {
-    padding-top: 15px;
+    padding-top: ${spacing.xs};
   }
   @media (max-width: ${breakpoints.md}) {
     width: 100%;
@@ -71,6 +71,9 @@ export const CookieBannerText = styled(BaseRow)`
     margin-top: 7vh;
     ${Heading6} {
       margin-top: ${spacing.xl};
+    }
+    ${BodyText} {
+      padding-top: 15px;
     }
   }
 `;
@@ -95,8 +98,10 @@ export const CookieBannerButtons = styled(BaseRow)`
   align-content: space-around;
   flex-wrap: nowrap;
   gap: 10px;
+  margin-top: ${spacing.ms};
 
   @media (max-width: ${breakpoints.md}) {
+    margin-top: 0px;
     ${SecondaryButtonBase} {
       width: ${buttonSize.fluid};
       padding: ${buttonSize.xxl};
