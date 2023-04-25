@@ -69,7 +69,9 @@ export const NewMatchConfirmationContainer = styled.section`
   z-index: ${zIndex.normal};
 `;
 
-export const GoToLobbyButton = styled.div``;
+export const GoToLobbyButton = styled.div`
+  width: fit-content;
+`;
 
 interface CopyProps {
   isCopied: boolean;
