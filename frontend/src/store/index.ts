@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 import { createAuthSlice, AuthSlice } from "./auth";
 import { createUISlice, UISlice } from "./ui";
