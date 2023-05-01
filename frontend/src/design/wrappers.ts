@@ -9,3 +9,9 @@ export const wrapperSize = {
   xxl: "5.5vw", // 80px
   xxxl: "6.9vw", // 100px
 };
+
+export const popUpWidth = {
+  xxs: "3.2vw",
+  md: "43vw",
+  xxl: "80vw",
+};

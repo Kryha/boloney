@@ -52,16 +52,18 @@ export const TooltipContent: FC<Props> = ({
 }) => {
   return (
     <GeneralWrapper>
-      <TooltipHeading
-        customcolor={headingColor}
-        font={headingFont}
-        fontSize={headingFontSize}
-        lineHeight={headingLineHeight}
-        fontWeight={headingFontWeight || fontWeights.bolder}
-        gap={gap}
-      >
-        {heading}
-      </TooltipHeading>
+      {heading && (
+        <TooltipHeading
+          customcolor={headingColor}
+          font={headingFont}
+          fontSize={headingFontSize}
+          lineHeight={headingLineHeight}
+          fontWeight={headingFontWeight || fontWeights.bolder}
+          gap={gap}
+        >
+          {heading}
+        </TooltipHeading>
+      )}
       <TooltipText
         customcolor={descriptionColor}
         font={descriptionFont}

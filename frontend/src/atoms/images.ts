@@ -22,6 +22,7 @@ interface Props {
   height?: string;
   maxWidth?: string;
   minWidth?: string;
+  maxHeight?: string;
 }
 
 interface MediaProps extends Props {
@@ -49,6 +50,7 @@ export const FluidImage = styled.img<Props>`
   max-width: ${({ minWidth }): string => minWidth ?? images.fluid};
   width: ${({ width }): string => width ?? images.fluid};
   height: ${({ height }): string => height ?? images.auto};
+  max-height: ${({ maxHeight }): string => maxHeight ?? images.auto};
   user-select: none;
 `;
 

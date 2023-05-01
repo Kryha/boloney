@@ -1,4 +1,5 @@
 export * from "./icons";
+export * from "./pop-up";
 export * from "./icon-wrappers";
 export * from "./text";
 export * from "./grid";
@@ -12,7 +13,6 @@ export * from "./sausage-animate";
 export * from "./chat";
 export * from "./links";
 export * from "./lists";
-export * from "./pop-up";
 export * from "./block";
 export * from "./card";
 export * from "./modal";

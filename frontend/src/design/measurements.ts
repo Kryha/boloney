@@ -1,5 +1,5 @@
 export const SIDEBAR_HEIGHT = 89;
-export const DESKTOP_BREAKPOINT = 960;
+export const DESKTOP_BREAKPOINT = 959;
 
 export const measurements = {
   localAvatarHeight: "7vh",
@@ -13,7 +13,7 @@ export const screenSizes = {
 export const breakpoints = {
   xs: "450px",
   sm: "820px",
-  md: "960px",
+  md: "959px",
   lg: "1100px",
   xl: "1440px",
   xxl: "2700px",

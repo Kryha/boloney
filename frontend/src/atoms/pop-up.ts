@@ -6,9 +6,14 @@ import { BaseBlock } from "./block";
  * This file is for pop ups i.e notifications tooltips etc
  */
 
-export const PopUp = styled(BaseBlock)`
-  width: ${containerWidth.xl};
-  height: ${containerHeight.xl}; ;
+interface PopUpProps {
+  width?: string;
+  height?: string;
+}
+
+export const PopUp = styled(BaseBlock)<PopUpProps>`
+  width: ${({ width }): string => width ?? containerWidth.xl};
+  height: ${({ height }): string => height ?? containerHeight.xl};
 `;
 
 export const PopUpBlock = styled(BaseBlock)`

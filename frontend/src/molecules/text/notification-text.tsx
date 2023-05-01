@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { BaseColumn, BodyText, Heading6 } from "../../atoms";
+import { BodyText, Heading6 } from "../../atoms";
 import { FontProps, TransformText } from "../../design";
+import { NotificationHeadingWrapper } from "./styles";
 
 interface Props {
   subheading?: string;
@@ -57,7 +58,7 @@ export const NotificationHeading: FC<Props> = ({
   subheadingTransformation,
 }) => {
   return (
-    <BaseColumn gap={gap}>
+    <NotificationHeadingWrapper gap={gap}>
       <Heading6
         customcolor={headingColor}
         font={headingFont}
@@ -78,6 +79,6 @@ export const NotificationHeading: FC<Props> = ({
       >
         {subheading}
       </BodyText>
-    </BaseColumn>
+    </NotificationHeadingWrapper>
   );
 };

@@ -4,6 +4,7 @@ import { FC, useState } from "react";
 import {
   CallBoloney,
   CallExact,
+  CookieIconSVG,
   DiscordLogo,
   GithubLogo,
   Hand,
@@ -26,12 +27,9 @@ import {
   SecondaryButtonBase,
   TertiaryButtonBase,
   BaseRow,
-  PopUpBlock,
-  PopUp,
   BlockBox,
   BadgeBlock,
   MessageBlock,
-  TooltipBlock,
   InformationBlock,
   CopyBlock,
   ModalBlock,
@@ -77,7 +75,6 @@ import {
   PowerUpText,
   TextWithLink,
   TimerHeader,
-  TooltipContent,
   TertiaryButton,
   SecondaryButton,
   PrimaryButton,
@@ -88,6 +85,9 @@ import {
   LargeInfoHeading,
   NumberedDescriptionText,
   NumberedSection,
+  ToastNotifications,
+  TooltipFrame,
+  CookieBanner,
 } from "../../molecules";
 import { getPowerUp, range } from "../../util";
 import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout } from "./styles";
@@ -107,11 +107,47 @@ export const Test: FC = () => {
 
   return (
     <div style={{ padding: "50px", background: "lightBlue" }}>
-      <PopUpBlock>{"multiple notifications"}</PopUpBlock>
+      <ToastNotifications
+        img={CallExact}
+        heading="The Sum power-up"
+        subheading="It is being used towards you! Wait and see the result of this move!"
+        isMultipleNotifications
+      />
       <br />
-      <PopUp>
-        <FluidImage src={CallExact} height={images.fluid} width={images.auto} />
-      </PopUp>
+      <ToastNotifications
+        img={CallExact}
+        heading="The Sum power-up"
+        subheading="It is being used towards you! Wait and see the result of this move!"
+      />
+      <br />
+      <br />
+      <TooltipFrame
+        heading={"Call Exact:"}
+        description={
+          "If the amount of dice on the table that match the bid’s face value exactly matches the last player’s bid, then the Exact call is correct and the calling player receives a number of power-ups depending on the number of dice in play and the number of rounds played. If it doesn’t exactly match, the calling player loses a die."
+        }
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <TooltipFrame
+        description={
+          "If the amount of dice on the table that match the bid’s face value exactly matches the last player’s bid, then the Exact call is correct and the calling player receives a number of power-ups depending on the number of dice in play and the number of rounds played. If it doesn’t exactly match, the calling player loses a die."
+        }
+      />
+      <br />
+      <br />
+      <br />
+      <CookieBanner
+        img={CookieIconSVG}
+        heading="No boloney was used in the making of these cookies"
+        subheading="We use analytics cookies to understand how you use Boloney! and to make improvements."
+        secondaryButtonText={text.general.cookieAccept}
+        tertiaryButtonText={text.general.cookieReject}
+      />
+      <br />
+      <br />
       <br />
       <BaseRow gap={spacing.s}>
         <Card padding={spacing.s}>
@@ -266,17 +302,6 @@ export const Test: FC = () => {
       <br />
       <br />
       <br />
-      <br />
-      <br />
-      <br />
-      <TooltipBlock padding={spacing.s}>
-        <TooltipContent
-          heading={"Call Exact:"}
-          description={
-            "If the amount of dice on the table that match the bid’s face value exactly matches the last player’s bid, then the Exact call is correct and the calling player receives a number of power-ups depending on the number of dice in play and the number of rounds played. If it doesn’t exactly match, the calling player loses a die."
-          }
-        />
-      </TooltipBlock>
       <br />
       <br />
       <br />

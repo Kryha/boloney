@@ -71,3 +71,9 @@ export const NumberedParagraph = styled(BaseColumn)`
     gap: ${spacing.s};
   }
 `;
+
+export const NotificationHeadingWrapper = styled(BaseColumn)`
+  @media (max-width: ${breakpoints.md}) {
+    gap: ${spacing.s};
+  }
+`;
