@@ -1,20 +1,24 @@
 import { StateCreator } from "zustand";
 import { Session } from "@heroiclabs/nakama-js";
 
+import { AleoAccount } from "../types";
+
 export interface AuthSlice {
   session?: Session;
   isAuthenticating: boolean;
+  aleoAccount?: AleoAccount;
 
-  setSession: (session?: Session) => void;
+  authenticate: (session: Session, aleoAccount: AleoAccount) => void;
   setIsAuthenticating: (isAuthenticating: boolean) => void;
-  reset: () => void;
+  resetAuth: () => void;
 }
 
 export const createAuthSlice: StateCreator<AuthSlice, [], [], AuthSlice> = (set) => ({
   session: undefined,
   isAuthenticating: true,
+  aleoAccount: undefined,
 
-  setSession: (session) => set(() => ({ session })),
+  authenticate: (session, aleoAccount) => set(() => ({ session, aleoAccount })),
   setIsAuthenticating: (isAuthenticating) => set(() => ({ isAuthenticating })),
-  reset: () => set(() => ({ session: undefined })),
+  resetAuth: () => set(() => ({ session: undefined, aleoAccount: undefined })),
 });

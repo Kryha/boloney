@@ -42,7 +42,7 @@ export const rollDice = async (
     const diceResponse = await Promise.all(
       getRange(diceAmount).map((_value, index) => {
         if (isZkEnabled(state, ctx)) {
-          const currentRngCounter = player.rngDiceCounter + index;
+          const currentRngCounter = player.rngDiceCounter - index;
 
           // Get hashes from other players according to current RNG counter
           const hashList = Object.values(state.players)
@@ -67,7 +67,7 @@ export const rollDice = async (
       rolledValue: die,
     }));
 
-    player.rngDiceCounter = player.rngDiceCounter + diceAmount;
+    player.rngDiceCounter = player.rngDiceCounter - diceAmount;
 
     return dice;
   } catch (error) {

@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { getResultData } from "../../assets";
 
-import { usePlayerWithRole, useLocalPlayer, useActivePlayer } from "../../service";
+import { getResultData } from "../../assets";
+import { usePlayerWithRole, useLocalPlayer, useActivePlayer, useUpdateHashChain } from "../../service";
 import { useStore } from "../../store";
 import { GeneralContentWrapper } from "../../atoms";
 import { ErrorView } from "../error-view";
@@ -14,6 +14,7 @@ import { useClientTimer } from "../../hooks";
 
 export const EndOfRound: FC = () => {
   const lastAction = useStore((state) => state.lastAction);
+
   const localPlayer = useLocalPlayer();
   const activePlayer = useActivePlayer();
 
@@ -25,6 +26,7 @@ export const EndOfRound: FC = () => {
   const isActivePlayerWinner = activePlayer?.userId === winner?.userId;
 
   useClientTimer();
+  useUpdateHashChain();
 
   if (!localPlayer || !player) return <ErrorView />;
 

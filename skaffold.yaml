@@ -15,8 +15,9 @@ build:
           VITE_ENV: development
           VITE_BACKEND_URL: backend.localhost
           VITE_API_URL: api.localhost
-          VITE_USE_SSL: false
+          VITE_USE_SSL: "false"
           VITE_API_PORT: "80"
+          VITE_TOOLKIT_URL: http://localhost:5001
     - image: backend
       docker:
         dockerfile: Dockerfile.backend

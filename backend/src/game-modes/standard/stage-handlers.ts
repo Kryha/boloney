@@ -5,7 +5,8 @@ import {
   handleLobbyMessage,
   handlePlayerTurnMessage,
   handlePowerUpMessage,
-  handleReadyMessage,
+  handleRoundSummaryMessage,
+  handleEndOfMatchMessage,
   handleRollDiceMessage,
 } from "./message-handlers";
 import { handleBasicTransition, handleLobbyTransition, handleRoundSummaryTransition } from "./transition-handlers";
@@ -30,13 +31,14 @@ export const handleStage: StageHandlers = {
    */
   playerTurnLoopStage: (loopParams) => handleMatchStage(loopParams, handlePlayerTurnMessage, handleLogicWithTimer, handleBasicTransition),
 
-  roundSummaryStage: (loopParams) => handleMatchStage(loopParams, handleReadyMessage, handleLogicWithTimer, handleRoundSummaryTransition),
+  roundSummaryStage: (loopParams) =>
+    handleMatchStage(loopParams, handleRoundSummaryMessage, handleLogicWithTimer, handleRoundSummaryTransition),
 
   /**
    * TODO: currently the match terminates after the creator leaves the end of match page
    * TODO: see if there is away to keep it alive while the other players are in the match
    */
-  endOfMatchStage: (loopParams) => handleMatchStage(loopParams, handleReadyMessage, handleEmptyLogic),
+  endOfMatchStage: (loopParams) => handleMatchStage(loopParams, handleEndOfMatchMessage, handleEmptyLogic),
 
   // TODO: Add garbage collection logic to end the match
   terminateMatchStage: (loopParams) => loopParams.logger.info("Terminating Match: ", loopParams.ctx.matchId),

@@ -4,6 +4,7 @@ import { bidPayloadBackendSchema } from "./bid";
 import { dieSchema } from "./die";
 import { historyEventsSchema } from "./history";
 import { powerUpIdSchema, powerUpProbabilitySchema } from "./power-up";
+import { hashChainSchema } from "./toolkit";
 import { turnActionStepSchema } from "./ui";
 
 export const avatarNameSchema = z.enum(["sausage", "hook", "plastic", "scooper", "hand", "lobster", "skeleton", "grave"]);
@@ -41,6 +42,7 @@ export enum MatchOpCode {
   PLAYER_LOST_BY_TIMEOUT = 17,
   USE_POWER_UP = 18,
   PLAYER_HEAL_DICE = 19,
+  UPDATE_HASH_CHAIN = 20,
 }
 export const matchOpCodeSchema = z.nativeEnum(MatchOpCode);
 
@@ -106,6 +108,8 @@ export type MatchStage = z.infer<typeof matchStageSchema>;
 
 export const matchJoinMetadataSchema = z.object({
   username: z.string(),
+  seed: z.number(),
+  hashChain: hashChainSchema,
 });
 export type MatchJoinMetadata = z.infer<typeof matchJoinMetadataSchema>;
 

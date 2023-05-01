@@ -77,6 +77,23 @@ yarn dev
 
 The development application will be available at the URL printed in the command output.
 
+### Connecting to the toolkit
+
+In order to perform ZK actions, you need a local running instance of the [ZK Gaming Toolkit](https://github.com/Kryha/zk-gaming-toolkit). To run it, follow the instruction in the ["Running locally"](https://github.com/Kryha/zk-gaming-toolkit#running-locally) section. That's it!
+
+If you wish to [run the toolkit through minikube](https://github.com/Kryha/zk-gaming-toolkit#running-with-minikube) instead you need to keep in mind that it will try to perform requests to the programs deployed on the testnet. If this is your intention, open `skaffold.yaml` and update the following build arg:
+
+```yaml
+VITE_TOOLKIT_URL: http://zk-gaming-tk.localhost
+```
+
+Then, open `deployment/local/workloads/config/backend.yaml` and add the following env variable:
+
+```yaml
+- name: TOOLKIT_BASE_URL
+  value: http://zk-gaming-tk.zk-gaming-tk-local.svc.cluster.local:5001
+```
+
 ## Adding files to `backend/` or `frontend/`
 
 Whenever adding a file (necessary for the applications' build) directly to `frontend/` or `backend/` root directories:

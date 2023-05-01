@@ -14,6 +14,8 @@ export const handleToolkitRequest = (
     attemptNumber = 0;
 
   do {
+    logger.info("Requesting", method, url);
+
     response = httpRequest(nk, url, method, body);
     attemptNumber++;
     parsedBody = JSON.parse(response.body);

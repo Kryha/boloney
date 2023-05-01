@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { text } from "../assets/text";
 import { DEFAULT_POOL_MAX_PLAYERS, DEFAULT_POOL_MIN_PLAYERS, DEFAULT_POOL_QUERY, RPC_CREATE_MATCH } from "../constants";
 import { useSession, useStore } from "../store";
-import { MatchSettings, NkResponse } from "../types";
+import { MatchJoinMetadata, MatchSettings, NkResponse } from "../types";
 import { parseError } from "../util";
 import { joinChat } from "./chat";
 import { nakama } from "./nakama";
+import { getHashChain } from "./zk-toolkit";
 
 export const useJoinMatch = (matchId: string) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,18 +16,21 @@ export const useJoinMatch = (matchId: string) => {
   const setIsJoining = useStore((state) => state.setIsJoining);
   const setChannelId = useStore((state) => state.setChannelId);
   const clearMessages = useStore((state) => state.clearMessages);
+  const aleoAccount = useStore((state) => state.aleoAccount);
 
   useEffect(() => {
     const joinMatch = async () => {
-      if (!session || !session.username) return;
+      if (!session?.username || !aleoAccount) return;
       try {
         setIsJoining(true);
-        const match = await nakama.socket.joinMatch(matchId, undefined, { username: session.username });
-        setMatchId(match.match_id);
+        const tkData = await getHashChain(aleoAccount);
 
+        const metadata: MatchJoinMetadata = { username: session.username, hashChain: tkData.hashChain, seed: tkData.seed };
+        const match = await nakama.socket.joinMatch(matchId, undefined, { data: JSON.stringify(metadata) });
         const channelId = await joinChat(match.match_id);
-        setChannelId(channelId);
 
+        setMatchId(match.match_id);
+        setChannelId(channelId);
         clearMessages();
       } catch (error) {
         setIsJoining(false);
@@ -36,7 +40,7 @@ export const useJoinMatch = (matchId: string) => {
       }
     };
     joinMatch();
-  }, [clearMessages, matchId, session, setChannelId, setIsJoining, setMatchId]);
+  }, [aleoAccount, clearMessages, matchId, session, setChannelId, setIsJoining, setMatchId]);
 
   return isLoading;
 };

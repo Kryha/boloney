@@ -7,12 +7,21 @@ import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
 
 export interface MatchJoinMetadata {
   username: string;
+  seed: number;
+  hashChain: string[];
 }
 
 export const isMatchJoinMetadata = (value: unknown): value is MatchJoinMetadata => {
   const assertedVal = value as MatchJoinMetadata;
 
-  return assertedVal.username !== undefined && isString(assertedVal.username);
+  return (
+    assertedVal.username !== undefined &&
+    assertedVal.hashChain !== undefined &&
+    assertedVal.seed !== undefined &&
+    isString(assertedVal.username) &&
+    isStringArray(assertedVal.hashChain) &&
+    isNumber(assertedVal.seed)
+  );
 };
 
 export type AvatarId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -277,10 +286,11 @@ export enum MatchOpCode {
   PLAYER_LOST_BY_TIMEOUT = 17,
   USE_POWER_UP = 18,
   PLAYER_HEAL_DICE = 19,
+  UPDATE_HASH_CHAIN = 20,
 }
 
 export const isMatchOpCode = (value: unknown): value is MatchOpCode => {
-  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.PLAYER_HEAL_DICE;
+  return isNumber(value) && value >= MatchOpCode.STAGE_TRANSITION && value <= MatchOpCode.UPDATE_HASH_CHAIN;
 };
 
 export interface MatchLoopParams {

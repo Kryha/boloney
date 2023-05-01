@@ -1,11 +1,10 @@
-import { logicHandler, handleTimeOutTicks, stopLoading } from "../../services";
-import { getPlayerAddress, getPlayerKeys } from "../../services/storage";
+import { logicHandler, handleTimeOutTicks, stopLoading, getPlayerAddress, getPlayerKeys } from "../../services";
 import { getPowerUp } from "../../toolkit-api";
 import { isPowerUpId, MatchLoopParams, MatchOpCode, PlayerGetPowerUpsPayloadBackend } from "../../types";
 import { getRange } from "../../utils";
 
 export const handleEmptyLogic = logicHandler(async () => {
-  //For empty logic
+  // To be called when a stage has no logic
 });
 
 export const handleLogicWithTimer = logicHandler(async (loopParams: MatchLoopParams) => {

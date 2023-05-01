@@ -4,6 +4,7 @@ import { dieSchema } from "./die";
 import { NkError } from "./error";
 import { matchOpCodeSchema, matchStageSchema, matchStateSchema, playerIdSchema, playerPublicSchema, playerRankedSchema } from "./match";
 import { powerUpIdSchema } from "./power-up";
+import { hashChainSchema } from "./toolkit";
 
 export type NkResponse<T = void> = NkError | T;
 
@@ -96,3 +97,9 @@ export const errorPayloadBackendSchema = z.object({
   opCode: matchOpCodeSchema,
 });
 export type ErrorPayloadBackend = z.infer<typeof errorPayloadBackendSchema>;
+
+export const updateHashChainFrontendSchema = z.object({
+  seed: z.number(),
+  hashChain: hashChainSchema,
+});
+export type UpdateHashChainFrontend = z.infer<typeof updateHashChainFrontendSchema>;

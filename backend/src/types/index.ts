@@ -12,4 +12,3 @@ export * from "./status-codes";
 export * from "./notifications";
 export * from "./toolkit";
 export * from "./history";
-export * from "./hash-chain";

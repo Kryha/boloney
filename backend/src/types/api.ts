@@ -3,6 +3,7 @@ import { Die } from "./die";
 import { HistoryEvent } from "./history";
 import { Action, MatchOpCode, MatchSettings, MatchStage, PlayerPublic, PlayerRanked, TurnActionStep } from "./match";
 import { PowerUpId, isPowerUpTypeArray } from "./power-up";
+import { isStringArray } from "./primitive";
 
 export interface PlayerJoinedPayloadBackend {
   matchState: {
@@ -92,3 +93,14 @@ export interface ErrorPayloadBackend {
   httpCode: number;
   message: string;
 }
+
+export interface UpdateHashChainPayloadFrontend {
+  seed: number;
+  hashChain: string[];
+}
+
+export const isUpdateHashChainPayloadFrontend = (value: unknown): value is UpdateHashChainPayloadFrontend => {
+  const assertedVal = value as UpdateHashChainPayloadFrontend;
+
+  return assertedVal.hashChain !== undefined && isStringArray(assertedVal.hashChain);
+};

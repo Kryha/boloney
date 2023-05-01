@@ -199,13 +199,14 @@ export const logicHandler: LogicHandler = (callback) => async (loopParams) => {
   try {
     await callback(loopParams);
   } catch (error) {
+    logger.error("Runtime error while performing internal logic: ", error);
+
     let opCode = MatchOpCode.PLAYER_GET_POWERUPS;
     // Any error which is not an HTTP error should be handled as in this case of PLAYER_GET_POWERUPS
     if (isHttpError(error)) opCode = error.opCode ?? opCode;
 
     handleErrorSideEffects(loopParams, deepCopy, opCode, isHttpError(error));
     dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA);
-    logger.error("Runtime error while performing internal logic" + opCode + JSON.stringify(error, null, 2));
   }
 };
 

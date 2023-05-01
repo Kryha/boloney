@@ -1,5 +1,9 @@
 import { NkCode, NkError, nkErrorSchema } from "../types";
 
+export const commonErrors = {
+  notAuthenticated: "Missing authentication data.",
+};
+
 export const parseError = async (error: unknown): Promise<NkError> => {
   const unknownErr = { code: NkCode.UNKNOWN, message: "Unknown error" };
 

@@ -1,12 +1,6 @@
 // Storage services
-import {
-  STORAGE_ACCOUNT_COLLECTION,
-  STORAGE_ADDRESS_KEY,
-  STORAGE_HASH_CHAIN_KEY,
-  STORAGE_KEYS_KEY,
-  STORAGE_MATCH_DATA_COLLECTION,
-} from "../constants";
-import { HashChainData, AleoKeys, isViewKey, isPrivateKey, AleoAccount, isHashChainData } from "../types";
+import { STORAGE_ACCOUNT_COLLECTION, STORAGE_ADDRESS_KEY, STORAGE_KEYS_KEY } from "../constants";
+import { AleoKeys, isViewKey, isPrivateKey, AleoAccount } from "../types";
 
 export const savePlayerAddress = (nk: nkruntime.Nakama, playerId: string, address: string): void => {
   const writeRequest: nkruntime.StorageWriteRequest[] = [
@@ -67,30 +61,4 @@ export const getPlayerAccount = (nk: nkruntime.Nakama, playerId: string): AleoAc
   const { viewKey, privateKey } = getPlayerKeys(nk, playerId);
 
   return { address, viewKey, privateKey };
-};
-
-export const savePlayerHashChainData = (nk: nkruntime.Nakama, playerId: string, hashChainData: HashChainData): void => {
-  const writeRequest: nkruntime.StorageWriteRequest[] = [
-    {
-      collection: STORAGE_MATCH_DATA_COLLECTION,
-      key: STORAGE_HASH_CHAIN_KEY,
-      userId: playerId,
-      value: hashChainData,
-      permissionRead: 1,
-      permissionWrite: 0,
-    },
-  ];
-
-  nk.storageWrite(writeRequest);
-};
-
-// Currenlty Unused
-export const getPlayerHashChainData = (nk: nkruntime.Nakama, playerId: string): HashChainData => {
-  const readRequest = [{ collection: STORAGE_MATCH_DATA_COLLECTION, key: STORAGE_HASH_CHAIN_KEY, userId: playerId }];
-  const response = nk.storageRead(readRequest);
-
-  const hashChainData = response[0].value;
-  if (!isHashChainData(hashChainData)) throw new Error("Invalid response from storage while fetching player hash-chain");
-
-  return hashChainData;
 };

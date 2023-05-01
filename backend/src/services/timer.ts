@@ -34,6 +34,7 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
 
   switch (state.matchStage) {
     case "rollDiceStage": {
+      // TODO: send loading to client
       const playersWithNoDice = Object.values(state.players).filter((player) => player.hasRolledDice !== true);
       await Promise.all(playersWithNoDice.map((player) => rollDiceForPlayer(loopParams, player.userId)));
       break;

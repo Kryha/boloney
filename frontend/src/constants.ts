@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { MatchSettings } from "./types";
 
 const envSchema = z.object({
@@ -8,6 +9,7 @@ const envSchema = z.object({
   DEV: z.boolean(),
   SSR: z.boolean().optional(),
   VITE_ENV: z.enum(["development", "staging", "production"]).default("development"),
+  VITE_TOOLKIT_URL: z.string().default("http://localhost:5001"),
   VITE_BACKEND_URL: z.string().default("backend.localhost"),
   VITE_API_URL: z.string().default("api.localhost"),
   VITE_API_PORT: z.string().default("80"),
@@ -19,7 +21,7 @@ const envSchema = z.object({
     .transform((value) => (value === "false" ? false : true)),
 });
 
-const env = envSchema.parse(import.meta.env);
+export const env = envSchema.parse(import.meta.env);
 
 export const ENV_MODE = env.VITE_ENV;
 export const BACKEND_URL = env.VITE_BACKEND_URL;
@@ -78,8 +80,8 @@ export const DEFAULT_POOL_QUERY = "*";
 export const DEFAULT_POOL_MIN_PLAYERS = 4;
 export const DEFAULT_POOL_MAX_PLAYERS = 4;
 
-export const PRIVATE_KEY_LENGTH = 58;
-export const VIEW_KEY_LENGTH = 56;
+export const PRIVATE_KEY_LENGTH = 59;
+export const VIEW_KEY_LENGTH = 53;
 export const ADDRESS_LENGTH = 63;
 
 export const PRIVATE_KEY_PREFIX = "APrivateKey1";
@@ -183,3 +185,9 @@ export const HEAL_DICE_BUTTON_INDEX = 2;
 export const BID_BUTTON_INDEX = 3;
 export const BOLONEY_BUTTON_INDEX = 4;
 export const EXACT_BUTTON_INDEX = 5;
+
+export const STORAGE_ACCOUNT_COLLECTION = "accounts";
+export const STORAGE_ADDRESS_KEY = "aleo-address";
+export const STORAGE_KEYS_KEY = "aleo-keys";
+
+export const HASH_CHAIN_LENGTH = 32;

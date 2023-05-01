@@ -12,6 +12,8 @@ import {
   UsePowerUpPayloadFrontend,
   HealDicePayloadFrontend,
   PowerUpId,
+  UpdateHashChainFrontend,
+  isNkError,
 } from "../types";
 import { parseError } from "../util";
 import { nakama } from "./nakama";
@@ -141,6 +143,7 @@ export const useMatch = () => {
         setIsLoading(true);
         nakama.socket.sendMatchState(matchId, opCode, payload || "");
       } catch (error) {
+        console.warn("Error sending match state:", error);
         const parsedErr = await parseError(error);
         return parsedErr;
       } finally {
@@ -148,6 +151,18 @@ export const useMatch = () => {
       }
     },
     [matchId]
+  );
+
+  const sendMatchStateAndShowSpinner = useCallback(
+    async (opCode: MatchOpCode, payload?: string) => {
+      setSpinnerVisibility(true);
+      const res = await sendMatchState(opCode, payload);
+      if (isNkError(res)) {
+        setSpinnerVisibility(false);
+      }
+      return res;
+    },
+    [sendMatchState, setSpinnerVisibility]
   );
 
   const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
@@ -160,48 +175,28 @@ export const useMatch = () => {
     return () => clearTimeout(timeout);
   };
 
-  const broadcastPlaceBid = (bid: BidPayloadFrontend) => {
-    setSpinnerVisibility(true);
-    sendMatchState(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(bid));
+  const broadcastPlaceBid = async (bid: BidPayloadFrontend) => {
+    await sendMatchStateAndShowSpinner(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(bid));
     setTurnActionStep("pickAction");
   };
 
-  const broadcastHealDice = (powerUpIds: HealDicePayloadFrontend) => {
-    setSpinnerVisibility(true);
-    sendMatchState(MatchOpCode.PLAYER_HEAL_DICE, JSON.stringify(powerUpIds));
-  };
+  const broadcastHealDice = (powerUpIds: HealDicePayloadFrontend) =>
+    sendMatchStateAndShowSpinner(MatchOpCode.PLAYER_HEAL_DICE, JSON.stringify(powerUpIds));
 
-  const broadcastCallExact = () => {
-    setSpinnerVisibility(true);
-    sendMatchState(MatchOpCode.PLAYER_CALL_EXACT);
-  };
+  const broadcastCallExact = () => sendMatchStateAndShowSpinner(MatchOpCode.PLAYER_CALL_EXACT);
 
-  const broadcastCallBoloney = () => {
-    setSpinnerVisibility(true);
-    sendMatchState(MatchOpCode.PLAYER_CALL_BOLONEY);
-  };
+  const broadcastCallBoloney = () => sendMatchStateAndShowSpinner(MatchOpCode.PLAYER_CALL_BOLONEY);
 
   const broadcastPlayerLeft = () => sendMatchState(MatchOpCode.PLAYER_LEFT);
 
-  const broadcastUseImmediatePowerUp = async (powerUpId: PowerUpId) => {
-    try {
-      setSpinnerVisibility(true);
-      await sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify({ id: powerUpId }));
-    } catch (error) {
-      console.warn(error);
-      setSpinnerVisibility(false);
-    }
-  };
+  const broadcastUseImmediatePowerUp = (powerUpId: PowerUpId) =>
+    sendMatchStateAndShowSpinner(MatchOpCode.USE_POWER_UP, JSON.stringify({ id: powerUpId }));
 
-  const broadcastUsePowerUp = async (payload: UsePowerUpPayloadFrontend) => {
-    try {
-      setSpinnerVisibility(true);
-      await sendMatchState(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
-    } catch (error) {
-      console.warn(error);
-      setSpinnerVisibility(false);
-    }
-  };
+  const broadcastUsePowerUp = (payload: UsePowerUpPayloadFrontend) =>
+    sendMatchStateAndShowSpinner(MatchOpCode.USE_POWER_UP, JSON.stringify(payload));
+
+  const updateHashChain = (payload: UpdateHashChainFrontend) =>
+    sendMatchStateAndShowSpinner(MatchOpCode.UPDATE_HASH_CHAIN, JSON.stringify(payload));
 
   return {
     isLoading,
@@ -215,5 +210,6 @@ export const useMatch = () => {
     broadcastUseImmediatePowerUp,
     broadcastUsePowerUp,
     broadcastHealDice,
+    updateHashChain,
   };
 };

@@ -1,12 +1,14 @@
+import { EMPTY_DATA } from "../../../constants";
 import {
   attemptSetPlayerReady,
+  errors,
   handlePlayerLeftDuringLobby,
   handlePlayerLeftDuringMatch,
   hidePlayersData,
   messageHandler,
   rollDiceForPlayer,
 } from "../../../services";
-import { MatchOpCode, PlayerReadyPayloadBackend } from "../../../types";
+import { isUpdateHashChainPayloadFrontend, MatchOpCode, PlayerReadyPayloadBackend } from "../../../types";
 import { handleActivePlayerMessages } from "./active-player-message";
 
 export const handleLobbyMessage = messageHandler(async (loopParams, message, sender) => {
@@ -75,7 +77,29 @@ export const handlePlayerTurnMessage = messageHandler(async (loopParams, message
   }
 });
 
-export const handleReadyMessage = messageHandler(async (loopParams, message, sender) => {
+export const handleRoundSummaryMessage = messageHandler(async (loopParams, message, sender) => {
+  const { state, nk, dispatcher } = loopParams;
+
+  if (message.opCode === MatchOpCode.PLAYER_READY) {
+    attemptSetPlayerReady(state, sender.userId);
+  }
+
+  if (message.opCode === MatchOpCode.PLAYER_LEFT) {
+    handlePlayerLeftDuringMatch(loopParams, sender.userId);
+  }
+
+  if (message.opCode === MatchOpCode.UPDATE_HASH_CHAIN) {
+    const data = JSON.parse(nk.binaryToString(message.data));
+    if (!isUpdateHashChainPayloadFrontend(data)) throw errors.invalidPayload;
+
+    state.players[sender.userId].hashChain = data.hashChain;
+    state.players[sender.userId].rngDiceCounter = data.hashChain.length;
+
+    dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [message.sender]);
+  }
+});
+
+export const handleEndOfMatchMessage = messageHandler(async (loopParams, message, sender) => {
   const { state } = loopParams;
 
   if (message.opCode === MatchOpCode.PLAYER_READY) {

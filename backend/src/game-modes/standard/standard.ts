@@ -79,9 +79,10 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
   _tick,
   state,
   presence,
-  metadata
+  metadataParam
 ) => {
   try {
+    const metadata = JSON.parse(metadataParam.data);
     if (!isMatchJoinMetadata(metadata)) throw errors.invalidMetadata;
 
     // check whether the player previously left the match
@@ -117,9 +118,9 @@ export const matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<MatchState> = 
         actionRole: undefined,
         isTarget: false,
         extraDice: 0,
-        rngDiceCounter: 0,
-        seed: 0,
-        hashChain: [],
+        rngDiceCounter: metadata.hashChain.length,
+        seed: metadata.seed,
+        hashChain: metadata.hashChain,
         arePowerUpsDisabled: false,
       };
       state.playerOrder.push(presence.userId);
