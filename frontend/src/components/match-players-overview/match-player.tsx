@@ -36,7 +36,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const lastAction = useStore((state) => state.lastAction);
 
   const hasPlayerLost = player.status === "lost";
-  const { avatar } = hasPlayerLost ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
+  const avatar = hasPlayerLost ? "grave" : avatars[player.avatarId].name;
 
   // TODO: make conditions more clear
   const isTargetable = player.status !== "lost" && !!activePowerUp && !result && powerUpRequiresTarget(activePowerUp.id);
@@ -63,7 +63,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
           </PlayerAvatarContainer>
         ) : (
           <>
-            <Hand avatarName={avatar} isTargetable={isTargetable} isAnimationDisabled />
+            <Hand avatarName={avatar} isTargetable={isTargetable} isAnimationDisabled height={avatarHeight[totalPlayers - 1]} />
             <PlayerInfoContainer>
               <PlayerNameContainer>
                 <Name>{player.username}</Name>

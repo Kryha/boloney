@@ -11,7 +11,7 @@ import {
 } from "../../assets";
 import { FLOATING_ANIMATION_SPEED } from "../../constants";
 
-import { color, margins, zIndex } from "../../design";
+import { color, margins, spacing, zIndex } from "../../design";
 import { avatarHeight, BaseColumn, float, Heading5, shuffle } from "../../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
@@ -125,27 +125,27 @@ export const MatchPlayersOverviewWrapper = styled.div<OverviewProps>`
 
   ${MatchPlayersWrapper}:nth-of-type(1) {
     animation-name: ${({ isShuffling, isOnePlayer, areDeadPlayers }) =>
-      isShuffling && !isOnePlayer && areDeadPlayers && !areDeadPlayers[0] ? shuffle(playerOnePercentages) : null};
+    isShuffling && !isOnePlayer && areDeadPlayers && !areDeadPlayers[0] ? shuffle(playerOnePercentages) : null};
     animation-delay: 0s;
   }
   ${MatchPlayersWrapper}:nth-of-type(2) {
     animation-name: ${({ isShuffling, areDeadPlayers }) =>
-      isShuffling && areDeadPlayers && !areDeadPlayers[1] ? shuffle(playerTwoPercentages) : null};
+    isShuffling && areDeadPlayers && !areDeadPlayers[1] ? shuffle(playerTwoPercentages) : null};
     animation-delay: 0.1s;
   }
   ${MatchPlayersWrapper}:nth-of-type(3) {
     animation-name: ${({ isShuffling, areDeadPlayers }) =>
-      isShuffling && areDeadPlayers && !areDeadPlayers[2] ? shuffle(playerThreePercentages) : null};
+    isShuffling && areDeadPlayers && !areDeadPlayers[2] ? shuffle(playerThreePercentages) : null};
     animation-delay: 0.2s;
   }
   ${MatchPlayersWrapper}:nth-of-type(4) {
     animation-name: ${({ isShuffling, areDeadPlayers }) =>
-      isShuffling && areDeadPlayers && !areDeadPlayers[3] ? shuffle(playerFourPercentages) : null};
+    isShuffling && areDeadPlayers && !areDeadPlayers[3] ? shuffle(playerFourPercentages) : null};
     animation-delay: 0.3s;
   }
   ${MatchPlayersWrapper}:nth-of-type(5) {
     animation-name: ${({ isShuffling, areDeadPlayers }) =>
-      isShuffling && areDeadPlayers && !areDeadPlayers[4] ? shuffle(playerFivePercentages) : null};
+    isShuffling && areDeadPlayers && !areDeadPlayers[4] ? shuffle(playerFivePercentages) : null};
     animation-delay: 0.4s;
   }
   ${MatchPlayersWrapper}:nth-of-type(6) {
@@ -211,7 +211,7 @@ export const PlayerAvatar = styled.img<AvatarProps>`
   width: 100%;
 `;
 
-export const DeadPlayerAvatar = styled(PlayerAvatar)<AvatarProps>`
+export const DeadPlayerAvatar = styled(PlayerAvatar) <AvatarProps>`
   position: absolute;
   right: 40%;
 `;
@@ -255,20 +255,24 @@ interface PlayersContainerProps {
 export const MatchPlayersContainer = styled.div<PlayersContainerProps>`
   z-index: ${zIndex.background};
   height: 14.4vh;
+  display: flex;
+  flex-direction: column;
   ${({ totalPlayers }) => {
     return totalPlayers === 1
       ? `
-      display: flex;
       height: 100%;
       justify-content: center;
-      flex-direction: column;
       ${PlayerInfoContainer} {
         position: absolute;
         bottom: ${margins.small2};
         left: 0.425em;
       }
     `
-      : "";
+      : `
+  ${HandWrapper} {
+    padding-top: ${spacing.md};
+    }
+  `;
   }}
 `;
 
