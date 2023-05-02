@@ -37,6 +37,6 @@ export const useUpdateHashChain = () => {
         console.warn("Hash chain update failed:", error);
       }
     };
-    if (!hashChainRequested.current && matchSettings?.zkEnabled) fetch();
+    if (env.VITE_ZK_ENABLED && !hashChainRequested.current && matchSettings?.zkEnabled) fetch();
   }, [aleoAccount, matchSettings, updateHashChain]);
 };

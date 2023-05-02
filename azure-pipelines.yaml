@@ -1,5 +1,6 @@
 trigger:
-  - develop
+  # - develop
+  - hotfix/registration
 
 pool:
   vmImage: "ubuntu-latest"

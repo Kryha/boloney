@@ -2,6 +2,8 @@ import { z } from "zod";
 
 import { MatchSettings } from "./types";
 
+const transformBool = (value: string) => (value === "false" ? false : true);
+
 const envSchema = z.object({
   MODE: z.string(),
   BASE_URL: z.string(),
@@ -15,10 +17,8 @@ const envSchema = z.object({
   VITE_API_PORT: z.string().default("80"),
   VITE_GA_TRACKING_ID: z.string().default("G-123456"),
   VITE_API_TIMEOUT: z.coerce.number().default(10000),
-  VITE_USE_SSL: z
-    .string()
-    .default("false")
-    .transform((value) => (value === "false" ? false : true)),
+  VITE_USE_SSL: z.string().default("false").transform(transformBool),
+  VITE_ZK_ENABLED: z.string().default("true").transform(transformBool),
 });
 
 export const env = envSchema.parse(import.meta.env);
