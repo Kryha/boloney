@@ -19,6 +19,8 @@ build:
           VITE_USE_SSL: "true"
           VITE_API_PORT: "443"
           VITE_TOOLKIT_URL: https://zk-gaming-tk.staging.kryha.dev
+          # TODO: enable after fixing fees
+          VITE_ZK_ENABLED: "false"
     - image: eu.gcr.io/web3-335312/aleo/boloney-staging/backend
       docker:
         dockerfile: Dockerfile.backend

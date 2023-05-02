@@ -13,7 +13,7 @@ import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewMatchContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
 import { cleanUUID } from "../../util";
-import { DEFAULT_MATCH_SETTINGS, MIN_POWERUPS_PER_PLAYER } from "../../constants";
+import { DEFAULT_MATCH_SETTINGS, env, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../navigation";
 import { StartingNumberDivisor } from "./starting-number-divisor";
@@ -101,14 +101,16 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
 
             <PowerUpsField />
 
-            <ToggleSwitch
-              setValue={setValue}
-              title={text.newMatch.zkEnabledTitle}
-              description={text.newMatch.zkEnabledDescription}
-              tooltipDescription={text.newMatch.zkEnabledTooltipDescription}
-              descriptionTitle={text.newMatch.zkEnabledDescriptionTitle}
-              infoPosition="bottom"
-            />
+            {env.VITE_ZK_ENABLED && (
+              <ToggleSwitch
+                setValue={setValue}
+                title={text.newMatch.zkEnabledTitle}
+                description={text.newMatch.zkEnabledDescription}
+                tooltipDescription={text.newMatch.zkEnabledTooltipDescription}
+                descriptionTitle={text.newMatch.zkEnabledDescriptionTitle}
+                infoPosition="bottom"
+              />
+            )}
 
             <BottomContainer>
               <BodyText>{text.newMatch.bottomDesc}</BodyText>

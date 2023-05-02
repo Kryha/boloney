@@ -1,7 +1,7 @@
 console:
   max_message_size_bytes: 409600
 logger:
-  level: "debug"
+  level: "info"
 runtime:
   js_entrypoint: "build/index.js"
 session:
