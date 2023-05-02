@@ -10,6 +10,7 @@ export const color = {
   lightGrey: "#DDDDD9",
   mediumGrey: "#B6B4B2",
   darkGrey: "#898989",
+  ashGrey: "rgba(137, 137, 137, 0.7)",
   cloudGrey: "#EAEAE5",
   grey: "#D4D4D1",
   opaqueGrey: "rgba(238, 238, 234, 0.5)",

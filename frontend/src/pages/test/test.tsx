@@ -32,7 +32,6 @@ import {
   MessageBlock,
   InformationBlock,
   CopyBlock,
-  ModalBlock,
   Box,
   Sidebar,
   HUDBlock,
@@ -85,6 +84,7 @@ import {
   LargeInfoHeading,
   NumberedDescriptionText,
   NumberedSection,
+  Modal,
   ToastNotifications,
   TooltipFrame,
   CookieBanner,
@@ -103,10 +103,36 @@ export const Test: FC = () => {
   const powerUp8 = getPowerUp("8");
   const powerUp9 = getPowerUp("9");
   const [isChecked, setChecked] = useState(false);
+  const [isModalShown, setModalShown] = useState(false);
+  const [isModalShownNoButton, setModalShownNoButton] = useState(false);
   if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
 
   return (
     <div style={{ padding: "50px", background: "lightBlue" }}>
+      <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
+      <Modal
+        component={<Heading2>{"im a modal with a close button"}</Heading2>}
+        isVisible={isModalShown}
+        isContained
+        onClose={() => setModalShown(!isModalShown)}
+      />
+      <br />
+      <br />
+      <TertiaryButton text="CLICK ME! show modal without close button" onClick={() => setModalShownNoButton(!isModalShownNoButton)} />
+      <Modal
+        component={
+          <>
+            <Heading2>{"im a modal without a close button"}</Heading2>
+            <br />
+            <br />
+            <TertiaryButton text="CLICK ME! close me" onClick={() => setModalShownNoButton(!isModalShownNoButton)} />
+          </>
+        }
+        isVisible={isModalShownNoButton}
+        isContained
+      />
+      <br />
+      <br />
       <ToastNotifications
         img={CallExact}
         heading="The Sum power-up"
@@ -457,7 +483,6 @@ export const Test: FC = () => {
       <br />
       <CopyBlock>{"copy"}</CopyBlock>
       <br />
-      <ModalBlock>{"modal"}</ModalBlock>
       <br />
       <h1>layouts</h1>
       <br />

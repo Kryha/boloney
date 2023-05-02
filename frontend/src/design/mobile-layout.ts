@@ -2,6 +2,7 @@ export const mobileWidth = {
   xxs: "15vw",
   xs: "30vw",
   sm: "51vw",
+  md: "80vw",
   xxl: "160vw",
   fluid: "100%",
 };
@@ -15,5 +16,6 @@ export const mobileHeight = {
   lg: "10vh",
   xl: "19vh",
   xxl: "33.5vh",
+  xxxl: "72.5vh",
   fluid: "100%",
 };
