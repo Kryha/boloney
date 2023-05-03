@@ -3,7 +3,7 @@ import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets";
-import { FadeTransition } from "../../components";
+import { FadeTransition, Tooltip } from "../../components";
 import { GeneralContentWrapper, Heading1, Heading4 } from "../../atoms";
 import { PrimaryButton } from "../../molecules";
 
@@ -12,6 +12,7 @@ import { joinPool, nakama } from "../../service";
 import { useSession, useStore } from "../../store";
 import { cleanUUID } from "../../util";
 import { MatchSelectContainer, ButtonContainer } from "./styles";
+import { zIndex } from "../../design";
 
 export const MatchSelect: FC = () => {
   const session = useSession();
@@ -44,10 +45,11 @@ export const MatchSelect: FC = () => {
 
           {/* TODO: abstract this button in a component, together with the useEffect and the join function */}
           <ButtonContainer>
+            <Tooltip title={text.home.quickPlay} info={text.home.quickPlayDescription} infoPosition="top" zIndex={zIndex.inFront} />
             <PrimaryButton primaryText={text.home.quickPlay} onClick={() => joinMatchPool()} loading={isLoadingSpinnerVisible} />
           </ButtonContainer>
-
           <ButtonContainer>
+            <Tooltip title={text.home.createMatch} info={text.home.createMatchDescription} infoPosition="top" zIndex={zIndex.inFront} />
             <PrimaryButton primaryText={text.home.createMatch} onClick={() => navigate(routes.newMatch)} />
           </ButtonContainer>
         </GeneralContentWrapper>

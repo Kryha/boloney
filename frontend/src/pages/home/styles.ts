@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { ButtonInfoWrap } from "../../components";
 
 import { margins } from "../../design";
 
@@ -12,4 +13,7 @@ export const ButtonContainer = styled.section`
   margin-bottom: ${margins.large2};
 
   width: 100%;
+  ${ButtonInfoWrap} {
+    margin-right: ${margins.small1};
+  }
 `;
