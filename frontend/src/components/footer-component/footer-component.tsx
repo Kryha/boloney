@@ -44,6 +44,7 @@ export const FooterComponent: FC<Props> = ({ isMobile }) => {
           font={fonts.primary}
           fontWeight={fontWeights.lighter}
           isWebsite
+          isSelfTarget
         />
       </LinkWrapper>
     </FooterWrapper>

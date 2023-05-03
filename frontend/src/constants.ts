@@ -178,6 +178,7 @@ export const FADE_INTERVAL_MS = 4000;
 export const BLANK_TARGET_LINK = "_blank";
 export const SELF_TARGET_LINK = "_self";
 export const FEEDBACK_FORM_LINK = "https://forms.gle/XXLiBWEqJLjtFF949";
+export const BUG_FORM_LINK = "https://forms.gle/nUnqq1ZuzuUsagNK6";
 
 export const FADE_TRANSITION_DURATION = 0.4;
 

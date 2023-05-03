@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { CallBoloney, text } from "../../assets";
 import { Heading1, Heading4, Heading5 } from "../../atoms";
+import { BLANK_TARGET_LINK, BUG_FORM_LINK, FEEDBACK_FORM_LINK } from "../../constants";
 import { fonts, fontSizes, fontWeights } from "../../design";
 import { PrimaryButton } from "../../molecules";
 import { FooterComponent } from "../footer-component";
@@ -13,6 +14,15 @@ interface Props {
 }
 
 export const ContactComponent: FC<Props> = ({ isMobile }) => {
+
+  const handleBugFormClick = () => {
+    window.open(BUG_FORM_LINK, BLANK_TARGET_LINK);
+  };
+
+  const handleFeedbackFormClick = () => {
+    window.open(FEEDBACK_FORM_LINK, BLANK_TARGET_LINK);
+  };
+  
   return (
     <>
       <NavigationContainer>
@@ -26,9 +36,8 @@ export const ContactComponent: FC<Props> = ({ isMobile }) => {
           <Heading5 font={fonts.primary} fontWeight={fontWeights.light}>
             {text.contact.tellUsAboutYourExperience}
           </Heading5>
-          {/* TODO: add onClick func */}
           <ButtonWrapper>
-            <PrimaryButton primaryText={text.general.inProgress} onClick={() => ({})} />
+            <PrimaryButton primaryText={text.contact.shareFeedback} onClick={() => handleFeedbackFormClick()} />
           </ButtonWrapper>
 
           <Heading4>{text.contact.spottedBug}</Heading4>
@@ -36,7 +45,7 @@ export const ContactComponent: FC<Props> = ({ isMobile }) => {
             {text.contact.tellUsAboutBug}
           </Heading5>
           <ButtonWrapper>
-            <PrimaryButton primaryText={text.general.inProgress} onClick={() => ({})} />
+            <PrimaryButton primaryText={text.contact.spottedBug} onClick={() =>  handleBugFormClick()} />
           </ButtonWrapper>
 
           {/* TODO: add onClick func */}
