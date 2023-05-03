@@ -95,11 +95,11 @@ export const LandingImage = styled.img<ImageProps>`
     left: ${mobileHeight.xxs};
     bottom: ${mobileHeight.xxxs};
   }
-  @media (min-width: ${breakpoints.xs}) {
-    width: 100vw;
+  @media (max-width: ${breakpoints.xs}) {
+    width: ${mobileWidth.xl};
     height: auto;
-    left: ${mobileWidth.xs};
-    bottom: ${mobileHeight.xxxs};
+    left: 0;
+    bottom: ${mobileHeight.md};
   }
 `;
 

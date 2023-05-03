@@ -3,6 +3,7 @@ export const mobileWidth = {
   xs: "30vw",
   sm: "51vw",
   md: "80vw",
+  xl: "130vw",
   xxl: "160vw",
   fluid: "100%",
 };
