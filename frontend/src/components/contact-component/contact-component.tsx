@@ -6,7 +6,7 @@ import { PrimaryButton } from "../../molecules";
 import { FooterComponent } from "../footer-component";
 import { GeneralLink } from "../links";
 import { TopNavigation } from "../top-navigation";
-import { ButtonWrapper, ContactWrapper, ContactImage, ContentWrapper } from "./styles";
+import { ButtonWrapper, ContactWrapper, ContactImage, ContentWrapper, NavigationContainer } from "./styles";
 
 interface Props {
   isMobile: boolean;
@@ -15,7 +15,9 @@ interface Props {
 export const ContactComponent: FC<Props> = ({ isMobile }) => {
   return (
     <>
-      <TopNavigation location="landing" />
+      <NavigationContainer>
+        <TopNavigation location="landing" />
+      </NavigationContainer>
       <ContactWrapper>
         <ContentWrapper>
           <Heading1>{text.contact.contactUs}</Heading1>

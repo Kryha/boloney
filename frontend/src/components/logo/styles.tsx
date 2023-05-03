@@ -7,6 +7,7 @@ export const LogoContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: ${margins.small5} ${margins.small2};
+  cursor: pointer;
 `;
 
 export const TextLogoIcon = styled(BaseIcon)`

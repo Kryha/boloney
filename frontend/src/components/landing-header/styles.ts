@@ -22,6 +22,7 @@ export const LandingHeaderWrapper = styled(GeneralRow)`
 
 export const TextLogoWrapper = styled.div`
   height: 100%;
+  cursor: pointer;
 `;
 
 export const LandingButton = styled.div`

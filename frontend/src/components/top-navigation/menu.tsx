@@ -58,6 +58,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} cursor />}
       active={isActive}
       padding={buttonSize.md}
+      backgroundColor={color.lightGrey}
     />
   );
 
@@ -72,6 +73,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
             icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
             active={isActive}
             padding={buttonSize.md}
+            backgroundColor={color.lightGrey}
           />
         </>
       );
@@ -136,7 +138,14 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
         )}
         <>
           <HorizontalDivider />
-          {contact}
+          <TertiaryButton
+            onClick={() => navigate(routes.contact)}
+            text={text.general.contact}
+            icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} cursor />}
+            active={isActive}
+            padding={buttonSize.md}
+            width={buttonSize.fluid}
+          />
         </>
       </MenuContainer>
     </Dropdown>

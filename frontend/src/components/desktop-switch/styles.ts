@@ -17,6 +17,7 @@ export const TextLogoContainer = styled.div`
   left: 0;
   width: ${mobileWidth.xs};
   background: ${color.lightGrey};
+  cursor: pointer;
 `;
 
 export const MobileContainerWrapper = styled(BaseColumn)`

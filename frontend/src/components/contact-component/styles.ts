@@ -75,3 +75,9 @@ export const ContactWrapper = styled.div`
   overflow-y: auto;
   height: 100%;
 `;
+
+export const NavigationContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
