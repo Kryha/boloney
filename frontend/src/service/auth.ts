@@ -6,7 +6,7 @@ import { STORAGE_ACCOUNT_COLLECTION, STORAGE_ADDRESS_KEY, STORAGE_KEYS_KEY } fro
 import { routes } from "../navigation";
 import { useSession, useStore } from "../store";
 import { AleoAccount, aleoAccountSchema, NkResponse } from "../types";
-import { isAuthenticationRoute, isKnownRoute, parseError } from "../util";
+import { isAuthenticationRoute, isKnownRoute, isLegalContentRoute, parseError } from "../util";
 import { nakama } from "./nakama";
 
 // TODO: use Aleo account through Wallet browser extension
@@ -41,7 +41,7 @@ export const useRefreshAuth = () => {
 
         authenticate(newSession, aleoAccount);
       } catch (e) {
-        if (!isAuthenticationRoute(pathname) && isKnownRoute(pathname)) navigate(routes.login);
+        if (!isAuthenticationRoute(pathname) && isKnownRoute(pathname) && !isLegalContentRoute(pathname)) navigate(routes.login);
         return;
       } finally {
         setIsAuthenticating(false);

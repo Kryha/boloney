@@ -7,4 +7,7 @@ export const routes = {
   match: "/match",
   feedback: "/feedback",
   contact: "/contact",
+  privacy: "/privacy",
+  cookies: "/cookies",
+  termsOfUse: "/terms-of-use",
 };

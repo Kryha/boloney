@@ -5,11 +5,12 @@ import { AnimatePresence } from "framer-motion";
 
 import { routes } from "./route-names";
 import { CookieBanner, MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
-import { LandingPage, NewMatch, Home, MatchRoute, Login, CreateAccount, MobileLogin, ContactPage, Feedback } from "../pages";
+import { LandingPage, NewMatch, Home, MatchRoute, Login, CreateAccount, MobileLogin, ContactPage, Feedback, MdPage } from "../pages";
 import { useRefreshAuth } from "../service";
 import { useIsAuthenticating, useSession, useStore } from "../store";
 import { Test } from "../pages/test/test";
 import { ENV_MODE } from "../constants";
+import { PrivacyPolicyMd, CookiePolicyMd, TermsOfUseMd } from "../assets";
 import { useIsMobile } from "../hooks";
 
 const AppRoutes: FC = () => {
@@ -29,6 +30,10 @@ const AppRoutes: FC = () => {
       <Route path={routes.contact} element={<ContactPage />} />
 
       <Route path={routes.feedback} element={<Feedback />} />
+
+      <Route path={routes.privacy} element={<MdPage mdMetaData={PrivacyPolicyMd.default}/>} />
+      <Route path={routes.cookies} element={<MdPage mdMetaData={CookiePolicyMd.default}/>} />
+      <Route path={routes.termsOfUse} element={<MdPage mdMetaData={TermsOfUseMd.default}/>} />
 
       {ENV_MODE === "development" && <Route path="/test" element={<Test />} />}
       {session && !isMobile ? (

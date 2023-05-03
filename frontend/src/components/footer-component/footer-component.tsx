@@ -18,15 +18,16 @@ export const FooterComponent: FC<Props> = ({ isMobile }) => {
       <LinkWrapper>
         <GeneralLink
           heading={text.contact.importantThings}
-          link={text.landing.boloneyHelpEmail}
+          link={routes.privacy}
           linkText={text.contact.privacyPolicy}
           fontSize={fontSizes.heading5}
           lineHeight={fontSizes.heading5}
           font={fonts.primary}
           fontWeight={fontWeights.lighter}
+          isWebsite
         />
         <WebsiteLink
-          link={routes.contact}
+          link={routes.termsOfUse}
           linkText={text.contact.termsAndConditions}
           fontSize={fontSizes.heading5}
           lineHeight={fontSizes.heading5}

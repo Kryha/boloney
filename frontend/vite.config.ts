@@ -14,6 +14,7 @@ export default defineConfig({
       jsxRuntime: "classic",
     }),
   ],
+  assetsInclude: ["**/*.md"],
   esbuild: {
     logOverride: { "this-is-undefined-in-esm": "silent" },
   },

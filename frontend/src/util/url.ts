@@ -15,3 +15,8 @@ export const isKnownRoute = (path: string) => {
   const knownRoutes = Object.values(routes);
   return knownRoutes.includes(path) || path.includes(routes.match);
 };
+
+export const isLegalContentRoute = (path: string) => {
+  const legalContentRoutes = [routes.privacy, routes.cookies, routes.termsOfUse, routes.contact];
+  return legalContentRoutes.includes(path);
+};
