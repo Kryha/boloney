@@ -29,6 +29,7 @@ import { ReactComponent as RefreshIconSVG } from "./refresh.svg";
 import { ReactComponent as WhiteDiceIconSVG } from "./white-dice.svg";
 import { ReactComponent as DeadCoffinIconSVG } from "./dead-coffin.svg";
 import { ReactComponent as BlueLockSVG } from "./blue-lock.svg";
+import { ReactComponent as ContactIconSVG } from "./contact.svg";
 import CookieIconSVG from "./cookie.svg";
 import ChevronDownIconSVG from "./chevron-down.svg";
 import RaisedHandIconSVG from "./raised-hand.svg";
@@ -73,4 +74,5 @@ export {
   CrossIconSVG,
   RightArrowIconUrl,
   PercentageIconSVG,
+  ContactIconSVG,
 };

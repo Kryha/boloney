@@ -68,3 +68,4 @@ export * from "./toggle-switch";
 export * from "./cookie-banner";
 export * from "./landing-header";
 export * from "./desktop-switch";
+export * from "./contact-component";

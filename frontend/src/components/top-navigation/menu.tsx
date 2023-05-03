@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { text, EllipsisIconSVG, ExitIconSVG, SettingsIconSVG, LogoutIconSVG } from "../../assets";
+import { text, EllipsisIconSVG, ExitIconSVG, SettingsIconSVG, LogoutIconSVG, ContactIconSVG } from "../../assets";
 import { buttonSize, color } from "../../design";
 import { TertiaryButton } from "../../molecules";
 import { routes } from "../../navigation";
@@ -51,25 +51,41 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
     }
   };
 
+  const contact = (
+    <TertiaryButton
+      onClick={() => navigate(routes.contact)}
+      text={text.general.contact}
+      icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} cursor />}
+      active={isActive}
+      padding={buttonSize.md}
+    />
+  );
+
   if (location === "landing") {
     if (session)
       return (
-        <TertiaryButton
-          onClick={() => handleLogout()}
-          text={text.general.logout}
-          icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
-          active={isActive}
-          padding={buttonSize.md}
-        />
+        <>
+          {contact}
+          <TertiaryButton
+            onClick={() => handleLogout()}
+            text={text.general.logout}
+            icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
+            active={isActive}
+            padding={buttonSize.md}
+          />
+        </>
       );
     return (
-      <TertiaryButton
-        text={text.general.login}
-        icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
-        onClick={() => navigate(routes.login)}
-        padding={buttonSize.md}
-        backgroundColor={color.lightGrey}
-      />
+      <>
+        {contact}
+        <TertiaryButton
+          text={text.general.login}
+          icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
+          onClick={() => navigate(routes.login)}
+          padding={buttonSize.md}
+          backgroundColor={color.lightGrey}
+        />
+      </>
     );
   }
 
@@ -118,6 +134,10 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
             />
           </>
         )}
+        <>
+          <HorizontalDivider />
+          {contact}
+        </>
       </MenuContainer>
     </Dropdown>
   );

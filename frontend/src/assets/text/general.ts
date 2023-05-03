@@ -8,11 +8,13 @@ export const general = {
   matchSettings: "Match settings",
   logout: "Log out",
   leaveMatch: "Leave match",
+  contact: "Contact",
   login: "Log in",
   cookieAccept: "Accept cookies",
   cookieReject: "Reject cookies",
   playNow: "Play now",
-
+  // TODO: Remove when terms and conditions are ready
+  inProgress: "in progress",
   // Normal text
   rollingDice: "rolling dice",
   chat: "chat",

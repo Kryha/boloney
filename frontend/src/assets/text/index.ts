@@ -11,6 +11,7 @@ import { endOfMatch } from "./end-of-match";
 import { playerTurn } from "./player-turn";
 import { notifications } from "./notifications";
 import { landing } from "./landing";
+import { contact } from "./contact";
 import { history } from "./history";
 
 export const text = {
@@ -27,5 +28,6 @@ export const text = {
   playerTurn,
   notifications,
   landing,
+  contact,
   history,
 };

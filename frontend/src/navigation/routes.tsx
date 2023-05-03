@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 
 import { routes } from "./route-names";
 import { CookieBanner, MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
-import { LandingPage, NewMatch, Home, MatchRoute, Login, CreateAccount, MobileLogin } from "../pages";
+import { LandingPage, NewMatch, Home, MatchRoute, Login, CreateAccount, MobileLogin, ContactPage } from "../pages";
 import { useRefreshAuth } from "../service";
 import { useIsAuthenticating, useSession, useStore } from "../store";
 import { Test } from "../pages/test/test";
@@ -26,6 +26,7 @@ const AppRoutes: FC = () => {
   return (
     <Routes>
       <Route path={routes.root} element={<LandingPage />} />
+      <Route path={routes.contact} element={<ContactPage />} />
 
       {ENV_MODE === "development" && <Route path="/test" element={<Test />} />}
 
