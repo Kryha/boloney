@@ -1,6 +1,8 @@
-# "Boloney!"
+# Boloney! - Zero Knowledge Sandbox
 
-An online multiplayer game showcasing the potential of Aleo's Zero Knowledge Proof platform.
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
+Online multiplayer game showcasing the potential of Aleo's Zero Knowledge Proof platform.
 
 ## Getting started
 
