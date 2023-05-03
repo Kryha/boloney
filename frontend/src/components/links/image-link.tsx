@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { GithubLogo, text } from "../../assets";
-import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
+import { BLANK_TARGET_LINK } from "../../constants";
 import { Heading6 } from "../../atoms";
 import { GeneralLinkContainer, GeneralLinkWrapper, HyperLink, ImageLinkContainer, LinkImage } from "./styles";
 
@@ -12,7 +12,7 @@ interface Props {
 
 export const ImageLink: FC<Props> = ({ image, link, width }) => {
   return (
-    <HyperLink href={link} target={OPEN_LINK_IN_NEW_TAB}>
+    <HyperLink href={link} target={BLANK_TARGET_LINK}>
       <GeneralLinkContainer>
         <LinkImage src={image} width={width} />
       </GeneralLinkContainer>

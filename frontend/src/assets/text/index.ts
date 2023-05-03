@@ -13,6 +13,7 @@ import { notifications } from "./notifications";
 import { landing } from "./landing";
 import { contact } from "./contact";
 import { history } from "./history";
+import { feedback } from "./feedback";
 
 export const text = {
   param,
@@ -30,4 +31,5 @@ export const text = {
   landing,
   contact,
   history,
+  feedback,
 };

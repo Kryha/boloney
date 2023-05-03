@@ -175,7 +175,9 @@ export const EXACT_HELPER_WIDTH = "clamp(295px, 10.17vw + 197.33px, 588px)";
 
 export const FADE_INTERVAL_MS = 4000;
 
-export const OPEN_LINK_IN_NEW_TAB = "_blank";
+export const BLANK_TARGET_LINK = "_blank";
+export const SELF_TARGET_LINK = "_self";
+export const FEEDBACK_FORM_LINK = "https://forms.gle/XXLiBWEqJLjtFF949";
 
 export const FADE_TRANSITION_DURATION = 0.4;
 

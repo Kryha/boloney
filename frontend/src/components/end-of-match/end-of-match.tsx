@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets";
 import { routes } from "../../navigation";
-import { useLocalPlayer, useMatch } from "../../service";
+import { useLocalPlayer } from "../../service";
 import { color, layoutWidth } from "../../design";
 import { BottomButtonWrapper, Heading2, Heading6 } from "../../atoms";
 import { PlayerLeaderboard } from "./player-leaderboard";
@@ -15,7 +15,6 @@ import { PrimaryButton } from "../../molecules";
 
 export const EndOfMatch: FC = () => {
   const navigate = useNavigate();
-  const { broadcastPlayerReady } = useMatch();
 
   const leaderboard = useStore((state) => state.leaderboard);
 
@@ -28,11 +27,6 @@ export const EndOfMatch: FC = () => {
     const secondPlayer = leaderboard.at(1);
     return [winner?.userId === localPlayer?.userId, secondPlayer?.userId === localPlayer?.userId];
   })();
-
-  const handleNewMatch = (): void => {
-    broadcastPlayerReady();
-    navigate(routes.home);
-  };
 
   const headingText = () => {
     if (isLocalWinner) return text.endOfMatch.youWonTitle;
@@ -68,7 +62,7 @@ export const EndOfMatch: FC = () => {
         ))}
 
         <BottomButtonWrapper bottomPosition={layoutWidth.none} leftPosition={layoutWidth.sm}>
-          <PrimaryButton primaryText={text.match.homePage} onClick={() => handleNewMatch()} />
+          <PrimaryButton primaryText={text.match.homePage} onClick={() => navigate(routes.feedback)} />
         </BottomButtonWrapper>
       </EndOfMatchWrapper>
     </FadeTransition>

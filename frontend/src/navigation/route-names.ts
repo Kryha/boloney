@@ -5,5 +5,6 @@ export const routes = {
   home: "/home",
   newMatch: "/new-match",
   match: "/match",
+  feedback: "/feedback",
   contact: "/contact",
 };

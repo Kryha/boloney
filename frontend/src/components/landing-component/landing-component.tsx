@@ -14,7 +14,7 @@ import { MobileLanding } from "./mobile-landing";
 import { DesktopLanding } from "./desktop-landing";
 import { BoloneyLogoIconSVG, text, CallBoloney } from "../../assets";
 import { BaseIcon, LinkText } from "../../atoms";
-import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
+import { BLANK_TARGET_LINK } from "../../constants";
 import { color, iconSize, fonts, fontSizes, fontWeights, lineHeights } from "../../design";
 import { useObserver } from "../../hooks";
 import { useStore } from "../../store";
@@ -53,7 +53,7 @@ export const Landing: FC<Props> = ({ isMobile, isSidebarVisible, width, height }
         <LandingBottomHeading>{text.landing.theUtterlyAbsurdDice}</LandingBottomHeading>
         <LinkText
           href={text.landing.aleoLink}
-          target={OPEN_LINK_IN_NEW_TAB}
+          target={BLANK_TARGET_LINK}
           font={fonts.secondary}
           fontSize={fontSizes.heading2}
           fontWeight={fontWeights.regular}
@@ -65,7 +65,7 @@ export const Landing: FC<Props> = ({ isMobile, isSidebarVisible, width, height }
         <LandingBottomHeading>{text.landing.by}</LandingBottomHeading>
         <LinkText
           href={text.landing.kryhaLink}
-          target={OPEN_LINK_IN_NEW_TAB}
+          target={BLANK_TARGET_LINK}
           font={fonts.secondary}
           fontSize={fontSizes.heading2}
           fontWeight={fontWeights.regular}

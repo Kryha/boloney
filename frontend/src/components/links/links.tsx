@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { OPEN_LINK_IN_NEW_TAB } from "../../constants";
+import { BLANK_TARGET_LINK, SELF_TARGET_LINK } from "../../constants";
 import { color } from "../../design";
 import { Link } from "../../molecules";
 import { Heading3, Heading6, LinkProps } from "../../atoms";
@@ -11,6 +11,7 @@ interface Props extends LinkProps {
   linkText: string;
   link: string;
   heading?: string;
+  isSelfTarget?: boolean;
 }
 
 export const EmailLink: FC<Props> = ({ linkText, customcolor, fontWeight, fontSize, lineHeight, font, transformText }) => {
@@ -30,9 +31,21 @@ export const EmailLink: FC<Props> = ({ linkText, customcolor, fontWeight, fontSi
   );
 };
 
-export const WebsiteLink: FC<Props> = ({ linkText, link, customcolor, fontWeight, fontSize, lineHeight, font, transformText }) => {
+export const WebsiteLink: FC<Props> = ({
+  linkText,
+  link,
+  customcolor,
+  fontWeight,
+  fontSize,
+  lineHeight,
+  font,
+  transformText,
+  isSelfTarget,
+}) => {
+  const target = isSelfTarget ? SELF_TARGET_LINK : BLANK_TARGET_LINK;
+
   return (
-    <HyperLink href={link} target={OPEN_LINK_IN_NEW_TAB}>
+    <HyperLink href={link} target={target}>
       <Link
         text={linkText}
         customcolor={customcolor}
@@ -58,6 +71,7 @@ export const GeneralLink: FC<Props> = ({
   lineHeight,
   font,
   transformText,
+  isSelfTarget,
 }) => {
   const component = isWebsite ? (
     <WebsiteLink
@@ -69,6 +83,7 @@ export const GeneralLink: FC<Props> = ({
       lineHeight={lineHeight}
       font={font}
       transformText={transformText}
+      isSelfTarget={isSelfTarget}
     />
   ) : (
     <EmailLink
