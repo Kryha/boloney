@@ -36,12 +36,13 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const isPlayerLastBid = lastBid?.userId === player.userId;
   const setPowerUpState = useStore((state) => state.setPowerUpState);
   const lastAction = useStore((state) => state.lastAction);
+  const stage = useStore((state) => state.matchStage);
   const { targetPlayerId: targetPlayerId, active: activePowerUp, result: result } = useStore((state) => state.powerUpState);
   const hand = handProportion(avatars[player.avatarId].name);
 
   if (!localPlayer) return <></>;
 
-  const isTargetable = activePowerUp?.id === "7";
+  const isTargetable = activePowerUp?.id === "7" && stage === "playerTurnLoopStage";
   const playerDice = result && result.id === "6" ? filterDice(result.data.newRolledDice, dice) : dice;
   const isDisabled = localPlayer.powerUpsAmount <= 1 && activePowerUp?.id === "7";
 

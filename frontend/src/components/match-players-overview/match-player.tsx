@@ -11,7 +11,6 @@ import {
   DeadPlayerAvatar,
   DeadPlayerName,
 } from "./styles";
-import { handProportion } from "../../design/hand";
 import { PlayerPublic } from "../../types";
 import { avatars } from "../../assets";
 import { PlayerMatchState } from "./match-player-info";
@@ -34,12 +33,14 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const { targetPlayerId: targetPowerUpPlayerId, active: activePowerUp, result } = useStore((state) => state.powerUpState);
   const setPowerUpState = useStore((state) => state.setPowerUpState);
   const lastAction = useStore((state) => state.lastAction);
+  const stage = useStore((state) => state.matchStage);
 
   const hasPlayerLost = player.status === "lost";
   const avatar = hasPlayerLost ? "grave" : avatars[player.avatarId].name;
 
   // TODO: make conditions more clear
-  const isTargetable = player.status !== "lost" && !!activePowerUp && !result && powerUpRequiresTarget(activePowerUp.id);
+  const isTargetable =
+    player.status !== "lost" && !!activePowerUp && !result && powerUpRequiresTarget(activePowerUp.id) && stage === "playerTurnLoopStage";
   const isDisabled = powerupCanNotBeUsedOnPlayer(player, activePowerUp?.id);
 
   const handleSelect = () => {
