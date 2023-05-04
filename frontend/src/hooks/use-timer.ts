@@ -64,7 +64,10 @@ export const useClientTimer = (triggerCondition = true) => {
   const { delayBroadcastPlayerReady } = useMatch();
 
   useEffect(() => {
-    if (count <= 0 && triggerCondition && !isPlayerReady) delayBroadcastPlayerReady(TIMEOUT_STAGE_TRANSITION_TIME);
+    if (count <= 0 && triggerCondition && !isPlayerReady) {
+      setSpinnerVisibility(true);
+      delayBroadcastPlayerReady(TIMEOUT_STAGE_TRANSITION_TIME);
+    }
   }, [count, delayBroadcastPlayerReady, triggerCondition, isPlayerReady, setSpinnerVisibility]);
 
   return { count };
