@@ -12,7 +12,7 @@ import {
   notificationUsePowerUpSchema,
   errorNotificationMessageSchema,
 } from "../types";
-import { CallBoloney, CallExact, HealDiceCoffin, text } from "../assets";
+import { CallBoloney, CallExact, GraveStone, HealDiceCoffin, text } from "../assets";
 import { Notification } from "@heroiclabs/nakama-js";
 import { useCallback, useEffect, useState } from "react";
 import { useStore } from "../store";
@@ -151,9 +151,8 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
 
       const { activePlayerName } = parsedNotificationContent.data;
       return {
-        //TODO: Change image to figma design
         id: notification.id,
-        img: CallBoloney,
+        img: GraveStone,
         title: text.notifications.playerIsDead,
         description: text.notifications.playerIsOutOfTheMatchDescription(activePlayerName),
         boldText: [activePlayerName],
@@ -182,9 +181,8 @@ export const getNotificationContent = (notification: Notification, localPlayer: 
       const { activePlayerName } = parsedNotificationContent.data;
 
       return {
-        //TODO: Change image to figma design
         id: notification.id,
-        img: CallBoloney,
+        img: GraveStone,
         title: text.notifications.playerLeftTheMatch(activePlayerName),
         description: "",
         boldText: [activePlayerName],

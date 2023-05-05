@@ -33,7 +33,7 @@ export const ToastMessage: FC<ToastMessageProps> = ({
             <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={description} />
           </GeneralText>
         </ToastDescriptionContainer>
-        <CloseIcon src={<CloseIconSVG />} cursor onClick={() => closeToast()} />
+        <CloseIcon src={<CloseIconSVG />} cursor onClick={() => closeToast()} alignSelf="start" />
       </ToastWrapper>
     </MultipleToastWrapper>
   );
