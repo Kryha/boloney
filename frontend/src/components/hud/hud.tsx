@@ -29,7 +29,8 @@ interface HUDProps {
 }
 
 export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
-  const { avatar } = player.diceAmount === 0 ? handProportion("grave") : handProportion(avatars[player.avatarId].name);
+  const hasPlayerLost = player.status === "lost";
+  const { avatar } = handProportion(hasPlayerLost ? "grave" : avatars[player.avatarId].name);
   const lastBid = useLatestBid();
   const localPlayer = useLocalPlayer();
   const dieColor = getDieColor(player);
@@ -57,7 +58,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
       <LocalPlayer isLastBid={isPlayerLastBid} onClick={() => isTargetable && handleSelect()} isTargetable={isTargetable}>
         <LocalAvatarWrapper isTargetable={isTargetable} height={measurements.localAvatarHeight}>
           <LocalPlayerAvatar height={measurements.localAvatarHeight} src={avatar} />
-          <Paint src={hand.paint} alt={avatar} />
+          {!hasPlayerLost && <Paint src={hand.paint} alt={avatar} />}
         </LocalAvatarWrapper>
         {isTargetable && (
           <RadioButtonContainer>

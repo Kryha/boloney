@@ -20,6 +20,7 @@ import { useStore } from "../../store";
 import { powerupCanNotBeUsedOnPlayer, powerUpRequiresTarget } from "../../util";
 import { useLatestBid } from "../../service";
 import { Hand } from "../hand";
+import { handProportion } from "../../design";
 
 interface MatchPlayerProps {
   totalPlayers: number;
@@ -36,7 +37,8 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
   const stage = useStore((state) => state.matchStage);
 
   const hasPlayerLost = player.status === "lost";
-  const avatar = hasPlayerLost ? "grave" : avatars[player.avatarId].name;
+  const avatarName = hasPlayerLost ? "grave" : avatars[player.avatarId].name;
+  const { avatar } = handProportion(avatarName);
 
   // TODO: make conditions more clear
   const isTargetable =
@@ -59,12 +61,12 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
       <MatchPlayersContainer totalPlayers={totalPlayers}>
         {hasPlayerLost ? (
           <PlayerAvatarContainer>
-            <DeadPlayerAvatar src={avatar} alt={player.username} height={avatarHeight[totalPlayers - 1]} />
+            <DeadPlayerAvatar src={avatar} height={avatarHeight[totalPlayers - 1]} />
             <DeadPlayerName>{player.username}</DeadPlayerName>
           </PlayerAvatarContainer>
         ) : (
           <>
-            <Hand avatarName={avatar} isTargetable={isTargetable} isAnimationDisabled height={avatarHeight[totalPlayers - 1]} />
+            <Hand avatarName={avatarName} isTargetable={isTargetable} isAnimationDisabled height={avatarHeight[totalPlayers - 1]} />
             <PlayerInfoContainer>
               <PlayerNameContainer>
                 <Name>{player.username}</Name>
