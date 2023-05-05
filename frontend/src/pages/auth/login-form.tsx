@@ -12,7 +12,6 @@ import { routes } from "../../navigation";
 import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
 import { useStore } from "../../store";
 import { useAuthenticateUser } from "../../service";
-import { ENV_MODE } from "../../constants";
 import { Link, PrimaryButton } from "../../molecules";
 
 export const LoginForm: FC = () => {
@@ -73,17 +72,8 @@ export const LoginForm: FC = () => {
             </InputLegend>
           </AuthContainer>
           <SignOrJoinContainer width={width} height={height}>
-            {ENV_MODE !== "production" && (
-              <>
-                <BodyText>{text.authForm.iDontHaveAnAccountYet}</BodyText>
-                <Link
-                  transformText="none"
-                  fontSize={fontSizes.body}
-                  onClick={() => navigate(routes.createAccount)}
-                  text={text.authForm.here}
-                />
-              </>
-            )}
+            <BodyText>{text.authForm.iDontHaveAnAccountYet}</BodyText>
+            <Link transformText="none" fontSize={fontSizes.body} onClick={() => navigate(routes.createAccount)} text={text.authForm.here} />
             <PrimaryButton buttonType="submit" primaryText={text.authForm.signIn} loading={isLoadingSpinnerVisible} />
           </SignOrJoinContainer>
         </FormContainer>

@@ -31,9 +31,9 @@ const AppRoutes: FC = () => {
 
       <Route path={routes.feedback} element={<Feedback />} />
 
-      <Route path={routes.privacy} element={<MdPage mdMetaData={PrivacyPolicyMd.default}/>} />
-      <Route path={routes.cookies} element={<MdPage mdMetaData={CookiePolicyMd.default}/>} />
-      <Route path={routes.termsOfUse} element={<MdPage mdMetaData={TermsOfUseMd.default}/>} />
+      <Route path={routes.privacy} element={<MdPage mdMetaData={PrivacyPolicyMd.default} />} />
+      <Route path={routes.cookies} element={<MdPage mdMetaData={CookiePolicyMd.default} />} />
+      <Route path={routes.termsOfUse} element={<MdPage mdMetaData={TermsOfUseMd.default} />} />
 
       {ENV_MODE === "development" && <Route path="/test" element={<Test />} />}
       {session && !isMobile ? (
@@ -45,7 +45,7 @@ const AppRoutes: FC = () => {
       ) : (
         <>
           <Route path={routes.login} element={loginComponent} />
-          {ENV_MODE !== "production" && <Route path={routes.createAccount} element={<CreateAccount />} />}
+          <Route path={routes.createAccount} element={<CreateAccount />} />
         </>
       )}
 
