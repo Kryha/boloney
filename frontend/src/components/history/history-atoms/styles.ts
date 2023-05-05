@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { color, margins } from "../../../design";
-import { Row, GeneralText, BaseColumn } from "../../../atoms";
+import { Row, GeneralText } from "../../../atoms";
 import { BadgeWrapper } from "../../badges/styles";
+import { DiceContainer } from "../../match-players-overview";
 
 interface HistoryBadgeProps {
   customBackground?: string;
@@ -84,12 +85,13 @@ export const HistoryContentWrapper = styled.div`
   width: 25vw;
   position: relative;
   overflow: hidden;
-  ${BaseColumn} {
+  ${DiceContainer} {
     background: ${color.grey};
     position: absolute;
     right: -5px;
     top: -8px;
-    padding: 20px;
+    padding: 10px;
+    margin-right: ${margins.small0};
   }
 `;
 

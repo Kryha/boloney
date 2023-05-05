@@ -17,7 +17,7 @@ export const MatchStateItemDrawRound: FC<PropItem> = ({ powerUpsAmount, drawRoun
   return (
     <MatchStateItemContainer>
       <LightningContainer>
-        <BaseIcon src={<LightningIconSVG />} iconColor={color.transparent} strokeColor={color.black} />
+        <BaseIcon src={<LightningIconSVG />} iconColor={color.transparent} strokeColor={color.mediumGrey} />
       </LightningContainer>
       <GeneralText customcolor={customcolor}>{param.drawPowerUpsRound(powerUpsAmount)}</GeneralText>
       <GeneralText customcolor={customcolor}>{text.match.inXAmountOfRounds}</GeneralText>
