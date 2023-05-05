@@ -186,3 +186,12 @@ export const slideUpFromBottom = keyframes`
     transform: translate(0, 0) rotate(0deg) scale(1);
   }
 `;
+
+export const displayBlockToNone = keyframes`
+  0% {
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+  }
+`;

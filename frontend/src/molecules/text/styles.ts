@@ -1,5 +1,6 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { VerticalDivider, BaseRow, IconPosition, TooltipText, Heading1, BaseColumn } from "../../atoms";
+import { VerticalDivider, BaseRow, IconPosition, TooltipText, Heading1, BaseColumn, Heading2, fadeIn, GeneralText } from "../../atoms";
 import { breakpoints, containerWidth, lineHeights, mobileHeight, spacing } from "../../design";
 
 interface TooltipProps {
@@ -8,6 +9,26 @@ interface TooltipProps {
 }
 
 export const GeneralWrapper = styled.div``;
+
+interface PowerUpHeadingContentProps {
+  isDetailShown?: boolean;
+}
+
+export const PowerUpHeadingContent = styled.div<PowerUpHeadingContentProps>`
+  ${({ isDetailShown }) =>
+    isDetailShown
+      ? css`
+          animation: ${fadeIn} 0.5s forwards;
+        `
+      : "display: none;"};
+`;
+
+export const PowerUpColumn = styled(BaseColumn)`
+  ${GeneralText},${Heading2} {
+    opacity: 0;
+    animation: ${fadeIn} 0.5s forwards;
+  }
+`;
 
 export const TimerHeaderDivider = styled(VerticalDivider)`
   height: ${lineHeights.body.md};

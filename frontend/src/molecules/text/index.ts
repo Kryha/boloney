@@ -1,6 +1,6 @@
 export * from "./styles";
 export * from "./info";
-export * from "./power-up";
+export * from "./power-up-heading";
 export * from "./text-with-link";
 export * from "./text-with-component";
 export * from "./timer-header";

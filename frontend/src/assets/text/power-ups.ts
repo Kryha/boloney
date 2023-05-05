@@ -2,6 +2,7 @@ export const powerUps = {
   settingItUp: "setting it up!",
   yourPowerUps: "your power-ups!",
   seeDetails: "see details",
+  hideDetails: "hide details",
   useIt: "use it",
   getYourPowerUps: "get your power-ups!",
   theTotalSumOfTheDice: "the total sum of the dice is...",

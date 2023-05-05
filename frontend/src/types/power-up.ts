@@ -30,6 +30,7 @@ export const powerUpSchema = z.object({
   name: z.string(),
   shortDescription: z.string(),
   longDescription: z.string(),
+  exampleDescription: z.string().optional(),
   cardImage: z.string(),
   isImageLarge: z.boolean(),
 });

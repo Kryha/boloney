@@ -56,7 +56,6 @@ import {
   SwitchWrapper,
   SwitchInput,
   Slider,
-  Card,
   BodyText,
   Heading1,
   Heading2,
@@ -71,7 +70,6 @@ import { PickAction } from "../../components/player-turns/pick-action";
 import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET } from "../../constants";
 import { color, buttonSize, fonts, fontSizes, fontWeights, images, layoutHeight, lineHeights, spacing } from "../../design";
 import {
-  PowerUpText,
   TextWithLink,
   TimerHeader,
   TertiaryButton,
@@ -91,6 +89,11 @@ import {
 } from "../../molecules";
 import { getPowerUp, range } from "../../util";
 import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout } from "./styles";
+import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
+
+const onClick = () => {
+  console.log("Button works");
+};
 
 export const Test: FC = () => {
   const powerUp1 = getPowerUp("1");
@@ -102,6 +105,8 @@ export const Test: FC = () => {
   const powerUp7 = getPowerUp("7");
   const powerUp8 = getPowerUp("8");
   const powerUp9 = getPowerUp("9");
+  const [isDetailsShown, setIsDetailsShown] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
   const [isChecked, setChecked] = useState(false);
   const [isModalShown, setModalShown] = useState(false);
   const [isModalShownNoButton, setModalShownNoButton] = useState(false);
@@ -176,133 +181,55 @@ export const Test: FC = () => {
       <br />
       <br />
       <BaseRow gap={spacing.s}>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp1.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp1.name} description={text.param.zeroAmount(powerUp2.id)} />
-          </AlignColumn>
-        </Card>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp2.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp2.name} description={text.param.zeroAmount(powerUp2.id)} />
-          </AlignColumn>
-        </Card>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp3.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp3.name} description={text.param.zeroAmount(powerUp3.id)} />
-          </AlignColumn>
-        </Card>
+        <PowerUpCard
+          powerUpKey={1}
+          powerUp={powerUp1}
+          isDetailShown={isDetailsShown}
+          setDetailsShown={setIsDetailsShown}
+          onClickRadio={onClick}
+        />
+        <PowerUpCard powerUpKey={3} powerUp={powerUp2} onClickButton={onClick} />
+        <PowerUpCard powerUpKey={4} powerUp={powerUp3} isPowerUpDisabled />
       </BaseRow>
       <br />
       <BaseRow gap={spacing.s}>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp4.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp4.name} description={text.param.zeroAmount(powerUp4.id)} />
-          </AlignColumn>
-        </Card>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp5.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp5.name} description={text.param.zeroAmount(powerUp5.id)} />
-          </AlignColumn>
-        </Card>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp6.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp6.name} description={text.param.zeroAmount(powerUp6.id)} />
-          </AlignColumn>
-        </Card>
+        <PowerUpCard
+          powerUpKey={5}
+          powerUp={powerUp4}
+          isDetailShown={isToggled}
+          setDetailsShown={() => setIsToggled(!isToggled)}
+          onClickCheck={onClick}
+        />
+        <PowerUpCard powerUpKey={6} powerUp={powerUp5} />
+        <PowerUpCard powerUpKey={7} powerUp={powerUp6} />
       </BaseRow>
       <br />
       <BaseRow gap={spacing.s}>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp7.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp7.name} description={text.param.zeroAmount(powerUp7.id)} />
-          </AlignColumn>
-        </Card>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp8.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp8.name} description={text.param.zeroAmount(powerUp8.id)} />
-          </AlignColumn>
-        </Card>
-        <Card padding={spacing.s}>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp9.cardImage} />
-            <PowerUpText headingColor={color.mediumGrey} heading={powerUp9.name} description={text.param.zeroAmount(powerUp9.id)} />
-          </AlignColumn>
-        </Card>
+        <PowerUpCard powerUpKey={8} powerUp={powerUp7} />
+        <PowerUpCard powerUpKey={9} powerUp={powerUp8} />
+        <PowerUpCard powerUpKey={2} powerUp={powerUp9} />
       </BaseRow>
       <br />
       <br />
       Power up hover text
       <br />
       <br />
-      <Card padding={spacing.s}>
-        <AlignColumn justifyContent="flex-end">
-          <PowerUpText headingColor={color.mediumGrey} heading={powerUp9.name} description={powerUp9.shortDescription} gap={spacing.xs} />
-        </AlignColumn>
-      </Card>
       <br />
       <br />
       <BaseRow gap={spacing.s}>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp1.cardImage} />
-          </AlignColumn>
-        </Card>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp2.cardImage} />
-          </AlignColumn>
-        </Card>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp3.cardImage} />
-          </AlignColumn>
-        </Card>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp4.cardImage} />
-          </AlignColumn>
-        </Card>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp5.cardImage} />
-          </AlignColumn>
-        </Card>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp6.cardImage} />
-          </AlignColumn>
-        </Card>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp7.cardImage} />
-          </AlignColumn>
-        </Card>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp8.cardImage} />
-          </AlignColumn>
-        </Card>
-        <Card isSmall>
-          <AlignColumn justifyContent="center">
-            <CenteredImage src={powerUp9.cardImage} />
-          </AlignColumn>
-        </Card>
+        <PowerUpSmall powerUpImage={powerUp1.cardImage} />
+        <PowerUpSmall powerUpImage={powerUp2.cardImage} />
+        <PowerUpSmall powerUpImage={powerUp3.cardImage} />
+        <PowerUpSmall powerUpImage={powerUp4.cardImage} />
+        <PowerUpSmall powerUpImage={powerUp5.cardImage} />
+        <PowerUpSmall powerUpImage={powerUp6.cardImage} />
+        <PowerUpSmall powerUpImage={powerUp7.cardImage} />
+        <PowerUpSmall powerUpImage={powerUp8.cardImage} />
+        <PowerUpSmall powerUpImage={powerUp9.cardImage} />
       </BaseRow>
       <br />
       <br />
-      <Card isSmall isEmpty>
-        <BaseRow alignItems="center">
-          <GeneralText>{"+4"}</GeneralText>
-        </BaseRow>
-      </Card>
+      <PowerUpSmall isEmpty />
       <br />
       <br />
       <br />
