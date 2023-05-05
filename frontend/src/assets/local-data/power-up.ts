@@ -29,8 +29,8 @@ export const POWER_UP_DATA: Record<PowerUpId, PowerUp> = {
   "4": {
     id: "4",
     name: "double up",
-    shortDescription: "draw 2 extra cards.",
-    longDescription: "draw 2 extra cards.",
+    shortDescription: "gain 2 power-ups.",
+    longDescription: "gain 2 power-ups.",
     cardImage: DoubleUp,
     isImageLarge: true,
   },
@@ -53,7 +53,7 @@ export const POWER_UP_DATA: Record<PowerUpId, PowerUp> = {
   "7": {
     id: "7",
     name: "coup",
-    shortDescription: "target player re-rolls all of their power-ups.",
+    shortDescription: "destroy all your power-ups and gain an equal amount of new power-ups.",
     longDescription: "destroy all your power-ups and gain an equal amount of new power-ups.",
     cardImage: Coup,
     isImageLarge: true,
@@ -61,15 +61,15 @@ export const POWER_UP_DATA: Record<PowerUpId, PowerUp> = {
   "8": {
     id: "8",
     name: "smoke and Mirrors",
-    shortDescription: "shuffle player order then skip your turn.",
-    longDescription: "shuffle player order then skip your turn.",
+    shortDescription: "shuffle the player order and skip your turn.",
+    longDescription: "shuffle the player order and skip your turn.",
     cardImage: SmokeAndMirrors,
     isImageLarge: false,
   },
   "9": {
     id: "9",
     name: "hypnosis",
-    shortDescription: "target opponent reveals their hand to you, you choose one of their cards to gain to your hand.",
+    shortDescription: "target player reveals their power-ups to you, choose one to be transferred to you.",
     longDescription: "target player reveals their power-ups to you, choose one to be transferred to you.",
     cardImage: Hypnosis,
     isImageLarge: true,
