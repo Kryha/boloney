@@ -12,6 +12,7 @@ export const NewMatch: FC = () => {
       leftSection={<Logo />}
       mainSection={matchId ? <NewMatchConfirmation matchId={matchId} /> : <NewMatchCreation setMatchId={setMatchId} />}
       rightSection={<TopNavigation />}
+      showFooter={!matchId}
     />
   );
 };

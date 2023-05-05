@@ -31,6 +31,9 @@ export const MainSection = styled.section`
   width: 62.5vw;
   border-right: 1px solid ${color.mediumGrey};
   border-left: 1px solid ${color.mediumGrey};
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 `;
 
 export const RightSection = styled.section`

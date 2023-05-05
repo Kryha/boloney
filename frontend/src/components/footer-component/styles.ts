@@ -1,16 +1,12 @@
 import styled from "@emotion/styled";
 import { BaseRow } from "../../atoms";
-import { spacing } from "../../design";
+import { breakpoints, spacing } from "../../design";
 import { GeneralLinkContainer, GeneralLinkWrapper } from "../links/styles";
-
-interface FooterWrapperProps {
-  isMobile: boolean;
-}
 
 export const LinkWrapper = styled.div``;
 
-export const FooterWrapper = styled(BaseRow)<FooterWrapperProps>`
-  padding-left: ${spacing.xxl};
+export const FooterWrapper = styled(BaseRow)`
+  justify-content: space-evenly;
   ${GeneralLinkWrapper} {
     width: fit-content;
     padding-top: 0px;
@@ -21,4 +17,8 @@ export const FooterWrapper = styled(BaseRow)<FooterWrapperProps>`
     gap: 0px;
   }
   padding-bottom: ${spacing.xxl};
+
+  @media (max-width: ${breakpoints.md}) {
+    padding-left: ${spacing.md};
+  }
 `;

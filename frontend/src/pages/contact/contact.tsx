@@ -6,5 +6,5 @@ export const ContactPage: FC = () => {
   const isMobile = useIsMobile();
   const leftSection = isMobile || <Logo />;
 
-  return <EqualLayout leftSection={leftSection} mainSection={<ContactComponent isMobile={isMobile} />} />;
+  return <EqualLayout leftSection={leftSection} mainSection={<ContactComponent />} />;
 };

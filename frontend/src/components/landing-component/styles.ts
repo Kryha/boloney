@@ -32,15 +32,6 @@ export const AppNameContainer = styled.div`
   justify-content: center;
 `;
 
-export const BottomTextContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  padding: 60px 40px;
-  gap: 10px;
-  width: 100%;
-`;
-
 export const LandingComponentWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -146,19 +137,6 @@ export const LargeHeadingWrapper = styled(TopLandingWrapper)<Props>`
   padding-right: 40px;
   padding-top: 120px;
   padding-bottom: 60px;
-`;
-
-export const LinkContainer = styled(TopLandingWrapper)<Props>`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px 40px 80px;
-  gap: 10px;
-  justify-content: space-between;
-  @media (max-width: ${breakpoints.md}) {
-    flex-direction: column;
-    padding: 0px ${spacing.md} ${spacing.xl};
-  }
 `;
 
 export const VisibilityContainer = styled.div`

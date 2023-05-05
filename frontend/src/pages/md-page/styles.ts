@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Heading2 } from "../../atoms";
 
-export const PrivacyWrapper = styled.div`
+export const MdWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

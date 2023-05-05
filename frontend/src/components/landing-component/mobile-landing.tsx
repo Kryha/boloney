@@ -12,7 +12,7 @@ import {
 import { BaseIcon, BaseRow, FluidImage, GeneralRow } from "../../atoms";
 import { color, fontSizes, fontWeights, iconSize, lineHeights, mobileHeight } from "../../design";
 import { LargeInfoHeading, NumberedDescriptionText, NumberedSection, ParagraphDescription } from "../../molecules";
-import { BottomLinkSection } from "./bottom-link-section";
+import { FooterComponent } from "../footer-component";
 import { ChatterHeading, HeadingContainer, PaintedHand, ParagraphContainer } from "./styles";
 
 export const MobileLanding: FC = () => {
@@ -144,7 +144,8 @@ export const MobileLanding: FC = () => {
           headingTransformation="lowercase"
         />
       </ChatterHeading>
-      <BottomLinkSection linkFontSize={fontSizes.heading4} linkLineHeight={lineHeights.heading4} />
+
+      <FooterComponent />
     </>
   );
 };

@@ -5,16 +5,10 @@ import { routes } from "../../navigation";
 import { GeneralLink, SocialMediaImageLinks, WebsiteLink } from "../links";
 import { FooterWrapper, LinkWrapper } from "./styles";
 
-interface Props {
-  isMobile: boolean;
-}
-
-// TODO: Reuse this component reusable for other views e.g. Landing.
-export const FooterComponent: FC<Props> = ({ isMobile }) => {
+export const FooterComponent: FC = () => {
   return (
-    <FooterWrapper isMobile={isMobile} mobileGap={spacing.xxl} alignItems="flex-start" gap={spacing.lg}>
+    <FooterWrapper mobileGap={spacing.xxl} alignItems="flex-start" gap={spacing.lg}>
       <SocialMediaImageLinks />
-      {/* TODO: Change links. */}
       <LinkWrapper>
         <GeneralLink
           heading={text.contact.importantThings}

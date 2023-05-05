@@ -9,12 +9,7 @@ import { GeneralLink } from "../links";
 import { TopNavigation } from "../top-navigation";
 import { ButtonWrapper, ContactWrapper, ContactImage, ContentWrapper, NavigationContainer } from "./styles";
 
-interface Props {
-  isMobile: boolean;
-}
-
-export const ContactComponent: FC<Props> = ({ isMobile }) => {
-
+export const ContactComponent: FC = () => {
   const handleBugFormClick = () => {
     window.open(BUG_FORM_LINK, BLANK_TARGET_LINK);
   };
@@ -22,7 +17,7 @@ export const ContactComponent: FC<Props> = ({ isMobile }) => {
   const handleFeedbackFormClick = () => {
     window.open(FEEDBACK_FORM_LINK, BLANK_TARGET_LINK);
   };
-  
+
   return (
     <>
       <NavigationContainer>
@@ -45,10 +40,9 @@ export const ContactComponent: FC<Props> = ({ isMobile }) => {
             {text.contact.tellUsAboutBug}
           </Heading5>
           <ButtonWrapper>
-            <PrimaryButton primaryText={text.contact.spottedBug} onClick={() =>  handleBugFormClick()} />
+            <PrimaryButton primaryText={text.contact.spottedBug} onClick={() => handleBugFormClick()} />
           </ButtonWrapper>
 
-          {/* TODO: add onClick func */}
           <Heading4>{text.contact.wantToSayHi}</Heading4>
           <Heading5 font={fonts.primary} fontWeight={fontWeights.light}>
             {text.contact.doYouHaveQuestions}
@@ -63,7 +57,7 @@ export const ContactComponent: FC<Props> = ({ isMobile }) => {
           />
         </ContentWrapper>
 
-        <FooterComponent isMobile={isMobile} />
+        <FooterComponent />
       </ContactWrapper>
     </>
   );

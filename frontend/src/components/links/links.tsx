@@ -31,6 +31,41 @@ export const EmailLink: FC<Props> = ({ linkText, customcolor, fontWeight, fontSi
   );
 };
 
+interface PartialLinkProps extends Props {
+  preLinkText?: string;
+  afterLinkText?: string;
+}
+
+export const PartialLink: FC<PartialLinkProps> = ({
+  linkText,
+  link,
+  customcolor,
+  fontWeight,
+  fontSize,
+  lineHeight,
+  font,
+  transformText,
+  preLinkText = "",
+  afterLinkText = "",
+}) => {
+  return (
+    <>
+      {preLinkText}
+      <WebsiteLink
+        linkText={linkText}
+        customcolor={customcolor}
+        fontWeight={fontWeight}
+        fontSize={fontSize}
+        lineHeight={lineHeight}
+        font={font}
+        transformText={transformText}
+        link={link}
+      />
+      {afterLinkText}
+    </>
+  );
+};
+
 export const WebsiteLink: FC<Props> = ({
   linkText,
   link,

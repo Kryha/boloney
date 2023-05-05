@@ -62,7 +62,7 @@ export const EndOfMatch: FC = () => {
         ))}
 
         <BottomButtonWrapper bottomPosition={layoutWidth.none} leftPosition={layoutWidth.sm}>
-          <PrimaryButton primaryText={text.match.homePage} onClick={() => navigate(routes.feedback)} />
+          <PrimaryButton primaryText={text.general.continueWithAction} onClick={() => navigate(routes.feedback)} />
         </BottomButtonWrapper>
       </EndOfMatchWrapper>
     </FadeTransition>
