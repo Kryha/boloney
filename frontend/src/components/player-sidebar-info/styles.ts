@@ -6,6 +6,7 @@ import { BaseColumn, RadioInput } from "../../atoms";
 interface SidebarInfoContainerProps {
   isLastBid: boolean;
   isTotalPlayers: boolean;
+  isTargetable?: boolean;
 }
 
 export const PlayerSidebarInfoContainer = styled.div<SidebarInfoContainerProps>`
@@ -15,6 +16,7 @@ export const PlayerSidebarInfoContainer = styled.div<SidebarInfoContainerProps>`
   padding: 0px;
   gap: clamp(14px, 1.04vw + 4px, 24px);
   position: absolute;
+  ${({ isTargetable }) => isTargetable && "cursor: pointer;"}
   right: 0;
   top: 0;
   width: ${wrapperSize.md};

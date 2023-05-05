@@ -112,3 +112,21 @@ export const RadioButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+interface PlayerLastBidWrapperProps {
+  isLastBid: boolean;
+  isTargetable?: boolean;
+}
+
+export const PlayerLastBidWrapper = styled.div<PlayerLastBidWrapperProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  ${({ isTargetable }) => isTargetable && "cursor: pointer;"}
+  right: 0;
+  width: ${wrapperSize.md};
+  height: 100%;
+  background: ${({ isLastBid }) => (isLastBid ? color.grey : color.transparent)};
+  justify-content: center;
+`;

@@ -58,7 +58,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
     >
       <PlayerBadge player={player} lastAction={lastAction} />
 
-      <MatchPlayersContainer totalPlayers={totalPlayers}>
+      <MatchPlayersContainer totalPlayers={totalPlayers} isTargetable={isTargetable}>
         {hasPlayerLost ? (
           <PlayerAvatarContainer>
             <DeadPlayerAvatar src={avatar} height={avatarHeight[totalPlayers - 1]} />
@@ -84,6 +84,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
         isDisabled={isDisabled}
         isChecked={player.userId === targetPowerUpPlayerId}
         onSelect={handleSelect}
+        isTargetable={isTargetable}
       />
     </MatchPlayersWrapper>
   );

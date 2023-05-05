@@ -24,5 +24,5 @@ export const isPowerUpTriggeredImmediately = (powerUpId: PowerUpId) => {
 };
 
 export const powerupCanNotBeUsedOnPlayer = (targetPlayer: PlayerPublic, powerUpId?: PowerUpId): boolean => {
-  return powerUpId === "9" && targetPlayer.powerUpsAmount < 1;
+  return (powerUpId === "9" || powerUpId === "7") && targetPlayer.powerUpsAmount < 1;
 };

@@ -14,6 +14,7 @@ interface PlayerSidebarInfoProps {
   isChecked?: boolean;
   isDisabled?: boolean;
   onSelect: () => void;
+  isTargetable?: boolean;
 }
 
 export const PlayerSidebarInfo: FC<PlayerSidebarInfoProps> = ({
@@ -21,13 +22,20 @@ export const PlayerSidebarInfo: FC<PlayerSidebarInfoProps> = ({
   lastBid,
   totalPlayers,
   hasRadioButton,
+  isTargetable,
   isDisabled = false,
   isChecked = false,
   onSelect,
 }) => {
+  const isLastBid = lastBid?.userId === player.userId;
+
   return (
-    <PlayerSidebarInfoContainer isLastBid={lastBid?.userId === player.userId} isTotalPlayers={totalPlayers === MAX_PLAYER_SIDEBAR_AMOUNT}>
-      {!!lastBid && <PlayerLastBid lastBid={lastBid} player={player} />}
+    <PlayerSidebarInfoContainer
+      isLastBid={isLastBid}
+      isTotalPlayers={totalPlayers === MAX_PLAYER_SIDEBAR_AMOUNT}
+      isTargetable={isTargetable}
+    >
+      {!!lastBid && isLastBid && <PlayerLastBid lastBid={lastBid} player={player} />}
       {hasRadioButton && <RadioButton isDisabled={isDisabled} onSelect={onSelect} isChecked={isChecked} />}
     </PlayerSidebarInfoContainer>
   );

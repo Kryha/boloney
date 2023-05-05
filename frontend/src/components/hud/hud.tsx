@@ -18,6 +18,7 @@ import {
   LocalPlayerAvatar,
   LocalPlayerInfoContainer,
   Paint,
+  PlayerLastBidWrapper,
   PlayerOverview,
   RadioButtonContainer,
 } from "./styles";
@@ -65,7 +66,11 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
             <RadioButton onSelect={handleSelect} isDisabled={isDisabled} isChecked={targetPlayerId === player.userId} />
           </RadioButtonContainer>
         )}
-        {isPlayerLastBid && <PlayerLastBid player={player} lastBid={lastBid} />}
+        {isPlayerLastBid && (
+          <PlayerLastBidWrapper isLastBid={isPlayerLastBid} isTargetable={isTargetable}>
+            <PlayerLastBid lastBid={lastBid} player={player} />
+          </PlayerLastBidWrapper>
+        )}
         <LocalPlayerInfoContainer>
           <PlayerNameContainer>{localPlayer.username}</PlayerNameContainer>
         </LocalPlayerInfoContainer>

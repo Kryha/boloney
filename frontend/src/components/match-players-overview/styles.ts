@@ -250,6 +250,7 @@ export const PlayerInfoContainer = styled.section`
 
 interface PlayersContainerProps {
   totalPlayers: number;
+  isTargetable?: boolean;
 }
 
 export const MatchPlayersContainer = styled.div<PlayersContainerProps>`
@@ -257,6 +258,7 @@ export const MatchPlayersContainer = styled.div<PlayersContainerProps>`
   height: 14.4vh;
   display: flex;
   flex-direction: column;
+  cursor: ${({ isTargetable }): string => (isTargetable ? "pointer" : "default")};
   ${({ totalPlayers }) => {
     return totalPlayers === 1
       ? `
