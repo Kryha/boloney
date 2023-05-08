@@ -62,12 +62,16 @@ export const ContactImage = styled.img`
   @media (min-width: ${breakpoints.md}) {
     position: absolute;
     width: 170vw;
-    height: 40vw;
+    height: 30vh;
     left: ${mobileHeight.xxs};
-    bottom: ${mobileHeight.xl};
+    bottom: 38vh;
   }
   @media (min-width: ${breakpoints.xl}) {
-    bottom: ${mobileHeight.md};
+    bottom: 30vh;
+    height: 40vh;
+  }
+  @media (min-width: 2200px) {
+    bottom: 45vh;
   }
 `;
 
