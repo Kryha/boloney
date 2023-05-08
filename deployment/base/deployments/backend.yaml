@@ -15,10 +15,10 @@ spec:
         - name: backend
           resources:
             requests:
-              cpu: 470m
+              cpu: 400m
               memory: 1024Mi
             limits:
-              cpu: 470m
+              cpu: 500m
               memory: 2048Mi
           ports:
             - containerPort: 7351

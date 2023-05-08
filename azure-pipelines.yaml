@@ -1,5 +1,6 @@
 trigger:
-  - develop
+  # - develop
+  - fix/pod-resources
 
 pool:
   vmImage: "ubuntu-latest"
