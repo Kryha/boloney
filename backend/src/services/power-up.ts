@@ -340,13 +340,15 @@ const use = async (loopParams: MatchLoopParams, message: nkruntime.MatchMessage,
   dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [senderPresence]);
   const isTargetDataPresent = data && "targetId" in data;
 
-  if (isTargetDataPresent) {
+  // Send notification to target player when target is not the sender
+  if (isTargetDataPresent && sender.userId !== data.targetId) {
     const notificationPayload: NotificationContentUsePowerUp = {
       id,
       callerName: sender.username,
       targetName: state.players[data.targetId].username,
     };
     sendMatchNotification(loopParams, NotificationOpCode.USE_POWER_UP, notificationPayload, [data.targetId]);
+    // Send notification to all players except sender when ending turn power-up is used
   } else if (isPowerUpEndingTurn(id)) {
     const notificationPayload: NotificationContentUsePowerUp = {
       id,
