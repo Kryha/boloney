@@ -19,7 +19,7 @@ export const Tooltip: FC<TooltipProps> = ({ title, info, infoPosition, isButtonW
   return (
     <ButtonInfoWrap>
       <TooltipInfo title={title} content={info} position={infoPosition} isButtonWithHelper={isButtonWithHelper} zIndex={zIndex}>
-        <BaseIcon src={<InfoIconSVG />} cursor iconColor={iconColor} />
+        <BaseIcon src={<InfoIconSVG />} pointer iconColor={iconColor} />
       </TooltipInfo>
     </ButtonInfoWrap>
   );

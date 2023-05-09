@@ -34,7 +34,7 @@ export interface IconProps {
   height?: string;
   iconColor?: string;
   strokeColor?: string;
-  cursor?: boolean;
+  pointer?: boolean;
   radius?: string;
   shadow?: string;
   zIndex?: string;
@@ -87,6 +87,6 @@ export const IconImage = styled.img<IconProps>`
     disabled ? disabledColor || color.mediumGrey : iconColor || color.darkGrey};
 
   :hover {
-    cursor: ${({ cursor }): string => (cursor ? "pointer" : "default")};
+    cursor: ${({ pointer }): string => (pointer ? "pointer" : "default")};
   }
 `;

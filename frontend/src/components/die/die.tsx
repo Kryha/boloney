@@ -23,7 +23,7 @@ interface DieProps {
   isMatchSettings?: boolean;
   isMatchHistory?: boolean;
   iconColor?: string;
-  cursor?: boolean;
+  pointer?: boolean;
   radius?: string;
   shadow?: string;
   pipColor?: string;
@@ -49,7 +49,7 @@ export const findDieFace = (value?: number, diceIcon?: DiceIconProps) => {
   }
 };
 
-export const Die: FC<DieProps> = ({ value, iconColor, size, pipColor, isRow, isTemporaryDice, shadow, cursor, radius, borderColor }) => {
+export const Die: FC<DieProps> = ({ value, iconColor, size, pipColor, isRow, isTemporaryDice, shadow, pointer, radius, borderColor }) => {
   const diceSize = isRow ? iconSize.md : size;
 
   return (
@@ -61,7 +61,7 @@ export const Die: FC<DieProps> = ({ value, iconColor, size, pipColor, isRow, isT
           iconColor: iconColor,
           pipColor: pipColor,
           shadow: shadow,
-          cursor: cursor,
+          pointer: pointer,
           radius: radius,
           isDiceHidden: !value,
           borderColor: borderColor,

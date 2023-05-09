@@ -100,7 +100,7 @@ export const AmountSlider: FC<NumberSliderProps> = ({ lastBid }) => {
             width={iconSize.lg}
             height={iconSize.lg}
             iconColor={color.transparent}
-            cursor
+            pointer
           />
         </ControlButton>
       </ControlButtonWrapper>

@@ -25,7 +25,7 @@ export const DiceIcon: FC<DiceUpProps> = ({
   isMatchSettings,
   customcolor,
   shadow,
-  cursor,
+  pointer,
   radius,
   width,
 }) => {
@@ -40,7 +40,7 @@ export const DiceIcon: FC<DiceUpProps> = ({
         iconColor={iconColor}
         pipColor={pipColor}
         shadow={shadow}
-        cursor={cursor}
+        pointer={pointer}
         radius={radius}
         isMatchSettings={isMatchSettings}
       />

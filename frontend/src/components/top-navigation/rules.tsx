@@ -38,7 +38,7 @@ export const RulesDropdown: FC<Props> = ({ setHover, isActive, setActiveDropdown
       isActive={isActive}
       expand={() => setActiveDropdown("rules")}
       buttonText={text.general.rules}
-      buttonIcon={<BaseIcon src={<InfoIconSVG />} cursor />}
+      buttonIcon={<BaseIcon src={<InfoIconSVG />} pointer />}
       isInMatch={isInMatch}
     >
       <RulesContainer>

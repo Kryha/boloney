@@ -20,7 +20,7 @@ export const Rules: FC<RulesProps> = ({ isOpen, expand }) => {
   return (
     <Dropdown
       isOpen={isOpen}
-      buttonIcon={<BaseIcon src={<InfoIconSVG />} cursor />}
+      buttonIcon={<BaseIcon src={<InfoIconSVG />} pointer />}
       buttonText={text.general.rules}
       expand={expand}
       isBorderless

@@ -40,11 +40,11 @@ export const CookieBanner: FC<Props> = ({
         <BannerWrapper gap={spacing.s}>
           <BannerImageContainer alignItems="flex-end">
             <FluidImage src={img} height={images.fluid} width={popUpWidth.xxs} maxHeight={containerHeight.xl} />
-            <BaseIcon src={<CloseIconSVG />} alignSelf="flex-start" cursor />
+            <BaseIcon src={<CloseIconSVG />} alignSelf="flex-start" pointer />
           </BannerImageContainer>
           <BannerContentWrapper justifyContent="space-between" gap={spacing.s}>
             <NotificationHeading heading={heading} headingColor={headingColor} subheading={subheading} subheadingColor={subheadingColor} />
-            <BaseIcon src={<CloseIconSVG />} alignSelf="flex-start" cursor />
+            <BaseIcon src={<CloseIconSVG />} alignSelf="flex-start" pointer />
           </BannerContentWrapper>
         </BannerWrapper>
         <BannerButtonContainer alignItems="flex-end" justifyContent="flex-end" gap={spacing.sm}>

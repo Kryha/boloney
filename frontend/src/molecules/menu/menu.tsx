@@ -35,26 +35,26 @@ export const Menu: FC<Props> = ({ isOpen, isInMatch = false, isAuthenticated, ha
   const authText = isAuthenticated ? text.general.logout : text.general.login;
 
   return (
-    <Dropdown isOpen={isOpen} buttonText={text.general.menu} buttonIcon={<BaseIcon src={menuIcon} cursor />} expand={expand}>
+    <Dropdown isOpen={isOpen} buttonText={text.general.menu} buttonIcon={<BaseIcon src={menuIcon} pointer />} expand={expand}>
       <MenuWrapper>
         {isInMatch && (
           <MenuButton
             buttonText={text.general.matchSettings}
-            buttonIcon={<IconImage src={RaisedHandIconSVG} cursor />}
+            buttonIcon={<IconImage src={RaisedHandIconSVG} pointer />}
             hasDivider
             expand={() => handleSettings()}
           />
         )}
         <MenuButton
           buttonText={authText}
-          buttonIcon={<BaseIcon src={authIcon} cursor />}
+          buttonIcon={<BaseIcon src={authIcon} pointer />}
           hasDivider={!isInMatch}
           expand={() => handleAuth()}
         />
         {isInMatch && (
           <MenuButton
             buttonText={text.general.leaveMatch}
-            buttonIcon={<BaseIcon src={<ExitIconSVG />} cursor />}
+            buttonIcon={<BaseIcon src={<ExitIconSVG />} pointer />}
             expand={() => handleLeaveMatch()}
           />
         )}

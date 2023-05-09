@@ -38,7 +38,7 @@ export const BaseIconWrapper = styled.div<IconProps>`
     }
 
     :hover {
-      cursor: ${({ cursor }): string => (cursor ? "pointer" : "default")};
+      cursor: ${({ pointer }): string => (pointer ? "pointer" : "default")};
     }
   }
 `;

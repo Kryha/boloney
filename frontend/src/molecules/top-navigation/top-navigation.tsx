@@ -50,7 +50,7 @@ export const TopNavigation: FC<Props> = ({
         <Rules isOpen={activeDropdown === "rules" && isDropdownContentVisible} expand={() => setActiveDropdown("rules")} />
         <Dropdown
           isOpen={activeDropdown === "contact" && isDropdownContentVisible}
-          buttonIcon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} cursor />}
+          buttonIcon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} pointer />}
           buttonText={text.general.contact}
           expand={() => setActiveDropdown("contact")}
         />

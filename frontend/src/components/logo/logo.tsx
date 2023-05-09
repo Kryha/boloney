@@ -12,7 +12,13 @@ export const Logo = () => {
 
   return (
     <LogoContainer>
-      <TextLogoIcon src={<TextBoloneyLogoIconSVG />} width={iconSize.fluid} height={iconSize.auto} cursor onClick={() => navigate(route)} />
+      <TextLogoIcon
+        src={<TextBoloneyLogoIconSVG />}
+        width={iconSize.fluid}
+        height={iconSize.auto}
+        pointer
+        onClick={() => navigate(route)}
+      />
     </LogoContainer>
   );
 };

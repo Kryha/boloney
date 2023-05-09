@@ -15,7 +15,7 @@ export const CookieBanner: FC = () => {
     <CookieBannerContainer>
       <CookieBannerWrapper>
         <CookieImage src={CookieIconSVG} />
-        <BaseIcon src={<CloseIconSVG />} cursor onClick={() => setAnalyticsConsent(false)} alignSelf="flex-start" />
+        <BaseIcon src={<CloseIconSVG />} pointer onClick={() => setAnalyticsConsent(false)} alignSelf="flex-start" />
         <CookieBannerText>
           <Heading6>{text.general.cookieBannerTitle}</Heading6>
           <BodyText>

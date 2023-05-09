@@ -26,7 +26,7 @@ export const Modal: FC<Props> = ({ component, isContained = false, onClose, isVi
       <ModalWrapper>
         {!!onClose && (
           <ModalButtonWrapper>
-            <TertiaryButton text={text.general.close} onClick={onClose} icon={<BaseIcon src={<CloseIconSVG />} cursor />} />
+            <TertiaryButton text={text.general.close} onClick={onClose} icon={<BaseIcon src={<CloseIconSVG />} pointer />} />
           </ModalButtonWrapper>
         )}
         <ModalBlock isContained={isContained}>{component}</ModalBlock>

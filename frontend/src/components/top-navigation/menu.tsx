@@ -55,7 +55,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
     <TertiaryButton
       onClick={() => navigate(routes.contact)}
       text={text.general.contact}
-      icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} cursor />}
+      icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} pointer />}
       isActive={isActive}
       padding={buttonSize.md}
       backgroundColor={color.lightGrey}
@@ -70,7 +70,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
           <TertiaryButton
             onClick={() => handleLogout()}
             text={text.general.logout}
-            icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
+            icon={<BaseIcon src={<LogoutIconSVG />} pointer />}
             isActive={isActive}
             padding={buttonSize.md}
             backgroundColor={color.lightGrey}
@@ -82,7 +82,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
         {contact}
         <TertiaryButton
           text={text.general.login}
-          icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
+          icon={<BaseIcon src={<SettingsIconSVG />} pointer />}
           onClick={() => navigate(routes.login)}
           padding={buttonSize.md}
           backgroundColor={color.lightGrey}
@@ -97,14 +97,14 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       isActive={isActive}
       expand={() => setActiveDropdown("menu")}
       buttonText={text.general.menu}
-      buttonIcon={<EllipsisIcon src={<EllipsisIconSVG />} cursor />}
+      buttonIcon={<EllipsisIcon src={<EllipsisIconSVG />} pointer />}
       isInMatch={location === "match"}
     >
       <MenuContainer location={location}>
         {location && location !== "default" && (
           <TertiaryButton
             text={text.general.matchSettings}
-            icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
+            icon={<BaseIcon src={<SettingsIconSVG />} pointer />}
             onClick={() => handleSettings()}
             isActive={isActive}
             justifyContent="flex-end"
@@ -116,7 +116,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
             <TertiaryButton
               onClick={() => handleLogout()}
               text={text.general.logout}
-              icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
+              icon={<BaseIcon src={<LogoutIconSVG />} pointer />}
               isActive={isActive}
               width={buttonSize.fluid}
               justifyContent="flex-end"
@@ -129,7 +129,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
             <TertiaryButton
               onClick={() => leaveMatch()}
               text={text.general.leaveMatch}
-              icon={<BaseIcon src={<ExitIconSVG />} cursor />}
+              icon={<BaseIcon src={<ExitIconSVG />} pointer />}
               isActive={isActive}
               width={buttonSize.fluid}
               justifyContent="flex-end"
@@ -141,7 +141,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
           <TertiaryButton
             onClick={() => navigate(routes.contact)}
             text={text.general.contact}
-            icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} cursor />}
+            icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} pointer />}
             isActive={isActive}
             padding={buttonSize.md}
             width={buttonSize.fluid}

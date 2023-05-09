@@ -13,7 +13,7 @@ export const MobileDesktopSwitch: FC<Props> = ({ onClick }) => {
   return (
     <>
       <TextLogoContainer>
-        <BaseIcon src={<TextBoloneyLogoIconSVG />} width={mobileWidth.xs} height={mobileHeight.fluid} onClick={onClick} cursor />
+        <BaseIcon src={<TextBoloneyLogoIconSVG />} width={mobileWidth.xs} height={mobileHeight.fluid} onClick={onClick} pointer />
       </TextLogoContainer>
       <MobileContainerWrapper gap={spacing.sm} alignItems="center" justifyContent="center">
         <DesktopSwitchWrapper>

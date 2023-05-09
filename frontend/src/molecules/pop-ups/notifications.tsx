@@ -33,7 +33,7 @@ export const ToastNotifications: FC<Props> = ({ subheading, heading, subheadingC
           <FluidImage src={img} height={images.fluid} width={images.auto} maxHeight={containerHeight.xl} />
           <ToastContentWrapper justifyContent="space-between" gap={spacing.ms}>
             <NotificationHeading heading={heading} headingColor={headingColor} subheading={subheading} subheadingColor={subheadingColor} />
-            <BaseIcon src={<CloseIconSVG />} alignSelf="flex-start" cursor />
+            <BaseIcon src={<CloseIconSVG />} alignSelf="flex-start" pointer />
           </ToastContentWrapper>
         </BaseRow>
       </PopUp>

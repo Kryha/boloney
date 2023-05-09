@@ -6,7 +6,7 @@ export const BaseIcon: FC<BaseIconProps> = ({
   width,
   height,
   iconColor,
-  cursor,
+  pointer,
   radius,
   shadow,
   zIndex,
@@ -24,7 +24,7 @@ export const BaseIcon: FC<BaseIconProps> = ({
       height={height}
       iconColor={iconColor}
       pipColor={pipColor}
-      cursor={cursor}
+      pointer={pointer}
       radius={radius}
       shadow={shadow}
       zIndex={zIndex}
@@ -45,7 +45,7 @@ export const DiceIcon: FC<DiceIconProps> = ({
   width,
   height,
   iconColor,
-  cursor,
+  pointer,
   radius,
   shadow,
   zIndex,
@@ -62,7 +62,7 @@ export const DiceIcon: FC<DiceIconProps> = ({
       height={height}
       iconColor={iconColor}
       pipColor={pipColor}
-      cursor={cursor}
+      pointer={pointer}
       radius={radius}
       shadow={shadow}
       zIndex={zIndex}

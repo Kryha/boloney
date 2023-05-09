@@ -46,7 +46,7 @@ export const NewMatchConfirmation: FC<Props> = ({ matchId }) => {
           isCopied={isLinkCopied}
         >
           <Link text={matchUrl} transformText="none" fontSize={fontSizes.generalText} lineHeight={lineHeights.generalText} />
-          <BaseIcon src={<CopyIconSVG />} cursor />
+          <BaseIcon src={<CopyIconSVG />} pointer />
           <LinkCopied isCopied={isLinkCopied}>
             <GeneralText>{text.general.copied}</GeneralText>
           </LinkCopied>
