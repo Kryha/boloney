@@ -15,11 +15,11 @@ spec:
         - name: frontend
           resources:
             requests:
-              cpu: 300m
+              cpu: 100m
               memory: 128Mi
             limits:
-              memory: 1024Mi
-              cpu: "2"
+              cpu: 500m
+              memory: 512Mi
           ports:
             - containerPort: 80
           env:
