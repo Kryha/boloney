@@ -20,7 +20,7 @@ import { useStore } from "../../store";
 import { powerupCanNotBeUsedOnPlayer, powerUpRequiresTarget } from "../../util";
 import { useLatestBid } from "../../service";
 import { Hand } from "../hand";
-import { handProportion } from "../../design";
+import { fonts, handProportion } from "../../design";
 
 interface MatchPlayerProps {
   totalPlayers: number;
@@ -69,7 +69,7 @@ export const MatchPlayer: FC<MatchPlayerProps> = ({ totalPlayers, player }) => {
             <Hand avatarName={avatarName} isTargetable={isTargetable} isAnimationDisabled height={avatarHeight[totalPlayers - 1]} />
             <PlayerInfoContainer>
               <PlayerNameContainer>
-                <Name>{player.username}</Name>
+                <Name font={fonts.tertiary}>{player.username}</Name>
               </PlayerNameContainer>
               <PlayerMatchState player={player} playerRoundData={playerRoundData} />
             </PlayerInfoContainer>

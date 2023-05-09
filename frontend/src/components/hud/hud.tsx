@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { avatars } from "../../assets/local-data/avatar";
-import { handProportion, measurements } from "../../design";
+import { fonts, handProportion, measurements } from "../../design";
 import { useLatestBid, useLocalPlayer } from "../../service";
 import { useStore } from "../../store";
 import { Die, PlayerPublic, PowerUpId } from "../../types";
@@ -72,7 +72,7 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
           </PlayerLastBidWrapper>
         )}
         <LocalPlayerInfoContainer>
-          <PlayerNameContainer>{localPlayer.username}</PlayerNameContainer>
+          <PlayerNameContainer font={fonts.tertiary}>{localPlayer.username}</PlayerNameContainer>
         </LocalPlayerInfoContainer>
       </LocalPlayer>
 

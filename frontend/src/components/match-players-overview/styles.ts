@@ -246,6 +246,7 @@ export const PlayerInfoContainer = styled.section`
     margin-top: 0 !important;
   }
   padding-left: 0.62em;
+  padding-bottom: ${margins.small1};
 `;
 
 interface PlayersContainerProps {
