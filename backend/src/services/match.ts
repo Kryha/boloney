@@ -290,6 +290,7 @@ export const updatePlayersState = (state: MatchState, dispatcher: nkruntime.Matc
       };
 
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
+      dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [presence]);
     })
   );
 };

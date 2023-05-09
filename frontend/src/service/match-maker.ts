@@ -13,7 +13,6 @@ export const useJoinMatch = (matchId: string) => {
   const [isLoading, setIsLoading] = useState(true);
   const session = useSession();
   const setMatchId = useStore((state) => state.setMatchId);
-  const setIsJoining = useStore((state) => state.setIsJoining);
   const setChannelId = useStore((state) => state.setChannelId);
   const clearMessages = useStore((state) => state.clearMessages);
   const aleoAccount = useStore((state) => state.aleoAccount);
@@ -22,7 +21,6 @@ export const useJoinMatch = (matchId: string) => {
     const joinMatch = async () => {
       if (!session?.username || !aleoAccount) return;
       try {
-        setIsJoining(true);
         const tkData = await getHashChain(aleoAccount);
 
         const metadata: MatchJoinMetadata = { username: session.username, hashChain: tkData.hashChain, seed: tkData.seed };
@@ -33,14 +31,13 @@ export const useJoinMatch = (matchId: string) => {
         setChannelId(channelId);
         clearMessages();
       } catch (error) {
-        setIsJoining(false);
         console.error(error);
       } finally {
         setIsLoading(false);
       }
     };
     joinMatch();
-  }, [aleoAccount, clearMessages, matchId, session, setChannelId, setIsJoining, setMatchId]);
+  }, [aleoAccount, clearMessages, matchId, session, setChannelId, setMatchId]);
 
   return isLoading;
 };

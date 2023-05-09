@@ -35,7 +35,6 @@ interface RoundState {
 }
 
 export interface MatchSliceState extends RoundState {
-  isJoining: boolean;
   matchId?: string;
   matchStage: MatchStage;
   players: Record<string, PlayerPublic>;
@@ -55,7 +54,6 @@ export interface MatchSliceState extends RoundState {
 }
 
 interface MatchSliceSetters {
-  setIsJoining: (isJoining: boolean) => void;
   setMatchId: (matchId: string) => void;
   setDiceValue: (diceValue: Die[]) => void;
   setMatchStage: (matchStage: MatchStage) => void;
@@ -104,7 +102,6 @@ const initialRoundState: RoundState = {
 };
 
 const initialMatchState: MatchSliceState = {
-  isJoining: false,
   matchStage: "lobbyStage",
   players: {},
   playerOrder: [],
@@ -124,7 +121,6 @@ const initialMatchState: MatchSliceState = {
 export const createMatchSlice: StateCreator<MatchSlice, [], [], MatchSlice> = (set, get) => ({
   ...initialMatchState,
 
-  setIsJoining: (isJoining) => set(() => ({ isJoining })),
   setMatchId: (matchId) => set(() => ({ matchId })),
   setDiceValue: (diceValue) => set(() => ({ diceValue, hasRolledDice: true })),
   setMatchStage: (matchStage) => set(() => ({ matchStage })),

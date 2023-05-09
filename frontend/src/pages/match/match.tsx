@@ -59,7 +59,6 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const session = useSession();
 
   const matchStage = useStore((state) => state.matchStage);
-  const isJoining = useStore((state) => state.isJoining);
   const setMatchStage = useStore((state) => state.setMatchStage);
   const setPlayers = useStore((state) => state.setPlayers);
   const setPlayerOrder = useStore((state) => state.setPlayerOrder);
@@ -74,7 +73,6 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
   const resetRound = useStore((state) => state.resetRound);
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const setMatchState = useStore((state) => state.setMatchState);
-  const setIsJoining = useStore((state) => state.setIsJoining);
   const setStageNumberAndCounter = useStore((state) => state.setStageNumberAndCounter);
   const setTimerTimeInSeconds = useStore((state) => state.setTimerTimeInSeconds);
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
@@ -182,7 +180,6 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           setTimerTimeInSeconds(parsed.data.remainingStageTime);
           clearHistory();
           setMatchState(parsed.data.matchState);
-          setIsJoining(false);
           break;
         }
         case MatchOpCode.PLAYER_READY: {
@@ -323,7 +320,6 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     setBids,
     setDiceValue,
     setHistoryEvents,
-    setIsJoining,
     setLastAction,
     setLeaderboard,
     setMatchStage,
@@ -343,7 +339,7 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
     stageNumber,
   ]);
 
-  if (isLoading || isJoining) return <Loading />;
+  if (isLoading) return <Loading />;
 
   if (matchStage === "lobbyStage") return <Lobby />;
 

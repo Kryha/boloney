@@ -141,7 +141,7 @@ export const useMatch = () => {
         if (!matchId) throw new Error(text.error.noMatchIdFound);
 
         setIsLoading(true);
-        nakama.socket.sendMatchState(matchId, opCode, payload || "");
+        await nakama.socket.sendMatchState(matchId, opCode, payload || "");
       } catch (error) {
         console.warn("Error sending match state:", error);
         const parsedErr = await parseError(error);
