@@ -95,7 +95,7 @@ export const CreateAccountForm: FC = () => {
           <SignOrJoinContainer width={width} height={height}>
             <BodyText>{text.authForm.iAlreadyHaveAnAccount}</BodyText>
             <Link transformText="none" fontSize={fontSizes.body} onClick={() => navigate(routes.login)} text={text.authForm.here} />
-            <PrimaryButton buttonType="submit" primaryText={text.authForm.join} loading={isLoadingSpinnerVisible} />
+            <PrimaryButton buttonType="submit" primaryText={text.authForm.join} isLoading={isLoadingSpinnerVisible} />
           </SignOrJoinContainer>
         </FormContainer>
       </form>

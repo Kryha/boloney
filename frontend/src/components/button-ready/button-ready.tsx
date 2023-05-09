@@ -23,5 +23,5 @@ export const ButtonReady: FC = () => {
     playSound(buttonPress);
   };
 
-  return <PrimaryButton disabled={isLoser} primaryText={text.match.goForIt} onClick={() => handleClick()} loading={isPlayerReady} />;
+  return <PrimaryButton disabled={isLoser} primaryText={text.match.goForIt} onClick={() => handleClick()} isLoading={isPlayerReady} />;
 };

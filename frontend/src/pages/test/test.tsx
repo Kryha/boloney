@@ -748,7 +748,7 @@ export const Test: FC = () => {
       loading
       <br />
       <br />
-      <PrimaryButton primaryText="Primary buttons" secondaryText="hover button" loading />
+      <PrimaryButton primaryText="Primary buttons" secondaryText="hover button" isLoading />
       <br />
       <br />
       <PickAction />

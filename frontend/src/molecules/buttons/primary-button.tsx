@@ -15,7 +15,7 @@ interface PrimaryButtonProps {
   tooltipInfo?: string;
   tooltipInfoPosition?: InfoPosition;
   width?: string;
-  loading?: boolean;
+  isLoading?: boolean;
   icon?: ReactNode;
   iconPosition?: string;
 }
@@ -27,20 +27,26 @@ export const PrimaryButton: FC<PrimaryButtonProps> = ({
   secondaryText,
   buttonType = "button",
   width,
-  loading,
+  isLoading,
 }) => {
   return (
     <PrimaryButtonWrapper onClick={() => onClick && onClick()} disabled={disabled}>
-      <PrimaryButtonContainer disabled={disabled} width={width} loading={loading}>
+      <PrimaryButtonContainer disabled={disabled} width={width} isLoading={isLoading}>
         <SecondaryView className="box">
-          <PrimaryButtonBase type={buttonType} backgroundColor={color.black} disabled={disabled} loading={loading} fontColor={color.white}>
+          <PrimaryButtonBase
+            type={buttonType}
+            backgroundColor={color.black}
+            disabled={disabled}
+            isLoading={isLoading}
+            fontColor={color.white}
+          >
             {secondaryText ?? primaryText}
           </PrimaryButtonBase>
         </SecondaryView>
         <InitialButtonView>
-          <PrimaryButtonBase type={buttonType} disabled={disabled} loading={loading}>
+          <PrimaryButtonBase type={buttonType} disabled={disabled} isLoading={isLoading}>
             {primaryText}
-            {loading && <ContentLoader loading />}
+            {isLoading && <ContentLoader isLoading />}
           </PrimaryButtonBase>
         </InitialButtonView>
       </PrimaryButtonContainer>

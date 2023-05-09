@@ -6,7 +6,7 @@ import { BaseIconWrapper } from "../../atoms";
 interface ButtonProps {
   disabled?: boolean;
   width?: string;
-  loading?: boolean;
+  isLoading?: boolean;
 }
 
 export const InitialButtonView = styled.span`
@@ -27,8 +27,8 @@ export const SecondaryView = styled.span`
 `;
 
 export const PrimaryButtonContainer = styled.div<ButtonProps>`
-  ${({ disabled, width, loading }) =>
-    disabled || loading
+  ${({ disabled, width, isLoading }) =>
+    disabled || isLoading
       ? ""
       : `
         transform-origin: center;
@@ -51,10 +51,10 @@ export const PrimaryButtonContainer = styled.div<ButtonProps>`
 `;
 
 export const PrimaryButtonWrapper = styled.div<ButtonProps>`
-  cursor: ${({ disabled, loading }) => (disabled || loading ? "default" : "pointer")};
+  cursor: ${({ disabled, isLoading }) => (disabled || isLoading ? "default" : "pointer")};
   ${BaseIconWrapper} {
     path {
-      fill: ${({ disabled, loading }): string => (disabled || loading ? color.darkGrey : color.black)};
+      fill: ${({ disabled, isLoading }): string => (disabled || isLoading ? color.darkGrey : color.black)};
     }
   }
 `;

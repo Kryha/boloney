@@ -10,7 +10,7 @@ export interface GeneralButtonProps {
   tooltipTitle?: string;
   tooltipInfo?: string;
   tooltipInfoPosition?: InfoPosition;
-  loading?: boolean;
+  isLoading?: boolean;
   icon?: ReactNode;
   iconPosition?: IconPosition;
   padding?: string;

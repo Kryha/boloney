@@ -3,7 +3,7 @@ import { SausageSpinner } from "../spinner";
 import { SpinnerContainer } from "./styles";
 
 interface ContentLoaderProps {
-  loading: boolean;
+  isLoading: boolean;
   children?: React.ReactNode;
 }
 
@@ -13,6 +13,6 @@ export const LoadingPage: FC = () => (
   </SpinnerContainer>
 );
 
-export const ContentLoader: FC<ContentLoaderProps> = ({ loading, children }) => {
-  return <>{loading ? <LoadingPage /> : children}</>;
+export const ContentLoader: FC<ContentLoaderProps> = ({ isLoading, children }) => {
+  return <>{isLoading ? <LoadingPage /> : children}</>;
 };

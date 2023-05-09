@@ -46,7 +46,7 @@ export const MatchSelect: FC = () => {
           {/* TODO: abstract this button in a component, together with the useEffect and the join function */}
           <ButtonContainer>
             <Tooltip title={text.home.quickPlay} info={text.home.quickPlayDescription} infoPosition="top" zIndex={zIndex.inFront} />
-            <PrimaryButton primaryText={text.home.quickPlay} onClick={() => joinMatchPool()} loading={isLoadingSpinnerVisible} />
+            <PrimaryButton primaryText={text.home.quickPlay} onClick={() => joinMatchPool()} isLoading={isLoadingSpinnerVisible} />
           </ButtonContainer>
           <ButtonContainer>
             <Tooltip title={text.home.createMatch} info={text.home.createMatchDescription} infoPosition="top" zIndex={zIndex.inFront} />

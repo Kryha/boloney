@@ -8,7 +8,7 @@ import { BaseIconWrapper } from "./icon-wrappers";
 export type IconPosition = "row" | "column" | "row-reverse" | "column-reverse" | "start" | "end";
 
 interface Props {
-  loading?: boolean;
+  isLoading?: boolean;
   fontColor?: string;
   backgroundColor?: string;
   padding?: string;
@@ -49,8 +49,8 @@ export const PrimaryButtonBase = styled.button<Props>`
     cursor: default;
   }
 
-  ${({ loading }) =>
-    loading &&
+  ${({ isLoading }) =>
+    isLoading &&
     `
     background: ${color.translucentGrey};
     backdrop-filter: blur(5px);

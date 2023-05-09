@@ -10,7 +10,7 @@ export const UseMenageATrois: FC = () => {
       <FadeTransition>
         <Heading2>{text.match.rollingYourDice}</Heading2>
       </FadeTransition>
-      <PrimaryButton primaryText={text.general.rollingDice} loading />
+      <PrimaryButton primaryText={text.general.rollingDice} isLoading />
     </BottomButtonWrapper>
   );
 };

@@ -41,7 +41,7 @@ export const RollDice: FC = () => {
   const button = () => {
     if (localPlayer.status === "lost") return <></>;
     if (hasRolledDice) return <ButtonReady />;
-    return <PrimaryButton primaryText={text.general.rollIt} onClick={() => handleClick()} loading={isLoadingSpinnerVisible} />;
+    return <PrimaryButton primaryText={text.general.rollIt} onClick={() => handleClick()} isLoading={isLoadingSpinnerVisible} />;
   };
 
   // In case of timeout player shouldn't be see this view.

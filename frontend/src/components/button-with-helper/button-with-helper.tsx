@@ -36,7 +36,7 @@ export const PrimaryButtonWithHelper: FC<PrimaryButtonWithHelperProps> = ({
         disabled={disabled}
         onClick={onClick}
         width={width}
-        loading={isLoading}
+        isLoading={isLoading}
       />
       <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={tooltipInfoPosition} isButtonWithHelper iconColor={color.darkGrey} />
     </ButtonWithHelperWrapper>
