@@ -18,7 +18,7 @@ interface Props {
   gap?: string;
   iconPosition?: IconPosition;
   disabledColor?: string;
-  active?: boolean;
+  isActive?: boolean;
   width?: string;
   justifyContent?: string;
   fontWeight?: string;
@@ -90,6 +90,7 @@ export const SecondaryButtonBase = styled.button<Props>`
   justify-content: ${({ justifyContent }): string => justifyContent ?? "center"};
   cursor: pointer;
   min-width: fit-content;
+  background: ${({ isActive }) => isActive && color.cloudWhite};
 
   @media (max-width: ${breakpoints.md}) {
     font-size: ${fontSizes.body.sm};

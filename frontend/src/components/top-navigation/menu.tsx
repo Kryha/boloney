@@ -56,7 +56,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
       onClick={() => navigate(routes.contact)}
       text={text.general.contact}
       icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} cursor />}
-      active={isActive}
+      isActive={isActive}
       padding={buttonSize.md}
       backgroundColor={color.lightGrey}
     />
@@ -71,7 +71,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
             onClick={() => handleLogout()}
             text={text.general.logout}
             icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
-            active={isActive}
+            isActive={isActive}
             padding={buttonSize.md}
             backgroundColor={color.lightGrey}
           />
@@ -106,7 +106,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
             text={text.general.matchSettings}
             icon={<BaseIcon src={<SettingsIconSVG />} cursor />}
             onClick={() => handleSettings()}
-            active={isActive}
+            isActive={isActive}
             justifyContent="flex-end"
           />
         )}
@@ -117,7 +117,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
               onClick={() => handleLogout()}
               text={text.general.logout}
               icon={<BaseIcon src={<LogoutIconSVG />} cursor />}
-              active={isActive}
+              isActive={isActive}
               width={buttonSize.fluid}
               justifyContent="flex-end"
             />
@@ -130,7 +130,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
               onClick={() => leaveMatch()}
               text={text.general.leaveMatch}
               icon={<BaseIcon src={<ExitIconSVG />} cursor />}
-              active={isActive}
+              isActive={isActive}
               width={buttonSize.fluid}
               justifyContent="flex-end"
             />
@@ -142,7 +142,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
             onClick={() => navigate(routes.contact)}
             text={text.general.contact}
             icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} cursor />}
-            active={isActive}
+            isActive={isActive}
             padding={buttonSize.md}
             width={buttonSize.fluid}
           />

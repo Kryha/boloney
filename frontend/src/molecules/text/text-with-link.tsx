@@ -16,7 +16,7 @@ interface Props extends LinkProps {
  * @param {string} href - link / email address (you must include "mailito: a.gmail.com" as the string for mails)
  * @param {string} gap - gap between text and link component
  * @param {string} linkText - the text for the link
- * @param {string} target - the target for the link i.e _blank for opening in a new page
+ * @param {string} target - the target for the link i.e _blank for opening in a new page. The default state is opening on the same page.
  */
 
 export const TextWithLink: FC<Props> = ({
@@ -37,6 +37,10 @@ export const TextWithLink: FC<Props> = ({
       customcolor={customcolor}
       transformText={transformText}
       text={text}
+      fontSize={fontSize}
+      lineHeight={lineHeight}
+      fontWeight={fontWeight}
+      font={font}
       linkComponent={
         <LinkText
           href={href}

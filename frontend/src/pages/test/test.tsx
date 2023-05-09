@@ -21,7 +21,7 @@ import {
   text,
 } from "../../assets";
 import { fakePlayers } from "../../assets/fake-data";
-import { InputLegend, MatchPlayersOverview, TopNavigation } from "../../components";
+import { InputLegend, MatchPlayersOverview } from "../../components";
 import {
   BaseIcon,
   SecondaryButtonBase,
@@ -90,6 +90,7 @@ import {
 import { getPowerUp, range } from "../../util";
 import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
+import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
 
 const onClick = () => {
   console.log("Button works");
@@ -110,10 +111,29 @@ export const Test: FC = () => {
   const [isChecked, setChecked] = useState(false);
   const [isModalShown, setModalShown] = useState(false);
   const [isModalShownNoButton, setModalShownNoButton] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
+  const [isComponentVisible, setIsComponentVisible] = useState(false);
   if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
+  const handleDropdownClick = (dropdown: ActiveDropdown) => {
+    if (activeDropdown === dropdown) {
+      setActiveDropdown(undefined);
+    } else {
+      setActiveDropdown(dropdown);
+      setIsComponentVisible(true);
+    }
+  };
 
   return (
     <div style={{ padding: "50px", background: "lightBlue" }}>
+      <TopNavigation
+        isInMatch={false}
+        setActiveDropdown={handleDropdownClick}
+        isDropdownContentVisible={isComponentVisible}
+        activeDropdown={activeDropdown}
+        handleAuth={() => console.log("")}
+        handleLeaveMatch={() => console.log("")}
+        handleSettings={() => console.log("")}
+      />
       <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
       <Modal
         component={<Heading2>{"im a modal with a close button"}</Heading2>}
@@ -611,7 +631,6 @@ export const Test: FC = () => {
       <h2>only look at the image in the center, i.e the 3 dice on a balancing beam</h2>
       <br />
       <Layout>
-        <TopNavigation location="match" />
         <MatchPlayersOverview playerOrder={fakePlayers} />
         <BottomHud />
         <PlayerMenu />

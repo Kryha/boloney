@@ -14,7 +14,6 @@ export const LinkText = styled.a<LinkProps>`
   display: inline-block;
   text-decoration: none;
   margin-right: 0px;
-  padding-top: 0.1em;
   font-family: ${({ font }): string => font || fonts.primary};
   font-weight: ${({ fontWeight }): string => fontWeight || fontWeights.light};
   font-size: ${({ fontSize }): string => (fontSize ? fontSize.md : fontSizes.tiny)};

@@ -14,7 +14,7 @@ export interface GeneralButtonProps {
   icon?: ReactNode;
   iconPosition?: IconPosition;
   padding?: string;
-  active?: boolean;
+  isActive?: boolean;
   width?: string;
   justifyContent?: AlignContent;
   backgroundColor?: string;
@@ -28,7 +28,7 @@ export const SecondaryButton: FC<GeneralButtonProps> = ({
   icon,
   iconPosition,
   padding,
-  active,
+  isActive,
   justifyContent,
   width,
   gap,
@@ -38,7 +38,7 @@ export const SecondaryButton: FC<GeneralButtonProps> = ({
     iconPosition={iconPosition}
     onClick={() => onClick && onClick()}
     padding={padding}
-    active={active}
+    isActive={isActive}
     justifyContent={justifyContent}
     width={width}
     gap={gap}

@@ -9,7 +9,7 @@ export const TertiaryButton: FC<GeneralButtonProps> = ({
   icon,
   iconPosition,
   padding,
-  active,
+  isActive,
   width,
   justifyContent,
   backgroundColor,
@@ -20,7 +20,7 @@ export const TertiaryButton: FC<GeneralButtonProps> = ({
     iconPosition={iconPosition}
     onClick={() => onClick && onClick()}
     padding={padding}
-    active={active}
+    isActive={isActive}
     width={width}
     justifyContent={justifyContent}
     backgroundColor={backgroundColor}
