@@ -133,6 +133,7 @@ export const Test: FC = () => {
         handleAuth={() => console.log("")}
         handleLeaveMatch={() => console.log("")}
         handleSettings={() => console.log("")}
+        handleRules={() => console.log("")}
       />
       <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
       <Modal

@@ -18,6 +18,7 @@ interface Props {
   handleAuth: () => void;
   handleSettings: () => void;
   handleLeaveMatch: () => void;
+  handleRules: () => void;
 }
 
 /**
@@ -31,6 +32,7 @@ interface Props {
  * @param {Function} handleAuth - A function to handle Authentication.
  * @param {Function} handleSettings - A function to handle viewing the match settings.
  * @param {Function} handleLeaveMatch - A function to handle leaving the match.
+ * @param {Function} onClick - A function whose use is to open up the power-up modal.
  */
 
 // TODO: redesign component
@@ -43,11 +45,16 @@ export const TopNavigation: FC<Props> = ({
   handleLeaveMatch,
   handleAuth,
   handleSettings,
+  handleRules,
 }) => {
   return (
     <TopNavigationWrapper>
       <GeneralRow>
-        <Rules isOpen={activeDropdown === "rules" && isDropdownContentVisible} expand={() => setActiveDropdown("rules")} />
+        <Rules
+          isOpen={activeDropdown === "rules" && isDropdownContentVisible}
+          expand={() => setActiveDropdown("rules")}
+          onClick={handleRules}
+        />
         <Dropdown
           isOpen={activeDropdown === "contact" && isDropdownContentVisible}
           buttonIcon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} pointer />}

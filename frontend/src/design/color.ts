@@ -18,6 +18,7 @@ export const color = {
   cloudWhite: "#EEEEEA",
   white: "#FFFFFF",
   translucentGrey: "rgba(255, 255, 255, 0.2)",
+  translucentWhite: "linear-gradient(0deg, #EEEEEA 50%, rgba(238, 238, 234, 0) 139.86%)",
   transparent: "transparent",
   peach: "#C49F8F",
 };

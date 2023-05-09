@@ -9,6 +9,7 @@ export const rules = {
   ],
 
   settingsTitle: "settings",
+  // TODO: delete
   settingsParagraphs: [
     "Multiplayer, max. 7 players per match.",
     "Settings are variable per match, and the match creator controls:",
@@ -16,6 +17,14 @@ export const rules = {
     "2. Which power-ups are available per match",
     "3. How many power-ups are available per match (both starting amount and number of power-ups players accumulate during the match)",
     "4. The probability of players receiving each selected power-up during the match",
+  ],
+
+  settingsParagraph: ["Multiplayer, max. 7 players per match.", "Settings are variable per match, and the match creator controls:"],
+  settingsList: [
+    "How many dice there are in the match (min. 1, max. 10)",
+    "Which power-ups are available per match",
+    "How many power-ups are available per match (both starting amount and number of power-ups players accumulate during the match)",
+    "The probability of players receiving each selected power-up during the match",
   ],
   roundRulesTitle: "round & turn rules",
   roundRulesParagraphs: [
@@ -41,17 +50,28 @@ export const rules = {
   ],
 
   actionsThirdSubtitle: "3. Place a bid",
-  //TODO: fix bullet points
+  //TODO: delete
   actionsFifthParagraph: "For the starting player, there’s no set bid range. Subsequent bids must be either:",
+
+  actionsFifthParagraphHeading: "For the starting player, there’s no set bid range. Subsequent bids must be either:",
+  actionsFifthParagraphs: ["Greater in face value and equal in number of dice", "Greater in number of dice and any face value"],
   actionsBulletPoint1: "Greater in face value and equal in number of dice",
   actionsBulletPoint2: "Greater in number of dice and any face value",
   actionsSixthParagraph: "Placing a bid ends your turn.",
 
   actionsFourthSubtitle: "4. Call Boloney!",
+  // TODO: delete
   actionsThirdParagraphs: [
     "Players can only call Boloney! if there’s already a standing bid. Once a player calls Boloney!, all players’ dice are counted to check the validity of the Boloney! call.",
     "If the amount of dice on the table that match the bid’s face value is less than the last player’s bid, then the Boloney! call is correct, and the last bidding player loses a die.",
     "If the amount of dice on the table that match the bid’s face value is equal to or more than the last player’s bid, then the Boloney! call is incorrect, and the player that called Boloney! loses a die.",
+  ],
+
+  actionsThirdParagraph: [
+    "Players can only call Boloney! if there’s already a standing bid. Once a player calls Boloney!, all players’ dice are counted to check the validity of the Boloney! call.",
+    "If the amount of dice on the table that match the bid’s face value is less than the last player’s bid, then the Boloney! call is correct, and the last bidding player loses a die.",
+    "If the amount of dice on the table that match the bid’s face value is equal to or more than the last player’s bid, then the Boloney! call is incorrect, and the player that called Boloney! loses a die.",
+    "The round ends either way, and the player that called Boloney! takes the first turn in the next round.",
   ],
   actionsTenthParagraph: "The round ends either way, and the player that called Boloney! takes the first turn in the next round.",
   //TODO: More bulletpoints
@@ -96,6 +116,7 @@ export const rules = {
   examplesTitle: "example of bids and calls:",
 
   examplesParagraphs: ["Total 20 dice", "4 x 5 face", "6 x 3 face", "2 x 1 face", "4 x 2 face"],
+  //  TODO: delete
   examplesSixthParagraph: "4 x 6 face",
   examplesSeventhParagraph: "Bid: 5 x 5 face",
   examplesEighthParagraph: "Boloney! = correct",
@@ -106,6 +127,11 @@ export const rules = {
   examplesThirteenthParagraph: "Bid = 4 x 5 face",
   examplesFourteenthParagraph: "Boloney! = incorrect",
   examplesFifteenthParagraph: "Exact = correct",
+
+  exampleFirstParagraphs: ["Total 20 dice", "4 x 5 face", "6 x 3 face", "2 x 1 face", "4 x 2 face", "4 x 6 face"],
+  exampleSecondParagraphs: ["Bid: 5 x 5 face", "Boloney! = correct", "Exact = correct"],
+  exampleThirdParagraphs: ["Bid = 3 x 5 face", "Boloney! = incorrect", "Exact = incorrect"],
+  exampleFourthParagraphs: ["Bid = 4 x 5 face", "Boloney! = incorrect", "Exact = correct"],
 
   noteTitle: "remember:",
   noteParagraph:

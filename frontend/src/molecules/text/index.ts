@@ -10,3 +10,6 @@ export * from "./column-heading-text";
 export * from "./notification-text";
 export * from "./paragraph";
 export * from "./numbered-description";
+export * from "./rules-heading";
+export * from "./rules-paragraph";
+export * from "./rules-number-paragraph";
