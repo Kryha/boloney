@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Heading6 } from "../../atoms";
-import { GeneralLinkWrapper } from "../../components";
 import { margins } from "../../design";
 
 export const TitleSection = styled.section`
@@ -13,8 +12,6 @@ export const TitleSection = styled.section`
 export const LinkWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: flex-end;
   gap: 30px;
-  ${GeneralLinkWrapper} {
-    width: auto;
-  }
 `;

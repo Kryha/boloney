@@ -2,7 +2,7 @@ import { FC } from "react";
 import { BLANK_TARGET_LINK, SELF_TARGET_LINK } from "../../constants";
 import { color } from "../../design";
 import { Link } from "../../molecules";
-import { Heading3, Heading6, LinkProps } from "../../atoms";
+import { BodyText, Heading3, Heading6, LinkProps } from "../../atoms";
 import { GeneralLinkContainer, GeneralLinkWrapper, HyperLink } from "./styles";
 
 interface Props extends LinkProps {
@@ -47,9 +47,10 @@ export const PartialLink: FC<PartialLinkProps> = ({
   transformText,
   preLinkText = "",
   afterLinkText = "",
+  isSelfTarget,
 }) => {
   return (
-    <>
+    <BodyText>
       {preLinkText}
       <WebsiteLink
         linkText={linkText}
@@ -60,9 +61,10 @@ export const PartialLink: FC<PartialLinkProps> = ({
         font={font}
         transformText={transformText}
         link={link}
+        isSelfTarget={isSelfTarget}
       />
       {afterLinkText}
-    </>
+    </BodyText>
   );
 };
 

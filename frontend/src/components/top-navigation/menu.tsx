@@ -143,8 +143,8 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
             text={text.general.contact}
             icon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} pointer />}
             isActive={isActive}
-            padding={buttonSize.md}
             width={buttonSize.fluid}
+            justifyContent="flex-end"
           />
         </>
       </MenuContainer>
