@@ -32,3 +32,15 @@ export const BottomHud = styled(HUDBlock)`
   bottom: 0;
   left: 0;
 `;
+
+export const PlayerMenuOne = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
+
+export const PlayerMenuTwo = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 30vw;
+`;

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { color, layoutHeight, layoutWidth } from "../design";
-import { getSidebarHeight } from "../util";
+import { getSidebarHeight, switchStyle } from "../util";
 
 interface Props {
   active?: boolean;
@@ -9,6 +9,14 @@ interface Props {
   enabled?: boolean;
   divisors?: number;
   open?: boolean;
+}
+
+interface PlayerMenuProps {
+  isHoverEnabled?: boolean;
+}
+
+interface PlayerBlockProps {
+  isSingularPanel?: boolean;
 }
 
 /**
@@ -28,7 +36,7 @@ const LayoutBase = styled.div<Props>`
 
 export const Sidebar = styled(LayoutBase)`
   width: ${layoutWidth.sm};
-  height: ${layoutHeight.xl};
+  height: ${layoutHeight.xxxl};
 `;
 
 export const HUDBlock = styled(LayoutBase)``;
@@ -40,20 +48,20 @@ export const PlayerInformationBlock = styled(LayoutBase)`
 // Sidebar player
 export const PlayerBox = styled(LayoutBase)`
   width: ${layoutWidth.sm};
-  height: ${({ divisors }): string => (divisors ? `${getSidebarHeight(divisors)}vh` : layoutHeight.xl)};
+  height: ${({ divisors }): string => (divisors ? `${getSidebarHeight(divisors)}vh` : layoutHeight.xxxl)};
 `;
 
 export const HUDPlayerBox = styled(HUDBlock)`
   width: ${layoutWidth.sm};
 `;
 
-export const PlayerMenuBox = styled(LayoutBase)`
+export const PlayerMenuBox = styled(LayoutBase)<PlayerMenuProps>`
   width: ${layoutWidth.md};
   height: ${layoutHeight.sm};
-  cursor: pointer;
 `;
 
-export const PlayerMenuBlock = styled(LayoutBase)`
+export const PlayerMenuBlock = styled(LayoutBase)<PlayerBlockProps>`
   width: ${layoutWidth.md};
-  height: ${({ open }): string => (open ? layoutHeight.xl : layoutHeight.lg)};
+  height: ${({ open, isSingularPanel }): string =>
+    open ? switchStyle(layoutHeight.lg, layoutHeight.xxl, isSingularPanel) : layoutHeight.xl};
 `;

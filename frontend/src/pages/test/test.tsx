@@ -30,15 +30,12 @@ import {
   BlockBox,
   BadgeBlock,
   MessageBlock,
-  InformationBlock,
   CopyBlock,
   Box,
   Sidebar,
   HUDBlock,
   PlayerInformationBlock,
   PlayerBox,
-  PlayerMenuBlock,
-  PlayerMenuBox,
   BaseInput,
   FluidImage,
   GeneralText,
@@ -65,7 +62,6 @@ import {
   InfoDisplay,
 } from "../../atoms";
 import { MainContentContainer } from "../../components/match-layout/styles";
-import { PlayerMenu } from "../../components/player-menu";
 import { PickAction } from "../../components/player-turns/pick-action";
 import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET } from "../../constants";
 import { color, buttonSize, fonts, fontSizes, fontWeights, images, layoutHeight, lineHeights, spacing } from "../../design";
@@ -88,9 +84,10 @@ import {
   CookieBanner,
 } from "../../molecules";
 import { getPowerUp, range } from "../../util";
-import { AlignColumn, BackgroundRow, BottomHud, HalfColumn, Layout } from "./styles";
+import { AlignColumn, BackgroundRow, BottomHud, PlayerMenuOne, PlayerMenuTwo, HalfColumn, Layout } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
+import { PlayerMenu } from "../../molecules/player-menu";
 
 const onClick = () => {
   console.log("Button works");
@@ -113,6 +110,9 @@ export const Test: FC = () => {
   const [isModalShownNoButton, setModalShownNoButton] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(true);
+  const [isHistoryMenuOpen, setIsHistoryOpen] = useState(true);
+
   if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
     if (activeDropdown === dropdown) {
@@ -135,6 +135,18 @@ export const Test: FC = () => {
         handleSettings={() => console.log("")}
         handleRules={() => console.log("")}
       />
+      <PlayerMenuOne>
+        <PlayerMenu
+          isChatOpen={isChatOpen}
+          setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
+          isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
+          isHistoryOpen={isHistoryMenuOpen}
+          setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
+        />
+      </PlayerMenuOne>
+      <PlayerMenuTwo>
+        <PlayerMenu isChatOpen isPanelExpanded isSingular />
+      </PlayerMenuTwo>
       <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
       <Modal
         component={<Heading2>{"im a modal with a close button"}</Heading2>}
@@ -427,7 +439,6 @@ export const Test: FC = () => {
       <br />
       <MessageBlock>{"message"}</MessageBlock>
       <br />
-      <InformationBlock>{"info"}</InformationBlock>
       <br />
       <CopyBlock>{"copy"}</CopyBlock>
       <br />
@@ -594,15 +605,6 @@ export const Test: FC = () => {
       </PlayerBox>
       <br />
       <PlayerBox active>{"hud player active"}</PlayerBox>
-      <br />
-      <h1>chat and history elements</h1>
-      <br />
-      <PlayerMenuBox>{"chat / history header"}</PlayerMenuBox>
-      <br />
-      <PlayerMenuBlock>{"chat / history when both are open"}</PlayerMenuBlock>
-      <br />
-      <PlayerMenuBlock open>{"chat / history when one is open"}</PlayerMenuBlock>
-      <br />
       <h1>landing info</h1>
       <br />
       <BackgroundRow>
@@ -634,7 +636,6 @@ export const Test: FC = () => {
       <Layout>
         <MatchPlayersOverview playerOrder={fakePlayers} />
         <BottomHud />
-        <PlayerMenu />
         <MainContentContainer isInMatch isStageWithHUD>
           <FluidImage src={CallExact} height={images.auto} width={images.picture} />
         </MainContentContainer>

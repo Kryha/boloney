@@ -5,3 +5,6 @@ export * from "./badges";
 export * from "./modals";
 export * from "./pop-ups";
 export * from "./dropdown";
+export * from "./panel";
+export * from "./panel-header";
+export * from "./player-menu";

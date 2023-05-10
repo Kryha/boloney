@@ -37,6 +37,8 @@ export const layoutWidth = {
 export const layoutHeight = {
   sm: "5.5vh",
   md: "11vh",
-  lg: "47.25vh",
-  xl: "89vh",
+  lg: "22.5vh",
+  xl: "41.75vh",
+  xxl: "83.5vh",
+  xxxl: "89vh",
 };
