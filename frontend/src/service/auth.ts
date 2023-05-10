@@ -31,12 +31,19 @@ export const useRefreshAuth = () => {
   const setIsAuthenticating = useStore((state) => state.setIsAuthenticating);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const logOut = useLogout();
 
   useEffect(() => {
     const refreshSession = async () => {
-      if (session) return;
+      if (session) {
+        if (session.isexpired(Date.now() / 1000)) logOut();
+        return;
+      }
+
       try {
         const newSession = await nakama.refreshSession();
+        if (!newSession) return;
+
         const aleoAccount = await getAleoAccount(newSession);
 
         authenticate(newSession, aleoAccount);
@@ -48,7 +55,7 @@ export const useRefreshAuth = () => {
       }
     };
     refreshSession();
-  }, [authenticate, navigate, pathname, session, setIsAuthenticating]);
+  }, [authenticate, logOut, navigate, pathname, session, setIsAuthenticating]);
 };
 
 export const useAuthenticateUser = () => {

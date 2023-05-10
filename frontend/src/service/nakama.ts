@@ -20,13 +20,19 @@ class NakamaService {
     return newSession;
   }
 
-  async refreshSession(): Promise<Session> {
+  async refreshSession(): Promise<Session | undefined> {
     const authToken = getAuthToken();
     const refreshToken = getRefreshToken();
 
     if (!authToken || !refreshToken) throw new Error("Not authenticated");
 
-    const session = await this.client.sessionRefresh(Session.restore(authToken, refreshToken));
+    const oldSession = Session.restore(authToken, refreshToken);
+
+    if (oldSession && oldSession.isrefreshexpired(Date.now() / 1000)) {
+      this.reset();
+      return;
+    }
+    const session = await this.client.sessionRefresh(oldSession);
 
     const joinedSession = await this.joinSession(session);
     return joinedSession;
