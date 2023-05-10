@@ -12,5 +12,6 @@ export const BadgeWrapper = styled.div`
   padding-bottom: ${margins.small0};
   background-color: ${color.white};
   position: absolute;
+  top: 0;
   z-index: ${zIndex.inFront};
 `;

@@ -11,7 +11,7 @@ import {
 } from "../../assets";
 import { FLOATING_ANIMATION_SPEED } from "../../constants";
 
-import { color, margins, spacing, zIndex } from "../../design";
+import { color, margins, zIndex } from "../../design";
 import { avatarHeight, BaseColumn, float, Heading5, shuffle } from "../../atoms";
 import { BadgeWrapper } from "../badges/styles";
 import { DieWrapper } from "../die/styles";
@@ -72,9 +72,13 @@ export const MatchPlayersWrapper = styled.div<MatchPlayersProps>`
   padding: 0px;
   width: 12.5vw;
   background: ${({ isActive, customcolor }): string => (isActive ? customcolor || color.cloudWhite : color.lightGrey)};
-  height: ${({ hasPlayerLost }): string => (hasPlayerLost ? "100px" : `${GAME_PLAYER_HEIGHT}vh`)};
+  height: ${({ hasPlayerLost }): string => (hasPlayerLost ? "100px" : "100%")};
+  min-height: 100px;
   position: relative;
   border-bottom: 1px solid ${color.mediumGrey};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   ${BadgeWrapper} {
     z-index: ${zIndex.inFront};
   }
@@ -256,27 +260,16 @@ interface PlayersContainerProps {
 
 export const MatchPlayersContainer = styled.div<PlayersContainerProps>`
   z-index: ${zIndex.background};
-  height: 14.4vh;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  justify-content: center;
   cursor: ${({ isTargetable }): string => (isTargetable ? "pointer" : "default")};
-  ${({ totalPlayers }) => {
-    return totalPlayers === 1
-      ? `
-      height: 100%;
-      justify-content: center;
-      ${PlayerInfoContainer} {
-        position: absolute;
-        bottom: ${margins.small2};
-        left: 0.425em;
-      }
-    `
-      : `
-  ${HandWrapper} {
-    padding-top: ${spacing.md};
-    }
-  `;
-  }}
+  ${PlayerInfoContainer} {
+    position: absolute;
+    bottom: ${margins.small2};
+    left: 0.425em;
+  }
 `;
 
 export const AmountDice = styled.div`
