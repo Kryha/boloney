@@ -4,6 +4,8 @@
 
 Online multiplayer game showcasing the potential of Aleo's Zero Knowledge Proof platform.
 
+Check the companion ZK Gaming Toolkit project [here](https://github.com/kryha/zk-gaming-toolkit). Boloney connects to the toolkit to generate proofs for the game.
+
 ## Getting started
 
 Before running the application, make sure to install the following software:
