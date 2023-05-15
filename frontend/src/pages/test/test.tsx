@@ -84,6 +84,12 @@ import {
   CookieBanner,
 } from "../../molecules";
 import { getPowerUp, range } from "../../util";
+import { Die } from "../../molecules/die";
+import { TemporaryDice } from "../../molecules/die/temporary-die";
+import { DiceRow } from "../../molecules/die/dice-row";
+import { Bid, Die as DieType } from "../../types";
+import { LastBidPlayer } from "../../molecules/die/last-bid";
+import { DiceSelectionGrid } from "../../molecules/die/dice-selection-grid";
 import { AlignColumn, BackgroundRow, BottomHud, PlayerMenuOne, PlayerMenuTwo, HalfColumn, Layout } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
@@ -103,6 +109,57 @@ export const Test: FC = () => {
   const powerUp7 = getPowerUp("7");
   const powerUp8 = getPowerUp("8");
   const powerUp9 = getPowerUp("9");
+  const threeRolledDice: DieType[] = [{ rolledValue: 2 }, { rolledValue: 1 }, { rolledValue: 3 }];
+  const fiveRolledDice: DieType[] = [{ rolledValue: 2 }, { rolledValue: 1 }, { rolledValue: 3 }, { rolledValue: 4 }, { rolledValue: 5 }];
+  const eightRolledDice: DieType[] = [
+    { rolledValue: 2 },
+    { rolledValue: 1 },
+    { rolledValue: 3 },
+    { rolledValue: 4 },
+    { rolledValue: 5 },
+    { rolledValue: 2 },
+    { rolledValue: 1 },
+    { rolledValue: 3 },
+  ];
+  const tenRolledDice: DieType[] = [
+    { rolledValue: 2 },
+    { rolledValue: 1 },
+    { rolledValue: 3 },
+    { rolledValue: 4 },
+    { rolledValue: 5 },
+    { rolledValue: 2 },
+    { rolledValue: 1 },
+    { rolledValue: 3 },
+    { rolledValue: 4 },
+    { rolledValue: 5 },
+  ];
+  const thirtienRolledDice: DieType[] = [
+    { rolledValue: 2 },
+    { rolledValue: 1 },
+    { rolledValue: 3 },
+    { rolledValue: 4 },
+    { rolledValue: 5 },
+    { rolledValue: 2 },
+    { rolledValue: 1 },
+    { rolledValue: 3 },
+    { rolledValue: 4 },
+    { rolledValue: 5 },
+    { rolledValue: 3 },
+    { rolledValue: 4 },
+    { rolledValue: 5 },
+  ];
+  const [lastBid, setLastBid] = useState<Bid>();
+  const [diceAmount, setDiceAmount] = useState(1);
+  const [faceValues, setFaceValues] = useState(1);
+
+  const handleSelectionDice = (die: number) => {
+    setFaceValues(die);
+    if (!lastBid) return;
+
+    if (die <= lastBid?.face && diceAmount === lastBid.amount) {
+      setDiceAmount((diceAmount || 1) + 1);
+    }
+  };
   const [isDetailsShown, setIsDetailsShown] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
   const [isChecked, setChecked] = useState(false);
@@ -125,7 +182,51 @@ export const Test: FC = () => {
 
   return (
     <div style={{ padding: "50px", background: "lightBlue" }}>
-      <TopNavigation
+      <BaseRow gap="10px">
+        <DiceSelectionGrid
+          lastBid={lastBid}
+          dieColor={color.red}
+          totalDiceInMatch={10}
+          pipAmountSelected={faceValues}
+          handleSelection={handleSelectionDice}
+        />
+      </BaseRow>
+      <br />
+      <BaseRow gap="20px">
+        <LastBidPlayer lastBid={{ amount: 5, face: 3, createdAt: 4 }} dieColor={color.red} />
+      </BaseRow>
+      <br />
+      <BaseRow gap="10px">
+        <Die pipAmount={1} size={"100px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <Die pipAmount={2} size={"100px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <Die pipAmount={3} size={"100px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <Die pipAmount={4} size={"100px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <Die pipAmount={5} size={"100px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <Die pipAmount={6} size={"100px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <Die size="100px" dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+      </BaseRow>
+      <br />
+      <BaseRow gap="10px">
+        <TemporaryDice pipAmount={1} size={"30px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <TemporaryDice pipAmount={2} size={"50px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <TemporaryDice pipAmount={3} size={"70px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <TemporaryDice pipAmount={4} size={"100px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <TemporaryDice pipAmount={5} size={"130px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+        <TemporaryDice pipAmount={6} size={"160px"} dieColor={color.red} pipColor={color.cloudWhite} radius={"10px"} />
+      </BaseRow>
+      <br />
+      <br />
+      <br />
+      <BaseRow gap="10px">
+        <DiceRow dice={threeRolledDice} dieColor={color.red} temporaryDieAmount={3} />
+        <DiceRow dice={fiveRolledDice} dieColor={color.red} temporaryDieAmount={3} />
+        <DiceRow dice={eightRolledDice} dieColor={color.red} temporaryDieAmount={3} />
+        <DiceRow dice={tenRolledDice} dieColor={color.red} temporaryDieAmount={3} />
+        <DiceRow dice={thirtienRolledDice} dieColor={color.red} temporaryDieAmount={3} />
+      </BaseRow>
+      <br />
+      <br />
+      {/* <TopNavigation
         isInMatch={false}
         setActiveDropdown={handleDropdownClick}
         isDropdownContentVisible={isComponentVisible}
@@ -146,7 +247,7 @@ export const Test: FC = () => {
       </PlayerMenuOne>
       <PlayerMenuTwo>
         <PlayerMenu isChatOpen isPanelExpanded isSingular />
-      </PlayerMenuTwo>
+      </PlayerMenuTwo>*/}
       <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
       <Modal
         component={<Heading2>{"im a modal with a close button"}</Heading2>}
@@ -154,8 +255,6 @@ export const Test: FC = () => {
         isContained
         onClose={() => setModalShown(!isModalShown)}
       />
-      <br />
-      <br />
       <TertiaryButton text="CLICK ME! show modal without close button" onClick={() => setModalShownNoButton(!isModalShownNoButton)} />
       <Modal
         component={

@@ -13,3 +13,4 @@ export * from "./button";
 export * from "./input";
 export * from "./wrappers";
 export * from "./mobile-layout";
+export * from "./die";

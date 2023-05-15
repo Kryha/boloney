@@ -8,5 +8,6 @@ export const iconSize = {
   xl: "14.81vw",
   xxl: "72.2vw",
   xxxl: "94.4vw",
+  smallerFluid: "80%",
   fluid: "100%",
 };
