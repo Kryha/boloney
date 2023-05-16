@@ -1,4 +1,5 @@
 export * from "./animations";
+export * from "./patterns";
 export * from "./icons";
 export * from "./card";
 export * from "./pop-up";

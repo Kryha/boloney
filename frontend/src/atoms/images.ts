@@ -46,8 +46,8 @@ export interface IconProps {
 }
 
 export const FluidImage = styled.img<Props>`
-  min-width: ${({ maxWidth }): string => maxWidth ?? images.auto};
-  max-width: ${({ minWidth }): string => minWidth ?? images.fluid};
+  min-width: ${({ minWidth }): string => minWidth ?? images.auto};
+  max-width: ${({ maxWidth }): string => maxWidth ?? images.fluid};
   width: ${({ width }): string => width ?? images.fluid};
   height: ${({ height }): string => height ?? images.auto};
   max-height: ${({ maxHeight }): string => maxHeight ?? images.auto};
@@ -55,7 +55,7 @@ export const FluidImage = styled.img<Props>`
 `;
 
 export const CenteredImage = styled.img<Props>`
-  max-width: ${images.fluid};
+  max-width: ${({ maxWidth }): string => maxWidth ?? images.fluid};
   width: ${({ width }): string => width ?? images.fluid};
   height: ${({ height }): string => height ?? images.auto};
   object-fit: contain;

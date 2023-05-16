@@ -1,6 +1,7 @@
 import { keyframes } from "@emotion/react";
-import { color, opacity, zIndex } from "../design";
+import { color, opacity, spacing, zIndex } from "../design";
 
+// TODO: delete
 // Hands
 export const float = keyframes`
   50% {
@@ -11,6 +12,7 @@ export const float = keyframes`
   }
 `;
 
+// TODO: delete
 export const shadowAnimation = (smallWidth: number, largeWidth: number) => keyframes`
   50% {
     margin: 0px ${largeWidth}vw 0px ${smallWidth}vw;
@@ -193,5 +195,25 @@ export const displayBlockToNone = keyframes`
   100% {
     opacity: 0;
     height: 0;
+  }
+`;
+
+export const bounce = keyframes`
+  0% { top: 0px }
+  50% { top: ${spacing.ms}; }
+  100% { top: 0px;}
+`;
+
+export const shadow = (smallWidth: number, largeWidth: number) => keyframes`
+  from {
+    bottom: 0;
+    height: 10%;
+    width: ${smallWidth}%;
+  }
+
+  to {
+    bottom: 0;
+    height: 10%;
+    width: ${largeWidth}%;
   }
 `;

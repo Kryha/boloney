@@ -19,11 +19,15 @@ import {
 export interface HandProps {
   width: string;
   height: string;
-  shadowSmallWidth: number;
-  shadowLargeWidth: number;
   speed: number;
   paint: string;
   avatar: string;
+  smallShadowWidth: number;
+  largeShadowWidth: number;
+
+  // TODO: delete
+  shadowSmallWidth: number;
+  shadowLargeWidth: number;
 }
 
 export const handProportion = (avatarName: string): HandProps => {
@@ -34,6 +38,8 @@ export const handProportion = (avatarName: string): HandProps => {
         height: "clamp(40px, 5.21vw + -10px, 90px)",
         shadowSmallWidth: 2.5,
         shadowLargeWidth: 2.5,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
         speed: 3,
         avatar: Hand,
         paint: HandPaint,
@@ -47,6 +53,8 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 3.5,
         avatar: SausageHand,
         paint: SausageHandPaint,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
       };
     case "hook":
       return {
@@ -57,6 +65,8 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 2,
         avatar: HookHand,
         paint: HookHandPaint,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
       };
     case "plastic":
       return {
@@ -67,6 +77,8 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 6,
         avatar: PlasticHand,
         paint: PlasticHandPaint,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
       };
     case "scooper":
       return {
@@ -77,6 +89,8 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 5,
         avatar: ScooperHand,
         paint: ScooperHandPaint,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
       };
     case "lobster":
       return {
@@ -87,6 +101,8 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 4.5,
         avatar: LobsterHand,
         paint: LobsterHandPaint,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
       };
     case "skeleton":
       return {
@@ -97,6 +113,8 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 2.5,
         avatar: SkeletonHand,
         paint: SkeletonHandPaint,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
       };
     case "grave":
       return {
@@ -107,6 +125,8 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 2.5,
         avatar: GraveStone,
         paint: GraveStone,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
       };
     default:
       return {
@@ -117,6 +137,8 @@ export const handProportion = (avatarName: string): HandProps => {
         speed: 4,
         avatar: SkeletonHand,
         paint: SkeletonHandPaint,
+        smallShadowWidth: 10,
+        largeShadowWidth: 40,
       };
   }
 };

@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { buttonSize } from "../../design";
+import { buttonSize, color } from "../../design";
 import { TertiaryButton } from "../buttons";
 import { DropdownChildrenContainer, DropdownContainer } from "./styles";
 
@@ -27,7 +27,14 @@ interface Props {
 export const Dropdown: FC<Props> = ({ isOpen, children, buttonText, buttonIcon, expand, isBorderless }) => {
   return (
     <DropdownContainer isBorderless={isBorderless}>
-      <TertiaryButton text={buttonText} icon={buttonIcon} padding={buttonSize.md} onClick={() => expand()} isActive={isOpen} />
+      <TertiaryButton
+        text={buttonText}
+        icon={buttonIcon}
+        padding={buttonSize.md}
+        onClick={() => expand()}
+        isActive={isOpen}
+        backgroundColor={color.lightGrey}
+      />
       <DropdownChildrenContainer isHidden={!isOpen}>{children}</DropdownChildrenContainer>
     </DropdownContainer>
   );

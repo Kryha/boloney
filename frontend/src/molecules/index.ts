@@ -8,3 +8,6 @@ export * from "./dropdown";
 export * from "./panel";
 export * from "./panel-header";
 export * from "./player-menu";
+export * from "./floating-player";
+export * from "./hud-player";
+export * from "./player-avatar";

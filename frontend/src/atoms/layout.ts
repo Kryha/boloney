@@ -49,6 +49,8 @@ export const PlayerInformationBlock = styled(LayoutBase)`
 export const PlayerBox = styled(LayoutBase)`
   width: ${layoutWidth.sm};
   height: ${({ divisors }): string => (divisors ? `${getSidebarHeight(divisors)}vh` : layoutHeight.xxxl)};
+  border-bottom: 1px solid ${color.mediumGrey};
+  border-right: 1px solid ${color.mediumGrey};
 `;
 
 export const HUDPlayerBox = styled(HUDBlock)`

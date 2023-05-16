@@ -14,3 +14,5 @@ export * from "./input";
 export * from "./wrappers";
 export * from "./mobile-layout";
 export * from "./die";
+export * from "./patterns";
+export * from "./avatar";
