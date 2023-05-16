@@ -5,7 +5,7 @@ import { GeneralText, PlayerInfoText } from "./text";
 export const ChatUserName = styled(PlayerInfoText)`
   width: fit-content;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: visible;
   text-overflow: ellipsis;
   font-weight: ${fontWeights.bold};
   :first-letter {
@@ -36,7 +36,7 @@ export const Message = styled.div<MessageProps>`
 export const MessageWrapper = styled.section<MessageProps>`
   padding-left: 13px;
   padding-right: 13px;
-  padding-bottom: ${({ isGroupedMessage }): string => (isGroupedMessage ? "2px" : "16px")};
+  padding-top: ${({ isGroupedMessage }): string => (isGroupedMessage ? "2px" : "16px")};
   align-self: ${({ isLocalUser }): string => (isLocalUser ? "flex-end" : "flex-start")};
 `;
 

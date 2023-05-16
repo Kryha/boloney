@@ -20,7 +20,7 @@ import {
   SkeletonHand,
   text,
 } from "../../assets";
-import { fakePlayers } from "../../assets/fake-data";
+import { fakeMessages, fakePlayers } from "../../assets/fake-data";
 import { InputLegend, MatchPlayersOverview } from "../../components";
 import {
   BaseIcon,
@@ -94,6 +94,7 @@ import { AlignColumn, BackgroundRow, BottomHud, PlayerMenuOne, PlayerMenuTwo, Ha
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
 import { PlayerMenu } from "../../molecules/player-menu";
+import { sendMessage } from "../../service";
 
 const onClick = () => {
   console.log("Button works");
@@ -169,6 +170,8 @@ export const Test: FC = () => {
   const [isComponentVisible, setIsComponentVisible] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [isHistoryMenuOpen, setIsHistoryOpen] = useState(true);
+  const [messageInput, setMessageInput] = useState("");
+  const channelId = "123";
 
   if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
@@ -178,6 +181,17 @@ export const Test: FC = () => {
       setActiveDropdown(dropdown);
       setIsComponentVisible(true);
     }
+  };
+
+  const handleSendEvent = (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    if (e.currentTarget.value === "") return;
+    sendMessage(channelId, e.currentTarget.value);
+    setMessageInput("");
+  };
+
+  const handleKeyEvent = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") handleSendEvent(e);
   };
 
   return (
@@ -243,6 +257,11 @@ export const Test: FC = () => {
           isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
           isHistoryOpen={isHistoryMenuOpen}
           setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
+          handleKeyEvent={handleKeyEvent}
+          handleSendEvent={handleSendEvent}
+          messageInput={messageInput}
+          setMessageInput={setMessageInput}
+          messages={parseMessages(fakeMessages)}
         />
       </PlayerMenuOne>
       <PlayerMenuTwo>

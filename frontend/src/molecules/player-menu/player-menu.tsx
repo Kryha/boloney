@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { text } from "../../assets";
+import { ChatMessageContent } from "../../types";
+import { Chat } from "../chat";
 import { Panel } from "../panel";
 
 interface Props {
@@ -7,9 +9,15 @@ interface Props {
   isHistoryOpen?: boolean;
   isPanelExpanded: boolean;
   isSingular?: boolean;
+  messages: ChatMessageContent[][];
+  messageInput?: string;
 
   setIsChatOpen?: () => void;
   setIsHistoryOpen?: () => void;
+
+  handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
+  handleKeyEvent: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  setMessageInput: (value: string) => void;
 }
 
 /**
@@ -21,7 +29,18 @@ interface Props {
  * @param {Function} setIsHistoryOpen - A function whose use is to set if the history is open or not.
  */
 
-export const PlayerMenu: FC<Props> = ({ isChatOpen, isHistoryOpen = false, isPanelExpanded, setIsChatOpen, setIsHistoryOpen }) => {
+export const PlayerMenu: FC<Props> = ({
+  isChatOpen,
+  isHistoryOpen = false,
+  isPanelExpanded,
+  messages,
+  messageInput,
+  setIsChatOpen,
+  setIsHistoryOpen,
+  handleKeyEvent,
+  handleSendEvent,
+  setMessageInput,
+}) => {
   return (
     <>
       {!!setIsHistoryOpen && (
@@ -42,7 +61,13 @@ export const PlayerMenu: FC<Props> = ({ isChatOpen, isHistoryOpen = false, isPan
         isPanelExpanded={isPanelExpanded}
         isMultiplePanels={!!setIsHistoryOpen}
       >
-        {/* TODO: add chat molecule */}
+        <Chat
+          messages={messages}
+          messageInput={messageInput}
+          handleSendEvent={handleSendEvent}
+          handleKeyEvent={handleKeyEvent}
+          setMessageInput={setMessageInput}
+        />
       </Panel>
     </>
   );

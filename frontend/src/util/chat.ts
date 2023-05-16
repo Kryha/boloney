@@ -28,7 +28,7 @@ export const parseMessages = (messages: ChatMessageContent[]) => {
     if (groupMessage.length === 1) {
       // first message is not grouped
       groupMessage[0] = { ...groupMessage[0], isGroupedMessage: false };
-      return groupMessage[0];
+      return [groupMessage[0]];
     }
 
     return groupMessage.map((message) => {

@@ -28,9 +28,9 @@ export const BaseIconWrapper = styled.div<IconProps>`
 
     path {
       stroke: ${({ strokeColor, disabled, disabledColor }): string =>
-    disabled ? disabledColor || color.mediumGrey : strokeColor || color.transparent};
+        disabled ? disabledColor || color.mediumGrey : strokeColor || color.transparent};
       fill: ${({ iconColor, disabled, disabledColor }): string =>
-    disabled ? disabledColor || color.mediumGrey : iconColor || color.black};
+        disabled ? disabledColor || color.mediumGrey : iconColor || color.black};
     }
 
     ellipse {
@@ -49,18 +49,18 @@ export const DiceIconWrapper = styled(BaseIconWrapper)<DiceIconProps>`
       fill: ${({ pipColor, disabled, disabledColor }): string => (disabled ? disabledColor || color.mediumGrey : pipColor || color.white)};
     }
     background-color: ${({ iconColor, disabled, disabledColor }): string =>
-    disabled ? disabledColor || color.mediumGrey : iconColor || color.darkBlue};
+      disabled ? disabledColor || color.mediumGrey : iconColor || color.darkBlue};
 
     border: ${({ borderColor }): string => (borderColor ? `1px solid ${borderColor}` : "none")};
 
     ${({ isDiceHidden, pipColor }): string =>
-    isDiceHidden
-      ? `
+      isDiceHidden
+        ? `
         path {
           fill: ${pipColor || color.white};
         }
         `
-      : `
+        : `
         rect {
           fill: ${pipColor || color.white};
         }

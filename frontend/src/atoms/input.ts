@@ -164,7 +164,7 @@ export const SecondaryInput = styled(BaseInput)<SecondaryInputProps>`
   }
 `;
 
-export const ChatInput = styled(SecondaryInput)<Props>`
+export const ChatInput = styled(SecondaryInput)`
   width: ${({ width }) => (width ? width : "100%")};
   height: ${({ height }) => (height ? height : "auto")};
   background: ${color.cloudWhite};
