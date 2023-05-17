@@ -1,4 +1,4 @@
-# Contributing to Boloney!
+# Contributing to Boloney
 
 We would love for you to contribute to Boloney! and help make it even better than it is
 today! As a contributor, here are the guidelines we would like you to follow:
@@ -194,13 +194,13 @@ The version in our package.json gets copied to the one we publish, and users nee
 
 ### Revert
 
-If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
+If the commit reverts a previous commit, it should begin with `revert:`, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
 
 ### Type
 
 Must be one of the following:
 
-- **feature**: A new feature
+- **feat**: A new feature
 - **fix**: A bug fix
 - **docs**: Documentation only changes
 - **chore**: A code change that improves performance, changes in the format and style of the code, refactoring for clarity, upgrades a dependency, etc.
