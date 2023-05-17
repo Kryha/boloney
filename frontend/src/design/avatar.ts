@@ -1,3 +1,5 @@
+export const LOBBY_MAX_HEIGHT = 100;
+
 /**
  * This object is for avatar widths.
  * @param {string} fluid - fluid
@@ -30,4 +32,18 @@ export const avatarHeight = {
   lg: "42vh",
   fluid: "100%",
   auto: "auto",
+};
+
+/**
+ * This object is for lobby size.
+ * @param {string} xs - 12vw
+ * @param {string} sm - 28vh
+ * @param {string} md - 53.25vh
+ * @param {string} lg - 100vw
+ */
+export const lobbySizes = {
+  xs: "12vw",
+  sm: "28vh",
+  md: "53.25vh",
+  lg: "100vw",
 };

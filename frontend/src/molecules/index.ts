@@ -11,3 +11,5 @@ export * from "./player-menu";
 export * from "./floating-player";
 export * from "./hud-player";
 export * from "./player-avatar";
+export * from "./hud-player";
+export * from "./match-sidebar";

@@ -14,8 +14,8 @@ interface Props {
 
   setIsChatOpen?: () => void;
   setIsHistoryOpen?: () => void;
-
-  handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
+  // TODO: reintroduce
+  // handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
   handleKeyEvent: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   setMessageInput: (value: string) => void;
 }
@@ -38,7 +38,8 @@ export const PlayerMenu: FC<Props> = ({
   setIsChatOpen,
   setIsHistoryOpen,
   handleKeyEvent,
-  handleSendEvent,
+  // TODO: reintroduce
+  // handleSendEvent,
   setMessageInput,
 }) => {
   return (
@@ -64,7 +65,8 @@ export const PlayerMenu: FC<Props> = ({
         <Chat
           messages={messages}
           messageInput={messageInput}
-          handleSendEvent={handleSendEvent}
+          // TODO: reintroduce
+          // handleSendEvent={handleSendEvent}
           handleKeyEvent={handleKeyEvent}
           setMessageInput={setMessageInput}
         />

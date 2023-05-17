@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import { color, margins, opacity, zIndex } from "../design";
 import { LinkContainer } from "../molecules";
+import { ellipsis } from "./animations";
 import { GeneralText, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, BodyText } from "./text";
 
 interface TextProps {
@@ -108,5 +109,16 @@ export const NumberedListSection = styled.section`
   }
   ${Heading1}:after {
     content: counter(css-counter, decimal-leading-zero) ""; /* Apply counter before children's content. */
+  }
+`;
+
+export const EllipsisText = styled(GeneralText)`
+  &:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    animation: ${ellipsis} steps(4, end) 900ms infinite;
+    content: "...";
+    width: 0px;
   }
 `;

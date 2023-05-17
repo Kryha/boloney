@@ -84,8 +84,10 @@ import {
   ToastNotifications,
   TooltipFrame,
   CookieBanner,
+  FloatingPlayer,
+  HudPlayer,
 } from "../../molecules";
-import { getPowerUp, range } from "../../util";
+import { getPowerUp, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
 import { TemporaryDice } from "../../molecules/die/temporary-die";
 import { DiceRow } from "../../molecules/die/dice-row";
@@ -97,6 +99,10 @@ import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
 import { PlayerMenu } from "../../molecules/player-menu";
 import { sendMessage } from "../../service";
+import { PlayerLineup } from "../../molecules/player-lineup";
+import { PlayerLogo } from "../../molecules/player-logo";
+import { MatchSideBar } from "../../molecules/match-sidebar";
+import { LobbyHands } from "../../molecules/lobby-lineup";
 
 const onClick = () => {
   console.log("Button works");
@@ -200,12 +206,62 @@ export const Test: FC = () => {
     <>
       <div style={{ paddingTop: "10vh", background: "lightBlue" }}>
         <BoxPattern />
-        <br />
-        <br />
-        <br />
+        <PlayerLineup players={fakePlayers} />
         <RectanglePattern />
+        <PlayerLogo
+          handleKeyEvent={handleKeyEvent}
+          // TODO: reintroduce
+          // handleSendEvent={handleSendEvent}
+          setMessageInput={setMessageInput}
+          messageInput={messageInput}
+          messages={parseMessages(fakeMessages)}
+        />
       </div>
       <div style={{ padding: "50px", background: "lightBlue" }}>
+        <br />
+        <br />
+        <br />
+        <br />
+        <HudPlayer player={fakePlayers[0]} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <FloatingPlayer avatarName="lobster" height={avatarHeight[3]} width="auto" containerHeight="15vh" />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <LobbyHands players={[fakePlayers[0]]} />
+        <LobbyHands players={[fakePlayers[0], fakePlayers[1]]} />
+        <LobbyHands players={[fakePlayers[0], fakePlayers[1], fakePlayers[2]]} />
+        <LobbyHands players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3]]} />
+        <LobbyHands players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4]]} />
+        <LobbyHands players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4], fakePlayers[5]]} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <BaseRow gap={spacing.s}>
+          <MatchSideBar players={[fakePlayers[0]]} />
+          <MatchSideBar players={[fakePlayers[0], fakePlayers[1]]} />
+          <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2]]} />
+          <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3]]} />
+          <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4]]} />
+          <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4], fakePlayers[5]]} />
+        </BaseRow>
+        <br />
+        <br />
+        <br />
+        <br />
         <BaseRow gap="10px">
           <DiceSelectionGrid
             lastBid={lastBid}
@@ -260,24 +316,28 @@ export const Test: FC = () => {
           handleRules={() => console.log("")}
         />
         <br />
-        {/*
-      <PlayerMenuOne>
-        <PlayerMenu
-          isChatOpen={isChatOpen}
-          setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
-          isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
-          isHistoryOpen={isHistoryMenuOpen}
-          setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
-          handleKeyEvent={handleKeyEvent}
-          handleSendEvent={handleSendEvent}
-          messageInput={messageInput}
-          setMessageInput={setMessageInput}
-          messages={parseMessages(fakeMessages)}
-        />
-      </PlayerMenuOne>
-      <PlayerMenuTwo>
-        <PlayerMenu isChatOpen isPanelExpanded isSingular />
-      </PlayerMenuTwo>*/}
+        {/* <PlayerMenuOne>
+          <PlayerMenu
+            isChatOpen={isChatOpen}
+            setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
+            isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
+            isHistoryOpen={isHistoryMenuOpen}
+            setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
+            messages={parseMessages(fakeMessages)}
+            handleKeyEvent={handleKeyEvent}
+            setMessageInput={setMessageInput}
+          />
+        </PlayerMenuOne>
+        <PlayerMenuTwo>
+          <PlayerMenu
+            isChatOpen
+            isPanelExpanded
+            isSingular
+            messages={parseMessages(fakeMessages)}
+            handleKeyEvent={handleKeyEvent}
+            setMessageInput={setMessageInput}
+          />
+        </PlayerMenuTwo> */}
         <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
         <Modal
           component={<Heading2>{"im a modal with a close button"}</Heading2>}
