@@ -14,6 +14,7 @@ import { FadeTransition } from "../page-transition";
 import { Timer } from "../timer";
 import { PrimaryButton } from "../../molecules";
 import { useClientTimer } from "../../hooks";
+import { WaitingForPlayers } from "./waiting-for-players";
 
 export const RollDice: FC = () => {
   const { sendMatchState } = useMatch();
@@ -26,7 +27,7 @@ export const RollDice: FC = () => {
   const isPlayerReady = useStore((state) => state.isPlayerReady);
   const dice = useStore((state) => state.diceValue);
 
-  const { count } = useClientTimer(hasRolledDice);
+  useClientTimer(hasRolledDice);
 
   if (!localPlayer) return <ErrorView />;
 
@@ -45,13 +46,7 @@ export const RollDice: FC = () => {
   };
 
   // In case of timeout player shouldn't be see this view.
-  if (hasRolledDice && isPlayerReady && count !== 0) {
-    return (
-      <BottomButtonWrapper>
-        <MatchHeading headingOne={text.powerUps.timeToWait} headingTwo={text.powerUps.waitForPlayers} isAnimated />
-      </BottomButtonWrapper>
-    );
-  }
+  if (isPlayerReady) return <WaitingForPlayers />;
 
   return (
     <FadeTransition>

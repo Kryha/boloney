@@ -169,9 +169,11 @@ export const useMatch = () => {
 
   const delayBroadcastPlayerReady = (delay: number) => {
     setSpinnerVisibility(true);
-    setPlayerReady(true);
 
-    const timeout = setTimeout(() => broadcastPlayerReady(), delay);
+    const timeout = setTimeout(() => {
+      setPlayerReady(true);
+      broadcastPlayerReady();
+    }, delay);
     return () => clearTimeout(timeout);
   };
 
