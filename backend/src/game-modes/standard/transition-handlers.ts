@@ -1,4 +1,5 @@
-import { setActivePlayer, transitionHandler, matchStageDuration, handleRoundEnding } from "../../services";
+import { MATCH_STAGE_DURATION } from "../../constants";
+import { setActivePlayer, transitionHandler, handleRoundEnding } from "../../services";
 import { MatchOpCode, PlayerActivePayloadBackend, PlayerOrderShufflePayloadBackend, StageTransitionPayloadBackend } from "../../types";
 import { shuffleArray } from "../../utils";
 
@@ -7,7 +8,7 @@ export const handleBasicTransition = transitionHandler(async ({ state, dispatche
 
   const payload: StageTransitionPayloadBackend = {
     matchStage: nextStage,
-    remainingStageTime: matchStageDuration[nextStage],
+    remainingStageTime: MATCH_STAGE_DURATION[nextStage],
     round: state.round,
   };
   dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(payload));
@@ -22,11 +23,11 @@ export const handleLobbyTransition = transitionHandler(async (loopParams, nextSt
 
   const stageTransitionPayload: StageTransitionPayloadBackend = {
     matchStage: nextStage,
-    remainingStageTime: matchStageDuration[nextStage],
+    remainingStageTime: MATCH_STAGE_DURATION[nextStage],
     round: state.round,
   };
   const playerOrderShufflePayload: PlayerOrderShufflePayloadBackend = { playerOrder: state.playerOrder };
-  const playerActivePayload: PlayerActivePayloadBackend = { activePlayerId, remainingStageTime: matchStageDuration.getPowerUpStage };
+  const playerActivePayload: PlayerActivePayloadBackend = { activePlayerId, remainingStageTime: MATCH_STAGE_DURATION.getPowerUpStage };
 
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ORDER_SHUFFLE, JSON.stringify(playerOrderShufflePayload));
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify(playerActivePayload));

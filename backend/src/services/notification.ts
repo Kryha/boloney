@@ -1,6 +1,5 @@
 import { MatchLoopParams, NotificationContent, NotificationOpCode } from "../types";
 import { NOT_USED } from "../constants";
-import { isMatchEnded } from "./player";
 
 export const sendMatchNotification = (
   loopParams: MatchLoopParams,
@@ -10,7 +9,6 @@ export const sendMatchNotification = (
   title = NOT_USED
 ) => {
   const { state, nk } = loopParams;
-  if (isMatchEnded(state.players)) return;
 
   const idlePlayers = receiversIds ?? Object.keys(state.players);
   sendNotification(nk, idlePlayers, notificationCode, content, title);

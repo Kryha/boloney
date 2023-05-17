@@ -13,9 +13,9 @@ import {
   SaveHistoryPayload,
   PlayerPublic,
   HistoryRoundEndAction,
+  ActionRole,
 } from "../types";
-import { totalDiceInMatch } from "./match";
-import { getPlayerWithRole } from "./player";
+import { totalDiceInMatch } from "../utils/die";
 
 export const saveHistoryEvent = (state: MatchState, saveHistoryPayload: SaveHistoryPayload) => {
   switch (saveHistoryPayload.eventType) {
@@ -103,9 +103,13 @@ const saveRoundEndHistoryEvent = (roundEndAction: HistoryRoundEndAction, state: 
     actionName: roundEndAction,
     createdAt: Date.now(),
   };
-  const winner = getPlayerWithRole(state, "winner");
-  const loser = getPlayerWithRole(state, "loser");
-  const userTimeout = getPlayerWithRole(state, "timeOut");
+  const playersValues = Object.values(state.players);
+
+  const getPlayerWithRole = (actionRole: ActionRole) => playersValues.find((player) => player.actionRole === actionRole);
+
+  const winner = getPlayerWithRole("winner");
+  const loser = getPlayerWithRole("loser");
+  const userTimeout = getPlayerWithRole("timeOut");
 
   const roundStats: HistoryPlayerStats[] = Object.values(state.players).map((player) => {
     const playerStats = {

@@ -1,9 +1,7 @@
-import { EMPTY_DATA, MATCH_STAGES, MAX_INACTIVE_TICKS } from "../constants";
+import { EMPTY_DATA, MATCH_STAGES, MATCH_STAGE_DURATION, MAX_INACTIVE_TICKS } from "../constants";
 import { getPowerUp } from "../toolkit-api";
 import {
-  Action,
   AvatarId,
-  ErrorPayloadBackend,
   isHttpError,
   isPowerUpId,
   LogicHandler,
@@ -16,7 +14,6 @@ import {
   NotificationOpCode,
   Player,
   PlayerGetPowerUpsPayloadBackend,
-  PlayerJoinedPayloadBackend,
   PlayerLeftPayloadBackend,
   RoundSummaryTransitionPayloadBackend,
   StageLogicCallback,
@@ -25,25 +22,32 @@ import {
   TransitionHandler,
 } from "../types";
 import { randomInt } from "../utils";
-import { errors, handleErrorSideEffects, handleMatchMessageError, parseError } from "./error";
+import { getDiceValues } from "../utils/die";
+import { errors, sendError, handleErrorSideEffects, handleMatchMessageError } from "./error";
 import { saveHistoryEvent } from "./history";
 import {
   clearPlayerState,
   getActivePlayerId,
-  getDiceValues,
   handleActivePlayerTurnEnds,
   handlePlayerLostMatch,
   hidePlayersData,
   isMatchEnded,
   updatePlayerPowerUpAmount,
+  updatePlayersState,
 } from "./player";
 import { getPlayerAccount } from "./storage";
-import { getSecondsFromTicks, matchStageDuration } from "./timer";
 
 export const getMessageSender = (state: MatchState, message: nkruntime.MatchMessage): Player | undefined => {
   const messageSender = state.players[message.sender.userId];
   if (!messageSender) return;
   return messageSender;
+};
+
+export const stopLoading = (loopParams: MatchLoopParams, sender: nkruntime.Presence, error?: nkruntime.Error | string) => {
+  const { dispatcher } = loopParams;
+
+  if (error) sendError(loopParams, sender, error);
+  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [sender]);
 };
 
 // "endOfMatchStage" has itself as next stage
@@ -164,21 +168,6 @@ export const handlePlayerLeftDuringLobby = (state: MatchState, senderId: string,
   updatePlayersState(state, dispatcher);
 };
 
-export const stopLoading = ({ dispatcher, logger }: MatchLoopParams, sender: nkruntime.Presence, error?: nkruntime.Error | string) => {
-  if (error) {
-    const parsedError = parseError(error);
-    logger.error("WS error:", parsedError);
-
-    const payload: ErrorPayloadBackend = {
-      message: parsedError.message,
-      httpCode: parsedError.code,
-      opCode: MatchOpCode.ERROR,
-    };
-    dispatcher.broadcastMessage(MatchOpCode.ERROR, JSON.stringify(payload));
-  }
-  dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [sender]);
-};
-
 export const messageHandler: MessageHandler = (callback) => async (loopParams, message, sender) => {
   const { state } = loopParams;
   const deepCopy = structuredClone(state);
@@ -256,51 +245,6 @@ export const resetRound = ({ state }: MatchLoopParams) => {
   });
 };
 
-export const setAction = (action: Action, state: MatchState) => {
-  state.action = action;
-};
-
-export const updatePlayersState = (state: MatchState, dispatcher: nkruntime.MatchDispatcher) => {
-  const hiddenPlayersData = hidePlayersData(state.players);
-
-  Promise.all(
-    Object.values(state.presences).map(async (presence) => {
-      const player = state.players[presence.userId];
-      const turnActionStep = state.matchStage === "roundSummaryStage" ? "results" : state.turnActionStep;
-
-      const payload: PlayerJoinedPayloadBackend = {
-        matchState: {
-          matchStage: state.matchStage,
-          players: hiddenPlayersData,
-          playerOrder: state.playerOrder,
-          powerUpIds: player.powerUpIds,
-          matchSettings: state.settings,
-          leaderboard: state.leaderboard,
-          hasRolledDice: player.hasRolledDice,
-          diceValue: player.diceValue,
-          bids: state.bids,
-          round: state.round,
-          stageNumber: state.stageNumber,
-          drawRoundCounter: state.drawRoundCounter,
-          turnActionStep: turnActionStep,
-          lastAction: state.action,
-          historyEvents: state.historyEvents,
-        },
-        remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
-      };
-
-      dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
-      dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [presence]);
-    })
-  );
-};
-
-export const totalDiceInMatch = (playersRecord: Record<string, Player>) => {
-  const players = Object.values(playersRecord);
-  const totalDice = players.reduce((total, player) => total + player.diceAmount, 0);
-  return totalDice;
-};
-
 // TODO: discuss on how to improve integration with the corresponding transition handler
 export const handleRoundEnding = async (loopParams: MatchLoopParams, nextStage: MatchStage) => {
   const { dispatcher, state, nk } = loopParams;
@@ -354,7 +298,7 @@ export const handleRoundEnding = async (loopParams: MatchLoopParams, nextStage: 
 
   const stageTransitionPayload: StageTransitionPayloadBackend = {
     matchStage: nextStage,
-    remainingStageTime: matchStageDuration[nextStage],
+    remainingStageTime: MATCH_STAGE_DURATION[nextStage],
     round: state.round,
   };
   saveHistoryEvent(state, { eventType: "roundStart" });

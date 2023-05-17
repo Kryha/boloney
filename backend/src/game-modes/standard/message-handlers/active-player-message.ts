@@ -1,26 +1,20 @@
-import { EMPTY_DATA } from "../../../constants";
+import { EMPTY_DATA, MATCH_STAGE_DURATION } from "../../../constants";
 import {
   errors,
-  getLatestBid,
-  getTotalDiceWithFace,
   hidePlayersData,
-  isBidHigher,
-  isBidMaxTotal,
   messageHandler,
   sendMatchNotification,
   setActivePlayer,
   setAllPlayersReady,
   stopLoading,
   handlePlayerLostRound,
-  setAction,
   updatePlayerPublicData,
   powerUp,
   saveHistoryEvent,
-  matchStageDuration,
   handleActivePlayerTurnEnds,
-  getDiceValues,
   getPlayerAccount,
   getFilteredPlayerIds,
+  isMatchEnded,
 } from "../../../services";
 import { getPowerUp, rollDice } from "../../../toolkit-api";
 import {
@@ -42,7 +36,7 @@ import {
   PlayerGetPowerUpsPayloadBackend,
   RollDicePayload,
 } from "../../../types";
-import { range } from "../../../utils";
+import { getDiceValues, getLatestBid, getTotalDiceWithFace, isBidHigher, isBidMaxTotal, range } from "../../../utils";
 
 const handlePlayerPlaceBid = messageHandler(async (loopParams, message, sender) => {
   const { logger, nk, state, dispatcher } = loopParams;
@@ -65,7 +59,7 @@ const handlePlayerPlaceBid = messageHandler(async (loopParams, message, sender) 
   const placeBidPayload: BidPayloadBackend = state.bids;
   const playerActivePayload: PlayerActivePayloadBackend = {
     activePlayerId: nextActivePlayerId,
-    remainingStageTime: matchStageDuration.playerTurnLoopStage,
+    remainingStageTime: MATCH_STAGE_DURATION.playerTurnLoopStage,
   };
 
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));
@@ -90,7 +84,7 @@ const handlePlayerCallBoloney = messageHandler(async (loopParams, message, sende
     targetPlayerName: state.presences[bid.userId].username,
   };
   const receiversIds = getFilteredPlayerIds(state.players, [sender.userId, bid.userId]);
-  sendMatchNotification(loopParams, NotificationOpCode.BOLONEY, notificationContent, receiversIds);
+  if (!isMatchEnded(state.players)) sendMatchNotification(loopParams, NotificationOpCode.BOLONEY, notificationContent, receiversIds);
 
   const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
@@ -108,7 +102,7 @@ const handlePlayerCallBoloney = messageHandler(async (loopParams, message, sende
   const payload: BoloneyPayloadBackend = { players: hidePlayersData(state.players), diceValue: getDiceValues(state.players) };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_BOLONEY, JSON.stringify(payload));
 
-  setAction("Boloney", state);
+  state.action = "Boloney";
   stopLoading(loopParams, message.sender);
   saveHistoryEvent(state, { eventType: "roundResults", roundEndAction: "boloney" });
 });
@@ -128,7 +122,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
   };
 
   const receiversIds = getFilteredPlayerIds(state.players, [sender.userId, bid.userId]);
-  sendMatchNotification(loopParams, NotificationOpCode.EXACT, notificationContent, receiversIds);
+  if (!isMatchEnded(state.players)) sendMatchNotification(loopParams, NotificationOpCode.EXACT, notificationContent, receiversIds);
 
   const totalDice = getTotalDiceWithFace(state.players, bid.face);
 
@@ -168,7 +162,7 @@ const handlePlayerCallExact = messageHandler(async (loopParams, message, sender)
   const payload: ExactPayloadBackend = { players: hidePlayersData(state.players), diceValue: getDiceValues(state.players) };
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_CALL_EXACT, JSON.stringify(payload));
 
-  setAction("Exact", state);
+  state.action = "Exact";
   stopLoading(loopParams, message.sender);
   saveHistoryEvent(state, { eventType: "roundResults", roundEndAction: "exact" });
 });
@@ -203,7 +197,7 @@ const handlePlayerCallHealDice = messageHandler(async (loopParams, message, send
   };
 
   const receiversIds = getFilteredPlayerIds(state.players, [sender.userId]);
-  sendMatchNotification(loopParams, NotificationOpCode.HEAL_DICE, notificationContent, receiversIds);
+  if (!isMatchEnded(state.players)) sendMatchNotification(loopParams, NotificationOpCode.HEAL_DICE, notificationContent, receiversIds);
 
   const payloadDice: RollDicePayload = {
     diceValue: sender.diceValue,

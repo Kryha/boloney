@@ -1,23 +1,89 @@
 import { EMPTY_DATA } from "../constants";
 import { rollDice } from "../toolkit-api";
 import {
-  Bid,
-  BidPayloadFrontend,
-  BidWithUserId,
   MatchLoopParams,
   MatchState,
-  NotificationOpCode,
-  NotificationContentPlayerLost,
   Player,
   PlayerPublic,
   RollDicePayload,
   MatchOpCode,
-  ActionRole,
-  Die,
+  PlayerJoinedPayloadBackend,
+  NotificationOpCode,
+  NotificationContentPlayerLost,
 } from "../types";
-import { totalDiceInMatch } from "./match";
+import { getSecondsFromTicks } from "../utils";
+import { saveHistoryEvent } from "./history";
 import { sendMatchNotification } from "./notification";
 import { getPlayerAccount } from "./storage";
+
+export const handlePlayerLostRound = (loopParams: MatchLoopParams, playerId: string, isTimeOut: boolean) => {
+  const { state } = loopParams;
+  state.players[playerId].diceAmount -= 1;
+  state.players[playerId].actionRole = isTimeOut ? "timeOut" : "loser";
+
+  if (isTimeOut) {
+    saveHistoryEvent(state, { eventType: "roundResults", roundEndAction: "lostByTimeOut" });
+    state.action = "lostByTimeOut";
+  }
+
+  if (state.players[playerId].diceAmount <= 0) {
+    handlePlayerLostMatch(loopParams, state.players[playerId], NotificationOpCode.PLAYER_LOST);
+  }
+};
+
+export const handlePlayerLostMatch = (loopParams: MatchLoopParams, loser: Player, opCode: NotificationOpCode) => {
+  const { state } = loopParams;
+  state.leaderboard.unshift({ ...hidePlayerData(loser), lostAtRound: state.round });
+
+  loser.status = "lost";
+
+  const playersInGame = Object.values(state.players).filter((player) => player.status !== "lost");
+
+  if (playersInGame.length === 1) {
+    state.leaderboard.unshift({ ...hidePlayerData(playersInGame[0]), lostAtRound: state.round });
+  }
+
+  const notificationContent: NotificationContentPlayerLost = {
+    activePlayerName: loser.username,
+  };
+  const receiversIds = getFilteredPlayerIds(state.players, [loser.userId]);
+  if (!isMatchEnded(state.players)) sendMatchNotification(loopParams, opCode, notificationContent, receiversIds);
+};
+
+export const updatePlayersState = (state: MatchState, dispatcher: nkruntime.MatchDispatcher) => {
+  const hiddenPlayersData = hidePlayersData(state.players);
+
+  Promise.all(
+    Object.values(state.presences).map(async (presence) => {
+      const player = state.players[presence.userId];
+      const turnActionStep = state.matchStage === "roundSummaryStage" ? "results" : state.turnActionStep;
+
+      const payload: PlayerJoinedPayloadBackend = {
+        matchState: {
+          matchStage: state.matchStage,
+          players: hiddenPlayersData,
+          playerOrder: state.playerOrder,
+          powerUpIds: player.powerUpIds,
+          matchSettings: state.settings,
+          leaderboard: state.leaderboard,
+          hasRolledDice: player.hasRolledDice,
+          diceValue: player.diceValue,
+          bids: state.bids,
+          round: state.round,
+          stageNumber: state.stageNumber,
+          drawRoundCounter: state.drawRoundCounter,
+          turnActionStep: turnActionStep,
+          lastAction: state.action,
+          historyEvents: state.historyEvents,
+        },
+        remainingStageTime: getSecondsFromTicks(state.ticksBeforeTimeOut),
+      };
+
+      dispatcher.broadcastMessage(MatchOpCode.PLAYER_JOINED, JSON.stringify(payload), [presence]);
+      dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [presence]);
+    })
+  );
+};
 
 export const attemptSetPlayerReady = (state: MatchState, userId: string) => {
   if (state.playersReady.includes(userId)) return;
@@ -51,11 +117,6 @@ export const getNextPlayerId = (currentPlayerId: string, state: MatchState): str
   return nextPlayerId;
 };
 
-export const getPlayerWithRole = (state: MatchState, actionRole: ActionRole): Player | undefined => {
-  const playersValues = Object.values(state.players);
-  return playersValues.find((player) => player.actionRole === actionRole);
-};
-
 export const getOtherPresences = (currentPlayerId: string, presences: Record<string, nkruntime.Presence>): nkruntime.Presence[] => {
   return Object.entries(presences)
     .filter((presenceRecord) => presenceRecord[0] !== currentPlayerId)
@@ -87,16 +148,6 @@ export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: s
   const payload: RollDicePayload = { diceValue };
   dispatcher.broadcastMessage(MatchOpCode.STOP_LOADING, EMPTY_DATA, [state.presences[playerId]]);
   dispatcher.broadcastMessage(MatchOpCode.ROLL_DICE, JSON.stringify(payload), [state.presences[playerId]]);
-};
-
-export const handlePlayerLostRound = (loopParams: MatchLoopParams, playerId: string, isTimeOut: boolean) => {
-  const { state } = loopParams;
-  state.players[playerId].diceAmount -= 1;
-  state.players[playerId].actionRole = isTimeOut ? "timeOut" : "loser";
-
-  if (state.players[playerId].diceAmount <= 0) {
-    handlePlayerLostMatch(loopParams, state.players[playerId], NotificationOpCode.PLAYER_LOST);
-  }
 };
 
 export const areAllPlayersReady = (state: MatchState): boolean => {
@@ -172,60 +223,6 @@ export const hidePlayersData = (players: Record<string, Player>): Record<string,
   return Object.entries(players).reduce((processed, [key, player]) => {
     return { ...processed, [key]: hidePlayerData(player) };
   }, {} as Record<string, PlayerPublic>);
-};
-
-export const getDiceValues = (players: Record<string, Player>): Record<string, Die[]> => {
-  return Object.entries(players).reduce((processed, [key, player]) => {
-    return { ...processed, [key]: player.diceValue };
-  }, {} as Record<string, Die[]>);
-};
-
-export const getTotalDiceWithFace = (players: Record<string, Player>, face: number) =>
-  Object.values(players).reduce(
-    (total, player) =>
-      total +
-      player.diceValue.reduce((subTotal, die) => {
-        if (die.rolledValue === face) return subTotal + 1;
-        return subTotal;
-      }, 0),
-    0
-  );
-
-export const handlePlayerLostMatch = (loopParams: MatchLoopParams, loser: Player, opCode: NotificationOpCode) => {
-  const { state } = loopParams;
-  state.leaderboard.unshift({ ...hidePlayerData(loser), lostAtRound: state.round });
-
-  loser.status = "lost";
-
-  const playersInGame = Object.values(state.players).filter((player) => player.status !== "lost");
-  if (playersInGame.length === 1) {
-    state.leaderboard.unshift({ ...hidePlayerData(playersInGame[0]), lostAtRound: state.round });
-  }
-  const notificationContent: NotificationContentPlayerLost = {
-    activePlayerName: loser.username,
-  };
-  const receiversIds = getFilteredPlayerIds(state.players, [loser.userId]);
-  sendMatchNotification(loopParams, opCode, notificationContent, receiversIds);
-};
-
-export const getLatestBid = (bids: Record<string, Bid>): BidWithUserId | undefined =>
-  Object.entries(bids).reduce((prevLatest: BidWithUserId | undefined, [k, bid]) => {
-    if (!prevLatest || prevLatest.createdAt < bid.createdAt) return { userId: k, ...bid };
-
-    return prevLatest;
-  }, undefined);
-
-export const isBidMaxTotal = (playersRecord: Record<string, Player>, bid: BidPayloadFrontend) => {
-  const totalDice = totalDiceInMatch(playersRecord);
-  return totalDice >= bid.amount;
-};
-
-export const isBidHigher = (previousHighest: Bid, newHighest: BidPayloadFrontend): boolean => {
-  if (!previousHighest) return true;
-  const isHigherAmount = previousHighest.amount < newHighest.amount;
-  const isHigherFace = previousHighest.face < newHighest.face;
-
-  return isHigherAmount || isHigherFace;
 };
 
 export const clearPlayerState = (player: Player): Player => {

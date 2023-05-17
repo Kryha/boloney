@@ -54,7 +54,7 @@ describe("parseError function", () => {
   });
 
   it("Should parse any type of error and Nakama Code to Nakama Error", () => {
-    const message = "Internal error";
+    const message = "internalError";
     expect(errorHandling.parseError(StatusCodes.NOT_FOUND, code)).toEqual({ message, code, name });
   });
 });

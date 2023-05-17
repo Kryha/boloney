@@ -7,3 +7,6 @@ export * from "./zk";
 export * from "./env";
 export * from "./error";
 export * from "./power-up";
+export * from "./timer";
+export * from "./bid";
+export * from "./die";

@@ -1,28 +1,19 @@
-import { EMPTY_DATA, TICK_RATE } from "../constants";
-import { MatchLoopParams, MatchOpCode, MatchStage, PlayerLostByTimeOutPayloadBackend } from "../types";
-import { saveHistoryEvent } from "./history";
-import { setAction } from "./match";
+import { EMPTY_DATA, MATCH_STAGE_DURATION } from "../constants";
+import { MatchLoopParams, MatchOpCode, PlayerLostByTimeOutPayloadBackend } from "../types";
+import { getTicksFromSeconds } from "../utils";
+import { getDiceValues } from "../utils/die";
 import {
   areAllPlayersReady,
   getActivePlayerId,
-  getDiceValues,
   handlePlayerLostRound,
   hidePlayersData,
   rollDiceForPlayer,
   setAllPlayersReady,
 } from "./player";
 
-export const getTicksFromSeconds = (timeInSec: number) => {
-  return timeInSec * TICK_RATE;
-};
-
-export const getSecondsFromTicks = (ticks: number) => {
-  return ticks / TICK_RATE;
-};
-
 export const handleStartTimer = (loopParams: MatchLoopParams) => {
   const { state } = loopParams;
-  const timerDuration = matchStageDuration[state.matchStage];
+  const timerDuration = MATCH_STAGE_DURATION[state.matchStage];
 
   state.timerHasStarted = true;
   state.ticksBeforeTimeOut = getTicksFromSeconds(timerDuration);
@@ -42,7 +33,6 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
     case "playerTurnLoopStage": {
       if (!activePlayerId) return;
       handlePlayerLostRound(loopParams, activePlayerId, true);
-      saveHistoryEvent(state, { eventType: "roundResults", roundEndAction: "lostByTimeOut" });
 
       setAllPlayersReady(state);
 
@@ -51,7 +41,6 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
         diceValue: getDiceValues(state.players),
       };
       dispatcher.broadcastMessage(MatchOpCode.PLAYER_LOST_BY_TIMEOUT, JSON.stringify(payload));
-      setAction("lostByTimeOut", state);
 
       break;
     }
@@ -79,17 +68,4 @@ export const handleTimeOutTicks = async (loopParams: MatchLoopParams) => {
 
 export const msecToSec = (n: number): number => {
   return Math.floor(n / 1000);
-};
-
-// TODO: Reduce general Durations after Toolkit calls return quicker
-// Some stages have no timer at the moment but they may be implemented in the future
-// Duration is in seconds
-export const matchStageDuration: Record<MatchStage, number> = {
-  lobbyStage: 0, // Stage does not have a timer
-  getPowerUpStage: 10,
-  rollDiceStage: 10,
-  playerTurnLoopStage: 60,
-  roundSummaryStage: 10,
-  endOfMatchStage: 0, // Stage does not have a timer
-  terminateMatchStage: 0, // Stage does not have a timer
 };

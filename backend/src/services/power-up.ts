@@ -30,11 +30,10 @@ import {
   AleoKeys,
   DiceDataToolkit,
 } from "../types";
-import { updatePlayersState } from "./match";
 import { handleError } from "./error";
 import { sendMatchNotification } from "./notification";
 import { cleanUUID, getRange, isPowerUpEndingTurn, isZkEnabled, shuffleArray } from "../utils";
-import { getFilteredPlayerIds, handleActivePlayerTurnEnds, updatePlayerPowerUpAmount } from "./player";
+import { getFilteredPlayerIds, handleActivePlayerTurnEnds, updatePlayerPowerUpAmount, updatePlayersState } from "./player";
 import { saveHistoryEvent } from "./history";
 import { getPlayerAccount, getPlayerKeys } from "./storage";
 
