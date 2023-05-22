@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { AlignContent, Heading6, IconPosition } from "../../atoms";
-import { FontProps, fontWeights } from "../../design";
+import { FontProps, fontWeights, TransformText } from "../../design";
 import { FlexibleRow } from "./styles";
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
   icon?: ReactNode;
   iconPosition?: IconPosition;
   justifyContent?: AlignContent;
+  transformText?: TransformText;
 }
 
 /**
@@ -27,6 +28,7 @@ interface Props {
  * @param {ReactNode} icon - icon for the tool tip heading
  * @param {IconPosition} iconPosition - position for the icon, i.e left or right
  * @param {AlignContent} justifyContent - for reversed icons i.e icons to the left the value must be flex-end
+ * @param {TransformText} transformText - for transforming the text i.e uppercase
  */
 
 export const RowHeadingIcon: FC<Props> = ({
@@ -40,6 +42,7 @@ export const RowHeadingIcon: FC<Props> = ({
   icon,
   iconPosition,
   justifyContent,
+  transformText,
 }) => {
   return (
     <FlexibleRow gap={gap} flexDirection={iconPosition} alignItems="center" justifyContent={justifyContent}>
@@ -49,6 +52,7 @@ export const RowHeadingIcon: FC<Props> = ({
         fontSize={headingFontSize}
         lineHeight={headingLineHeight}
         fontWeight={headingFontWeight || fontWeights.bolder}
+        transformText={transformText}
       >
         {heading}
       </Heading6>

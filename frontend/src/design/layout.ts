@@ -2,6 +2,8 @@
  These are the widths and heights of containers and layouts used through out the application
 */
 
+export const MOBILE_HEIGHT = "100dvh";
+
 export const containerWidth = {
   xxs: "1.57vw",
   xs: "3.14vw",

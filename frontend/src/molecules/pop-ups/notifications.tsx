@@ -12,6 +12,8 @@ interface Props {
   headingColor?: string;
   img?: string;
   isMultipleNotifications?: boolean;
+  closeToast: () => void;
+  wordsToBold?: string[] | RegExp[];
 }
 
 /**
@@ -24,7 +26,16 @@ interface Props {
  * @param {boolean} isMultipleNotifications -  whether there are multiple notifications or not
  */
 
-export const ToastNotifications: FC<Props> = ({ subheading, heading, subheadingColor, headingColor, img, isMultipleNotifications }) => {
+export const ToastNotifications: FC<Props> = ({
+  subheading,
+  heading,
+  subheadingColor,
+  headingColor,
+  img,
+  isMultipleNotifications,
+  closeToast,
+  wordsToBold,
+}) => {
   return (
     <ToastWrapper alignItems="center">
       {isMultipleNotifications && <PopUpBlock />}
@@ -32,8 +43,14 @@ export const ToastNotifications: FC<Props> = ({ subheading, heading, subheadingC
         <BaseRow>
           <FluidImage src={img} height={images.fluid} width={images.auto} maxHeight={containerHeight.xl} />
           <ToastContentWrapper justifyContent="space-between" gap={spacing.ms}>
-            <NotificationHeading heading={heading} headingColor={headingColor} subheading={subheading} subheadingColor={subheadingColor} />
-            <BaseIcon src={<CloseIconSVG />} alignSelf="flex-start" pointer />
+            <NotificationHeading
+              heading={heading}
+              headingColor={headingColor}
+              subheading={subheading}
+              subheadingColor={subheadingColor}
+              wordsToBold={wordsToBold}
+            />
+            <BaseIcon src={<CloseIconSVG />} alignSelf="flex-start" pointer onClick={closeToast} />
           </ToastContentWrapper>
         </BaseRow>
       </PopUp>

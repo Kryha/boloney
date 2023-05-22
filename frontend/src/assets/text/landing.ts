@@ -40,8 +40,7 @@ export const landing = {
   joinTheCommunity: "join the community discussion",
   headTo: "head to",
   discord: "Discord",
-  // TODO: Put discord link
-  discordLink: "https://joindiscord.com",
+  discordLink: "https://discord.com/channels/700454073459015690/1103341726644580442",
   letsRoll:
     "let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll! let's roll!",
   githubLink: "https://github.com/Kryha/boloney",

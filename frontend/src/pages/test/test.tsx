@@ -3,6 +3,7 @@
 import { FC, useState } from "react";
 import {
   CallBoloney,
+  CallBoloneyWinner,
   CallExact,
   CookieIconSVG,
   DiscordLogo,
@@ -21,7 +22,7 @@ import {
   text,
 } from "../../assets";
 import { fakeMessages, fakePlayers } from "../../assets/fake-data";
-import { InputLegend, MatchPlayersOverview } from "../../components";
+import { InputLegend } from "../../components";
 import {
   BaseIcon,
   SecondaryButtonBase,
@@ -63,7 +64,6 @@ import {
   BoxPattern,
   RectanglePattern,
 } from "../../atoms";
-import { MainContentContainer } from "../../components/match-layout/styles";
 import { PickAction } from "../../components/player-turns/pick-action";
 import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET } from "../../constants";
 import { color, buttonSize, fonts, fontSizes, fontWeights, images, layoutHeight, lineHeights, spacing } from "../../design";
@@ -87,22 +87,37 @@ import {
   FloatingPlayer,
   HudPlayer,
 } from "../../molecules";
-import { getPowerUp, parseMessages, range } from "../../util";
+import { getPowerUp, getPowerUpData, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
 import { TemporaryDice } from "../../molecules/die/temporary-die";
 import { DiceRow } from "../../molecules/die/dice-row";
 import { Bid, Die as DieType } from "../../types";
 import { LastBidPlayer } from "../../molecules/die/last-bid";
 import { DiceSelectionGrid } from "../../molecules/die/dice-selection-grid";
-import { AlignColumn, BackgroundRow, BottomHud, PlayerMenuOne, PlayerMenuTwo, HalfColumn, Layout } from "./styles";
+import {
+  AlignColumn,
+  BackgroundRow,
+  BottomHud,
+  PlayerMenuOne,
+  HalfColumn,
+  Layout,
+  MainContainer,
+  HubInfoBlock,
+  MatchHeadingColumn,
+} from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
-import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
+import { ActiveDropdown } from "../../molecules/top-navigation";
 import { PlayerMenu } from "../../molecules/player-menu";
 import { sendMessage } from "../../service";
 import { PlayerLineup } from "../../molecules/player-lineup";
 import { PlayerLogo } from "../../molecules/player-logo";
 import { MatchSideBar } from "../../molecules/match-sidebar";
 import { LobbyHands } from "../../molecules/lobby-lineup";
+import { Footer } from "../../molecules/footer";
+import { PowerUpPile } from "../../molecules/power-up-pile";
+import { fakePowerUps } from "../../assets/fake-data/fake-power-ups";
+import { NavigationBar } from "../../molecules/navigation-bar";
+import { MatchImage } from "../../molecules/match-image";
 
 const onClick = () => {
   console.log("Button works");
@@ -204,6 +219,56 @@ export const Test: FC = () => {
 
   return (
     <>
+      <div style={{ paddingTop: "100vh", background: "lightBlue" }}>
+        <PowerUpPile powerUps={getPowerUpData(fakePowerUps)} isPowerUpsDisplayed={false} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Layout>
+          <MatchSideBar players={fakePlayers} />
+          <BottomHud>
+            <HudPlayer player={fakePlayers[0]} />
+            <HubInfoBlock>{"hud power up and dice container"}</HubInfoBlock>
+          </BottomHud>
+          <PlayerMenuOne>
+            <PlayerMenu
+              isChatOpen={isChatOpen}
+              setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
+              isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
+              isHistoryOpen={isHistoryMenuOpen}
+              setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
+              messages={parseMessages(fakeMessages)}
+              handleKeyEvent={handleKeyEvent}
+              setMessageInput={setMessageInput}
+            />
+          </PlayerMenuOne>
+          <MainContainer>
+            <MatchHeadingColumn gap={spacing.s}>
+              <TimerHeader time="0.10" heading="call boloney" gap={spacing.s} />
+              <ColumnHeading
+                headingFontSize={fontSizes.heading1}
+                headingLineHeight={lineHeights.heading1}
+                heading={"you win!"}
+                subheading={"You are rocking it!"}
+                subheadingColor={color.darkGrey}
+                gap={spacing.xs}
+              />
+            </MatchHeadingColumn>
+            <MatchImage image={CallBoloneyWinner} alt={"call exact"} />
+          </MainContainer>
+        </Layout>
+        <br />
+        <br />
+        <br />
+        <br />
+        <Footer />
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
       <div style={{ paddingTop: "10vh", background: "lightBlue" }}>
         <BoxPattern />
         <PlayerLineup players={fakePlayers} />
@@ -305,7 +370,7 @@ export const Test: FC = () => {
           <DiceRow dice={thirtienRolledDice} dieColor={color.red} temporaryDieAmount={3} />
         </BaseRow>
         <br />
-        <TopNavigation
+        <NavigationBar
           isInMatch={false}
           setActiveDropdown={handleDropdownClick}
           isDropdownContentVisible={isComponentVisible}
@@ -314,6 +379,9 @@ export const Test: FC = () => {
           handleLeaveMatch={() => console.log("")}
           handleSettings={() => console.log("")}
           handleRules={() => console.log("")}
+          totalDice={35}
+          stageNumber={1}
+          drawNumber={7}
         />
         <br />
         {/* <PlayerMenuOne>
@@ -365,12 +433,19 @@ export const Test: FC = () => {
           heading="The Sum power-up"
           subheading="It is being used towards you! Wait and see the result of this move!"
           isMultipleNotifications
+          closeToast={function (): void {
+            throw new Error("Function not implemented.");
+          }}
         />
         <br />
         <ToastNotifications
           img={CallExact}
           heading="The Sum power-up"
           subheading="It is being used towards you! Wait and see the result of this move!"
+          isMultipleNotifications
+          closeToast={function (): void {
+            throw new Error("Function not implemented.");
+          }}
         />
         <br />
         <br />
@@ -822,13 +897,6 @@ export const Test: FC = () => {
         <br />
         <h2>only look at the image in the center, i.e the 3 dice on a balancing beam</h2>
         <br />
-        <Layout>
-          <MatchPlayersOverview playerOrder={fakePlayers} />
-          <BottomHud />
-          <MainContentContainer isInMatch isStageWithHUD>
-            <FluidImage src={CallExact} height={images.auto} width={images.picture} />
-          </MainContentContainer>
-        </Layout>
         <br />
         <br />
         <h1>row</h1>

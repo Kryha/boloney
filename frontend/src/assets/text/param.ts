@@ -56,4 +56,7 @@ export const param = {
   time: (hour: string, minutes: string) => `-${hour}:${minutes}`,
   playerDice: (diceValues?: number[]) => (diceValues ? `:[${diceValues.toString()}]  ` : ":[]  "),
   soundOnOrOff: (state: boolean) => (state ? "on" : "off"),
+  matchInfoDivider: (info: string) => `${info}     |`,
+  matchStageNumber: (amount: number) => `${amount === undefined ? "?" : `stage ${amount}`}`,
+  powerUpMatchInfo: (amount: number) => `+1 in ${amount} round`,
 };

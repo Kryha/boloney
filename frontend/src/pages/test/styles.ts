@@ -1,7 +1,7 @@
 // TODO: delete file
 
 import styled from "@emotion/styled";
-import { Card, BaseColumn, BaseRow, HUDBlock } from "../../atoms";
+import { Card, BaseColumn, BaseRow, HUDBlock, PlayerInformationBlock, FluidImage } from "../../atoms";
 import { spacing, color } from "../../design";
 
 export const PowerUpCard = styled(Card)`
@@ -43,4 +43,25 @@ export const PlayerMenuTwo = styled.div`
   position: absolute;
   bottom: 0;
   right: 30vw;
+`;
+
+export const MainContainer = styled.div`
+  position: absolute;
+  overflow-y: scroll;
+  left: 12.5vw;
+  position: absolute;
+  top: 0;
+  width: 62.5vw;
+  height: 89vh;
+`;
+
+export const HubInfoBlock = styled(PlayerInformationBlock)`
+  position: absolute;
+  top: 0;
+  left: 12.5vw;
+`;
+
+export const MatchHeadingColumn = styled(BaseColumn)`
+  margin-left: ${spacing.xxl};
+  margin-top: ${spacing.xxl};
 `;

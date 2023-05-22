@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Highlighter from "react-highlight-words";
 import { BodyText, Heading6 } from "../../atoms";
 import { FontProps, TransformText } from "../../design";
 import { NotificationHeadingWrapper } from "./styles";
@@ -19,6 +20,7 @@ interface Props {
   headingColor?: string;
   headingTransformation?: TransformText;
   subheadingTransformation?: TransformText;
+  wordsToBold?: string[] | RegExp[];
 }
 
 /**
@@ -38,10 +40,11 @@ interface Props {
  * @param {string} headingColor - color for the heading text
  * @param {string} headingTransformation - heading transformation, is it capitalized / uppercase etc
  * @param {string} subheadingTransformation - subheading transformation, is it capitalized / uppercase etc
+ * @param {string[] | RegExp[]} wordsToBold - an array of words that need to be bold within the subheading
  */
 
 export const NotificationHeading: FC<Props> = ({
-  subheading,
+  subheading = "",
   heading,
   gap,
   subheadingColor,
@@ -56,6 +59,7 @@ export const NotificationHeading: FC<Props> = ({
   headingLineHeight,
   headingTransformation,
   subheadingTransformation,
+  wordsToBold = [],
 }) => {
   return (
     <NotificationHeadingWrapper gap={gap}>
@@ -69,6 +73,7 @@ export const NotificationHeading: FC<Props> = ({
       >
         {heading}
       </Heading6>
+
       <BodyText
         customcolor={subheadingColor}
         font={subheadingFont}
@@ -77,7 +82,7 @@ export const NotificationHeading: FC<Props> = ({
         fontWeight={subheadingFontWeight}
         transformText={subheadingTransformation}
       >
-        {subheading}
+        <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={subheading} />
       </BodyText>
     </NotificationHeadingWrapper>
   );
