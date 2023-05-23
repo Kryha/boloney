@@ -61,7 +61,6 @@ export const TopNavigation: FC<Props> = ({
           buttonText={text.general.contact}
           expand={() => setActiveDropdown("contact")}
         />
-        {/* TODO: add sound, only in match situations */}
         <Menu
           isOpen={activeDropdown === "menu" && isDropdownContentVisible}
           expand={() => setActiveDropdown("menu")}

@@ -86,6 +86,7 @@ import {
   CookieBanner,
   FloatingPlayer,
   HudPlayer,
+  PlayerMenu,
 } from "../../molecules";
 import { getPowerUp, getPowerUpData, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
@@ -106,8 +107,9 @@ import {
   MatchHeadingColumn,
 } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
-import { ActiveDropdown } from "../../molecules/top-navigation";
-import { PlayerMenu } from "../../molecules/player-menu";
+import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
+import { MatchSettingsOverview } from "../../molecules/match-settings-overview";
+import { fakeMatchSettings } from "../../assets/fake-data/fake-match-settings";
 import { sendMessage } from "../../service";
 import { PlayerLineup } from "../../molecules/player-lineup";
 import { PlayerLogo } from "../../molecules/player-logo";
@@ -204,6 +206,10 @@ export const Test: FC = () => {
       setActiveDropdown(dropdown);
       setIsComponentVisible(true);
     }
+  };
+
+  const handleSettings = () => {
+    setModalShown(true);
   };
 
   const handleSendEvent = (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => {
@@ -370,18 +376,18 @@ export const Test: FC = () => {
           <DiceRow dice={thirtienRolledDice} dieColor={color.red} temporaryDieAmount={3} />
         </BaseRow>
         <br />
-        <NavigationBar
-          isInMatch={false}
+        <TopNavigation
+          isInMatch={true}
           setActiveDropdown={handleDropdownClick}
           isDropdownContentVisible={isComponentVisible}
           activeDropdown={activeDropdown}
           handleAuth={() => console.log("")}
           handleLeaveMatch={() => console.log("")}
-          handleSettings={() => console.log("")}
+          handleSettings={() => handleSettings()}
           handleRules={() => console.log("")}
-          totalDice={35}
-          stageNumber={1}
-          drawNumber={7}
+          // totalDice={35}
+          // stageNumber={1}
+          // drawNumber={7}
         />
         <br />
         {/* <PlayerMenuOne>
@@ -408,23 +414,10 @@ export const Test: FC = () => {
         </PlayerMenuTwo> */}
         <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
         <Modal
-          component={<Heading2>{"im a modal with a close button"}</Heading2>}
+          component={<MatchSettingsOverview matchSettings={fakeMatchSettings} />}
           isVisible={isModalShown}
           isContained
           onClose={() => setModalShown(!isModalShown)}
-        />
-        <TertiaryButton text="CLICK ME! show modal without close button" onClick={() => setModalShownNoButton(!isModalShownNoButton)} />
-        <Modal
-          component={
-            <>
-              <Heading2>{"im a modal without a close button"}</Heading2>
-              <br />
-              <br />
-              <TertiaryButton text="CLICK ME! close me" onClick={() => setModalShownNoButton(!isModalShownNoButton)} />
-            </>
-          }
-          isVisible={isModalShownNoButton}
-          isContained
         />
         <br />
         <br />
