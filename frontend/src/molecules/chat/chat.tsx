@@ -8,8 +8,8 @@ import { ChatContainer, ChatMessageListWrapper } from "./styles";
 interface ChatProps {
   messages: ChatMessageContent[][];
   messageInput?: string;
-  // TODO: reintroduce
-  // handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
+
+  handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
   handleKeyEvent: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   setMessageInput: (value: string) => void;
 }
@@ -21,7 +21,7 @@ interface ChatProps {
  * @param {handleKeyEvent} - A function to handle the enter key event that will trigger the send event.
  * @param {setMessageInput} - A function to set/update the messageInput prop value.
  */
-export const Chat: FC<ChatProps> = ({ messages, messageInput, handleKeyEvent, setMessageInput }) => {
+export const Chat: FC<ChatProps> = ({ messages, messageInput, handleKeyEvent, setMessageInput, handleSendEvent }) => {
   return (
     <ChatContainer>
       <ChatMessageListWrapper>
@@ -34,8 +34,7 @@ export const Chat: FC<ChatProps> = ({ messages, messageInput, handleKeyEvent, se
         type="text"
         value={messageInput}
         onChange={(event) => setMessageInput(event.target.value)}
-        // TODO: reintroduce
-        // onClick={(event) => handleSendEvent(event)}
+        onClick={(event) => handleSendEvent(event)}
         onKeyDownCapture={(event) => handleKeyEvent(event)}
       />
     </ChatContainer>

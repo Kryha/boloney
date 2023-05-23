@@ -9,9 +9,8 @@ import { PlayerLogoContainer, PlayerLogoWrapper } from "./styles";
 // TODO: enable chat handlesend event
 interface Props {
   messages: ChatMessageContent[][];
-  messageInput?: string;
-  // TODO: reintroduce
-  // handleSendEvent: (e: KeyboardEvent<HTMLInputElement> | MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  messageInput: string;
+  handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
   handleKeyEvent: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   setMessageInput: (value: string) => void;
 }
@@ -24,7 +23,7 @@ interface Props {
  * @param {setMessageInput} - A function to set/update the messageInput prop value.
  */
 
-export const PlayerLogo: FC<Props> = ({ messages, messageInput, handleKeyEvent, setMessageInput }) => {
+export const PlayerLogo: FC<Props> = ({ messages, messageInput, handleKeyEvent, setMessageInput, handleSendEvent }) => {
   return (
     <PlayerLogoWrapper>
       <PlayerLogoContainer>
@@ -40,8 +39,7 @@ export const PlayerLogo: FC<Props> = ({ messages, messageInput, handleKeyEvent, 
         isChatOpen
         isPanelExpanded
         messages={messages}
-        // TODO: reintroduce
-        // handleSendEvent={handleSendEvent}
+        handleSendEvent={handleSendEvent}
         handleKeyEvent={handleKeyEvent}
         setMessageInput={setMessageInput}
         messageInput={messageInput}

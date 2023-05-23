@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { BaseIconWrapper, GeneralRow } from "../../atoms";
 import { breakpoints, color, containerHeight, layoutWidth, lobbySizes, spacing } from "../../design";
-import { PanelWrapper } from "../panel/styles";
+import { PanelWrapper } from "../../molecules";
 
 export const PlayerLogoWrapper = styled(GeneralRow)`
   width: ${lobbySizes.lg};

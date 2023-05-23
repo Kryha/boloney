@@ -1,8 +1,8 @@
 import { FC } from "react";
+
 import { text } from "../../assets";
+import { Chat, Panel } from "../../molecules";
 import { ChatMessageContent } from "../../types";
-import { Chat } from "../chat";
-import { Panel } from "../panel";
 
 interface Props {
   isChatOpen: boolean;
@@ -10,14 +10,13 @@ interface Props {
   isPanelExpanded: boolean;
   isSingular?: boolean;
   messages: ChatMessageContent[][];
-  messageInput?: string;
+  messageInput: string;
+  setMessageInput: (value: string) => void;
+  handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
+  handleKeyEvent: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 
   setIsChatOpen?: () => void;
   setIsHistoryOpen?: () => void;
-  // TODO: reintroduce
-  // handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
-  handleKeyEvent: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  setMessageInput: (value: string) => void;
 }
 
 /**
@@ -25,6 +24,9 @@ interface Props {
  * @param {boolean} isChatOpen - A boolean to define if the chat is open.
  * @param {boolean}  isHistoryOpen - A boolean to define if the history is open.
  * @param {string} isPanelExpanded -  A boolean to define if the panel has been expanded.
+ * @param {boolean} isSingular - A boolean to define if the panel is singular.
+ * @param {ChatMessageContent[][]} messages - An array of grouped messages.
+ * @param {string} chatChannelId - The id of the chat channel provided by nakama.
  * @param {Function} setIsChatOpen -  A function whose use is to set if the chat is open or not.
  * @param {Function} setIsHistoryOpen - A function whose use is to set if the history is open or not.
  */
@@ -35,12 +37,11 @@ export const PlayerMenu: FC<Props> = ({
   isPanelExpanded,
   messages,
   messageInput,
+  setMessageInput,
+  handleSendEvent,
+  handleKeyEvent,
   setIsChatOpen,
   setIsHistoryOpen,
-  handleKeyEvent,
-  // TODO: reintroduce
-  // handleSendEvent,
-  setMessageInput,
 }) => {
   return (
     <>
@@ -65,8 +66,7 @@ export const PlayerMenu: FC<Props> = ({
         <Chat
           messages={messages}
           messageInput={messageInput}
-          // TODO: reintroduce
-          // handleSendEvent={handleSendEvent}
+          handleSendEvent={handleSendEvent}
           handleKeyEvent={handleKeyEvent}
           setMessageInput={setMessageInput}
         />

@@ -86,7 +86,6 @@ import {
   CookieBanner,
   FloatingPlayer,
   HudPlayer,
-  PlayerMenu,
 } from "../../molecules";
 import { getPowerUp, getPowerUpData, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
@@ -108,11 +107,8 @@ import {
 } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
-import { MatchSettingsOverview } from "../../molecules/match-settings-overview";
-import { fakeMatchSettings } from "../../assets/fake-data/fake-match-settings";
-import { sendMessage } from "../../service";
+import { PlayerMenu } from "../../organisms";
 import { PlayerLineup } from "../../molecules/player-lineup";
-import { PlayerLogo } from "../../molecules/player-logo";
 import { MatchSideBar } from "../../molecules/match-sidebar";
 import { LobbyHands } from "../../molecules/lobby-lineup";
 import { Footer } from "../../molecules/footer";
@@ -120,6 +116,8 @@ import { PowerUpPile } from "../../molecules/power-up-pile";
 import { fakePowerUps } from "../../assets/fake-data/fake-power-ups";
 import { NavigationBar } from "../../molecules/navigation-bar";
 import { MatchImage } from "../../molecules/match-image";
+import { MatchSettingsOverview } from "../../molecules/match-settings-overview";
+import { fakeMatchSettings } from "../../assets/fake-data/fake-match-settings";
 
 const onClick = () => {
   console.log("Button works");
@@ -196,7 +194,6 @@ export const Test: FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [isHistoryMenuOpen, setIsHistoryOpen] = useState(true);
   const [messageInput, setMessageInput] = useState("");
-  const channelId = "123";
 
   if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
@@ -208,20 +205,18 @@ export const Test: FC = () => {
     }
   };
 
-  const handleSettings = () => {
-    setModalShown(true);
-  };
-
   const handleSendEvent = (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => {
     e.stopPropagation();
     if (e.currentTarget.value === "") return;
-    sendMessage(channelId, e.currentTarget.value);
+    // TODO: reintroduce
+    // sendMessage(channelId, e.currentTarget.value);
     setMessageInput("");
   };
+  const handleKeyEvent = (e: React.KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && handleSendEvent(e);
 
-  const handleKeyEvent = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") handleSendEvent(e);
-  };
+  function handleSettings(): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <>
@@ -248,6 +243,9 @@ export const Test: FC = () => {
               messages={parseMessages(fakeMessages)}
               handleKeyEvent={handleKeyEvent}
               setMessageInput={setMessageInput}
+              // chatChannelId="123"
+              messageInput={messageInput}
+              handleSendEvent={handleSendEvent}
             />
           </PlayerMenuOne>
           <MainContainer>
@@ -279,14 +277,14 @@ export const Test: FC = () => {
         <BoxPattern />
         <PlayerLineup players={fakePlayers} />
         <RectanglePattern />
-        <PlayerLogo
+        {/* <PlayerLogo
           handleKeyEvent={handleKeyEvent}
           // TODO: reintroduce
           // handleSendEvent={handleSendEvent}
           setMessageInput={setMessageInput}
           messageInput={messageInput}
           messages={parseMessages(fakeMessages)}
-        />
+        /> */}
       </div>
       <div style={{ padding: "50px", background: "lightBlue" }}>
         <br />
@@ -398,11 +396,10 @@ export const Test: FC = () => {
             isHistoryOpen={isHistoryMenuOpen}
             setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
             messages={parseMessages(fakeMessages)}
-            handleKeyEvent={handleKeyEvent}
-            setMessageInput={setMessageInput}
+            chatChannelId="123"
           />
-        </PlayerMenuOne>
-        <PlayerMenuTwo>
+        </PlayerMenuOne> */}
+        {/*   <PlayerMenuTwo>
           <PlayerMenu
             isChatOpen
             isPanelExpanded
