@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { BaseRow } from "../../atoms";
 
 interface MainProps {
   height: number;
@@ -7,13 +8,11 @@ interface MainProps {
 
 export const MainPageContainer = styled.div``;
 
-export const MainWrap = styled.div<MainProps>`
+export const MainWrap = styled(BaseRow)<MainProps>`
   width: 100%;
-  flex-direction: row;
   overflow-y: scroll;
   position: relative;
   height: ${({ height }): string => `${height}px`};
-  /* TODO: enable after QA */
-  /* filter: ${({ isOverlayVisible }): string => (isOverlayVisible ? "blur(15px);" : "none;")}; */
+  filter: ${({ isOverlayVisible }): string => (isOverlayVisible ? "blur(15px);" : "none;")};
   overflow-x: hidden;
 `;

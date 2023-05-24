@@ -1,3 +1,5 @@
+export const POWER_UP_ICON_POSITION = "1.6vh";
+
 export const iconSize = {
   auto: "auto",
   xxs: "clamp(15px, 0.52vw + 10px, 30px)", // 20px

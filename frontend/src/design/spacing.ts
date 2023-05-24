@@ -15,18 +15,18 @@ export const margins = {
   large3: "5em", // 80px
 };
 
-/*
-  Our text now uses rem like our text so that they can complement each other better. The paddings, margins and gutters now have grouped spacing as follows
-  tiny: 3-5px
-  small: 8-12px
-  small: 13-16px
-  medium: 20-24px
-  medium: 30px
-  medium: 40px
-  large: 50px
-  large: 65px
-  huge: 80px
-*/
+/** Our margins and spacing now uses rem like our text so that they can complement each other better.
+ * The paddings, margins and gutters now have grouped spacing as follows:
+ * @param {string} xxs - 3-5px
+ * @param {string} xs - 8-11px
+ * @param {string} s - 13-16px
+ * @param {string} sm - 20-24px
+ * @param {string} ms - 30px
+ * @param {string} md - 40px
+ * @param {string} lg - 50px
+ * @param {string} xl - 65px
+ * @param {string} xxl - 80px
+ */
 
 export const spacing = {
   xxs: "clamp(0.13rem, calc(0.08rem + 0.17vw), 0.50rem)", // 3-5px
@@ -39,6 +39,17 @@ export const spacing = {
   xl: "clamp(2.50rem, calc(1.88rem + 2.50vw), 7.88rem)", // 65px
   xxl: "clamp(1.88rem, calc(0.87rem + 4.01vw), 10.50rem)", // 80px
 };
+
+/** Our radius is grouped as follows
+ * @param {string} none - no border radius
+ * @param {string} xxs - 2px
+ * @param {string} xs - 4px
+ * @param {string} sm - 8px
+ * @param {string} md - 10px
+ * @param {string} lg - 16px
+ * @param {string} xl - 25px
+ * @param {string} xxl - 100px
+ */
 
 export const radius = {
   none: "0px",

@@ -21,8 +21,9 @@ export const ModalBlock = styled(BaseBlock)<Props>`
   right: 0;
   bottom: 0;
   margin: auto;
+  overflow-y: scroll;
   width: ${({ width }): string => width ?? containerWidth.xxxl};
-  height: ${({ height }): string => height ?? containerHeight.xxxl};
+  height: ${({ height, isContained }): string => (isContained ? height ?? containerHeight.xxxl : containerHeight.fluid)};
   background: ${({ isContained }) => (isContained ? color.cloudWhite : color.transparent)};
   box-shadow: ${({ isContained }) => (isContained ? shadows.xl : shadows.none)};
   @media (max-width: ${breakpoints.md}) {
@@ -61,5 +62,6 @@ export const ModalButtonWrapper = styled.div`
     right: 0;
     margin: auto;
     width: fit-content;
+    z-index: ${zIndex.background};
   }
 `;

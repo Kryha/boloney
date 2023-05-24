@@ -1,4 +1,5 @@
 import { POWER_UP_DATA } from "../assets";
+import { MEDIUM_VIEWPORT_WIDTH, SMALLER_VIEWPORT_WIDTH } from "../constants";
 import { PlayerPublic, PowerUp, PowerUpId } from "../types";
 
 export const getPowerUp = (powerUpId?: PowerUpId): PowerUp | undefined => {
@@ -25,4 +26,11 @@ export const isPowerUpTriggeredImmediately = (powerUpId: PowerUpId) => {
 
 export const powerupCanNotBeUsedOnPlayer = (targetPlayer: PlayerPublic, powerUpId?: PowerUpId): boolean => {
   return (powerUpId === "9" || powerUpId === "7") && targetPlayer.powerUpsAmount < 1;
+};
+
+export const getPowerUpsShown = (width: number) => {
+  if (width < SMALLER_VIEWPORT_WIDTH) {
+    return 3;
+  }
+  return 5;
 };

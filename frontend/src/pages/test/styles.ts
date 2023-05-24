@@ -45,7 +45,7 @@ export const PlayerMenuTwo = styled.div`
   right: 30vw;
 `;
 
-export const MainContainer = styled.div`
+export const MainWrapper = styled.div`
   position: absolute;
   overflow-y: scroll;
   left: 12.5vw;
@@ -64,4 +64,17 @@ export const HubInfoBlock = styled(PlayerInformationBlock)`
 export const MatchHeadingColumn = styled(BaseColumn)`
   margin-left: ${spacing.xxl};
   margin-top: ${spacing.xxl};
+`;
+
+export const HudContainer = styled(HubInfoBlock)`
+  display: flex;
+  width: 62.5vw;
+  align-items: center;
+  justify-content: center;
+  padding-left: ${spacing.md};
+  padding-right: ${spacing.md};
+`;
+
+export const HudChild = styled(BaseRow)`
+  flex: 1;
 `;

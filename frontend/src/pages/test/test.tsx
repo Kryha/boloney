@@ -1,6 +1,6 @@
 // TODO: delete this file when done testing
 
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import {
   CallBoloney,
   CallBoloneyWinner,
@@ -22,7 +22,7 @@ import {
   text,
 } from "../../assets";
 import { fakeMessages, fakePlayers } from "../../assets/fake-data";
-import { InputLegend } from "../../components";
+import { InputLegend, SausageSpinner } from "../../components";
 import {
   BaseIcon,
   SecondaryButtonBase,
@@ -31,7 +31,6 @@ import {
   BlockBox,
   BadgeBlock,
   MessageBlock,
-  CopyBlock,
   Box,
   Sidebar,
   HUDBlock,
@@ -65,7 +64,7 @@ import {
   RectanglePattern,
 } from "../../atoms";
 import { PickAction } from "../../components/player-turns/pick-action";
-import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET } from "../../constants";
+import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET, COPIED_TEXT_TIMEOUT } from "../../constants";
 import { color, buttonSize, fonts, fontSizes, fontWeights, images, layoutHeight, lineHeights, spacing } from "../../design";
 import {
   TextWithLink,
@@ -101,21 +100,25 @@ import {
   PlayerMenuOne,
   HalfColumn,
   Layout,
-  MainContainer,
-  HubInfoBlock,
   MatchHeadingColumn,
+  HudContainer,
+  HudChild,
+  MainWrapper,
 } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
-import { PlayerMenu } from "../../organisms";
+import { PlayerMenu, MainContainer } from "../../organisms";
 import { PlayerLineup } from "../../molecules/player-lineup";
 import { MatchSideBar } from "../../molecules/match-sidebar";
 import { LobbyHands } from "../../molecules/lobby-lineup";
 import { Footer } from "../../molecules/footer";
 import { PowerUpPile } from "../../molecules/power-up-pile";
 import { fakePowerUps } from "../../assets/fake-data/fake-power-ups";
-import { NavigationBar } from "../../molecules/navigation-bar";
 import { MatchImage } from "../../molecules/match-image";
+import { CopyLink } from "../../molecules/copy-link";
+import { PowerUpRow } from "../../molecules/power-up-row";
+import { useViewport } from "../../hooks";
+import { useStore } from "../../store";
 import { MatchSettingsOverview } from "../../molecules/match-settings-overview";
 import { fakeMatchSettings } from "../../assets/fake-data/fake-match-settings";
 
@@ -194,6 +197,27 @@ export const Test: FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [isHistoryMenuOpen, setIsHistoryOpen] = useState(true);
   const [messageInput, setMessageInput] = useState("");
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const [loadSpinner, setLoadSpinner] = useState(false);
+  const isOverlayVisible = useStore((state) => state.isOverlayVisible);
+  const showModal = useStore((state) => state.showModal);
+  const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
+  const channelId = "123";
+  const { width, height } = useViewport();
+
+  const hideCopiedText = useCallback(() => {
+    setIsLinkCopied(true);
+    setTimeout(() => {
+      setIsLinkCopied(false);
+    }, COPIED_TEXT_TIMEOUT);
+  }, []);
+
+  const hideLoading = useCallback(() => {
+    setLoadSpinner(true);
+    setTimeout(() => {
+      setLoadSpinner(false);
+    }, 10000);
+  }, []);
 
   if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
@@ -205,6 +229,14 @@ export const Test: FC = () => {
     }
   };
 
+  const copyText = () => {
+    navigator.clipboard.writeText("some copied text");
+    hideCopiedText();
+  };
+  const handleSettings = () => {
+    setModalShown(true);
+  };
+
   const handleSendEvent = (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => {
     e.stopPropagation();
     if (e.currentTarget.value === "") return;
@@ -214,10 +246,7 @@ export const Test: FC = () => {
   };
   const handleKeyEvent = (e: React.KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && handleSendEvent(e);
 
-  function handleSettings(): void {
-    throw new Error("Function not implemented.");
-  }
-
+  if (loadSpinner) return <SausageSpinner />;
   return (
     <>
       <div style={{ paddingTop: "100vh", background: "lightBlue" }}>
@@ -226,48 +255,69 @@ export const Test: FC = () => {
         <br />
         <br />
         <br />
+        <TertiaryButton text="loading button" onClick={() => setLoadSpinner(true)} />
         <br />
-        <Layout>
-          <MatchSideBar players={fakePlayers} />
-          <BottomHud>
-            <HudPlayer player={fakePlayers[0]} />
-            <HubInfoBlock>{"hud power up and dice container"}</HubInfoBlock>
-          </BottomHud>
-          <PlayerMenuOne>
-            <PlayerMenu
-              isChatOpen={isChatOpen}
-              setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
-              isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
-              isHistoryOpen={isHistoryMenuOpen}
-              setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
-              messages={parseMessages(fakeMessages)}
-              handleKeyEvent={handleKeyEvent}
-              setMessageInput={setMessageInput}
-              // chatChannelId="123"
-              messageInput={messageInput}
-              handleSendEvent={handleSendEvent}
-            />
-          </PlayerMenuOne>
-          <MainContainer>
-            <MatchHeadingColumn gap={spacing.s}>
-              <TimerHeader time="0.10" heading="call boloney" gap={spacing.s} />
-              <ColumnHeading
-                headingFontSize={fontSizes.heading1}
-                headingLineHeight={lineHeights.heading1}
-                heading={"you win!"}
-                subheading={"You are rocking it!"}
-                subheadingColor={color.darkGrey}
-                gap={spacing.xs}
+        <MainContainer height={height} isOverlayVisible={isOverlayVisible}>
+          <Layout>
+            <MatchSideBar players={fakePlayers} />
+            <BottomHud>
+              <HudPlayer player={fakePlayers[0]} />
+              <HudContainer>
+                <HudChild gap="10px">
+                  <DiceRow dice={threeRolledDice} dieColor={color.red} temporaryDieAmount={3} />
+                </HudChild>
+                <HudChild>
+                  <PowerUpRow
+                    powerUpIds={fakePowerUps}
+                    onClick={() => {
+                      setModalComponentChildren("power-up-list");
+                      showModal("power-up-list");
+                    }}
+                    width={width}
+                  />
+                </HudChild>
+              </HudContainer>
+            </BottomHud>
+            <PlayerMenuOne>
+              <PlayerMenu
+                isChatOpen={isChatOpen}
+                setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
+                isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
+                isHistoryOpen={isHistoryMenuOpen}
+                setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
+                messages={parseMessages(fakeMessages)}
+                handleKeyEvent={handleKeyEvent}
+                setMessageInput={setMessageInput}
+                // chatChannelId="123"
+                messageInput={messageInput}
+                handleSendEvent={handleSendEvent}
               />
-            </MatchHeadingColumn>
-            <MatchImage image={CallBoloneyWinner} alt={"call exact"} />
-          </MainContainer>
-        </Layout>
+            </PlayerMenuOne>
+            <MainWrapper>
+              <MatchHeadingColumn gap={spacing.s}>
+                <TimerHeader time="0.10" heading="call boloney" gap={spacing.s} />
+                <ColumnHeading
+                  headingFontSize={fontSizes.heading1}
+                  headingLineHeight={lineHeights.heading1}
+                  heading={"you win!"}
+                  subheading={"You are rocking it!"}
+                  subheadingColor={color.darkGrey}
+                  gap={spacing.xs}
+                />
+              </MatchHeadingColumn>
+              <MatchImage image={CallBoloneyWinner} alt={"call exact"} />
+            </MainWrapper>
+          </Layout>
+        </MainContainer>
         <br />
         <br />
         <br />
         <br />
         <Footer />
+        <br />
+        <br />
+        <br />
+        <CopyLink onClick={copyText} link={"hey"} linkText="copy this" isLinkCopied={isLinkCopied} />
         <br />
         <br />
         <br />
@@ -693,8 +743,6 @@ export const Test: FC = () => {
         <br />
         <MessageBlock>{"message"}</MessageBlock>
         <br />
-        <br />
-        <CopyBlock>{"copy"}</CopyBlock>
         <br />
         <br />
         <h1>layouts</h1>

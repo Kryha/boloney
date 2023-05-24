@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { BadgeBlock, BaseColumn, Card, CenteredImage, fadeIn, GeneralText, Heading2 } from "../../atoms";
-import { breakpoints, lineHeights, spacing } from "../../design";
+import { BadgeBlock, BaseColumn, BaseRow, Card, CenteredImage, fadeIn, GeneralText, Heading2 } from "../../atoms";
+import { breakpoints, lineHeights, POWER_UP_ICON_POSITION, spacing } from "../../design";
 import { PrimaryButtonWrapper } from "../buttons";
 
 interface PowerUpWrapperProps {
@@ -77,4 +77,8 @@ export const PowerUpCardWrapper = styled(Card)<PowerUpWrapperProps>`
       display: none;
     }
   }
+`;
+
+export const DisabledSmallPowerUpWrapper = styled(BaseRow)`
+  margin-top: -${POWER_UP_ICON_POSITION};
 `;
