@@ -22,3 +22,4 @@ export * from "./button-wrappers";
 export * from "./fieldset";
 export * from "./selectors";
 export * from "./footers";
+export * from "./match";

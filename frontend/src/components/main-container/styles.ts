@@ -13,7 +13,6 @@ export const MainWrap = styled.div<MainProps>`
   overflow-y: scroll;
   position: relative;
   height: ${({ height }): string => `${height}px`};
-  /* TODO: enable after QA */
-  /* filter: ${({ isOverlayVisible }): string => (isOverlayVisible ? "blur(15px);" : "none;")}; */
+  filter: ${({ isOverlayVisible }): string => (isOverlayVisible ? "blur(15px);" : "none;")};
   overflow-x: hidden;
 `;

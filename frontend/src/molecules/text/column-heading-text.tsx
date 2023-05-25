@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Highlighter from "react-highlight-words";
 import { BaseColumn, Heading2 } from "../../atoms";
 import { FontProps, TransformText } from "../../design";
 
@@ -18,6 +19,7 @@ interface Props {
   headingColor?: string;
   headingTransformation?: TransformText;
   subheadingTransformation?: TransformText;
+  wordsToBold?: string[] | RegExp[];
 }
 
 /**
@@ -37,10 +39,11 @@ interface Props {
  * @param {string} headingColor - color for the heading text
  * @param {string} headingTransformation - heading transformation, is it capitalized / uppercase etc
  * @param {string} subheadingTransformation - subheading transformation, is it capitalized / uppercase etc
+ * @param {string[] | RegExp[]} wordsToBold - an array of words that need to be bold within the subheading
  */
 
 export const ColumnHeading: FC<Props> = ({
-  subheading,
+  subheading = "",
   heading,
   gap,
   subheadingColor,
@@ -55,6 +58,7 @@ export const ColumnHeading: FC<Props> = ({
   headingLineHeight,
   headingTransformation,
   subheadingTransformation,
+  wordsToBold = [],
 }) => {
   return (
     <BaseColumn gap={gap}>
@@ -76,7 +80,7 @@ export const ColumnHeading: FC<Props> = ({
         fontWeight={subheadingFontWeight}
         transformText={subheadingTransformation}
       >
-        {subheading}
+        <Highlighter highlightClassName="bold" searchWords={wordsToBold} autoEscape textToHighlight={subheading} />
       </Heading2>
     </BaseColumn>
   );

@@ -14,3 +14,5 @@ export * from "./player-avatar";
 export * from "./hud-player";
 export * from "./match-sidebar";
 export * from "./chat";
+export * from "./desktop-switch";
+export * from "./page-transition";

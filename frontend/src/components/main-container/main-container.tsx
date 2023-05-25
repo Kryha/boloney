@@ -14,8 +14,7 @@ export const MainContainer: FC<MainContainerProps> = ({ children }) => {
 
   return (
     <>
-      {/* TODO: enable after QA */}
-      {/* {isOverlayVisible && <OverlayWrapper />} */}
+      {isOverlayVisible && <OverlayWrapper />}
       <MainWrap height={height} isOverlayVisible={isOverlayVisible}>
         <MainPageContainer>{children}</MainPageContainer>
       </MainWrap>

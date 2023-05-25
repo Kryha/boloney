@@ -38,8 +38,6 @@ interface Props {
  * @param {string} dividerColor - color for the divider
  */
 
-// TODO: add {bodytext && < heading>{}<heaing>} fo all files
-// also many generalize the height of the divider
 export const TimerHeader: FC<Props> = ({
   time,
   heading,
