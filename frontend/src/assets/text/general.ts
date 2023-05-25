@@ -24,7 +24,7 @@ export const general = {
   pips: "pips",
   logoHere: "logo here",
   info: "info",
-  sound: "sound",
+  sound: "Sound",
   playerLeft: "player left",
   connected: "connected",
   waiting: "waiting",

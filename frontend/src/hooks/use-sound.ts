@@ -2,15 +2,15 @@ import { useStore } from "../store";
 import { useCallback, useEffect } from "react";
 
 const audioContext = new AudioContext();
+const masterGainNode = audioContext.createGain();
 
 export const useChangeVolume = () => {
   const { masterVolume, setMasterVolume } = useStore();
-  const masterGainNode = audioContext.createGain();
 
   useEffect(() => {
     masterGainNode.gain.setValueAtTime(masterVolume, 0);
     masterGainNode.connect(audioContext.destination);
-  }, [masterGainNode, masterVolume]);
+  }, [masterVolume]);
 
   const setVolume = (volume: number) => {
     setMasterVolume(volume);
@@ -32,7 +32,7 @@ export const usePlaySound = () => {
       const soundSource = audioContext.createBufferSource();
       soundSource.buffer = soundAudioBuffer;
 
-      soundSource.connect(audioContext.destination);
+      soundSource.connect(masterGainNode);
       soundSource.start();
     },
     [isSoundEnabled]

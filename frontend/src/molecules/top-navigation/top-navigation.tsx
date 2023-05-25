@@ -1,3 +1,4 @@
+import { current } from "immer";
 import { FC } from "react";
 import { ContactIconSVG, text } from "../../assets";
 import { BaseIcon, GeneralRow } from "../../atoms";
@@ -5,9 +6,10 @@ import { color } from "../../design";
 import { Dropdown } from "../dropdown";
 import { Menu } from "../menu";
 import { Rules } from "../rules";
+import { Sound } from "../sound";
 import { TopNavigationWrapper } from "./styles";
 
-export type ActiveDropdown = "rules" | "menu" | "contact" | undefined;
+export type ActiveDropdown = "rules" | "menu" | "contact" | "sound" | undefined;
 
 interface Props {
   isInMatch?: boolean;
@@ -19,6 +21,8 @@ interface Props {
   handleSettings: () => void;
   handleLeaveMatch: () => void;
   handleRules: () => void;
+  currentVolume: number;
+  handleVolumeChange: (volumeLevel: number) => void;
 }
 
 /**
@@ -46,6 +50,8 @@ export const TopNavigation: FC<Props> = ({
   handleAuth,
   handleSettings,
   handleRules,
+  handleVolumeChange,
+  currentVolume,
 }) => {
   return (
     <TopNavigationWrapper>
@@ -60,6 +66,12 @@ export const TopNavigation: FC<Props> = ({
           buttonIcon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} pointer />}
           buttonText={text.general.contact}
           expand={() => setActiveDropdown("contact")}
+        />
+        <Sound
+          isOpen={activeDropdown === "sound" && isDropdownContentVisible}
+          expand={() => setActiveDropdown("sound")}
+          currentVolume={currentVolume}
+          onChange={handleVolumeChange}
         />
         <Menu
           isOpen={activeDropdown === "menu" && isDropdownContentVisible}

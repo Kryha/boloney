@@ -31,6 +31,8 @@ import { ReactComponent as DeadCoffinIconSVG } from "./dead-coffin.svg";
 import { ReactComponent as BlueLockSVG } from "./blue-lock.svg";
 import { ReactComponent as ContactIconSVG } from "./contact.svg";
 import { ReactComponent as CircleIconSVG } from "./circle.svg";
+import { ReactComponent as SoundOnSVG } from "./sound-on.svg";
+import { ReactComponent as SoundOffSVG } from "./sound-off.svg";
 import CookieIconSVG from "./cookie.svg";
 import ChevronDownIconSVG from "./chevron-down.svg";
 import RaisedHandIconSVG from "./raised-hand.svg";
@@ -77,4 +79,6 @@ export {
   PercentageIconSVG,
   ContactIconSVG,
   CircleIconSVG,
+  SoundOnSVG,
+  SoundOffSVG,
 };

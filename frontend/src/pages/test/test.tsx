@@ -197,6 +197,7 @@ export const Test: FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [isHistoryMenuOpen, setIsHistoryOpen] = useState(true);
   const [messageInput, setMessageInput] = useState("");
+  const [volume, setVolume] = useState(50);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [loadSpinner, setLoadSpinner] = useState(false);
   const isOverlayVisible = useStore((state) => state.isOverlayVisible);
@@ -391,6 +392,21 @@ export const Test: FC = () => {
           />
         </BaseRow>
         <br />
+        <br />
+        <TopNavigation
+          isInMatch={false}
+          setActiveDropdown={handleDropdownClick}
+          isDropdownContentVisible={isComponentVisible}
+          activeDropdown={activeDropdown}
+          handleAuth={() => console.log("")}
+          handleLeaveMatch={() => console.log("")}
+          handleSettings={() => console.log("")}
+          handleRules={() => console.log("")}
+          handleVolumeChange={(volumeLevel) => setVolume(volumeLevel)}
+          currentVolume={volume}
+        />
+        <br />
+        <br />
         <BaseRow gap="20px">
           <LastBidPlayer lastBid={{ amount: 5, face: 3, createdAt: 4 }} dieColor={color.red} />
         </BaseRow>
@@ -423,42 +439,24 @@ export const Test: FC = () => {
           <DiceRow dice={tenRolledDice} dieColor={color.red} temporaryDieAmount={3} />
           <DiceRow dice={thirtienRolledDice} dieColor={color.red} temporaryDieAmount={3} />
         </BaseRow>
-        <br />
-        <TopNavigation
-          isInMatch={true}
-          setActiveDropdown={handleDropdownClick}
-          isDropdownContentVisible={isComponentVisible}
-          activeDropdown={activeDropdown}
-          handleAuth={() => console.log("")}
-          handleLeaveMatch={() => console.log("")}
-          handleSettings={() => handleSettings()}
-          handleRules={() => console.log("")}
-          // totalDice={35}
-          // stageNumber={1}
-          // drawNumber={7}
+        {/*
+      <PlayerMenuOne>
+        <PlayerMenu
+          isChatOpen={isChatOpen}
+          setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
+          isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
+          isHistoryOpen={isHistoryMenuOpen}
+          setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
+          handleKeyEvent={handleKeyEvent}
+          handleSendEvent={handleSendEvent}
+          messageInput={messageInput}
+          setMessageInput={setMessageInput}
+          messages={parseMessages(fakeMessages)}
         />
-        <br />
-        {/* <PlayerMenuOne>
-          <PlayerMenu
-            isChatOpen={isChatOpen}
-            setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
-            isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
-            isHistoryOpen={isHistoryMenuOpen}
-            setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
-            messages={parseMessages(fakeMessages)}
-            chatChannelId="123"
-          />
-        </PlayerMenuOne> */}
-        {/*   <PlayerMenuTwo>
-          <PlayerMenu
-            isChatOpen
-            isPanelExpanded
-            isSingular
-            messages={parseMessages(fakeMessages)}
-            handleKeyEvent={handleKeyEvent}
-            setMessageInput={setMessageInput}
-          />
-        </PlayerMenuTwo> */}
+      </PlayerMenuOne>
+      <PlayerMenuTwo>
+        <PlayerMenu isChatOpen isPanelExpanded isSingular />
+      </PlayerMenuTwo>*/}
         <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
         <Modal
           component={<MatchSettingsOverview matchSettings={fakeMatchSettings} />}

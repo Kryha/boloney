@@ -5,11 +5,10 @@ import { BaseIcon, GeneralText, Heading6, IconImage } from "../../atoms";
 import { MatchSettings } from "../../types";
 import { DiceIcon, PowerUpIcon } from "../icons";
 import { InfoPosition, Tooltip } from "../tooltip";
-import { SoundToggle } from "../sound-toggle";
 import { HandImageWrapper, MatchInfoDescription, MatchInfoHeader, MatchInfoOverview } from "./styles";
 import { RaisedHandIconSVG, RoundIconSVG } from "../../assets";
 
-type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | "sound" | undefined;
+type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | undefined;
 
 interface MatchInfoProps {
   matchSettingsType: MatchInfoSettings;
@@ -43,8 +42,6 @@ const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: MatchSett
       );
     case "healAction":
       return <PowerUpIcon powerUpAmount={matchSettings.healPowerUpAmount} strokeColor={color.black} />;
-    case "sound":
-      return <SoundToggle />;
   }
 };
 

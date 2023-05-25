@@ -8,17 +8,21 @@ import { MatchStats } from "./match-state/match-stats";
 import { useOnClickOutside } from "usehooks-ts";
 import { NavigationLocation } from "../../types";
 import { containerHeight } from "../../design";
-import { useIsMobile } from "../../hooks";
+import { useChangeVolume, useIsMobile } from "../../hooks";
+import { Sound } from "../../molecules/sound";
+import { useStore } from "../../store";
 
 interface Props {
   location?: NavigationLocation;
 }
 
-export type ActiveDropdown = "rules" | "menu" | undefined;
+export type ActiveDropdown = "rules" | "menu" | "sound" | undefined;
 
 export const TopNavigation: FC<Props> = ({ location }) => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
+  const masterVolume = useStore((state) => state.masterVolume);
+  const setVolume = useChangeVolume();
   const ref = useRef(null);
   const isMobile = useIsMobile();
 
@@ -39,7 +43,17 @@ export const TopNavigation: FC<Props> = ({ location }) => {
 
   return (
     <TopNavigationSection ref={ref}>
-      {location === "match" && <MatchStats />}
+      {location === "match" && (
+        <>
+          <MatchStats />
+          <Sound
+            isOpen={activeDropdown === "sound" && isComponentVisible}
+            expand={() => handleDropdownClick("sound")}
+            onChange={(volume) => setVolume(volume)}
+            currentVolume={masterVolume}
+          />
+        </>
+      )}
       <RulesDropdown
         isActive={activeDropdown === "rules" && isComponentVisible}
         setActiveDropdown={handleDropdownClick}

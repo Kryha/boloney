@@ -50,15 +50,6 @@ export const MatchSettingsOverview: FC = () => {
           tooltipPosition="right"
           hasTooltip
         />
-        <MatchInfo
-          title={text.general.sound}
-          matchSettingsType="sound"
-          matchSettings={matchSettings}
-          tooltipTitle={text.general.toolTipSoundTitle}
-          tooltipDescription={text.general.toolTipSoundInfo}
-          tooltipPosition="right"
-          hasTooltip
-        />
       </MatchInfoButtons>
       <Heading6>{text.match.powerUpTypeOnTheTable}</Heading6>
       <BaseRow justifyContent="flex-end">

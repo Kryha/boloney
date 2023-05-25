@@ -11,6 +11,8 @@ interface Props {
   totalDice: number;
   stageNumber: number;
   drawNumber: number;
+  currentVolume: number;
+  handleVolumeChange: (volumeLevel: number) => void;
   setActiveDropdown: (dropdown: ActiveDropdown) => void;
   handleAuth: () => void;
   handleSettings: () => void;
@@ -43,6 +45,8 @@ export const NavigationBar: FC<Props> = ({
   totalDice,
   stageNumber,
   drawNumber,
+  currentVolume,
+  handleVolumeChange,
   setActiveDropdown,
   handleLeaveMatch,
   handleAuth,
@@ -61,6 +65,8 @@ export const NavigationBar: FC<Props> = ({
         handleLeaveMatch={handleLeaveMatch}
         handleSettings={handleSettings}
         handleRules={handleRules}
+        currentVolume={currentVolume}
+        handleVolumeChange={handleVolumeChange}
         isAuthenticated={isAuthenticated}
       />
     </NavigationWrapper>

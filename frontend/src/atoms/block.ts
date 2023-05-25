@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { color, shadows, radius, containerWidth, containerHeight } from "../design";
+import { color, shadows, radius, containerWidth, containerHeight, spacing } from "../design";
 
 export interface BlockProps {
   disabled?: boolean;
@@ -48,6 +48,12 @@ export const BadgeBlock = styled(BaseBlock)`
 export const MessageBlock = styled(BaseBlock)`
   width: fit-content;
   border-radius: ${radius.sm};
+`;
+
+export const VolumeBlock = styled(BaseBlock)`
+  width: ${containerWidth.md};
+  height: ${containerHeight.md};
+  border-radius: ${radius.none};
 `;
 
 export const InformationBlock = styled(BaseBlock)`

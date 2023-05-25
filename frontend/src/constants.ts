@@ -92,6 +92,10 @@ export const POWER_UP_DEFAULT_VIEW_SMALL = 5;
 
 export const SOUND_TIMER_TRIGGERS = [10, 6, 5, 4, 3, 2, 1];
 
+export const SLIDER_MINIMUM = 0;
+export const SLIDER_MAXIMUM = 1;
+export const SLIDER_STEP = 0.1;
+
 export const TIMEOUT_STAGE_TRANSITION_TIME = 5000;
 
 // TODO: change the time
