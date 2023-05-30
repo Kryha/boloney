@@ -15,6 +15,7 @@ import {
   LightningIconSVG,
   LobsterHand,
   PlasticHand,
+  POWER_UP_DATA,
   RightArrowIconSVG,
   SausageHand,
   SettingsIconSVG,
@@ -22,7 +23,7 @@ import {
   text,
 } from "../../assets";
 import { fakeMessages, fakePlayers } from "../../assets/fake-data";
-import { InputLegend, SausageSpinner } from "../../components";
+import { Input, InputLegend, SausageSpinner } from "../../components";
 import {
   BaseIcon,
   SecondaryButtonBase,
@@ -83,31 +84,21 @@ import {
   ToastNotifications,
   TooltipFrame,
   CookieBanner,
-  FloatingPlayer,
+  CheckboxContainer,
+  PowerUpCheckbox,
   HudPlayer,
+  FloatingPlayer,
 } from "../../molecules";
 import { getPowerUp, getPowerUpData, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
 import { TemporaryDice } from "../../molecules/die/temporary-die";
 import { DiceRow } from "../../molecules/die/dice-row";
-import { Bid, Die as DieType } from "../../types";
+import { Bid, Die as DieType, PowerUpId } from "../../types";
 import { LastBidPlayer } from "../../molecules/die/last-bid";
 import { DiceSelectionGrid } from "../../molecules/die/dice-selection-grid";
-import {
-  AlignColumn,
-  BackgroundRow,
-  BottomHud,
-  PlayerMenuOne,
-  HalfColumn,
-  Layout,
-  MatchHeadingColumn,
-  HudContainer,
-  HudChild,
-  MainWrapper,
-} from "./styles";
+import { AlignColumn, BackgroundRow, BottomHud, PlayerMenuOne, HalfColumn, Layout, MatchHeadingColumn } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
-import { PlayerMenu, MainContainer } from "../../organisms";
 import { PlayerLineup } from "../../molecules/player-lineup";
 import { MatchSideBar } from "../../molecules/match-sidebar";
 import { LobbyHands } from "../../molecules/lobby-lineup";
@@ -204,6 +195,37 @@ export const Test: FC = () => {
   const showModal = useStore((state) => state.showModal);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const channelId = "123";
+  const availablePowerUps: Set<PowerUpId> = new Set();
+
+  const togglePowerUp = (powerUpId: PowerUpId) => {
+    if (availablePowerUps.has(powerUpId)) {
+      availablePowerUps.delete(powerUpId);
+    } else {
+      availablePowerUps.add(powerUpId);
+    }
+  };
+
+  const handleCheck = (powerUpId: PowerUpId) => {
+    togglePowerUp(powerUpId);
+    // if (isChecked) setProbability(0);
+  };
+
+  const updateProbability = (formValue: string) => {
+    const parsed = Number(formValue);
+
+    if (isNaN(parsed)) return;
+
+    if (parsed > 100) {
+      console.log("greater than 100");
+      // setProbability(100);
+    } else if (parsed < 0) {
+      console.log("less than 0");
+      // setProbability(0);
+    } else {
+      console.log("parsed");
+      // setProbability(parsed);
+    }
+  };
   const { width, height } = useViewport();
 
   const hideCopiedText = useCallback(() => {
@@ -258,7 +280,7 @@ export const Test: FC = () => {
         <br />
         <TertiaryButton text="loading button" onClick={() => setLoadSpinner(true)} />
         <br />
-        <MainContainer height={height} isOverlayVisible={isOverlayVisible}>
+        {/* <MainContainer height={height} isOverlayVisible={isOverlayVisible}>
           <Layout>
             <MatchSideBar players={fakePlayers} />
             <BottomHud>
@@ -309,24 +331,26 @@ export const Test: FC = () => {
               <MatchImage image={CallBoloneyWinner} alt={"call exact"} />
             </MainWrapper>
           </Layout>
-        </MainContainer>
+        </MainContainer> */}
         <br />
         <br />
         <br />
         <br />
-        <Footer />
+        {/* <Footer /> */}
         <br />
         <br />
         <br />
-        <CopyLink onClick={copyText} link={"hey"} linkText="copy this" isLinkCopied={isLinkCopied} />
+        {/* <CopyLink onClick={copyText} link={"hey"} linkText="copy this" isLinkCopied={isLinkCopied} /> */}
         <br />
         <br />
         <br />
         <br />
       </div>
       <div style={{ paddingTop: "10vh", background: "lightBlue" }}>
-        <BoxPattern />
-        <PlayerLineup players={fakePlayers} />
+        {/* <BoxPattern />
+        <br />
+        <br />
+        <br />
         <RectanglePattern />
         {/* <PlayerLogo
           handleKeyEvent={handleKeyEvent}
@@ -342,14 +366,14 @@ export const Test: FC = () => {
         <br />
         <br />
         <br />
-        <HudPlayer player={fakePlayers[0]} />
+        {/* <HudPlayer player={fakePlayers[0]} /> */}
         <br />
         <br />
         <br />
         <br />
         <br />
         <br />
-        <FloatingPlayer avatarName="lobster" height={avatarHeight[3]} width="auto" containerHeight="15vh" />
+        {/* <FloatingPlayer avatarName="lobster" height={avatarHeight[3]} width="auto" containerHeight="15vh" /> */}
         <br />
         <br />
         <br />
@@ -360,7 +384,7 @@ export const Test: FC = () => {
         <br />
         <br />
         <br />
-        <LobbyHands players={[fakePlayers[0]]} />
+        {/* <LobbyHands players={[fakePlayers[0]]} />
         <LobbyHands players={[fakePlayers[0], fakePlayers[1]]} />
         <LobbyHands players={[fakePlayers[0], fakePlayers[1], fakePlayers[2]]} />
         <LobbyHands players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3]]} />
@@ -377,12 +401,12 @@ export const Test: FC = () => {
           <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3]]} />
           <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4]]} />
           <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4], fakePlayers[5]]} />
-        </BaseRow>
+        </BaseRow> */}
         <br />
         <br />
         <br />
         <br />
-        <BaseRow gap="10px">
+        {/* <BaseRow gap="10px">
           <DiceSelectionGrid
             lastBid={lastBid}
             dieColor={color.red}
@@ -438,7 +462,42 @@ export const Test: FC = () => {
           <DiceRow dice={eightRolledDice} dieColor={color.red} temporaryDieAmount={3} />
           <DiceRow dice={tenRolledDice} dieColor={color.red} temporaryDieAmount={3} />
           <DiceRow dice={thirtienRolledDice} dieColor={color.red} temporaryDieAmount={3} />
-        </BaseRow>
+        </BaseRow> */}
+        <br />
+        <TopNavigation
+          isInMatch={true}
+          setActiveDropdown={handleDropdownClick}
+          isDropdownContentVisible={isComponentVisible}
+          activeDropdown={activeDropdown}
+          handleAuth={() => console.log("")}
+          handleLeaveMatch={() => console.log("")}
+          handleSettings={() => handleSettings()}
+          handleRules={() => console.log("")}
+          currentVolume={volume}
+          handleVolumeChange={(volumeLevel) => setVolume(volumeLevel)}
+          // totalDice={35}
+          // stageNumber={1}
+          // drawNumber={7}
+        />
+        <br />
+        <InputLegend label={text.authForm.username} isError={false} errorMessage={""} isRow>
+          <BaseInput type="text" />
+        </InputLegend>
+        <div style={{ padding: "50px", background: "lightBlue" }} />
+        <Input label="input test">
+          {Object.values(POWER_UP_DATA).map((powerUp, index) => (
+            <PowerUpCheckbox
+              key={index}
+              isTop
+              isChecked={availablePowerUps.has(powerUp.id)}
+              handleCheck={() => handleCheck(powerUp.id)}
+              powerUp={powerUp}
+              isError={false}
+              probability={0}
+              updateProbability={() => updateProbability("0")}
+            />
+          ))}
+        </Input>
         {/*
       <PlayerMenuOne>
         <PlayerMenu
@@ -457,6 +516,9 @@ export const Test: FC = () => {
       <PlayerMenuTwo>
         <PlayerMenu isChatOpen isPanelExpanded isSingular />
       </PlayerMenuTwo>*/}
+        <br />
+        <br />
+        <br />
         <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
         <Modal
           component={<MatchSettingsOverview matchSettings={fakeMatchSettings} />}

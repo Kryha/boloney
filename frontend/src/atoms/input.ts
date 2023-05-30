@@ -193,6 +193,7 @@ export const ChatInput = styled(SecondaryInput)`
 
 export const PercentageInput = styled(SecondaryInput)`
   background-image: url(${PercentageIconSVG});
+  background-size: calc(0.06rem + 0.46vw);
   background-position: right ${spacing.xs} bottom 50%;
   background-repeat: no-repeat;
 `;

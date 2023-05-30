@@ -16,6 +16,8 @@ export type AlignContent =
   | "space-evenly"
   | "stretch";
 
+export type PositionContent = "absolute" | "relative" | "fixed" | "sticky" | "inherit" | "initial" | "unset";
+
 interface Props {
   alignItems?: AlignContent;
   justifyContent?: AlignContent;
