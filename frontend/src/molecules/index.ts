@@ -17,3 +17,5 @@ export * from "./match-sidebar";
 export * from "./chat";
 export * from "./desktop-switch";
 export * from "./page-transition";
+export * from "./logo";
+export * from "./base-layout";

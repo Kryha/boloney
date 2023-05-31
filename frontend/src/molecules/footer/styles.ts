@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { BaseColumn, BaseRow } from "../../atoms";
+import { BaseRow } from "../../atoms";
+import { spacing } from "../../design";
 
 export const FooterWrapper = styled(BaseRow)`
-  ${BaseColumn} {
-    flex: 1;
-  }
+  margin-bottom: ${spacing.sm};
+  align-self: center;
 `;
