@@ -30,7 +30,7 @@ export const landing = {
   everyTurnCounts: "every turn counts",
   joinThe: "join the",
   takeTurnsToRoll:
-    "should you call Boloney! on your opponent and hope that he is trying to bluff you? Should you risk overbidding and up the bid yourself? Should you play your last Power-up to try to glean a hint of information? Should you go for gold and dare to call Exact? There are no easy choices in Boloney!",
+    "should you call Boloney! on your opponent and hope that they are trying to bluff you? Should you risk overbidding and up the bid yourself? Should you play your last Power-up to try to glean a hint of information? Should you go for gold and dare to call Exact? There are no easy choices in Boloney!",
   gloryAwaits: "glory awaits!",
   masterMindGames: "master the mindgames to be the last player left with dice and claim the winner's crown.",
   chatter: "chatter",
