@@ -10,6 +10,7 @@ interface InputContainerProps {
 
 export const InputContainer = styled(BaseColumn)<InputContainerProps>`
   isolation: isolate;
+  flex-direction: column-reverse;
   position: relative;
   flex: 1;
   ${({ isRow, childNode }) =>
@@ -44,6 +45,7 @@ interface CheckboxErrorContainerProps {
 export const CheckboxErrorContainer = styled(BaseRow)<CheckboxErrorContainerProps>`
   margin: ${({ margin }) => margin || "0px"};
   position: ${({ position }) => position || "inherit"};
+  bottom: -50px;
 `;
 
 export const TextLabel = styled(GeneralText)`

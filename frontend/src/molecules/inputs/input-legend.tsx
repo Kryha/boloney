@@ -1,6 +1,5 @@
 import { FC, ReactNode } from "react";
 
-import { text } from "../../assets";
 import { BaseRow, FieldSet, Heading6, Legend } from "../../atoms";
 import { spacing } from "../../design";
 import { Tooltip, TooltipInfoPosition } from "../tooltip";
@@ -44,6 +43,7 @@ export const InputLegend: FC<InputLegendProps> = ({
   infoPosition,
   zIndex,
   disabled,
+  errorMessage,
   isError = false,
   isRow = false,
   childNode = 1,
@@ -60,11 +60,7 @@ export const InputLegend: FC<InputLegendProps> = ({
         {children}
       </FieldSet>
       {isError && (
-        <CheckboxError
-          errorMessage={text.authForm.somethingWentWrong}
-          position="absolute"
-          margin={`${spacing.xxs} ${spacing.xxs} 0px ${spacing.sm}`}
-        />
+        <CheckboxError errorMessage={errorMessage} position="absolute" margin={`${spacing.xxs} ${spacing.xxs} 0px ${spacing.sm}`} />
       )}
     </InputContainer>
   );

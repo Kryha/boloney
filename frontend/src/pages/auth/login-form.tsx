@@ -3,16 +3,16 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { text } from "../../assets/text";
-import { InputLegend } from "../../components";
-import { BaseInput, FormContainer, GeneralContentWrapper, Heading1, Heading4, BodyText } from "../../atoms";
+import { FormContainer, GeneralContentWrapper, Heading1, Heading4, BodyText } from "../../atoms";
 import { fontSizes } from "../../design";
 import { useViewport } from "../../hooks/use-viewport";
-import { AuthFields, isNkError } from "../../types";
+import { AuthFields, isNkError, NkCode, nkCodeSchema } from "../../types";
 import { routes } from "../../navigation";
-import { AuthContainer, LoginFormContainer, SignOrJoinContainer } from "./styles";
+import { LoginFormContainer, SignOrJoinContainer } from "./styles";
 import { useStore } from "../../store";
 import { useAuthenticateUser } from "../../service";
 import { Link, PrimaryButton } from "../../molecules";
+import { AuthenticationForm } from "../../organisms";
 
 export const LoginForm: FC = () => {
   const { authenticateUser } = useAuthenticateUser();
@@ -20,6 +20,8 @@ export const LoginForm: FC = () => {
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const isLoadingSpinnerVisible = useStore((state) => state.isLoadingSpinnerVisible);
   const { width, height } = useViewport();
+  const NOT_FOUND = "User account not found.";
+  const INTERNAL_ERROR = "internalError";
 
   const {
     register,
@@ -29,25 +31,18 @@ export const LoginForm: FC = () => {
     formState: { errors, isValid },
   } = useForm<AuthFields>({ mode: "onChange", reValidateMode: "onChange" });
 
-  const showPasswordError = () => {
-    switch (errors.password?.type) {
-      case "User account not found.":
-        return text.authForm.errorMessages.invalidCredentials;
-      case "required":
-        return text.authForm.errorMessages.passwordRequired;
-      default:
-        return "";
-    }
-  };
-
   const onSubmit = async (username: string, password: string) => {
     setSpinnerVisibility(true);
     if (!isValid) return;
+
     const res = await authenticateUser(username, password);
     setSpinnerVisibility(false);
     setValue("password", "");
     if (!isNkError(res)) return navigate(routes.home);
-    setError("password", { type: res.message }); // response is an error
+
+    const code = nkCodeSchema.safeParse(res.code); // response is an error
+    if (code.success && code.data === NkCode.NOT_FOUND) setError("password", { type: NOT_FOUND });
+    else setError("password", { type: INTERNAL_ERROR });
   };
 
   return (
@@ -58,19 +53,7 @@ export const LoginForm: FC = () => {
       </GeneralContentWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data.username, data.password))}>
         <FormContainer>
-          <AuthContainer>
-            <InputLegend
-              label={text.authForm.username}
-              isError={!!errors.username}
-              errorMessage={text.authForm.errorMessages.usernameRequired}
-              isRow
-            >
-              <BaseInput type="text" {...register("username", { required: true })} />
-            </InputLegend>
-            <InputLegend label={text.authForm.password} isError={!!errors.password} errorMessage={showPasswordError()} isRow childNode={2}>
-              <BaseInput type="password" {...register("password", { required: true })} />
-            </InputLegend>
-          </AuthContainer>
+          <AuthenticationForm register={register} errors={errors} />
           <SignOrJoinContainer width={width} height={height}>
             <BodyText>{text.authForm.iDontHaveAnAccountYet}</BodyText>
             <Link transformText="none" fontSize={fontSizes.body} onClick={() => navigate(routes.createAccount)} text={text.authForm.here} />

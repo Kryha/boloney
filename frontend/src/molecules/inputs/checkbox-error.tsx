@@ -22,7 +22,7 @@ interface CheckboxInputProps {
 export const CheckboxError: FC<CheckboxInputProps> = ({ margin, gap, errorMessage, position }) => {
   return (
     <CheckboxErrorContainer alignItems="center" gap={gap || spacing.xxs} margin={margin} position={position}>
-      <BaseIcon src={<ErrorIconSVG />} />
+      <BaseIcon src={<ErrorIconSVG />} alignSelf="flex-start" />
       <BodyText>{errorMessage}</BodyText>
     </CheckboxErrorContainer>
   );

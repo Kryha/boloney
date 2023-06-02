@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { FieldSet } from "../../atoms";
 
 export const ToggleSwitchFieldSet = styled(FieldSet)`
+  position: relative;
   padding: revert;
   max-height: none;
 `;
