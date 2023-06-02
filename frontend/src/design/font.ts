@@ -12,6 +12,7 @@ export const fontSizes = {
   small: "16px",
   large: "60px",
   primaryButton: {
+    xs: "clamp(1.13rem, 1.45vw + 1.68rem, 7.5rem)",
     sm: "clamp(3.13rem, 1.52vw + 2.84rem, 3.75rem)",
     md: "clamp(2.5rem, 1.04vw + 1.88rem, 3.13rem)",
     lg: "clamp(3.13rem, 1.56vw + 1.25rem, 5rem)",
@@ -22,6 +23,7 @@ export const fontSizes = {
     lg: "clamp(18.75rem, 18.62vw + -3.59rem, 40.63rem)",
   },
   heading1: {
+    xs: "clamp(3.13rem, 11.97vw + 0.32rem, 7.5rem)",
     sm: "clamp(5.63rem, 1.52vw + 5.34rem, 6.25rem)",
     md: "clamp(5.63rem, 7vw + -1.25rem, 9rem)",
     lg: "clamp(9rem, 6.17vw + 1.6rem, 16.25rem)",
@@ -87,6 +89,7 @@ export const lineHeights = {
   small: "34px",
   medium: "44px",
   primaryButton: {
+    xs: "clamp(0.75rem, 2.62vw + 1.84rem, 6rem)",
     sm: "clamp(3.13rem, 1.52vw + 2.84rem, 3.75rem)",
     md: "clamp(2.13rem, 1.04vw + 1.5rem, 2.75rem)",
     lg: "clamp(3.38rem, 1.56vw + 1.5rem, 5.25rem)",
@@ -102,6 +105,7 @@ export const lineHeights = {
     lg: "clamp(19rem, 18.62vw + -3.34rem, 40.88rem)",
   },
   heading1: {
+    xs: "clamp(0.75rem, 2.62vw + 1.84rem, 6rem)",
     sm: "clamp(6.25rem, 6.06vw + 5.11rem, 8.75rem)",
     md: "clamp(4.5rem, 4.05vw + 2.07rem, 6.93rem)",
     lg: "clamp(9.25rem, 6.17vw + 1.85rem, 16.5rem)",

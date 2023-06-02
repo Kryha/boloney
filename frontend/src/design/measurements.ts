@@ -11,6 +11,7 @@ export const screenSizes = {
 
 // TODO: change  these values when there is a mobile version
 export const breakpoints = {
+  xxs: "375px",
   xs: "450px",
   sm: "820px",
   md: "959px",

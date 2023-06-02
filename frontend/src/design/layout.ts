@@ -44,3 +44,27 @@ export const layoutHeight = {
   xxl: "83.5vh",
   xxxl: "89vh",
 };
+
+export const containerImageWidth = {
+  xxs: "1.57vw",
+  xs: "3.14vw",
+  sm: "17.4vw",
+  md: "25vw",
+  lg: "54.1vw",
+  xl: "56.9vw",
+  xxl: "165vw",
+  xxxl: "177vw",
+  fluid: "100%",
+};
+
+export const containerImageHeight = {
+  xxs: "14.45vh",
+  xs: "20vh",
+  sm: "29vh",
+  md: "35vh",
+  lg: "45vh",
+  xl: "55vh",
+  xxl: "60vh",
+  xxxl: "89.5vh",
+  fluid: "100%",
+};

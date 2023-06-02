@@ -60,8 +60,8 @@ export const PrimaryButtonBase = styled.button<Props>`
       }
     `};
   @media (max-width: ${breakpoints.md}) {
-    font-size: ${fontSizes.primaryButton.sm};
-    line-height: ${lineHeights.primaryButton.sm};
+    font-size: ${fontSizes.primaryButton.xs};
+    line-height: ${lineHeights.primaryButton.xs};
   }
 
   @media (min-width: ${breakpoints.xxl}) {

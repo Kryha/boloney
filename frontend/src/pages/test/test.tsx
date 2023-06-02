@@ -64,7 +64,14 @@ import {
   RectanglePattern,
 } from "../../atoms";
 import { PickAction } from "../../components/player-turns/pick-action";
-import { MIN_DRAW_ROUND_OFFSET, MAX_DRAW_ROUND_OFFSET, COPIED_TEXT_TIMEOUT } from "../../constants";
+import {
+  MIN_DRAW_ROUND_OFFSET,
+  MAX_DRAW_ROUND_OFFSET,
+  COPIED_TEXT_TIMEOUT,
+  FEEDBACK_FORM_LINK,
+  BLANK_TARGET_LINK,
+  BUG_FORM_LINK,
+} from "../../constants";
 import { color, buttonSize, fonts, fontSizes, fontWeights, images, layoutHeight, lineHeights, spacing } from "../../design";
 import {
   TextWithLink,
@@ -86,6 +93,8 @@ import {
   CheckboxContainer,
   PowerUpCheckbox,
   HudPlayer,
+  Contact,
+  FloatingPlayer,
 } from "../../molecules";
 import { getPowerUp, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
@@ -266,13 +275,22 @@ export const Test: FC = () => {
   };
   const handleKeyEvent = (e: React.KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && handleSendEvent(e);
 
+  const handleBugFormClick = () => {
+    window.open(BUG_FORM_LINK, BLANK_TARGET_LINK);
+  };
+
+  const handleFeedbackFormClick = () => {
+    window.open(FEEDBACK_FORM_LINK, BLANK_TARGET_LINK);
+  };
+
   if (loadSpinner) return <SausageSpinner />;
   return (
     <>
+      <Contact handleBugFormClick={handleBugFormClick} handleFeedbackFormClick={handleFeedbackFormClick} />
       <div style={{ paddingTop: "100vh", background: "lightBlue" }}>
-        {/* <PowerUpPile powerUps={getPowerUpData(fakePowerUps)} isPowerUpsDisplayed={false} />
-        <br />
-        <br />
+        {/* <PowerUpPile powerUps={getPowerUpData(fakePowerUps)} isPowerUpsDisplayed={false} /> */}
+        {/* <br />
+        <br /> */}
         <br />
         <br />
         <TertiaryButton text="loading button" onClick={() => setLoadSpinner(true)} />
@@ -461,20 +479,7 @@ export const Test: FC = () => {
           <DiceRow dice={thirtienRolledDice} dieColor={color.red} temporaryDieAmount={3} />
         </BaseRow>
         <br />
-        <NavigationBar
-          isInMatch={true}
-          isDropdownContentVisible={isComponentVisible}
-          activeDropdown={activeDropdown}
-          setActiveDropdown={handleDropdownClick}
-          handleContact={() => console.log("")}
-          handleAuth={() => console.log("")}
-          handleLeaveMatch={() => console.log("")}
-          handleSettings={() => handleSettings()}
-          handleRules={() => console.log("")}
-          totalDice={35}
-          stageNumber={1}
-          drawNumber={7}
-        />
+        <NavigationBar isInMatch={true} totalDice={35} stageNumber={1} drawNumber={7} />
         <br />
         <PlayerMenuOne>
           <PlayerMenu

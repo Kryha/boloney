@@ -1,4 +1,5 @@
 export * from "./animations";
+export * from "./links";
 export * from "./layout";
 export * from "./lists";
 export * from "./patterns";
@@ -17,7 +18,6 @@ export * from "./icon-wrappers";
 export * from "./input";
 export * from "./sausage-animate";
 export * from "./chat";
-export * from "./links";
 export * from "./modal";
 export * from "./button-wrappers";
 export * from "./fieldset";

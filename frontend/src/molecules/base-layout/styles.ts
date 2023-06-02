@@ -27,8 +27,8 @@ export const MainSection = styled(BaseColumn)`
   height: ${containerHeight.fluid};
   min-height: 100vh;
   width: ${containerWidth.xxl};
-  border-right: 1px solid ${color.mediumGrey};
-  border-left: 1px solid ${color.mediumGrey};
+  border-right: 1px solid ${color.black};
+  border-left: 1px solid ${color.black};
 `;
 
 export const RightSection = styled.section`

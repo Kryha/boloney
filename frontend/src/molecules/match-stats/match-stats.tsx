@@ -8,9 +8,9 @@ import { RowHeadingIcon } from "../text";
 import { MatchStatsWrapper } from "./styles";
 
 interface Props {
-  totalDice: number;
-  stageNumber: number;
-  drawNumber: number;
+  totalDice?: number;
+  stageNumber?: number;
+  drawNumber?: number;
 }
 
 /**
@@ -33,9 +33,9 @@ export const MatchStats: FC<Props> = ({ totalDice, stageNumber, drawNumber }) =>
         headingFontWeight={fontWeights.light}
         headingLineHeight={lineHeights.body}
       />
-      <BodyText transformText="none">{text.param.matchInfoDivider(text.param.matchStageNumber(stageNumber))}</BodyText>
+      <BodyText transformText="none">{text.param.matchInfoDivider(text.param.matchStageNumber(stageNumber || 0))}</BodyText>
       <RowHeadingIcon
-        heading={text.param.powerUpMatchInfo(drawNumber)}
+        heading={text.param.powerUpMatchInfo(drawNumber || 0)}
         icon={<BaseIcon src={<LightningIconSVG />} iconColor={color.transparent} strokeColor={color.black} />}
         iconPosition="row-reverse"
         transformText="lowercase"
