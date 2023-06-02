@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { BaseColumn, ListStyle } from "../../atoms";
-import { FontProps, TransformText } from "../../design";
-import { RulesParagraph } from "../text";
 import { OrderedList } from "./ordered-list";
+import { BaseColumn, ListStyle } from "../../atoms";
+import { RulesParagraph } from "../text";
+import { FontProps, TransformText } from "../../design";
 
 interface Props {
   paragraphs: string[];

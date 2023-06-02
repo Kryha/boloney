@@ -1,3 +1,5 @@
+export * from "./match-stats";
+export * from "./top-navigation";
 export * from "./power-up";
 export * from "./text";
 export * from "./buttons";

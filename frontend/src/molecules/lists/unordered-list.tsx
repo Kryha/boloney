@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { BaseColumn, ListStyle } from "../../atoms";
-import { FontProps, TransformText } from "../../design";
 import { OrderedList } from "./ordered-list";
 import { UnorderedOrderedList } from "./styles";
+import { BaseColumn, ListStyle } from "../../atoms";
+import { FontProps, TransformText } from "../../design";
 
 interface Props {
   listStyle?: ListStyle;

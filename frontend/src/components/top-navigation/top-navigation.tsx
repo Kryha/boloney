@@ -39,6 +39,10 @@ export const TopNavigation: FC<Props> = ({ location }) => {
     setActiveDropdown(undefined);
   });
 
+  const useOnClickOutsideDropdown = (ref: React.RefObject<HTMLElement>, isOpen: boolean) => {
+    useOnClickOutside(ref, () => isOpen && setActiveDropdown(undefined));
+  };
+
   if (isMobile) return <></>;
 
   return (
@@ -51,6 +55,7 @@ export const TopNavigation: FC<Props> = ({ location }) => {
             expand={() => handleDropdownClick("sound")}
             onChange={(volume) => setVolume(volume)}
             currentVolume={masterVolume}
+            onClickOutsideDropdown={useOnClickOutsideDropdown}
           />
         </>
       )}

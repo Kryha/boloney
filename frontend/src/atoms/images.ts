@@ -32,6 +32,7 @@ interface MediaProps extends Props {
 export interface IconProps {
   width?: string;
   height?: string;
+  padding?: string;
   iconColor?: string;
   strokeColor?: string;
   pointer?: boolean;

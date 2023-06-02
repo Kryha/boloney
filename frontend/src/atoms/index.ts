@@ -2,6 +2,7 @@ export * from "./animations";
 export * from "./layout";
 export * from "./lists";
 export * from "./patterns";
+export * from "./lists";
 export * from "./icons";
 export * from "./lines";
 export * from "./card";

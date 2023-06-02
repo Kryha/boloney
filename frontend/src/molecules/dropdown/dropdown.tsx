@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useRef } from "react";
 import { buttonSize, color } from "../../design";
 import { TertiaryButton } from "../buttons";
 import { DropdownChildrenContainer, DropdownContainer } from "./styles";
@@ -11,6 +11,7 @@ interface Props {
   isBorderless?: boolean;
 
   expand: () => void;
+  useOnClickOutside: (ref: React.RefObject<HTMLElement>, isOpen: boolean) => void;
 }
 
 /**
@@ -24,9 +25,12 @@ interface Props {
  * @param {Function} expand - A function whose use is to define how to open and close the dropdown.
  */
 
-export const Dropdown: FC<Props> = ({ isOpen, children, buttonText, buttonIcon, expand, isBorderless }) => {
+export const Dropdown: FC<Props> = ({ isOpen, children, buttonText, buttonIcon, expand, isBorderless, useOnClickOutside }) => {
+  const ref = useRef(null);
+
+  useOnClickOutside(ref, isOpen);
   return (
-    <DropdownContainer isBorderless={isBorderless}>
+    <DropdownContainer ref={ref} isBorderless={isBorderless}>
       <TertiaryButton
         text={buttonText}
         icon={buttonIcon}

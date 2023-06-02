@@ -3,7 +3,6 @@
 import { FC, useCallback, useState } from "react";
 import {
   CallBoloney,
-  CallBoloneyWinner,
   CallExact,
   CookieIconSVG,
   DiscordLogo,
@@ -22,8 +21,8 @@ import {
   SkeletonHand,
   text,
 } from "../../assets";
-import { fakeMessages, fakePlayers } from "../../assets/fake-data";
-import { Input, InputLegend, SausageSpinner } from "../../components";
+import { fakePlayers } from "../../assets/fake-data";
+import { InputLegend, SausageSpinner } from "../../components";
 import {
   BaseIcon,
   SecondaryButtonBase,
@@ -87,31 +86,26 @@ import {
   CheckboxContainer,
   PowerUpCheckbox,
   HudPlayer,
-  FloatingPlayer,
+  ActiveDropdown,
 } from "../../molecules";
-import { getPowerUp, getPowerUpData, parseMessages, range } from "../../util";
+import { getPowerUp, range } from "../../util";
 import { Die } from "../../molecules/die";
 import { TemporaryDice } from "../../molecules/die/temporary-die";
 import { DiceRow } from "../../molecules/die/dice-row";
 import { Bid, Die as DieType, PowerUpId } from "../../types";
 import { LastBidPlayer } from "../../molecules/die/last-bid";
 import { DiceSelectionGrid } from "../../molecules/die/dice-selection-grid";
-import { AlignColumn, BackgroundRow, BottomHud, PlayerMenuOne, HalfColumn, Layout, MatchHeadingColumn } from "./styles";
+import { AlignColumn, BackgroundRow, HalfColumn } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
-import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
 import { PlayerLineup } from "../../molecules/player-lineup";
 import { MatchSideBar } from "../../molecules/match-sidebar";
 import { LobbyHands } from "../../molecules/lobby-lineup";
 import { Footer } from "../../molecules/footer";
-import { PowerUpPile } from "../../molecules/power-up-pile";
-import { fakePowerUps } from "../../assets/fake-data/fake-power-ups";
-import { MatchImage } from "../../molecules/match-image";
-import { CopyLink } from "../../molecules/copy-link";
-import { PowerUpRow } from "../../molecules/power-up-row";
-import { useViewport } from "../../hooks";
-import { useStore } from "../../store";
+import { NavigationBar, OverlayWrapper } from "../../organisms";
 import { MatchSettingsOverview } from "../../molecules/match-settings-overview";
 import { fakeMatchSettings } from "../../assets/fake-data/fake-match-settings";
+import { useStore } from "../../store";
+import { useViewport } from "../../hooks";
 
 const onClick = () => {
   console.log("Button works");
@@ -273,7 +267,7 @@ export const Test: FC = () => {
   return (
     <>
       <div style={{ paddingTop: "100vh", background: "lightBlue" }}>
-        <PowerUpPile powerUps={getPowerUpData(fakePowerUps)} isPowerUpsDisplayed={false} />
+        {/* <PowerUpPile powerUps={getPowerUpData(fakePowerUps)} isPowerUpsDisplayed={false} />
         <br />
         <br />
         <br />
@@ -417,7 +411,7 @@ export const Test: FC = () => {
         </BaseRow>
         <br />
         <br />
-        <TopNavigation
+        {/* <TopNavigation
           isInMatch={false}
           setActiveDropdown={handleDropdownClick}
           isDropdownContentVisible={isComponentVisible}
@@ -428,7 +422,7 @@ export const Test: FC = () => {
           handleRules={() => console.log("")}
           handleVolumeChange={(volumeLevel) => setVolume(volumeLevel)}
           currentVolume={volume}
-        />
+        /> */}
         <br />
         <br />
         <BaseRow gap="20px">
@@ -462,57 +456,23 @@ export const Test: FC = () => {
           <DiceRow dice={eightRolledDice} dieColor={color.red} temporaryDieAmount={3} />
           <DiceRow dice={tenRolledDice} dieColor={color.red} temporaryDieAmount={3} />
           <DiceRow dice={thirtienRolledDice} dieColor={color.red} temporaryDieAmount={3} />
-        </BaseRow> */}
+        </BaseRow>
         <br />
-        <TopNavigation
+        <NavigationBar
           isInMatch={true}
-          setActiveDropdown={handleDropdownClick}
           isDropdownContentVisible={isComponentVisible}
           activeDropdown={activeDropdown}
+          setActiveDropdown={handleDropdownClick}
+          handleContact={() => console.log("")}
           handleAuth={() => console.log("")}
           handleLeaveMatch={() => console.log("")}
           handleSettings={() => handleSettings()}
           handleRules={() => console.log("")}
-          currentVolume={volume}
-          handleVolumeChange={(volumeLevel) => setVolume(volumeLevel)}
-          // totalDice={35}
-          // stageNumber={1}
-          // drawNumber={7}
+          totalDice={35}
+          stageNumber={1}
+          drawNumber={7}
         />
-        <br />
-        <InputLegend label={text.authForm.username} isError={false} errorMessage={""} isRow>
-          <BaseInput type="text" />
-        </InputLegend>
-        <div style={{ padding: "50px", background: "lightBlue" }} />
-        <Input label="input test">
-          {Object.values(POWER_UP_DATA).map((powerUp, index) => (
-            <PowerUpCheckbox
-              key={index}
-              isTop
-              isChecked={availablePowerUps.has(powerUp.id)}
-              handleCheck={() => handleCheck(powerUp.id)}
-              powerUp={powerUp}
-              isError={false}
-              probability={0}
-              updateProbability={() => updateProbability("0")}
-            />
-          ))}
-        </Input>
-        {/*
-      <PlayerMenuOne>
-        <PlayerMenu
-          isChatOpen={isChatOpen}
-          setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
-          isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
-          isHistoryOpen={isHistoryMenuOpen}
-          setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
-          handleKeyEvent={handleKeyEvent}
-          handleSendEvent={handleSendEvent}
-          messageInput={messageInput}
-          setMessageInput={setMessageInput}
-          messages={parseMessages(fakeMessages)}
-        />
-      </PlayerMenuOne>
+        {/* </PlayerMenuOne>
       <PlayerMenuTwo>
         <PlayerMenu isChatOpen isPanelExpanded isSingular />
       </PlayerMenuTwo>*/}
@@ -520,12 +480,13 @@ export const Test: FC = () => {
         <br />
         <br />
         <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
-        <Modal
+        {/* <Modal
           component={<MatchSettingsOverview matchSettings={fakeMatchSettings} />}
           isVisible={isModalShown}
           isContained
           onClose={() => setModalShown(!isModalShown)}
-        />
+        /> */}
+        {/* <OverlayWrapper /> */}
         <br />
         <br />
         <ToastNotifications

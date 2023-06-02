@@ -17,6 +17,7 @@ export const BaseIcon: FC<BaseIconProps> = ({
   pipColor,
   display,
   alignSelf,
+  padding,
 }) => {
   return (
     <BaseIconWrapper
@@ -34,6 +35,7 @@ export const BaseIcon: FC<BaseIconProps> = ({
       onClick={onClick}
       display={display}
       alignSelf={alignSelf}
+      padding={padding}
     >
       {src}
     </BaseIconWrapper>

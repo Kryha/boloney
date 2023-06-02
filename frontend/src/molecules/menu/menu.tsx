@@ -12,9 +12,10 @@ interface Props {
   isAuthenticated?: boolean;
 
   handleAuth: () => void;
-  handleSettings: () => void;
+  onClickSettings: () => void;
   handleLeaveMatch: () => void;
   expand: () => void;
+  onClickOutsideDropdown: (ref: React.RefObject<HTMLElement>, isOpen: boolean) => void;
 }
 
 /**
@@ -24,25 +25,41 @@ interface Props {
  * @param {boolean} isInMatch - If we are currently in a match.
  * @param {boolean} isAuthenticated - If we are authenticated.
  * @param {Function} handleAuth - A function to handle Authentication.
- * @param {Function} handleSettings - A function to handle viewing the match settings.
+ * @param {Function} onClickSettings - A function to handle viewing the match settings.
  * @param {Function} handleLeaveMatch - A function to handle leaving the match.
  * @param {Function} expand - A function whose use is to define what happens when you click on the menu.
+ * @param {Function} onClickOutsideDropdown - A function to handle closing the dropdown when clicking outside of it.
  */
 
-export const Menu: FC<Props> = ({ isOpen, isInMatch = false, isAuthenticated, handleAuth, handleSettings, handleLeaveMatch, expand }) => {
+export const Menu: FC<Props> = ({
+  isOpen,
+  isInMatch = false,
+  isAuthenticated,
+  handleAuth,
+  onClickSettings,
+  handleLeaveMatch,
+  expand,
+  onClickOutsideDropdown,
+}) => {
   const menuIcon = isOpen ? <CloseIconSVG /> : <EllipsisIconSVG />;
   const authIcon = isAuthenticated ? <LogoutIconSVG /> : <SettingsIconSVG />;
   const authText = isAuthenticated ? text.general.logout : text.general.login;
 
   return (
-    <Dropdown isOpen={isOpen} buttonText={text.general.menu} buttonIcon={<BaseIcon src={menuIcon} pointer />} expand={expand}>
+    <Dropdown
+      useOnClickOutside={onClickOutsideDropdown}
+      isOpen={isOpen}
+      buttonText={text.general.menu}
+      buttonIcon={<BaseIcon src={menuIcon} pointer padding="1px" />}
+      expand={expand}
+    >
       <MenuWrapper>
         {isInMatch && (
           <MenuButton
             buttonText={text.general.matchSettings}
             buttonIcon={<IconImage src={RaisedHandIconSVG} pointer />}
             hasDivider
-            expand={() => handleSettings()}
+            expand={() => onClickSettings()}
           />
         )}
         <MenuButton

@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { text } from "../../assets";
-import { BaseColumn, BodyText, LinkText, PopUpFooter } from "../../atoms";
 import { color, fontSizes, fontWeights, lineHeights, spacing } from "../../design";
 import { ParagraphList, UnorderedList } from "../lists";
+import { BaseColumn, BodyText, LinkText, PopUpFooter } from "../../atoms";
 import { RulesHeading, RulesNumberedParagraph, RulesParagraph } from "../text";
 import { RulesTitle, RulesWrapper } from "./styles";
 

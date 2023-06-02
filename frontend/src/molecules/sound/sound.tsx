@@ -12,6 +12,7 @@ interface SoundProps {
   expand: () => void;
   onChange: (volumeLevel: number) => void;
   currentVolume: number;
+  onClickOutsideDropdown: (ref: React.RefObject<HTMLElement>, isOpen: boolean) => void;
 }
 
 /**
@@ -20,12 +21,14 @@ interface SoundProps {
  *  @param {Function} expand - A function whose use is to define what happens when you click on the sound menu.
  *  @param {Function} onChange - A function whose use is to define what happens when you change the volume.
  *  @param {number} currentVolume - The current volume.
+ * @param {Function} onClickOutsideDropdown - A function to handle closing the dropdown when clicking outside of it.
  * */
 
-export const Sound: FC<SoundProps> = ({ isOpen, expand, onChange, currentVolume }) => {
+export const Sound: FC<SoundProps> = ({ isOpen, expand, onChange, currentVolume, onClickOutsideDropdown }) => {
   const soundIndicator = currentVolume === 0 ? <SoundOffSVG /> : <SoundOnSVG />;
   return (
     <Dropdown
+      useOnClickOutside={onClickOutsideDropdown}
       isOpen={isOpen}
       buttonIcon={<BaseIcon iconColor={"transparent"} strokeColor="black" src={soundIndicator} />}
       buttonText={text.general.sound}
