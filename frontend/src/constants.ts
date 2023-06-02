@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { MatchSettings } from "./types";
+import { MatchSettings, MatchStage } from "./types";
 
 const transformBool = (value: string) => (value === "false" ? false : true);
 
@@ -105,6 +105,18 @@ export const MAX_DIE_FACE = 6;
 export const MIN_DIE_FACE = 1;
 export const ARRAY_OF_POSABLE_DIE_FACES = Array.from({ length: MAX_DIE_FACE }, (_, index) => index + 1);
 
+// Some stages have no timer at the moment but they may be implemented in the future
+// Duration is in seconds
+export const DEFAULT_MATCH_STAGE_DURATION: Record<MatchStage, number> = {
+  lobbyStage: 0, // Stage does not have a timer
+  getPowerUpStage: 10,
+  rollDiceStage: 10,
+  playerTurnLoopStage: 60,
+  roundSummaryStage: 10,
+  endOfMatchStage: 0, // Stage does not have a timer
+  terminateMatchStage: 0, // Stage does not have a timer
+};
+
 export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   players: 5,
   dicePerPlayer: 5,
@@ -153,6 +165,7 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   ],
   availablePowerUps: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
   zkEnabled: false,
+  matchStageDuration: DEFAULT_MATCH_STAGE_DURATION,
 };
 
 export const COPIED_TEXT_TIMEOUT = 2500;

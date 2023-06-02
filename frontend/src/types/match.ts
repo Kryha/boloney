@@ -102,6 +102,7 @@ export const matchStageSchema = z.enum([
   "playerTurnLoopStage",
   "roundSummaryStage",
   "endOfMatchStage",
+  "terminateMatchStage",
 ]);
 
 export type MatchStage = z.infer<typeof matchStageSchema>;
@@ -125,6 +126,7 @@ export const matchSettingsSchema = z.object({
   drawRoundOffset: z.number(),
   powerUpProbability: z.array(powerUpProbabilitySchema),
   zkEnabled: z.boolean(),
+  matchStageDuration: z.record(matchStageSchema, z.number()),
 });
 export type MatchSettings = z.infer<typeof matchSettingsSchema>;
 
@@ -167,6 +169,13 @@ export const matchFormSettingsSchema = z.object({
   drawRoundOffset: z.number().or(z.string().transform((val) => Number(val))),
   powerUpProbability: z.array(powerUpProbabilitySchema),
   zkEnabled: z.boolean(),
+  matchStageDuration: z.record(
+    matchStageSchema,
+    z
+      .string()
+      .transform((val) => Number(val))
+      .or(z.number())
+  ),
 });
 
 export type MatchFormSettings = z.infer<typeof matchFormSettingsSchema>;

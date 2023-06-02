@@ -61,6 +61,13 @@ export const MatchSettingsOverview: FC<MatchSettingsOverviewProps> = ({ matchSet
           tooltipDescription={text.general.toolTipSoundInfo}
           hasTooltip
         />
+        <MatchInfo
+          title={text.match.playerTurnDuration}
+          matchSettingsType="playerTurnDuration"
+          matchSettings={matchSettings}
+          tooltipDescription={text.general.tooltipRoundDurationInfo}
+          hasTooltip
+        />
       </MatchInfoButtons>
       <Heading6>{text.match.powerUpTypeOnTheTable}</Heading6>
       <BaseRow justifyContent="flex-end">

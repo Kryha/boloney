@@ -6,7 +6,15 @@ import { Die } from "../die";
 import { RowHeadingIcon } from "../text";
 import { HandImageWrapper } from "./styles";
 
-export type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | "sound" | undefined;
+export type MatchInfoSettings =
+  | "players"
+  | "dice"
+  | "powerUps"
+  | "drawRoundOffset"
+  | "healAction"
+  | "sound"
+  | "playerTurnDuration"
+  | undefined;
 
 export const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: MatchSettings) => {
   switch (matchSettingsType) {
@@ -67,6 +75,9 @@ export const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: Ma
           headingColor={color.black}
         />
       );
+    case "playerTurnDuration":
+      return <GeneralText>{matchSettings.matchStageDuration.playerTurnLoopStage}</GeneralText>;
+
     default:
       return <></>;
   }

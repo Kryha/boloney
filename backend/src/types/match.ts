@@ -4,6 +4,7 @@ import { Die, isDieArray } from "./die";
 import { HistoryEvent } from "./history";
 import { isPowerUpProbabilityArray, PowerUpProbability, PowerUpId, ActivePowerUp } from "./power-up";
 import { isBoolean, isNumber, isString, isStringArray } from "./primitive";
+import { isMatchStageDuration } from "./timer";
 
 export interface MatchJoinMetadata {
   username: string;
@@ -203,6 +204,7 @@ export interface MatchSettings {
   drawRoundOffset: number;
   powerUpProbability: PowerUpProbability[];
   zkEnabled: boolean;
+  matchStageDuration: Record<MatchStage, number>;
 }
 
 export const isMatchSettings = (value: unknown): value is MatchSettings => {
@@ -218,6 +220,7 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     assertedVal.drawRoundOffset !== undefined &&
     assertedVal.powerUpProbability !== undefined &&
     assertedVal.zkEnabled !== undefined &&
+    assertedVal.matchStageDuration !== undefined &&
     isNumber(assertedVal.players) &&
     isNumber(assertedVal.dicePerPlayer) &&
     isNumber(assertedVal.initialPowerUpAmount) &&
@@ -226,7 +229,8 @@ export const isMatchSettings = (value: unknown): value is MatchSettings => {
     isNumber(assertedVal.stageNumberDivisor) &&
     isNumber(assertedVal.drawRoundOffset) &&
     isPowerUpProbabilityArray(assertedVal.powerUpProbability) &&
-    isBoolean(assertedVal.zkEnabled)
+    isBoolean(assertedVal.zkEnabled) &&
+    isMatchStageDuration(assertedVal.matchStageDuration)
   );
 };
 

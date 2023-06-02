@@ -11,6 +11,8 @@ export const newMatch = {
   powerUpsPerPlayer: "power-ups per player",
   whichPowerUps: "power-up type on the table",
   typeOfBet: "type of bet",
+  durationPlayerTurn: "duration of player turn",
+  tooltipRoundDurationInfo: "Time in seconds that an active player has to make actions on their turn (min. 5 seconds).",
 
   dice: "dice",
   powerUps: "power-ups",

@@ -36,7 +36,7 @@ export const TooltipInfo: FC<TooltipInfoProps> = ({
         <TooltipContentWrapper zIndex={zIndex}>
           <TooltipContent className={position} isButtonWithHelper={isButtonWithHelper}>
             <ToolTipTextWrapper>
-              <TooltipHeading fontWeight={fontWeights.bold}>{text.param.appendColon(title)}</TooltipHeading>
+              {title && <TooltipHeading fontWeight={fontWeights.bold}>{text.param.appendColon(title)}</TooltipHeading>}
               <TooltipDescription>{content}</TooltipDescription>
             </ToolTipTextWrapper>
           </TooltipContent>

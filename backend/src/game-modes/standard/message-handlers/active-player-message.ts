@@ -1,4 +1,4 @@
-import { EMPTY_DATA, MATCH_STAGE_DURATION } from "../../../constants";
+import { EMPTY_DATA } from "../../../constants";
 import {
   errors,
   hidePlayersData,
@@ -59,7 +59,7 @@ const handlePlayerPlaceBid = messageHandler(async (loopParams, message, sender) 
   const placeBidPayload: BidPayloadBackend = state.bids;
   const playerActivePayload: PlayerActivePayloadBackend = {
     activePlayerId: nextActivePlayerId,
-    remainingStageTime: MATCH_STAGE_DURATION.playerTurnLoopStage,
+    remainingStageTime: state.settings.matchStageDuration.playerTurnLoopStage,
   };
 
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(placeBidPayload));

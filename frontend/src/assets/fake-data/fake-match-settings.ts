@@ -1,5 +1,6 @@
 // TODO: delete file
 
+import { DEFAULT_MATCH_STAGE_DURATION } from "../../constants";
 import { MatchSettings } from "../../types";
 
 export const fakeMatchSettings: MatchSettings = {
@@ -23,4 +24,5 @@ export const fakeMatchSettings: MatchSettings = {
     { id: "9", probability: 0.1 },
   ],
   zkEnabled: false,
+  matchStageDuration: DEFAULT_MATCH_STAGE_DURATION,
 };

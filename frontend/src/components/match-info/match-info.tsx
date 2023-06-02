@@ -8,7 +8,7 @@ import { InfoPosition, Tooltip } from "../tooltip";
 import { HandImageWrapper, MatchInfoDescription, MatchInfoHeader, MatchInfoOverview } from "./styles";
 import { RaisedHandIconSVG, RoundIconSVG } from "../../assets";
 
-type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | undefined;
+type MatchInfoSettings = "players" | "dice" | "powerUps" | "drawRoundOffset" | "healAction" | "playerTurnDuration" | undefined;
 
 interface MatchInfoProps {
   matchSettingsType: MatchInfoSettings;
@@ -42,6 +42,8 @@ const findInfo = (matchSettingsType: MatchInfoSettings, matchSettings: MatchSett
       );
     case "healAction":
       return <PowerUpIcon powerUpAmount={matchSettings.healPowerUpAmount} strokeColor={color.black} />;
+    case "playerTurnDuration":
+      return <GeneralText>{matchSettings.matchStageDuration.playerTurnLoopStage}</GeneralText>;
   }
 };
 

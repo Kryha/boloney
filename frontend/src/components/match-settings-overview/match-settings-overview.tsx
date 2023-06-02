@@ -50,6 +50,14 @@ export const MatchSettingsOverview: FC = () => {
           tooltipPosition="right"
           hasTooltip
         />
+        <MatchInfo
+          title={text.match.playerTurnDuration}
+          matchSettingsType="playerTurnDuration"
+          matchSettings={matchSettings}
+          tooltipDescription={text.general.tooltipRoundDurationInfo}
+          tooltipPosition="right"
+          hasTooltip
+        />
       </MatchInfoButtons>
       <Heading6>{text.match.powerUpTypeOnTheTable}</Heading6>
       <BaseRow justifyContent="flex-end">

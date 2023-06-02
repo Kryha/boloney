@@ -1,4 +1,4 @@
-import { EMPTY_DATA, MATCH_STAGE_DURATION } from "../constants";
+import { EMPTY_DATA } from "../constants";
 import { MatchLoopParams, MatchOpCode, PlayerLostByTimeOutPayloadBackend } from "../types";
 import { getTicksFromSeconds } from "../utils";
 import { getDiceValues } from "../utils/die";
@@ -13,7 +13,7 @@ import {
 
 export const handleStartTimer = (loopParams: MatchLoopParams) => {
   const { state } = loopParams;
-  const timerDuration = MATCH_STAGE_DURATION[state.matchStage];
+  const timerDuration = state.settings.matchStageDuration[state.matchStage];
 
   state.timerHasStarted = true;
   state.ticksBeforeTimeOut = getTicksFromSeconds(timerDuration);

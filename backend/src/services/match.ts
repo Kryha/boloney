@@ -1,4 +1,4 @@
-import { EMPTY_DATA, MATCH_STAGES, MATCH_STAGE_DURATION, MAX_INACTIVE_TICKS } from "../constants";
+import { EMPTY_DATA, MATCH_STAGES, MAX_INACTIVE_TICKS } from "../constants";
 import { getPowerUp } from "../toolkit-api";
 import {
   AvatarId,
@@ -298,7 +298,7 @@ export const handleRoundEnding = async (loopParams: MatchLoopParams, nextStage: 
 
   const stageTransitionPayload: StageTransitionPayloadBackend = {
     matchStage: nextStage,
-    remainingStageTime: MATCH_STAGE_DURATION[nextStage],
+    remainingStageTime: state.settings.matchStageDuration[nextStage],
     round: state.round,
   };
   saveHistoryEvent(state, { eventType: "roundStart" });

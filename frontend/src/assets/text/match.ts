@@ -23,6 +23,7 @@ export const match = {
   powerUpPP: "power-up pp",
   extraPowerUp: "extra power-up",
   healAction: "heal action",
+  playerTurnDuration: "player turn duration",
   powerUpTypeOnTheTable: "power-up type on the table",
   homePage: "homepage",
   findOutYourPips: "time to reveal your pips for this round. Oh, the suspense…",

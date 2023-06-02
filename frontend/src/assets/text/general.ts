@@ -56,6 +56,7 @@ export const general = {
   toolTipHealInfo:
     "player chooses 5 power-ups from their hand to destroy in exchange for 1 die. You can heal dice to gain up to the number of dice you started the match with, and no more. Healing dice doesn’t end your turn. Lower values can lead to longer games.",
   toolTipHealTitle: "heal a dice",
+  tooltipRoundDurationInfo: "Time in seconds that an active player has to make actions on their turn (min. 5 seconds).",
   toolTipPowerUpInfo:
     "power-ups boost your turn, letting you gain more information from other players and make smarter calls to increase your odds of winning. Each power-up affects the match and its players differently. Multiple power-ups can be used per turn, and using a power-up doesn’t end your turn. This is the amount of power-ups each player gets at the beginning of the match.",
   toolTipSoundTitle: "mute game sound",

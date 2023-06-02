@@ -5,7 +5,7 @@ import { LeftArrowIconSVG, text } from "../../assets";
 import { FadeTransition, ToggleSwitch } from "../../components";
 import { FormContainer, GeneralContentWrapper, Heading1, Heading6, Heading4, BodyText } from "../../atoms";
 import { createMatch } from "../../service";
-import { isString, matchFormSettingsSchema, MatchSettings } from "../../types";
+import { isString, matchFormSettingsSchema, MatchSettings, MatchStage } from "../../types";
 import { useMatchCreationFormState } from "./match-creation-form-state";
 import { PlayersField } from "./players-field";
 import { DrawRoundOffsetField } from "./draw-round-offset-field";
@@ -13,12 +13,13 @@ import { PowerUpsField } from "./power-ups-field";
 import { BottomContainer, ButtonContainer, NewMatchContainer } from "./styles";
 import { PowerUpsAmountField } from "./power-up-amount-field";
 import { cleanUUID } from "../../util";
-import { DEFAULT_MATCH_SETTINGS, env, MIN_POWERUPS_PER_PLAYER } from "../../constants";
+import { DEFAULT_MATCH_SETTINGS, DEFAULT_MATCH_STAGE_DURATION, env, MIN_POWERUPS_PER_PLAYER } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../navigation";
 import { StartingNumberDivisor } from "./starting-number-divisor";
 import { PrimaryButton, TertiaryButton } from "../../molecules";
 import { buttonSize } from "../../design";
+import { RoundDurationField } from "./round-duration";
 
 interface Props {
   setMatchId: (id: string) => void;
@@ -51,8 +52,14 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
 
   const handleFormSubmit = handleSubmit(async (data: MatchSettings) => {
     setIsLoading(true);
+    const matchStageDuration: Record<MatchStage, number> = {
+      ...DEFAULT_MATCH_STAGE_DURATION,
+      playerTurnLoopStage: data.matchStageDuration.playerTurnLoopStage ?? 60,
+    };
+
     const result = matchFormSettingsSchema.safeParse({
       ...data,
+      matchStageDuration: matchStageDuration,
       availablePowerUps: Array.from(availablePowerUps.values()),
       powerUpProbability: Array.from(powerUpProbability.values()),
     });
@@ -96,6 +103,8 @@ export const NewMatchCreation: FC<Props> = ({ setMatchId }) => {
             <StartingNumberDivisor register={register} />
 
             <DrawRoundOffsetField register={register} />
+
+            <RoundDurationField register={register} />
 
             <PowerUpsAmountField register={register} minPowerUps={watchPowerUpAmount} />
 

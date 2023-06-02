@@ -6,6 +6,18 @@ export const MIN_DIE_FACE = 1;
 export const MAX_DICE_PER_PLAYER = 10;
 export const MIN_DICE_PER_PLAYER = 2;
 
+// Some stages have no timer at the moment but they may be implemented in the future
+// Duration is in seconds
+export const DEFAULT_MATCH_STAGE_DURATION: Record<MatchStage, number> = {
+  lobbyStage: 0, // Stage does not have a timer
+  getPowerUpStage: 10,
+  rollDiceStage: 10,
+  playerTurnLoopStage: 60,
+  roundSummaryStage: 10,
+  endOfMatchStage: 0, // Stage does not have a timer
+  terminateMatchStage: 0, // Stage does not have a timer
+};
+
 export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
   players: 3,
   dicePerPlayer: 5,
@@ -54,6 +66,7 @@ export const DEFAULT_MATCH_SETTINGS: MatchSettings = {
     },
   ],
   zkEnabled: false,
+  matchStageDuration: DEFAULT_MATCH_STAGE_DURATION,
 };
 
 export const PRIVATE_KEY_LENGTH = 59;
@@ -118,17 +131,5 @@ export const STORAGE_KEYS_KEY = "aleo-keys";
 
 export const MAX_TOOLKIT_REQUESTS_ATTEMPTS = 3;
 export const MAX_ROLL_BACK_ATTEMPTS = 3;
-
-// Some stages have no timer at the moment but they may be implemented in the future
-// Duration is in seconds
-export const MATCH_STAGE_DURATION: Record<MatchStage, number> = {
-  lobbyStage: 0, // Stage does not have a timer
-  getPowerUpStage: 10,
-  rollDiceStage: 10,
-  playerTurnLoopStage: 60,
-  roundSummaryStage: 10,
-  endOfMatchStage: 0, // Stage does not have a timer
-  terminateMatchStage: 0, // Stage does not have a timer
-};
 
 export const BIRDS_EYE_ZK_ENABLED = false;
