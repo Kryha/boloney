@@ -18,6 +18,7 @@ build:
           VITE_USE_SSL: "false"
           VITE_API_PORT: "80"
           VITE_TOOLKIT_URL: http://localhost:5001
+          VITE_ZK_ENABLED: "true"
     - image: backend
       docker:
         dockerfile: Dockerfile.backend

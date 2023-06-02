@@ -20,8 +20,7 @@ build:
           VITE_API_PORT: "443"
           VITE_GA_TRACKING_ID: "G-8MLWBJTD89"
           VITE_TOOLKIT_URL: https://zk-gaming-tk.staging.kryha.dev
-          # TODO: enable after fixing fees
-          VITE_ZK_ENABLED: "false"
+          VITE_ZK_ENABLED: "true"
     - image: eu.gcr.io/web3-335312/aleo/boloney-production/backend
       docker:
         dockerfile: Dockerfile.backend

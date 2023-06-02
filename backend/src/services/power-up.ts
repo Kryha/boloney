@@ -1,4 +1,4 @@
-import { EMPTY_DATA, MENAGE_A_TROIS_DICE_AMOUNT } from "../constants";
+import { BIRDS_EYE_ZK_ENABLED, EMPTY_DATA, MENAGE_A_TROIS_DICE_AMOUNT } from "../constants";
 import { getPowerUp, rollDice, toolkitUse } from "../toolkit-api";
 import {
   isPowerUpTypeArray,
@@ -62,7 +62,7 @@ const useBirdsEye = (
   let sum = 0;
 
   // TODO: Fix call to toolkit
-  if (isZkEnabled(state, ctx)) {
+  if (isZkEnabled(state, ctx) && BIRDS_EYE_ZK_ENABLED) {
     const diceData: DiceDataToolkit = {
       dice_1: 0,
       dice_2: 0,

@@ -130,3 +130,5 @@ export const MATCH_STAGE_DURATION: Record<MatchStage, number> = {
   endOfMatchStage: 0, // Stage does not have a timer
   terminateMatchStage: 0, // Stage does not have a timer
 };
+
+export const BIRDS_EYE_ZK_ENABLED = false;
