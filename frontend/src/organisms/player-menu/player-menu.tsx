@@ -1,14 +1,18 @@
 import { FC } from "react";
 
 import { text } from "../../assets";
+import { MatchHistoryComponent } from "../../pages/test/match-history";
+import { HistoryEvent, PlayerPublic, ChatMessageContent } from "../../types";
 import { Chat, Panel } from "../../molecules";
-import { ChatMessageContent } from "../../types";
 
 interface Props {
   isChatOpen: boolean;
   isHistoryOpen?: boolean;
   isPanelExpanded: boolean;
   isSingular?: boolean;
+  historyEvents?: HistoryEvent[];
+  players?: Record<string, PlayerPublic>;
+  localPlayer?: PlayerPublic;
   messages: ChatMessageContent[][];
   messageInput: string;
   setMessageInput: (value: string) => void;
@@ -31,10 +35,15 @@ interface Props {
  * @param {Function} setIsHistoryOpen - A function whose use is to set if the history is open or not.
  */
 
+// TODO: Replace MatchHistoryComponent import with organism when implemented
 export const PlayerMenu: FC<Props> = ({
   isChatOpen,
+  isSingular,
   isHistoryOpen = false,
   isPanelExpanded,
+  historyEvents,
+  players,
+  localPlayer,
   messages,
   messageInput,
   setMessageInput,
@@ -53,7 +62,7 @@ export const PlayerMenu: FC<Props> = ({
           isPanelExpanded={isPanelExpanded}
           isMultiplePanels
         >
-          {/* TODO: add history molecule */}
+          {!isSingular && <MatchHistoryComponent historyEvents={historyEvents} players={players} localPlayer={localPlayer} />}
         </Panel>
       )}
       <Panel

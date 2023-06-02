@@ -45,6 +45,11 @@ export const PlayerMenuTwo = styled.div`
   right: 30vw;
 `;
 
+export const MatchHistoryContainer = styled.div`
+  overflow-y: auto;
+  height: inherit;
+`;
+
 export const MainWrapper = styled.div`
   position: absolute;
   overflow-y: scroll;

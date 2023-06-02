@@ -15,7 +15,7 @@ export const fakeHistory: HistoryEvent[] = [
   {
     eventType: "playerAction",
     activePlayerName: "umpalumpa",
-    outcome: "merede",
+    outcome: "2",
     targetPlayerName: "sahsa",
     actionName: "4",
     createdAt: Date.now(),
@@ -24,12 +24,18 @@ export const fakeHistory: HistoryEvent[] = [
     eventType: "roundResults",
 
     roundEnd: { roundNumber: 1, actionName: "boloney", createdAt: Date.now() },
-    roundWinner: { playerStats: { userId: "ryan", diceAmount: 1, powerUpsAmount: 2, diceValue: [] }, isWinner: true },
-    roundLoser: { playerStats: { userId: "drew", diceAmount: 1, powerUpsAmount: 2, diceValue: [] }, isWinner: false },
+    roundWinner: {
+      playerStats: { userId: "000000000000000000000000000000000000", diceAmount: 1, powerUpsAmount: 2, diceValue: [] },
+      isWinner: true,
+    },
+    roundLoser: {
+      playerStats: { userId: "000000000000000000000000000000000001", diceAmount: 1, powerUpsAmount: 2, diceValue: [] },
+      isWinner: false,
+    },
     roundStats: [
-      { userId: "ryan", diceAmount: 1, powerUpsAmount: 2, diceValue: [] },
-      { userId: "drew", diceAmount: 1, powerUpsAmount: 2, diceValue: [] },
-      { userId: "drew", diceAmount: 1, powerUpsAmount: 2, diceValue: [] },
+      { userId: "000000000000000000000000000000000000", diceAmount: 1, powerUpsAmount: 2, diceValue: [{ rolledValue: 3 }] },
+      { userId: "000000000000000000000000000000000001", diceAmount: 1, powerUpsAmount: 2, diceValue: [{ rolledValue: 3 }] },
+      { userId: "000000000000000000000000000000000002", diceAmount: 1, powerUpsAmount: 2, diceValue: [{ rolledValue: 3 }] },
     ],
   },
 ];

@@ -16,6 +16,7 @@ export type AlignContent =
   | "space-evenly"
   | "stretch";
 
+export type FlexDirection = "row" | "column" | "row-reverse" | "column-reverse";
 export type PositionContent = "absolute" | "relative" | "fixed" | "sticky" | "inherit" | "initial" | "unset";
 
 interface Props {

@@ -54,7 +54,7 @@ export const param = {
   diceWithoutAmount: (amount: number) => (amount > 1 ? "(dice " : "(die "),
   formatTime: (hour: number, minutes: number) => `${hour}:${minutes < 10 ? `0${minutes}` : minutes}`,
   time: (hour: string, minutes: string) => `-${hour}:${minutes}`,
-  playerDice: (diceValues?: number[]) => (diceValues ? `:[${diceValues.toString()}]  ` : ":[]  "),
+  playerDice: (diceValues?: number[]) => (diceValues ? `: ${diceValues.toString()}  ` : ":  "),
   soundOnOrOff: (state: boolean) => (state ? "on" : "off"),
   matchInfoDivider: (info: string) => `${info}     |`,
   matchStageNumber: (amount: number) => `${amount === undefined ? "?" : `stage ${amount}`}`,

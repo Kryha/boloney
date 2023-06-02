@@ -21,8 +21,8 @@ import {
   SkeletonHand,
   text,
 } from "../../assets";
-import { fakePlayers } from "../../assets/fake-data";
-import { InputLegend, SausageSpinner } from "../../components";
+import { fakeMessages, fakePlayers, fakePlayersRecord } from "../../assets/fake-data";
+import { InputLegend, MatchPlayersOverview, SausageSpinner } from "../../components";
 import {
   BaseIcon,
   SecondaryButtonBase,
@@ -86,17 +86,18 @@ import {
   CheckboxContainer,
   PowerUpCheckbox,
   HudPlayer,
-  ActiveDropdown,
 } from "../../molecules";
-import { getPowerUp, range } from "../../util";
+import { getPowerUp, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
 import { TemporaryDice } from "../../molecules/die/temporary-die";
 import { DiceRow } from "../../molecules/die/dice-row";
 import { Bid, Die as DieType, PowerUpId } from "../../types";
 import { LastBidPlayer } from "../../molecules/die/last-bid";
 import { DiceSelectionGrid } from "../../molecules/die/dice-selection-grid";
-import { AlignColumn, BackgroundRow, HalfColumn } from "./styles";
+import { AlignColumn, BackgroundRow, BottomHud, PlayerMenuOne, HalfColumn, Layout } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
+import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
+import { sendMessage } from "../../service";
 import { PlayerLineup } from "../../molecules/player-lineup";
 import { MatchSideBar } from "../../molecules/match-sidebar";
 import { LobbyHands } from "../../molecules/lobby-lineup";
@@ -104,8 +105,10 @@ import { Footer } from "../../molecules/footer";
 import { NavigationBar, OverlayWrapper } from "../../organisms";
 import { MatchSettingsOverview } from "../../molecules/match-settings-overview";
 import { fakeMatchSettings } from "../../assets/fake-data/fake-match-settings";
-import { useStore } from "../../store";
+import { PlayerMenu } from "../../organisms";
+import { fakeHistory } from "../../assets/fake-data/fake-history";
 import { useViewport } from "../../hooks";
+import { useStore } from "../../store";
 
 const onClick = () => {
   console.log("Button works");
@@ -472,13 +475,34 @@ export const Test: FC = () => {
           stageNumber={1}
           drawNumber={7}
         />
-        {/* </PlayerMenuOne>
-      <PlayerMenuTwo>
-        <PlayerMenu isChatOpen isPanelExpanded isSingular />
-      </PlayerMenuTwo>*/}
         <br />
-        <br />
-        <br />
+        <PlayerMenuOne>
+          <PlayerMenu
+            isChatOpen={isChatOpen}
+            setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
+            isPanelExpanded={(!isChatOpen && isHistoryMenuOpen) || (isChatOpen && !isHistoryMenuOpen)}
+            isHistoryOpen={isHistoryMenuOpen}
+            setIsHistoryOpen={() => setIsHistoryOpen(!isHistoryMenuOpen)}
+            players={fakePlayersRecord()}
+            localPlayer={fakePlayers[0]}
+            historyEvents={fakeHistory}
+            handleKeyEvent={handleKeyEvent}
+            messageInput={messageInput}
+            setMessageInput={setMessageInput}
+            messages={parseMessages(fakeMessages)}
+            handleSendEvent={() => console.log("")}
+          />
+        </PlayerMenuOne>
+        {/*  <PlayerMenuTwo>
+          <PlayerMenu
+            isChatOpen
+            isPanelExpanded
+            isSingular
+            messages={parseMessages(fakeMessages)}
+            handleKeyEvent={handleKeyEvent}
+            setMessageInput={setMessageInput}
+          />
+        </PlayerMenuTwo> */}
         <TertiaryButton text="CLICK ME! show modal with close button" onClick={() => setModalShown(!isModalShown)} />
         {/* <Modal
           component={<MatchSettingsOverview matchSettings={fakeMatchSettings} />}

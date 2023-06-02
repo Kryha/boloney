@@ -1,3 +1,4 @@
+export * from "./bottom-scroller";
 export * from "./navigation-bar";
 export * from "./overlay-content";
 export * from "./main-container";

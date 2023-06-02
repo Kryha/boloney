@@ -15,7 +15,8 @@ interface Props {
   setMessageInput: (value: string) => void;
 }
 
-/** This the component that is displayed in the botoom of the lobby. It includes the boloney logo and the chat.
+/**
+ * This the component that is displayed in the botoom of the lobby. It includes the boloney logo and the chat.
  * @param {messages} - An array of arrays of messages. Use the parseMessages function to get this.
  * @param {messageInput} - The current value of the message input.
  * @param {handleSendEvent} - A function to handle the send message event.
@@ -39,6 +40,7 @@ export const PlayerLogo: FC<Props> = ({ messages, messageInput, handleKeyEvent, 
         isChatOpen
         isPanelExpanded
         messages={messages}
+        isSingular
         handleSendEvent={handleSendEvent}
         handleKeyEvent={handleKeyEvent}
         setMessageInput={setMessageInput}

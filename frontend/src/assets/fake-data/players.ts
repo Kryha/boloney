@@ -104,3 +104,11 @@ export const fakePlayers: PlayerPublic[] = [
     arePowerUpsDisabled: false,
   },
 ];
+
+export const fakePlayersRecord = (): Record<string, PlayerPublic> => {
+  const fakePlayersRecord: Record<string, PlayerPublic> = {};
+  for (const fakePlayer of fakePlayers) {
+    fakePlayersRecord[fakePlayer.userId] = fakePlayer;
+  }
+  return fakePlayersRecord;
+};
