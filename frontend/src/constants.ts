@@ -96,8 +96,6 @@ export const SLIDER_MINIMUM = 0;
 export const SLIDER_MAXIMUM = 1;
 export const SLIDER_STEP = 0.1;
 
-export const TIMEOUT_STAGE_TRANSITION_TIME = 5000;
-
 // TODO: change the time
 export const DECISION_MAKING_TIME_IN_SECONDS = 100;
 

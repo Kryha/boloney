@@ -130,7 +130,6 @@ export const useMatch = () => {
 
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const setTurnActionStep = useStore((state) => state.setTurnActionStep);
-  const setPlayerReady = useStore((state) => state.setPlayerReady);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -165,17 +164,7 @@ export const useMatch = () => {
     [sendMatchState, setSpinnerVisibility]
   );
 
-  const broadcastPlayerReady = () => sendMatchState(MatchOpCode.PLAYER_READY);
-
-  const delayBroadcastPlayerReady = (delay: number) => {
-    setSpinnerVisibility(true);
-
-    const timeout = setTimeout(() => {
-      setPlayerReady(true);
-      broadcastPlayerReady();
-    }, delay);
-    return () => clearTimeout(timeout);
-  };
+  const broadcastPlayerReady = useCallback(() => sendMatchState(MatchOpCode.PLAYER_READY), [sendMatchState]);
 
   const broadcastPlaceBid = async (bid: BidPayloadFrontend) => {
     await sendMatchStateAndShowSpinner(MatchOpCode.PLAYER_PLACE_BID, JSON.stringify(bid));
@@ -204,7 +193,6 @@ export const useMatch = () => {
     isLoading,
     sendMatchState,
     broadcastPlayerReady,
-    delayBroadcastPlayerReady,
     broadcastPlaceBid,
     broadcastCallExact,
     broadcastCallBoloney,

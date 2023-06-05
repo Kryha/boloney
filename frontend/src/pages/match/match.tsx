@@ -178,8 +178,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
           if (!parsed.success) return;
 
           setTimerTimeInSeconds(parsed.data.remainingStageTime);
-          clearHistory();
           setMatchState(parsed.data.matchState);
+
           break;
         }
         case MatchOpCode.PLAYER_READY: {

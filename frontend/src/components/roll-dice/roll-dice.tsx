@@ -59,7 +59,7 @@ export const RollDice: FC = () => {
           isAnimated
         />
 
-        {dice && <RollingDice dice={dice} dieColor={dieColor} />}
+        {!!dice && !!dice.length && <RollingDice dice={dice} dieColor={dieColor} />}
 
         {button()}
       </BottomButtonWrapper>

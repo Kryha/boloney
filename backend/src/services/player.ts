@@ -132,7 +132,7 @@ export const getFilteredPlayerIds = (players: Record<string, Player>, playerIds:
     .map((player) => player.userId);
 };
 
-export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: string) => {
+export const rollDiceForPlayer = (loopParams: MatchLoopParams, playerId: string) => {
   const { state, dispatcher, nk } = loopParams;
   const player = state.players[playerId];
 
@@ -141,7 +141,7 @@ export const rollDiceForPlayer = async (loopParams: MatchLoopParams, playerId: s
 
   const { address, privateKey, viewKey } = getPlayerAccount(nk, playerId);
 
-  const diceValue = await rollDice(loopParams, player.diceAmount, player, { address, privateKey, viewKey });
+  const diceValue = rollDice(loopParams, player.diceAmount, player, { address, privateKey, viewKey });
 
   player.diceValue = diceValue;
 

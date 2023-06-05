@@ -1,4 +1,4 @@
-import { setActivePlayer, transitionHandler, handleRoundEnding } from "../../services";
+import { setActivePlayer, transitionHandler, handleRoundEnding, updatePlayersState } from "../../services";
 import { MatchOpCode, PlayerActivePayloadBackend, PlayerOrderShufflePayloadBackend, StageTransitionPayloadBackend } from "../../types";
 import { shuffleArray } from "../../utils";
 
@@ -11,6 +11,7 @@ export const handleBasicTransition = transitionHandler(async ({ state, dispatche
     round: state.round,
   };
   dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(payload));
+  updatePlayersState(state, dispatcher);
 });
 
 export const handleLobbyTransition = transitionHandler(async (loopParams, nextStage) => {
@@ -34,6 +35,7 @@ export const handleLobbyTransition = transitionHandler(async (loopParams, nextSt
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ORDER_SHUFFLE, JSON.stringify(playerOrderShufflePayload));
   dispatcher.broadcastMessage(MatchOpCode.PLAYER_ACTIVE, JSON.stringify(playerActivePayload));
   dispatcher.broadcastMessage(MatchOpCode.STAGE_TRANSITION, JSON.stringify(stageTransitionPayload));
+  updatePlayersState(state, dispatcher);
 });
 
 export const handleRoundSummaryTransition = transitionHandler(handleRoundEnding);

@@ -55,7 +55,7 @@ export const handleRollDiceMessage = messageHandler(async (loopParams, message, 
     }
     case MatchOpCode.ROLL_DICE: {
       if (player.hasRolledDice) return;
-      await rollDiceForPlayer(loopParams, sender.userId);
+      rollDiceForPlayer(loopParams, sender.userId);
       break;
     }
   }

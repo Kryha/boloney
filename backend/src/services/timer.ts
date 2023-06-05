@@ -1,7 +1,6 @@
 import { EMPTY_DATA } from "../constants";
 import { MatchLoopParams, MatchOpCode, PlayerLostByTimeOutPayloadBackend } from "../types";
-import { getTicksFromSeconds } from "../utils";
-import { getDiceValues } from "../utils/die";
+import { getTicksFromSeconds, getDiceValues } from "../utils";
 import {
   areAllPlayersReady,
   getActivePlayerId,
@@ -11,23 +10,14 @@ import {
   setAllPlayersReady,
 } from "./player";
 
-export const handleStartTimer = (loopParams: MatchLoopParams) => {
-  const { state } = loopParams;
-  const timerDuration = state.settings.matchStageDuration[state.matchStage];
-
-  state.timerHasStarted = true;
-  state.ticksBeforeTimeOut = getTicksFromSeconds(timerDuration);
-};
-
-export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
+const handleOutOfTime = (loopParams: MatchLoopParams) => {
   const { state, dispatcher } = loopParams;
   const activePlayerId = getActivePlayerId(state.players);
 
   switch (state.matchStage) {
     case "rollDiceStage": {
-      // TODO: send loading to client
-      const playersWithNoDice = Object.values(state.players).filter((player) => player.hasRolledDice !== true);
-      await Promise.all(playersWithNoDice.map((player) => rollDiceForPlayer(loopParams, player.userId)));
+      const playersWithNoDice = Object.values(state.players).filter((player) => !player.hasRolledDice);
+      playersWithNoDice.forEach((player) => rollDiceForPlayer(loopParams, player.userId));
       break;
     }
     case "playerTurnLoopStage": {
@@ -53,19 +43,18 @@ export const handleOutOfTime = async (loopParams: MatchLoopParams) => {
   }
 };
 
-export const handleTimeOutTicks = async (loopParams: MatchLoopParams) => {
+export const handleTimeOutTicks = (loopParams: MatchLoopParams) => {
   const { state } = loopParams;
 
   if (!state.timerHasStarted) {
-    handleStartTimer(loopParams);
-    return;
+    const timerDuration = state.settings.matchStageDuration[state.matchStage];
+
+    state.timerHasStarted = true;
+    state.ticksBeforeTimeOut = getTicksFromSeconds(timerDuration);
+  } else {
+    state.ticksBeforeTimeOut--;
+    if (state.ticksBeforeTimeOut <= 0) {
+      handleOutOfTime(loopParams);
+    }
   }
-
-  state.ticksBeforeTimeOut--;
-
-  if (state.ticksBeforeTimeOut <= 0) await handleOutOfTime(loopParams);
-};
-
-export const msecToSec = (n: number): number => {
-  return Math.floor(n / 1000);
 };

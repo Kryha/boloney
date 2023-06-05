@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useCountdown } from "usehooks-ts";
 import { timerSound, text } from "../assets";
-import { MILLISECONDS, SOUND_TIMER_TRIGGERS, TIMEOUT_STAGE_TRANSITION_TIME } from "../constants";
+import { MILLISECONDS, SOUND_TIMER_TRIGGERS } from "../constants";
 import { useLocalPlayer, useMatch } from "../service";
 import { useStore } from "../store";
 import { usePlaySound } from "./use-sound";
@@ -61,14 +61,14 @@ export const useClientTimer = (triggerCondition = true) => {
   const isPlayerReady = useStore((state) => state.isPlayerReady);
   const setSpinnerVisibility = useStore((state) => state.setSpinnerVisibility);
   const { count } = useTimer();
-  const { delayBroadcastPlayerReady } = useMatch();
+  const { broadcastPlayerReady } = useMatch();
 
   useEffect(() => {
     if (count <= 0 && triggerCondition && !isPlayerReady) {
       setSpinnerVisibility(true);
-      delayBroadcastPlayerReady(TIMEOUT_STAGE_TRANSITION_TIME);
+      broadcastPlayerReady();
     }
-  }, [count, delayBroadcastPlayerReady, triggerCondition, isPlayerReady, setSpinnerVisibility]);
+  }, [count, triggerCondition, isPlayerReady, setSpinnerVisibility, broadcastPlayerReady]);
 
   return { count };
 };
