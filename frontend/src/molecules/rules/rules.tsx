@@ -28,7 +28,6 @@ export const Rules: FC<RulesProps> = ({ isOpen, expand, onClick, onClickOutsideD
       buttonIcon={<BaseIcon src={<InfoIconSVG />} pointer />}
       buttonText={text.general.rules}
       expand={expand}
-      isBorderless
     >
       <RulesInformation onClick={onClick} />
     </Dropdown>

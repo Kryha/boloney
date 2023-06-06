@@ -33,6 +33,7 @@ export const Sound: FC<SoundProps> = ({ isOpen, expand, onChange, currentVolume,
       buttonIcon={<BaseIcon iconColor={"transparent"} strokeColor="black" src={soundIndicator} />}
       buttonText={text.general.sound}
       expand={expand}
+      isBorderless
     >
       <VolumeSliderContainer padding={spacing.sm}>
         <VolumeSliderWrapper alignItems="center" justifyContent="center">

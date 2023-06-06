@@ -1,35 +1,18 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
-import { ActiveDropdown, MatchStats, TopNavigation } from "../../molecules";
+import { ActiveDropdown, TopNavigation } from "../../molecules";
 import { routes } from "../../navigation";
 import { useLogout, useMatch } from "../../service";
-import { useStore } from "../../store";
+import { useSession, useStore } from "../../store";
 import { isNkError } from "../../types";
 import { NavigationWrapper } from "./styles";
 
-interface Props {
-  isInMatch?: boolean;
-  isAuthenticated?: boolean;
-  totalDice?: number;
-  stageNumber?: number;
-  drawNumber?: number;
-}
-
-/**
- * @description This is the navigation bar component, its is a navigation menu with the match stats.
- * @param {boolean} isInMatch - If we are currently in a match.
- * @param {boolean} isAuthenticated - If we are authenticated.
- * @param {number} totalDice - The total amount of dice in the match.
- * @param {number} stageNumber - Divides the current number of dice in play
- * @param {number} drawNumber - How often a Power-up draw round occurs
- */
-
-export const NavigationBar: FC<Props> = ({ isInMatch, isAuthenticated, totalDice, stageNumber, drawNumber }) => {
+export const GeneralNavigationBar: FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
   const [volume, setVolume] = useState(50);
-  // const isMobile = useIsMobile();
+  const session = useSession();
   const showModal = useStore((state) => state.showModal);
   const navigate = useNavigate();
 
@@ -37,6 +20,8 @@ export const NavigationBar: FC<Props> = ({ isInMatch, isAuthenticated, totalDice
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const logout = useLogout();
   const { broadcastPlayerLeft } = useMatch();
+
+  const isAuthenticated = !!session;
 
   const handleContact = () => navigate(routes.contact);
 
@@ -55,7 +40,7 @@ export const NavigationBar: FC<Props> = ({ isInMatch, isAuthenticated, totalDice
     }
   };
 
-  const handleAuth = () => {
+  const onAuthClick = () => {
     if (!isAuthenticated) {
       navigate(routes.login);
       return;
@@ -72,7 +57,7 @@ export const NavigationBar: FC<Props> = ({ isInMatch, isAuthenticated, totalDice
     setModalComponentChildren("match-settings-overview");
   };
 
-  const handleLeaveMatch = async () => {
+  const onLeaveMatchClick = async () => {
     const res = await broadcastPlayerLeft();
     if (isNkError(res)) {
       // TODO: show error to user
@@ -84,18 +69,16 @@ export const NavigationBar: FC<Props> = ({ isInMatch, isAuthenticated, totalDice
 
   return (
     <NavigationWrapper>
-      {isInMatch && <MatchStats totalDice={totalDice} stageNumber={stageNumber} drawNumber={drawNumber} />}
       <TopNavigation
         currentVolume={volume}
         handleVolumeChange={(volume) => setVolume(volume)}
-        isInMatch={isInMatch}
         isDropdownContentVisible={isComponentVisible}
         activeDropdown={activeDropdown}
         onClickOutsideDropdown={useOnClickOutsideDropdown}
         setActiveDropdown={handleDropdownClick}
-        handleAuth={handleAuth}
-        handleLeaveMatch={handleLeaveMatch}
-        onClickSettings={handleSettings}
+        onAuthClick={onAuthClick}
+        onLeaveMatchClick={onLeaveMatchClick}
+        onSettingsClick={handleSettings}
         onClickRules={handleRules}
         onClickContact={handleContact}
         isAuthenticated={isAuthenticated}

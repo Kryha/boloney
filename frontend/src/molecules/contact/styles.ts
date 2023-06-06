@@ -66,7 +66,6 @@ export const ContactImage = styled.img`
   bottom: -${containerHeight.md};
   pointer-events: none;
   opacity: ${opacity.hidden};
-  z-index: ${zIndex.background};
   animation: ${fadeUp} 1.2s ease-out 0.25s forwards;
   transform: translate3d(0, 1rem, 0);
   height: ${layoutHeight.md};

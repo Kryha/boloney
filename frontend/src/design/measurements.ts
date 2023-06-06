@@ -1,5 +1,6 @@
 export const SIDEBAR_HEIGHT = 89;
 export const DESKTOP_BREAKPOINT = 959;
+export const TOOLTIP_SIZE = "7vw";
 
 export const measurements = {
   localAvatarHeight: "7vh",

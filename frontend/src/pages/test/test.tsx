@@ -14,7 +14,6 @@ import {
   LightningIconSVG,
   LobsterHand,
   PlasticHand,
-  POWER_UP_DATA,
   RightArrowIconSVG,
   SausageHand,
   SettingsIconSVG,
@@ -22,7 +21,7 @@ import {
   text,
 } from "../../assets";
 import { fakeMessages, fakePlayers, fakePlayersRecord } from "../../assets/fake-data";
-import { InputLegend, MatchPlayersOverview, SausageSpinner } from "../../components";
+import { InputLegend, SausageSpinner } from "../../components";
 import {
   BaseIcon,
   SecondaryButtonBase,
@@ -60,8 +59,6 @@ import {
   Heading5,
   Heading6,
   InfoDisplay,
-  BoxPattern,
-  RectanglePattern,
 } from "../../atoms";
 import { PickAction } from "../../components/player-turns/pick-action";
 import {
@@ -86,15 +83,10 @@ import {
   LargeInfoHeading,
   NumberedDescriptionText,
   NumberedSection,
-  Modal,
   ToastNotifications,
   TooltipFrame,
   CookieBanner,
-  CheckboxContainer,
-  PowerUpCheckbox,
-  HudPlayer,
   Contact,
-  FloatingPlayer,
 } from "../../molecules";
 import { getPowerUp, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
@@ -102,19 +94,11 @@ import { TemporaryDice } from "../../molecules/die/temporary-die";
 import { DiceRow } from "../../molecules/die/dice-row";
 import { Bid, Die as DieType, PowerUpId } from "../../types";
 import { LastBidPlayer } from "../../molecules/die/last-bid";
-import { DiceSelectionGrid } from "../../molecules/die/dice-selection-grid";
-import { AlignColumn, BackgroundRow, BottomHud, PlayerMenuOne, HalfColumn, Layout } from "./styles";
+import { AlignColumn, BackgroundRow, PlayerMenuOne, HalfColumn } from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
-import { ActiveDropdown, TopNavigation } from "../../molecules/top-navigation";
-import { sendMessage } from "../../service";
-import { PlayerLineup } from "../../molecules/player-lineup";
-import { MatchSideBar } from "../../molecules/match-sidebar";
-import { LobbyHands } from "../../molecules/lobby-lineup";
-import { Footer } from "../../molecules/footer";
-import { NavigationBar, OverlayWrapper } from "../../organisms";
-import { MatchSettingsOverview } from "../../molecules/match-settings-overview";
-import { fakeMatchSettings } from "../../assets/fake-data/fake-match-settings";
-import { PlayerMenu } from "../../organisms";
+import { ActiveDropdown } from "../../molecules/top-navigation";
+import { GeneralNavigationBar, MatchNavigationBar, MatchOptionsBar, PlayerMenu } from "../../organisms";
+
 import { fakeHistory } from "../../assets/fake-data/fake-history";
 import { useViewport } from "../../hooks";
 import { useStore } from "../../store";
@@ -189,6 +173,7 @@ export const Test: FC = () => {
   const [isChecked, setChecked] = useState(false);
   const [isModalShown, setModalShown] = useState(false);
   const [isModalShownNoButton, setModalShownNoButton] = useState(false);
+  const [isMatchNav, setMatchNav] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(true);
@@ -291,6 +276,22 @@ export const Test: FC = () => {
         {/* <PowerUpPile powerUps={getPowerUpData(fakePowerUps)} isPowerUpsDisplayed={false} /> */}
         {/* <br />
         <br /> */}
+        <br />
+        {/* Match navigation */}
+        {isMatchNav ? (
+          <GeneralNavigationBar />
+        ) : (
+          <>
+            <MatchOptionsBar />
+            <MatchNavigationBar />
+          </>
+        )}
+
+        <TertiaryButton text="change top navigation menu" onClick={() => setMatchNav(!isMatchNav)} />
+        <br />
+        <br />
+        <br />
+        <br />
         <br />
         <br />
         <TertiaryButton text="loading button" onClick={() => setLoadSpinner(true)} />
@@ -437,8 +438,8 @@ export const Test: FC = () => {
           setActiveDropdown={handleDropdownClick}
           isDropdownContentVisible={isComponentVisible}
           activeDropdown={activeDropdown}
-          handleAuth={() => console.log("")}
-          handleLeaveMatch={() => console.log("")}
+          onAuthClick={() => console.log("")}
+          onLeaveMatchClick={() => console.log("")}
           handleSettings={() => console.log("")}
           handleRules={() => console.log("")}
           handleVolumeChange={(volumeLevel) => setVolume(volumeLevel)}
@@ -479,7 +480,6 @@ export const Test: FC = () => {
           <DiceRow dice={thirtienRolledDice} dieColor={color.red} temporaryDieAmount={3} />
         </BaseRow>
         <br />
-        <NavigationBar isInMatch={true} totalDice={35} stageNumber={1} drawNumber={7} />
         <br />
         <PlayerMenuOne>
           <PlayerMenu

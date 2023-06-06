@@ -13,6 +13,8 @@ export const general = {
   cookieAccept: "Accept cookies",
   cookieReject: "Reject cookies",
   playNow: "Play now",
+  matchOptions: "Match options",
+
   // TODO: Remove when terms and conditions are ready
   inProgress: "in progress",
   // Normal text

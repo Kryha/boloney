@@ -3,13 +3,11 @@ import { EqualLayout, Logo } from "../../components";
 import { BLANK_TARGET_LINK, BUG_FORM_LINK, FEEDBACK_FORM_LINK } from "../../constants";
 import { useIsMobile } from "../../hooks";
 import { Contact } from "../../molecules";
-import { NavigationBar } from "../../organisms";
-import { useSession } from "../../store";
+import { GeneralNavigationBar } from "../../organisms";
 
 export const ContactPage: FC = () => {
-  const session = useSession();
   const isMobile = useIsMobile();
-  const rightSection = isMobile ? <></> : <NavigationBar isAuthenticated={!!session} />;
+  const rightSection = isMobile ? <></> : <GeneralNavigationBar />;
 
   const handleBugFormClick = () => {
     window.open(BUG_FORM_LINK, BLANK_TARGET_LINK);

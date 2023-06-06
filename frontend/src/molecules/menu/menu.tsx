@@ -1,46 +1,34 @@
 import { FC } from "react";
 
-import { CloseIconSVG, EllipsisIconSVG, ExitIconSVG, LogoutIconSVG, RaisedHandIconSVG, SettingsIconSVG, text } from "../../assets";
-import { BaseIcon, IconImage } from "../../atoms";
+import { CloseIconSVG, ContactIconSVG, EllipsisIconSVG, LogoutIconSVG, SettingsIconSVG, text } from "../../assets";
+import { BaseIcon } from "../../atoms";
+import { color } from "../../design";
 import { Dropdown } from "../dropdown";
 import { MenuButton } from "./menu-button";
 import { MenuWrapper } from "./styles";
 
 interface Props {
   isOpen: boolean;
-  isInMatch?: boolean;
   isAuthenticated?: boolean;
 
-  handleAuth: () => void;
-  onClickSettings: () => void;
-  handleLeaveMatch: () => void;
+  onClickContact: () => void;
+  onAuthClick: () => void;
   expand: () => void;
   onClickOutsideDropdown: (ref: React.RefObject<HTMLElement>, isOpen: boolean) => void;
 }
 
 /**
  *
- * This is the menu component, its is displayed in the navigation menu.
+ * This is the menu component, it is displayed in the match navigation menu.
  * @param {boolean} isOpen - If the Menu is open.
- * @param {boolean} isInMatch - If we are currently in a match.
  * @param {boolean} isAuthenticated - If we are authenticated.
- * @param {Function} handleAuth - A function to handle Authentication.
- * @param {Function} onClickSettings - A function to handle viewing the match settings.
- * @param {Function} handleLeaveMatch - A function to handle leaving the match.
+ * @param {Function} onAuthClick - A function to handle Authentication.
+ * @param {Function} onClickContact- A function to handle navigating to the contact page.
  * @param {Function} expand - A function whose use is to define what happens when you click on the menu.
  * @param {Function} onClickOutsideDropdown - A function to handle closing the dropdown when clicking outside of it.
  */
 
-export const Menu: FC<Props> = ({
-  isOpen,
-  isInMatch = false,
-  isAuthenticated,
-  handleAuth,
-  onClickSettings,
-  handleLeaveMatch,
-  expand,
-  onClickOutsideDropdown,
-}) => {
+export const Menu: FC<Props> = ({ isOpen, isAuthenticated, onAuthClick, expand, onClickOutsideDropdown, onClickContact }) => {
   const menuIcon = isOpen ? <CloseIconSVG /> : <EllipsisIconSVG />;
   const authIcon = isAuthenticated ? <LogoutIconSVG /> : <SettingsIconSVG />;
   const authText = isAuthenticated ? text.general.logout : text.general.login;
@@ -54,27 +42,13 @@ export const Menu: FC<Props> = ({
       expand={expand}
     >
       <MenuWrapper>
-        {isInMatch && (
-          <MenuButton
-            buttonText={text.general.matchSettings}
-            buttonIcon={<IconImage src={RaisedHandIconSVG} pointer />}
-            hasDivider
-            expand={() => onClickSettings()}
-          />
-        )}
         <MenuButton
-          buttonText={authText}
-          buttonIcon={<BaseIcon src={authIcon} pointer />}
-          hasDivider={!isInMatch}
-          expand={() => handleAuth()}
+          expand={onClickContact}
+          buttonIcon={<BaseIcon src={<ContactIconSVG />} iconColor={color.transparent} strokeColor={color.black} pointer />}
+          buttonText={text.general.contact}
+          hasDivider
         />
-        {isInMatch && (
-          <MenuButton
-            buttonText={text.general.leaveMatch}
-            buttonIcon={<BaseIcon src={<ExitIconSVG />} pointer />}
-            expand={() => handleLeaveMatch()}
-          />
-        )}
+        <MenuButton buttonText={authText} buttonIcon={<BaseIcon src={authIcon} pointer />} expand={() => onAuthClick()} />
       </MenuWrapper>
     </Dropdown>
   );

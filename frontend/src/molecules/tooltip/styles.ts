@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { tooltipAnimation } from "../../atoms";
-import { containerWidth, spacing, zIndex as designZIndex } from "../../design";
+import { spacing, TOOLTIP_SIZE, zIndex as designZIndex } from "../../design";
 
 export const TooltipContainer = styled.section``;
 
@@ -10,27 +10,30 @@ interface Props {
 
 export const TooltipWrapper = styled.div<Props>`
   position: relative;
+  display: inline-block;
   z-index: ${({ zIndex }) => zIndex ?? designZIndex.background};
 `;
 
 export const TooltipContentWrapper = styled.div`
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   animation: ${tooltipAnimation} 0.5s;
   &.top {
-    top: "calc(${spacing.xxl} * -1)";
+    top: calc(${TOOLTIP_SIZE} * -1);
   }
   &.bottom {
-    bottom: calc(${spacing.xxl} * -1);
+    bottom: calc(${TOOLTIP_SIZE}* -1);
   }
   &.left {
     left: auto;
-    right: calc(100% - ${spacing.xxl} * 4);
-    top: 0%;
-    transform: translateX(0) translateY(0);
+    right: calc(100% + ${spacing.ms});
+    top: 50%;
+    transform: translateX(0) translateY(-50%);
   }
   &.right {
-    left: -${containerWidth.md};
-    top: 0%;
-    transform: translateX(0) translateY(0);
+    left: calc(100% + ${spacing.ms});
+    top: 50%;
+    transform: translateX(0) translateY(-50%);
   }
 `;

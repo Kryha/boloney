@@ -11,3 +11,4 @@ export * from "./timer";
 export * from "./get-power-ups";
 export * from "./authentication-form";
 export * from "./feedback-section";
+export * from "./text-logo";
