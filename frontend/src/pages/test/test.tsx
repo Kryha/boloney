@@ -1,8 +1,9 @@
 // TODO: delete this file when done testing
 
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useState, useEffect } from "react";
 import {
   CallBoloney,
+  CallBoloneyWinner,
   CallExact,
   CookieIconSVG,
   DiscordLogo,
@@ -87,21 +88,37 @@ import {
   TooltipFrame,
   CookieBanner,
   Contact,
+  HudPlayer,
 } from "../../molecules";
-import { getPowerUp, parseMessages, range } from "../../util";
+import { getPowerUp, getPowerUpData, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
 import { TemporaryDice } from "../../molecules/die/temporary-die";
 import { DiceRow } from "../../molecules/die/dice-row";
 import { Bid, Die as DieType, PowerUpId } from "../../types";
 import { LastBidPlayer } from "../../molecules/die/last-bid";
-import { AlignColumn, BackgroundRow, PlayerMenuOne, HalfColumn } from "./styles";
+import {
+  AlignColumn,
+  BackgroundRow,
+  BottomHud,
+  HalfColumn,
+  Layout,
+  MatchHeadingColumn,
+  HudContainer,
+  HudChild,
+  MainWrapper,
+  PlayerMenuOne,
+} from "./styles";
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown } from "../../molecules/top-navigation";
-import { GeneralNavigationBar, MatchNavigationBar, MatchOptionsBar, PlayerMenu } from "../../organisms";
-
-import { fakeHistory } from "../../assets/fake-data/fake-history";
-import { useViewport } from "../../hooks";
+import { GeneralNavigationBar, MainContainer, MatchNavigationBar, MatchOptionsBar, PlayerMenu } from "../../organisms";
+import { MatchSideBar } from "../../molecules/match-sidebar";
+import { PowerUpPile } from "../../molecules/power-up-pile";
+import { fakePowerUps } from "../../assets/fake-data/fake-power-ups";
+import { MatchImage } from "../../molecules/match-image";
+import { PowerUpRow } from "../../molecules/power-up-row";
+import { useIsMounted, useViewport } from "../../hooks";
 import { useStore } from "../../store";
+import { fakeHistory } from "../../assets/fake-data/fake-history";
 
 const onClick = () => {
   console.log("Button works");
@@ -185,6 +202,14 @@ export const Test: FC = () => {
   const isOverlayVisible = useStore((state) => state.isOverlayVisible);
   const showModal = useStore((state) => state.showModal);
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
+  const isMount = useIsMounted();
+  const [addPowerUp, setAddPowerUp] = useState([fakePowerUps[0], fakePowerUps[1]]);
+  const [updatedPowerUp, setUpdatedPowerUp] = useState(false);
+
+  const addPowerUpFunct = () => {
+    setAddPowerUp([...addPowerUp, fakePowerUps[2]]);
+  };
+
   const channelId = "123";
   const availablePowerUps: Set<PowerUpId> = new Set();
 
@@ -233,6 +258,17 @@ export const Test: FC = () => {
     }, 10000);
   }, []);
 
+  useEffect(() => {
+    if (!isMount) {
+      setUpdatedPowerUp(true);
+      setTimeout(() => {
+        setUpdatedPowerUp(false);
+      }, 1500);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addPowerUp]);
+
   if (!powerUp1 || !powerUp2 || !powerUp3 || !powerUp4 || !powerUp5 || !powerUp6 || !powerUp7 || !powerUp8 || !powerUp9) return <></>;
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
     if (activeDropdown === dropdown) {
@@ -270,7 +306,16 @@ export const Test: FC = () => {
 
   if (loadSpinner) return <SausageSpinner />;
   return (
-    <>
+    <div style={{ paddingTop: "0vh", background: "lightBlue" }}>
+      <br />
+      <div style={{ padding: "30px" }}>
+        <PowerUpRow powerUpIds={addPowerUp} onClick={() => console.log("")} showPowerUpAnimation={updatedPowerUp} />
+      </div>
+      <br />
+      <br />
+      <PowerUpRow powerUpIds={fakePowerUps} onClick={() => console.log("")} />
+      <br />
+      <PowerUpPile powerUps={getPowerUpData(fakePowerUps)} isPowerUpsDisplayed={false} />
       <Contact handleBugFormClick={handleBugFormClick} handleFeedbackFormClick={handleFeedbackFormClick} />
       <div style={{ paddingTop: "100vh", background: "lightBlue" }}>
         {/* <PowerUpPile powerUps={getPowerUpData(fakePowerUps)} isPowerUpsDisplayed={false} /> */}
@@ -291,33 +336,28 @@ export const Test: FC = () => {
         <br />
         <br />
         <br />
-        <br />
-        <br />
-        <br />
         <TertiaryButton text="loading button" onClick={() => setLoadSpinner(true)} />
         <br />
-        {/* <MainContainer height={height} isOverlayVisible={isOverlayVisible}>
+        <MainContainer height={height} isOverlayVisible={isOverlayVisible}>
           <Layout>
             <MatchSideBar players={fakePlayers} />
             <BottomHud>
-              <HudPlayer player={fakePlayers[0]} />
-              <HudContainer>
-                <HudChild gap="10px">
-                  <DiceRow dice={threeRolledDice} dieColor={color.red} temporaryDieAmount={3} />
-                </HudChild>
+              <HudPlayer player={fakePlayers[1]} showPowerUpAnimation={updatedPowerUp} />
+              <HudContainer showPowerUpAnimation={updatedPowerUp}>
+                <HudChild gap="10px">{/* <DiceRow dice={threeRolledDice} dieColor={color.red} temporaryDieAmount={3} /> */}</HudChild>
                 <HudChild>
                   <PowerUpRow
-                    powerUpIds={fakePowerUps}
+                    powerUpIds={addPowerUp}
                     onClick={() => {
                       setModalComponentChildren("power-up-list");
                       showModal("power-up-list");
                     }}
-                    width={width}
+                    showPowerUpAnimation={updatedPowerUp}
                   />
                 </HudChild>
               </HudContainer>
             </BottomHud>
-            <PlayerMenuOne>
+            {/* <PlayerMenuOne>
               <PlayerMenu
                 isChatOpen={isChatOpen}
                 setIsChatOpen={() => setIsChatOpen(!isChatOpen)}
@@ -331,7 +371,7 @@ export const Test: FC = () => {
                 messageInput={messageInput}
                 handleSendEvent={handleSendEvent}
               />
-            </PlayerMenuOne>
+            </PlayerMenuOne> */}
             <MainWrapper>
               <MatchHeadingColumn gap={spacing.s}>
                 <TimerHeader time="0.10" heading="call boloney" gap={spacing.s} />
@@ -347,8 +387,10 @@ export const Test: FC = () => {
               <MatchImage image={CallBoloneyWinner} alt={"call exact"} />
             </MainWrapper>
           </Layout>
-        </MainContainer> */}
+        </MainContainer>
+
         <br />
+        <TertiaryButton text={"add power up"} onClick={() => addPowerUpFunct()} />
         <br />
         <br />
         <br />
@@ -1302,6 +1344,6 @@ export const Test: FC = () => {
         <br />
         <BodyText font={fonts.secondary}>intro text</BodyText>
       </div>
-    </>
+    </div>
   );
 };

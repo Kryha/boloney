@@ -19,6 +19,7 @@ export const general = {
   inProgress: "in progress",
   // Normal text
   rollingDice: "rolling dice",
+  plusOne: "+1",
   chat: "chat",
   history: "history",
   defaultTime: "0:00",

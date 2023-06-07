@@ -16,3 +16,4 @@ export * from "./mobile-layout";
 export * from "./die";
 export * from "./patterns";
 export * from "./avatar";
+export * from "./power-up";

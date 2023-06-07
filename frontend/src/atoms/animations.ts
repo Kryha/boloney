@@ -1,5 +1,5 @@
 import { keyframes } from "@emotion/react";
-import { color, opacity, spacing, zIndex } from "../design";
+import { color, opacity, powerUp, spacing, zIndex } from "../design";
 
 // TODO: delete
 // Hands
@@ -48,6 +48,17 @@ export const fadeIn = keyframes`
   100% { opacity:  ${opacity.visible}; }
 `;
 
+export const grow = keyframes`
+  from {
+    opacity: ${opacity.hidden};
+    transform: scale(0);
+  }
+  to {
+    opacity: ${opacity.visible};
+    transform: scale(1);
+  }
+`;
+
 export const fadeInPop = keyframes`
   0% {
     opacity: ${opacity.hidden};
@@ -75,6 +86,48 @@ export const slideUp = keyframes`
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
   }
+`;
+
+export const fadeTransformUp = keyframes`
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: ${opacity.background};
+  }
+  10%{
+    opacity: ${opacity.visible};
+  }
+  100% {
+    -webkit-transform: translateY(-${powerUp.xl});
+    transform: translateY(-${powerUp.xl});
+    opacity: ${opacity.hidden};
+  }
+`;
+
+export const flash = keyframes`
+  0% {
+    background: ${color.lightGrey};
+  }
+  50%{
+    background: ${color.cloudWhite};
+  }
+  100% {
+    background: ${color.lightGrey};
+  }
+
+`;
+
+export const scaleTransformation = keyframes`
+    0% {
+      opacity: ${opacity.hidden};
+    }
+    50% {
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
 `;
 
 export const slideRight = keyframes`

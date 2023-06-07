@@ -1,7 +1,9 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import { color, layoutHeight, layoutWidth } from "../design";
 import { getSidebarHeight, switchStyle } from "../util";
+import { flash } from "./animations";
 
 interface Props {
   active?: boolean;
@@ -53,8 +55,20 @@ export const PlayerBox = styled(LayoutBase)`
   border-right: 1px solid ${color.mediumGrey};
 `;
 
-export const HUDPlayerBox = styled(HUDBlock)`
+interface HUDProps {
+  showPowerUpAnimation?: boolean;
+}
+
+export const HUDPlayerBox = styled(HUDBlock)<HUDProps>`
   width: ${layoutWidth.sm};
+  ${({ showPowerUpAnimation }) =>
+    showPowerUpAnimation &&
+    css`
+      animation: ${flash};
+      animation-duration: 0.6s;
+      animation-delay: 0s;
+      animation-fill-mode: forwards;
+    `};
 `;
 
 export const PlayerMenuBox = styled(LayoutBase)<PlayerMenuProps>`

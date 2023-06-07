@@ -11,6 +11,7 @@ interface PowerUpSmallProps {
   padding?: string;
   isPowerUpDisabled?: boolean;
   plusAmount?: number;
+  pointer?: boolean;
 }
 
 /**
@@ -20,6 +21,7 @@ interface PowerUpSmallProps {
  * @param {number} plusAmount - The amount of powerUps that are not visible, isEmpty prop has to be true
  * @param {string} padding - If the powerUp is used to display the hidden amount of powerUps. This parameter represents that value.
  * @param {string} isPowerUpDisabled - If the powerUp is used to display the hidden amount of powerUps. This parameter represents that value.
+ * @param {boolean} pointer - A boolean to indicate when true if the cursor is a pointer or if it is the default cursor.
  */
 
 export const PowerUpSmall: FC<PowerUpSmallProps> = ({
@@ -29,6 +31,7 @@ export const PowerUpSmall: FC<PowerUpSmallProps> = ({
   plusAmount = 0,
   padding,
   isPowerUpDisabled,
+  pointer,
 }) => {
   return (
     <Card isSmall isEmpty={isEmpty} padding={padding}>
@@ -37,7 +40,7 @@ export const PowerUpSmall: FC<PowerUpSmallProps> = ({
       </FullHeightColumn>
       {isPowerUpDisabled && (
         <DisabledSmallPowerUpWrapper alignItems="flex-end" justifyContent="center">
-          <BaseIcon src={<BlueLockSVG />} radius={radius.xxs} width={iconSize.sm} height={iconSize.sm} />
+          <BaseIcon src={<BlueLockSVG />} radius={radius.xxs} width={iconSize.sm} height={iconSize.sm} pointer={pointer} />
         </DisabledSmallPowerUpWrapper>
       )}
     </Card>
