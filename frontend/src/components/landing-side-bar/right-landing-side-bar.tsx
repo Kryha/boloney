@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { TopNavigation } from "../top-navigation";
+import { GeneralNavigationBar } from "../../organisms";
 import { LandingHands } from "./landing-hands";
 import { SidebarProps } from "./left-landing-side-bar";
 import { ColumnGroup, LandingSideBarWrapper, SidebarContainer, SidebarWrapper } from "./styles";
@@ -7,7 +7,7 @@ import { ColumnGroup, LandingSideBarWrapper, SidebarContainer, SidebarWrapper } 
 export const RightLandingSideBar: FC<SidebarProps> = ({ isSidebarVisible }) => {
   return (
     <LandingSideBarWrapper>
-      <TopNavigation location="landing" />
+      <GeneralNavigationBar />
       <SidebarWrapper isSidebarVisible={isSidebarVisible}>
         <SidebarContainer>
           <ColumnGroup isDice={false}>

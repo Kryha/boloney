@@ -85,7 +85,7 @@ export const TopNavigation: FC<Props> = ({
           useOnClickOutside={onClickOutsideDropdown}
           isOpen={activeDropdown === "menu" && isDropdownContentVisible}
           buttonText={authText}
-          buttonIcon={authIcon}
+          buttonIcon={<BaseIcon src={authIcon} pointer />}
           expand={onAuthClick}
         />
       </GeneralRow>
