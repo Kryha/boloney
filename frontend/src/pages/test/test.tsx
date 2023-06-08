@@ -89,6 +89,7 @@ import {
   CookieBanner,
   Contact,
   HudPlayer,
+  WalletPill,
 } from "../../molecules";
 import { getPowerUp, getPowerUpData, parseMessages, range } from "../../util";
 import { Die } from "../../molecules/die";
@@ -311,6 +312,31 @@ export const Test: FC = () => {
       <div style={{ padding: "30px" }}>
         <PowerUpRow powerUpIds={addPowerUp} onClick={() => console.log("")} showPowerUpAnimation={updatedPowerUp} />
       </div>
+      <br />
+      Disabled
+      <br />
+      <WalletPill status="disabled" isCompletedText={text.general.connected} defaultText={text.general.connecting} />
+      <br />
+      in Progress
+      <br />
+      <WalletPill isCompletedText={text.general.connected} defaultText={text.general.connecting} />
+      <br />
+      Completed
+      <br />
+      <WalletPill status="completed" isCompletedText={text.general.connected} defaultText={text.general.connecting} />
+      <br />
+      <br />
+      Disabled
+      <br />
+      <WalletPill status="disabled" isCompletedText={text.general.signatureValidated} defaultText={text.general.validatingSignature} />
+      <br />
+      in Progress
+      <br />
+      <WalletPill isCompletedText={text.general.signatureValidated} defaultText={text.general.validatingSignature} />
+      <br />
+      Completed
+      <br />
+      <WalletPill status="completed" isCompletedText={text.general.signatureValidated} defaultText={text.general.validatingSignature} />
       <br />
       <br />
       <PowerUpRow powerUpIds={fakePowerUps} onClick={() => console.log("")} />

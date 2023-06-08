@@ -17,6 +17,9 @@ export const general = {
 
   // TODO: Remove when terms and conditions are ready
   inProgress: "in progress",
+  connecting: "connecting",
+  signatureValidated: "signature validated",
+  validatingSignature: "validating signature",
   // Normal text
   rollingDice: "rolling dice",
   plusOne: "+1",

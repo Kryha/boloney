@@ -21,4 +21,5 @@ export const color = {
   translucentWhite: "linear-gradient(0deg, #EEEEEA 50%, rgba(238, 238, 234, 0) 139.86%)",
   transparent: "transparent",
   peach: "#C49F8F",
+  ironGrey: "#A0A0A0",
 };
