@@ -5,7 +5,7 @@ import { fontSizes, lineHeights, spacing } from "../../design";
 import { CopyLinkWrapper, LinkCopiedBlock } from "./styles";
 
 interface Props {
-  link: string;
+  link?: string;
   linkText: string;
   isLinkCopied: boolean;
   onClick: () => void;

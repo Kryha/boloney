@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { color, containerHeight, containerWidth, radius, shadows } from "../design";
+import { color, containerHeight, containerWidth, mobileWidth, radius, shadows } from "../design";
 import { BaseBlock } from "./block";
 
 /**
@@ -23,8 +23,8 @@ export const PopUpBlock = styled(BaseBlock)`
 `;
 
 export const TooltipBlock = styled(BaseBlock)`
-  min-width: ${containerWidth.sm};
-  max-width: ${containerWidth.md};
+  min-width: ${containerWidth.md};
+  max-width: ${mobileWidth.xs};
   border-radius: ${radius.none};
   box-shadow: ${shadows.xl};
 `;

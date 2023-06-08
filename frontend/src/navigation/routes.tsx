@@ -4,15 +4,16 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import { routes } from "./route-names";
-import { CookieBanner, MainContainer, ErrorFallback, ErrorView, Loading } from "../components";
-import { LandingPage, NewMatch, MatchRoute, Login, CreateAccount, MobileLogin, MdPage } from "../pages";
+import { CookieBanner, MainContainer, Loading } from "../components";
+import { LandingPage, MatchRoute, Login, CreateAccount, MobileLogin, MdPage } from "../pages";
 import { useRefreshAuth } from "../service";
 import { useIsAuthenticating, useSession, useStore } from "../store";
 import { Test } from "../pages/test/test";
 import { ENV_MODE } from "../constants";
 import { PrivacyPolicyMd, CookiePolicyMd, TermsOfUseMd } from "../assets";
 import { useIsMobile } from "../hooks";
-import { ContactPage, FeedbackPage, HomePage } from "../views";
+import { CreateMatchPage, ContactPage, FeedbackPage, HomePage } from "../views";
+import { ErrorFallback, ErrorView } from "../organisms";
 
 const AppRoutes: FC = () => {
   const isAuthenticating = useIsAuthenticating();
@@ -39,7 +40,7 @@ const AppRoutes: FC = () => {
       {session && !isMobile ? (
         <>
           <Route path={routes.home} element={<HomePage />} />
-          <Route path={routes.newMatch} element={<NewMatch />} />
+          <Route path={routes.newMatch} element={<CreateMatchPage />} />
           <Route path={`${routes.match}/:matchId`} element={<MatchRoute />} />
         </>
       ) : (

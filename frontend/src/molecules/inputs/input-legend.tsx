@@ -18,13 +18,14 @@ interface InputLegendProps {
   infoPosition?: TooltipInfoPosition;
   zIndex?: number;
   disabled?: boolean;
+  tooltipDescription?: string;
 }
 
 /**
- * @description A component that renders a label and an input field.
+ * A component that renders a label and an input field.
  * @param {string} label - The label of the input field
  * @param {ReactNode} children - The input field
- * @param {ReactNode} tooltipInfo - The tooltip info to display
+ * @param {ReactNode} tooltipInfo - The tooltip info to display as a component
  * @param {string} tooltipTitle - The tooltip title to display
  * @param {TooltipInfoPosition} infoPosition - The position of the tooltip info
  * @param {number} zIndex - The z-index of the tooltip info
@@ -33,6 +34,7 @@ interface InputLegendProps {
  * @param {string} errorMessage - The error message to display
  * @param {boolean} isRow - Whether the input field should be displayed in a row
  * @param {number} childNode - The number of child nodes
+ * @param {string} tooltipDescription - The tooltip description.
  */
 
 export const InputLegend: FC<InputLegendProps> = ({
@@ -47,14 +49,15 @@ export const InputLegend: FC<InputLegendProps> = ({
   isError = false,
   isRow = false,
   childNode = 1,
+  tooltipDescription,
 }) => {
   return (
     <InputContainer isRow={isRow} childNode={childNode} alignItems="flex-start">
       <FieldSet isError={isError} isRow={isRow} childNode={childNode} disabled={disabled}>
         <Legend>
-          <BaseRow alignItems="center">
+          <BaseRow alignItems="center" gap={spacing.xs}>
             <Heading6>{label}</Heading6>
-            <Tooltip title={tooltipTitle} info={tooltipInfo} infoPosition={infoPosition} zIndex={zIndex} />
+            <Tooltip title={tooltipTitle} description={tooltipDescription} info={tooltipInfo} infoPosition={infoPosition} zIndex={zIndex} />
           </BaseRow>
         </Legend>
         {children}

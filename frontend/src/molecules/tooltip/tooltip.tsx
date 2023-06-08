@@ -24,9 +24,14 @@ interface TooltipProps {
  */
 
 export const Tooltip: FC<TooltipProps> = ({ title, info, zIndex, iconColor, description, infoPosition }) => {
+  const isTooltipPresent = title || info || description;
   return (
-    <TooltipInfo title={title} description={description} content={info} zIndex={zIndex} position={infoPosition}>
-      <BaseIcon src={<InfoIconSVG />} pointer iconColor={iconColor} />
-    </TooltipInfo>
+    <>
+      {isTooltipPresent && (
+        <TooltipInfo title={title} description={description} content={info} zIndex={zIndex} position={infoPosition}>
+          <BaseIcon src={<InfoIconSVG />} pointer iconColor={iconColor} />
+        </TooltipInfo>
+      )}
+    </>
   );
 };

@@ -5,7 +5,7 @@ import { BaseInput, BaseSelect } from "./input";
 
 interface Props {
   isError?: boolean;
-  isRow: boolean;
+  isRow?: boolean;
   childNode: number;
   disabled?: boolean;
 }

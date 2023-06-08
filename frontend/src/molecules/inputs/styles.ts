@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { color, spacing, zIndex } from "../../design";
-import { Heading6, GeneralText, BaseColumn, BaseRow, PositionContent } from "../../atoms";
+import { color, containerHeight, spacing, zIndex } from "../../design";
+import { GeneralText, BaseColumn, BaseRow, PositionContent } from "../../atoms";
 
 interface InputContainerProps {
   isRow: boolean;
@@ -10,7 +10,6 @@ interface InputContainerProps {
 
 export const InputContainer = styled(BaseColumn)<InputContainerProps>`
   isolation: isolate;
-  flex-direction: column-reverse;
   position: relative;
   flex: 1;
   ${({ isRow, childNode }) =>
@@ -27,16 +26,6 @@ export const InputContainer = styled(BaseColumn)<InputContainerProps>`
 `};
 `;
 
-export const LabelContainer = styled.div`
-  position: absolute;
-  left: ${spacing.ms};
-  top: -${spacing.s};
-  ${Heading6} {
-    background: ${color.lightGrey};
-    padding: 0px ${spacing.xs};
-  }
-`;
-
 interface CheckboxErrorContainerProps {
   margin?: string;
   position?: PositionContent;
@@ -45,7 +34,7 @@ interface CheckboxErrorContainerProps {
 export const CheckboxErrorContainer = styled(BaseRow)<CheckboxErrorContainerProps>`
   margin: ${({ margin }) => margin || "0px"};
   position: ${({ position }) => position || "inherit"};
-  bottom: -50px;
+  bottom: -${containerHeight.sm};
 `;
 
 export const TextLabel = styled(GeneralText)`
@@ -56,4 +45,16 @@ export const TextLabel = styled(GeneralText)`
 
 export const InputIconContainer = styled.div`
   margin: ${spacing.xxs} ${spacing.sm} 0px ${spacing.ms};
+`;
+
+export const InputFieldSet = styled.fieldset`
+  isolation: isolate;
+  position: relative;
+  flex: 1;
+  width: 100%;
+  border-top: 1px solid ${color.mediumGrey};
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 0;
 `;

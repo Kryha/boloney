@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { PowerUpInfo } from "./power-up";
 import { CheckboxContainer, CheckboxWrapper, CheckWrapper } from "./styles";
-import { PowerUp } from "../../types";
+import { PowerUp, PowerUpId } from "../../types";
 import { CheckboxBox } from "../../atoms";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
   isChecked: boolean;
   isError: boolean;
   handleCheck: () => void;
-  updateProbability: () => void;
+  updateProbability: (value: string, id: PowerUpId) => void;
 }
 
 /**

@@ -25,7 +25,14 @@ interface TooltipInfoProps {
  * @returns {ReactNode} - Returns the tooltip
  */
 
-export const TooltipInfo: FC<TooltipInfoProps> = ({ title, description, children, position, zIndex = designZIndex.background }) => {
+export const TooltipInfo: FC<TooltipInfoProps> = ({
+  title,
+  description,
+  children,
+  position,
+  zIndex = designZIndex.background,
+  content,
+}) => {
   // TODO: Refactor this by using the ref of the parent in order to display only the correct tooltip
   const [isTooltipActive, setIsTooltipActive] = useState(false);
   const showTooltip = () => setIsTooltipActive(true);
@@ -37,7 +44,7 @@ export const TooltipInfo: FC<TooltipInfoProps> = ({ title, description, children
       {isTooltipActive && (
         <TooltipWrapper zIndex={zIndex}>
           <TooltipContentWrapper className={position}>
-            <TooltipFrame heading={text.param.appendColon(title)} description={description} />
+            <TooltipFrame heading={text.param.appendColon(title)} description={description} content={content} />
           </TooltipContentWrapper>
         </TooltipWrapper>
       )}

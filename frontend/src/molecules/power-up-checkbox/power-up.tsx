@@ -4,7 +4,7 @@ import { Heading6, BodyText, PercentageInput, BaseIcon, BaseRow } from "../../at
 import { CheckboxInput } from "../inputs";
 import { color, spacing } from "../../design";
 import { DescriptionContainer, FormContentWrapper, PercentageInputContainer } from "./styles";
-import { PowerUp } from "../../types";
+import { PowerUp, PowerUpId } from "../../types";
 import { LightningIconSVG, text } from "../../assets";
 import { PowerUpSmall } from "../power-up";
 
@@ -13,7 +13,7 @@ interface PowerUpsInfo {
   isChecked: boolean;
   isError: boolean;
   probability: number;
-  updateProbability: (formValue: string) => void;
+  updateProbability: (formValue: string, id: PowerUpId) => void;
 }
 
 /**
@@ -45,7 +45,7 @@ export const PowerUpInfo: FC<PowerUpsInfo> = ({ powerUp, isChecked, isError, pro
             disabled={!isChecked}
             placeholder="0"
             value={probability === 0 ? "" : probability}
-            onChange={(e) => updateProbability(e.target.value)}
+            onChange={(e) => updateProbability(e.target.value, powerUp.id)}
             error={isError}
           />
         </PercentageInputContainer>

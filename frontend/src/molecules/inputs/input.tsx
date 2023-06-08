@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
 
-import { Heading6 } from "../../atoms";
+import { Heading6, Legend } from "../../atoms";
 import { spacing } from "../../design";
 import { CheckboxError } from "./checkbox-error";
-import { InputContainer, LabelContainer } from "./styles";
+import { InputContainer, InputFieldSet } from "./styles";
 
 interface InputProps {
   label?: string;
@@ -27,13 +27,15 @@ interface InputProps {
 export const Input: FC<InputProps> = ({ children, label, isError = false, errorMessage, isRow = false, childNode = 1 }) => {
   return (
     <InputContainer isRow={isRow} childNode={childNode} alignItems="flex-start">
-      <LabelContainer>
-        <Heading6>{label}</Heading6>
-      </LabelContainer>
-      {children}
-      {isError && (
-        <CheckboxError errorMessage={errorMessage} position="absolute" margin={`${spacing.xxs} ${spacing.xxs} 0px ${spacing.sm}`} />
-      )}
+      <InputFieldSet>
+        <Legend>
+          <Heading6>{label}</Heading6>
+        </Legend>
+        {children}
+        {isError && (
+          <CheckboxError errorMessage={errorMessage} position="absolute" margin={`${spacing.xxs} ${spacing.xxs} 0px ${spacing.sm}`} />
+        )}
+      </InputFieldSet>
     </InputContainer>
   );
 };

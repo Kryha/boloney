@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import { tooltipAnimation } from "../../atoms";
-import { spacing, TOOLTIP_SIZE, zIndex as designZIndex } from "../../design";
+import { iconSize, spacing, TOOLTIP_SIZE, zIndex as designZIndex } from "../../design";
 
-export const TooltipContainer = styled.section``;
+export const TooltipContainer = styled.section`
+  height: ${iconSize.xxs};
+`;
 
 interface Props {
   zIndex?: number;

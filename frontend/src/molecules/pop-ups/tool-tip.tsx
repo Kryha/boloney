@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { TooltipBlock } from "../../atoms";
 import { spacing } from "../../design";
 import { TooltipContent } from "../text";
@@ -6,6 +6,7 @@ import { TooltipContent } from "../text";
 interface Props {
   description?: string;
   heading?: string;
+  content?: ReactNode;
 }
 
 /**
@@ -14,10 +15,11 @@ interface Props {
  * @param {string} heading - The main heading
  */
 
-export const TooltipFrame: FC<Props> = ({ description, heading }) => {
+export const TooltipFrame: FC<Props> = ({ description, heading, content }) => {
   return (
     <TooltipBlock padding={spacing.s}>
       <TooltipContent heading={heading} description={description} />
+      {content}
     </TooltipBlock>
   );
 };
