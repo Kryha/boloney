@@ -1,16 +1,18 @@
 import styled from "@emotion/styled";
-import { BaseColumn, BaseIconWrapper, GeneralText, MessageBlock } from "../../atoms";
-import { color } from "../../design";
+import { BaseColumn, BaseIconWrapper, BaseRow, GeneralText, MessageBlock } from "../../atoms";
+import { CHAT_MESSAGE_SIZE, color, containerWidth, spacing } from "../../design";
 
 export const ChatContainer = styled(BaseColumn)`
-  width: 100%;
+  width: ${containerWidth.fluid};
   height: inherit;
 `;
 
 export const ChatMessageListWrapper = styled(BaseColumn)`
   height: inherit;
-  width: 100%;
+  width: ${containerWidth.fluid};
   overflow: scroll;
+  flex-direction: column-reverse;
+  margin-bottom: ${spacing.s};
 `;
 
 interface Props {
@@ -32,10 +34,7 @@ interface MessageProps {
 }
 
 export const Message = styled(MessageBlock)<MessageProps>`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
+  box-shadow: none;
   background: ${({ isLocalUser }): string => (isLocalUser ? color.grey : color.cloudWhite)};
   max-width: 23.5vw;
   ${GeneralText} {
@@ -44,8 +43,13 @@ export const Message = styled(MessageBlock)<MessageProps>`
 `;
 
 export const MessageWrapper = styled.section<MessageProps>`
-  padding-left: 13px;
-  padding-right: 13px;
-  padding-top: ${({ isGroupedMessage }): string => (isGroupedMessage ? "2px" : "16px")};
+  padding-left: ${spacing.s};
+  padding-right: ${spacing.s};
+  padding-top: ${({ isGroupedMessage }): string => (isGroupedMessage ? spacing.xxs : spacing.s)};
   align-self: ${({ isLocalUser }): string => (isLocalUser ? "flex-end" : "flex-start")};
+`;
+
+export const ChatMessageInput = styled(BaseRow)`
+  margin-bottom: ${CHAT_MESSAGE_SIZE};
+  width: ${containerWidth.fluid};
 `;

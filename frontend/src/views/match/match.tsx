@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import { MatchContentWrapper } from "../../atoms";
 import { FadeTransition, Loading } from "../../components";
 import { usePlaySound } from "../../hooks";
-import { ErrorView, GetPowerUps, MatchLayout } from "../../organisms";
+import { ErrorView, GetPowerUps, Lobby, MatchLayout } from "../../organisms";
 import { useChatHistory, useDeleteNotification, useIsInMatch, useJoinMatch, useLocalPlayer, useNotificationListener } from "../../service";
 import { useStore } from "../../store";
 import { MatchStage } from "../../types";
@@ -36,6 +36,8 @@ export const Match: FC<MatchProps> = ({ matchId }) => {
       //  TODO: add other stages
     }
   };
+
+  if (matchStage === "lobbyStage") return <Lobby />;
 
   return (
     <FadeTransition>

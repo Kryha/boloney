@@ -563,7 +563,7 @@ export const Test: FC = () => {
             messageInput={messageInput}
             setMessageInput={setMessageInput}
             messages={parseMessages(fakeMessages)}
-            handleSendEvent={() => console.log("")}
+            channelId=""
           />
         </PlayerMenuOne>
         {/*  <PlayerMenuTwo>

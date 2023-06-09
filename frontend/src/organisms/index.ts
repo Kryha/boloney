@@ -12,4 +12,5 @@ export * from "./get-power-ups";
 export * from "./authentication-form";
 export * from "./feedback-section";
 export * from "./text-logo";
+export * from "./lobby";
 export * from "./match-creation-forms";

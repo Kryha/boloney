@@ -15,8 +15,9 @@ interface Props {
   localPlayer?: PlayerPublic;
   messages: ChatMessageContent[][];
   messageInput: string;
+  channelId?: string;
+
   setMessageInput: (value: string) => void;
-  handleSendEvent: (e: React.MouseEvent<HTMLInputElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => void;
   handleKeyEvent: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 
   setIsChatOpen?: () => void;
@@ -29,6 +30,7 @@ interface Props {
  * @param {boolean}  isHistoryOpen - A boolean to define if the history is open.
  * @param {string} isPanelExpanded -  A boolean to define if the panel has been expanded.
  * @param {boolean} isSingular - A boolean to define if the panel is singular.
+ * @param {string} channelId - The channel id for the match chat
  * @param {ChatMessageContent[][]} messages - An array of grouped messages.
  * @param {string} chatChannelId - The id of the chat channel provided by nakama.
  * @param {Function} setIsChatOpen -  A function whose use is to set if the chat is open or not.
@@ -46,8 +48,8 @@ export const PlayerMenu: FC<Props> = ({
   localPlayer,
   messages,
   messageInput,
+  channelId,
   setMessageInput,
-  handleSendEvent,
   handleKeyEvent,
   setIsChatOpen,
   setIsHistoryOpen,
@@ -75,7 +77,7 @@ export const PlayerMenu: FC<Props> = ({
         <Chat
           messages={messages}
           messageInput={messageInput}
-          handleSendEvent={handleSendEvent}
+          channelId={channelId}
           handleKeyEvent={handleKeyEvent}
           setMessageInput={setMessageInput}
         />

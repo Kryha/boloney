@@ -9,7 +9,6 @@ import {
   GetPowerUps,
   PlayerTurns,
   RollDice,
-  Lobby,
   ErrorView,
   Loading,
   FadeTransition,
@@ -40,6 +39,7 @@ import {
   errorPayloadBackendSchema,
 } from "../../types";
 import { parseMatchData, parseMatchIdParam } from "../../util";
+import { Lobby } from "../../organisms";
 
 export const MatchRoute = () => {
   const { matchId } = useParams();

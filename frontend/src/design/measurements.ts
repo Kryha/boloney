@@ -1,10 +1,14 @@
 export const SIDEBAR_HEIGHT = 89;
 export const DESKTOP_BREAKPOINT = 959;
 export const TOOLTIP_SIZE = "7vw";
+export const CHAT_MESSAGE_SIZE = "clamp(0.5rem, 0.21vw + 0.38rem, 0.88rem)";
+export const CHAT_INPUT_SIZE = "94.4%";
+
 export const MATCH_FORM_MARGIN = "0.18rem";
 export const MATCH_FORM_SIZE = "0.03rem";
 export const POWER_UP_FORM_SIZE = "clamp(400px, 34.72vw + 66.67px, 1400px)";
 export const MIN_TOOLTIP_WIDTH = "32vw";
+
 export const measurements = {
   localAvatarHeight: "7vh",
 };

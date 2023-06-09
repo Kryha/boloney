@@ -1,13 +1,13 @@
 import { FC } from "react";
+
 import { avatars } from "../../assets";
 import { ContentLoader } from "../../components";
-import { avatarHeight, LOBBY_MAX_HEIGHT } from "../../design/avatar";
-
+import { avatarHeight, LOBBY_MAX_HEIGHT } from "../../design";
 import { PlayerPublic } from "../../types";
 import { getLobbyMaxWidth } from "../../util";
 import { FloatingPlayer } from "../floating-player";
 import { LobbyStatus } from "../lobby-status";
-import { LobbyPlayerWrapper } from "./styles";
+import { LobbyPlayerContainer, LobbyPlayerWrapper } from "./styles";
 
 interface LobbyPlayerProps {
   player: PlayerPublic;
@@ -27,13 +27,15 @@ export const LobbyPlayer: FC<LobbyPlayerProps> = ({ player, totalPlayers }) => {
   if (!player.avatarId) return <ContentLoader isLoading />;
 
   return (
-    <LobbyPlayerWrapper isWaiting={!player.isReady} alignItems="center" justifyContent="center">
-      <FloatingPlayer
-        avatarName={avatars[player.avatarId].name}
-        height={avatarHeight.md}
-        width="auto"
-        maxWidth={getLobbyMaxWidth(maxWidth)}
-      />
+    <LobbyPlayerWrapper justifyContent="space-between">
+      <LobbyPlayerContainer isWaiting={!player.isReady} alignItems="center" justifyContent="center">
+        <FloatingPlayer
+          avatarName={avatars[player.avatarId].name}
+          height={avatarHeight.md}
+          width="auto"
+          maxWidth={getLobbyMaxWidth(maxWidth)}
+        />
+      </LobbyPlayerContainer>
       <LobbyStatus playerName={player.username} isWaiting={!player.isConnected} isReady={player.isReady} />
     </LobbyPlayerWrapper>
   );
