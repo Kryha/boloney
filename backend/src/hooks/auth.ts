@@ -1,7 +1,18 @@
-import { errors, handleError, profanityFilter, savePlayerAddress, savePlayerKeys, getPlayerAddress } from "../services";
+import { AUTH_SIGN_MESSAGE, TOOLKIT_ENDPOINTS } from "../constants";
+import {
+  errors,
+  handleError,
+  savePlayerAddress,
+  savePlayerKeys,
+  getPlayerAddress,
+  getUsername,
+  saveUsername,
+  profanityFilter,
+} from "../services";
+import { handleToolkitRequest } from "../toolkit-api";
 import { createAleoAccount } from "../toolkit-api/account";
-import { AfterAuthHookHandler, BeforeAuthHookHandler, isAddress } from "../types";
-import { env } from "../utils";
+import { AfterAuthHookHandler, BeforeAuthHookHandler, isAddress, isVerifySignatureResToolkit, VerifySignatureBodyToolkit } from "../types";
+import { env, tkUrl } from "../utils";
 
 export const beforeHookHandler: BeforeAuthHookHandler = (cb) => (ctx, logger, nk, data) => {
   try {
@@ -21,34 +32,59 @@ export const afterHookHandler: AfterAuthHookHandler = (cb) => (ctx, logger, nk, 
   }
 };
 
-// TODO: fix the following scenario:
-// 1. user creates account
-// 2. before hook succeeds and user creation as well
-// 3. after hook fails, so no keys are stored
-// The after hook will be retriggered after login, so the server will try to recall the toolkit if keys were not generated.
-// The issue is in the fact that if the key creation fails, the user will receive an error, even though the nakama account is actually created.
-// In order to generate the keys, the user will have to counterintuitively try to login.
+export const verifySignature = (
+  nk: nkruntime.Nakama,
+  ctx: nkruntime.Context,
+  logger: nkruntime.Logger,
+  address: string,
+  signature: string
+): boolean => {
+  const url = tkUrl(ctx, TOOLKIT_ENDPOINTS.account.verify);
+  const body: VerifySignatureBodyToolkit = { message: AUTH_SIGN_MESSAGE, playerSign: signature, pubAddress: address };
+  const res = handleToolkitRequest(url, "post", body, nk, logger);
+  const parsedBody = JSON.parse(res.body);
+  return isVerifySignatureResToolkit(parsedBody) && parsedBody.verified;
+};
 
-export const beforeAuthenticateCustom = beforeHookHandler((_ctx, _logger, nk, data) => {
+export const beforeAuthenticateCustom = beforeHookHandler((ctx, logger, nk, data) => {
   if (!data.username || !data.account?.id) throw errors.noUsernamePasswordProvided;
 
-  data.username = data.username.toLowerCase();
-  const isRegistering = !!data.create;
-  const username: string = data.username;
-  const password: string = data.account.id;
+  const splitId = data.account.id.split(";");
+  const address: string = data.username;
 
-  const userExists = isRegistering && nk.usersGetUsername([username]).length;
+  const storedUsername = getUsername(nk, address);
 
-  if (userExists) throw errors.usernameAlreadyExists;
+  if (!splitId.length) throw errors.noUsernamePasswordProvided;
+  if (!storedUsername && splitId.length === 1) throw errors.notFound;
 
-  if (profanityFilter.isProfane(username)) throw errors.usernameContainsProfanity;
+  if (storedUsername) {
+    // log in
+    data.create = false;
+    const signature: string = splitId[0];
+    if (!verifySignature(nk, ctx, logger, address, signature)) throw errors.invalidSignature;
+    data.username = storedUsername;
+  } else if (splitId.length === 2) {
+    // registration
+    data.create = true;
 
-  const encryptedKey = String(nk.sha256Hash(password + username));
-  data.account.id = encryptedKey;
+    const signature: string = splitId[0];
+    const username: string = splitId[1].toLowerCase();
+
+    if (!verifySignature(nk, ctx, logger, address, signature)) throw errors.invalidSignature;
+    if (profanityFilter.isProfane(username)) throw errors.containsProfanity;
+
+    saveUsername(nk, address, username);
+    data.username = username;
+  } else {
+    throw errors.invalidPayload;
+  }
+
+  data.account.id = String(nk.sha256Hash(address));
 
   return data;
 });
 
+// TODO: delete the following hook after moving program calls to client
 export const afterAuthenticateCustom = afterHookHandler((ctx, logger, nk, _data, _request) => {
   if (!env(ctx).ZK_ENABLED) return;
 

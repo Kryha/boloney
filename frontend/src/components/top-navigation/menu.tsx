@@ -29,9 +29,9 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ setHover, isActive, setAct
   const setModalComponentChildren = useStore((state) => state.setModalComponentChildren);
   const { broadcastPlayerLeft } = useMatch();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     broadcastPlayerLeft();
-    logout();
+    await logout();
     setActiveDropdown(undefined);
     navigate(routes.root);
   };

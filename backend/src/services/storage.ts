@@ -1,6 +1,28 @@
 // Storage services
-import { STORAGE_ACCOUNT_COLLECTION, STORAGE_ADDRESS_KEY, STORAGE_KEYS_KEY } from "../constants";
+import { ADDRESSES_COLLECTION, PUBLIC_USER_ID, STORAGE_ACCOUNT_COLLECTION, STORAGE_ADDRESS_KEY, STORAGE_KEYS_KEY } from "../constants";
 import { AleoKeys, isViewKey, isPrivateKey, AleoAccount } from "../types";
+
+export const saveUsername = (nk: nkruntime.Nakama, address: string, username: string): void => {
+  const writeRequest: nkruntime.StorageWriteRequest[] = [
+    {
+      collection: ADDRESSES_COLLECTION,
+      key: address,
+      userId: PUBLIC_USER_ID,
+      value: { username },
+      permissionRead: 1,
+      permissionWrite: 1,
+    },
+  ];
+
+  nk.storageWrite(writeRequest);
+};
+
+export const getUsername = (nk: nkruntime.Nakama, address: string): string | undefined => {
+  const readRequest: nkruntime.StorageReadRequest[] = [{ collection: ADDRESSES_COLLECTION, key: address, userId: PUBLIC_USER_ID }];
+  const response = nk.storageRead(readRequest);
+
+  return response.at(0)?.value.username;
+};
 
 export const savePlayerAddress = (nk: nkruntime.Nakama, playerId: string, address: string): void => {
   const writeRequest: nkruntime.StorageWriteRequest[] = [

@@ -4,6 +4,15 @@ export const commonErrors = {
   notAuthenticated: "Missing authentication data.",
 };
 
+export const backendErrors = {
+  alreadyExists: "alreadyExists",
+  notFound: "notFound",
+  containsProfanity: "containsProfanity",
+  minLength: "minLength",
+  required: "required",
+  internal: "internalError",
+};
+
 export const parseError = async (error: unknown): Promise<NkError> => {
   const unknownErr = { code: NkCode.UNKNOWN, message: "Unknown error" };
 

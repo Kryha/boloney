@@ -6,3 +6,4 @@ export * from "./use-analytics";
 export * from "./use-mobile";
 export * from "./use-mount";
 export * from "./use-update-value";
+export * from "./use-query";

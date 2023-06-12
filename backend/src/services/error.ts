@@ -28,15 +28,17 @@ const loggerText = {
   rollingBack: "Rolling back match state",
 };
 
+// TODO: These should not be sentences, but codes. It is the client's concern to parse those and write a sentence.
 export const errorText: Record<ErrorKind, string> = {
-  usernameAlreadyExists: "Username already exists",
-  usernameContainsProfanity: "Username contains profanity",
+  alreadyExists: "alreadyExists",
+  containsProfanity: "containsProfanity",
   noUsernamePasswordProvided: "No username/password provided",
+  invalidSignature: "Invalid signature",
   noIdInContext: "No user ID in context",
   noPayload: "No payload provided",
   invalidPayload: "Invalid payload",
   invalidMetadata: "Invalid metadata",
-  notFound: "Not found",
+  notFound: "notFound",
   internal: "internalError",
 };
 
@@ -197,16 +199,20 @@ export const sendError = ({ dispatcher, logger }: MatchLoopParams, sender: nkrun
 };
 
 export const errors: Record<ErrorKind, nkruntime.Error> = {
-  usernameAlreadyExists: {
-    message: errorText.usernameAlreadyExists,
+  alreadyExists: {
+    message: errorText.alreadyExists,
     code: nkruntime.Codes.ALREADY_EXISTS,
   },
   noUsernamePasswordProvided: {
     message: errorText.noUsernamePasswordProvided,
     code: nkruntime.Codes.INVALID_ARGUMENT,
   },
-  usernameContainsProfanity: {
-    message: errorText.usernameContainsProfanity,
+  invalidSignature: {
+    message: errorText.invalidSignature,
+    code: nkruntime.Codes.PERMISSION_DENIED,
+  },
+  containsProfanity: {
+    message: errorText.containsProfanity,
     code: nkruntime.Codes.INVALID_ARGUMENT,
   },
   noIdInContext: {

@@ -91,6 +91,7 @@ export const MATCH_STAGES: readonly MatchStage[] = [
 export const TOOLKIT_ENDPOINTS = {
   account: {
     create: "/account/create",
+    verify: "/account/verify",
   },
   match: {
     create: "/boloney/create-match",
@@ -128,6 +129,12 @@ export const HASH_CHAIN_LENGTH = 32;
 export const STORAGE_ACCOUNT_COLLECTION = "accounts";
 export const STORAGE_ADDRESS_KEY = "aleo-address";
 export const STORAGE_KEYS_KEY = "aleo-keys";
+
+export const ADDRESSES_COLLECTION = "addresses";
+
+export const PUBLIC_USER_ID = "00000000-0000-0000-0000-000000000000";
+
+export const AUTH_SIGN_MESSAGE = "zeroknowledgeisbeautiful";
 
 export const MAX_TOOLKIT_REQUESTS_ATTEMPTS = 3;
 export const MAX_ROLL_BACK_ATTEMPTS = 3;

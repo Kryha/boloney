@@ -47,7 +47,6 @@ export const TEN_SECONDS = 10;
 export const GO_BACK = -1;
 
 export const MINIMUM_USERNAME_LENGTH = 2;
-export const MINIMUM_PASSWORD_LENGTH = 8;
 export const APPEAR_ONLINE = true;
 export const CREATE_ACCOUNT = true;
 
@@ -71,6 +70,8 @@ export const FLOATING_ANIMATION_SPEED = 4;
 
 export const AUTH_TOKEN_STORAGE_KEY = "auth_token";
 export const REFRESH_TOKEN_STORAGE_KEY = "refresh_token";
+export const AUTH_SIGN_MESSAGE = "zeroknowledgeisbeautiful";
+export const WALLET_APP_NAME = "Boloney!";
 
 // TODO: define these in a separate file
 export const RPC_CREATE_MATCH = "create_match";

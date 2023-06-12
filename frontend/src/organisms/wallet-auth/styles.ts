@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { InputContainer } from "../../components";
 import { SMALL_VIEWPORT_WIDTH } from "../../constants";
-import { color, margins } from "../../design";
+import { margins, spacing } from "../../design";
 import { LinkContainer, PrimaryButtonContainer } from "../../molecules";
 import { ViewProps } from "../../types";
 
@@ -32,12 +32,12 @@ export const SignOrJoinContainer = styled.div<ViewProps>`
   }
 `;
 
-export const LoginFormContainer = styled.div``;
+export const WalletAuthContainer = styled.div``;
 
-export const MenuContainer = styled.div`
-  background: ${color.lightGrey};
+export const PillsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  padding: 0px;
+  gap: ${spacing.xs};
+  height: ${spacing.xxl};
+  margin-left: ${margins.medium1};
 `;

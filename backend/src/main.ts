@@ -11,7 +11,7 @@ import {
   matchSignal,
   matchTerminate,
 } from "./game-modes/standard";
-import { rollDice, createMatch, findMatch, rtBeforeChannelMessageSend } from "./rpc";
+import { createMatch, findMatch, rtBeforeChannelMessageSend } from "./rpc";
 import { MatchState } from "./types";
 
 function InitModule(_ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {
@@ -31,7 +31,6 @@ function InitModule(_ctx: nkruntime.Context, logger: nkruntime.Logger, _nk: nkru
   initializer.registerMatchmakerMatched(matchmakerMatched);
 
   // rpc registration
-  initializer.registerRpc("roll_dice", rollDice);
   initializer.registerRpc("create_match", createMatch);
   initializer.registerRpc("find_match", findMatch);
 

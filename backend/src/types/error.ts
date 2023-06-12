@@ -3,9 +3,10 @@ import { isNumber, isString } from "./primitive";
 import { StatusCodes } from "./status-codes";
 
 export type ErrorKind =
-  | "usernameAlreadyExists"
+  | "alreadyExists"
   | "noUsernamePasswordProvided"
-  | "usernameContainsProfanity"
+  | "invalidSignature"
+  | "containsProfanity"
   | "noIdInContext"
   | "noPayload"
   | "invalidPayload"

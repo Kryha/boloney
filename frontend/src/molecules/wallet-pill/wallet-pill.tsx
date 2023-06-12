@@ -26,7 +26,7 @@ export const WalletPill: FC<Props> = ({ status, defaultText, isCompletedText }) 
   const walletPillColor = status === "completed" ? color.black : color.ironGrey;
 
   return (
-    <WalletPillContainer isDisabled={status === "disabled"}>
+    <WalletPillContainer isBackgroundTransparent={status !== "inProgress"}>
       <BaseRow gap={spacing.xs}>
         <DiceIcon src={walletPillIcon} iconColor={color.transparent} pipColor={walletPillColor} />
         <Heading6 fontWeight={fontWeights.light} fontSize={fontSizes.body} lineHeight={lineHeights.body} transformText="capitalize">

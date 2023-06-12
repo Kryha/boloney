@@ -7,7 +7,7 @@ export const parseMatchUrl = (matchId: string) => `${window.location.origin}${ro
 export const parseMatchIdParam = (param?: string) => (param ? `${param}.nakama` : undefined);
 
 export const isAuthenticationRoute = (path: string) => {
-  const authRoutes = [routes.login, routes.createAccount, routes.root, routes.contact];
+  const authRoutes = [routes.login, routes.root, routes.contact];
   return authRoutes.includes(path);
 };
 

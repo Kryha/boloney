@@ -5,22 +5,23 @@ import { AnimatePresence } from "framer-motion";
 
 import { routes } from "./route-names";
 import { CookieBanner, MainContainer, Loading } from "../components";
-import { LandingPage, MatchRoute, Login, CreateAccount, MobileLogin, MdPage } from "../pages";
+import { LandingPage, MatchRoute, MdPage } from "../pages";
 import { useRefreshAuth } from "../service";
 import { useIsAuthenticating, useSession, useStore } from "../store";
 import { Test } from "../pages/test/test";
-import { ENV_MODE } from "../constants";
+import { env, ENV_MODE } from "../constants";
 import { PrivacyPolicyMd, CookiePolicyMd, TermsOfUseMd } from "../assets";
 import { useIsMobile } from "../hooks";
-import { CreateMatchPage, ContactPage, FeedbackPage, HomePage } from "../views";
+import { CreateMatchPage, ContactPage, FeedbackPage, HomePage, MobileLogin, WalletAuthPage, WelcomePage } from "../views";
 import { ErrorFallback, ErrorView } from "../organisms";
+import { LeoWalletProvider } from "../molecules";
 
 const AppRoutes: FC = () => {
   const isAuthenticating = useIsAuthenticating();
   const session = useSession();
   const isMobile = useIsMobile();
 
-  const loginComponent = isMobile ? <MobileLogin /> : <Login />;
+  const loginComponent = isMobile ? <MobileLogin /> : <WalletAuthPage />;
 
   useRefreshAuth();
 
@@ -40,14 +41,12 @@ const AppRoutes: FC = () => {
       {session && !isMobile ? (
         <>
           <Route path={routes.home} element={<HomePage />} />
+          <Route path={routes.welcome} element={<WelcomePage />} />
           <Route path={routes.newMatch} element={<CreateMatchPage />} />
           <Route path={`${routes.match}/:matchId`} element={<MatchRoute />} />
         </>
       ) : (
-        <>
-          <Route path={routes.login} element={loginComponent} />
-          <Route path={routes.createAccount} element={<CreateAccount />} />
-        </>
+        <Route path={routes.login} element={loginComponent} />
       )}
 
       <Route path="*" element={<ErrorView />} />
@@ -61,12 +60,14 @@ export const RoutesWrapper: FC = () => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => navigate(routes.root)}>
-      {!askedForConsent && <CookieBanner />}
-      <AnimatePresence mode="wait">
-        <MainContainer>
-          <AppRoutes />
-        </MainContainer>
-      </AnimatePresence>
+      {!askedForConsent && env.VITE_ENV !== "development" && <CookieBanner />}
+      <LeoWalletProvider>
+        <AnimatePresence mode="wait">
+          <MainContainer>
+            <AppRoutes />
+          </MainContainer>
+        </AnimatePresence>
+      </LeoWalletProvider>
     </ErrorBoundary>
   );
 };

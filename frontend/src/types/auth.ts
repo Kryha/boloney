@@ -9,8 +9,3 @@ export const aleoAccountSchema = z.object({
 });
 
 export type AleoAccount = z.infer<typeof aleoAccountSchema>;
-
-export interface AuthFields {
-  username: string;
-  password: string;
-}

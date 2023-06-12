@@ -46,6 +46,21 @@ export interface DiceDataToolkit {
   dice_10: number;
 }
 
+export interface VerifySignatureBodyToolkit {
+  message: string;
+  playerSign: string;
+  pubAddress: string;
+}
+
+export interface VerifySignatureResToolkit {
+  verified: boolean;
+}
+
+export const isVerifySignatureResToolkit = (value: unknown): value is VerifySignatureResToolkit => {
+  const assertedVal = value as VerifySignatureResToolkit;
+  return assertedVal.verified !== undefined && typeof assertedVal.verified === "boolean";
+};
+
 export interface UseBirdsEyeBodyToolkit {
   powerUp: PowerUpToolkit;
   diceData: DiceDataToolkit;

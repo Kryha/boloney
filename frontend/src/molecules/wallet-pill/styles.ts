@@ -4,13 +4,13 @@ import { CopyBlock } from "../../atoms";
 import { color, opacity, spacing } from "../../design";
 
 interface Props {
-  isDisabled?: boolean;
+  isBackgroundTransparent?: boolean;
 }
 
 export const WalletPillContainer = styled(CopyBlock)<Props>`
   padding: ${spacing.s};
-  ${({ isDisabled }) =>
-    isDisabled
+  ${({ isBackgroundTransparent }) =>
+    isBackgroundTransparent
       ? `
       background: ${color.transparent};
       box-shadow: none;
