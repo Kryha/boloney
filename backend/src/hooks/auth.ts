@@ -61,7 +61,10 @@ export const beforeAuthenticateCustom = beforeHookHandler((ctx, logger, nk, data
     // log in
     data.create = false;
     const signature: string = splitId[0];
-    if (!verifySignature(nk, ctx, logger, address, signature)) throw errors.invalidSignature;
+
+    const isSignatureValid = verifySignature(nk, ctx, logger, address, signature);
+
+    if (!isSignatureValid) throw errors.invalidSignature;
     data.username = storedUsername;
   } else if (splitId.length === 2) {
     // registration
@@ -70,7 +73,9 @@ export const beforeAuthenticateCustom = beforeHookHandler((ctx, logger, nk, data
     const signature: string = splitId[0];
     const username: string = splitId[1].toLowerCase();
 
-    if (!verifySignature(nk, ctx, logger, address, signature)) throw errors.invalidSignature;
+    const isSignatureValid = verifySignature(nk, ctx, logger, address, signature);
+
+    if (!isSignatureValid) throw errors.invalidSignature;
     if (profanityFilter.isProfane(username)) throw errors.containsProfanity;
 
     saveUsername(nk, address, username);

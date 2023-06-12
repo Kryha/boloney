@@ -68,6 +68,8 @@ If the pods are running correctly, the services should be accessible at the foll
 - Nakama dashboard: <http://backend.localhost>
 - Nakama API: <http://api.localhost>
 
+> ⚠️ Currently Aleo Wallet does not work with the local kubernetes frontend deployment, so prefer running it in dev mode as illustrated in the following section.
+>
 > ⚠️ On MacOS you may need to configure `dnsmasq` in order to access custom domain names. Consider following this [guide](https://www.stevenrombauts.be/2018/01/use-dnsmasq-instead-of-etc-hosts/#2-only-send-test-and-box-queries-to-dnsmasq) and use `.localhost` instead of `.test` and `.box`.
 
 ### Run frontend in dev mode
