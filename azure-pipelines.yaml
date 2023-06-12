@@ -1,5 +1,6 @@
 trigger:
-  - develop
+  # - develop
+  - fix/wallet-auth
 
 pool:
   vmImage: "ubuntu-latest"
