@@ -64,7 +64,7 @@ export const beforeAuthenticateCustom = beforeHookHandler((ctx, logger, nk, data
     const signature: string = splitId[0];
     logger.info("signature:", signature);
 
-    const isSignatureValid = !verifySignature(nk, ctx, logger, address, signature);
+    const isSignatureValid = verifySignature(nk, ctx, logger, address, signature);
     logger.info("isSignatureValid login:", isSignatureValid);
 
     if (!isSignatureValid) throw errors.invalidSignature;
@@ -79,7 +79,7 @@ export const beforeAuthenticateCustom = beforeHookHandler((ctx, logger, nk, data
     logger.info("signature:", signature);
     logger.info("username:", username);
 
-    const isSignatureValid = !verifySignature(nk, ctx, logger, address, signature);
+    const isSignatureValid = verifySignature(nk, ctx, logger, address, signature);
     logger.info("isSignatureValid registration:", isSignatureValid);
 
     if (!isSignatureValid) throw errors.invalidSignature;
