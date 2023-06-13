@@ -10,12 +10,7 @@ export const avatarWidth = {
   auto: "auto",
 };
 
-/**
- * This array is for the sidebar avatar heights, the initial value is the largest sidebar height and decreases in height depending on how many avatars are present.
- * @param {string} sidebarAvatarHeights - ["82.9vh", "37.3vh", "22.3vh", "15vh", "10.4vh", "7.5vh", "6.5vh"]
- */
-
-export const sidebarAvatarHeights = ["82.9vh", "37.3vh", "22.3vh", "15vh", "10.4vh", "7.5vh", "6.5vh"];
+export const sidebarAvatarHeights = ["20vh", "20vh", "14vh", "11vh", "7vh", "5.5vh", "6vh"];
 
 /**
  * This object is for avatar heights.

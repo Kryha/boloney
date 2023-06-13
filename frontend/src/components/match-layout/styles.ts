@@ -12,6 +12,7 @@ export const MainContentContainer = styled.div<ContentProps>`
   border-right: ${({ isInMatch }) => (isInMatch ? "none" : `1px solid ${color.mediumGrey}`)};
   left: 12.5vw;
   position: absolute;
+  top: 0;
   width: 62.5vw;
   height: ${({ isStageWithHUD }) => (isStageWithHUD ? "89vh" : "100vh")};
   overflow-y: scroll;

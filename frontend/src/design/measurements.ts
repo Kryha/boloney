@@ -8,6 +8,11 @@ export const MATCH_FORM_MARGIN = "0.18rem";
 export const MATCH_FORM_SIZE = "0.03rem";
 export const POWER_UP_FORM_SIZE = "clamp(400px, 34.72vw + 66.67px, 1400px)";
 export const MIN_TOOLTIP_WIDTH = "32vw";
+export const PLAYER_NAME_WIDTH = "8vw";
+export const AVATAR_IMAGE_WRAPPER_WIDTH = "2vw";
+export const LAST_BID_WIDTH = "3.47vw";
+export const MATCH_WINNER_IMAGE_WIDTH = "300%";
+export const LAST_BID_WIDTH_SMALL = "1.8vw";
 
 export const measurements = {
   localAvatarHeight: "7vh",

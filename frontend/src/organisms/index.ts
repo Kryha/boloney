@@ -14,3 +14,4 @@ export * from "./text-logo";
 export * from "./wallet-auth";
 export * from "./lobby";
 export * from "./match-creation-forms";
+export * from "./match-players-overview";

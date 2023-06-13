@@ -60,6 +60,7 @@ import {
   Heading5,
   Heading6,
   InfoDisplay,
+  BaseColumn,
 } from "../../atoms";
 import { PickAction } from "../../components/player-turns/pick-action";
 import {
@@ -112,14 +113,17 @@ import {
 import { PowerUpCard, PowerUpSmall } from "../../molecules/power-up";
 import { ActiveDropdown } from "../../molecules/top-navigation";
 import { GeneralNavigationBar, MainContainer, MatchNavigationBar, MatchOptionsBar, PlayerMenu } from "../../organisms";
-import { MatchSideBar } from "../../molecules/match-sidebar";
+import { MatchSideBar } from "../../organisms/match-sidebar";
 import { PowerUpPile } from "../../molecules/power-up-pile";
 import { fakePowerUps } from "../../assets/fake-data/fake-power-ups";
 import { MatchImage } from "../../molecules/match-image";
 import { PowerUpRow } from "../../molecules/power-up-row";
 import { useIsMounted, useViewport } from "../../hooks";
 import { useStore } from "../../store";
+import { TriangleToolTip } from "../../molecules/triange-tooltip";
+import { PowerUpReveal } from "../../molecules/power-up-reveal";
 import { fakeHistory } from "../../assets/fake-data/fake-history";
+import { MatchPlayersOverview } from "../../organisms/match-players-overview";
 
 const onClick = () => {
   console.log("Button works");
@@ -206,6 +210,7 @@ export const Test: FC = () => {
   const isMount = useIsMounted();
   const [addPowerUp, setAddPowerUp] = useState([fakePowerUps[0], fakePowerUps[1]]);
   const [updatedPowerUp, setUpdatedPowerUp] = useState(false);
+  const [active, setActive] = useState(false);
 
   const addPowerUpFunct = () => {
     setAddPowerUp([...addPowerUp, fakePowerUps[2]]);
@@ -362,11 +367,31 @@ export const Test: FC = () => {
         <br />
         <br />
         <br />
+        <br />
+        <br />
+        <div style={{ padding: "200px", background: "lightBlue" }}>
+          <TriangleToolTip
+            position="right"
+            tooltipIndicator={"someshit"}
+            active={false}
+            setActive={function (active: boolean): void {
+              throw new Error("Function not implemented.");
+            }}
+          >
+            <PowerUpReveal powerUpIds={fakePowerUps} />
+          </TriangleToolTip>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <TertiaryButton text="loading button" onClick={() => setLoadSpinner(true)} />
         <br />
         <MainContainer height={height} isOverlayVisible={isOverlayVisible}>
           <Layout>
-            <MatchSideBar players={fakePlayers} />
+            <MatchPlayersOverview />
             <BottomHud>
               <HudPlayer player={fakePlayers[1]} showPowerUpAnimation={updatedPowerUp} />
               <HudContainer showPowerUpAnimation={updatedPowerUp}>
@@ -478,17 +503,70 @@ export const Test: FC = () => {
         <br />
         <br />
         <br />
-        <BaseRow gap={spacing.s}>
+        <BaseColumn gap={spacing.s}>
           <MatchSideBar players={[fakePlayers[0]]} />
           <MatchSideBar players={[fakePlayers[0], fakePlayers[1]]} />
           <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2]]} />
           <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3]]} />
           <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4]]} />
           <MatchSideBar players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4], fakePlayers[5]]} />
-        </BaseRow> */}
+        </BaseColumn> */}
+        <BaseColumn gap={spacing.s}>
+          <MatchSideBar
+            players={[fakePlayers[0]]}
+            active={active}
+            setActive={setActive}
+            lastBid={{ face: 1, amount: 1, createdAt: 1, userId: "" }}
+          />
+          <MatchSideBar
+            players={[fakePlayers[0], fakePlayers[1]]}
+            active={active}
+            setActive={setActive}
+            lastBid={{ face: 1, amount: 1, createdAt: 1, userId: "" }}
+          />
+          <MatchSideBar
+            players={[fakePlayers[0], fakePlayers[1], fakePlayers[2]]}
+            active={active}
+            setActive={setActive}
+            lastBid={{ face: 1, amount: 1, createdAt: 1, userId: "" }}
+          />
+          <MatchSideBar
+            players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3]]}
+            active={active}
+            setActive={setActive}
+            lastBid={{ face: 1, amount: 1, createdAt: 1, userId: "" }}
+          />
+          <MatchSideBar
+            players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4]]}
+            active={active}
+            setActive={setActive}
+            lastBid={{ face: 1, amount: 1, createdAt: 1, userId: "" }}
+          />
+          <MatchSideBar
+            players={[fakePlayers[0], fakePlayers[1], fakePlayers[2], fakePlayers[3], fakePlayers[4], fakePlayers[5]]}
+            active={active}
+            setActive={setActive}
+            lastBid={{ face: 1, amount: 1, createdAt: 1, userId: "" }}
+          />
+        </BaseColumn>
         <br />
         <br />
+        <PlayerBox playerColor="red" selected={false}>
+          {"sidebar player base"}
+        </PlayerBox>
         <br />
+        <br />
+        <PlayerBox playerColor="red" selected>
+          {"sidebar player selected"}
+        </PlayerBox>
+        <br />
+        <PlayerBox hover enabled playerColor="red" selected={false}>
+          {"sidebar player hover"}
+        </PlayerBox>
+        <br />
+        <PlayerBox active playerColor="red" selected={false}>
+          {"sidebar player active"}
+        </PlayerBox>
         <br />
         {/* <BaseRow gap="10px">
           <DiceSelectionGrid
@@ -866,7 +944,7 @@ export const Test: FC = () => {
         <h1>layouts</h1>
         <br />
         <h2>side bar</h2>
-        <BaseRow gap={spacing.s}>
+        {/* <BaseRow gap={spacing.s}>
           <Sidebar>
             <PlayerBox>
               <AlignColumn justifyContent="center">
@@ -984,7 +1062,7 @@ export const Test: FC = () => {
               </AlignColumn>
             </PlayerBox>
           </Sidebar>
-        </BaseRow>
+        </BaseRow> */}
         <br />
         <Sidebar hover enabled>
           {"sidebar hover"}
@@ -1017,14 +1095,6 @@ export const Test: FC = () => {
         </PlayerInformationBlock>
         <br />
         <PlayerInformationBlock active>{"hud power up and dice container active"}</PlayerInformationBlock>
-        <br />
-        <PlayerBox>{"hud player"}</PlayerBox>
-        <br />
-        <PlayerBox hover enabled>
-          {"hud player hover"}
-        </PlayerBox>
-        <br />
-        <PlayerBox active>{"hud player active"}</PlayerBox>
         <h1>landing info</h1>
         <br />
         <BackgroundRow>

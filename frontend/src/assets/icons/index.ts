@@ -33,6 +33,7 @@ import { ReactComponent as ContactIconSVG } from "./contact.svg";
 import { ReactComponent as CircleIconSVG } from "./circle.svg";
 import { ReactComponent as SoundOnSVG } from "./sound-on.svg";
 import { ReactComponent as SoundOffSVG } from "./sound-off.svg";
+import { ReactComponent as EyeSVG } from "./eye.svg";
 import { ReactComponent as SettingsScrewSVG } from "./settings-screw.svg";
 import { ReactComponent as CheckSVG } from "./check.svg";
 import CookieIconSVG from "./cookie.svg";
@@ -83,6 +84,7 @@ export {
   CircleIconSVG,
   SoundOnSVG,
   SoundOffSVG,
+  EyeSVG,
   SettingsScrewSVG,
   CheckSVG,
 };

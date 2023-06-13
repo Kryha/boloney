@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { color, layoutHeight, layoutWidth } from "../design";
+import { color, layoutHeight, layoutWidth, spacing } from "../design";
 import { getSidebarHeight, switchStyle } from "../util";
 import { flash } from "./animations";
 
@@ -19,6 +19,11 @@ interface PlayerMenuProps {
 
 interface PlayerBlockProps {
   isSingularPanel?: boolean;
+}
+
+interface SidebarPlayerProps {
+  playerColor: string;
+  selected: boolean;
 }
 
 /**
@@ -48,11 +53,29 @@ export const PlayerInformationBlock = styled(LayoutBase)`
 `;
 
 // Sidebar player
-export const PlayerBox = styled(LayoutBase)`
+export const PlayerBox = styled(LayoutBase)<SidebarPlayerProps>`
   width: ${layoutWidth.sm};
   height: ${({ divisors }): string => (divisors ? `${getSidebarHeight(divisors)}vh` : layoutHeight.xxxl)};
+  background-color: ${({ active }): string => (active ? color.cloudWhite : color.grey)};
   border-bottom: 1px solid ${color.mediumGrey};
   border-right: 1px solid ${color.mediumGrey};
+  border-left: ${spacing.xxs} solid ${({ playerColor }): string => playerColor};
+  ${({ selected, playerColor }) =>
+    selected &&
+    `
+      border:${spacing.xxs} solid ${playerColor};
+      background-color: ${color.cloudWhite};
+   `};
+
+  :hover {
+    ${({ enabled, playerColor }): string =>
+      enabled
+        ? `
+          border: 2px solid ${playerColor};
+          border-left:${spacing.xxs} solid ${playerColor}; `
+        : ""};
+    cursor: ${({ hover }): string => (hover ? "pointer" : "cursor")};
+  }
 `;
 
 interface HUDProps {

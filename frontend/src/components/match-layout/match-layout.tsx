@@ -1,6 +1,5 @@
 import { FC, ReactNode, useEffect, useRef } from "react";
 
-import { MatchPlayersOverview } from "../match-players-overview";
 import { HUD } from "../hud";
 import { ContentContainer, MainContentContainer } from "./styles";
 import { TopNavigation } from "../top-navigation";
@@ -8,10 +7,11 @@ import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
 import { PlayerMenu } from "../player-menu";
-import { useArrangedPlayers, useIsInMatch, useLocalPlayer, useNotificationListener } from "../../service";
+import { useIsInMatch, useLocalPlayer, useNotificationListener } from "../../service";
 import { MatchNotification } from "../notification";
 import { usePlaySound } from "../../hooks";
 import { gainPowerUp } from "../../assets";
+import { MatchPlayersOverview } from "../../organisms";
 
 interface MatchLayoutProps {
   children?: ReactNode;
@@ -20,7 +20,6 @@ interface MatchLayoutProps {
 export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
   const dice = useStore((state) => state.diceValue);
   const localPlayer = useLocalPlayer();
-  const arrangedPlayers = useArrangedPlayers();
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
   const isInMatch = useIsInMatch();
@@ -48,7 +47,7 @@ export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
     <>
       <TopNavigation location={location} />
 
-      <MatchPlayersOverview playerOrder={arrangedPlayers} />
+      <MatchPlayersOverview />
 
       {isStageWithHUD(matchStage) && <HUD dice={dice} powerUpIds={powerUpIds} player={localPlayer} />}
 

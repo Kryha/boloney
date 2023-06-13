@@ -1,27 +1,18 @@
 import { FC } from "react";
 
 import { avatars } from "../../assets/local-data/avatar";
-import { fonts, handProportion, measurements } from "../../design";
+import { BaseRow, PlayerBox } from "../../atoms";
+import { handProportion, images, layoutWidth, sidebarAvatarHeights } from "../../design";
+import { PlayerAvatar } from "../../molecules";
+import { PlayerBid } from "../../molecules/last-bid";
 import { useLatestBid, useLocalPlayer } from "../../service";
 import { useStore } from "../../store";
 import { Die, PlayerPublic, PowerUpId } from "../../types";
 import { filterDice, getDieColor } from "../../util";
 import { PlayerBadge } from "../badges";
 import { DiceOverview } from "../dice-overview";
-import { PlayerLastBid } from "../match-players-overview";
-import { PlayerNameContainer } from "../match-players-overview/styles";
-import { RadioButton } from "../power-up-checkbox";
 import { PowerUpOverview } from "../power-up-overview";
-import {
-  LocalAvatarWrapper,
-  LocalPlayer,
-  LocalPlayerAvatar,
-  LocalPlayerInfoContainer,
-  Paint,
-  PlayerLastBidWrapper,
-  PlayerOverview,
-  RadioButtonContainer,
-} from "./styles";
+import { PlayerBadgeWrapper, PlayerOverview, HudPlayerWrapper, HudPlayerContainer, PlayerName } from "./styles";
 
 interface HUDProps {
   dice?: Die[];
@@ -42,6 +33,9 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
   const { targetPlayerId: targetPlayerId, active: activePowerUp, result: result } = useStore((state) => state.powerUpState);
   const hand = handProportion(avatars[player.avatarId].name);
 
+  const gravePaint = handProportion("grave");
+  const playerPaint = player.status === "lost" ? gravePaint.paint : hand.paint;
+
   if (!localPlayer) return <></>;
 
   const isTargetable = activePowerUp?.id === "7" && stage === "playerTurnLoopStage";
@@ -54,27 +48,38 @@ export const HUD: FC<HUDProps> = ({ dice, powerUpIds, player }) => {
 
   return (
     <PlayerOverview isActive={player.isActive}>
-      <PlayerBadge player={player} lastAction={lastAction} />
+      <PlayerBox
+        divisors={7}
+        active={player.isActive}
+        hover={isTargetable && !isDisabled}
+        enabled={isTargetable && !isDisabled}
+        playerColor={dieColor}
+        selected={targetPlayerId === player.userId}
+        onClick={() => isTargetable && !isDisabled && handleSelect()}
+      >
+        <BaseRow justifyContent="space-between">
+          <PlayerBadgeWrapper>
+            <PlayerBadge player={player} lastAction={lastAction} />
+          </PlayerBadgeWrapper>
 
-      <LocalPlayer isLastBid={isPlayerLastBid} onClick={() => isTargetable && handleSelect()} isTargetable={isTargetable}>
-        <LocalAvatarWrapper isTargetable={isTargetable} height={measurements.localAvatarHeight}>
-          <LocalPlayerAvatar height={measurements.localAvatarHeight} src={avatar} />
-          {!hasPlayerLost && <Paint src={hand.paint} alt={avatar} />}
-        </LocalAvatarWrapper>
-        {isTargetable && (
-          <RadioButtonContainer>
-            <RadioButton onSelect={handleSelect} isDisabled={isDisabled} isChecked={targetPlayerId === player.userId} />
-          </RadioButtonContainer>
-        )}
-        {isPlayerLastBid && (
-          <PlayerLastBidWrapper isLastBid={isPlayerLastBid} isTargetable={isTargetable}>
-            <PlayerLastBid lastBid={lastBid} player={player} />
-          </PlayerLastBidWrapper>
-        )}
-        <LocalPlayerInfoContainer>
-          <PlayerNameContainer font={fonts.tertiary}>{localPlayer.username}</PlayerNameContainer>
-        </LocalPlayerInfoContainer>
-      </LocalPlayer>
+          <HudPlayerWrapper justifyContent="space-between">
+            <HudPlayerContainer justifyContent="center" alignItems="center">
+              <PlayerAvatar
+                height={sidebarAvatarHeights[6]}
+                width={images.auto}
+                playerAvatar={avatar}
+                playerPaint={playerPaint}
+                playerName={avatar}
+                maxWidth={layoutWidth.sm}
+              />
+            </HudPlayerContainer>
+            <PlayerName>{player.username}</PlayerName>
+          </HudPlayerWrapper>
+          {isPlayerLastBid && (
+            <PlayerBid playerColor={dieColor} lastBid={lastBid} diceAmount={player.diceAmount} amountOfSidebarPlayers={7} />
+          )}
+        </BaseRow>
+      </PlayerBox>
 
       <DiceOverview dice={playerDice} dieColor={dieColor} extraDice={player.extraDice} />
       <PowerUpOverview powerUpIds={powerUpIds} isInHud />

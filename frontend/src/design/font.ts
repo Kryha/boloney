@@ -83,6 +83,11 @@ export const fontSizes = {
     md: "clamp(0.75rem, 0.63vw + 0.38rem, 1.13rem)",
     lg: "clamp(1.13rem, 0.53vw + 0.49rem, 1.75rem)",
   },
+  lastBid: {
+    sm: "clamp(0.38rem, 0.71vw + 0.2rem, 0.63rem)",
+    md: "clamp(0.63rem, 0.63vw + 0.25rem, 1rem)",
+    lg: "clamp(1rem, 0.28vw + 0.83rem, 1.5rem)",
+  },
 };
 
 export const lineHeights = {

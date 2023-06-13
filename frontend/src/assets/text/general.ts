@@ -22,6 +22,7 @@ export const general = {
   validatingSignature: "validating signature",
   // Normal text
   rollingDice: "rolling dice",
+  bid: "bid:",
   plusOne: "+1",
   chat: "chat",
   history: "history",
