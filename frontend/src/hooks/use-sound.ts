@@ -5,7 +5,8 @@ const audioContext = new AudioContext();
 const masterGainNode = audioContext.createGain();
 
 export const useChangeVolume = () => {
-  const { masterVolume, setMasterVolume } = useStore();
+  const masterVolume = useStore((state) => state.masterVolume);
+  const setMasterVolume = useStore((state) => state.setMasterVolume);
 
   useEffect(() => {
     masterGainNode.gain.setValueAtTime(masterVolume, 0);

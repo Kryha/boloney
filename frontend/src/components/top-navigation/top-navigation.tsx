@@ -21,10 +21,11 @@ export type ActiveDropdown = "rules" | "menu" | "sound" | undefined;
 export const TopNavigation: FC<Props> = ({ location }) => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
-  const masterVolume = useStore((state) => state.masterVolume);
-  const setVolume = useChangeVolume();
-  const ref = useRef(null);
+
+  const { setVolume, masterVolume } = useChangeVolume();
+
   const isMobile = useIsMobile();
+  const ref = useRef(null);
 
   const handleDropdownClick = (dropdown: ActiveDropdown) => {
     if (activeDropdown === dropdown) {
