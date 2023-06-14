@@ -4,7 +4,7 @@ import { buttonSize, color, spacing } from "../../design";
 
 export const MatchStatsWrapper = styled(BaseRow)`
   background: ${color.grey};
-  padding: ${buttonSize.md};
+  padding: ${buttonSize.sm};
   width: fit-content;
 `;
 

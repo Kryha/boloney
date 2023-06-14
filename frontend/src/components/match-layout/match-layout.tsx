@@ -2,16 +2,15 @@ import { FC, ReactNode, useEffect, useRef } from "react";
 
 import { HUD } from "../hud";
 import { ContentContainer, MainContentContainer } from "./styles";
-import { TopNavigation } from "../top-navigation";
 import { useStore } from "../../store";
 import { ErrorView } from "../error-view";
 import { isStageWithHUD } from "../../util";
-import { PlayerMenu } from "../player-menu";
-import { useIsInMatch, useLocalPlayer, useNotificationListener } from "../../service";
+import { useIsInMatch, useLocalPlayer, useNotificationListener, useTotalDiceInMatch } from "../../service";
 import { MatchNotification } from "../notification";
 import { usePlaySound } from "../../hooks";
 import { gainPowerUp } from "../../assets";
-import { MatchPlayersOverview } from "../../organisms";
+import { MatchPlayersOverview, MatchNavigationBar, MatchOptionsBar } from "../../organisms";
+import { PlayerMenu } from "../player-menu";
 
 interface MatchLayoutProps {
   children?: ReactNode;
@@ -19,19 +18,20 @@ interface MatchLayoutProps {
 
 export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
   const dice = useStore((state) => state.diceValue);
-  const localPlayer = useLocalPlayer();
+  const drawRoundCounter = useStore((state) => state.drawRoundCounter);
+  const stageNumber = useStore((state) => state.stageNumber);
   const powerUpIds = useStore((state) => state.powerUpIds);
   const matchStage = useStore((state) => state.matchStage);
+  const localPlayer = useLocalPlayer();
   const isInMatch = useIsInMatch();
   const { notifications } = useNotificationListener();
   const playSound = usePlaySound();
+  const totalDice = useTotalDiceInMatch();
 
   //TODO: abstract this in a more reactive way
   const powerUpAmount = useRef(0);
 
   const notification = notifications.at(0);
-
-  const location = isInMatch ? "match" : "default";
 
   useEffect(() => {
     if (powerUpAmount.current < powerUpIds.length) {
@@ -45,7 +45,10 @@ export const MatchLayout: FC<MatchLayoutProps> = ({ children }) => {
 
   return (
     <>
-      <TopNavigation location={location} />
+      {matchStage !== "endOfMatchStage" && (
+        <MatchOptionsBar totalDice={totalDice} stageNumber={stageNumber} drawNumber={drawRoundCounter} />
+      )}
+      <MatchNavigationBar />
 
       <MatchPlayersOverview />
 

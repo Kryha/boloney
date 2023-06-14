@@ -10,7 +10,7 @@ export const PlayerMenuWrapper = styled.section`
   position: absolute;
   bottom: 0;
   left: 75vw;
-  z-index: ${zIndex.modal};
+  z-index: ${zIndex.inFront};
 `;
 
 export const PlayerMenuContainer = styled.div`

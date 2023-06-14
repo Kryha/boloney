@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { text } from "../../assets";
-import { MatchHistoryComponent } from "../../pages/test/match-history";
+import { MatchHistoryComponent } from "../match-history";
 import { HistoryEvent, PlayerPublic, ChatMessageContent } from "../../types";
 import { Chat, Panel } from "../../molecules";
 

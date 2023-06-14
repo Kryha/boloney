@@ -2,7 +2,7 @@
 
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Card, BaseColumn, BaseRow, HUDBlock, PlayerInformationBlock, FluidImage, flash } from "../../atoms";
+import { Card, BaseColumn, BaseRow, HUDBlock, PlayerInformationBlock, flash } from "../../atoms";
 import { spacing, color } from "../../design";
 
 export const PowerUpCard = styled(Card)`
@@ -44,11 +44,6 @@ export const PlayerMenuTwo = styled.div`
   position: absolute;
   bottom: 0;
   right: 30vw;
-`;
-
-export const MatchHistoryContainer = styled.div`
-  overflow-y: auto;
-  height: inherit;
 `;
 
 export const MainWrapper = styled.div`

@@ -26,6 +26,7 @@ export const margins = {
  * @param {string} lg - 50px
  * @param {string} xl - 65px
  * @param {string} xxl - 80px
+ * @param {string} xxxl - 210-1000px
  */
 
 export const spacing = {
@@ -38,6 +39,7 @@ export const spacing = {
   lg: "clamp(2.19rem, calc(1.83rem + 1.42vw), 5.25rem)", // 50px
   xl: "clamp(2.50rem, calc(1.88rem + 2.50vw), 7.88rem)", // 65px
   xxl: "clamp(1.88rem, calc(0.87rem + 4.01vw), 10.50rem)", // 80px
+  xxxl: "clamp(13.13rem, 27.43vw + -3.33rem, 62.5rem)", // 210-1000px
 };
 
 /** Our radius is grouped as follows

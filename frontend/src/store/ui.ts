@@ -12,7 +12,6 @@ export interface UISlice {
   isShufflingPlayers: boolean;
   timerTimeInSeconds: number;
   isSidebarVisible: boolean;
-  isSoundEnabled: boolean;
   masterVolume: number;
   cookieConsent: boolean;
   askedForConsent: boolean;
@@ -28,7 +27,6 @@ export interface UISlice {
   setTimerTimeInSeconds: (timeInSeconds: number) => void;
   setIsSidebarVisible: (isVisible: boolean) => void;
   setShufflingPlayers: (isShuffling: boolean) => void;
-  setSoundEnabled: (isSoundEnabled: boolean) => void;
   setMasterVolume: (masterVolume: number) => void;
   setCookieConsent: (consent: boolean) => void;
   setAskedForConsent: (consent: boolean) => void;
@@ -45,7 +43,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   isShufflingPlayers: false,
   timerTimeInSeconds: 0,
   isSidebarVisible: false,
-  isSoundEnabled: true,
   masterVolume: 0.5,
   cookieConsent: false,
   askedForConsent: false,
@@ -94,7 +91,6 @@ export const createUISlice: StateCreator<UISlice, [], [], UISlice> = (set) => ({
   setTimerTimeInSeconds: (timeInSeconds) => set(() => ({ timerTimeInSeconds: timeInSeconds })),
   setIsSidebarVisible: (isVisible: boolean) => set(() => ({ isSidebarVisible: isVisible })),
   setShufflingPlayers: (isShufflingPlayers) => set(() => ({ isShufflingPlayers: isShufflingPlayers })),
-  setSoundEnabled: (isSoundEnabled: boolean) => set(() => ({ isSoundEnabled: isSoundEnabled })),
   setMasterVolume: (masterVolume: number) => set(() => ({ masterVolume: masterVolume })),
   setCookieConsent: (consent: boolean) => set(() => ({ cookieConsent: consent })),
   setAskedForConsent: (consent: boolean) => set(() => ({ askedForConsent: consent })),

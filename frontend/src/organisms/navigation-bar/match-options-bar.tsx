@@ -1,8 +1,7 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
-import { ActiveDropdown, MatchStats } from "../../molecules";
-import { MatchMenu } from "../../molecules/menu";
+import { MatchMenu, ActiveDropdown, MatchStats } from "../../molecules";
 import { routes } from "../../navigation";
 import { useMatch } from "../../service";
 import { useStore } from "../../store";

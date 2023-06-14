@@ -1,17 +1,9 @@
-// TODO: Reuse this logic when implementing the match history organism and delete afterwards
 import { FC } from "react";
 import { text } from "../../assets";
 import { color } from "../../design";
 import { HistoryEvent, PlayerPublic, powerUpIdSchema } from "../../types";
 import { getDieColor, getPowerUp } from "../../util";
-import { MatchHistoryContainer } from "./styles";
 import { HistoryAction, HistoryBadgeBid, HistoryEndOfRound, RoundBadge } from "../../molecules";
-
-interface MatchHistoryComponentProps {
-  historyEvents?: HistoryEvent[];
-  players?: Record<string, PlayerPublic>;
-  localPlayer?: PlayerPublic;
-}
 
 interface HistoryListProps {
   historyEvent: HistoryEvent;
@@ -19,6 +11,7 @@ interface HistoryListProps {
   localPlayer: PlayerPublic;
 }
 
+//TODO: refactor the component to make it more readable and maintainable
 export const HistoryListItem: FC<HistoryListProps> = ({ historyEvent, players, localPlayer }) => {
   let isLocalPlayer = false,
     actionName = "",
@@ -132,16 +125,4 @@ export const HistoryListItem: FC<HistoryListProps> = ({ historyEvent, players, l
     }
   };
   return <>{historyView()} </>;
-};
-
-export const MatchHistoryComponent: FC<MatchHistoryComponentProps> = ({ historyEvents, players, localPlayer }) => {
-  if (!historyEvents || !players || !localPlayer) return <></>;
-
-  return (
-    <MatchHistoryContainer>
-      {historyEvents.map((historyEvent, index) => (
-        <HistoryListItem historyEvent={historyEvent} key={index} players={players} localPlayer={localPlayer} />
-      ))}
-    </MatchHistoryContainer>
-  );
 };

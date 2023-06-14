@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
+import { useChangeVolume } from "../../hooks";
 import { ActiveDropdown, MatchNavigation } from "../../molecules";
 import { routes } from "../../navigation";
 import { useLogout, useMatch } from "../../service";
@@ -10,7 +11,7 @@ import { NavigationWrapper } from "./styles";
 export const MatchNavigationBar: FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>();
   const [isComponentVisible, setIsComponentVisible] = useState(false);
-  const [volume, setVolume] = useState(50);
+  const { setVolume, masterVolume } = useChangeVolume();
   const session = useSession();
   const showModal = useStore((state) => state.showModal);
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export const MatchNavigationBar: FC = () => {
   return (
     <NavigationWrapper>
       <MatchNavigation
-        currentVolume={volume}
+        currentVolume={masterVolume}
         onVolumeChange={(volume) => setVolume(volume)}
         isDropdownContentVisible={isComponentVisible}
         activeDropdown={activeDropdown}

@@ -16,26 +16,20 @@ export const useChangeVolume = () => {
     setMasterVolume(volume);
   };
 
-  return setVolume;
+  return { setVolume, masterVolume };
 };
 
 export const usePlaySound = () => {
-  const isSoundEnabled = useStore((state) => state.isSoundEnabled);
+  const playSound = useCallback(async (audioFile: string) => {
+    const response = await fetch(audioFile);
+    const soundBuffer = await response.arrayBuffer();
+    const soundAudioBuffer = await audioContext.decodeAudioData(soundBuffer);
 
-  const playSound = useCallback(
-    async (audioFile: string) => {
-      if (!isSoundEnabled) return;
-      const response = await fetch(audioFile);
-      const soundBuffer = await response.arrayBuffer();
-      const soundAudioBuffer = await audioContext.decodeAudioData(soundBuffer);
+    const soundSource = audioContext.createBufferSource();
+    soundSource.buffer = soundAudioBuffer;
 
-      const soundSource = audioContext.createBufferSource();
-      soundSource.buffer = soundAudioBuffer;
-
-      soundSource.connect(masterGainNode);
-      soundSource.start();
-    },
-    [isSoundEnabled]
-  );
+    soundSource.connect(masterGainNode);
+    soundSource.start();
+  }, []);
   return playSound;
 };

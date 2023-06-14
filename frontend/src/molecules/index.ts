@@ -25,6 +25,7 @@ export * from "./logo";
 export * from "./base-layout";
 export * from "./top-navigation";
 export * from "./button-with-tooltip";
+export * from "./menu";
 export * from "./stage-number-content";
 export * from "./tooltip";
 export * from "./zk-toggle-switch";

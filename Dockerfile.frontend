@@ -1,6 +1,6 @@
 FROM node:18-alpine as build
 
-RUN apk --no-cache add --update git python3 make g++
+RUN apk --no-cache add --update git
 
 WORKDIR /usr/main/
 
