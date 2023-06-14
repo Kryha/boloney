@@ -10,7 +10,6 @@ import { NavigationLocation } from "../../types";
 import { containerHeight } from "../../design";
 import { useChangeVolume, useIsMobile } from "../../hooks";
 import { Sound } from "../../molecules/sound";
-import { useStore } from "../../store";
 
 interface Props {
   location?: NavigationLocation;
