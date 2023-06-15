@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 
+import { BaseRow } from "../../atoms";
 import { InputContainer } from "../../components";
 import { SMALL_VIEWPORT_WIDTH } from "../../constants";
 import { margins, spacing } from "../../design";
@@ -40,4 +41,9 @@ export const PillsWrapper = styled.div`
   gap: ${spacing.xs};
   height: ${spacing.xxl};
   margin-left: ${margins.medium1};
+`;
+
+export const InstructionsWrapper = styled(BaseRow)`
+  margin-top: ${spacing.s};
+  padding-right: ${spacing.s};
 `;

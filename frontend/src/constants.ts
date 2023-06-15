@@ -195,6 +195,7 @@ export const BLANK_TARGET_LINK = "_blank";
 export const SELF_TARGET_LINK = "_self";
 export const FEEDBACK_FORM_LINK = "https://forms.gle/XXLiBWEqJLjtFF949";
 export const BUG_FORM_LINK = "https://forms.gle/nUnqq1ZuzuUsagNK6";
+export const LEO_WALLET_LINK = "https://leo.app/";
 
 export const FADE_TRANSITION_DURATION = 0.4;
 
