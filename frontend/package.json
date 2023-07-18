@@ -12,10 +12,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "@demox-labs/aleo-wallet-adapter-base": "^0.0.13",
-    "@demox-labs/aleo-wallet-adapter-leo": "^0.0.12",
-    "@demox-labs/aleo-wallet-adapter-react": "^0.0.13",
-    "@demox-labs/aleo-wallet-adapter-reactui": "^0.0.25",
+    "@demox-labs/aleo-wallet-adapter-base": "^0.0.15",
+    "@demox-labs/aleo-wallet-adapter-leo": "^0.0.15",
+    "@demox-labs/aleo-wallet-adapter-react": "^0.0.15",
+    "@demox-labs/aleo-wallet-adapter-reactui": "^0.0.27",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@heroiclabs/nakama-js": "^2.6.1",

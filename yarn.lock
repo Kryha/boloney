@@ -1558,10 +1558,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@boloney/frontend@workspace:frontend"
   dependencies:
-    "@demox-labs/aleo-wallet-adapter-base": ^0.0.13
-    "@demox-labs/aleo-wallet-adapter-leo": ^0.0.12
-    "@demox-labs/aleo-wallet-adapter-react": ^0.0.13
-    "@demox-labs/aleo-wallet-adapter-reactui": ^0.0.25
+    "@demox-labs/aleo-wallet-adapter-base": ^0.0.15
+    "@demox-labs/aleo-wallet-adapter-leo": ^0.0.15
+    "@demox-labs/aleo-wallet-adapter-react": ^0.0.15
+    "@demox-labs/aleo-wallet-adapter-reactui": ^0.0.27
     "@emotion/babel-plugin": ^11.10.2
     "@emotion/react": ^11.9.3
     "@emotion/styled": ^11.9.3
@@ -1644,46 +1644,46 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@demox-labs/aleo-wallet-adapter-base@npm:^0.0.13":
-  version: 0.0.13
-  resolution: "@demox-labs/aleo-wallet-adapter-base@npm:0.0.13"
+"@demox-labs/aleo-wallet-adapter-base@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "@demox-labs/aleo-wallet-adapter-base@npm:0.0.15"
   dependencies:
     eventemitter3: ^4.0.7
-  checksum: adb3f39bd503ce1b3946d61e14732ebe70c53fa1a05687a3b5c66fe5dbba0a791dd1a71a71dcf3a6692ae1f854e1ab122d8ad9d3eeab4cddc1198093d9105322
+  checksum: 4679e71793b81a800d1875a4009dde494d6f013a606ad681060e2d5b84a3719a07981e29f838c9a9760720540dd47bf92dae1bd00d10ef1eb8573436703ae9ce
   languageName: node
   linkType: hard
 
-"@demox-labs/aleo-wallet-adapter-leo@npm:^0.0.12":
-  version: 0.0.12
-  resolution: "@demox-labs/aleo-wallet-adapter-leo@npm:0.0.12"
+"@demox-labs/aleo-wallet-adapter-leo@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "@demox-labs/aleo-wallet-adapter-leo@npm:0.0.15"
   dependencies:
-    "@demox-labs/aleo-wallet-adapter-base": ^0.0.13
+    "@demox-labs/aleo-wallet-adapter-base": ^0.0.15
     nanoid: ^4.0.0
-  checksum: 9ef9975b1e09bf3356f2f5df9a6f9ef0a75c40b66500f57f55497cc5a4431d1b55aee00c1bf0b92c34583bbe170938724bffea71b9302694b76cfe4219e0df7e
+  checksum: f34128218e2181c51422cc30a0a55231db5287c8c268513dbef19dfdfdc3dec1854e1f85b1da673788e30103c9bbbadc0f3972106dd6e0c8f2c8b35a101fe9a3
   languageName: node
   linkType: hard
 
-"@demox-labs/aleo-wallet-adapter-react@npm:^0.0.13":
-  version: 0.0.13
-  resolution: "@demox-labs/aleo-wallet-adapter-react@npm:0.0.13"
+"@demox-labs/aleo-wallet-adapter-react@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "@demox-labs/aleo-wallet-adapter-react@npm:0.0.15"
   dependencies:
-    "@demox-labs/aleo-wallet-adapter-base": ^0.0.13
+    "@demox-labs/aleo-wallet-adapter-base": ^0.0.15
   peerDependencies:
     react: ^18.2.0
-  checksum: 15310331eae94f0a76eeb7d0829f96e7712f366bf30c1cd85e242311dc052a153588d2067c3a60e361a145a338ea792832e48a65dc45aa168c9b5c0fb6b52dfa
+  checksum: cb970deb1720675a331d4758f743e8fc8566c0306b2441f2fa9c4198e8d95c7076911dfa5a49576a896576da202496aa465e5b78bbee2dc0dd33c01b85b37917
   languageName: node
   linkType: hard
 
-"@demox-labs/aleo-wallet-adapter-reactui@npm:^0.0.25":
-  version: 0.0.25
-  resolution: "@demox-labs/aleo-wallet-adapter-reactui@npm:0.0.25"
+"@demox-labs/aleo-wallet-adapter-reactui@npm:^0.0.27":
+  version: 0.0.27
+  resolution: "@demox-labs/aleo-wallet-adapter-reactui@npm:0.0.27"
   dependencies:
-    "@demox-labs/aleo-wallet-adapter-base": ^0.0.13
-    "@demox-labs/aleo-wallet-adapter-react": ^0.0.13
+    "@demox-labs/aleo-wallet-adapter-base": ^0.0.15
+    "@demox-labs/aleo-wallet-adapter-react": ^0.0.15
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 960a0a8b7df2c667fc2f441219ae7f8185fa2c279f51172134544dfa200eb153b22fc7e3451ae698ce34a8b685293981a0967759ed6576cb60aa3cc0d333c519
+  checksum: 156504cf1d21eaf1b1e9ad6a107cd7cf5b1596ef89c3641e6c06c34b58f986a2a1d2b5778e966fde0a43732a55ae8a526129404d3fea7e862e2315af0f7f43e3
   languageName: node
   linkType: hard
 
